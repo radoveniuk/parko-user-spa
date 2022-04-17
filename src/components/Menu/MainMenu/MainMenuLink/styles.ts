@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { colors } from 'theme/colors';
 
 export const StyledMenuButton = styled.button`
-  width: 288px;
-  height: 288px;
+  width: 22vw;
+  height: 22vw;
   background-color: ${colors.primary};
   color: #fff;
   display: flex;
@@ -15,4 +15,10 @@ export const StyledMenuButton = styled.button`
   justify-content: center;
   line-height: 30px;
   cursor: pointer;
+
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: ${colors.primaryLight};
+  }
 `;

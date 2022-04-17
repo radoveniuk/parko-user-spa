@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const HeaderWrapper = styled.header`
   display: flex;
   justify-content: center;
-  margin: 60px auto;
+  margin: 40px auto;
 `;
 
 export const HeaderText = styled.h1`
