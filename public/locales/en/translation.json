@@ -1,0 +1,9 @@
+{
+  "navbar": {
+    "profile": "Profile",
+    "notifications": "Notification",
+    "prepayments": "Prepayments",
+    "daysoff": "Days off",
+    "paychecks": "Paychecks"
+  }
+}

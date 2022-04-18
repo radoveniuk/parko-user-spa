@@ -6,4 +6,5 @@ export const NavbarWrapper = styled.nav`
   min-width: 300px;
   padding-top: 100px;
   height: 100vh;
+  position: relative;
 `;

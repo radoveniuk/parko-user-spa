@@ -18,7 +18,7 @@ const HomePage = () => {
         </MainMenuLink>
         <MainMenuLink to='/daysoff'>
           <p>Запросить отгул</p>
-          <DayoffIcon />
+          <DayoffIcon size={60} />
         </MainMenuLink>
       </MainMenuGrid>
     </Page>
