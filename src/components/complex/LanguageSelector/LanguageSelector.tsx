@@ -1,5 +1,5 @@
-import { LANGUAGES } from 'constants/languages';
 import React from 'react';
+import { LANGUAGES } from 'constants/languages';
 import { useTranslation } from 'react-i18next';
 import { LangButton, LanguageSelectorWrapper } from './styles';
 
@@ -13,7 +13,7 @@ const LanguageSelector = () => {
   return (
     <LanguageSelectorWrapper>
       {LANGUAGES.map((item) => (
-        <LangButton key={item.code} onClick={() => { changeLanguageHandler(item.code); }}>
+        <LangButton key={item.code} onClick={() => void changeLanguageHandler(item.code)}>
           {item.title}
         </LangButton>
       ))}

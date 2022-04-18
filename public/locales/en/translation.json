@@ -5,5 +5,10 @@
     "prepayments": "Prepayments",
     "daysoff": "Days off",
     "paychecks": "Paychecks"
+  },
+  "menu": {
+    "prepayment": "Request prepayment",
+    "paychecks": "Paychecks",
+    "dayoff": "Request day off"
   }
 }

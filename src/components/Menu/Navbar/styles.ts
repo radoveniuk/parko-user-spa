@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { colors } from 'theme/colors';
 
-export const NavbarWrapper = styled.nav`
+export const NavbarWrapper = styled.div`
   background-color: ${colors.navBackground};
   min-width: 300px;
   padding-top: 100px;
-  height: 100vh;
+  height: calc(100vh - 120px);
   position: relative;
 `;

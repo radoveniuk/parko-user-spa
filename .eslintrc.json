@@ -17,6 +17,7 @@
     },
     "plugins": [
         "react",
+        "react-hooks",
         "@typescript-eslint"
     ],
     "rules": {
@@ -24,6 +25,34 @@
         "comma-dangle": ["error", "always-multiline"],
         "react/jsx-indent" : ["error", 2],
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"]
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "no-shadow": 0,
+        "no-nested-ternary": 0,
+        "react/no-array-index-key": 0,
+        "no-throw-literal": 0,
+        "no-underscore-dangle": 0,
+        "max-len": [1, 150, 2, { "ignoreComments": true }],
+        "react/require-default-props": 0,
+        "indent": ["error", 2, { "SwitchCase": 1 }],
+        "react/jsx-indent-props": ["error", 2],
+        "linebreak-style": 0,
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "error",
+        "react/jsx-props-no-spreading": 0,
+        "jsx-a11y/click-events-have-key-events": 0,
+        "@typescript-eslint/interface-name-prefix": 0,
+        "import/extensions": 0,
+        "import/prefer-default-export": 0,
+        "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "arrow-parens": 0,
+        "no-unused-expressions": 0,
+        "@typescript-eslint/no-empty-function": 0,
+        "react/jsx-one-expression-per-line": 0,
+        "no-void": 0,
+        "import/no-named-default": 0,
+        "no-console": 0,
+        "no-param-reassign": ["error", { "props": false }]
     }
 }

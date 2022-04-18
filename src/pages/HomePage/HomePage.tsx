@@ -1,25 +1,21 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { DayoffIcon, PaycheckIcon, PrepaymentIcon } from 'components/icons';
 import { MainMenuGrid, MainMenuLink } from 'components/Menu/MainMenu';
 import Page from 'components/shared/Page';
+import { MENU_ITEMS } from 'routes';
 
 const HomePage = () => {
+  const { t } = useTranslation();
   return (
     <Page>
       <MainMenuGrid>
-        <MainMenuLink to='/prepayments'>
-          <p>Запросить аванс</p>
-          <PrepaymentIcon size={60} />
-        </MainMenuLink>
-        <MainMenuLink to='/paychecks'>
-          <p>Расчетные листы</p>
-          <PaycheckIcon size={60} />
-        </MainMenuLink>
-        <MainMenuLink to='/daysoff'>
-          <p>Запросить отгул</p>
-          <DayoffIcon size={60} />
-        </MainMenuLink>
+        {MENU_ITEMS.map((item) => (
+          <MainMenuLink key={item.title} to={item.to}>
+            <p>{t(item.title)}</p>
+            {item.icon}
+          </MainMenuLink>
+        ))}
       </MainMenuGrid>
     </Page>
   );

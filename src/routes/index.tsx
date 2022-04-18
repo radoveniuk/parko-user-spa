@@ -39,3 +39,21 @@ export const NAVBAR_ITEMS: INavbarItem[] = [
     to: '/daysoff',
   },
 ];
+
+export const MENU_ITEMS: INavbarItem[] = [
+  {
+    title: 'menu.prepayment',
+    icon: <PrepaymentIcon size={60} />,
+    to: '/prepayments',
+  },
+  {
+    title: 'menu.paychecks',
+    icon: <PaycheckIcon size={60} />,
+    to: '/paychecks',
+  },
+  {
+    title: 'menu.dayoff',
+    icon: <DayoffIcon size={60} />,
+    to: '/daysoff',
+  },
+];

@@ -5,5 +5,10 @@
     "prepayments": "Аванси",
     "daysoff": "Відгули",
     "paychecks": "Розрахунки"
+  },
+  "menu": {
+    "prepayment": "Запросити аванс",
+    "paychecks": "Розрахункові листи",
+    "dayoff": "Запросити відгул"
   }
 }

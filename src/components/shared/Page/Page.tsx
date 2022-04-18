@@ -1,6 +1,6 @@
 import React from 'react';
 import AppHeader from '../AppHeader';
-import Navbar, { NavItem, NavItemIcon, NavItemText } from '../Navbar';
+import Navbar, { NavItem, NavItemIcon, NavItemText } from '../../Menu/Navbar';
 import { PageContent, PageWrapper } from './styles';
 import { NAVBAR_ITEMS } from 'routes';
 import { useTranslation } from 'react-i18next';
