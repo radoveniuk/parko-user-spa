@@ -1,5 +1,5 @@
-import { DayoffIcon, NotificationIcon, PaycheckIcon, PrepaymentIcon, UserIcon } from 'components/icons';
 import React from 'react';
+import { DayoffIcon, NotificationIcon, PaycheckIcon, PrepaymentIcon, UserIcon } from 'components/icons';
 import { To } from 'react-router-dom';
 
 interface INavbarItem {
@@ -7,10 +7,6 @@ interface INavbarItem {
   icon: React.ReactNode,
   to: To,
 };
-
-export const APP_ROUTES = [
-
-];
 
 export const NAVBAR_ITEMS: INavbarItem[] = [
   {

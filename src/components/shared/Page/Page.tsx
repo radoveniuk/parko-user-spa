@@ -2,7 +2,7 @@ import React from 'react';
 import AppHeader from '../AppHeader';
 import Navbar, { NavItem, NavItemIcon, NavItemText } from '../../Menu/Navbar';
 import { PageContent, PageWrapper } from './styles';
-import { NAVBAR_ITEMS } from 'routes';
+import { NAVBAR_ITEMS } from 'constants/menu';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from 'components/complex/LanguageSelector';
 

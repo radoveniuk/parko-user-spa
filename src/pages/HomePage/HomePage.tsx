@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { MainMenuGrid, MainMenuLink } from 'components/Menu/MainMenu';
 import Page from 'components/shared/Page';
-import { MENU_ITEMS } from 'routes';
+import { MENU_ITEMS } from 'constants/menu';
 
 const HomePage = () => {
   const { t } = useTranslation();
