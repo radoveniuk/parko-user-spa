@@ -4,8 +4,8 @@ export const HeaderWrapper = styled.header`
   a {
     display: flex;
     justify-content: center;
-    margin: 30px auto;
     width: min-content;
+    margin: 32px auto;
   }
 `;
 

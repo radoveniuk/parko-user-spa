@@ -5,4 +5,5 @@ export const colors = {
   secondaryLight: '#EDC7B7',
   secondaryDark: '#67243A',
   navBackground: '#EEE2DC',
+  default: '#30384F',
 };

@@ -10,5 +10,9 @@
     "prepayment": "Request prepayment",
     "paychecks": "Paychecks",
     "dayoff": "Request day off"
+  },
+  "footer": {
+    "contacts": "Contacts",
+    "contactsInfo": "In case of technical problems or questions regarding the operation of the system, please contact:"
   }
 }
