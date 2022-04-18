@@ -5,11 +5,12 @@ import { NavItemWrapper } from './styles';
 type Props = {
   children: React.ReactNode;
   to: To;
+  active?: boolean;
 };
 
-const NavItem = ({ children, to }: Props) => (
+const NavItem = ({ children, to, active = false }: Props) => (
   <Link to={to}>
-    <NavItemWrapper>
+    <NavItemWrapper active={active}>
       {children}
     </NavItemWrapper>
   </Link>

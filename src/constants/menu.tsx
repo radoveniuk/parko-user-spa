@@ -1,5 +1,5 @@
 import React from 'react';
-import { DayoffIcon, NotificationIcon, PaycheckIcon, PrepaymentIcon, UserIcon } from 'components/icons';
+import { DayoffIcon, HomeIcon, NotificationIcon, PaycheckIcon, PrepaymentIcon, UserIcon } from 'components/icons';
 import { To } from 'react-router-dom';
 
 interface INavbarItem {
@@ -9,6 +9,11 @@ interface INavbarItem {
 };
 
 export const NAVBAR_ITEMS: INavbarItem[] = [
+  {
+    title: 'navbar.home',
+    icon: <HomeIcon />,
+    to: '/',
+  },
   {
     title: 'navbar.profile',
     icon: <UserIcon />,
@@ -22,7 +27,7 @@ export const NAVBAR_ITEMS: INavbarItem[] = [
   {
     title: 'navbar.prepayments',
     icon: <PrepaymentIcon />,
-    to: '/prepayments',
+    to: '/prepayment',
   },
   {
     title: 'navbar.paychecks',
@@ -32,7 +37,7 @@ export const NAVBAR_ITEMS: INavbarItem[] = [
   {
     title: 'navbar.daysoff',
     icon: <DayoffIcon />,
-    to: '/daysoff',
+    to: '/dayoff',
   },
 ];
 
@@ -40,7 +45,7 @@ export const MENU_ITEMS: INavbarItem[] = [
   {
     title: 'menu.prepayment',
     icon: <PrepaymentIcon size={60} />,
-    to: '/prepayments',
+    to: '/prepayment',
   },
   {
     title: 'menu.paychecks',
@@ -50,6 +55,6 @@ export const MENU_ITEMS: INavbarItem[] = [
   {
     title: 'menu.dayoff',
     icon: <DayoffIcon size={60} />,
-    to: '/daysoff',
+    to: '/dayoff',
   },
 ];

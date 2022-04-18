@@ -7,4 +7,6 @@ export const NavbarWrapper = styled.nav`
   padding-top: 100px;
   height: calc(100vh - 120px);
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;

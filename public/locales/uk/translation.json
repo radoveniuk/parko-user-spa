@@ -1,5 +1,6 @@
 {
   "navbar": {
+    "home": "Головна",
     "profile": "Профіль",
     "notifications": "Сповіщення",
     "prepayments": "Аванси",
@@ -14,5 +15,20 @@
   "footer": {
     "contacts": "Контакти",
     "contactsInfo": "У випадку технічних неполадок чи виникнення запитань стосовно роботи системи — звертайтеся по контактам:"
+  },
+  "prepaymentPage": {
+    "title": "Замовлення авансу"
+  },
+  "dayoffPage": {
+    "title": "Інформування про відсутність на роботі"
+  },
+  "notificationsPage": {
+    "title": "Сповіщення"
+  },
+  "paychecksPage": {
+    "title": "Розрахункові листи"
+  },
+  "profilePage": {
+    "title": "Профіль"
   }
 }

@@ -1,5 +1,6 @@
 {
   "navbar": {
+    "home": "Home",
     "profile": "Profile",
     "notifications": "Notification",
     "prepayments": "Prepayments",
@@ -14,5 +15,20 @@
   "footer": {
     "contacts": "Contacts",
     "contactsInfo": "In case of technical problems or questions regarding the operation of the system, please contact:"
+  },
+  "prepaymentPage": {
+    "title": "Prepayment order"
+  },
+  "dayoffPage": {
+    "title": "Notice of absence from work"
+  },
+  "notificationsPage": {
+    "title": "Notifications"
+  },
+  "paychecksPage": {
+    "title": "Paychecks"
+  },
+  "profilePage": {
+    "title": "Profile"
   }
 }

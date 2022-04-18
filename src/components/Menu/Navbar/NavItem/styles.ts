@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { colors } from 'theme/colors';
 
-export const NavItemWrapper = styled.div`
+export const NavItemWrapper = styled.div<{active: boolean}>`
   background-color: ${colors.secondary};
   color: #fff;
   min-height: 10vh;
@@ -16,6 +16,10 @@ export const NavItemWrapper = styled.div`
   &:hover {
     background-color: ${colors.secondaryDark};
   }
+
+  ${props => props.active && css`
+    background-color: ${colors.secondaryDark};
+  `}
 `;
 
 export const NavItemText = styled.span`
