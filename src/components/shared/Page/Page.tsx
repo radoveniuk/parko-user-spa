@@ -1,10 +1,11 @@
 import React from 'react';
-import AppHeader from '../AppHeader';
 import Navbar, { NavItem, NavItemIcon, NavItemText } from '../../Menu/Navbar';
 import { PageContent, PageWrapper } from './styles';
 import { NAVBAR_ITEMS } from 'constants/menu';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from 'components/complex/LanguageSelector';
+import PageHeader from '../PageHeader';
+import PageFooter from '../PageFooter';
 
 type Props = {
   showNavbar?: boolean;
@@ -29,8 +30,9 @@ const Page = ({ showNavbar = true, children }: Props) => {
         </Navbar>
       )}
       <PageContent>
-        <AppHeader />
+        <PageHeader />
         {children}
+        <PageFooter />
       </PageContent>
     </PageWrapper>
   );

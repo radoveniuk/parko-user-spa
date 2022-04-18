@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
 export const HeaderWrapper = styled.header`
-  display: flex;
-  justify-content: center;
-  margin: 30px auto;
+  a {
+    display: flex;
+    justify-content: center;
+    margin: 30px auto;
+    width: min-content;
+  }
 `;
 
 export const HeaderText = styled.h1`

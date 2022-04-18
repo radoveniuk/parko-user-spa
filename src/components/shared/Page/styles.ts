@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 
-export const PageWrapper = styled.main`
+export const PageWrapper = styled.section`
   display: flex;
   position: relative;
 `;
 
-export const PageContent = styled.section`
+export const PageContent = styled.main`
   position: relative;
   width: 100%;
-  margin-left: 12px;
+  margin: 0 12px;
+  display: flex;
+  flex-direction: column;
 `;

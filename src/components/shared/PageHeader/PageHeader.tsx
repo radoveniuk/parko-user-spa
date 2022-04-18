@@ -5,15 +5,15 @@ import logoImage from 'components/assets/images/logo.png';
 import { HeaderLogo, HeaderText, HeaderWrapper } from './styles';
 import { Link } from 'react-router-dom';
 
-const AppHeader = () => {
+const PageHeader = () => {
   return (
-    <Link to="/">
-      <HeaderWrapper>
+    <HeaderWrapper>
+      <Link to="/">
         <HeaderLogo src={logoImage} alt="Parko user logo"/>
-        <HeaderText>Parko User</HeaderText>
-      </HeaderWrapper>
-    </Link>
+        <HeaderText>Parko&nbsp;User</HeaderText>
+      </Link>
+    </HeaderWrapper>
   );
 };
 
-export default AppHeader;
+export default PageHeader;
