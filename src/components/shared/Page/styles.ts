@@ -9,9 +9,10 @@ export const PageWrapper = styled.section`
 
 export const PageContent = styled.main`
   position: relative;
-  width: calc(100vw - 300px);
+  width: 100%;
   height: 100vh;
-  margin: 0 12px;
+  overflow-y: auto;
+  margin-left: 10px;
   display: flex;
   flex-direction: column;
 

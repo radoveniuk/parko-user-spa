@@ -5,8 +5,14 @@ export const StyledForm = styled.form`
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 24px 70px;
-  
+
   .input-wrapper, .textarea-wrapper {
     margin-bottom: 30px;
+    flex: 40%;
+    margin: 10px;
+  }
+
+  .button-wrapper {
+    margin: 0 auto;
   }
 `;

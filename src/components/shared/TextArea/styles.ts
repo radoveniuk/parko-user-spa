@@ -28,6 +28,7 @@ export const TextAreaWrapper = styled.div`
     color: ${colors.default};
     transition: 0.1s ease-out;
     min-width: 100%;
+    resize: vertical;
   }
   .material-textarea:focus {
     border-color: ${colors.primary};  

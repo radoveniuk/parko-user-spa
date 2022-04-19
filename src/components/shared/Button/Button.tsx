@@ -7,7 +7,7 @@ type Props = PropsWithChildren<HTMLProps<HTMLButtonElement>> & {
 
 const Button = forwardRef(({ children, ...rest }: Props, ref: ForwardedRef<HTMLButtonElement>) => {
   return (
-    <ButtonWrapper>
+    <ButtonWrapper className="button-wrapper">
       <button
         ref={ref}
         {...rest}
