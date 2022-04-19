@@ -6,7 +6,7 @@ export const InputWrapper = styled.div`
   max-height: 50px;
   display: flex;
   flex-direction: column;
-  max-width: 200px;
+  max-width: 70%;
 
   .error-text {
     color: red;

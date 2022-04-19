@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const StyledForm = styled.form`
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr;
-  justify-content: space-between;
-  margin-top: 24px;
+  grid-template-columns: 400px 400px;
+  margin: 24px 70px;
 `;
