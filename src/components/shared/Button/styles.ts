@@ -19,7 +19,7 @@ export const ButtonWrapper = styled.div`
     }
 
     &:disabled {
-      background-color: ${colors.default};
+      background-color: ${colors.primaryDisabled};
       cursor: default;
     }
   }
