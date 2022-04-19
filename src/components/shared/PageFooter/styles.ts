@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { colors } from 'theme/colors';
+import { SM } from 'theme/sizeBreakpoints';
 
 export const FooterWrapper = styled.footer`
   display: flex;
@@ -10,6 +11,7 @@ export const FooterWrapper = styled.footer`
 
   h3, p, ul {
     margin: 0;
+    padding: 0;
   }
   
   .contactsInfo {
@@ -40,6 +42,14 @@ export const FooterWrapper = styled.footer`
           color: ${colors.secondaryDark};
         }
       }
+    }
+  }
+
+  @media (max-width: ${SM}) {
+    flex-direction: column;
+
+    .contactsList {
+      margin-top: 30px;
     }
   }
 `;

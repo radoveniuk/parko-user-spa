@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { colors } from 'theme/colors';
+import { SM } from 'theme/sizeBreakpoints';
 
 export const PageWrapper = styled.section`
   display: flex;
@@ -8,10 +9,16 @@ export const PageWrapper = styled.section`
 
 export const PageContent = styled.main`
   position: relative;
-  width: 100%;
+  width: calc(100vw - 300px);
+  height: 100vh;
   margin: 0 12px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: ${SM}) {
+    margin: 0;
+    width: 100%;
+  }
 `;
 
 export const PageTitle = styled.h2`

@@ -1,8 +1,17 @@
 import { Menu, MenuItem, ProSidebar } from 'react-pro-sidebar';
 import styled, { css } from 'styled-components';
 import { colors } from 'theme/colors';
+import { SM } from 'theme/sizeBreakpoints';
 
-const breakpoint = '576px';
+export const IconWrapper = styled.div`
+  display: none !important;
+  @media (max-width: ${SM}) {
+    display: block !important;
+    position: absolute;
+    top: 30px;
+    z-index: 1;
+  }
+`;
 
 export const NavbarWrapper = styled.div`
   max-width: 400px;
@@ -11,8 +20,7 @@ export const NavbarWrapper = styled.div`
 
 export const StyledNavbar = styled(ProSidebar)`
   background-color: ${colors.navBackground};
-  padding-top: 90px;
-  height: calc(100vh - 120px) !important;
+  height: calc(100vh) !important;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -20,9 +28,14 @@ export const StyledNavbar = styled(ProSidebar)`
 
   .pro-sidebar-inner {
     background-color: transparent !important;
+    padding-top: 90px;
   }
 
-  @media (max-width: ${breakpoint}) {
+  .overlay {
+    background-color: transparent;
+  }
+  
+  @media (max-width: ${SM}) {
     width: auto;
     ${props => props.toggled && css`
       width: 100vw;
@@ -32,6 +45,8 @@ export const StyledNavbar = styled(ProSidebar)`
 
 export const NavbarMenu = styled(Menu)`
   background-color: ${colors.navBackground};
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 `;
 
 export const NavItem = styled(MenuItem)`
@@ -67,7 +82,7 @@ export const NavItem = styled(MenuItem)`
     }
   }
 
-  @media (max-width: ${breakpoint}) {
+  @media (max-width: ${SM}) {
     margin: 20px;
     width: auto;
   }

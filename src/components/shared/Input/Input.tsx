@@ -10,7 +10,7 @@ const NOT_NUMBER_VALUES = ['e', 'E', '+', '-', '.', '.'];
 
 const Input = forwardRef(({ title, type, error, ...rest }: Props, ref: ForwardedRef<HTMLInputElement>) => {
   return (
-    <InputWrapper>
+    <InputWrapper className="input-wrapper">
       <input
         ref={ref}
         placeholder=" "

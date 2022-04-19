@@ -7,7 +7,7 @@ type Props = HTMLProps<HTMLTextAreaElement> & {
 
 const TextArea = forwardRef(({ title, ...rest }: Props, ref: ForwardedRef<HTMLTextAreaElement>) => {
   return (
-    <TextAreaWrapper>
+    <TextAreaWrapper className="textarea-wrapper">
       <textarea
         className="material-textarea"
         ref={ref}

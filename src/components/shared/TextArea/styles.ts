@@ -3,7 +3,7 @@ import { colors } from 'theme/colors';
 
 export const TextAreaWrapper = styled.div`
   position: relative;
-  max-width: 70%;
+  width: min-content;
 
   .material-textarea-label {
     position: absolute;
