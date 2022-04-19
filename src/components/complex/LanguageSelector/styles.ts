@@ -4,7 +4,7 @@ import { colors } from 'theme/colors';
 export const LanguageSelectorWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: auto ;
+  margin-top: 25px ;
 `;
 
 export const LangButton = styled.button`

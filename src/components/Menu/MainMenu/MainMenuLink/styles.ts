@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { colors } from 'theme/colors';
+import { SM } from 'theme/sizeBreakpoints';
 
 export const StyledMenuButton = styled.button`
   width: 22vw;
@@ -20,5 +21,12 @@ export const StyledMenuButton = styled.button`
 
   &:hover {
     background-color: ${colors.primaryLight};
+  }
+
+  @media (max-width: ${SM}) {
+    flex-direction: row-reverse;
+    width: 100%;
+    margin-top: 25px;
+    justify-content: space-around;
   }
 `;

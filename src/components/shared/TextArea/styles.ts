@@ -27,6 +27,7 @@ export const TextAreaWrapper = styled.div`
     padding: 1rem 0.7rem;
     color: ${colors.default};
     transition: 0.1s ease-out;
+    min-width: 100%;
   }
   .material-textarea:focus {
     border-color: ${colors.primary};  

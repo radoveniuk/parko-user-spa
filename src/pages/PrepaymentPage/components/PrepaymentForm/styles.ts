@@ -3,7 +3,7 @@ import { SM } from 'theme/sizeBreakpoints';
 
 export const StyledForm = styled.form`
   display: grid;
-  grid-template-columns: 400px 400px;
+  grid-template-columns: 300px 300px;
   margin: 24px 70px;
   
   @media (max-width: ${SM}) {

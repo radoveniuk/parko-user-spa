@@ -16,7 +16,8 @@ export const FooterWrapper = styled.footer`
   
   .contactsInfo {
     color: ${colors.default};
-    width: 70%;
+    width: 100%;
+    padding-right: 15px;
 
     .title {
       font-weight: 400;
@@ -47,6 +48,7 @@ export const FooterWrapper = styled.footer`
 
   @media (max-width: ${SM}) {
     flex-direction: column;
+    padding: 30px;
 
     .contactsList {
       margin-top: 30px;
