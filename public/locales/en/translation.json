@@ -17,7 +17,14 @@
     "contactsInfo": "In case of technical problems or questions regarding the operation of the system, please contact:"
   },
   "prepaymentPage": {
-    "title": "Prepayment order"
+    "title": "Prepayment order",
+    "form": {
+      "sum": "Sum",
+      "comment": "Comment",
+      "order": "Send order",
+      "sumMinValidation": "Min sum - 50",
+      "sumMaxValidation": "Max sum - 200"
+    }
   },
   "dayoffPage": {
     "title": "Notice of absence from work"

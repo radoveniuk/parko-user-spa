@@ -14,8 +14,10 @@
     "i18next": "^21.6.16",
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next-http-backend": "^1.4.0",
+    "lodash-es": "^4.17.21",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-hook-form": "^7.30.0",
     "react-i18next": "^11.16.6",
     "react-icons": "^4.3.1",
     "react-pro-sidebar": "^0.7.1",
@@ -50,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.6",
     "@types/styled-components": "^5.1.25",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
