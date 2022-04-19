@@ -11,32 +11,32 @@ interface INavbarItem {
 export const NAVBAR_ITEMS: INavbarItem[] = [
   {
     title: 'navbar.home',
-    icon: <HomeIcon />,
+    icon: <HomeIcon size={30} />,
     to: '/',
   },
   {
     title: 'navbar.profile',
-    icon: <UserIcon />,
+    icon: <UserIcon size={30} />,
     to: '/profile',
   },
   {
     title: 'navbar.notifications',
-    icon: <NotificationIcon />,
+    icon: <NotificationIcon size={30} />,
     to: '/notifications',
   },
   {
     title: 'navbar.prepayments',
-    icon: <PrepaymentIcon />,
+    icon: <PrepaymentIcon size={30} />,
     to: '/prepayment',
   },
   {
     title: 'navbar.paychecks',
-    icon: <PaycheckIcon />,
+    icon: <PaycheckIcon size={30} />,
     to: '/paychecks',
   },
   {
     title: 'navbar.daysoff',
-    icon: <DayoffIcon />,
+    icon: <DayoffIcon size={30} />,
     to: '/dayoff',
   },
 ];
