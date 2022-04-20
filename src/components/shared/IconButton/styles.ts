@@ -14,10 +14,10 @@ export const IconButtonWrapper = styled.div`
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s;
-    color: ${colors.secondaryDark};
+    color: ${colors.primary};
 
     &:hover {
-      background-color: ${colors.navBackground};
+      background-color: #123c6929;
     }
 
     &:disabled {

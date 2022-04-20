@@ -12,13 +12,16 @@ export const PageContent = styled.main`
   width: 100%;
   height: 100vh;
   overflow-y: auto;
-  margin-left: 10px;
   display: flex;
   flex-direction: column;
 
   @media (max-width: ${SM}) {
     margin: 0;
     width: 100%;
+  }
+
+  .content-wrapper {
+    margin: 10px;
   }
 `;
 

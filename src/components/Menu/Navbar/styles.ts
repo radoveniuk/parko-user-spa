@@ -6,10 +6,8 @@ import { SM } from 'theme/sizeBreakpoints';
 export const IconWrapper = styled.div`
   display: none !important;
   @media (max-width: ${SM}) {
-    display: block !important;
-    position: absolute;
-    top: 30px;
-    z-index: 1;
+    display: flex !important;
+    align-items: center;
   }
 `;
 

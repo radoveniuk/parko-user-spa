@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const HeaderWrapper = styled.header`
+  display: flex;
   a {
     display: flex;
     justify-content: center;
     width: min-content;
-    margin: 32px auto;
+    margin: 30px auto;
   }
 `;
 
