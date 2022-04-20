@@ -6,9 +6,13 @@ export const StyledForm = styled.form`
   flex-wrap: wrap;
   margin: 24px auto;
 
-  .input-wrapper {
-    margin-bottom: 30px;
-    margin: 10px;
-    min-width: 300px;
+  .dayoff-dates-wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    div {
+      margin: 0px 10px 10px 0px;
+    }
   }
 `;

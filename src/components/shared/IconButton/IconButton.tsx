@@ -1,17 +1,14 @@
-import React, { ForwardedRef, forwardRef, HTMLProps, PropsWithChildren } from 'react';
-import { IconButtonWrapper } from './styles';
+import React, { ForwardedRef, forwardRef } from 'react';
+import { IconButton as IconButtonMaterial, IconButtonProps } from '@mui/material';
 
-const IconButton = forwardRef(({ children, ...rest }: PropsWithChildren<HTMLProps<HTMLButtonElement>>, ref: ForwardedRef<HTMLButtonElement>) => {
+const IconButton = forwardRef(({ children, ...rest }: IconButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
   return (
-    <IconButtonWrapper>
-      <button
-        {...rest}
-        ref={ref}
-        type="button"
-      >
-        {children}
-      </button>
-    </IconButtonWrapper>
+    <IconButtonMaterial
+      {...rest}
+      ref={ref}
+    >
+      {children}
+    </IconButtonMaterial>
   );
 });
 

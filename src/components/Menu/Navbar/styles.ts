@@ -1,9 +1,10 @@
 import { Menu, MenuItem, ProSidebar } from 'react-pro-sidebar';
 import styled, { css } from 'styled-components';
-import { colors } from 'theme/colors';
+import { colors } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
 
 export const IconWrapper = styled.div`
+  margin-left: 10px;
   display: none !important;
   @media (max-width: ${SM}) {
     display: flex !important;

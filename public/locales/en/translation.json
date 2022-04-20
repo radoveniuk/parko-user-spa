@@ -27,7 +27,11 @@
     }
   },
   "dayoffPage": {
-    "title": "Notice of absence from work"
+    "title": "Notice of absence from work",
+    "form": {
+      "dateStart": "Date start",
+      "dateEnd": "Date end"
+    }
   },
   "notificationsPage": {
     "title": "Notifications"

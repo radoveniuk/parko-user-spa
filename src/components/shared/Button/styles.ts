@@ -1,26 +1,11 @@
 import styled from 'styled-components';
-import { colors } from 'theme/colors';
+import { themeConfig } from 'theme';
+import { Button as ButtonMaterial } from '@mui/material';
 
-export const ButtonWrapper = styled.div`
-  button {
-    background: ${colors.primary};
-    border-radius: 2px;
-    border: none;
-    color: #fff;
-    width: 200px;
-    height: 50px;
-    cursor: pointer;
-    font-size: 20px;
+export const StyledButton = styled(ButtonMaterial)`
+  border-radius: 2px;
 
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: ${colors.primaryLight};
-    }
-
-    &:disabled {
-      background-color: ${colors.primaryDisabled};
-      cursor: default;
-    }
+  &:hover {
+    background-color: ${themeConfig.palette.primary.light} !important;
   }
 `;

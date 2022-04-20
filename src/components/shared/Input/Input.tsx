@@ -1,32 +1,22 @@
-import React, { ForwardedRef, forwardRef, HTMLProps } from 'react';
-import { InputWrapper } from './styles';
-
-type Props = HTMLProps<HTMLInputElement> & {
-  title: string;
-  error?: string;
-}
+import { TextField, TextFieldProps } from '@mui/material';
+import React, { ForwardedRef, forwardRef } from 'react';
 
 const NOT_NUMBER_VALUES = ['e', 'E', '+', '-', '.', '.'];
 
-const Input = forwardRef(({ title, type, error, ...rest }: Props, ref: ForwardedRef<HTMLInputElement>) => {
+const Input = forwardRef(({ title, type, error, ...rest }: TextFieldProps, ref: ForwardedRef<HTMLInputElement>) => {
   return (
-    <InputWrapper className="input-wrapper">
-      <input
-        ref={ref}
-        placeholder=" "
-        type={type}
-        onKeyDown={(e) => {
-          if (type === 'number') {
-            if (NOT_NUMBER_VALUES.includes(e.key)) {
-              e.preventDefault();
-            }
+    <TextField
+      ref={ref}
+      type={type}
+      onKeyDown={(e) => {
+        if (type === 'number') {
+          if (NOT_NUMBER_VALUES.includes(e.key)) {
+            e.preventDefault();
           }
-        }}
-        {...rest}
-      />
-      <label>{title}</label>
-      {error && <span className="error-text">{error}</span>}
-    </InputWrapper>
+        }
+      }}
+      {...rest}
+    />
   );
 });
 

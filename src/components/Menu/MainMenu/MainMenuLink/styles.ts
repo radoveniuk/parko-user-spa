@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { colors } from 'theme/colors';
+import { themeConfig } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
 
 export const StyledMenuButton = styled.button`
   width: 22vw;
   height: 22vw;
-  background-color: ${colors.primary};
+  background-color: ${themeConfig.palette.primary.main};
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@ export const StyledMenuButton = styled.button`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${colors.primaryLight};
+    background-color: ${themeConfig.palette.primary.light};
   }
 
   @media (max-width: ${SM}) {

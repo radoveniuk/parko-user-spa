@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from 'theme/colors';
+import { themeConfig } from 'theme';
 
 export const LanguageSelectorWrapper = styled.div`
   display: flex;
@@ -11,11 +11,11 @@ export const LangButton = styled.button`
   cursor: pointer;
   background-color: transparent;
   border: none;
-  color: ${colors.secondaryDark};
+  color: ${themeConfig.palette.secondary.dark};
   text-align: left;
 
   transition: color 0.3s;
   &:hover {
-    color: ${colors.secondary};
+    color: ${themeConfig.palette.secondary.main};
   }
 `;

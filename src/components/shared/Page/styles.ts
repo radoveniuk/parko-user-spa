@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from 'theme/colors';
+import { colors } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
 
 export const PageWrapper = styled.section`

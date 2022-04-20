@@ -1,23 +1,13 @@
-import React, { ForwardedRef, forwardRef, HTMLProps, PropsWithChildren } from 'react';
-import { ButtonWrapper } from './styles';
+import React from 'react';
+import { ButtonProps } from '@mui/material';
+import { StyledButton } from './styles';
 
-type Props = PropsWithChildren<HTMLProps<HTMLButtonElement>> & {
-  type: 'button' | 'submit' | 'reset';
-}
-
-const Button = forwardRef(({ children, ...rest }: Props, ref: ForwardedRef<HTMLButtonElement>) => {
+const Button = ({ children, variant = 'contained', ...rest }: ButtonProps) => {
   return (
-    <ButtonWrapper className="button-wrapper">
-      <button
-        ref={ref}
-        {...rest}
-      >
-        {children}
-      </button>
-    </ButtonWrapper>
+    <StyledButton variant={variant} {...rest}>
+      {children}
+    </StyledButton>
   );
-});
-
-Button.displayName = 'Button';
+};
 
 export default Button;

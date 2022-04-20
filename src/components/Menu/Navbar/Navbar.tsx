@@ -9,6 +9,7 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import { NavbarMenu, NavbarWrapper, NavItem, StyledNavbar, IconWrapper } from './styles';
 import { MenuIcon } from 'components/icons';
 import IconButton from 'components/shared/IconButton';
+import { themeConfig } from 'theme';
 
 type Props = {
   toggled?: boolean,
@@ -45,7 +46,7 @@ type ToggleButtonProps = {
 export const ToggleNavbarButton = ({ onClick }: ToggleButtonProps) => (
   <IconWrapper>
     <IconButton className="toggle-menu-icon" onClick={onClick}>
-      <MenuIcon />
+      <MenuIcon size={40} color={themeConfig.palette.primary.main} />
     </IconButton>
   </IconWrapper>
 );
