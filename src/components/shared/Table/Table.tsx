@@ -1,51 +1,113 @@
-import * as React from 'react';
-import { DataGrid, GridColDef, DataGridProps } from '@mui/x-data-grid';
+import React from 'react';
+import Box from '@mui/material/Box';
+import TableMaterial from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
-// const columns: GridColDef[] = [
-//   { field: 'id', headerName: 'ID', width: 70 },
-//   { field: 'firstName', headerName: 'First name', width: 130 },
-//   { field: 'lastName', headerName: 'Last name', width: 130 },
-//   {
-//     field: 'age',
-//     headerName: 'Age',
-//     type: 'number',
-//     width: 90,
-//   },
-//   {
-//     field: 'fullName',
-//     headerName: 'Full name',
-//     description: 'This column has a value getter and is not sortable.',
-//     sortable: false,
-//     width: 160,
-//     valueGetter: (params: GridValueGetterParams) =>
-//       `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-//   },
-// ];
+export type Column = {
+  field: string;
+  headerName: string;
+  type?: 'string' | 'number' | 'boolean';
+  valueGetter?: (value: any) => string | React.ReactNode;
+}
 
-// const rows = [
-//   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-//   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-//   { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-//   { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-//   { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-//   { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-//   { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-//   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-//   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-// ];
+type TableHeadProps = {
+  columns: Column[]
+}
 
-export default function DataTable ({ ...rest }: DataGridProps) {
+function EnhancedTableHead ({ columns }: TableHeadProps) {
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        // rows={rows}
-        // columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        {...rest}
-      />
-    </div>
+    <TableHead>
+      <TableRow>
+        {columns.map((headCell) => (
+          <TableCell
+            key={headCell.field}
+            align={headCell.type === 'number' ? 'right' : 'left'}
+            padding="normal"
+          >
+            {headCell.headerName}
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
   );
 }
 
-export type ColumnType = GridColDef;
+type TableProps = {
+  rowsPerPage?: number;
+  columns: Column[]
+  rows: any[];
+}
+
+export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
+  const [page, setPage] = React.useState(0);
+
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Paper sx={{ width: '100%', mb: 2 }}>
+        <TableContainer>
+          <TableMaterial
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size="medium"
+          >
+            <EnhancedTableHead columns={columns} />
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  return (
+                    <TableRow
+                      hover
+                      tabIndex={-1}
+                      key={index}
+                    >
+                      {columns.map((col) => (
+                        <TableCell
+                          key={`${col.headerName}-${index}`}
+                        >
+                          {col.valueGetter !== undefined ? col.valueGetter(row[col.field]) : row[col.field]}
+                        </TableCell>
+
+                      ))}
+                    </TableRow>
+                  );
+                })}
+              {emptyRows > 0 && (
+                <TableRow
+                  style={{
+                    height: 50 * emptyRows,
+                  }}
+                >
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+          </TableMaterial>
+        </TableContainer>
+        <TablePagination
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          labelRowsPerPage={false}
+          rowsPerPageOptions={[]}
+        />
+      </Paper>
+    </Box>
+  );
+}

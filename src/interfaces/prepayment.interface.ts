@@ -4,4 +4,6 @@ export interface IPrepayment {
   sum: string | number;
   isApproved: boolean | null;
   createdAt?: Date | string;
+  userComment?: string;
+  adminComment?: string;
 }

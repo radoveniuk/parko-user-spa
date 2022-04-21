@@ -1,2 +1,2 @@
 export { default } from './Table';
-export type { ColumnType } from './Table';
+export type { Column } from './Table';
