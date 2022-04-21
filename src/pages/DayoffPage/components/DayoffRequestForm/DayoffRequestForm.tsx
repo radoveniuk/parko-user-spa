@@ -69,7 +69,13 @@ const DayoffRequestForm = () => {
           {...register('comment', { required: { message: 'Give a reason', value: watch('reason') === 'other' } })}
         />
       </div>
-      <Button className="button-wrapper" type="submit" disabled={!_.isEmpty(errors)}>{t('prepaymentPage.form.order')}</Button>
+      <Button
+        className="button-wrapper"
+        type="submit"
+        disabled={!_.isEmpty(errors)}
+      >
+        {t('prepaymentPage.form.order')}
+      </Button>
     </StyledForm>
   );
 };
