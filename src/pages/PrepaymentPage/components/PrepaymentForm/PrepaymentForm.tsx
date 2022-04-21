@@ -21,24 +21,28 @@ const PrepaymentForm = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        label={t('prepaymentPage.form.sum')}
-        type="number"
-        defaultValue="50"
-        error={!!errors.sum?.message}
-        className="input-wrapper"
-        {...register('sum', {
-          required: true,
-          min: { message: t('prepaymentPage.form.sumMinValidation'), value: 50 },
-          max: { message: t('prepaymentPage.form.sumMaxValidation'), value: 200 },
-        })}
-      />
-      <Input
-        multiline
-        className="input-wrapper"
-        label={t('prepaymentPage.form.comment')}
-        {...register('comment')}
-      />
+      <div className="fields-list">
+
+        <Input
+          label={t('prepaymentPage.form.sum')}
+          type="number"
+          defaultValue="50"
+          error={!!errors.sum?.message}
+          helperText={errors.sum?.message}
+          className="input-wrapper"
+          {...register('sum', {
+            required: true,
+            min: { message: t('prepaymentPage.form.sumMinValidation'), value: 50 },
+            max: { message: t('prepaymentPage.form.sumMaxValidation'), value: 200 },
+          })}
+        />
+        <Input
+          multiline
+          className="input-wrapper"
+          label={t('prepaymentPage.form.comment')}
+          {...register('comment')}
+        />
+      </div>
       <Button className="button-wrapper" type="submit" disabled={!_.isEmpty(errors)}>{t('prepaymentPage.form.order')}</Button>
     </StyledForm>
   );

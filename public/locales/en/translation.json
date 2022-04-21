@@ -30,7 +30,16 @@
     "title": "Notice of absence from work",
     "form": {
       "dateStart": "Date start",
-      "dateEnd": "Date end"
+      "dateEnd": "Date end",
+      "reason": "Reason",
+      "comment": "Comment",
+      "reasons": {
+        "vacation": "Vacation",
+        "illnes": "Illnes",
+        "medicalCheck": "Medical check",
+        "alcohol": "Alcohol",
+        "other": "Other"
+      }
     }
   },
   "notificationsPage": {

@@ -3,7 +3,7 @@ import React, { ForwardedRef, forwardRef } from 'react';
 
 const NOT_NUMBER_VALUES = ['e', 'E', '+', '-', '.', '.'];
 
-const Input = forwardRef(({ title, type, error, ...rest }: TextFieldProps, ref: ForwardedRef<HTMLInputElement>) => {
+const Input = forwardRef(({ type, ...rest }: TextFieldProps, ref: ForwardedRef<HTMLInputElement>) => {
   return (
     <TextField
       ref={ref}

@@ -53,6 +53,7 @@
         "no-void": 0,
         "import/no-named-default": 0,
         "no-console": 0,
-        "no-param-reassign": ["error", { "props": false }]
+        "no-param-reassign": ["error", { "props": false }],
+        "jsx-quotes": ["error", "prefer-double"]
     }
 }
