@@ -24,6 +24,12 @@
       "order": "Send order",
       "sumMinValidation": "Min sum - 50",
       "sumMaxValidation": "Max sum - 200"
+    },
+    "historyTable": {
+      "date": "Date",
+      "sum": "Sum",
+      "approved": "Approved",
+      "comment": "Comment"
     }
   },
   "dayoffPage": {

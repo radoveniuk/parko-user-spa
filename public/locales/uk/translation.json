@@ -24,6 +24,12 @@
       "order": "Замовити",
       "sumMinValidation": "Мінімальна сума - 50",
       "sumMaxValidation": "Максимальна сума - 200"
+    },
+    "historyTable": {
+      "date": "Дата запиту",
+      "sum": "Сума",
+      "approved": "Підтверджено",
+      "comment": "Коментар"
     }
   },
   "dayoffPage": {

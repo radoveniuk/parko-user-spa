@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useTranslation } from 'react-i18next';
 
 export type Column = {
   field: string;
@@ -21,6 +22,7 @@ type TableHeadProps = {
 }
 
 function EnhancedTableHead ({ columns }: TableHeadProps) {
+  const { t } = useTranslation();
   return (
     <TableHead>
       <TableRow>
@@ -30,7 +32,7 @@ function EnhancedTableHead ({ columns }: TableHeadProps) {
             align={headCell.type === 'number' ? 'right' : 'left'}
             padding="normal"
           >
-            {headCell.headerName}
+            {t(headCell.headerName)}
           </TableCell>
         ))}
       </TableRow>
