@@ -46,6 +46,11 @@
         "alcohol": "Alcohol",
         "other": "Other"
       }
+    },
+    "historyTable": {
+      "dateStart": "Date start",
+      "dateEnd": "Date end",
+      "adminComment": "Comment of admin"
     }
   },
   "notificationsPage": {

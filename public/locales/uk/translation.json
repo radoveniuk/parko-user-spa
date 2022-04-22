@@ -46,6 +46,11 @@
         "alcohol": "Алкогольне сп'яніння",
         "other": "Інше"
       }
+    },
+    "historyTable": {
+      "dateStart": "Дата початку",
+      "dateEnd": "Дата завершення",
+      "adminComment": "Коментар фірми"
     }
   },
   "notificationsPage": {
