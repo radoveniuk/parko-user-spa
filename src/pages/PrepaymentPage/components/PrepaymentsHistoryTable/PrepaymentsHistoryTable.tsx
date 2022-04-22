@@ -1,9 +1,10 @@
 import React from 'react';
-import Table from 'components/shared/Table';
-import { Column } from 'components/shared/Table/Table';
+import Table, { Column } from 'components/shared/Table';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { DateTime } from 'luxon';
 import { AcceptIcon, CloseIcon, QuestionIcon } from 'components/icons';
+import { themeConfig } from 'theme';
+
 import { HistoryWrapper } from './styles';
 
 const columns: Column[] = [
@@ -22,12 +23,12 @@ const columns: Column[] = [
     headerName: 'prepaymentPage.historyTable.approved',
     valueGetter: (value: boolean | null) => {
       if (value) {
-        return <AcceptIcon />;
+        return <AcceptIcon color={themeConfig.palette.success.main} size={20}/>;
       }
       if (value === false) {
-        return <CloseIcon />;
+        return <CloseIcon color={themeConfig.palette.error.main} size={20} />;
       }
-      return <QuestionIcon />;
+      return <QuestionIcon size={20} />;
     },
   },
   {
@@ -46,8 +47,7 @@ const rows: IPrepayment[] = [
     adminComment: 'No',
   }, {
     id: 'mj&",f[EK*',
-    userId:
-'\\XwH&r"4tn',
+    userId: '\\XwH&r"4tn',
     sum: 139,
     isApproved: true,
     createdAt: '1993-02-20T19:25:56.226Z',

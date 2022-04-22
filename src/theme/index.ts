@@ -23,6 +23,12 @@ export const themeConfig = {
       dark: '#67243A',
       contrastText: '#fff',
     },
+    success: {
+      main: '#49d257',
+    },
+    error: {
+      main: '#ec3c3c',
+    },
   },
   typography: {
     fontFamily: 'Comfortaa',

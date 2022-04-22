@@ -3,47 +3,18 @@ import TableMaterial from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useTranslation } from 'react-i18next';
+
 import { TableWrapper } from './styles';
-
-export type Column = {
-  field: string;
-  headerName: string;
-  type?: 'string' | 'number' | 'boolean';
-  valueGetter?: (value: any) => string | React.ReactNode;
-}
-
-type TableHeadProps = {
-  columns: Column[]
-}
-
-function EnhancedTableHead ({ columns }: TableHeadProps) {
-  const { t } = useTranslation();
-  return (
-    <TableHead>
-      <TableRow>
-        {columns.map((headCell) => (
-          <TableCell
-            key={headCell.field}
-            align="center"
-            padding="normal"
-          >
-            {t(headCell.headerName)}
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
+import TableHead from './TableHead';
+import { Column, Row } from './types';
 
 type TableProps = {
   rowsPerPage?: number;
   columns: Column[]
-  rows: any[];
+  rows: Row[];
 }
 
 export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
@@ -66,7 +37,7 @@ export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
             aria-labelledby="tableTitle"
             size="medium"
           >
-            <EnhancedTableHead columns={columns} />
+            <TableHead columns={columns} />
             <TableBody>
               {rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
