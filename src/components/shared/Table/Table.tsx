@@ -1,5 +1,4 @@
 import React from 'react';
-import Box from '@mui/material/Box';
 import TableMaterial from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,6 +8,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useTranslation } from 'react-i18next';
+import { TableWrapper } from './styles';
 
 export type Column = {
   field: string;
@@ -29,7 +29,7 @@ function EnhancedTableHead ({ columns }: TableHeadProps) {
         {columns.map((headCell) => (
           <TableCell
             key={headCell.field}
-            align={headCell.type === 'number' ? 'right' : 'left'}
+            align="center"
             padding="normal"
           >
             {t(headCell.headerName)}
@@ -58,7 +58,7 @@ export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <TableWrapper>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer>
           <TableMaterial
@@ -110,6 +110,6 @@ export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
           rowsPerPageOptions={[]}
         />
       </Paper>
-    </Box>
+    </TableWrapper>
   );
 }

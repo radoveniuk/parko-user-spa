@@ -4,6 +4,7 @@ import { Column } from 'components/shared/Table/Table';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { DateTime } from 'luxon';
 import { AcceptIcon, CloseIcon, QuestionIcon } from 'components/icons';
+import { HistoryWrapper } from './styles';
 
 const columns: Column[] = [
   {
@@ -95,7 +96,9 @@ const rows: IPrepayment[] = [
 
 const PrepaymentsHistoryTable = () => {
   return (
-    <Table columns={columns} rows={rows} />
+    <HistoryWrapper>
+      <Table columns={columns} rows={rows} />
+    </HistoryWrapper>
   );
 };
 
