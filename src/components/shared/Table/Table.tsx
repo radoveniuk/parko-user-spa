@@ -41,24 +41,22 @@ export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
             <TableBody>
               {rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  return (
-                    <TableRow
-                      hover
-                      tabIndex={-1}
-                      key={index}
-                    >
-                      {columns.map((col) => (
-                        <TableCell
-                          key={`${col.headerName}-${index}`}
-                        >
-                          {col.valueGetter !== undefined ? col.valueGetter(row[col.field]) : row[col.field]}
-                        </TableCell>
+                .map((row, index) => (
+                  <TableRow
+                    hover
+                    tabIndex={-1}
+                    key={index}
+                  >
+                    {columns.map((col) => (
+                      <TableCell
+                        key={`${col.headerName}-${index}`}
+                      >
+                        {col.valueGetter !== undefined ? col.valueGetter(row[col.field]) : row[col.field]}
+                      </TableCell>
 
-                      ))}
-                    </TableRow>
-                  );
-                })}
+                    ))}
+                  </TableRow>
+                ))}
               {emptyRows > 0 && (
                 <TableRow
                   style={{

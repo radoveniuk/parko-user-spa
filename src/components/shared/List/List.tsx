@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
-import MaterialList from '@mui/material/List';
+import MaterialList, { ListProps } from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import { ListItemButton } from '@mui/material';
 
-type ListProps = {
+type Props = ListProps & {
   data: any[];
   fields: {
     primary: string;
     secondary: string;
     text?: string;
   };
-  onSelect?(id: string): void
+  onSelect?(value: any): void
 }
 
-const List = ({ data, fields, onSelect }: ListProps) => {
+const List = ({ data, fields, onSelect, ...rest }: Props) => {
   const [selected, setSelected] = useState(null);
   return (
-    <MaterialList sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <MaterialList sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} {...rest}>
       {data.map((item) => (
         <ListItem key={item.id} alignItems="flex-start">
-          <ListItemButton onClick={() => { setSelected(item.id); onSelect?.(item.id); }} selected={selected === item.id}>
+          <ListItemButton onClick={() => { setSelected(item.id); onSelect?.(item); }} selected={selected === item.id}>
             <ListItemText
               primary={item[fields.primary]}
               secondary={

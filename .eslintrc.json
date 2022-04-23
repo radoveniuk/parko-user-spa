@@ -54,6 +54,7 @@
         "import/no-named-default": 0,
         "no-console": 0,
         "no-param-reassign": ["error", { "props": false }],
-        "jsx-quotes": ["error", "prefer-double"]
+        "jsx-quotes": ["error", "prefer-double"],
+        "arrow-body-style": ["error", "as-needed"]
     }
 }
