@@ -1,5 +1,5 @@
 export interface INotification {
-  _id?: string;
+  id: string;
   from: 'admin' | 'system' | string;
   to: string;
   title: string;
