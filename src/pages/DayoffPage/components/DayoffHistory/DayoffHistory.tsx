@@ -24,12 +24,10 @@ const columns: Column[] = [
 
 const rows: IDayOff[] = [];
 
-const DayoffHistory = () => {
-  return (
-    <HistoryWrapper>
-      <Table columns={columns} rows={rows} />
-    </HistoryWrapper>
-  );
-};
+const DayoffHistory = () => (
+  <HistoryWrapper>
+    <Table columns={columns} rows={rows} />
+  </HistoryWrapper>
+);
 
 export default DayoffHistory;

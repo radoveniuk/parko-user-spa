@@ -19,3 +19,8 @@ export interface IUser {
   familyStatus?: string;
   study?: string;
 }
+
+export type LoginDto = {
+  email: string;
+  password: string;
+}

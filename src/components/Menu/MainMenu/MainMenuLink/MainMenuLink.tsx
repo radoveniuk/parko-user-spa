@@ -7,14 +7,12 @@ type Props = {
   to: To;
 }
 
-const MainMenuLink = ({ children, to }: Props) => {
-  return (
-    <Link to={to}>
-      <StyledMenuButton>
-        {children}
-      </StyledMenuButton>
-    </Link>
-  );
-};
+const MainMenuLink = ({ children, to }: Props) => (
+  <Link to={to}>
+    <StyledMenuButton>
+      {children}
+    </StyledMenuButton>
+  </Link>
+);
 
 export default MainMenuLink;

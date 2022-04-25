@@ -94,12 +94,10 @@ const rows: IPrepayment[] = [
   },
 ];
 
-const PrepaymentsHistoryTable = () => {
-  return (
-    <HistoryWrapper>
-      <Table columns={columns} rows={rows} />
-    </HistoryWrapper>
-  );
-};
+const PrepaymentsHistoryTable = () => (
+  <HistoryWrapper>
+    <Table columns={columns} rows={rows} />
+  </HistoryWrapper>
+);
 
 export default PrepaymentsHistoryTable;

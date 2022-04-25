@@ -5,17 +5,23 @@ import { useTranslation } from 'react-i18next';
 
 import { LoginFormWrapper } from './styles';
 import { Link } from 'react-router-dom';
+import { useLogin } from 'api/mutations/userMutation';
 
 type FormFields = {
-  login: string;
+  email: string;
   password: string;
 }
 
 const LoginForm = () => {
   const { t } = useTranslation();
   const { handleSubmit, register, formState: { errors } } = useForm<FormFields>();
+  const loginMutation = useLogin();
 
-  const onSubmitLogin: SubmitHandler<FormFields> = (data) => console.log(data);
+  const onSubmitLogin: SubmitHandler<FormFields> = async (data) => {
+    const items = await loginMutation.mutateAsync(data);
+    console.log(items);
+  };
+
   return (
     <LoginFormWrapper>
       <div className="header">
@@ -25,8 +31,8 @@ const LoginForm = () => {
         </Link>
       </div>
       <div className="fields">
-        <span>{t('user.username')}</span>
-        <input type="text" {...register('login', { required: true })} />
+        <span>{t('user.email')}</span>
+        <input type="text" {...register('email', { required: true })} />
         <span>{t('user.password')}</span>
         <input type="text" {...register('password', { required: { message: t('user.wrongPassword'), value: true } })} />
         <button

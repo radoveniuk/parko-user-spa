@@ -9,16 +9,14 @@ type Props = {
   children?: React.ReactNode;
 }
 
-const PageHeader = ({ children }: Props) => {
-  return (
-    <HeaderWrapper>
-      {children}
-      <Link to="/">
-        <HeaderLogo src={logoImage} alt="Parko user logo"/>
-        <HeaderText>Parko&nbsp;User</HeaderText>
-      </Link>
-    </HeaderWrapper>
-  );
-};
+const PageHeader = ({ children }: Props) => (
+  <HeaderWrapper>
+    {children}
+    <Link to="/">
+      <HeaderLogo src={logoImage} alt="Parko user logo"/>
+      <HeaderText>Parko&nbsp;User</HeaderText>
+    </Link>
+  </HeaderWrapper>
+);
 
 export default PageHeader;
