@@ -1,5 +1,5 @@
 export interface IPrepayment {
-  id: string;
+  _id: string;
   userId: string;
   sum: string | number;
   isApproved: boolean | null;

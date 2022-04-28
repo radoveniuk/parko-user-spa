@@ -5,8 +5,11 @@ import _ from 'lodash-es';
 
 import Input from 'components/shared/Input';
 import Button from 'components/shared/Button';
+import { useAuthData } from 'contexts/AuthContext';
+import { useCreatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 
 import { StyledForm } from './styles';
+import { useSnackbar } from 'notistack';
 
 type Inputs = {
   sum: string,
@@ -15,13 +18,26 @@ type Inputs = {
 
 const PrepaymentForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+  const { id } = useAuthData();
   const { t } = useTranslation();
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+  const { enqueueSnackbar } = useSnackbar();
+  const createPrepayment = useCreatePrepaymentMutation();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const prepayment = {
+      userId: id,
+      userComment: data.comment,
+      sum: data.sum,
+      isApproved: null,
+    };
+
+    createPrepayment.mutate(prepayment);
+    enqueueSnackbar('prepayment created', { variant: 'success' });
+  };
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <div className="fields-list">
-
         <Input
           label={t('prepaymentPage.form.sum')}
           type="number"

@@ -8,6 +8,6 @@ export type Column = {
 }
 
 export type Row = {
-  id: string;
+  _id: string;
   [key: string | number]: any;
 }

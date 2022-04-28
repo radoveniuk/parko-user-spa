@@ -1,9 +1,9 @@
 import api from 'api/common';
-import { LoginDto, RegisterUserDto } from 'interfaces/users.interface';
+import { IUser, LoginDto, RegisterUserDto } from 'interfaces/users.interface';
 import { useMutation } from 'react-query';
 
 export const useLoginMutation = () => {
-  const loginRequest = (data: LoginDto) => api.post('/login', data).then(res => res.data.data);
+  const loginRequest = (data: LoginDto): Promise<IUser> => api.post('/login', data).then(res => res.data.data);
   return useMutation(loginRequest);
 };
 

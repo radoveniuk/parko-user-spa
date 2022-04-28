@@ -14,7 +14,7 @@ import { Column, Row } from './types';
 type TableProps = {
   rowsPerPage?: number;
   columns: Column[]
-  rows: Row[];
+  rows?: Row[];
 }
 
 export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
@@ -26,7 +26,7 @@ export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - (rows?.length || 0)) : 0;
 
   return (
     <TableWrapper>
@@ -39,7 +39,7 @@ export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
           >
             <TableHead columns={columns} />
             <TableBody>
-              {rows
+              {!!rows && rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => (
                   <TableRow
@@ -50,6 +50,7 @@ export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
                     {columns.map((col) => (
                       <TableCell
                         key={`${col.headerName}-${index}`}
+                        align="center"
                       >
                         {col.valueGetter !== undefined ? col.valueGetter(row[col.field]) : row[col.field]}
                       </TableCell>
@@ -63,7 +64,7 @@ export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
                     height: 50 * emptyRows,
                   }}
                 >
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={6} align="center" />
                 </TableRow>
               )}
             </TableBody>
@@ -71,7 +72,7 @@ export default function Table ({ rowsPerPage = 5, rows, columns }: TableProps) {
         </TableContainer>
         <TablePagination
           component="div"
-          count={rows.length}
+          count={rows?.length || 0}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

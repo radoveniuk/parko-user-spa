@@ -2,10 +2,10 @@ import React from 'react';
 import _ from 'lodash-es';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-
-import { LoginFormWrapper } from './styles';
-import { useLogin } from 'contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+
+import { useLogin } from 'contexts/AuthContext';
+import { LoginFormWrapper } from './styles';
 
 type FormFields = {
   email: string;

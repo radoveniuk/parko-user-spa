@@ -1,5 +1,5 @@
 export interface IDayOff {
-  id: string;
+  _id: string;
   userId: string;
   dateStart: Date;
   dateEnd: Date;

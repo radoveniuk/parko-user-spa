@@ -8,6 +8,7 @@ import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { themeConfig } from 'theme';
 import AuthProvider from 'contexts/AuthContext';
 import Router from './router';
+import { SnackbarProvider } from 'notistack';
 
 const theme = createTheme(themeConfig);
 const queryClient = new QueryClient();
@@ -19,7 +20,9 @@ function App () {
       <AuthProvider>
         <LocalizationProvider locale={i18n.language} dateAdapter={AdapterLuxon}>
           <ThemeProvider theme={theme}>
-            <Router />
+            <SnackbarProvider maxSnack={3}>
+              <Router />
+            </SnackbarProvider>
           </ThemeProvider>
         </LocalizationProvider>
       </AuthProvider>
