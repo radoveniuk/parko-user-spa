@@ -24,3 +24,11 @@ export type LoginDto = {
   email: string;
   password: string;
 }
+
+export type RegisterUserDto = {
+  name: string;
+  surname: string;
+  phone: string;
+  email: string;
+  password: string;
+}

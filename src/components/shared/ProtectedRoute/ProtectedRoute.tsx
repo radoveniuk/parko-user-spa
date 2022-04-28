@@ -7,7 +7,7 @@ type Props = {
 }
 
 const ProtectedRoute = ({ children }: Props) => {
-  const { isAuth } = useAuth();
+  const isAuth = useAuth();
   return isAuth ? <>{children}</> : <Navigate to="/login" />;
 };
 

@@ -5,5 +5,5 @@ export const LoginPageWrapper = styled.div`
   background-image: url(${backgroundImage});
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  min-height: 100vh;
 `;
