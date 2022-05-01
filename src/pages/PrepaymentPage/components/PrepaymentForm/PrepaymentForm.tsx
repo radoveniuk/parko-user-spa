@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import _ from 'lodash-es';
+import { useSnackbar } from 'notistack';
 
 import Input from 'components/shared/Input';
 import Button from 'components/shared/Button';
@@ -9,7 +10,6 @@ import { useAuthData } from 'contexts/AuthContext';
 import { useCreatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 
 import { StyledForm } from './styles';
-import { useSnackbar } from 'notistack';
 
 type Inputs = {
   sum: string,

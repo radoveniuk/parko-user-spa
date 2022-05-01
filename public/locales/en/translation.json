@@ -61,5 +61,14 @@
   },
   "profilePage": {
     "title": "Profile"
+  },
+  "user": {
+    "login": "Log in",
+    "register": "Register",
+    "password": "Password",
+    "email": "Email",
+    "name": "Name",
+    "surname": "Surname",
+    "phone": "Phone"
   }
 }

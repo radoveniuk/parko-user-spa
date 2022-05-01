@@ -61,5 +61,14 @@
   },
   "profilePage": {
     "title": "Профіль"
+  },
+  "user": {
+    "login": "Увійти",
+    "register": "Реєстрація",
+    "password": "Пароль",
+    "email": "Email",
+    "name": "Ім'я",
+    "surname": "Прізвище",
+    "phone": "Телефон"
   }
 }
