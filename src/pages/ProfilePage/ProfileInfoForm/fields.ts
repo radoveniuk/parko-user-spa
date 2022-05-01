@@ -1,8 +1,14 @@
 import { IUser } from 'interfaces/users.interface';
+import { UseFormWatch } from 'react-hook-form';
+
+export type UserFormFields = Partial<IUser> & {
+  passScancopy: File;
+}
 
 export type UserField = {
   type: 'string' | 'number' | 'boolean' | 'date' | 'file' | 'select';
   required?: boolean;
+  visible?: (watch: UseFormWatch<UserFormFields>) => boolean
 }
 
 export type UserFieldsList = {
@@ -45,14 +51,17 @@ export const PROFILE_DOCS_FIELDS: UserFieldsList = {
   internationalPassNumber: {
     type: 'string',
     required: true,
+    visible: (watch) => !!watch('hasInternationalPass'),
   },
   internationalPassExpire: {
     type: 'date',
     required: true,
+    visible: (watch) => !!watch('hasInternationalPass'),
   },
   internationalPassAuthority: {
     type: 'string',
     required: true,
+    visible: (watch) => !!watch('hasInternationalPass'),
   },
   hasIdCard: {
     type: 'boolean',
@@ -60,5 +69,6 @@ export const PROFILE_DOCS_FIELDS: UserFieldsList = {
   passNumber: {
     type: 'string',
     required: true,
+    visible: (watch) => !watch('hasInternationalPass'),
   },
 };

@@ -14,12 +14,13 @@ type contextType = {
 const AuthContext = createContext<contextType | undefined>(undefined);
 AuthContext.displayName = 'AuthContext';
 
-const getCookieValue = (name: string) => (
-  document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
-);
+// const getCookieValue = (name: string) => (
+//   document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
+// );
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuth, setIsAuth] = useState(!!getCookieValue('Authorization'));
+  // const [isAuth, setIsAuth] = useState(!!getCookieValue('Authorization'));
+  const [isAuth, setIsAuth] = useState(true);
   const [userId, setUserId] = useLocalStorageState('userId');
   const loginMutation = useLoginMutation();
 
