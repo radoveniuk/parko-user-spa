@@ -72,3 +72,31 @@ export const PROFILE_DOCS_FIELDS: UserFieldsList = {
     visible: (watch) => !watch('hasInternationalPass'),
   },
 };
+
+export const SLOVAK_DOCS_FIELDS: UserFieldsList = {
+  hasPermit: {
+    type: 'boolean',
+  },
+  permitType: {
+    type: 'select',
+    visible: (watch) => !!watch('hasPermit'),
+  },
+  permitExpire: {
+    type: 'date',
+    visible: (watch) => !!watch('hasPermit'),
+  },
+  rodneCislo: {
+    type: 'string',
+    visible: (watch) => !!watch('hasPermit'),
+  },
+  hasPrevPermit: {
+    type: 'boolean',
+  },
+  IBAN: {
+    type: 'string',
+    required: true,
+  },
+  ICO: {
+    type: 'string',
+  },
+};

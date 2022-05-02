@@ -7,26 +7,34 @@ import Button from 'components/shared/Button';
 import Input from 'components/shared/Input';
 import { IUser } from 'interfaces/users.interface';
 
-import { PROFILE_BASE_FIELDS, PROFILE_DOCS_FIELDS, UserField, UserFormFields } from './fields';
+import { PROFILE_BASE_FIELDS, PROFILE_DOCS_FIELDS, SLOVAK_DOCS_FIELDS, UserField, UserFormFields } from './fields';
 
 import { ProfileInfoFormWrapper } from './styles';
 import Checkbox from 'components/shared/Checkbox';
 import DatePicker from 'components/shared/DatePicker';
+import { useAuthData } from 'contexts/AuthContext';
+import { useGetUser } from 'api/query/userQuery';
 
 const ProfileInfoForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, control } = useForm<UserFormFields>();
   const { t } = useTranslation();
+  const { id } = useAuthData();
+
+  const { data: userData } = useGetUser(id);
+
+  console.log(userData);
 
   const onSubmit: SubmitHandler<UserFormFields> = (data) => {
     console.log(data);
   };
 
   const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) =>
-    (_.isUndefined(fieldData?.visible) || fieldData?.visible?.(watch)) && (
+    !_.isUndefined(userData) && (_.isUndefined(fieldData?.visible) || fieldData?.visible?.(watch)) && (
       <div className="field-wrap">
         {fieldData?.type === 'string' && (
           <Input
             label={t(`user.${fieldName}`)}
+            defaultValue={userData[fieldName]}
             error={!!errors[fieldName]}
             {...register(fieldName, {
               required: fieldData.required,
@@ -35,6 +43,7 @@ const ProfileInfoForm = () => {
         )}
         {fieldData?.type === 'boolean' && (
           <Checkbox
+            checked={!!userData[fieldName]}
             title={t(`user.${fieldName}`)}
             {...register(fieldName)}
           />
@@ -43,6 +52,7 @@ const ProfileInfoForm = () => {
           <Controller
             control={control}
             name={fieldName}
+            defaultValue={userData[fieldName]}
             render={({ field }) => (
               <DatePicker
                 value={field.value}
@@ -80,6 +90,15 @@ const ProfileInfoForm = () => {
           {(Object.keys(PROFILE_DOCS_FIELDS) as (keyof typeof PROFILE_DOCS_FIELDS)[]).map((key) => (
             <div key={key}>
               {generateField(key, PROFILE_DOCS_FIELDS[key])}
+            </div>
+          ))}
+        </div>
+      </Accordion>
+      <Accordion title={t('user.slovakDocs')} id="slovakDocs" className="accordion">
+        <div className="accordion-content">
+          {(Object.keys(SLOVAK_DOCS_FIELDS) as (keyof typeof SLOVAK_DOCS_FIELDS)[]).map((key) => (
+            <div key={key}>
+              {generateField(key, SLOVAK_DOCS_FIELDS[key])}
             </div>
           ))}
         </div>
