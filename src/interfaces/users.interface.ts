@@ -27,7 +27,7 @@ export interface IUser {
   country: string;
   adress: string;
   city: string;
-  zipIndex: string;
+  zip: string;
   // biometry
   tshortSize: string;
   pantsSize: string;
@@ -45,7 +45,7 @@ export interface IUser {
   motherName: string;
   motherSurname: string;
   motherPrevSurname: string;
-  motherBirthdate: boolean;
+  motherBirthdate: string;
   fatherName: string;
   fatherSurname: string;
   fatherBirthdate: string;

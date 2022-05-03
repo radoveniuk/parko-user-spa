@@ -100,3 +100,82 @@ export const SLOVAK_DOCS_FIELDS: UserFieldsList = {
     type: 'string',
   },
 };
+
+export const ADRESS_FIELDS: UserFieldsList = {
+  birthPlace: {
+    type: 'string',
+    required: true,
+  },
+  country: {
+    type: 'string',
+    required: true,
+  },
+  adress: {
+    type: 'string',
+    required: true,
+  },
+  city: {
+    type: 'string',
+    required: true,
+  },
+  zip: {
+    type: 'boolean',
+    required: true,
+  },
+};
+
+export const BIOMETRY_FIELDS: UserFieldsList = {
+  tshortSize: {
+    type: 'select',
+  },
+  pantsSize: {
+    type: 'select',
+  },
+  shoesSize: {
+    type: 'string',
+  },
+};
+
+export const EXPIRIENCE_FIELDS: UserFieldsList = {
+  study: {
+    type: 'string',
+  },
+  speciality: {
+    type: 'string',
+  },
+};
+export const FAMILY_FIELDS: UserFieldsList = {
+  familyState: {
+    type: 'select',
+  },
+  prevSurname: {
+    type: 'string',
+  },
+  hasChildren: {
+    type: 'boolean',
+  },
+  hasSiblings: {
+    type: 'boolean',
+  },
+  motherName: {
+    type: 'string',
+  },
+  motherSurname: {
+    type: 'string',
+  },
+  motherPrevSurname: {
+    type: 'string',
+  },
+  motherBirthdate: {
+    type: 'date',
+  },
+  fatherName: {
+    type: 'string',
+  },
+  fatherSurname: {
+    type: 'string',
+  },
+  fatherBirthdate: {
+    type: 'date',
+  },
+};

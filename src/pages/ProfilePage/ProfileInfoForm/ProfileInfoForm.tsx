@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash-es';
+import _, { isEmpty } from 'lodash-es';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import Accordion from 'components/shared/Accordion';
@@ -7,7 +7,7 @@ import Button from 'components/shared/Button';
 import Input from 'components/shared/Input';
 import { IUser } from 'interfaces/users.interface';
 
-import { PROFILE_BASE_FIELDS, PROFILE_DOCS_FIELDS, SLOVAK_DOCS_FIELDS, UserField, UserFormFields } from './fields';
+import { ADRESS_FIELDS, BIOMETRY_FIELDS, EXPIRIENCE_FIELDS, FAMILY_FIELDS, PROFILE_BASE_FIELDS, PROFILE_DOCS_FIELDS, SLOVAK_DOCS_FIELDS, UserField, UserFormFields } from './fields';
 
 import { ProfileInfoFormWrapper } from './styles';
 import Checkbox from 'components/shared/Checkbox';
@@ -103,7 +103,43 @@ const ProfileInfoForm = () => {
           ))}
         </div>
       </Accordion>
-      <Button onClick={handleSubmit(onSubmit)}>Update info</Button>
+      <Accordion title={t('user.adressFields')} id="adressFields" className="accordion">
+        <div className="accordion-content">
+          {(Object.keys(ADRESS_FIELDS) as (keyof typeof ADRESS_FIELDS)[]).map((key) => (
+            <div key={key}>
+              {generateField(key, ADRESS_FIELDS[key])}
+            </div>
+          ))}
+        </div>
+      </Accordion>
+      <Accordion title={t('user.biometry')} id="biometry" className="accordion">
+        <div className="accordion-content">
+          {(Object.keys(BIOMETRY_FIELDS) as (keyof typeof BIOMETRY_FIELDS)[]).map((key) => (
+            <div key={key}>
+              {generateField(key, BIOMETRY_FIELDS[key])}
+            </div>
+          ))}
+        </div>
+      </Accordion>
+      <Accordion title={t('user.expirience')} id="expirience" className="accordion">
+        <div className="accordion-content">
+          {(Object.keys(EXPIRIENCE_FIELDS) as (keyof typeof EXPIRIENCE_FIELDS)[]).map((key) => (
+            <div key={key}>
+              {generateField(key, EXPIRIENCE_FIELDS[key])}
+            </div>
+          ))}
+        </div>
+      </Accordion>
+      <Accordion title={t('user.family')} id="family" className="accordion">
+        <div className="accordion-content">
+          {(Object.keys(FAMILY_FIELDS) as (keyof typeof FAMILY_FIELDS)[]).map((key) => (
+            <div key={key}>
+              {generateField(key, FAMILY_FIELDS[key])}
+            </div>
+          ))}
+        </div>
+      </Accordion>
+      <Button onClick={handleSubmit(onSubmit)} disabled={!isEmpty(errors)}>Update info</Button>
     </ProfileInfoFormWrapper>
   );
 };
