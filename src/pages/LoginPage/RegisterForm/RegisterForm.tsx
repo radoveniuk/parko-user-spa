@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 
 import { RegisterFormWrapper } from './styles';
 import { RegisterUserDto } from 'interfaces/users.interface';
-import { useRegister } from 'api/mutations/userMutation';
+import { useRegisterMutation } from 'api/mutations/userMutation';
 
 const RegisterForm = () => {
   const { t } = useTranslation();
   const { handleSubmit, register, formState: { errors } } = useForm<RegisterUserDto>();
-  const registerMutation = useRegister();
+  const registerMutation = useRegisterMutation();
 
   const onSubmitLogin: SubmitHandler<RegisterUserDto> = async (data) => {
     await registerMutation.mutateAsync(data);

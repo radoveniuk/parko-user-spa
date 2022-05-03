@@ -1,5 +1,6 @@
-import { IUser } from 'interfaces/users.interface';
 import { UseFormWatch } from 'react-hook-form';
+import { PERMIT_TYPES, SIZES } from 'constants/selectsOptions';
+import { IUser } from 'interfaces/users.interface';
 
 export type UserFormFields = Partial<IUser> & {
   passScancopy: File;
@@ -8,7 +9,8 @@ export type UserFormFields = Partial<IUser> & {
 export type UserField = {
   type: 'string' | 'number' | 'boolean' | 'date' | 'file' | 'select';
   required?: boolean;
-  visible?: (watch: UseFormWatch<UserFormFields>) => boolean
+  visible?: (watch: UseFormWatch<IUser>) => boolean;
+  getOptions?:() => string[]
 }
 
 export type UserFieldsList = {
@@ -16,7 +18,9 @@ export type UserFieldsList = {
   [key in keyof Partial<IUser>]: UserField;
 };
 
-export const PROFILE_BASE_FIELDS: UserFieldsList = {
+export type FieldSection = 'baseFields' | 'docsFields' | 'adressFields' | 'biometryFields' | 'expirienceFields' | 'familyFields' | 'slovakDocsFields';
+
+const baseFields: UserFieldsList = {
   email: {
     type: 'string',
     required: true,
@@ -31,7 +35,6 @@ export const PROFILE_BASE_FIELDS: UserFieldsList = {
   },
   password: {
     type: 'string',
-    required: true,
   },
   phone: {
     type: 'string',
@@ -43,7 +46,7 @@ export const PROFILE_BASE_FIELDS: UserFieldsList = {
   },
 };
 
-export const PROFILE_DOCS_FIELDS: UserFieldsList = {
+const docsFields: UserFieldsList = {
   hasInternationalPass: {
     type: 'boolean',
     required: true,
@@ -73,13 +76,14 @@ export const PROFILE_DOCS_FIELDS: UserFieldsList = {
   },
 };
 
-export const SLOVAK_DOCS_FIELDS: UserFieldsList = {
+export const slovakDocsFields: UserFieldsList = {
   hasPermit: {
     type: 'boolean',
   },
   permitType: {
     type: 'select',
     visible: (watch) => !!watch('hasPermit'),
+    getOptions: () => PERMIT_TYPES,
   },
   permitExpire: {
     type: 'date',
@@ -101,7 +105,7 @@ export const SLOVAK_DOCS_FIELDS: UserFieldsList = {
   },
 };
 
-export const ADRESS_FIELDS: UserFieldsList = {
+export const adressFields: UserFieldsList = {
   birthPlace: {
     type: 'string',
     required: true,
@@ -119,24 +123,26 @@ export const ADRESS_FIELDS: UserFieldsList = {
     required: true,
   },
   zip: {
-    type: 'boolean',
+    type: 'string',
     required: true,
   },
 };
 
-export const BIOMETRY_FIELDS: UserFieldsList = {
+export const biometryFields: UserFieldsList = {
   tshortSize: {
     type: 'select',
+    getOptions: () => SIZES,
   },
   pantsSize: {
     type: 'select',
+    getOptions: () => SIZES,
   },
   shoesSize: {
     type: 'string',
   },
 };
 
-export const EXPIRIENCE_FIELDS: UserFieldsList = {
+export const expirienceFields: UserFieldsList = {
   study: {
     type: 'string',
   },
@@ -144,7 +150,8 @@ export const EXPIRIENCE_FIELDS: UserFieldsList = {
     type: 'string',
   },
 };
-export const FAMILY_FIELDS: UserFieldsList = {
+
+export const familyFields: UserFieldsList = {
   familyState: {
     type: 'select',
   },
@@ -178,4 +185,15 @@ export const FAMILY_FIELDS: UserFieldsList = {
   fatherBirthdate: {
     type: 'date',
   },
+};
+
+// eslint-disable-next-line no-unused-vars
+export const FIELDS: {[key in FieldSection]: UserFieldsList} = {
+  baseFields,
+  docsFields,
+  slovakDocsFields,
+  adressFields,
+  biometryFields,
+  expirienceFields,
+  familyFields,
 };

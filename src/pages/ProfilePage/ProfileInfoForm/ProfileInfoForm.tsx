@@ -7,25 +7,30 @@ import Button from 'components/shared/Button';
 import Input from 'components/shared/Input';
 import { IUser } from 'interfaces/users.interface';
 
-import { ADRESS_FIELDS, BIOMETRY_FIELDS, EXPIRIENCE_FIELDS, FAMILY_FIELDS, PROFILE_BASE_FIELDS, PROFILE_DOCS_FIELDS, SLOVAK_DOCS_FIELDS, UserField, UserFormFields } from './fields';
+import { FIELDS, FieldSection, UserField } from './fields';
 
 import { ProfileInfoFormWrapper } from './styles';
 import Checkbox from 'components/shared/Checkbox';
 import DatePicker from 'components/shared/DatePicker';
 import { useAuthData } from 'contexts/AuthContext';
 import { useGetUser } from 'api/query/userQuery';
+import { useUpdateUserMutation } from 'api/mutations/userMutation';
+import Select from 'components/shared/Select';
+import { useSnackbar } from 'notistack';
 
 const ProfileInfoForm = () => {
-  const { register, handleSubmit, formState: { errors }, watch, control } = useForm<UserFormFields>();
+  const { register, handleSubmit, formState: { errors }, watch, control } = useForm<IUser>();
   const { t } = useTranslation();
   const { id } = useAuthData();
-
   const { data: userData } = useGetUser(id);
+  const updateUserMutation = useUpdateUserMutation();
+  const { enqueueSnackbar } = useSnackbar();
 
-  console.log(userData);
-
-  const onSubmit: SubmitHandler<UserFormFields> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IUser> = (data) => {
+    updateUserMutation.mutateAsync({ ...userData, ...data })
+      .then(() => {
+        enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
+      });
   };
 
   const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) =>
@@ -43,7 +48,7 @@ const ProfileInfoForm = () => {
         )}
         {fieldData?.type === 'boolean' && (
           <Checkbox
-            checked={!!userData[fieldName]}
+            defaultChecked={!!userData[fieldName]}
             title={t(`user.${fieldName}`)}
             {...register(fieldName)}
           />
@@ -63,8 +68,11 @@ const ProfileInfoForm = () => {
           />
         )}
         {fieldData?.type === 'select' && (
-          <Input
+          <Select
+            options={fieldData.getOptions?.() || []}
+            defaultValue={userData[fieldName]}
             label={t(`user.${fieldName}`)}
+            style={{ minWidth: 200 }}
             error={!!errors[fieldName]}
             {...register(fieldName, {
               required: fieldData.required,
@@ -76,69 +84,23 @@ const ProfileInfoForm = () => {
 
   return (
     <ProfileInfoFormWrapper>
-      <Accordion title={t('user.baseFields')} id="baseFields" className="accordion" defaultExpanded>
-        <div className="accordion-content">
-          {(Object.keys(PROFILE_BASE_FIELDS) as (keyof typeof PROFILE_BASE_FIELDS)[]).map((key) => (
-            <div key={key}>
-              {generateField(key, PROFILE_BASE_FIELDS[key])}
-            </div>
-          ))}
-        </div>
-      </Accordion>
-      <Accordion title={t('user.docsInfo')} id="docsInfo" className="accordion">
-        <div className="accordion-content">
-          {(Object.keys(PROFILE_DOCS_FIELDS) as (keyof typeof PROFILE_DOCS_FIELDS)[]).map((key) => (
-            <div key={key}>
-              {generateField(key, PROFILE_DOCS_FIELDS[key])}
-            </div>
-          ))}
-        </div>
-      </Accordion>
-      <Accordion title={t('user.slovakDocs')} id="slovakDocs" className="accordion">
-        <div className="accordion-content">
-          {(Object.keys(SLOVAK_DOCS_FIELDS) as (keyof typeof SLOVAK_DOCS_FIELDS)[]).map((key) => (
-            <div key={key}>
-              {generateField(key, SLOVAK_DOCS_FIELDS[key])}
-            </div>
-          ))}
-        </div>
-      </Accordion>
-      <Accordion title={t('user.adressFields')} id="adressFields" className="accordion">
-        <div className="accordion-content">
-          {(Object.keys(ADRESS_FIELDS) as (keyof typeof ADRESS_FIELDS)[]).map((key) => (
-            <div key={key}>
-              {generateField(key, ADRESS_FIELDS[key])}
-            </div>
-          ))}
-        </div>
-      </Accordion>
-      <Accordion title={t('user.biometry')} id="biometry" className="accordion">
-        <div className="accordion-content">
-          {(Object.keys(BIOMETRY_FIELDS) as (keyof typeof BIOMETRY_FIELDS)[]).map((key) => (
-            <div key={key}>
-              {generateField(key, BIOMETRY_FIELDS[key])}
-            </div>
-          ))}
-        </div>
-      </Accordion>
-      <Accordion title={t('user.expirience')} id="expirience" className="accordion">
-        <div className="accordion-content">
-          {(Object.keys(EXPIRIENCE_FIELDS) as (keyof typeof EXPIRIENCE_FIELDS)[]).map((key) => (
-            <div key={key}>
-              {generateField(key, EXPIRIENCE_FIELDS[key])}
-            </div>
-          ))}
-        </div>
-      </Accordion>
-      <Accordion title={t('user.family')} id="family" className="accordion">
-        <div className="accordion-content">
-          {(Object.keys(FAMILY_FIELDS) as (keyof typeof FAMILY_FIELDS)[]).map((key) => (
-            <div key={key}>
-              {generateField(key, FAMILY_FIELDS[key])}
-            </div>
-          ))}
-        </div>
-      </Accordion>
+      {(Object.keys(FIELDS) as FieldSection[]).map((fieldSectionKey, index) => (
+        <Accordion
+          key={fieldSectionKey}
+          title={t(`user.${fieldSectionKey}`)}
+          id={fieldSectionKey}
+          className="accordion"
+          defaultExpanded={index === 0}
+        >
+          <div className="accordion-content">
+            {(Object.keys(FIELDS[fieldSectionKey]) as (keyof IUser)[]).map((key) => (
+              <div key={key}>
+                {generateField(key, FIELDS[fieldSectionKey][key])}
+              </div>
+            ))}
+          </div>
+        </Accordion>
+      ))}
       <Button onClick={handleSubmit(onSubmit)} disabled={!isEmpty(errors)}>Update info</Button>
     </ProfileInfoFormWrapper>
   );

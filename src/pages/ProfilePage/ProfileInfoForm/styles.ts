@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ProfileInfoFormWrapper = styled.div`
+  text-align: center;
 
   .accordion {
     margin: 20px !important;
@@ -11,6 +12,10 @@ export const ProfileInfoFormWrapper = styled.div`
   
       .field-wrap {
         margin: 10px;
+
+        .MuiSelect-select {
+          text-align: left;
+        }
       }
     }
   }
