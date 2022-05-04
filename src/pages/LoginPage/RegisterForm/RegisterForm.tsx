@@ -2,18 +2,30 @@ import React from 'react';
 import _ from 'lodash-es';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 
-import { RegisterFormWrapper } from './styles';
 import { RegisterUserDto } from 'interfaces/users.interface';
 import { useRegisterMutation } from 'api/mutations/userMutation';
+
+import { RegisterFormWrapper } from './styles';
+import { useTabs } from '../Tabs/TabsContext';
 
 const RegisterForm = () => {
   const { t } = useTranslation();
   const { handleSubmit, register, formState: { errors } } = useForm<RegisterUserDto>();
   const registerMutation = useRegisterMutation();
+  const { enqueueSnackbar } = useSnackbar();
+  const [, setTab] = useTabs();
 
   const onSubmitLogin: SubmitHandler<RegisterUserDto> = async (data) => {
-    await registerMutation.mutateAsync(data);
+    registerMutation.mutateAsync(data)
+      .then(() => {
+        enqueueSnackbar(t('user.successfullRegister'), { variant: 'success' });
+        setTab('login');
+      })
+      .catch(() => {
+        enqueueSnackbar(t('user.failedRegister'), { variant: 'error' });
+      });
   };
 
   return (

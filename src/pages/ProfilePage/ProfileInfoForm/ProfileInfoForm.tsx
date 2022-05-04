@@ -27,7 +27,12 @@ const ProfileInfoForm = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const onSubmit: SubmitHandler<IUser> = (data) => {
-    updateUserMutation.mutateAsync({ ...userData, ...data })
+    const updatedUserData = { ...userData, ...data };
+    if (!updatedUserData.password) {
+      delete updatedUserData.password;
+    }
+
+    updateUserMutation.mutateAsync(updatedUserData)
       .then(() => {
         enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
       });
@@ -39,7 +44,7 @@ const ProfileInfoForm = () => {
         {fieldData?.type === 'string' && (
           <Input
             label={t(`user.${fieldName}`)}
-            defaultValue={userData[fieldName]}
+            defaultValue={userData[fieldName] || ''}
             error={!!errors[fieldName]}
             {...register(fieldName, {
               required: fieldData.required,
@@ -48,7 +53,7 @@ const ProfileInfoForm = () => {
         )}
         {fieldData?.type === 'boolean' && (
           <Checkbox
-            defaultChecked={!!userData[fieldName]}
+            defaultChecked={!!userData[fieldName] || false}
             title={t(`user.${fieldName}`)}
             {...register(fieldName)}
           />
@@ -57,7 +62,7 @@ const ProfileInfoForm = () => {
           <Controller
             control={control}
             name={fieldName}
-            defaultValue={userData[fieldName]}
+            defaultValue={userData[fieldName] || ''}
             render={({ field }) => (
               <DatePicker
                 value={field.value}
@@ -70,7 +75,7 @@ const ProfileInfoForm = () => {
         {fieldData?.type === 'select' && (
           <Select
             options={fieldData.getOptions?.() || []}
-            defaultValue={userData[fieldName]}
+            defaultValue={userData[fieldName] || ''}
             label={t(`user.${fieldName}`)}
             style={{ minWidth: 200 }}
             error={!!errors[fieldName]}
