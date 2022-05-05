@@ -52,17 +52,17 @@ const docsFields: UserFieldsList = {
   internationalPassNumber: {
     type: 'string',
     required: true,
-    visible: (watch) => !!watch('hasInternationalPass'),
+    visible: (watch) => watch('hasInternationalPass'),
   },
   internationalPassExpire: {
     type: 'date',
     required: true,
-    visible: (watch) => !!watch('hasInternationalPass'),
+    visible: (watch) => watch('hasInternationalPass') && !watch('hasPermit'),
   },
   internationalPassAuthority: {
     type: 'string',
     required: true,
-    visible: (watch) => !!watch('hasInternationalPass'),
+    visible: (watch) => watch('hasInternationalPass') && !watch('hasPermit'),
   },
   hasIdCard: {
     type: 'boolean',
@@ -80,15 +80,15 @@ export const slovakDocsFields: UserFieldsList = {
   },
   permitType: {
     type: 'select',
-    visible: (watch) => !!watch('hasPermit'),
+    visible: (watch) => watch('hasPermit'),
   },
   permitExpire: {
     type: 'date',
-    visible: (watch) => !!watch('hasPermit'),
+    visible: (watch) => watch('hasPermit'),
   },
   rodneCislo: {
     type: 'string',
-    visible: (watch) => !!watch('hasPermit'),
+    visible: (watch) => watch('hasPermit'),
   },
   hasPrevPermit: {
     type: 'boolean',
@@ -99,6 +99,8 @@ export const slovakDocsFields: UserFieldsList = {
   },
   ICO: {
     type: 'string',
+    required: true,
+    visible: (watch) => watch('permitType') === 'business',
   },
 };
 
@@ -139,46 +141,59 @@ export const biometryFields: UserFieldsList = {
 
 export const expirienceFields: UserFieldsList = {
   study: {
-    type: 'string',
+    type: 'select',
+    visible: (watch) => !watch('hasPermit'),
   },
   speciality: {
     type: 'string',
+    visible: (watch) => !watch('hasPermit'),
   },
 };
 
 export const familyFields: UserFieldsList = {
   familyState: {
     type: 'select',
+    visible: (watch) => !watch('hasPermit'),
   },
   prevSurname: {
     type: 'string',
+    visible: (watch) => !watch('hasPermit'),
   },
   hasChildren: {
     type: 'boolean',
+    visible: (watch) => !watch('hasPermit'),
   },
   hasSiblings: {
     type: 'boolean',
+    visible: (watch) => !watch('hasPermit'),
   },
   motherName: {
     type: 'string',
+    visible: (watch) => !watch('hasPermit'),
   },
   motherSurname: {
     type: 'string',
+    visible: (watch) => !watch('hasPermit'),
   },
   motherPrevSurname: {
     type: 'string',
+    visible: (watch) => !watch('hasPermit'),
   },
   motherBirthdate: {
     type: 'date',
+    visible: (watch) => !watch('hasPermit'),
   },
   fatherName: {
     type: 'string',
+    visible: (watch) => !watch('hasPermit'),
   },
   fatherSurname: {
     type: 'string',
+    visible: (watch) => !watch('hasPermit'),
   },
   fatherBirthdate: {
     type: 'date',
+    visible: (watch) => !watch('hasPermit'),
   },
 };
 

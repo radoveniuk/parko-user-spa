@@ -6,3 +6,15 @@ export const PERMIT_TYPES = [
   'work',
   'refugee',
 ];
+
+export const FAMILY_STATUSES = [
+  'married',
+  'single',
+];
+
+export const STUDY = [
+  'base',
+  'middleFull',
+  'middleSpecial',
+  'high',
+];

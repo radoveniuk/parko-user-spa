@@ -18,7 +18,8 @@ import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import Select from 'components/shared/Select';
 import { useSnackbar } from 'notistack';
 import { useGetCountries } from 'api/query/formFieldsQuery';
-import { PERMIT_TYPES, SIZES } from 'constants/selectsOptions';
+import { FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'constants/selectsOptions';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 
 const ProfileInfoForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, control } = useForm<IUser>();
@@ -28,6 +29,9 @@ const ProfileInfoForm = () => {
   const { data: countriesOptions } = useGetCountries();
   const updateUserMutation = useUpdateUserMutation();
   const { enqueueSnackbar } = useSnackbar();
+  const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES);
+  const studyOptions = useTranslatedSelect(STUDY);
+  const permitTypeOptions = useTranslatedSelect(PERMIT_TYPES);
 
   const onSubmit: SubmitHandler<IUser> = (data) => {
     const updatedUserData = { ...userData, ...data };
@@ -45,8 +49,10 @@ const ProfileInfoForm = () => {
     const selectOptions: any = {
       pantsSize: SIZES,
       tshortSize: SIZES,
-      permitType: PERMIT_TYPES,
+      permitType: permitTypeOptions,
       country: countriesOptions,
+      familyState: familyStateOptions,
+      study: studyOptions,
     };
 
     return !_.isUndefined(userData) && (_.isUndefined(fieldData?.visible) || fieldData?.visible?.(watch)) && (
