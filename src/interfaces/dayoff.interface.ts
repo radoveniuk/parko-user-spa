@@ -1,8 +1,8 @@
 export interface IDayOff {
   _id: string;
   userId: string;
-  dateStart: Date;
-  dateEnd: Date;
+  dateStart: string;
+  dateEnd: string;
   reason: string;
   description?: string;
   adminComment?: string;

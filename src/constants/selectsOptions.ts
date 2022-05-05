@@ -1,4 +1,4 @@
-export const SIZES = ['s', 'm', 'l', 'xl'];
+export const SIZES = ['XS', 'S', 'M', 'L', 'XL'];
 
 export const PERMIT_TYPES = [
   'business',

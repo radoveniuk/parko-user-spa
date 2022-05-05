@@ -1,5 +1,4 @@
 import { UseFormWatch } from 'react-hook-form';
-import { PERMIT_TYPES, SIZES } from 'constants/selectsOptions';
 import { IUser } from 'interfaces/users.interface';
 
 export type UserFormFields = Partial<IUser> & {
@@ -10,7 +9,6 @@ export type UserField = {
   type: 'string' | 'number' | 'boolean' | 'date' | 'file' | 'select';
   required?: boolean;
   visible?: (watch: UseFormWatch<IUser>) => boolean;
-  getOptions?:() => string[]
 }
 
 export type UserFieldsList = {
@@ -83,7 +81,6 @@ export const slovakDocsFields: UserFieldsList = {
   permitType: {
     type: 'select',
     visible: (watch) => !!watch('hasPermit'),
-    getOptions: () => PERMIT_TYPES,
   },
   permitExpire: {
     type: 'date',
@@ -111,7 +108,7 @@ export const adressFields: UserFieldsList = {
     required: true,
   },
   country: {
-    type: 'string',
+    type: 'select',
     required: true,
   },
   adress: {
@@ -131,14 +128,12 @@ export const adressFields: UserFieldsList = {
 export const biometryFields: UserFieldsList = {
   tshortSize: {
     type: 'select',
-    getOptions: () => SIZES,
   },
   pantsSize: {
     type: 'select',
-    getOptions: () => SIZES,
   },
   shoesSize: {
-    type: 'string',
+    type: 'number',
   },
 };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash-es';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -11,10 +10,14 @@ import Input from 'components/shared/Input';
 import Button from 'components/shared/Button';
 
 import { StyledForm } from './styles';
+import { useAuthData } from 'contexts/AuthContext';
+// import { IDayOff } from 'interfaces/dayoff.interface';
+import { useSnackbar } from 'notistack';
+import { useCreateDayoffMutation } from 'api/mutations/dayoffMutation';
 
 type Inputs = {
-  dateStart: DateTime,
-  dateEnd: DateTime,
+  dateStart: string,
+  dateEnd: string,
   reason: typeof REASONS[number],
   comment: string,
 };
@@ -30,8 +33,24 @@ const useGetDayoffReasons = () => {
 const DayoffRequestForm = () => {
   const { handleSubmit, watch, control, register, formState: { errors } } = useForm<Inputs>();
   const { t } = useTranslation();
+  const { id } = useAuthData();
   const reasonsList = useGetDayoffReasons();
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+  const { enqueueSnackbar } = useSnackbar();
+  const createDayoffMutation = useCreateDayoffMutation();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const dayoff = {
+      userId: id,
+      description: data.comment,
+      reason: data.reason,
+      dateStart: data.dateStart,
+      dateEnd: data.dateEnd,
+      isApproved: null,
+    };
+
+    createDayoffMutation.mutate(dayoff);
+    enqueueSnackbar(t('dayoffPage.successCreate'), { variant: 'success' });
+  };
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
@@ -39,7 +58,8 @@ const DayoffRequestForm = () => {
         <Controller
           control={control}
           name="dateStart"
-          defaultValue={DateTime.now()}
+          defaultValue={''}
+          rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
               value={field.value}
@@ -51,7 +71,8 @@ const DayoffRequestForm = () => {
         <Controller
           control={control}
           name="dateEnd"
-          defaultValue={DateTime.now()}
+          defaultValue={''}
+          rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
               value={field.value}
@@ -60,13 +81,13 @@ const DayoffRequestForm = () => {
             />
           )}
         />
-        <Select label={t('dayoffPage.form.reason')} options={reasonsList} {...register('reason')}/>
+        <Select label={t('dayoffPage.form.reason')} options={reasonsList} {...register('reason', { required: true })}/>
         <Input
           multiline
           label={t('dayoffPage.form.comment')}
           error={!!errors.comment?.message}
           helperText={errors.comment?.message}
-          {...register('comment', { required: { message: 'Give a reason', value: watch('reason') === 'other' } })}
+          {...register('comment', { required: { message: t('dayoffPage.form.explainReason'), value: watch('reason') === 'other' } })}
         />
       </div>
       <Button

@@ -3,7 +3,9 @@ import Table, { Column } from 'components/shared/Table';
 import { DateTime } from 'luxon';
 
 import { HistoryWrapper } from './styles';
-import { IDayOff } from 'interfaces/dayoff.interface';
+import { useGetDaysoff } from 'api/query/dayoffQuery';
+import { useAuthData } from 'contexts/AuthContext';
+import { t } from 'i18next';
 
 const columns: Column[] = [
   {
@@ -14,7 +16,12 @@ const columns: Column[] = [
   {
     field: 'dateEnd',
     headerName: 'dayoffPage.historyTable.dateEnd',
-    valueGetter: (value: string) => `${value}€`,
+    valueGetter: (value: string) => DateTime.fromISO(value).toFormat('dd.MM.yyyy'),
+  },
+  {
+    field: 'reason',
+    headerName: 'dayoffPage.form.reason',
+    valueGetter: (value: string) => <>{t(`dayoffPage.form.reasons.${value}`)}</>,
   },
   {
     field: 'adminComment',
@@ -22,12 +29,14 @@ const columns: Column[] = [
   },
 ];
 
-const rows: IDayOff[] = [];
-
-const DayoffHistory = () => (
-  <HistoryWrapper>
-    <Table columns={columns} rows={rows} />
-  </HistoryWrapper>
-);
+const DayoffHistory = () => {
+  const { id } = useAuthData();
+  const { data } = useGetDaysoff({ userId: id });
+  return (
+    <HistoryWrapper>
+      <Table columns={columns} rows={data} />
+    </HistoryWrapper>
+  );
+};
 
 export default DayoffHistory;

@@ -17,12 +17,15 @@ import { useGetUser } from 'api/query/userQuery';
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import Select from 'components/shared/Select';
 import { useSnackbar } from 'notistack';
+import { useGetCountries } from 'api/query/formFieldsQuery';
+import { PERMIT_TYPES, SIZES } from 'constants/selectsOptions';
 
 const ProfileInfoForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, control } = useForm<IUser>();
   const { t } = useTranslation();
   const { id } = useAuthData();
   const { data: userData } = useGetUser(id);
+  const { data: countriesOptions } = useGetCountries();
   const updateUserMutation = useUpdateUserMutation();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -38,11 +41,19 @@ const ProfileInfoForm = () => {
       });
   };
 
-  const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) =>
-    !_.isUndefined(userData) && (_.isUndefined(fieldData?.visible) || fieldData?.visible?.(watch)) && (
+  const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => {
+    const selectOptions: any = {
+      pantsSize: SIZES,
+      tshortSize: SIZES,
+      permitType: PERMIT_TYPES,
+      country: countriesOptions,
+    };
+
+    return !_.isUndefined(userData) && (_.isUndefined(fieldData?.visible) || fieldData?.visible?.(watch)) && (
       <div className="field-wrap">
-        {fieldData?.type === 'string' && (
+        {(fieldData?.type === 'string' || fieldData?.type === 'number') && (
           <Input
+            type={fieldData.type}
             label={t(`user.${fieldName}`)}
             defaultValue={userData[fieldName] || ''}
             error={!!errors[fieldName]}
@@ -72,9 +83,9 @@ const ProfileInfoForm = () => {
             )}
           />
         )}
-        {fieldData?.type === 'select' && (
+        {(fieldData?.type === 'select' && selectOptions[fieldName]) && (
           <Select
-            options={fieldData.getOptions?.() || []}
+            options={selectOptions[fieldName] || []}
             defaultValue={userData[fieldName] || ''}
             label={t(`user.${fieldName}`)}
             style={{ minWidth: 200 }}
@@ -86,6 +97,7 @@ const ProfileInfoForm = () => {
         )}
       </div>
     );
+  };
 
   return (
     <ProfileInfoFormWrapper>
