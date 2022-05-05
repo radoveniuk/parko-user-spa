@@ -45,7 +45,9 @@
         "medicalCheck": "Медичне обстеження",
         "alcohol": "Алкогольне сп'яніння",
         "other": "Інше"
-      }
+      },
+      "explainReason": "Вкажіть причину",
+      "successCreate": "Інформацію про відгул надіслано"
     },
     "historyTable": {
       "dateStart": "Дата початку",
@@ -54,7 +56,8 @@
     }
   },
   "notificationsPage": {
-    "title": "Сповіщення"
+    "title": "Сповіщення",
+    "noData": "Сповіщень не знайдено"
   },
   "paychecksPage": {
     "title": "Розрахункові листи"

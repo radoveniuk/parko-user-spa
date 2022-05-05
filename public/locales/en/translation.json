@@ -45,7 +45,9 @@
         "medicalCheck": "Medical check",
         "alcohol": "Alcohol",
         "other": "Other"
-      }
+      },
+      "explainReason": "Input the reason",
+      "successCreate": "Day off has been sended"
     },
     "historyTable": {
       "dateStart": "Date start",
@@ -54,7 +56,8 @@
     }
   },
   "notificationsPage": {
-    "title": "Notifications"
+    "title": "Notifications",
+    "noData": "You don`t have any notifications"
   },
   "paychecksPage": {
     "title": "Paychecks"

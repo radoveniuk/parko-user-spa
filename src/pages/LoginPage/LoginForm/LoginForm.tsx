@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useLogin } from 'contexts/AuthContext';
 import { LoginFormWrapper } from './styles';
+import { useSnackbar } from 'notistack';
 
 type FormFields = {
   email: string;
@@ -17,12 +18,16 @@ const LoginForm = () => {
   const { handleSubmit, register, formState: { errors } } = useForm<FormFields>();
   const login = useLogin();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const onSubmitLogin: SubmitHandler<FormFields> = async (data) => {
-    const result = await login(data);
-    if (result) {
-      navigate('/');
-    }
+    login(data)
+      .then(() => {
+        navigate('/');
+      })
+      .catch(() => {
+        enqueueSnackbar(t('user.wrongCredentials'), { variant: 'error' });
+      });
   };
 
   return (

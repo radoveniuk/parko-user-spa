@@ -14,6 +14,7 @@ import { useAuthData } from 'contexts/AuthContext';
 // import { IDayOff } from 'interfaces/dayoff.interface';
 import { useSnackbar } from 'notistack';
 import { useCreateDayoffMutation } from 'api/mutations/dayoffMutation';
+import { DateTime } from 'luxon';
 
 type Inputs = {
   dateStart: string,
@@ -58,7 +59,7 @@ const DayoffRequestForm = () => {
         <Controller
           control={control}
           name="dateStart"
-          defaultValue={''}
+          defaultValue={DateTime.now().toISO()}
           rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
@@ -71,7 +72,7 @@ const DayoffRequestForm = () => {
         <Controller
           control={control}
           name="dateEnd"
-          defaultValue={''}
+          defaultValue={DateTime.now().plus({ days: 1 }).toISO()}
           rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
@@ -81,7 +82,7 @@ const DayoffRequestForm = () => {
             />
           )}
         />
-        <Select label={t('dayoffPage.form.reason')} options={reasonsList} {...register('reason', { required: true })}/>
+        <Select label={t('dayoffPage.form.reason')} options={reasonsList} error={!!errors.reason} {...register('reason', { required: true })}/>
         <Input
           multiline
           label={t('dayoffPage.form.comment')}

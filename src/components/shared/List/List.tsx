@@ -20,8 +20,8 @@ const List = ({ data, fields, onSelect, ...rest }: Props) => {
   return (
     <MaterialList sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} {...rest}>
       {data.map((item) => (
-        <ListItem key={item.id} alignItems="flex-start">
-          <ListItemButton onClick={() => { setSelected(item.id); onSelect?.(item); }} selected={selected === item.id}>
+        <ListItem key={item._id} alignItems="flex-start">
+          <ListItemButton onClick={() => { setSelected(item._id); onSelect?.(item); }} selected={selected === item._id}>
             <ListItemText
               primary={item[fields.primary]}
               secondary={
