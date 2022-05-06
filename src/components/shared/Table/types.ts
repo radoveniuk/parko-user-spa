@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export type Column = {
+export type Column= {
   field: string;
   headerName: string;
   type?: 'string' | 'number' | 'boolean';

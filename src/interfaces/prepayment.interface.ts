@@ -3,7 +3,7 @@ export interface IPrepayment {
   userId: string;
   sum: string | number;
   isApproved: boolean | null;
-  createdAt?: Date | string;
+  createdAt?: string;
   userComment?: string;
   adminComment?: string;
 }

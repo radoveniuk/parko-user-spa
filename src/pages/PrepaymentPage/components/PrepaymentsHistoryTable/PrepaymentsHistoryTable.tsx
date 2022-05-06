@@ -1,6 +1,5 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-
 import { themeConfig } from 'theme';
 import Table, { Column } from 'components/shared/Table';
 import { AcceptIcon, CloseIcon, QuestionIcon } from 'components/icons';
