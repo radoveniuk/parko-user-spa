@@ -64,13 +64,13 @@ const docsFields: UserFieldsList = {
     required: true,
     visible: (watch) => watch('hasInternationalPass') && !watch('hasPermit'),
   },
-  hasIdCard: {
-    type: 'boolean',
-  },
   passNumber: {
     type: 'string',
     required: true,
     visible: (watch) => !watch('hasInternationalPass'),
+  },
+  hasIdCard: {
+    type: 'boolean',
   },
 };
 

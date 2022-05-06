@@ -73,6 +73,7 @@
     "name": "Name",
     "surname": "Surname",
     "phone": "Phone",
+    "birthDate": "Birth date",
     "baseFields": "Base information",
     "docsFields": "Documents",
     "slovakDocsFields": "Slovakia documents",
@@ -102,7 +103,26 @@
     "pantsSize": "pants size",
     "shoesSize": "Shoes size",
     "study": "Study",
-    "speciality": "Speciality"
-
+    "speciality": "Speciality",
+    "familyState": "Marital status",
+    "prevSurname": "Previus surname",
+    "hasChildren": "Do you have children?",
+    "hasSiblings": "Do you have siblings?",
+    "motherName": "Mother`s name",
+    "motherSurname": "Mother`s surname",
+    "motherPrevSurname": "Mother`s previus surname",
+    "motherBirthdate": "Mother`s birthDate",
+    "fatherName": "Father`s name",
+    "fatherSurname": "Father`s surname",
+    "fatherBirthdate": "Father`s birthDate",
+    "wrongCredentials": "Wrong login or password",
+    "dataUpdated": "Data updated"
+  },
+  "selects": {
+    "business": "Business",
+    "study": "Study",
+    "work": "Work",
+    "married": "Married",
+    "single": "Sigle"
   }
 }
