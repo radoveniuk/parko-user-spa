@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import _, { isEmpty } from 'lodash-es';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -20,6 +21,15 @@ import { useSnackbar } from 'notistack';
 import { useGetCountries } from 'api/query/formFieldsQuery';
 import { FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import FileInput from 'components/shared/FileInput';
+import api, { uploadFiles } from 'api/common';
+import axios from 'axios';
+
+declare global {
+  interface FormData {
+    getHeaders(): object;
+  }
+}
 
 const ProfileInfoForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, control } = useForm<IUser>();
@@ -33,16 +43,32 @@ const ProfileInfoForm = () => {
   const studyOptions = useTranslatedSelect(STUDY);
   const permitTypeOptions = useTranslatedSelect(PERMIT_TYPES);
 
-  const onSubmit: SubmitHandler<IUser> = (data) => {
+  const onSubmit: SubmitHandler<IUser> = async (data) => {
     const updatedUserData = { ...userData, ...data };
     if (!updatedUserData.password) {
       delete updatedUserData.password;
     }
 
-    updateUserMutation.mutateAsync(updatedUserData)
-      .then(() => {
-        enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
-      });
+    const scans = (Object.keys(data) as (keyof IUser)[])
+      .filter((key) => key.toLowerCase().includes('scan'))
+      .reduce<{[key: string]: FileList}>((cur, key) => Object.assign(cur, { [key]: data[key] }), {});
+
+    const formData = new window.FormData();
+
+    Object.keys(scans).forEach((key) => {
+      const file = scans[key][0];
+      if (file) {
+        formData.append('files', file, key);
+      }
+    });
+
+    const uploadedFilesData = await uploadFiles(formData);
+    console.log(uploadedFilesData);
+
+    // updateUserMutation.mutateAsync(updatedUserData)
+    //   .then(() => {
+    //     enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
+    //   });
   };
 
   const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => {
@@ -100,6 +126,9 @@ const ProfileInfoForm = () => {
               required: fieldData.required,
             })}
           />
+        )}
+        {fieldData?.type === 'file' && (
+          <FileInput id={fieldName} label={t(`user.${fieldName}`)} {...register(fieldName, { required: fieldData.required })} />
         )}
       </div>
     );

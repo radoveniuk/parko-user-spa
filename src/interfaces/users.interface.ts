@@ -33,7 +33,12 @@ export interface IUser {
   pantsSize: string;
   shoesSize: string;
   // docscans
-  scancopies?: File[];
+  internationalPassScan: string;
+  passScan: string;
+  idCardFaceScan: string;
+  idCardBackScan: string;
+  permitFaceScan: string;
+  permitBackScan: string;
   // expirience
   study: string;
   speciality: string;

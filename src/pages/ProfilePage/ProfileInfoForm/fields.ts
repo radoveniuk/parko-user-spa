@@ -16,7 +16,8 @@ export type UserFieldsList = {
   [key in keyof Partial<IUser>]: UserField;
 };
 
-export type FieldSection = 'baseFields' | 'docsFields' | 'adressFields' | 'biometryFields' | 'expirienceFields' | 'familyFields' | 'slovakDocsFields';
+export type FieldSection = 'baseFields' |
+'docsFields' | 'adressFields' | 'biometryFields' | 'expirienceFields' | 'familyFields' | 'slovakDocsFields' | 'scancopies';
 
 const baseFields: UserFieldsList = {
   email: {
@@ -101,6 +102,33 @@ export const slovakDocsFields: UserFieldsList = {
     type: 'string',
     required: true,
     visible: (watch) => watch('permitType') === 'business',
+  },
+};
+
+export const scancopies: UserFieldsList = {
+  internationalPassScan: {
+    type: 'file',
+    visible: (watch) => watch('hasInternationalPass'),
+  },
+  passScan: {
+    type: 'file',
+    visible: (watch) => !watch('hasInternationalPass'),
+  },
+  idCardFaceScan: {
+    type: 'file',
+    visible: (watch) => watch('hasIdCard'),
+  },
+  idCardBackScan: {
+    type: 'file',
+    visible: (watch) => watch('hasIdCard'),
+  },
+  permitFaceScan: {
+    type: 'file',
+    visible: (watch) => watch('hasPermit'),
+  },
+  permitBackScan: {
+    type: 'file',
+    visible: (watch) => watch('hasPermit'),
   },
 };
 
@@ -202,6 +230,7 @@ export const FIELDS: {[key in FieldSection]: UserFieldsList} = {
   baseFields,
   docsFields,
   slovakDocsFields,
+  scancopies,
   adressFields,
   biometryFields,
   expirienceFields,

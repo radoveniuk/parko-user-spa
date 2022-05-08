@@ -2,7 +2,11 @@ import React from 'react';
 import { ButtonProps } from '@mui/material';
 import { StyledButton } from './styles';
 
-const Button = ({ children, variant = 'contained', ...rest }: ButtonProps) => (
+type Props = ButtonProps & {
+  component?: string;
+}
+
+const Button = ({ children, variant = 'contained', ...rest }: Props) => (
   <StyledButton variant={variant} {...rest}>
     {children}
   </StyledButton>
