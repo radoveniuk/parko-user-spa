@@ -1,16 +1,12 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
-import _, { isEmpty } from 'lodash-es';
+import _ from 'lodash-es';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+
 import Accordion from 'components/shared/Accordion';
 import Button from 'components/shared/Button';
 import Input from 'components/shared/Input';
 import { IUser } from 'interfaces/users.interface';
-
-import { FIELDS, FieldSection, UserField } from './fields';
-
-import { ProfileInfoFormWrapper } from './styles';
 import Checkbox from 'components/shared/Checkbox';
 import DatePicker from 'components/shared/DatePicker';
 import { useAuthData } from 'contexts/AuthContext';
@@ -22,17 +18,15 @@ import { useGetCountries } from 'api/query/formFieldsQuery';
 import { FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import FileInput from 'components/shared/FileInput';
-import api, { uploadFiles } from 'api/common';
-import axios from 'axios';
+import { uploadFiles } from 'api/common';
+import { AcceptIcon, UploadIcon } from 'components/icons';
 
-declare global {
-  interface FormData {
-    getHeaders(): object;
-  }
-}
+import { FIELDS, FieldSection, UserField } from './fields';
+
+import { ProfileInfoFormWrapper } from './styles';
 
 const ProfileInfoForm = () => {
-  const { register, handleSubmit, formState: { errors }, watch, control } = useForm<IUser>();
+  const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm<IUser>();
   const { t } = useTranslation();
   const { id } = useAuthData();
   const { data: userData } = useGetUser(id);
@@ -43,15 +37,11 @@ const ProfileInfoForm = () => {
   const studyOptions = useTranslatedSelect(STUDY);
   const permitTypeOptions = useTranslatedSelect(PERMIT_TYPES);
 
-  const onSubmit: SubmitHandler<IUser> = async (data) => {
-    const updatedUserData = { ...userData, ...data };
-    if (!updatedUserData.password) {
-      delete updatedUserData.password;
-    }
-
+  const uploadScans = async () => {
+    const data = watch();
     const scans = (Object.keys(data) as (keyof IUser)[])
       .filter((key) => key.toLowerCase().includes('scan'))
-      .reduce<{[key: string]: FileList}>((cur, key) => Object.assign(cur, { [key]: data[key] }), {});
+      .reduce<{[key: string]: FileList}>((cur, key) => Object.assign(cur, { [key]: data[key] }), {}); ;
 
     const formData = new window.FormData();
 
@@ -62,13 +52,33 @@ const ProfileInfoForm = () => {
       }
     });
 
-    const uploadedFilesData = await uploadFiles(formData);
-    console.log(uploadedFilesData);
+    if (formData.get('files')) {
+      const uploadedFilesData = await uploadFiles(formData);
+      uploadedFilesData.forEach((file) => {
+        const fieldName = file.originalname as 'internationalPassScan' | 'passScan' | 'idCardFaceScan' |
+        'idCardBackScan' | 'permitFaceScan' | 'permitBackScan';
+        void setValue(fieldName, file._id);
+      });
+    }
+  };
 
-    // updateUserMutation.mutateAsync(updatedUserData)
-    //   .then(() => {
-    //     enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
-    //   });
+  const onSubmit: SubmitHandler<IUser> = async (data) => {
+    const updatedUserData = { ...userData, ...data };
+    if (!updatedUserData.password) {
+      delete updatedUserData.password;
+    }
+
+    (Object.keys(data) as (keyof IUser)[])
+      .forEach((key) => {
+        if (key.toLowerCase().includes('scan') && typeof updatedUserData[key] !== 'string') {
+          delete updatedUserData[key];
+        }
+      });
+
+    updateUserMutation.mutateAsync(updatedUserData)
+      .then(() => {
+        enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
+      });
   };
 
   const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => {
@@ -128,7 +138,15 @@ const ProfileInfoForm = () => {
           />
         )}
         {fieldData?.type === 'file' && (
-          <FileInput id={fieldName} label={t(`user.${fieldName}`)} {...register(fieldName, { required: fieldData.required })} />
+          <FileInput
+            id={fieldName}
+            label={t(`user.${fieldName}`)}
+            {...register(fieldName, { required: fieldData.required })}
+          >
+            {userData[fieldName] ? <AcceptIcon /> : <UploadIcon />}
+            &nbsp;
+            {userData[fieldName] ? t('user.uploaded') : t('user.upload')}
+          </FileInput>
         )}
       </div>
     );
@@ -153,7 +171,16 @@ const ProfileInfoForm = () => {
           </div>
         </Accordion>
       ))}
-      <Button onClick={handleSubmit(onSubmit)} disabled={!isEmpty(errors)}>Update info</Button>
+      <Button
+        onClick={() => {
+          uploadScans().then(() => {
+            handleSubmit(onSubmit)();
+          });
+        }}
+        disabled={!_.isEmpty(errors)}
+      >
+        {t('user.updateData')}
+      </Button>
     </ProfileInfoFormWrapper>
   );
 };
