@@ -1,0 +1,146 @@
+{
+  "navbar": {
+    "home": "Главная",
+    "profile": "Профиль",
+    "notifications": "Оповещения",
+    "prepayments": "Авансы",
+    "daysoff": "Отгулы",
+    "paychecks": "Рассчеты"
+  },
+  "menu": {
+    "prepayment": "Заказать аванс",
+    "paychecks": "Рассчетные листы",
+    "dayoff": "Заказать отгул"
+  },
+  "footer": {
+    "contacts": "Контакты",
+    "contactsInfo": "В случае технических неполадок или возникновении вопросов, касательно работы системы — обращайтесь по контактам:"
+  },
+  "prepaymentPage": {
+    "title": "Заказ аванса",
+    "form": {
+      "sum": "Сумма",
+      "comment": "Комментарий",
+      "order": "Заказать",
+      "sumMinValidation": "Минимальная сумма - 50",
+      "sumMaxValidation": "Максимальная сумма - 200",
+      "successCreate": "Аванс заказано"
+    },
+    "historyTable": {
+      "date": "Дата запроса",
+      "sum": "Сумма",
+      "approved": "Подтверждено",
+      "comment": "Комментарий"
+    }
+  },
+  "dayoffPage": {
+    "title": "Информирование об отсутствии на работе",
+    "form": {
+      "dateStart": "Дата начала",
+      "dateEnd": "Дата завершения",
+      "reason": "Причина",
+      "comment": "Комментарий",
+      "reasons": {
+        "vacation": "Отпуск",
+        "illnes": "Болезнь",
+        "medicalCheck": "Медобследование",
+        "alcohol": "Алкогольное опьянение",
+        "other": "Другое"
+      },
+      "explainReason": "Укажите причину",
+      "successCreate": "Информацию об отгуле отправлено"
+    },
+    "historyTable": {
+      "dateStart": "Дата начала",
+      "dateEnd": "Дата завершения",
+      "adminComment": "Комментарий фирмы"
+    }
+  },
+  "notificationsPage": {
+    "title": "Оповещения",
+    "noData": "Оповещений не найдено"
+  },
+  "paychecksPage": {
+    "title": "Рассчетные листы"
+  },
+  "profilePage": {
+    "title": "Профиль"
+  },
+  "user": {
+    "login": "Войти",
+    "register": "Регистрация",
+    "password": "Пароль",
+    "email": "Email",
+    "name": "Имя",
+    "surname": "Фамилия",
+    "phone": "Телефон",
+    "birthDate": "Дата рождения",
+    "baseFields": "Общая информация",
+    "docsFields": "Документы",
+    "slovakDocsFields": "Словацкие документы",
+    "adressFields": "Адрес",
+    "biometryFields": "Размер одежды",
+    "expirienceFields": "Опыт",
+    "familyFields": "Семья",
+    "hasInternationalPass": "Загранпаспорт?",
+    "internationalPassNumber": "Номер загранпаспорта",
+    "internationalPassExpire": "Срок действия",
+    "internationalPassAuthority": "Орган, который выдал",
+    "hasIdCard": "ID картка?",
+    "passNumber": "Номер паспорта",
+    "hasPermit": "Есть ВНЖ?",
+    "permitType": "Тип ВНЖ",
+    "permitExpire": "Срок до",
+    "hasPrevPermit": "Имели ли ВНЖ раньше?",
+    "rodneCislo": "Rodné číslo",
+    "IBAN": "IBAN",
+    "ICO": "IČO",
+    "birthPlace": "Место рождения",
+    "country": "Страна",
+    "adress": "Адрес",
+    "city": "Город",
+    "zip": "Индекс",
+    "tshortSize": "Размер футболки",
+    "pantsSize": "Размер штанов",
+    "shoesSize": "Размер обуви",
+    "study": "Образование",
+    "speciality": "Специальность",
+    "familyState": "Семейное положение",
+    "prevSurname": "Девичья фамилия",
+    "hasChildren": "Есть ли у вас дети?",
+    "hasSiblings": "Есть ли брат/сестра?",
+    "motherName": "Имя матери",
+    "motherSurname": "Фамилия матери",
+    "motherPrevSurname": "Девичья фамилия матери",
+    "motherBirthdate": "Дата рождения матери",
+    "fatherName": "Имя отца",
+    "fatherSurname": "Фамилия отца",
+    "fatherBirthdate": "Дата рождения отца",
+    "wrongCredentials": "Неправильный логин или пароль",
+    "dataUpdated": "Данные обновлено",
+    "scancopies": "Скан-копии",
+    "internationalPassScan": "Загранпаспорт",
+    "passScan": "Паспорт",
+    "idCardFaceScan": "ID картка (перед)",
+    "idCardBackScan": "ID картка (обратная сторона)",
+    "permitFaceScan": "ВНЖ (перед)",
+    "permitBackScan": "ВНЖ (обратная сторона)",
+    "updateData": "Обновить данные",
+    "upload": "Загрузить",
+    "uploaded": "Загружено",
+    "childrenJson": "Информация о детях",
+    "siblingsJson": "Информация о братьях/сестрах",
+    "openForm": "Открыть форму"
+  },
+  "selects": {
+    "business": "Бизнес",
+    "study": "Образование",
+    "work": "Работа",
+    "married": "Женат",
+    "single": "Не женат",
+    "base": "Общее",
+    "middleFull": "Среднее полное",
+    "middleSpecial": "Среднее специальное",
+    "high": "Высшее"
+  }
+}
