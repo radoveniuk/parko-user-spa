@@ -10,3 +10,4 @@ export { AiOutlineQuestion as QuestionIcon } from 'react-icons/ai';
 export { IoClose as CloseIcon } from 'react-icons/io5';
 export { IoCheckmark as AcceptIcon } from 'react-icons/io5';
 export { BsFillCloudUploadFill as UploadIcon } from 'react-icons/bs';
+export { BsPlus as PlusIcon } from 'react-icons/bs';

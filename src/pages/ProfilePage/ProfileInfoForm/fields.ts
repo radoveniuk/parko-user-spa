@@ -6,7 +6,7 @@ export type UserFormFields = Partial<IUser> & {
 }
 
 export type UserField = {
-  type: 'string' | 'number' | 'boolean' | 'date' | 'file' | 'select';
+  type: 'string' | 'number' | 'boolean' | 'date' | 'file' | 'select' | 'form';
   required?: boolean;
   visible?: (watch: UseFormWatch<IUser>) => boolean;
 }
@@ -191,9 +191,17 @@ export const familyFields: UserFieldsList = {
     type: 'boolean',
     visible: (watch) => !watch('hasPermit'),
   },
+  childrenJson: {
+    type: 'form',
+    visible: (watch) => !watch('hasPermit') && watch('hasChildren'),
+  },
   hasSiblings: {
     type: 'boolean',
     visible: (watch) => !watch('hasPermit'),
+  },
+  siblingsJson: {
+    type: 'form',
+    visible: (watch) => !watch('hasPermit') && watch('hasSiblings'),
   },
   motherName: {
     type: 'string',

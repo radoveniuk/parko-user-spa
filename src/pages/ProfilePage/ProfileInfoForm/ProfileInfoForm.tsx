@@ -24,6 +24,7 @@ import { AcceptIcon, UploadIcon } from 'components/icons';
 import { FIELDS, FieldSection, UserField } from './fields';
 
 import { ProfileInfoFormWrapper } from './styles';
+import DialogForm from './DialogForm';
 
 const ProfileInfoForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm<IUser>();
@@ -147,6 +148,13 @@ const ProfileInfoForm = () => {
             &nbsp;
             {userData[fieldName] ? t('user.uploaded') : t('user.upload')}
           </FileInput>
+        )}
+        {fieldData?.type === 'form' && (
+          <DialogForm
+            label={t(`user.${fieldName}`)}
+            onChange={(value) => void setValue(fieldName, value)}
+            defaultValueJson={userData[fieldName] as string}
+          />
         )}
       </div>
     );

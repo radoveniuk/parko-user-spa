@@ -46,7 +46,9 @@ export interface IUser {
   familyState: string;
   prevSurname: string;
   hasChildren: boolean;
+  childrenJson: string;
   hasSiblings: boolean;
+  siblingsJson: string;
   motherName: string;
   motherSurname: string;
   motherPrevSurname: string;

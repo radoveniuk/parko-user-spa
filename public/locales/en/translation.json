@@ -126,13 +126,20 @@
     "permitBackScan": "Permit back",
     "updateData": "Update",
     "upload": "Upload",
-    "uploaded": "Uploaded"
+    "uploaded": "Uploaded",
+    "childrenJson": "Info about children",
+    "siblingsJson": "Info about siblings",
+    "openForm": "Open form"
   },
   "selects": {
     "business": "Business",
     "study": "Study",
     "work": "Work",
     "married": "Married",
-    "single": "Sigle"
+    "single": "Sigle",
+    "base": "Base",
+    "middleFull": "Middle full",
+    "middleSpecial": "Middle special",
+    "high": "High"
   }
 }
