@@ -23,7 +23,8 @@
       "comment": "Comment",
       "order": "Send order",
       "sumMinValidation": "Min sum - 50",
-      "sumMaxValidation": "Max sum - 200"
+      "sumMaxValidation": "Max sum - 200",
+      "successCreate": "Prepayment created"
     },
     "historyTable": {
       "date": "Date",

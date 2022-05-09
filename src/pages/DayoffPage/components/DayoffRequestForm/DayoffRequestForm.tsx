@@ -1,20 +1,19 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash-es';
+import { DateTime } from 'luxon';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useSnackbar } from 'notistack';
 
 import DatePicker from 'components/shared/DatePicker';
 import Select from 'components/shared/Select';
 import { REASONS } from 'constants/dayoffReasons';
 import Input from 'components/shared/Input';
 import Button from 'components/shared/Button';
+import { useAuthData } from 'contexts/AuthContext';
+import { useCreateDayoffMutation } from 'api/mutations/dayoffMutation';
 
 import { StyledForm } from './styles';
-import { useAuthData } from 'contexts/AuthContext';
-// import { IDayOff } from 'interfaces/dayoff.interface';
-import { useSnackbar } from 'notistack';
-import { useCreateDayoffMutation } from 'api/mutations/dayoffMutation';
-import { DateTime } from 'luxon';
 
 type Inputs = {
   dateStart: string,
@@ -49,8 +48,9 @@ const DayoffRequestForm = () => {
       isApproved: null,
     };
 
-    createDayoffMutation.mutate(dayoff);
-    enqueueSnackbar(t('dayoffPage.successCreate'), { variant: 'success' });
+    createDayoffMutation.mutateAsync(dayoff).then(() => {
+      enqueueSnackbar(t('dayoffPage.form.successCreate'), { variant: 'success' });
+    });
   };
 
   return (

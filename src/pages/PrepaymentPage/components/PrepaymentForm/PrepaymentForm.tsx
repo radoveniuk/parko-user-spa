@@ -17,7 +17,7 @@ type Inputs = {
 };
 
 const PrepaymentForm = () => {
-  const { register, handleSubmit, formState: { errors }, reset: resetForm } = useForm<Inputs>();
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
   const { id } = useAuthData();
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
@@ -31,9 +31,10 @@ const PrepaymentForm = () => {
       isApproved: null,
     };
 
-    createPrepayment.mutate(prepayment);
-    enqueueSnackbar('prepayment created', { variant: 'success' });
-    resetForm();
+    createPrepayment.mutateAsync(prepayment)
+      .then(() => {
+        enqueueSnackbar(t('prepaymentPage.form.successCreate'), { variant: 'success' });
+      });
   };
 
   return (
