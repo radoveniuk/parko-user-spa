@@ -144,9 +144,16 @@ const ProfileInfoForm = () => {
             label={t(`user.${fieldName}`)}
             {...register(fieldName, { required: fieldData.required })}
           >
-            {userData[fieldName] ? <AcceptIcon /> : <UploadIcon />}
-            &nbsp;
-            {userData[fieldName] ? t('user.uploaded') : t('user.upload')}
+            {(() => {
+              const value = watch(fieldName) as unknown as FileList;
+              const isFileUploaded = userData[fieldName] || !!value?.length;
+              return (
+                <>
+                  {isFileUploaded && <><AcceptIcon />&nbsp;{ t('user.uploaded')}</>}
+                  {!isFileUploaded && <><UploadIcon />&nbsp;{t('user.upload')}</>}
+                </>
+              );
+            })()}
           </FileInput>
         )}
         {fieldData?.type === 'form' && (
