@@ -117,7 +117,7 @@
     "fatherSurname": "Фамилия отца",
     "fatherBirthdate": "Дата рождения отца",
     "wrongCredentials": "Неправильный логин или пароль",
-    "dataUpdated": "Данные обновлено",
+    "dataUpdated": "Данные обновлены",
     "scancopies": "Скан-копии",
     "internationalPassScan": "Загранпаспорт",
     "passScan": "Паспорт",
@@ -130,7 +130,8 @@
     "uploaded": "Загружено",
     "childrenJson": "Информация о детях",
     "siblingsJson": "Информация о братьях/сестрах",
-    "openForm": "Открыть форму"
+    "openForm": "Открыть форму",
+    "successfullRegister": "Успешная регистрация! Теперь можете войти"
   },
   "selects": {
     "business": "Бизнес",

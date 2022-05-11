@@ -22,9 +22,9 @@ import { uploadFiles } from 'api/common';
 import { AcceptIcon, UploadIcon } from 'components/icons';
 
 import { FIELDS, FieldSection, UserField } from './fields';
+import DialogForm from './DialogForm';
 
 import { ProfileInfoFormWrapper } from './styles';
-import DialogForm from './DialogForm';
 
 const ProfileInfoForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm<IUser>();
@@ -142,6 +142,7 @@ const ProfileInfoForm = () => {
           <FileInput
             id={fieldName}
             label={t(`user.${fieldName}`)}
+            accept= "application/pdf, image/*"
             {...register(fieldName, { required: fieldData.required })}
           >
             {(() => {
@@ -170,21 +171,28 @@ const ProfileInfoForm = () => {
   return (
     <ProfileInfoFormWrapper>
       {(Object.keys(FIELDS) as FieldSection[]).map((fieldSectionKey, index) => (
-        <Accordion
-          key={fieldSectionKey}
-          title={t(`user.${fieldSectionKey}`)}
-          id={fieldSectionKey}
-          className="accordion"
-          defaultExpanded={index === 0}
-        >
-          <div className="accordion-content">
-            {(Object.keys(FIELDS[fieldSectionKey]) as (keyof IUser)[]).map((key) => (
-              <div key={key}>
-                {generateField(key, FIELDS[fieldSectionKey][key])}
+        <div key={fieldSectionKey}>
+          {Object.keys(FIELDS[fieldSectionKey]).some((fieldKey) => {
+            const field = FIELDS[fieldSectionKey][fieldKey as keyof IUser];
+            const visible = !field?.visible || field?.visible?.(watch);
+            return visible;
+          }) && (
+            <Accordion
+              title={t(`user.${fieldSectionKey}`)}
+              id={fieldSectionKey}
+              className="accordion"
+              defaultExpanded={index === 0}
+            >
+              <div className="accordion-content">
+                {(Object.keys(FIELDS[fieldSectionKey]) as (keyof IUser)[]).map((key) => (
+                  <div key={key}>
+                    {generateField(key, FIELDS[fieldSectionKey][key])}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </Accordion>
+            </Accordion>
+          )}
+        </div>
       ))}
       <Button
         onClick={() => {

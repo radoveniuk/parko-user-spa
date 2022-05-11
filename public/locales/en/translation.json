@@ -130,7 +130,8 @@
     "uploaded": "Uploaded",
     "childrenJson": "Info about children",
     "siblingsJson": "Info about siblings",
-    "openForm": "Open form"
+    "openForm": "Open form",
+    "successfullRegister": "Register was successfull"
   },
   "selects": {
     "business": "Business",
