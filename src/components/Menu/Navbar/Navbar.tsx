@@ -3,13 +3,14 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import LanguageSelector from 'components/complex/LanguageSelector';
-import { NAVBAR_ITEMS } from 'constants/menu';
-
+import { ADMIN_NAVBAR_ITEMS, INavbarItem, NAVBAR_ITEMS } from 'constants/menu';
 import 'react-pro-sidebar/dist/css/styles.css';
-import { NavbarMenu, NavbarWrapper, NavItem, StyledNavbar, IconWrapper } from './styles';
 import { MenuIcon } from 'components/icons';
 import IconButton from 'components/shared/IconButton';
 import { themeConfig } from 'theme';
+import { useAuthData } from 'contexts/AuthContext';
+
+import { NavbarMenu, NavbarWrapper, NavItem, StyledNavbar, IconWrapper } from './styles';
 
 type Props = {
   toggled?: boolean,
@@ -19,13 +20,22 @@ type Props = {
 const Navbar = ({ toggled, onToggle } : Props) => {
   const { t } = useTranslation();
   const location = useLocation();
+  const { role } = useAuthData();
+  let menuItems: INavbarItem[] = [];
+
+  if (role === 'user') {
+    menuItems = NAVBAR_ITEMS;
+  }
+  if (role === 'admin') {
+    menuItems = ADMIN_NAVBAR_ITEMS;
+  }
 
   return (
     <>
       <NavbarWrapper>
         <StyledNavbar breakPoint="sm" toggled={toggled} onToggle={onToggle}>
           <NavbarMenu>
-            {NAVBAR_ITEMS.map((item) => (
+            {menuItems.map((item) => (
               <NavItem key={item.title} active={item.to === location.pathname} icon={item.icon}>
                 {t(item.title)}
                 <Link to={item.to} />
