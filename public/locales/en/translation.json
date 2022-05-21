@@ -6,12 +6,16 @@
     "notifications": "Notification",
     "prepayments": "Prepayments",
     "daysoff": "Days off",
-    "paychecks": "Paychecks"
+    "paychecks": "Paychecks",
+    "projects": "Projects"
   },
   "menu": {
     "prepayment": "Request prepayment",
     "paychecks": "Paychecks",
-    "dayoff": "Request day off"
+    "dayoff": "Request day off",
+    "prepaymentList": "Prepayments",
+    "paychecksUpload": "Upload paychecks",
+    "dayoffList": "Days off"
   },
   "footer": {
     "contacts": "Contacts",
@@ -144,5 +148,6 @@
     "middleFull": "Middle full",
     "middleSpecial": "Middle special",
     "high": "High"
-  }
+  },
+  "notFoundText": "Page not found"
 }

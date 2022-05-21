@@ -14,6 +14,9 @@ import NotFoundPage from 'pages/NotFoundPage';
 import DayoffListPage from 'pages/DayoffListPage';
 import PaychecksUploadPage from 'pages/PaychecksUploadPage';
 import ProfileListPage from 'pages/ProfileListPage';
+import ProjectListPage from 'pages/ProjectListPage';
+import ProjectPage from 'pages/ProjectPage';
+import ProfileAdminPage from 'pages/ProfileAdminPage';
 
 export default function Router () {
   const { role } = useAuthData();
@@ -39,6 +42,9 @@ export default function Router () {
             <Route path="/daysoff" element={<ProtectedRoute><DayoffListPage /></ProtectedRoute>} />
             <Route path="/paychecks-upload" element={<ProtectedRoute><PaychecksUploadPage /></ProtectedRoute>} />
             <Route path="/profiles" element={<ProtectedRoute><ProfileListPage /></ProtectedRoute>} />
+            <Route path="/profile/:id" element={<ProtectedRoute><ProfileAdminPage /></ProtectedRoute>} />
+            <Route path="/projects" element={<ProtectedRoute><ProjectListPage /></ProtectedRoute>} />
+            <Route path="/project" element={<ProtectedRoute><ProjectPage /></ProtectedRoute>} />
           </>
         )}
       </Routes>

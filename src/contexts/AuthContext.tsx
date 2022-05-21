@@ -10,7 +10,7 @@ type contextType = {
   isAuth: boolean;
   login(data: LoginDto): Promise<boolean>;
   userId: string;
-  role: UserRole;
+  role: UserRole | undefined;
 };
 
 const AuthContext = createContext<contextType | undefined>(undefined);
@@ -37,7 +37,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuth, login, userId, role: userData?.role || 'user' }}>
+    <AuthContext.Provider value={{ isAuth, login, userId, role: userData?.role }}>
       {children}
     </AuthContext.Provider>
   );

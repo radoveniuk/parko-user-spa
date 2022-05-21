@@ -18,7 +18,7 @@ const RegisterForm = () => {
   const [, setTab] = useTabs();
 
   const onSubmitLogin: SubmitHandler<RegisterUserDto> = async (data) => {
-    registerMutation.mutateAsync(data)
+    registerMutation.mutateAsync({ ...data, role: 'user' })
       .then(() => {
         enqueueSnackbar(t('user.successfullRegister'), { variant: 'success' });
         setTab('login');

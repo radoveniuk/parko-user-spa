@@ -6,12 +6,16 @@
     "notifications": "Сповіщення",
     "prepayments": "Аванси",
     "daysoff": "Відгули",
-    "paychecks": "Розрахунки"
+    "paychecks": "Розрахунки",
+    "projects": "Проєкти"
   },
   "menu": {
     "prepayment": "Замовити аванс",
     "paychecks": "Розрахункові листи",
-    "dayoff": "Замовити відгул"
+    "dayoff": "Замовити відгул",
+    "prepaymentList": "Список авансів",
+    "paychecksUpload": "Завантажити розрахункові листи",
+    "dayoffList": "Список відгулів"
   },
   "footer": {
     "contacts": "Контакти",
@@ -144,5 +148,6 @@
     "middleFull": "Середня повна",
     "middleSpecial": "Середня спеціальна",
     "high": "Вища"
-  }
+  },
+  "notFoundText": "Сторінку не знайдено"
 }

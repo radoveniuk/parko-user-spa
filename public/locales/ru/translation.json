@@ -6,12 +6,16 @@
     "notifications": "Оповещения",
     "prepayments": "Авансы",
     "daysoff": "Отгулы",
-    "paychecks": "Рассчеты"
+    "paychecks": "Рассчеты",
+    "projects": "Проекты"
   },
   "menu": {
     "prepayment": "Заказать аванс",
     "paychecks": "Рассчетные листы",
-    "dayoff": "Заказать отгул"
+    "dayoff": "Заказать отгул",
+    "prepaymentList": "Список авансов",
+    "paychecksUpload": "Загрузка рассчетных листов",
+    "dayoffList": "Список отгулов"
   },
   "footer": {
     "contacts": "Контакты",
@@ -144,5 +148,6 @@
     "middleFull": "Среднее полное",
     "middleSpecial": "Среднее специальное",
     "high": "Высшее"
-  }
+  },
+  "notFoundText": "Страница не найдена"
 }

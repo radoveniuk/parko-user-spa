@@ -1,5 +1,5 @@
 import React from 'react';
-import { DayoffIcon, HomeIcon, NotificationIcon, PaycheckIcon, PrepaymentIcon, UserIcon, UsersIcon } from 'components/icons';
+import { DayoffIcon, HomeIcon, NotificationIcon, PaycheckIcon, PrepaymentIcon, ProjectIcon, UploadIcon, UserIcon, UsersIcon } from 'components/icons';
 import { To } from 'react-router-dom';
 
 export type INavbarItem = {
@@ -71,6 +71,11 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     to: '/profiles',
   },
   {
+    title: 'navbar.projects',
+    icon: <ProjectIcon size={30} />,
+    to: '/projects',
+  },
+  {
     title: 'navbar.notifications',
     icon: <NotificationIcon size={30} />,
     to: '/notifications',
@@ -82,7 +87,7 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
   },
   {
     title: 'navbar.paychecks',
-    icon: <PaycheckIcon size={30} />,
+    icon: <UploadIcon size={30} />,
     to: '/paychecks-upload',
   },
   {
@@ -100,7 +105,7 @@ export const ADMIN_MENU_ITEMS: INavbarItem[] = [
   },
   {
     title: 'menu.paychecksUpload',
-    icon: <PaycheckIcon size={60} />,
+    icon: <UploadIcon size={60} />,
     to: '/paychecks-upload',
   },
   {
