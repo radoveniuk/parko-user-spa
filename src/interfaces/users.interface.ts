@@ -56,6 +56,9 @@ export interface IUser {
   fatherName: string;
   fatherSurname: string;
   fatherBirthdate: string;
+  project: string;
+  status: string;
+  role: UserRole;
 }
 
 export type LoginDto = {
@@ -70,3 +73,5 @@ export type RegisterUserDto = {
   email: string;
   password: string;
 }
+
+export type UserRole = 'user' | 'admin'

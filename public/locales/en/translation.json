@@ -2,6 +2,7 @@
   "navbar": {
     "home": "Home",
     "profile": "Profile",
+    "profiles": "Profiles",
     "notifications": "Notification",
     "prepayments": "Prepayments",
     "daysoff": "Days off",

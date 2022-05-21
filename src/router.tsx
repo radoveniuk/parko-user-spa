@@ -8,19 +8,39 @@ import DayoffPage from 'pages/DayoffPage';
 import NotificationsPage from 'pages/NotificationsPage';
 import PaychecksPage from 'pages/PaychecksPage';
 import ProfilePage from 'pages/ProfilePage';
+import { useAuthData } from 'contexts/AuthContext';
+import PrepaymentsListPage from 'pages/PrepaymentsListPage';
+import NotFoundPage from 'pages/NotFoundPage';
+import DayoffListPage from 'pages/DayoffListPage';
+import PaychecksUploadPage from 'pages/PaychecksUploadPage';
+import ProfileListPage from 'pages/ProfileListPage';
 
 export default function Router () {
+  const { role } = useAuthData();
+
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
-        <Route path="/prepayment" element={<ProtectedRoute><PrepaymentPage /></ProtectedRoute>} />
-        <Route path="/dayoff" element={<ProtectedRoute><DayoffPage /></ProtectedRoute>} />
-        <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
-        <Route path="/paychecks" element={<ProtectedRoute><PaychecksPage /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-        <Route path="*" element={<div>404</div>} />
+        <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
+        {role === 'user' && (
+          <>
+            <Route path="/prepayment" element={<ProtectedRoute><PrepaymentPage /></ProtectedRoute>} />
+            <Route path="/dayoff" element={<ProtectedRoute><DayoffPage /></ProtectedRoute>} />
+            <Route path="/paychecks" element={<ProtectedRoute><PaychecksPage /></ProtectedRoute>} />
+          </>
+        )}
+        {role === 'admin' && (
+          <>
+            <Route path="/prepayments" element={<ProtectedRoute><PrepaymentsListPage /></ProtectedRoute>} />
+            <Route path="/daysoff" element={<ProtectedRoute><DayoffListPage /></ProtectedRoute>} />
+            <Route path="/paychecks-upload" element={<ProtectedRoute><PaychecksUploadPage /></ProtectedRoute>} />
+            <Route path="/profiles" element={<ProtectedRoute><ProfileListPage /></ProtectedRoute>} />
+          </>
+        )}
       </Routes>
     </BrowserRouter>
   );

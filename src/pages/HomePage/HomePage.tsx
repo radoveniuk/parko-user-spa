@@ -3,14 +3,26 @@ import { useTranslation } from 'react-i18next';
 
 import { MainMenuGrid, MainMenuLink } from 'components/Menu/MainMenu';
 import Page from 'components/shared/Page';
-import { MENU_ITEMS } from 'constants/menu';
+import { ADMIN_MENU_ITEMS, INavbarItem, MENU_ITEMS } from 'constants/menu';
+import { useAuthData } from 'contexts/AuthContext';
 
 const HomePage = () => {
   const { t } = useTranslation();
+  const { role } = useAuthData();
+
+  let menuItems: INavbarItem[] = [];
+
+  if (role === 'user') {
+    menuItems = MENU_ITEMS;
+  }
+  if (role === 'admin') {
+    menuItems = ADMIN_MENU_ITEMS;
+  }
+
   return (
     <Page>
       <MainMenuGrid>
-        {MENU_ITEMS.map((item) => (
+        {menuItems.map((item) => (
           <MainMenuLink key={item.title} to={item.to}>
             <p>{t(item.title)}</p>
             {item.icon}
