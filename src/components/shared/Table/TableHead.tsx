@@ -2,7 +2,7 @@ import React from 'react';
 import { TableCell, TableHead as TableHeadMaterial, TableRow } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { Column } from './types';
+import { Column } from 'interfaces/table.types';
 
 type TableHeadProps = {
   columns: Column[];

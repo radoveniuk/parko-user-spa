@@ -1,11 +1,13 @@
 import React from 'react';
-import Table, { Column } from 'components/shared/Table';
 import { DateTime } from 'luxon';
 
-import { HistoryWrapper } from './styles';
+import Table from 'components/shared/Table';
 import { useGetDaysoff } from 'api/query/dayoffQuery';
 import { useAuthData } from 'contexts/AuthContext';
 import { t } from 'i18next';
+import { Column } from 'interfaces/table.types';
+
+import { HistoryWrapper } from './styles';
 
 const columns: Column[] = [
   {

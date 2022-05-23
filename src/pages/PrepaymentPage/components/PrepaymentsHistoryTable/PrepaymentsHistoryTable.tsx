@@ -1,12 +1,13 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 import { themeConfig } from 'theme';
-import Table, { Column } from 'components/shared/Table';
+import Table from 'components/shared/Table';
 import { AcceptIcon, CloseIcon, QuestionIcon } from 'components/icons';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
+import { Column } from 'interfaces/table.types';
+import { useAuthData } from 'contexts/AuthContext';
 
 import { HistoryWrapper } from './styles';
-import { useAuthData } from 'contexts/AuthContext';
 
 const columns: Column[] = [
   {

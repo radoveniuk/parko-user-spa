@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 
 import { TableWrapper } from './styles';
 import TableHead from './TableHead';
-import { Column, Row } from './types';
+import { Column, Row } from 'interfaces/table.types';
 
 type TableProps = {
   rowsPerPage?: number;
