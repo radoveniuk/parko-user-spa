@@ -8,7 +8,7 @@ export const STATUSES = [
 ];
 
 export const STATUSES_COLORS: AnyObject = {
-  candidate: '#E5DE0B',
+  candidate: '#e3bb00',
   hired: themeConfig.palette.success.main,
   fired: themeConfig.palette.error.main,
 };
