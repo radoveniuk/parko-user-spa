@@ -136,7 +136,12 @@
     "childrenJson": "Info about children",
     "siblingsJson": "Info about siblings",
     "openForm": "Open form",
-    "successfullRegister": "Register was successfull"
+    "successfullRegister": "Register was successfull",
+    "project": "Project",
+    "status": "Status"
+  },
+  "profileList": {
+    "title": "Profiles"
   },
   "selects": {
     "business": "Business",
@@ -147,7 +152,11 @@
     "base": "Base",
     "middleFull": "Middle full",
     "middleSpecial": "Middle special",
-    "high": "High"
+    "high": "High",
+    "candidate": "Candidate",
+    "hired": "Work",
+    "fired": "Fired"
   },
-  "notFoundText": "Page not found"
+  "notFoundText": "Page not found",
+  "search": "Пошук"
 }

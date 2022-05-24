@@ -1,4 +1,5 @@
 import api from 'api/common';
+import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
 import { useQuery } from 'react-query';
 
@@ -7,7 +8,7 @@ export const useGetUser = (id: string) => {
   return useQuery(['user-data', id], request);
 };
 
-export const useGetUserList = (params: Partial<IUser>) => {
+export const useGetUserList = (params: AnyObject) => {
   const request = (): Promise<IUser[]> => api.get('/users', {
     headers: {
       'Content-Type': 'application/json',
@@ -15,5 +16,5 @@ export const useGetUserList = (params: Partial<IUser>) => {
     },
     params,
   }).then(res => res.data.data);
-  return useQuery('users', request, { initialData: [] });
+  return useQuery('users', request, { initialData: [], refetchOnWindowFocus: false });
 };

@@ -1,15 +1,15 @@
 import _ from 'lodash-es';
 import React, { forwardRef, useMemo } from 'react';
-import SelectMaterial, { SelectProps } from '@mui/material/Select';
+import SelectMaterial, { SelectProps as SelectPropsMaterial } from '@mui/material/Select';
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 
-type Props = SelectProps & {
+export type SelectProps = SelectPropsMaterial & {
   options?: string[] | {[key: string | number]: any}[];
   valuePath?: string;
   labelPath?: string;
 }
 
-const Select = forwardRef(({ label, options, valuePath = 'value', labelPath = 'label', ...rest }: Props, ref) => {
+const Select = forwardRef(({ label, options, valuePath = 'value', labelPath = 'label', ...rest }: SelectProps, ref) => {
   const menuItems = useMemo(() => {
     if (options) {
       return options.map((item) => {

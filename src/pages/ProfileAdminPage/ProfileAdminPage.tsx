@@ -10,7 +10,7 @@ const ProfileAdminPage = () => {
   const { data: profileData } = useGetUser(profileId || '');
   return (
     <Page title={t('profileAdmin.title')}>
-      <PageTitle>{t('profileAdmin.title')}</PageTitle>
+      <PageTitle>{profileData?.name} {profileData?.surname}</PageTitle>
       <pre>{JSON.stringify(profileData, null, 2)}</pre>
     </Page>
   );

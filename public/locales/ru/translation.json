@@ -136,7 +136,12 @@
     "childrenJson": "Информация о детях",
     "siblingsJson": "Информация о братьях/сестрах",
     "openForm": "Открыть форму",
-    "successfullRegister": "Успешная регистрация! Теперь можете войти"
+    "successfullRegister": "Успешная регистрация! Теперь можете войти",
+    "project": "Проект",
+    "status": "Статус"
+  },
+  "profileList": {
+    "title": "Профили"
   },
   "selects": {
     "business": "Бизнес",
@@ -147,7 +152,11 @@
     "base": "Общее",
     "middleFull": "Среднее полное",
     "middleSpecial": "Среднее специальное",
-    "high": "Высшее"
+    "high": "Высшее",
+    "candidate": "Кандидат",
+    "hired": "Нанят",
+    "fired": "Уволен"
   },
-  "notFoundText": "Страница не найдена"
+  "notFoundText": "Страница не найдена",
+  "search": "Поиск"
 }

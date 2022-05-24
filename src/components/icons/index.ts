@@ -13,3 +13,4 @@ export { IoCheckmark as AcceptIcon } from 'react-icons/io5';
 export { BsFillCloudUploadFill as UploadIcon } from 'react-icons/bs';
 export { BsPlus as PlusIcon } from 'react-icons/bs';
 export { MdWork as ProjectIcon } from 'react-icons/md';
+export { MdSearch as SearchIcon } from 'react-icons/md';
