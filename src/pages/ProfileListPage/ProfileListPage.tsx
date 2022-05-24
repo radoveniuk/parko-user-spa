@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Page, { PageTitle } from 'components/shared/Page';
 import { useGetUserList } from 'api/query/userQuery';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
+import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import useDebounce from 'hooks/useDebounce';
@@ -36,6 +36,7 @@ const ProfileListPageRender = () => {
         <FilterText filterKey="search" label={t('search')} />
         <FilterSelect filterKey="project" label={t('user.project')} />
         <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} />
+        <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={columns} >
         {data?.map((user) => (
@@ -45,12 +46,7 @@ const ProfileListPageRender = () => {
               <ListTableCell>{user.surname}</ListTableCell>
               <ListTableCell>{user.email}</ListTableCell>
               <ListTableCell>{user.project}</ListTableCell>
-              <ListTableCell>{(() => {
-                if (!user.status) {
-                  return '';
-                }
-                return <p style={{ color: STATUSES_COLORS[user.status] }}>{t(`selects.${user.status}`)}</p>;
-              })()}</ListTableCell>
+              <ListTableCell>{user.status ? <p style={{ color: STATUSES_COLORS[user.status] }}>{t(`selects.${user.status}`)}</p> : ''}</ListTableCell>
             </ListTableRow>
           </Link>
         ))}

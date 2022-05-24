@@ -34,6 +34,7 @@ const Select = forwardRef(({ label, options, valuePath = 'value', labelPath = 'l
         label={label}
         defaultValue=""
         ref={ref}
+        style={{ minWidth: 200 }}
         {...rest}
       >
         {menuItems?.map((menuItem) => (
