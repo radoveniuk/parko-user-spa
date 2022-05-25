@@ -5,6 +5,7 @@ import { STATUSES } from 'constants/userStatuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import Select from 'components/shared/Select';
 import { useTranslation } from 'react-i18next';
+import Button from 'components/shared/Button';
 
 type Props = {
   data: IUser;
@@ -20,12 +21,24 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
         <strong>{data.email}</strong>
       </div>
       <div className="user-settings">
-        <Select
-          options={translatedStatuses}
-          value={data.status}
-          label={t('user.status')}
-          onChange={({ target }) => void onUpdate({ status: target.value as string })}
-        />
+        <div className="settings-item">
+          <Select
+            options={translatedStatuses}
+            value={data.status}
+            label={t('user.status')}
+            onChange={({ target }) => void onUpdate({ status: target.value as string })}
+          />
+        </div>
+        <div className="settings-item">
+          <Select
+            value={data.project}
+            label={t('user.project')}
+            onChange={({ target }) => void onUpdate({ project: target.value as string })}
+          />
+        </div>
+        <div className="settings-item">
+          <Button onClick={() => void onUpdate({ password: '1' })}>{t('user.resetPassword')}</Button>
+        </div>
       </div>
     </BaseInfoWrapper>
   );

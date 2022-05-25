@@ -140,6 +140,24 @@
     "project": "Project",
     "status": "Status"
   },
+  "prepayment": {
+    "date": "Date",
+    "sum": "Sum",
+    "approved": "Approved",
+    "comment": "Comment"
+  },
+  "dayoff": {
+    "dateStart": "Date start",
+    "dateEnd": "Date end",
+    "reason": "Reason",
+    "adminComment": "Comment of admin",
+    "comment": "Comment",
+    "vacation": "Vacation",
+    "illnes": "Illnes",
+    "medicalCheck": "Medical check",
+    "alcohol": "Alcohol",
+    "other": "Other"
+  },
   "profileList": {
     "title": "Profiles"
   },

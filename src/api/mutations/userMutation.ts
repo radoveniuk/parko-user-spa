@@ -13,6 +13,6 @@ export const useRegisterMutation = () => {
 };
 
 export const useUpdateUserMutation = () => {
-  const request = (data: IUser) => api.put(`/users/${data._id}`, data).then(res => res.data.data);
+  const request = (data: Partial<IUser> & { _id: string }) => api.put(`/users/${data._id}`, data).then(res => res.data.data);
   return useMutation(request);
 };

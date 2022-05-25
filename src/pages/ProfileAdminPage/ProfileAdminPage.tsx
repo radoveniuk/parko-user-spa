@@ -7,18 +7,20 @@ import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import BaseInfo from './BaseInfo';
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { IUser } from 'interfaces/users.interface';
+import Prepayments from './Prepayments';
+import Daysoff from './Daysoff';
 
 const ProfileAdminPage = () => {
   const { t } = useTranslation();
-  const { id: profileId } = useParams();
-  const { data: profileData, refetch } = useGetUser(profileId || '');
+  const { id: userId } = useParams();
+  const { data: profileData, refetch } = useGetUser(userId || '');
   const updateUserMutation = useUpdateUserMutation();
 
   const pageTitle = useMemo(() => profileData ? `${profileData.name} ${profileData.surname}` : t('profilePage.title'), [profileData, t]);
 
   const updateUser = (values: Partial<IUser>) => {
-    if (profileData) {
-      updateUserMutation.mutateAsync({ ...profileData, ...values })
+    if (userId) {
+      updateUserMutation.mutateAsync({ _id: userId, ...values })
         .then(() => {
           refetch();
         });
@@ -32,13 +34,17 @@ const ProfileAdminPage = () => {
         <TabsContainer>
           <Tabs>
             <Tab label={t('user.baseFields')} />
-            <Tab label={t('user.prepayments')} />
+            <Tab label={t('navbar.prepayments')} />
+            <Tab label={t('navbar.daysoff')} />
           </Tabs>
           <TabPanel index={0}>
             <BaseInfo data={profileData} onUpdate={updateUser} />
           </TabPanel>
           <TabPanel index={1}>
-            Prepayment
+            <Prepayments />
+          </TabPanel>
+          <TabPanel index={2}>
+            <Daysoff />
           </TabPanel>
         </TabsContainer>
       )}

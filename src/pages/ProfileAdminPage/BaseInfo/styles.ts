@@ -12,5 +12,9 @@ export const BaseInfoWrapper = styled.div`
   
   .user-settings {
     margin: 20px;
+
+    .settings-item {
+      margin-top: 12px;
+    }
   }
 `;
