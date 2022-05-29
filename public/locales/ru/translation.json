@@ -30,12 +30,6 @@
       "sumMinValidation": "Минимальная сумма - 50",
       "sumMaxValidation": "Максимальная сумма - 200",
       "successCreate": "Аванс заказано"
-    },
-    "historyTable": {
-      "date": "Дата запроса",
-      "sum": "Сумма",
-      "approved": "Подтверждено",
-      "comment": "Комментарий"
     }
   },
   "dayoffPage": {
@@ -54,11 +48,6 @@
       },
       "explainReason": "Укажите причину",
       "successCreate": "Информацию об отгуле отправлено"
-    },
-    "historyTable": {
-      "dateStart": "Дата начала",
-      "dateEnd": "Дата завершения",
-      "adminComment": "Комментарий фирмы"
     }
   },
   "notificationsPage": {

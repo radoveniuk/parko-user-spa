@@ -12,22 +12,22 @@ import { HistoryWrapper } from './styles';
 const columns: Column[] = [
   {
     field: 'createdAt',
-    headerName: 'prepaymentPage.historyTable.date',
+    headerName: 'prepayment.date',
     valueGetter: (value: string) => DateTime.fromISO(value).toFormat('dd.MM.yyyy'),
   },
   {
     field: 'sum',
-    headerName: 'prepaymentPage.historyTable.sum',
+    headerName: 'prepayment.sum',
     valueGetter: (value: string) => `${value}€`,
   },
   {
     field: 'isApproved',
-    headerName: 'prepaymentPage.historyTable.approved',
+    headerName: 'prepayment.approved',
     valueGetter: (value: boolean | null) => <ApprovedIcon approved={value} size={20} />,
   },
   {
     field: 'adminComment',
-    headerName: 'prepaymentPage.historyTable.comment',
+    headerName: 'prepayment.comment',
   },
 ];
 

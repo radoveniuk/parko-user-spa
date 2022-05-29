@@ -30,12 +30,6 @@
       "sumMinValidation": "Мінімальна сума - 50",
       "sumMaxValidation": "Максимальна сума - 200",
       "successCreate": "Аванс замовлено"
-    },
-    "historyTable": {
-      "date": "Дата запиту",
-      "sum": "Сума",
-      "approved": "Підтверджено",
-      "comment": "Коментар"
     }
   },
   "dayoffPage": {
@@ -54,11 +48,6 @@
       },
       "explainReason": "Вкажіть причину",
       "successCreate": "Інформацію про відгул надіслано"
-    },
-    "historyTable": {
-      "dateStart": "Дата початку",
-      "dateEnd": "Дата завершення",
-      "adminComment": "Коментар фірми"
     }
   },
   "notificationsPage": {

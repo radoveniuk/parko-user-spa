@@ -12,22 +12,22 @@ import { HistoryWrapper } from './styles';
 const columns: Column[] = [
   {
     field: 'dateStart',
-    headerName: 'dayoffPage.historyTable.dateStart',
+    headerName: 'dayoff.dateStart',
     valueGetter: (value: string) => DateTime.fromISO(value).toFormat('dd.MM.yyyy'),
   },
   {
     field: 'dateEnd',
-    headerName: 'dayoffPage.historyTable.dateEnd',
+    headerName: 'dayoff.dateEnd',
     valueGetter: (value: string) => DateTime.fromISO(value).toFormat('dd.MM.yyyy'),
   },
   {
     field: 'reason',
-    headerName: 'dayoffPage.form.reason',
+    headerName: 'dayoff.reason',
     valueGetter: (value: string) => <>{t(`dayoffPage.form.reasons.${value}`)}</>,
   },
   {
     field: 'adminComment',
-    headerName: 'dayoffPage.historyTable.adminComment',
+    headerName: 'dayoff.adminComment',
   },
 ];
 

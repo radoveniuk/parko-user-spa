@@ -30,12 +30,6 @@
       "sumMinValidation": "Min sum - 50",
       "sumMaxValidation": "Max sum - 200",
       "successCreate": "Prepayment created"
-    },
-    "historyTable": {
-      "date": "Date",
-      "sum": "Sum",
-      "approved": "Approved",
-      "comment": "Comment"
     }
   },
   "dayoffPage": {
@@ -54,11 +48,6 @@
       },
       "explainReason": "Input the reason",
       "successCreate": "Day off has been sended"
-    },
-    "historyTable": {
-      "dateStart": "Date start",
-      "dateEnd": "Date end",
-      "adminComment": "Comment of admin"
     }
   },
   "notificationsPage": {
