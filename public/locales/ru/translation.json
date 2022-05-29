@@ -127,9 +127,7 @@
     "comment": "Коментарий",
     "user": "Пользователь"
   },
-  "profileList": {
-    "title": "Профили"
-  },
+  "profileList": "Профили",
   "selects": {
     "permitType": {
       "business": "Бизнес",

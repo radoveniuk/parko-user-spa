@@ -127,9 +127,7 @@
     "comment": "Comment",
     "user": "User"
   },
-  "profileList": {
-    "title": "Profiles"
-  },
+  "profileList": "Profiles",
   "selects": {
     "permitType": {
       "business": "Business",
