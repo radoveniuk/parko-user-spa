@@ -72,6 +72,7 @@
     "title": "Профиль"
   },
   "user": {
+    "info": "Информация",
     "login": "Войти",
     "register": "Регистрация",
     "password": "Пароль",
@@ -138,7 +139,8 @@
     "openForm": "Открыть форму",
     "successfullRegister": "Успешная регистрация! Теперь можете войти",
     "project": "Проект",
-    "status": "Статус"
+    "status": "Статус",
+    "resetPassword": "Сброс пароля"
   },
   "profileList": {
     "title": "Профили"
@@ -158,5 +160,7 @@
     "fired": "Уволен"
   },
   "notFoundText": "Страница не найдена",
-  "search": "Поиск"
+  "search": "Поиск",
+  "true": "Да",
+  "false": "Нет"
 }

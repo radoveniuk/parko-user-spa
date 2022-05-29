@@ -72,6 +72,7 @@
     "title": "Profile"
   },
   "user": {
+    "info": "Info",
     "login": "Log in",
     "register": "Register",
     "password": "Password",
@@ -138,7 +139,8 @@
     "openForm": "Open form",
     "successfullRegister": "Register was successfull",
     "project": "Project",
-    "status": "Status"
+    "status": "Status",
+    "resetPassword": "Reset password"
   },
   "prepayment": {
     "date": "Date",
@@ -176,5 +178,7 @@
     "fired": "Fired"
   },
   "notFoundText": "Page not found",
-  "search": "Пошук"
+  "search": "Пошук",
+  "true": "Yes",
+  "false": "No"
 }

@@ -7,6 +7,7 @@ export const FilesListWrapper = styled.div`
 `;
 
 export const FileWrapper = styled.div`
+  word-break: break-all;
   height: 140px;
   width: 100px;
   border: 1px solid #d4d4d4;

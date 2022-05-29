@@ -1,13 +1,35 @@
 import styled from 'styled-components';
+import { themeConfig } from 'theme';
 
 export const BaseInfoWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
 
   .user-card {
-    border: 1px solid;
+    border: 1px solid #c7c7c7;
     border-radius: 2px;
     margin: 20px;
+    box-shadow: 0px 10px 21px -10px rgba(0,0,0,0.75);
+    padding: 12px;
+    overflow-y: auto;
+    max-height: calc(100vh - 240px);
+
+    .user-card-title {
+      text-align: center;
+      margin: 5px 0;
+    }
+
+    .user-card-field {
+      p {
+        color: #888888;
+        margin: 5px 0;
+        font-size: 12px;
+      }
+
+      strong {
+        color: ${themeConfig.palette.primary.main};
+      }
+    }
   }
   
   .user-settings {

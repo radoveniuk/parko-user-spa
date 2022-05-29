@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetPaycheckList } from 'api/query/paycheckQuery';
 import { useAuthData } from 'contexts/AuthContext';
 import { DateTime } from 'luxon';
-import { File, Files } from './Files';
+import { File, Files } from 'components/shared/FileList';
 
 const PaychecksPage = () => {
   const { t } = useTranslation();

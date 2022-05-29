@@ -71,7 +71,7 @@ const ProfileInfoForm = () => {
 
     (Object.keys(data) as (keyof IUser)[])
       .forEach((key) => {
-        if (key.toLowerCase().includes('scan') && typeof updatedUserData[key] !== 'string') {
+        if (key.includes('Scan') && typeof updatedUserData[key] !== 'string') {
           delete updatedUserData[key];
         }
       });

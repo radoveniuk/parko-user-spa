@@ -9,6 +9,7 @@ import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { IUser } from 'interfaces/users.interface';
 import Prepayments from './Prepayments';
 import Daysoff from './Daysoff';
+import Scans from './Scans';
 
 const ProfileAdminPage = () => {
   const { t } = useTranslation();
@@ -34,6 +35,7 @@ const ProfileAdminPage = () => {
         <TabsContainer>
           <Tabs>
             <Tab label={t('user.baseFields')} />
+            <Tab label={t('user.scancopies')} />
             <Tab label={t('navbar.prepayments')} />
             <Tab label={t('navbar.daysoff')} />
           </Tabs>
@@ -41,9 +43,12 @@ const ProfileAdminPage = () => {
             <BaseInfo data={profileData} onUpdate={updateUser} />
           </TabPanel>
           <TabPanel index={1}>
-            <Prepayments />
+            <Scans data={profileData} />
           </TabPanel>
           <TabPanel index={2}>
+            <Prepayments />
+          </TabPanel>
+          <TabPanel index={3}>
             <Daysoff />
           </TabPanel>
         </TabsContainer>

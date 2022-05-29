@@ -6,6 +6,7 @@ import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import Select from 'components/shared/Select';
 import { useTranslation } from 'react-i18next';
 import Button from 'components/shared/Button';
+import { USER_FIELDS } from './fields';
 
 type Props = {
   data: IUser;
@@ -18,7 +19,18 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
   return (
     <BaseInfoWrapper>
       <div className="user-card">
-        <strong>{data.email}</strong>
+        <p className="user-card-title">{t('user.info')}</p>
+        {USER_FIELDS.map((field) => {
+          const fieldKey = typeof field === 'string' ? field : field.key;
+          const value = typeof field === 'string' ? data[fieldKey] : field.get(data[fieldKey]);
+          if (typeof value !== 'boolean' && !value) return null;
+          return (
+            <div className="user-card-field" key={fieldKey}>
+              <p>{t(`user.${fieldKey}`)}</p>
+              <strong>{t(value?.toString() || '')}</strong>
+            </div>
+          );
+        })}
       </div>
       <div className="user-settings">
         <div className="settings-item">

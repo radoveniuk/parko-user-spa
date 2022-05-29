@@ -5,10 +5,10 @@ type Props = {
   children: ReactNode;
 }
 
-const FilesList = ({ children }: Props) => (
+const FileList = ({ children }: Props) => (
   <FilesListWrapper>
     {children}
   </FilesListWrapper>
 );
 
-export default FilesList;
+export default FileList;
