@@ -24,8 +24,6 @@
   "prepaymentPage": {
     "title": "Замовлення авансу",
     "form": {
-      "sum": "Сума",
-      "comment": "Коментар",
       "order": "Замовити",
       "sumMinValidation": "Мінімальна сума - 50",
       "sumMaxValidation": "Максимальна сума - 200",
@@ -35,31 +33,14 @@
   "dayoffPage": {
     "title": "Інформування про відсутність на роботі",
     "form": {
-      "dateStart": "Дата початку",
-      "dateEnd": "Дата завершення",
-      "reason": "Причина",
-      "comment": "Коментар",
-      "reasons": {
-        "vacation": "Відпустка",
-        "illnes": "Хвороба",
-        "medicalCheck": "Медичне обстеження",
-        "alcohol": "Алкогольне сп'яніння",
-        "other": "Інше"
-      },
       "explainReason": "Вкажіть причину",
       "successCreate": "Інформацію про відгул надіслано"
     }
   },
-  "notificationsPage": {
-    "title": "Сповіщення",
-    "noData": "Сповіщень не знайдено"
-  },
-  "paychecksPage": {
-    "title": "Розрахункові листи"
-  },
-  "profilePage": {
-    "title": "Профіль"
-  },
+  "notifications": "Сповіщення",
+  "noData": "Дані не знайдено",
+  "paychecks": "Розрахункові листи",
+  "profile":  "Профіль",
   "user": {
     "info": "Інформація",
     "login": "Увійти",
@@ -144,29 +125,37 @@
     "reason": "Причина",
     "adminComment": "Коментар фірми",
     "comment": "Коментар",
-    "vacation": "Відпустка",
-    "illnes": "Хвороба",
-    "medicalCheck": "Медогляд",
-    "alcohol": "Алкогольне cп'яніння",
-    "other": "Інше",
     "user": "Користувач"
   },
-  "profileList": {
-    "title": "Профілі"
-  },
+  "profileList": "Профілі",
   "selects": {
-    "business": "Бізнес",
-    "study": "Навчання",
-    "work": "Робота",
-    "married": "Одружений",
-    "single": "Неодружений",
-    "base": "Загальна",
-    "middleFull": "Середня повна",
-    "middleSpecial": "Середня спеціальна",
-    "high": "Вища",
-    "candidate": "Кандидат",
-    "hired": "Найнятий",
-    "fired": "Звільнений"
+    "permitType": {
+      "business": "Бізнес",
+      "study": "Навчання",
+      "work": "Робота"
+    },
+    "study": {
+      "base": "Загальна",
+      "middleFull": "Середня повна",
+      "middleSpecial": "Середня спеціальна",
+      "high": "Вища"
+    },
+    "familyStatus": {
+      "married": "Одружений",
+      "single": "Неодружений"
+    },
+    "userStatus": {
+      "candidate": "Кандидат",
+      "hired": "Найнятий",
+      "fired": "Звільнений"
+    },
+    "dayoffReason": {
+      "vacation": "Відпустка",
+      "illnes": "Хвороба",
+      "medicalCheck": "Медичне обстеження",
+      "alcohol": "Алкогольне сп'яніння",
+      "other": "Інше"
+    }
   },
   "notFoundText": "Сторінку не знайдено",
   "search": "Пошук",

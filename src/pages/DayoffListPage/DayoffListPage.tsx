@@ -41,7 +41,7 @@ const DayoffListPageRender = () => {
             <ListTableCell>{typeof item.user !== 'string' && `${item.user.name} ${item.user.surname}`}</ListTableCell>
             <ListTableCell>{getDateFromIso(item.dateStart)}</ListTableCell>
             <ListTableCell>{getDateFromIso(item.dateEnd)}</ListTableCell>
-            <ListTableCell>{t(`dayoff.${item.reason}`)}</ListTableCell>
+            <ListTableCell>{t(`selects.dayoffReason.${item.reason}`)}</ListTableCell>
             <ListTableCell>{item.description}</ListTableCell>
             <ListTableCell>{item.adminComment}</ListTableCell>
           </ListTableRow>

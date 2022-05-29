@@ -23,7 +23,7 @@ const columns: Column[] = [
   {
     field: 'reason',
     headerName: 'dayoff.reason',
-    valueGetter: (value: string) => <>{t(`dayoffPage.form.reasons.${value}`)}</>,
+    valueGetter: (value: string) => <>{t(`selects.dayoffReason.${value}`)}</>,
   },
   {
     field: 'adminComment',

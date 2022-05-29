@@ -19,8 +19,8 @@ const NotificationsPage = () => {
   const { data = [] } = useGetNotifications({ to: id });
   const [selectedNotification, setSelectedNotification] = useState<INotification | null>(null);
   return (
-    <Page title={t('notificationsPage.title')}>
-      <PageTitle>{t('notificationsPage.title')}</PageTitle>
+    <Page title={t('notifications')}>
+      <PageTitle>{t('notifications')}</PageTitle>
       {!!data.length && (
         <NotificationPageWrapper>
           <List
@@ -39,7 +39,7 @@ const NotificationsPage = () => {
       )}
       {!data.length && (
         <EmptyDataWrapper>
-          {t('notificationsPage.noData')}
+          {t('noData')}
         </EmptyDataWrapper>
       )}
     </Page>

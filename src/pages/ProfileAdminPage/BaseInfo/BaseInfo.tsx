@@ -15,7 +15,7 @@ type Props = {
 
 const BaseInfo = ({ data, onUpdate }: Props) => {
   const { t } = useTranslation();
-  const translatedStatuses = useTranslatedSelect(STATUSES);
+  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
   return (
     <BaseInfoWrapper>
       <div className="user-card">

@@ -41,7 +41,7 @@ const PrepaymentForm = () => {
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <div className="fields-list">
         <Input
-          label={t('prepaymentPage.form.sum')}
+          label={t('prepayment.sum')}
           type="number"
           defaultValue="50"
           error={!!errors.sum?.message}
@@ -56,7 +56,7 @@ const PrepaymentForm = () => {
         <Input
           multiline
           className="input-wrapper"
-          label={t('prepaymentPage.form.comment')}
+          label={t('prepayment.comment')}
           {...register('comment')}
         />
       </div>

@@ -24,8 +24,6 @@
   "prepaymentPage": {
     "title": "Заказ аванса",
     "form": {
-      "sum": "Сумма",
-      "comment": "Комментарий",
       "order": "Заказать",
       "sumMinValidation": "Минимальная сумма - 50",
       "sumMaxValidation": "Максимальная сумма - 200",
@@ -35,31 +33,14 @@
   "dayoffPage": {
     "title": "Информирование об отсутствии на работе",
     "form": {
-      "dateStart": "Дата начала",
-      "dateEnd": "Дата завершения",
-      "reason": "Причина",
-      "comment": "Комментарий",
-      "reasons": {
-        "vacation": "Отпуск",
-        "illnes": "Болезнь",
-        "medicalCheck": "Медобследование",
-        "alcohol": "Алкогольное опьянение",
-        "other": "Другое"
-      },
       "explainReason": "Укажите причину",
       "successCreate": "Информацию об отгуле отправлено"
     }
   },
-  "notificationsPage": {
-    "title": "Оповещения",
-    "noData": "Оповещений не найдено"
-  },
-  "paychecksPage": {
-    "title": "Рассчетные листы"
-  },
-  "profilePage": {
-    "title": "Профиль"
-  },
+  "notifications": "Оповещения",
+  "noData": "Ничего не найдено",
+  "paychecks": "Рассчетные листы",
+  "profile": "Профиль",
   "user": {
     "info": "Информация",
     "login": "Войти",
@@ -144,29 +125,39 @@
     "reason": "Причина",
     "adminComment": "Коментарий фирмы",
     "comment": "Коментарий",
-    "vacation": "Отпуск",
-    "illnes": "Болезнь",
-    "medicalCheck": "Медобследование",
-    "alcohol": "Алкогольное опьянение",
-    "other": "Другое",
     "user": "Пользователь"
   },
   "profileList": {
     "title": "Профили"
   },
   "selects": {
-    "business": "Бизнес",
-    "study": "Образование",
-    "work": "Работа",
-    "married": "Женат",
-    "single": "Не женат",
-    "base": "Общее",
-    "middleFull": "Среднее полное",
-    "middleSpecial": "Среднее специальное",
-    "high": "Высшее",
-    "candidate": "Кандидат",
-    "hired": "Нанят",
-    "fired": "Уволен"
+    "permitType": {
+      "business": "Бизнес",
+      "study": "Образование",
+      "work": "Работа"
+    },
+    "study": {
+      "base": "Общее",
+      "middleFull": "Среднее полное",
+      "middleSpecial": "Среднее специальное",
+      "high": "Высшее"
+    },
+    "familyStatus": {
+      "married": "Женат",
+      "single": "Не женат"
+    },
+    "userStatus": {
+      "candidate": "Кандидат",
+      "hired": "Нанят",
+      "fired": "Уволен"
+    },
+    "dayoffReason": {
+      "vacation": "Отпуск",
+      "illnes": "Болезнь",
+      "medicalCheck": "Медобследование",
+      "alcohol": "Алкогольное опьянение",
+      "other": "Другое"
+    }
   },
   "notFoundText": "Страница не найдена",
   "search": "Поиск",

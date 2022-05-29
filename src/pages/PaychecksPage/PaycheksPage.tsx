@@ -11,8 +11,8 @@ const PaychecksPage = () => {
   const { id } = useAuthData();
   const { data } = useGetPaycheckList({ user: id });
   return (
-    <Page title={t('paychecksPage.title')}>
-      <PageTitle>{t('paychecksPage.title')}</PageTitle>
+    <Page title={t('paychecks')}>
+      <PageTitle>{t('paychecks')}</PageTitle>
       <Files>
         {data?.map((prepayment) => (
           <File

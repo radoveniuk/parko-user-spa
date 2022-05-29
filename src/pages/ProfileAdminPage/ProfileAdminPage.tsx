@@ -17,7 +17,7 @@ const ProfileAdminPage = () => {
   const { data: profileData, refetch } = useGetUser(userId || '');
   const updateUserMutation = useUpdateUserMutation();
 
-  const pageTitle = useMemo(() => profileData ? `${profileData.name} ${profileData.surname}` : t('profilePage.title'), [profileData, t]);
+  const pageTitle = useMemo(() => profileData ? `${profileData.name} ${profileData.surname}` : t('profile'), [profileData, t]);
 
   const updateUser = (values: Partial<IUser>) => {
     if (userId) {

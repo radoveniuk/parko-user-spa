@@ -34,9 +34,9 @@ const ProfileInfoForm = () => {
   const { data: countriesOptions } = useGetCountries();
   const updateUserMutation = useUpdateUserMutation();
   const { enqueueSnackbar } = useSnackbar();
-  const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES);
-  const studyOptions = useTranslatedSelect(STUDY);
-  const permitTypeOptions = useTranslatedSelect(PERMIT_TYPES);
+  const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
+  const studyOptions = useTranslatedSelect(STUDY, 'study');
+  const permitTypeOptions = useTranslatedSelect(PERMIT_TYPES, 'permitType');
 
   const uploadScans = async () => {
     const data = watch();

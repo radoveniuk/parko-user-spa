@@ -24,8 +24,6 @@
   "prepaymentPage": {
     "title": "Prepayment order",
     "form": {
-      "sum": "Sum",
-      "comment": "Comment",
       "order": "Send order",
       "sumMinValidation": "Min sum - 50",
       "sumMaxValidation": "Max sum - 200",
@@ -35,31 +33,14 @@
   "dayoffPage": {
     "title": "Notice of absence from work",
     "form": {
-      "dateStart": "Date start",
-      "dateEnd": "Date end",
-      "reason": "Reason",
-      "comment": "Comment",
-      "reasons": {
-        "vacation": "Vacation",
-        "illnes": "Illnes",
-        "medicalCheck": "Medical check",
-        "alcohol": "Alcohol",
-        "other": "Other"
-      },
       "explainReason": "Input the reason",
       "successCreate": "Day off has been sended"
     }
   },
-  "notificationsPage": {
-    "title": "Notifications",
-    "noData": "You don`t have any notifications"
-  },
-  "paychecksPage": {
-    "title": "Paychecks"
-  },
-  "profilePage": {
-    "title": "Profile"
-  },
+  "notifications": "Notifications",
+  "noData": "Data not found",
+  "paychecks": "Paychecks",
+  "profile": "Profile",
   "user": {
     "info": "Info",
     "login": "Log in",
@@ -144,29 +125,39 @@
     "reason": "Reason",
     "adminComment": "Comment of admin",
     "comment": "Comment",
-    "vacation": "Vacation",
-    "illnes": "Illnes",
-    "medicalCheck": "Medical check",
-    "alcohol": "Alcohol",
-    "other": "Other",
     "user": "User"
   },
   "profileList": {
     "title": "Profiles"
   },
   "selects": {
-    "business": "Business",
-    "study": "Study",
-    "work": "Work",
-    "married": "Married",
-    "single": "Sigle",
-    "base": "Base",
-    "middleFull": "Middle full",
-    "middleSpecial": "Middle special",
-    "high": "High",
-    "candidate": "Candidate",
-    "hired": "Work",
-    "fired": "Fired"
+    "permitType": {
+      "business": "Business",
+      "study": "Study",
+      "work": "Work"
+    },
+    "study": {
+      "base": "Base",
+      "middleFull": "Middle full",
+      "middleSpecial": "Middle special",
+      "high": "High"
+    },
+    "familyStatus": {
+      "married": "Married",
+      "single": "Sigle"
+    },
+    "userStatus": {
+      "candidate": "Candidate",
+      "hired": "Work",
+      "fired": "Fired"
+    },
+    "dayoffReason": {
+      "vacation": "Vacation",
+      "illnes": "Illnes",
+      "medicalCheck": "Medical check",
+      "alcohol": "Alcohol",
+      "other": "Other"
+    }
   },
   "notFoundText": "Page not found",
   "search": "Пошук",

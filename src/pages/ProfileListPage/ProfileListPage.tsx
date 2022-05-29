@@ -23,15 +23,15 @@ const ProfileListPageRender = () => {
   const { filtersState } = useFilters();
   const debouncedFiltersState = useDebounce(filtersState);
   const { data, refetch } = useGetUserList(debouncedFiltersState);
-  const translatedStatuses = useTranslatedSelect(STATUSES);
+  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
 
   useEffect(() => {
     refetch();
   }, [debouncedFiltersState, refetch]);
 
   return (
-    <Page title={t('profileList.title')}>
-      <PageTitle>{t('profileList.title')}</PageTitle>
+    <Page title={t('profileList')}>
+      <PageTitle>{t('profileList')}</PageTitle>
       <FiltersBar>
         <FilterText filterKey="search" label={t('search')} />
         <FilterSelect filterKey="project" label={t('user.project')} />

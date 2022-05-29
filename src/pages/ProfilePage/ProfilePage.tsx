@@ -6,8 +6,8 @@ import ProfileInfoForm from './ProfileInfoForm';
 const ProfilePage = () => {
   const { t } = useTranslation();
   return (
-    <Page title={t('profilePage.title')}>
-      <PageTitle>{t('profilePage.title')}</PageTitle>
+    <Page title={t('profile')}>
+      <PageTitle>{t('profile')}</PageTitle>
       <ProfileInfoForm />
     </Page>
   );

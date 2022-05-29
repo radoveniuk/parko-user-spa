@@ -14,6 +14,7 @@ import { useAuthData } from 'contexts/AuthContext';
 import { useCreateDayoffMutation } from 'api/mutations/dayoffMutation';
 
 import { StyledForm } from './styles';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 
 type Inputs = {
   dateStart: string,
@@ -22,19 +23,11 @@ type Inputs = {
   comment: string,
 };
 
-const useGetDayoffReasons = () => {
-  const { t } = useTranslation();
-  return REASONS.map((value) => ({
-    value,
-    label: t(`dayoffPage.form.reasons.${value}`),
-  }));
-};
-
 const DayoffRequestForm = () => {
   const { handleSubmit, watch, control, register, formState: { errors } } = useForm<Inputs>();
   const { t } = useTranslation();
   const { id } = useAuthData();
-  const reasonsList = useGetDayoffReasons();
+  const reasonsList = useTranslatedSelect(REASONS, 'dayoffReason');
   const { enqueueSnackbar } = useSnackbar();
   const createDayoffMutation = useCreateDayoffMutation();
 
@@ -65,7 +58,7 @@ const DayoffRequestForm = () => {
             <DatePicker
               value={field.value}
               onChange={field.onChange}
-              label={t('dayoffPage.form.dateStart')}
+              label={t('dayoff.dateStart')}
             />
           )}
         />
@@ -78,14 +71,14 @@ const DayoffRequestForm = () => {
             <DatePicker
               value={field.value}
               onChange={field.onChange}
-              label={t('dayoffPage.form.dateEnd')}
+              label={t('dayoff.dateEnd')}
             />
           )}
         />
-        <Select label={t('dayoffPage.form.reason')} options={reasonsList} error={!!errors.reason} {...register('reason', { required: true })}/>
+        <Select label={t('dayoff.reason')} options={reasonsList} error={!!errors.reason} {...register('reason', { required: true })}/>
         <Input
           multiline
-          label={t('dayoffPage.form.comment')}
+          label={t('dayoff.comment')}
           error={!!errors.comment?.message}
           helperText={errors.comment?.message}
           {...register('comment', { required: { message: t('dayoffPage.form.explainReason'), value: watch('reason') === 'other' } })}

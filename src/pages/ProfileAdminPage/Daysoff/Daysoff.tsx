@@ -25,7 +25,7 @@ const Daysoff = () => {
         <ListTableRow key={item._id}>
           <ListTableCell>{DateTime.fromISO(item.dateStart).toFormat('dd.MM.yyyy')}</ListTableCell>
           <ListTableCell>{DateTime.fromISO(item.dateEnd).toFormat('dd.MM.yyyy')}</ListTableCell>
-          <ListTableCell>{t(`dayoff.${item.reason}`)}</ListTableCell>
+          <ListTableCell>{t(`selects.dayoffReason.${item.reason}`)}</ListTableCell>
           <ListTableCell>{item.description}</ListTableCell>
           <ListTableCell>{item.adminComment}</ListTableCell>
         </ListTableRow>
