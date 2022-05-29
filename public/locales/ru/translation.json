@@ -142,6 +142,24 @@
     "status": "Статус",
     "resetPassword": "Сброс пароля"
   },
+  "prepayment": {
+    "date": "Дата",
+    "sum": "Сумма",
+    "approved": "Подтвержден",
+    "comment": "Коментарий"
+  },
+  "dayoff": {
+    "dateStart": "Начало",
+    "dateEnd": "Завершение",
+    "reason": "Причина",
+    "adminComment": "Коментарий фирмы",
+    "comment": "Коментарий",
+    "vacation": "Отпуск",
+    "illnes": "Болезнь",
+    "medicalCheck": "Медобследование",
+    "alcohol": "Алкогольное опьянение",
+    "other": "Другое"
+  },
   "profileList": {
     "title": "Профили"
   },
