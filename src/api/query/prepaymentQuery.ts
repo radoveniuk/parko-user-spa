@@ -1,14 +1,17 @@
 import api from 'api/common';
+import { AnyObject } from 'interfaces/base.types';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { useQuery } from 'react-query';
 
-export const useGetPrepayments = (params: Partial<IPrepayment> = {}) => {
+export const useGetPrepayments = (params: AnyObject = {}) => {
   const request = (): Promise<IPrepayment[]> => api.get('/prepayments', {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-    params,
+    params: {
+      ...params,
+    },
   }).then(res => res.data.data);
-  return useQuery('prepayments', request, { initialData: [] });
+  return useQuery(['prepayments', JSON.stringify(params)], request, { initialData: [] });
 };

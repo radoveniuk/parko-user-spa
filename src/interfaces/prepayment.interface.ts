@@ -1,6 +1,8 @@
+import { IUser } from './users.interface';
+
 export interface IPrepayment {
   _id: string;
-  userId: string;
+  user: string | Partial<IUser>;
   sum: string | number;
   isApproved: boolean | null;
   createdAt?: string;

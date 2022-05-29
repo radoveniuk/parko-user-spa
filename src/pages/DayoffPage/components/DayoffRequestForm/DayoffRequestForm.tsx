@@ -40,7 +40,7 @@ const DayoffRequestForm = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const dayoff = {
-      userId: id,
+      user: id,
       description: data.comment,
       reason: data.reason,
       dateStart: data.dateStart,

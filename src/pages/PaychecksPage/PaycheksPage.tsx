@@ -9,7 +9,7 @@ import { File, Files } from 'components/shared/FileList';
 const PaychecksPage = () => {
   const { t } = useTranslation();
   const { id } = useAuthData();
-  const { data } = useGetPaycheckList({ userId: id });
+  const { data } = useGetPaycheckList({ user: id });
   return (
     <Page title={t('paychecksPage.title')}>
       <PageTitle>{t('paychecksPage.title')}</PageTitle>

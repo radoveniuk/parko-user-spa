@@ -146,7 +146,8 @@
     "date": "Date",
     "sum": "Sum",
     "approved": "Approved",
-    "comment": "Comment"
+    "comment": "Comment",
+    "user": "User"
   },
   "dayoff": {
     "dateStart": "Date start",
@@ -158,7 +159,8 @@
     "illnes": "Illnes",
     "medicalCheck": "Medical check",
     "alcohol": "Alcohol",
-    "other": "Other"
+    "other": "Other",
+    "user": "User"
   },
   "profileList": {
     "title": "Profiles"
@@ -180,5 +182,7 @@
   "notFoundText": "Page not found",
   "search": "Пошук",
   "true": "Yes",
-  "false": "No"
+  "false": "No",
+  "prepaymentsList": "Prepayments list",
+  "dayoffList": "Days off list"
 }

@@ -1,5 +1,5 @@
-export { default as PrepaymentIcon } from './PrepaymentIcon';
-export { default as DayoffIcon } from './DayoffIcon';
+export { GiReceiveMoney as PrepaymentIcon } from 'react-icons/gi';
+export { MdWeekend as DayoffIcon } from 'react-icons/md';
 export { SiReadthedocs as PaycheckIcon } from 'react-icons/si';
 export { FaUserTie as UserIcon } from 'react-icons/fa';
 export { FaUsers as UsersIcon } from 'react-icons/fa';
@@ -14,3 +14,4 @@ export { BsFillCloudUploadFill as UploadIcon } from 'react-icons/bs';
 export { BsPlus as PlusIcon } from 'react-icons/bs';
 export { MdWork as ProjectIcon } from 'react-icons/md';
 export { MdSearch as SearchIcon } from 'react-icons/md';
+export { default as ApprovedIcon } from './ApprovedIcon';

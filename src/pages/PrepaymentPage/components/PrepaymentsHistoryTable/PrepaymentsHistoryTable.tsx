@@ -1,8 +1,8 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-import { themeConfig } from 'theme';
+
 import Table from 'components/shared/Table';
-import { AcceptIcon, CloseIcon, QuestionIcon } from 'components/icons';
+import { ApprovedIcon } from 'components/icons';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { Column } from 'interfaces/table.types';
 import { useAuthData } from 'contexts/AuthContext';
@@ -23,15 +23,7 @@ const columns: Column[] = [
   {
     field: 'isApproved',
     headerName: 'prepaymentPage.historyTable.approved',
-    valueGetter: (value: boolean | null) => {
-      if (value) {
-        return <AcceptIcon color={themeConfig.palette.success.main} size={20}/>;
-      }
-      if (value === false) {
-        return <CloseIcon color={themeConfig.palette.error.main} size={20} />;
-      }
-      return <QuestionIcon size={20} />;
-    },
+    valueGetter: (value: boolean | null) => <ApprovedIcon approved={value} size={20} />,
   },
   {
     field: 'adminComment',
@@ -41,7 +33,7 @@ const columns: Column[] = [
 
 const PrepaymentsHistoryTable = () => {
   const { id } = useAuthData();
-  const { data } = useGetPrepayments({ userId: id });
+  const { data } = useGetPrepayments({ user: id });
 
   return (
     <HistoryWrapper>

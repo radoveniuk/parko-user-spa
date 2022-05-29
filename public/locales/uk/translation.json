@@ -142,6 +142,26 @@
     "status": "Статус",
     "resetPassword": "Скинути пароль"
   },
+  "prepayment": {
+    "date": "Дата",
+    "sum": "Сума",
+    "approved": "Підтверджено",
+    "comment": "Коментар",
+    "user": "Користувач"
+  },
+  "dayoff": {
+    "dateStart": "Початок",
+    "dateEnd": "Кінець",
+    "reason": "Причина",
+    "adminComment": "Коментар фірми",
+    "comment": "Коментар",
+    "vacation": "Відпустка",
+    "illnes": "Хвороба",
+    "medicalCheck": "Медогляд",
+    "alcohol": "Алкогольне cп'яніння",
+    "other": "Інше",
+    "user": "Користувач"
+  },
   "profileList": {
     "title": "Профілі"
   },
@@ -162,5 +182,7 @@
   "notFoundText": "Сторінку не знайдено",
   "search": "Пошук",
   "true": "Так",
-  "false": "Ні"
+  "false": "Ні",
+  "prepaymentsList": "Список авансів",
+  "dayoffList": "Список відгулів"
 }

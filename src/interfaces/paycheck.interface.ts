@@ -1,6 +1,6 @@
 export interface IPaycheck {
   _id: string;
-  userId: string;
+  user: string;
   project: string;
   date: string;
   linkedFile: string;

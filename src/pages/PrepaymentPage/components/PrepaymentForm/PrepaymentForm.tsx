@@ -25,7 +25,7 @@ const PrepaymentForm = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const prepayment = {
-      userId: id,
+      user: id,
       userComment: data.comment,
       sum: data.sum,
       isApproved: null,

@@ -33,7 +33,7 @@ const columns: Column[] = [
 
 const DayoffHistory = () => {
   const { id } = useAuthData();
-  const { data } = useGetDaysoff({ userId: id });
+  const { data } = useGetDaysoff({ user: id });
   return (
     <HistoryWrapper>
       <Table columns={columns} rows={data} />

@@ -15,9 +15,9 @@ const columns = [
 ];
 
 const Daysoff = () => {
-  const { id: userId } = useParams();
+  const { id: user } = useParams();
   const { t } = useTranslation();
-  const { data } = useGetDaysoff({ userId });
+  const { data } = useGetDaysoff({ user });
 
   return (
     <ListTable columns={columns} >

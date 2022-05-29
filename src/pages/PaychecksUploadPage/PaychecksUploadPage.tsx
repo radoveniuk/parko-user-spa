@@ -27,7 +27,7 @@ const PaychecksUploadPage = () => {
         linkedFile: _id,
         date: DateTime.now().toISODate(),
         project: 'project1',
-        userId: '6288dd2f7601caac4d874cec',
+        user: '6288dd2f7601caac4d874cec',
       }));
       createPaychecks.mutate(paychecks);
       enqueueSnackbar(t('paychecksUpload.success'), { variant: 'success' });
