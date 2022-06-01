@@ -1,7 +1,9 @@
 import React from 'react';
 import Dropzone, { IFileWithMeta, StatusValue } from 'react-dropzone-uploader';
+import { useTranslation } from 'react-i18next';
 
 import 'react-dropzone-uploader/dist/styles.css';
+import { FileUploadAreaWrapper } from './styles';
 
 type Props = {
   accept?: string;
@@ -10,6 +12,8 @@ type Props = {
 }
 
 const FileUploadArea = ({ accept, fileNameRegex, onUpload }: Props) => {
+  const { t } = useTranslation();
+
   const handleChangeStatus = (file: IFileWithMeta, status: StatusValue) => {
     if (status === 'done') {
       if (fileNameRegex && !fileNameRegex.test(file.meta.name)) {
@@ -24,12 +28,16 @@ const FileUploadArea = ({ accept, fileNameRegex, onUpload }: Props) => {
   };
 
   return (
-    <Dropzone
-      onChangeStatus={handleChangeStatus}
-      onSubmit={handleSubmit}
-      styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
-      accept={accept}
-    />
+    <FileUploadAreaWrapper>
+      <Dropzone
+        onChangeStatus={handleChangeStatus}
+        onSubmit={handleSubmit}
+        accept={accept}
+        inputContent={t('file.upload')}
+        submitButtonContent={t('file.submit')}
+        inputWithFilesContent={t('file.add')}
+      />
+    </FileUploadAreaWrapper>
   );
 };
 

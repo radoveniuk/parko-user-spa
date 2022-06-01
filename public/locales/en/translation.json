@@ -162,5 +162,14 @@
   "true": "Yes",
   "false": "No",
   "prepaymentsList": "Prepayments list",
-  "dayoffList": "Days off list"
+  "dayoffList": "Days off list",
+  "paychecksUpload": "Paychecks Upload",
+  "file": {
+    "upload": "Drop files here or click",
+    "submit": "Send files",
+    "add": "Add files"
+  },
+  "paycheck": {
+    "successfullUpload": "Paychecks were uploaded"
+  }
 }

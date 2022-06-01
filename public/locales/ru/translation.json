@@ -162,5 +162,14 @@
   "true": "Да",
   "false": "Нет",
   "prepaymentsList": "Список авансов",
-  "dayoffList": "Список отгулов"
+  "dayoffList": "Список отгулов",
+  "paychecksUpload": "Загрузка рассчетных листов",
+  "file": {
+    "upload": "Перетяните файлы или нажмите",
+    "submit": "Отправить",
+    "add": "Добавить"
+  },
+  "paycheck": {
+    "successfullUpload": "Загрузка прошла успешно"
+  }
 }

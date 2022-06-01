@@ -7,13 +7,15 @@ import { IPaycheck } from 'interfaces/paycheck.interface';
 import { useCreatePaychecksMutation } from 'api/mutations/paycheckMutation';
 import { useSnackbar } from 'notistack';
 import { DateTime } from 'luxon';
+import { IFile } from 'interfaces/file.interface';
+import { getUserListByParams } from 'api/query/userQuery';
 
 const PaychecksUploadPage = () => {
   const { t } = useTranslation();
   const createPaychecks = useCreatePaychecksMutation();
   const { enqueueSnackbar } = useSnackbar();
 
-  const uploadPaychecks = (files: File[]) => {
+  const uploadPaychecks = async (files: File[]) => {
     const formData = new window.FormData();
 
     files.forEach((file) => {
@@ -22,22 +24,40 @@ const PaychecksUploadPage = () => {
       }
     });
 
-    uploadFiles(formData).then((resultList) => {
-      const paychecks: Partial<IPaycheck>[] = resultList.map(({ originalname, _id }) => ({
-        linkedFile: _id,
-        date: DateTime.now().toISODate(),
-        project: 'project1',
-        user: '6288dd2f7601caac4d874cec',
-      }));
-      createPaychecks.mutate(paychecks);
-      enqueueSnackbar(t('paychecksUpload.success'), { variant: 'success' });
-    });
+    const uploadingResultList = await uploadFiles(formData);
+
+    const getPaycheckData = async (fileData: IFile): Promise<Partial<IPaycheck>> => {
+      const fileNameParams = fileData.originalname
+        .replace('.pdf', '')
+        .split('-')
+        .join('')
+        .split('_')
+        .filter((item) => item);
+      const [date, projectName, userName, userSurname] = fileNameParams;
+      const [userData] = await getUserListByParams({ name: userName, surname: userSurname });
+      return {
+        linkedFile: fileData._id,
+        date: DateTime.fromFormat(date, 'MM.yyyy').toISODate(),
+        project: projectName,
+        user: userData._id,
+      };
+    };
+
+    const paychecks = await Promise.all(uploadingResultList.map(getPaycheckData));
+
+    await createPaychecks.mutateAsync(paychecks);
+
+    enqueueSnackbar(t('paycheck.successfullUpload'), { variant: 'success' });
   };
 
   return (
-    <Page title={t('paychecksUpload.title')}>
-      <PageTitle>{t('paychecksUpload.title')}</PageTitle>
-      <FileUploadArea fileNameRegex={/^[0-9]{2}[.][0-9]{4}.pdf$/g} accept="application/pdf" onUpload={uploadPaychecks} />
+    <Page title={t('paychecksUpload')}>
+      <PageTitle>{t('paychecksUpload')}</PageTitle>
+      <FileUploadArea
+        fileNameRegex={/^[0-9]{2}[.][0-9]{4}_-_\S+_\S+_\S+.pdf/ig}
+        accept="application/pdf"
+        onUpload={uploadPaychecks}
+      />
     </Page>
   );
 };
