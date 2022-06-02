@@ -9,7 +9,7 @@ type Props = ListProps & {
   data: any[];
   fields: {
     primary: string;
-    secondary: string;
+    secondary?: string;
     text?: string;
   };
   onSelect?(value: any): void
@@ -24,18 +24,16 @@ const List = ({ data, fields, onSelect, ...rest }: Props) => {
           <ListItemButton onClick={() => { setSelected(item._id); onSelect?.(item); }} selected={selected === item._id}>
             <ListItemText
               primary={item[fields.primary]}
-              secondary={
-                <>
-                  <Typography
-                    sx={{ display: 'inline' }}
-                    component="span"
-                    variant="body2"
-                    color="text.primary"
-                  >
-                    {item[fields.secondary]}
-                  </Typography>
-                </>
-              }
+              secondary={fields.secondary && (
+                <Typography
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
+                  {item[fields.secondary]}
+                </Typography>
+              )}
             />
           </ListItemButton>
         </ListItem>

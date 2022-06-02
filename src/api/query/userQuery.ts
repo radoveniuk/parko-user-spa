@@ -17,4 +17,8 @@ export const useGetUser = (id: string) => {
   return useQuery(['user-data', id], request);
 };
 
-export const useGetUserList = (params: AnyObject) => useQuery('users', () => getUserListByParams(params), { initialData: [], refetchOnWindowFocus: false });
+export const useGetUserList = (params: AnyObject) => useQuery('users', () => getUserListByParams(params),
+  {
+    initialData: [],
+    refetchOnWindowFocus: false,
+  });

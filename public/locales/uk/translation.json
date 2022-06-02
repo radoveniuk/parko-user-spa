@@ -171,5 +171,9 @@
   },
   "paycheck": {
     "successfullUpload": "Розрахункові листи успішно завантажено"
+  },
+  "projectList": "Проєкти",
+  "project": {
+    "new": "Створити новий"
   }
 }

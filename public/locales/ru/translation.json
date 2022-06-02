@@ -171,5 +171,9 @@
   },
   "paycheck": {
     "successfullUpload": "Загрузка прошла успешно"
+  },
+  "projectList": "Проекты",
+  "project": {
+    "new": "Создать новый"
   }
 }

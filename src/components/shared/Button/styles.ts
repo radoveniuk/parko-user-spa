@@ -5,7 +5,7 @@ import { Button as ButtonMaterial } from '@mui/material';
 export const StyledButton = styled(ButtonMaterial)`
   border-radius: 2px;
 
-  ${props => props.variant === 'contained' && css`
+  ${props => props.variant === 'contained' && props.color === 'primary' && css`
     &:hover {
       background-color: ${themeConfig.palette.primary.light} !important;
     }

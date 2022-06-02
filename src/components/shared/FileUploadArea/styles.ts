@@ -8,6 +8,7 @@ export const FileUploadAreaWrapper = styled.div`
     min-height: 340px;
     max-height: 340px;
     border-style: dashed;
+    overflow: auto;
   }
 
   .dzu-submitButton, .dzu-inputLabelWithFiles {

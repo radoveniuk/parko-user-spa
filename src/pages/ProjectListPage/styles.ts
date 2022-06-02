@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 
-const borderColor = '#e9e9e9';
-
-export const NotificationPageWrapper = styled.div`
+export const ProjectsListWrapper = styled.div`
   display: flex;
-  border-top: 1px solid ${borderColor};
 
-  .notifications-list {
-    border-right: 1px solid ${borderColor};
+  .projects-list {
+    border-right: 1px solid #e9e9e9;
     min-width: 33%;
     max-height: calc(100vh - 190px);
     min-height: calc(100vh - 190px);

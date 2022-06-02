@@ -45,8 +45,13 @@ const ProfileListPageRender = () => {
               <ListTableCell>{user.name}</ListTableCell>
               <ListTableCell>{user.surname}</ListTableCell>
               <ListTableCell>{user.email}</ListTableCell>
-              <ListTableCell>{user.project}</ListTableCell>
-              <ListTableCell>{user.status ? <p style={{ color: STATUSES_COLORS[user.status] }}>{t(`selects.${user.status}`)}</p> : ''}</ListTableCell>
+              <ListTableCell>{typeof user.project === 'object' && user.project.name}</ListTableCell>
+              <ListTableCell>{user.status && (
+                <p
+                  style={{ color: STATUSES_COLORS[user.status] }}>
+                  {t(`selects.userStatus.${user.status}`)}
+                </p>
+              )}</ListTableCell>
             </ListTableRow>
           </Link>
         ))}

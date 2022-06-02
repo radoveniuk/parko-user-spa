@@ -171,5 +171,9 @@
   },
   "paycheck": {
     "successfullUpload": "Paychecks were uploaded"
+  },
+  "projectList": "Projects",
+  "project": {
+    "new": "Create new"
   }
 }

@@ -7,7 +7,7 @@ type UserField = keyof IUser | {
 };
 
 const dateFromIso = (v: string) => v ? DateTime.fromISO(v).toFormat('dd.MM.yyyy') : '';
-const selectGetter = (v: string) => v ? `selects.${v}` : v;
+const selectGetter = (select: string, v: string) => v ? `selects.${select}.${v}` : v;
 
 export const USER_FIELDS: UserField[] = [
   'email',
@@ -19,7 +19,7 @@ export const USER_FIELDS: UserField[] = [
   'hasIdCard',
   'passNumber',
   'hasPermit',
-  { key: 'permitType', get: selectGetter },
+  { key: 'permitType', get: (v) => selectGetter('permitType', v) },
   { key: 'permitExpire', get: dateFromIso },
   'hasPrevPermit',
   'rodneCislo',
@@ -33,9 +33,9 @@ export const USER_FIELDS: UserField[] = [
   'tshortSize',
   'pantsSize',
   'shoesSize',
-  { key: 'study', get: selectGetter },
+  { key: 'study', get: (v) => selectGetter('study', v) },
   'speciality',
-  { key: 'familyState', get: selectGetter },
+  { key: 'familyState', get: (v) => selectGetter('familyStatus', v) },
   'prevSurname',
   'hasChildren',
   'hasSiblings',

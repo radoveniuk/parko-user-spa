@@ -1,3 +1,5 @@
+import { IProject } from './project.interface';
+
 export interface IUser {
   _id: string;
   // base fields
@@ -56,7 +58,7 @@ export interface IUser {
   fatherName: string;
   fatherSurname: string;
   fatherBirthdate: string;
-  project: string;
+  project: string | IProject;
   status: string;
   role: UserRole;
 }

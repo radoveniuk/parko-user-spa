@@ -7,6 +7,7 @@ import Select from 'components/shared/Select';
 import { useTranslation } from 'react-i18next';
 import Button from 'components/shared/Button';
 import { USER_FIELDS } from './fields';
+import { useGetProjects } from 'api/query/projectQuery';
 
 type Props = {
   data: IUser;
@@ -15,6 +16,7 @@ type Props = {
 
 const BaseInfo = ({ data, onUpdate }: Props) => {
   const { t } = useTranslation();
+  const { data: projects } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
   return (
     <BaseInfoWrapper>
@@ -43,8 +45,11 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
         </div>
         <div className="settings-item">
           <Select
-            value={data.project}
+            value={projects?.length ? data.project : ''}
             label={t('user.project')}
+            options={projects}
+            valuePath="_id"
+            labelPath="name"
             onChange={({ target }) => void onUpdate({ project: target.value as string })}
           />
         </div>

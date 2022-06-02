@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ListTableWrapper = styled.div<{ cols: number }>`
   display: grid;
   grid-template-columns: repeat(${props => props.cols}, 1fr);
+  overflow: auto;
 `;
 
 export const ListTableRow = styled.div`
