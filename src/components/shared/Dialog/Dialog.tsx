@@ -5,7 +5,7 @@ import IconButton from '../IconButton';
 import { DialogTitle } from './styles';
 
 type Props = DialogProps & {
-  onClose():void;
+  onClose(): void;
 }
 
 const Dialog = ({ children, title, onClose, ...rest }: Props) => (

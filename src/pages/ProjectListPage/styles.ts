@@ -22,3 +22,27 @@ export const EmptyDataWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const ProjectInfoWrapper = styled.div`
+  width: 100%;
+`;
+
+export const ProjectInfoDataWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 10px;
+`;
+
+export const ProjectActionsWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const DialogContentWrapper = styled.div`
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+`;

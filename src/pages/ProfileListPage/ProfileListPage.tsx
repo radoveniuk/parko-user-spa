@@ -9,6 +9,7 @@ import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterTe
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import useDebounce from 'hooks/useDebounce';
+import { IUser } from 'interfaces/users.interface';
 
 const columns = [
   'user.name',
@@ -39,7 +40,7 @@ const ProfileListPageRender = () => {
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={columns} >
-        {data?.map((user) => (
+        {data?.map((user: IUser) => (
           <Link key={user._id} to={`/profile/${user._id}`} style={{ display: 'contents', color: '#000' }}>
             <ListTableRow>
               <ListTableCell>{user.name}</ListTableCell>

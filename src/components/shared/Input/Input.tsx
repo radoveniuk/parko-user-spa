@@ -1,5 +1,6 @@
-import { TextField, TextFieldProps } from '@mui/material';
 import React, { ForwardedRef, forwardRef } from 'react';
+import { TextFieldProps } from '@mui/material';
+import { TextField } from './styles';
 
 const NOT_NUMBER_VALUES = ['e', 'E', '+', '-', '.', '.'];
 

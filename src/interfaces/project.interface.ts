@@ -6,4 +6,6 @@ export interface IProject {
   comment: string;
   dateStart: string;
   dateEnd: string;
+  cost: string;
+  tariff: string;
 }

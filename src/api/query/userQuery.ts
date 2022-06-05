@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import api from 'api/common';
 import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
+import { QueryOptions } from 'interfaces/query.types';
 
 export const getUserListByParams = (params: AnyObject): Promise<IUser[]> => api.get('/users', {
   headers: {
@@ -17,8 +18,9 @@ export const useGetUser = (id: string) => {
   return useQuery(['user-data', id], request);
 };
 
-export const useGetUserList = (params: AnyObject) => useQuery('users', () => getUserListByParams(params),
+export const useGetUserList = (params: AnyObject, options?: QueryOptions) => useQuery<IUser[]>('users', () => getUserListByParams(params),
   {
     initialData: [],
     refetchOnWindowFocus: false,
+    ...options,
   });

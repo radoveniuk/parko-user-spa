@@ -15,3 +15,8 @@ export const useGetProjects = (params: AnyObject = {}) => {
   }).then(res => res.data.data);
   return useQuery(['projects', JSON.stringify(params)], request, { initialData: [], refetchOnWindowFocus: false });
 };
+
+export const useGetProject = (id: string) => {
+  const request = (): Promise<IProject> => api.get(`/projects/${id}`).then(res => res.data.data);
+  return useQuery(['project', id], request, { enabled: !!id, refetchOnWindowFocus: false });
+};
