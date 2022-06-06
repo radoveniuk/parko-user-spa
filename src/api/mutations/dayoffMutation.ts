@@ -6,3 +6,8 @@ export const useCreateDayoffMutation = () => {
   const request = (data: Partial<IDayOff>) => api.post('/days-off', data).then(res => res.data.data);
   return useMutation(request);
 };
+
+export const useUpdateDayoffMutation = () => {
+  const request = (data: Partial<IDayOff>) => api.put(`/days-off/${data._id}`, data).then(res => res.data.data);
+  return useMutation(request);
+};

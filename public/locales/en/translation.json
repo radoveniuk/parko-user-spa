@@ -117,7 +117,10 @@
     "sum": "Sum",
     "approved": "Approved",
     "comment": "Comment",
-    "user": "User"
+    "user": "User",
+    "approval": "Prepayment approving",
+    "approve": "Approve",
+    "reject": "Reject"
   },
   "dayoff": {
     "dateStart": "Date start",
@@ -125,7 +128,8 @@
     "reason": "Reason",
     "adminComment": "Comment of admin",
     "comment": "Comment",
-    "user": "User"
+    "user": "User",
+    "send": "Send"
   },
   "profileList": "Profiles",
   "selects": {

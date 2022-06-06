@@ -10,4 +10,8 @@ export const StyledButton = styled(ButtonMaterial)`
       background-color: ${themeConfig.palette.primary.light} !important;
     }
   `}
+
+  ${props => props.color === 'success' && css`
+    color: #fff !important;
+  `}
 `;

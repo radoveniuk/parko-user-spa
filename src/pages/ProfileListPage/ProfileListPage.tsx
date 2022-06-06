@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Page, { PageTitle } from 'components/shared/Page';
 import { useGetUserList } from 'api/query/userQuery';
+import { useGetProjects } from 'api/query/projectQuery';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
@@ -24,6 +25,7 @@ const ProfileListPageRender = () => {
   const { filtersState } = useFilters();
   const debouncedFiltersState = useDebounce(filtersState);
   const { data, refetch } = useGetUserList(debouncedFiltersState);
+  const { data: projects } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
 
   useEffect(() => {
@@ -35,7 +37,7 @@ const ProfileListPageRender = () => {
       <PageTitle>{t('profileList')}</PageTitle>
       <FiltersBar>
         <FilterText filterKey="search" label={t('search')} />
-        <FilterSelect filterKey="project" label={t('user.project')} />
+        <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
         <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} />
         <ClearFiLtersButton />
       </FiltersBar>
