@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const borderColor = '#e9e9e9';
@@ -24,4 +25,17 @@ export const EmptyDataWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const CreateMessageLink = styled(Link)`
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
+  button {
+    border-radius: 50%;
+    min-height: 50px;
+    max-height: 50px;
+    max-width: 50px;
+    min-width: 50px;
+  }
 `;

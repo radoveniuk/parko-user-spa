@@ -30,4 +30,5 @@ export const PageTitle = styled.h2`
   text-align: center;
   margin: 0;
   color: ${colors.default};
+  margin-bottom: 15px;
 `;

@@ -17,6 +17,7 @@ import ProfileListPage from 'pages/ProfileListPage';
 import ProjectListPage from 'pages/ProjectListPage';
 import ProjectPage from 'pages/ProjectPage';
 import ProfileAdminPage from 'pages/ProfileAdminPage';
+import CreateNotificationPage from 'pages/CreateNotificationPage';
 
 export default function Router () {
   const { role } = useAuthData();
@@ -45,6 +46,7 @@ export default function Router () {
             <Route path="/profile/:id" element={<ProtectedRoute><ProfileAdminPage /></ProtectedRoute>} />
             <Route path="/projects" element={<ProtectedRoute><ProjectListPage /></ProtectedRoute>} />
             <Route path="/project" element={<ProtectedRoute><ProjectPage /></ProtectedRoute>} />
+            <Route path="/create-notification" element={<ProtectedRoute><CreateNotificationPage /></ProtectedRoute>} />
           </>
         )}
       </Routes>

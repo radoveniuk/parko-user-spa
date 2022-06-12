@@ -3,10 +3,12 @@ import Page, { PageTitle } from 'components/shared/Page';
 import { useTranslation } from 'react-i18next';
 import List from 'components/shared/List';
 import { INotification } from 'interfaces/notification.interface';
-import { EmptyDataWrapper, NotificationPageWrapper } from './styles';
+import { CreateMessageLink, EmptyDataWrapper, NotificationPageWrapper } from './styles';
 import { NotificationContent, NotificationText, NotificationTitle } from './NotificationContent';
 import { useGetNotifications } from 'api/query/notificationsQuery';
 import { useAuthData } from 'contexts/AuthContext';
+import Button from 'components/shared/Button';
+import { EditIcon } from 'components/icons';
 
 const fields = {
   primary: 'title',
@@ -17,6 +19,7 @@ const NotificationsPage = () => {
   const { t } = useTranslation();
   const { id } = useAuthData();
   const { data = [] } = useGetNotifications({ to: id });
+  const { role } = useAuthData();
   const [selectedNotification, setSelectedNotification] = useState<INotification | null>(null);
   return (
     <Page title={t('notifications')}>
@@ -41,6 +44,11 @@ const NotificationsPage = () => {
         <EmptyDataWrapper>
           {t('noData')}
         </EmptyDataWrapper>
+      )}
+      {role === 'admin' && (
+        <CreateMessageLink to="/create-notification">
+          <Button color="secondary"><EditIcon size={20} /></Button>
+        </CreateMessageLink>
       )}
     </Page>
   );

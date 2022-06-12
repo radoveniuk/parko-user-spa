@@ -18,7 +18,7 @@ export const useGetUser = (id: string) => {
   return useQuery(['user-data', id], request);
 };
 
-export const useGetUserList = (params: AnyObject, options?: QueryOptions) => useQuery<IUser[]>('users', () => getUserListByParams(params),
+export const useGetUserList = (params: AnyObject = {}, options?: QueryOptions) => useQuery<IUser[]>('users', () => getUserListByParams(params),
   {
     initialData: [],
     refetchOnWindowFocus: false,
