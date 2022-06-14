@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { INotification } from 'interfaces/notification.interface';
 import { useTranslation } from 'react-i18next';
 
@@ -8,19 +7,33 @@ import Page, { PageTitle } from 'components/shared/Page';
 import Editor from 'components/complex/Editor';
 import Input from 'components/shared/Input';
 import Button from 'components/shared/Button';
-import IconButton from 'components/shared/IconButton';
-import { PlusIcon } from 'components/icons';
-import Chip from 'components/shared/Chip';
 import { IUser } from 'interfaces/users.interface';
+import { useGetUserList } from 'api/query/userQuery';
+import Autocomplete from 'components/shared/Autocomplete';
+import { useAuthData } from 'contexts/AuthContext';
 
 import { NotificationForm } from './styles';
 
 const CreateNotificationPage = () => {
   const { t } = useTranslation();
-  const { handleSubmit, watch, control, register, formState: { errors } } = useForm<INotification>();
+  const { handleSubmit, control, register } = useForm<INotification>();
+  const { id } = useAuthData();
+
+  const { data: userList = [], isFetching: userListFetching } = useGetUserList();
 
   const [users, setUsers] = useState<IUser[]>([]);
   const [openUsersDialog, setOpenUsersDialog] = useState(false);
+
+  const submitHandler: SubmitHandler<INotification> = (data) => {
+    const notifications: INotification[] = users.map((user) => ({
+      from: id,
+      to: user._id,
+      title: data.title,
+      message: data.message,
+      viewed: false,
+    }));
+    console.log(notifications);
+  };
 
   return (
     <Page>
@@ -28,12 +41,21 @@ const CreateNotificationPage = () => {
       <NotificationForm>
         <div className="controls">
           <div className="notification-users">
-            {!users.length && <>{t('notification.addUser')}</>}
-            {!!users.length && users.map((_) => <Chip key={_._id} label={`${_.name} ${_.surname}`} onDelete={() => {}} />)}
-            <IconButton onClick={() => void setOpenUsersDialog(true)}><PlusIcon size={30}/></IconButton>
+            <Autocomplete
+              multiple
+              options={userList}
+              loading={userListFetching}
+              open={openUsersDialog}
+              onOpen={() => void setOpenUsersDialog(true)}
+              onClose={() => void setOpenUsersDialog(false)}
+              label={t('notification.addUser')}
+              labelKey="email"
+              style={{ minWidth: 350, maxWidth: 350 }}
+              onChange={setUsers}
+            />
           </div>
           <Input label={t('notification.title')} className="controls-input" {...register('title', { required: true })} />
-          <Button className="controls-input">{t('notification.send')}</Button>
+          <Button className="controls-input" onClick={handleSubmit(submitHandler)}>{t('notification.send')}</Button>
         </div>
       </NotificationForm>
       <Controller
