@@ -10,4 +10,4 @@ export interface INotification {
   createdAt?: Date;
 }
 
-export type INotificationEntity = 'prepayment' | 'dayoff' | 'paycheck';
+export type INotificationEntity = 'prepayment' | 'dayoff' | 'paycheck' | 'mail';

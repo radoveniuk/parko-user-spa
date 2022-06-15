@@ -17,7 +17,7 @@ export const NotificationPageWrapper = styled.div`
 `;
 
 export const EmptyDataWrapper = styled.div`
-  height: calc(200px);
+  height: calc(100vh - 165px);
   font-size: 30px;
   font-weight: 600;
   color: #b9b9b9;

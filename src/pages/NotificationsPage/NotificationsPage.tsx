@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import List from 'components/shared/List';
 import { INotification } from 'interfaces/notification.interface';
 import { CreateMessageLink, EmptyDataWrapper, NotificationPageWrapper } from './styles';
-import { NotificationContent, NotificationText, NotificationTitle } from './NotificationContent';
+import { NotificationContent, NotificationTitle } from './NotificationContent';
 import { useGetNotifications } from 'api/query/notificationsQuery';
 import { useAuthData } from 'contexts/AuthContext';
 import Button from 'components/shared/Button';
@@ -12,7 +12,7 @@ import { EditIcon } from 'components/icons';
 
 const fields = {
   primary: 'title',
-  secondary: 'from',
+  secondary: ['from.name', 'from.surname'],
 };
 
 const NotificationsPage = () => {
@@ -35,7 +35,7 @@ const NotificationsPage = () => {
           {selectedNotification !== null && (
             <NotificationContent>
               <NotificationTitle>{selectedNotification.title}</NotificationTitle>
-              <NotificationText>{selectedNotification.message}</NotificationText>
+              <div dangerouslySetInnerHTML={{ __html: selectedNotification.message }} />
             </NotificationContent>
           )}
         </NotificationPageWrapper>
