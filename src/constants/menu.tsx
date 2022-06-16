@@ -99,9 +99,9 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
 
 export const ADMIN_MENU_ITEMS: INavbarItem[] = [
   {
-    title: 'menu.prepaymentList',
-    icon: <PrepaymentIcon size={60} />,
-    to: '/prepayments',
+    title: 'menu.profile',
+    icon: <UserIcon size={60} />,
+    to: '/profile',
   },
   {
     title: 'menu.paychecksUpload',
@@ -109,8 +109,8 @@ export const ADMIN_MENU_ITEMS: INavbarItem[] = [
     to: '/paychecks-upload',
   },
   {
-    title: 'menu.dayoffList',
-    icon: <DayoffIcon size={60} />,
-    to: '/daysoff',
+    title: 'menu.notification',
+    icon: <NotificationIcon size={60} />,
+    to: '/create-notification',
   },
 ];

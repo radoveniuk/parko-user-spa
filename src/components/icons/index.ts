@@ -15,4 +15,5 @@ export { BsPlus as PlusIcon } from 'react-icons/bs';
 export { MdWork as ProjectIcon } from 'react-icons/md';
 export { MdSearch as SearchIcon } from 'react-icons/md';
 export { AiFillEdit as EditIcon } from 'react-icons/ai';
+export { GrLanguage as LanguageIcon } from 'react-icons/gr';
 export { default as ApprovedIcon } from './ApprovedIcon';

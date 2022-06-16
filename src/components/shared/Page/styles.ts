@@ -5,6 +5,12 @@ import { SM } from 'theme/sizeBreakpoints';
 export const PageWrapper = styled.section`
   display: flex;
   position: relative;
+
+  .language-selector {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+  }
 `;
 
 export const PageContent = styled.main`

@@ -244,3 +244,7 @@ export const FIELDS: {[key in FieldSection]: UserFieldsList} = {
   expirienceFields,
   familyFields,
 };
+
+export const ADMIN_FIELDS: {[key: string]: UserFieldsList} = {
+  baseFields,
+};

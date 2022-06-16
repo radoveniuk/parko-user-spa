@@ -21,7 +21,7 @@ import FileInput from 'components/shared/FileInput';
 import { uploadFiles } from 'api/common';
 import { AcceptIcon, UploadIcon } from 'components/icons';
 
-import { FIELDS, FieldSection, UserField } from './fields';
+import { FIELDS, ADMIN_FIELDS, FieldSection, UserField } from './fields';
 import DialogForm from './DialogForm';
 
 import { ProfileInfoFormWrapper } from './styles';
@@ -29,7 +29,7 @@ import { ProfileInfoFormWrapper } from './styles';
 const ProfileInfoForm = () => {
   const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm<IUser>();
   const { t } = useTranslation();
-  const { id } = useAuthData();
+  const { id, role } = useAuthData();
   const { data: userData } = useGetUser(id);
   const { data: countriesOptions } = useGetCountries();
   const updateUserMutation = useUpdateUserMutation();
@@ -168,12 +168,14 @@ const ProfileInfoForm = () => {
     );
   };
 
+  const fields = role === 'admin' ? ADMIN_FIELDS : FIELDS;
+
   return (
     <ProfileInfoFormWrapper>
-      {(Object.keys(FIELDS) as FieldSection[]).map((fieldSectionKey, index) => (
+      {(Object.keys(fields) as FieldSection[]).map((fieldSectionKey, index) => (
         <div key={fieldSectionKey}>
-          {Object.keys(FIELDS[fieldSectionKey]).some((fieldKey) => {
-            const field = FIELDS[fieldSectionKey][fieldKey as keyof IUser];
+          {Object.keys(fields[fieldSectionKey]).some((fieldKey) => {
+            const field = fields[fieldSectionKey][fieldKey as keyof IUser];
             const visible = !field?.visible || field?.visible?.(watch);
             return visible;
           }) && (
@@ -184,9 +186,9 @@ const ProfileInfoForm = () => {
               defaultExpanded={index === 0}
             >
               <div className="accordion-content">
-                {(Object.keys(FIELDS[fieldSectionKey]) as (keyof IUser)[]).map((key) => (
+                {(Object.keys(fields[fieldSectionKey]) as (keyof IUser)[]).map((key) => (
                   <div key={key}>
-                    {generateField(key, FIELDS[fieldSectionKey][key])}
+                    {generateField(key, fields[fieldSectionKey][key])}
                   </div>
                 ))}
               </div>

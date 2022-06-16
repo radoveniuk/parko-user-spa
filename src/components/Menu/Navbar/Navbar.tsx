@@ -2,15 +2,14 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import LanguageSelector from 'components/complex/LanguageSelector';
 import { ADMIN_NAVBAR_ITEMS, INavbarItem, NAVBAR_ITEMS } from 'constants/menu';
-import 'react-pro-sidebar/dist/css/styles.css';
 import { MenuIcon } from 'components/icons';
 import IconButton from 'components/shared/IconButton';
 import { themeConfig } from 'theme';
 import { useAuthData } from 'contexts/AuthContext';
 
 import { NavbarMenu, NavbarWrapper, NavItem, StyledNavbar, IconWrapper } from './styles';
+import 'react-pro-sidebar/dist/css/styles.css';
 
 type Props = {
   toggled?: boolean,
@@ -42,7 +41,6 @@ const Navbar = ({ toggled, onToggle } : Props) => {
               </NavItem>
             ))}
           </NavbarMenu>
-          <LanguageSelector />
         </StyledNavbar>
       </NavbarWrapper>
     </>

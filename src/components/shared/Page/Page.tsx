@@ -3,6 +3,7 @@ import Navbar, { ToggleNavbarButton } from 'components/Menu/Navbar';
 import PageHeader from '../PageHeader';
 import PageFooter from '../PageFooter';
 import { PageContent, PageWrapper } from './styles';
+import LanguageSelector from 'components/complex/LanguageSelector';
 
 type Props = {
   showNavbar?: boolean;
@@ -31,6 +32,7 @@ const Page = ({ showNavbar = true, title, children }: Props) => {
       <PageContent>
         <PageHeader>
           {showNavbar && <ToggleNavbarButton onClick={toggleNavbar} />}
+          <LanguageSelector className="language-selector" />
         </PageHeader>
         <section className="content-wrapper">
           {children}

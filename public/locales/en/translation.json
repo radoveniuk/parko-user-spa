@@ -15,7 +15,9 @@
     "dayoff": "Request day off",
     "prepaymentList": "Prepayments",
     "paychecksUpload": "Upload paychecks",
-    "dayoffList": "Days off"
+    "dayoffList": "Days off",
+    "profile": "My profile",
+    "notification": "Send notification"
   },
   "footer": {
     "contacts": "Contacts",
@@ -191,5 +193,13 @@
     "users": "Profiles",
     "data": "Info",
     "submit": "Save"
-  }
+  },
+  "notification": {
+    "success": "Notification sended",
+    "new": "New notification",
+    "title": "Title",
+    "send": "Send",
+    "users": "Users"
+  },
+  "language": "Language"
 }

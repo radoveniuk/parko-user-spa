@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { INotification } from 'interfaces/notification.interface';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
+import { INotification } from 'interfaces/notification.interface';
 import Page, { PageTitle } from 'components/shared/Page';
 import Editor from 'components/complex/Editor';
 import Input from 'components/shared/Input';
@@ -11,11 +13,9 @@ import { IUser } from 'interfaces/users.interface';
 import { useGetUserList } from 'api/query/userQuery';
 import Autocomplete from 'components/shared/Autocomplete';
 import { useAuthData } from 'contexts/AuthContext';
+import { useCreateNotificationMutation } from 'api/mutations/notificationMutation';
 
 import { NotificationForm } from './styles';
-import { useCreateNotificationMutation } from 'api/mutations/notificationMutation';
-import { useNavigate } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
 
 const CreateNotificationPage = () => {
   const { t } = useTranslation();
@@ -65,7 +65,7 @@ const CreateNotificationPage = () => {
               open={openUsersDialog}
               onOpen={() => void setOpenUsersDialog(true)}
               onClose={() => void setOpenUsersDialog(false)}
-              label={t('notification.addUser')}
+              label={t('notification.users')}
               labelKey="email"
               style={{ minWidth: 350, maxWidth: 350 }}
               onChange={setUsers}

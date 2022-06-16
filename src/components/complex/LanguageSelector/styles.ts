@@ -2,20 +2,39 @@ import styled from 'styled-components';
 import { themeConfig } from 'theme';
 
 export const LanguageSelectorWrapper = styled.div`
+  button {
+    width: 80px;
+    path {
+      stroke: ${themeConfig.palette.primary.main} !important;
+    }
+
+    span {
+      margin-left: 5px;
+    }
+  }
+`;
+
+export const LangDialogWrapper = styled.div`
+  max-width: 400px;
   display: flex;
-  flex-direction: column;
-  margin-top: 25px ;
+  flex-wrap: wrap;
+  gap: 15px;
 `;
 
 export const LangButton = styled.button`
   cursor: pointer;
+  height: 50px;
+  width: 100px;
   background-color: transparent;
-  border: none;
+  border: 1px solid;
+  border-color: ${themeConfig.palette.secondary.dark};
   color: ${themeConfig.palette.secondary.dark};
   text-align: left;
+  border-radius: 3px;
 
-  transition: color 0.3s;
+  transition: color, border-color 0.3s;
   &:hover {
     color: ${themeConfig.palette.secondary.main};
+    border-color: ${themeConfig.palette.secondary.main};
   }
 `;
