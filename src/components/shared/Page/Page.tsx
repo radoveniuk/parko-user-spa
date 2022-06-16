@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
+
 import Navbar, { ToggleNavbarButton } from 'components/Menu/Navbar';
+import LanguageSelector from 'components/complex/LanguageSelector';
+import useViewportWdth from 'hooks/useViewportWdth';
+
 import PageHeader from '../PageHeader';
 import PageFooter from '../PageFooter';
+
 import { PageContent, PageWrapper } from './styles';
-import LanguageSelector from 'components/complex/LanguageSelector';
 
 type Props = {
   showNavbar?: boolean;
@@ -13,8 +17,11 @@ type Props = {
 
 const DEFAULT_TITLE = 'Parko User — Personal Managment System by Parko Staff';
 
+const langBreakpoint = 790;
+
 const Page = ({ showNavbar = true, title, children }: Props) => {
   const [toggledNavbar, setToggledNavbar] = useState(false);
+  const width = useViewportWdth();
 
   const toggleNavbar = () => void setToggledNavbar((prev) => !prev);
 
@@ -28,16 +35,18 @@ const Page = ({ showNavbar = true, title, children }: Props) => {
 
   return (
     <PageWrapper>
-      {showNavbar && <Navbar toggled={toggledNavbar} />}
+      {showNavbar && <Navbar open={toggledNavbar} onClose={toggleNavbar} />}
       <PageContent>
         <PageHeader>
           {showNavbar && <ToggleNavbarButton onClick={toggleNavbar} />}
-          <LanguageSelector className="language-selector" />
+          {width > langBreakpoint && <LanguageSelector className="language-selector" />}
         </PageHeader>
         <section className="content-wrapper">
           {children}
         </section>
-        <PageFooter />
+        <PageFooter>
+          {width <= langBreakpoint && <LanguageSelector className="language-selector" />}
+        </PageFooter>
       </PageContent>
     </PageWrapper>
   );

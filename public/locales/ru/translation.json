@@ -16,8 +16,8 @@
     "prepaymentList": "Список авансов",
     "paychecksUpload": "Загрузка рассчетных листов",
     "dayoffList": "Список отгулов",
-    "profile": "Мій профіль",
-    "notification": "Надіслати сповіщення"
+    "profile": "Мой профиль",
+    "notification": "Отправить оповещение"
   },
   "footer": {
     "contacts": "Контакты",
@@ -112,7 +112,8 @@
     "successfullRegister": "Успешная регистрация! Теперь можете войти",
     "project": "Проект",
     "status": "Статус",
-    "resetPassword": "Сброс пароля"
+    "resetPassword": "Сброс пароля",
+    "role": "Роль"
   },
   "prepayment": {
     "date": "Дата",
@@ -154,6 +155,10 @@
       "candidate": "Кандидат",
       "hired": "Нанят",
       "fired": "Уволен"
+    },
+    "userRole": {
+      "user": "Пользователь",
+      "admin": "Админ"
     },
     "dayoffReason": {
       "vacation": "Отпуск",

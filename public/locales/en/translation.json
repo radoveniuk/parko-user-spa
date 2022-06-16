@@ -112,7 +112,8 @@
     "successfullRegister": "Register was successfull",
     "project": "Project",
     "status": "Status",
-    "resetPassword": "Reset password"
+    "resetPassword": "Reset password",
+    "role": "Role"
   },
   "prepayment": {
     "date": "Date",
@@ -154,6 +155,10 @@
       "candidate": "Candidate",
       "hired": "Work",
       "fired": "Fired"
+    },
+    "userRole": {
+      "user": "User",
+      "admin": "Admin"
     },
     "dayoffReason": {
       "vacation": "Vacation",

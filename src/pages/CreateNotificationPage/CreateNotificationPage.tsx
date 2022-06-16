@@ -16,10 +16,11 @@ import { useAuthData } from 'contexts/AuthContext';
 import { useCreateNotificationMutation } from 'api/mutations/notificationMutation';
 
 import { NotificationForm } from './styles';
+import { isEmpty } from 'lodash-es';
 
 const CreateNotificationPage = () => {
   const { t } = useTranslation();
-  const { handleSubmit, control, register } = useForm<INotification>();
+  const { handleSubmit, control, register, formState: { errors } } = useForm<INotification>();
   const { id } = useAuthData();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -72,14 +73,20 @@ const CreateNotificationPage = () => {
             />
           </div>
           <Input label={t('notification.title')} className="controls-input" {...register('title', { required: true })} />
-          <Button className="controls-input" onClick={handleSubmit(submitHandler)}>{t('notification.send')}</Button>
+          <Button className="controls-input" onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors)}>{t('notification.send')}</Button>
         </div>
       </NotificationForm>
       <Controller
         control={control}
         name="message"
         defaultValue=""
-        rules={{ required: true }}
+        rules={{
+          validate: (value) => {
+            const parser = new DOMParser();
+            const floatingElement = parser.parseFromString(value, 'text/html');
+            return !!floatingElement.body.textContent?.trim();
+          },
+        }}
         render={({ field }) => (
           <Editor
             onChange={field.onChange}

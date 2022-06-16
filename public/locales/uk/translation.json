@@ -112,7 +112,8 @@
     "successfullRegister": "Реєстрація успішна! Можете увійти за своїми данними",
     "project": "Проєкт",
     "status": "Статус",
-    "resetPassword": "Скинути пароль"
+    "resetPassword": "Скинути пароль",
+    "role": "Роль"
   },
   "prepayment": {
     "date": "Дата",
@@ -154,6 +155,10 @@
       "candidate": "Кандидат",
       "hired": "Найнятий",
       "fired": "Звільнений"
+    },
+    "userRole": {
+      "user": "Користувач",
+      "admin": "Адмін"
     },
     "dayoffReason": {
       "vacation": "Відпустка",

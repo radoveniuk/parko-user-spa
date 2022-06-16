@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 import { FooterWrapper } from './styles';
 
-const PageHeader = () => {
+type Props = {
+  children?: React.ReactNode;
+}
+
+const PageHeader = ({ children }: Props) => {
   const { t } = useTranslation();
   return (
     <FooterWrapper>
@@ -18,6 +22,7 @@ const PageHeader = () => {
           <li><a href="tel:+421950759277">+421950759277</a></li>
         </ul>
       </div>
+      {children}
     </FooterWrapper>
   );
 };

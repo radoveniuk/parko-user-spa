@@ -9,7 +9,7 @@ export const StyledMenuButton = styled.button`
   color: #fff;
   display: flex;
   flex-direction: column;
-  font-size: 30px;
+  font-size: 1.5em;
   border-radius: 2px;
   border: none;
   align-items: center;

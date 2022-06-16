@@ -29,6 +29,11 @@ const Editor = ({ onChange }: Props) => {
         wrapperClassName="wrapper"
         editorClassName="editor"
         onEditorStateChange={editorStateChangeHandler}
+        toolbar={{
+          options: [
+            'inline', 'blockType', 'fontSize', 'list', 'textAlign', 'colorPicker', 'remove',
+          ],
+        }}
       />
     </EditorWrapper>
   );

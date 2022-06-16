@@ -1,13 +1,17 @@
 import React from 'react';
-import { BaseInfoWrapper } from './styles';
-import { IUser } from 'interfaces/users.interface';
+import { useTranslation } from 'react-i18next';
+
+import { IUser, UserRole } from 'interfaces/users.interface';
 import { STATUSES } from 'constants/userStatuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import Select from 'components/shared/Select';
-import { useTranslation } from 'react-i18next';
 import Button from 'components/shared/Button';
-import { USER_FIELDS } from './fields';
 import { useGetProjects } from 'api/query/projectQuery';
+import { ROLES } from 'constants/userRoles';
+
+import { USER_FIELDS } from './fields';
+
+import { BaseInfoWrapper } from './styles';
 
 type Props = {
   data: IUser;
@@ -16,8 +20,9 @@ type Props = {
 
 const BaseInfo = ({ data, onUpdate }: Props) => {
   const { t } = useTranslation();
-  const { data: projects } = useGetProjects();
+  const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
+  const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
   return (
     <BaseInfoWrapper>
       <div className="user-card">
@@ -35,6 +40,14 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
         })}
       </div>
       <div className="user-settings">
+        <div className="settings-item">
+          <Select
+            options={translatedRoles}
+            value={data.role}
+            label={t('user.role')}
+            onChange={({ target }) => void onUpdate({ role: target.value as UserRole })}
+          />
+        </div>
         <div className="settings-item">
           <Select
             options={translatedStatuses}
