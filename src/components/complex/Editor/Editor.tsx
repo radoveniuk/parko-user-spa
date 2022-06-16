@@ -31,7 +31,7 @@ const Editor = ({ onChange }: Props) => {
         onEditorStateChange={editorStateChangeHandler}
         toolbar={{
           options: [
-            'inline', 'blockType', 'fontSize', 'list', 'textAlign', 'colorPicker', 'remove',
+            'inline', 'blockType', 'fontSize', 'list', 'textAlign', 'colorPicker',
           ],
         }}
       />
