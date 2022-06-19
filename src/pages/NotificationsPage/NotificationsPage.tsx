@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import Page, { PageTitle } from 'components/shared/Page';
 import { useTranslation } from 'react-i18next';
+
 import List from 'components/shared/List';
 import { INotification } from 'interfaces/notification.interface';
-import { CreateMessageLink, EmptyDataWrapper, NotificationPageWrapper } from './styles';
 import { NotificationContent, NotificationTitle } from './NotificationContent';
 import { useGetNotifications } from 'api/query/notificationsQuery';
 import { useAuthData } from 'contexts/AuthContext';
 import Button from 'components/shared/Button';
 import { EditIcon } from 'components/icons';
+import { useUpdateNotificationMutation } from 'api/mutations/notificationMutation';
+
+import { CreateMessageLink, EmptyDataWrapper, NotificationPageWrapper } from './styles';
 
 const fields = {
   primary: 'title',
@@ -18,9 +21,18 @@ const fields = {
 const NotificationsPage = () => {
   const { t } = useTranslation();
   const { id } = useAuthData();
-  const { data = [] } = useGetNotifications({ to: id });
+  const { data = [], refetch } = useGetNotifications({ to: id });
+  const updateNotificationMutation = useUpdateNotificationMutation();
   const { role } = useAuthData();
   const [selectedNotification, setSelectedNotification] = useState<INotification | null>(null);
+
+  const selectNotificationHandler = (data: unknown) => {
+    const notification = data as INotification;
+    setSelectedNotification(notification);
+    updateNotificationMutation.mutateAsync({ ...notification, viewed: true })
+      .then(() => void refetch());
+  };
+
   return (
     <Page title={t('notifications')}>
       <PageTitle>{t('notifications')}</PageTitle>
@@ -30,7 +42,8 @@ const NotificationsPage = () => {
             className="notifications-list"
             data={data}
             fields={fields}
-            onSelect={(notification) => void setSelectedNotification(notification)}
+            onSelect={selectNotificationHandler}
+            highlite={['viewed', false]}
           />
           {selectedNotification !== null && (
             <NotificationContent>

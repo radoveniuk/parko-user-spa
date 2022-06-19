@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import _ from 'lodash-es';
 
 import MaterialList, { ListProps } from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import { ListItemButton } from '@mui/material';
 import { AnyObject } from 'interfaces/base.types';
+import { StyledListItem } from './styles';
 
 type Props = ListProps & {
   data: any[];
@@ -15,10 +15,11 @@ type Props = ListProps & {
     secondary?: string | string[];
     text?: string;
   };
-  onSelect?(value: any): void
+  onSelect?(value: any): void;
+  highlite?: [string, any];
 }
 
-const List = ({ data, fields, onSelect, ...rest }: Props) => {
+const List = ({ data, fields, onSelect, highlite, ...rest }: Props) => {
   const [selected, setSelected] = useState(null);
 
   const getText = (item: AnyObject, path: string | string[]) => {
@@ -31,7 +32,11 @@ const List = ({ data, fields, onSelect, ...rest }: Props) => {
   return (
     <MaterialList sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} {...rest}>
       {data.map((item) => (
-        <ListItem key={item._id} alignItems="flex-start">
+        <StyledListItem
+          key={item._id}
+          alignItems="flex-start"
+          className={highlite && _.get(item, highlite[0] || '') === highlite[1] ? 'highlited' : ''}
+        >
           <ListItemButton onClick={() => { setSelected(item._id); onSelect?.(item); }} selected={selected === item._id}>
             <ListItemText
               primary={getText(item, fields.primary)}
@@ -47,7 +52,7 @@ const List = ({ data, fields, onSelect, ...rest }: Props) => {
               )}
             />
           </ListItemButton>
-        </ListItem>
+        </StyledListItem>
       ))}
     </MaterialList>
   );

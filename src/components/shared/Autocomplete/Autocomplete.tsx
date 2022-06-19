@@ -1,14 +1,12 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 
 import { Autocomplete as AutocompleteMaterial } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Input from '../Input';
 
-type Props = {
-  open: boolean;
+export type AutocompleteProps = {
+  defaultOpen?: boolean;
   loading?: boolean;
-  onOpen(): void;
-  onClose(): void;
   options: any[];
   label: string;
   labelKey: string;
@@ -19,28 +17,35 @@ type Props = {
 }
 
 const AutoComplete = ({
-  label, loading, labelKey, onChange, ...rest
-}: Props) => (
-  <AutocompleteMaterial
-    getOptionLabel={option => option[labelKey]}
-    onChange={(e, newValue) => void onChange?.(newValue)}
-    renderInput={(params) => (
-      <Input
-        {...params}
-        label={label}
-        InputProps={{
-          ...params.InputProps,
-          endAdornment: (
-            <>
-              {loading ? <CircularProgress color="inherit" size={20} /> : null}
-              {params.InputProps.endAdornment}
-            </>
-          ),
-        }}
-      />
-    )}
-    {...rest}
-  />
-);
+  label, loading, labelKey, onChange, defaultOpen, ...rest
+}: AutocompleteProps) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <AutocompleteMaterial
+      {...rest}
+      getOptionLabel={option => option[labelKey]}
+      onChange={(e, newValue) => void onChange?.(newValue)}
+      renderInput={(params) => (
+        <Input
+          {...params}
+          label={label}
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <>
+                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                {params.InputProps.endAdornment}
+              </>
+            ),
+          }}
+        />
+      )}
+      open={defaultOpen || open}
+      onOpen={() => void setOpen(true)}
+      onClose={() => void setOpen(false)}
+    />
+  );
+};
 
 export default AutoComplete;

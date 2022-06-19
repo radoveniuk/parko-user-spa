@@ -26,6 +26,17 @@ export const NavItem = styled(ListItemButton)`
   &.active, &:hover {
     background-color: ${colors.secondaryDark} !important;
   }
+
+  &.notifications {
+    .MuiListItemText-primary::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #ff6666;
+      position: absolute;
+    }
+  }
 `;
 
 export const NavItemsList = styled(List)`

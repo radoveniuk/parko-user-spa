@@ -1,13 +1,15 @@
 import React from 'react';
-import { isEmpty } from 'lodash-es';
+import { get, isEmpty } from 'lodash-es';
+
+import { CloseIcon } from 'components/icons';
 
 import IconButton from '../IconButton';
 import Input from '../Input';
 import Select, { SelectProps } from '../Select';
 import useFilters, { useFilterState } from './useFilters';
-import { CloseIcon } from 'components/icons';
 
 import { ClearFiltersWrapper, FilterWrapper } from './styles';
+import Autocomplete, { AutocompleteProps } from '../Autocomplete';
 
 type FilterProps = {
   filterKey: string;
@@ -22,6 +24,23 @@ export const FilterText = ({ filterKey, label }: FilterProps) => {
         label={label}
         value={value || ''}
         onChange={({ target }) => void setValue(target.value)}
+      />
+    </FilterWrapper>
+  );
+};
+
+type FilterAutocompleteProps = FilterProps & AutocompleteProps & {valuePath?: string};
+
+export const FilterAutocomplete = ({ filterKey, valuePath, ...rest }: FilterAutocompleteProps) => {
+  const [, setValue] = useFilterState(filterKey);
+  return (
+    <FilterWrapper>
+      <Autocomplete
+        style={{ minWidth: 200 }}
+        onChange={(newValue) => {
+          setValue(get(newValue, valuePath || '_id'));
+        }}
+        {...rest}
       />
     </FilterWrapper>
   );

@@ -10,5 +10,5 @@ export const useGetNotifications = (params: Partial<INotification> = {}) => {
     },
     params,
   }).then(res => res.data.data);
-  return useQuery('notifications', request, { initialData: [] });
+  return useQuery(['notifications', JSON.stringify(params)], request, { initialData: [] });
 };

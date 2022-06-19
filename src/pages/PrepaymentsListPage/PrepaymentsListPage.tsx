@@ -6,15 +6,15 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import Page, { PageTitle } from 'components/shared/Page';
-import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
+import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
 import useDebounce from 'hooks/useDebounce';
 import Dialog from 'components/shared/Dialog';
 import Button from 'components/shared/Button';
 import { IPrepayment } from 'interfaces/prepayment.interface';
-
-import { ApproveDialogWrapper } from './styles';
 import { useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import { getDateFromIso } from 'helpers/datetime';
+
+import { ApproveDialogWrapper } from './styles';
 
 const columns = [
   'prepayment.user',
@@ -29,7 +29,7 @@ const PrepaymentsListPageRender = () => {
   const debouncedFiltersState = useDebounce(filtersState);
   const { t } = useTranslation();
   const { data, refetch } = useGetPrepayments(debouncedFiltersState);
-  const { data: projects } = useGetProjects();
+  const { data: projects = [], isFetching: isFetchingProjects } = useGetProjects();
   const updatePrepaymentMutation = useUpdatePrepaymentMutation();
 
   const [selectedItem, setSelectedItem] = useState<IPrepayment | null>(null);
@@ -49,7 +49,14 @@ const PrepaymentsListPageRender = () => {
       <PageTitle>{t('prepaymentsList')}</PageTitle>
       <FiltersBar>
         <FilterText filterKey="search" label={t('search')} />
-        <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
+        <FilterAutocomplete
+          filterKey="project"
+          label={t('user.project')}
+          options={projects}
+          valuePath="_id"
+          labelKey="name"
+          loading={isFetchingProjects}
+        />
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={columns} >

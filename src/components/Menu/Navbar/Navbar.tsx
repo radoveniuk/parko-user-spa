@@ -21,7 +21,7 @@ const drawerWidth = 300;
 const Navbar = ({ open, onClose } : Props) => {
   const { t } = useTranslation();
   const location = useLocation();
-  const { role } = useAuthData();
+  const { role, isNewNotifications } = useAuthData();
   let menuItems: INavbarItem[] = [];
 
   if (role === 'user') {
@@ -35,8 +35,15 @@ const Navbar = ({ open, onClose } : Props) => {
     <NavItemsList>
       {menuItems.map((item) => (
         <Link to={item.to} key={item.title}>
-          <ListItem>
-            <NavItem className={item.to === location.pathname ? 'active' : ''}>
+          <ListItem >
+            <NavItem
+              className={`${item.to === location.pathname
+                ? 'active'
+                : ''}${item.to === '/notifications' && isNewNotifications
+                ? ' notifications'
+                : ''}`
+              }
+            >
               <ListItemIcon className="nav-icon">
                 {item.icon}
               </ListItemIcon>
