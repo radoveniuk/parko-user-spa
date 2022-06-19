@@ -85,23 +85,10 @@ const ProjectListPageRender = () => {
           <ProjectInfoWrapper>
             <TabsContainer key={selectedProject._id}>
               <Tabs>
-                <Tab label={t('project.users')} />
                 <Tab label={t('project.data')} />
+                <Tab label={t('project.users')} />
               </Tabs>
               <TabPanel index={0}>
-                <ListTable columns={usersTableCols}>
-                  {linkedUsers?.map((user) => (
-                    <Link key={user._id} to={`/profile/${user._id}`} style={{ display: 'contents', color: '#000' }}>
-                      <ListTableRow>
-                        <ListTableCell>{`${user.name} ${user.surname}`}</ListTableCell>
-                        <ListTableCell>{user.email}</ListTableCell>
-                        <ListTableCell style={{ color: STATUSES_COLORS[user.status] }}>{t(`selects.userStatus.${user.status}`)}</ListTableCell>
-                      </ListTableRow>
-                    </Link>
-                  ))}
-                </ListTable>
-              </TabPanel>
-              <TabPanel index={1}>
                 <ProjectInfoDataWrapper>
                   {projectInfoKeys.map((projectKey) => (
                     <Input
@@ -129,14 +116,26 @@ const ProjectListPageRender = () => {
                     <Dialog title={t('project.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
                       <DialogContentWrapper>
                         <p className="warning-text">
-                          Вы собираетесь удалить проект <strong>{selectedProject.name}</strong>. <br />
-                          Вы уверенны?
+                          {t('project.approveRemoving')} <strong>({selectedProject.name})</strong>
                         </p>
                         <div className="actions"><Button color="error" onClick={deleteProjectHandler}>{t('approve')}</Button></div>
                       </DialogContentWrapper>
                     </Dialog>
                   </ProjectActionsWrapper>
                 </ProjectInfoDataWrapper>
+              </TabPanel>
+              <TabPanel index={1}>
+                <ListTable columns={usersTableCols}>
+                  {linkedUsers?.map((user) => (
+                    <Link key={user._id} to={`/profile/${user._id}`} style={{ display: 'contents', color: '#000' }}>
+                      <ListTableRow>
+                        <ListTableCell>{`${user.name} ${user.surname}`}</ListTableCell>
+                        <ListTableCell>{user.email}</ListTableCell>
+                        <ListTableCell style={{ color: STATUSES_COLORS[user.status] }}>{t(`selects.userStatus.${user.status}`)}</ListTableCell>
+                      </ListTableRow>
+                    </Link>
+                  ))}
+                </ListTable>
               </TabPanel>
             </TabsContainer>
           </ProjectInfoWrapper>

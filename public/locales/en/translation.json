@@ -113,7 +113,8 @@
     "project": "Project",
     "status": "Status",
     "resetPassword": "Reset password",
-    "role": "Role"
+    "role": "Role",
+    "admin": "User administration"
   },
   "prepayment": {
     "date": "Date",
@@ -197,7 +198,8 @@
     "dateEnd": "Date end",
     "users": "Profiles",
     "data": "Info",
-    "submit": "Save"
+    "submit": "Save",
+    "approveRemoving": "You are about delete project! Are you sure?"
   },
   "notification": {
     "success": "Notification sended",

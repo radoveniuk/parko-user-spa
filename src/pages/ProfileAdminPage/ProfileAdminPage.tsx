@@ -29,7 +29,7 @@ const ProfileAdminPage = () => {
   };
 
   return (
-    <Page title={t('profileAdmin.title')}>
+    <Page title={t('user.admin')}>
       <PageTitle>{pageTitle}</PageTitle>
       {profileData && (
         <TabsContainer>
