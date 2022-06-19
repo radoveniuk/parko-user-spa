@@ -12,7 +12,7 @@ const PageContent = () => {
   return (
     <LoginPageWrapper>
       <PageHeader>
-        <LanguageSelector />
+        <LanguageSelector className="lang-selector" />
       </PageHeader>
       <Tabs>
         {tab === 'login' && <LoginForm />}

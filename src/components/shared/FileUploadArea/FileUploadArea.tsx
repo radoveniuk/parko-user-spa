@@ -7,16 +7,16 @@ import { FileUploadAreaWrapper } from './styles';
 
 type Props = {
   accept?: string;
-  fileNameRegex?: RegExp;
+  fileNameValidator?(name: string): boolean;
   onUpload?(files: File[]): void
 }
 
-const FileUploadArea = ({ accept, fileNameRegex, onUpload }: Props) => {
+const FileUploadArea = ({ accept, fileNameValidator, onUpload }: Props) => {
   const { t } = useTranslation();
 
   const handleChangeStatus = (file: IFileWithMeta, status: StatusValue) => {
     if (status === 'done') {
-      if (fileNameRegex && !fileNameRegex.test(file.meta.name)) {
+      if (fileNameValidator && !fileNameValidator(file.meta.name)) {
         file.remove();
       }
     }

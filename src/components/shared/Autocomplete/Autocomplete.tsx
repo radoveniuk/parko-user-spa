@@ -13,11 +13,12 @@ export type AutocompleteProps = {
   multiple?: boolean;
   limitTags?: number;
   style?: React.CSSProperties;
-  onChange?(value: any | any[] | null): void
+  onChange?(value: any | any[] | null): void;
+  value?: any;
 }
 
 const AutoComplete = ({
-  label, loading, labelKey, onChange, defaultOpen, ...rest
+  label, loading, labelKey, onChange, defaultOpen, value, ...rest
 }: AutocompleteProps) => {
   const [open, setOpen] = useState(false);
 
@@ -26,6 +27,7 @@ const AutoComplete = ({
       {...rest}
       getOptionLabel={option => option[labelKey]}
       onChange={(e, newValue) => void onChange?.(newValue)}
+      value={value}
       renderInput={(params) => (
         <Input
           {...params}

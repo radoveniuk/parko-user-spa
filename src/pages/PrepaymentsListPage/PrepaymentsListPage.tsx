@@ -6,7 +6,7 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import Page, { PageTitle } from 'components/shared/Page';
-import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
+import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
 import useDebounce from 'hooks/useDebounce';
 import Dialog from 'components/shared/Dialog';
 import Button from 'components/shared/Button';
@@ -29,7 +29,7 @@ const PrepaymentsListPageRender = () => {
   const debouncedFiltersState = useDebounce(filtersState);
   const { t } = useTranslation();
   const { data, refetch } = useGetPrepayments(debouncedFiltersState);
-  const { data: projects = [], isFetching: isFetchingProjects } = useGetProjects();
+  const { data: projects = [] } = useGetProjects();
   const updatePrepaymentMutation = useUpdatePrepaymentMutation();
 
   const [selectedItem, setSelectedItem] = useState<IPrepayment | null>(null);
@@ -49,14 +49,7 @@ const PrepaymentsListPageRender = () => {
       <PageTitle>{t('prepaymentsList')}</PageTitle>
       <FiltersBar>
         <FilterText filterKey="search" label={t('search')} />
-        <FilterAutocomplete
-          filterKey="project"
-          label={t('user.project')}
-          options={projects}
-          valuePath="_id"
-          labelKey="name"
-          loading={isFetchingProjects}
-        />
+        <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={columns} >

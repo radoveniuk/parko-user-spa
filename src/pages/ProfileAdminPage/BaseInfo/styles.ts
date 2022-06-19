@@ -39,4 +39,18 @@ export const BaseInfoWrapper = styled.div`
       margin-top: 12px;
     }
   }
+
+  .reseted-pass {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid #ac3b61;
+    background-color: #eee1dc;
+    padding-left: 15px;
+    margin-top: 10px;
+
+    button {
+      margin-left: auto;
+    }
+  }
 `;

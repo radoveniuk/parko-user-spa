@@ -10,6 +10,16 @@ import { DateTime } from 'luxon';
 import { IFile } from 'interfaces/file.interface';
 import { getUserListByParams } from 'api/query/userQuery';
 
+const validateFileName = (str: string) => {
+  const fileNameParams = str
+    .replace('.pdf', '')
+    .split('-')
+    .join('')
+    .split('_')
+    .filter((item) => item);
+  return fileNameParams.length === 4;
+};
+
 const PaychecksUploadPage = () => {
   const { t } = useTranslation();
   const createPaychecks = useCreatePaychecksMutation();
@@ -17,7 +27,6 @@ const PaychecksUploadPage = () => {
 
   const uploadPaychecks = async (files: File[]) => {
     const formData = new window.FormData();
-
     files.forEach((file) => {
       if (file) {
         formData.append('files', file);
@@ -54,7 +63,7 @@ const PaychecksUploadPage = () => {
     <Page title={t('paychecksUpload')}>
       <PageTitle>{t('paychecksUpload')}</PageTitle>
       <FileUploadArea
-        fileNameRegex={/^[0-9]{2}[.][0-9]{4}_-_\S+_\S+_\S+.pdf/ig}
+        fileNameValidator={validateFileName}
         accept="application/pdf"
         onUpload={uploadPaychecks}
       />

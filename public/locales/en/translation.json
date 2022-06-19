@@ -206,5 +206,6 @@
     "send": "Send",
     "users": "Users"
   },
-  "language": "Language"
+  "language": "Language",
+  "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself"
 }

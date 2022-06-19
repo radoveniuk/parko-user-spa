@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
-import { ADMIN_NAVBAR_ITEMS, INavbarItem, NAVBAR_ITEMS } from 'constants/menu';
+import { ADMIN_NAVBAR_ITEMS, INavbarItem, LITE_NAVBAR_ITEMS, NAVBAR_ITEMS } from 'constants/menu';
 import { MenuIcon } from 'components/icons';
 import IconButton from 'components/shared/IconButton';
 import { themeConfig } from 'theme';
@@ -21,11 +21,14 @@ const drawerWidth = 300;
 const Navbar = ({ open, onClose } : Props) => {
   const { t } = useTranslation();
   const location = useLocation();
-  const { role, isNewNotifications } = useAuthData();
+  const { role, isNewNotifications, isVerified } = useAuthData();
   let menuItems: INavbarItem[] = [];
 
-  if (role === 'user') {
+  if (role === 'user' && isVerified) {
     menuItems = NAVBAR_ITEMS;
+  }
+  if (role === 'user' && !isVerified) {
+    menuItems = LITE_NAVBAR_ITEMS;
   }
   if (role === 'admin') {
     menuItems = ADMIN_NAVBAR_ITEMS;

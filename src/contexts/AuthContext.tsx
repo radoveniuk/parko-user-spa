@@ -14,6 +14,7 @@ type contextType = {
   userId: string;
   role: UserRole | undefined;
   isNewNotifications: boolean;
+  isVerified: boolean;
 };
 
 const AuthContext = createContext<contextType | undefined>(undefined);
@@ -31,6 +32,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { data: userNotifications = [] } = useGetNotifications({ to: userId });
 
   const isNewNotifications = useMemo(() => !!userNotifications.filter((item) => !item.viewed).length, [userNotifications]);
+  const isVerified = useMemo(() => !!userData?.project, [userData]);
 
   const login = async (data: LoginDto) => {
     const loginResult = await loginMutation.mutateAsync(data);
@@ -43,7 +45,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuth, login, userId, role: userData?.role, isNewNotifications }}>
+    <AuthContext.Provider value={{ isAuth, login, userId, role: userData?.role, isNewNotifications, isVerified }}>
       {children}
     </AuthContext.Provider>
   );
@@ -70,10 +72,12 @@ export const useAuthData = () => {
   if (!authContext) {
     throw new Error('Auth provider not exist');
   }
+
   return {
     id: authContext.userId,
     role: authContext.role,
     isNewNotifications: authContext.isNewNotifications,
+    isVerified: authContext.isVerified,
   };
 };
 

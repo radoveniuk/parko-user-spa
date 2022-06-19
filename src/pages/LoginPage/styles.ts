@@ -6,4 +6,10 @@ export const LoginPageWrapper = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
+
+  .lang-selector {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+  }
 `;

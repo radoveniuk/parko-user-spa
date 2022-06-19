@@ -1,12 +1,14 @@
+import React, { forwardRef, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import NumberFormat from 'react-number-format';
+
 import { CloseIcon, PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
 import IconButton from 'components/shared/IconButton';
 import Input from 'components/shared/Input';
 import createId from 'helpers/createId';
-import React, { forwardRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import NumberFormat from 'react-number-format';
+
 import { ActionsWrapper, LabelWrapper, RowWrapper } from './styles';
 
 interface NumberFormatProps {
@@ -86,6 +88,8 @@ const DialogForm = ({ defaultValueJson, onChange, label }: Props) => {
     setOpen(false);
   };
 
+  const isValidForm = useMemo(() => rows.every((row) => row.name && row.surname && row.birthdate), [rows]);
+
   return (
     <>
       <LabelWrapper>
@@ -123,8 +127,8 @@ const DialogForm = ({ defaultValueJson, onChange, label }: Props) => {
           </RowWrapper>
         ))}
         <ActionsWrapper>
-          <Button variant="outlined" onClick={addRow}><PlusIcon size={24} /></Button>
-          <Button variant="outlined" color="success" onClick={saveChanges}>OK</Button>
+          <Button variant="outlined" onClick={addRow} disabled={!isValidForm}><PlusIcon size={24} /></Button>
+          <Button variant="outlined" color="success" onClick={saveChanges} disabled={!isValidForm}>OK</Button>
         </ActionsWrapper>
       </Dialog>
     </>

@@ -8,6 +8,19 @@ export type INavbarItem = {
   to: To,
 };
 
+export const LITE_NAVBAR_ITEMS = [
+  {
+    title: 'navbar.home',
+    icon: <HomeIcon size={30} />,
+    to: '/',
+  },
+  {
+    title: 'navbar.profile',
+    icon: <UserIcon size={30} />,
+    to: '/profile',
+  },
+];
+
 export const NAVBAR_ITEMS: INavbarItem[] = [
   {
     title: 'navbar.home',

@@ -25,7 +25,7 @@ const ProfileListPageRender = () => {
   const { filtersState } = useFilters();
   const debouncedFiltersState = useDebounce(filtersState);
   const { data, refetch } = useGetUserList(debouncedFiltersState);
-  const { data: projects } = useGetProjects();
+  const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const ProfileListPageRender = () => {
               <ListTableCell>{user.name}</ListTableCell>
               <ListTableCell>{user.surname}</ListTableCell>
               <ListTableCell>{user.email}</ListTableCell>
-              <ListTableCell>{typeof user.project === 'object' && user.project.name}</ListTableCell>
+              <ListTableCell>{typeof user.project === 'object' && user.project?.name}</ListTableCell>
               <ListTableCell>{user.status && (
                 <p
                   style={{ color: STATUSES_COLORS[user.status] }}>

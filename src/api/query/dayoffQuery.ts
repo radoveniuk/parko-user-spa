@@ -10,5 +10,5 @@ export const useGetDaysoff = (params: Partial<IDayOff> = {}) => {
     },
     params,
   }).then(res => res.data.data);
-  return useQuery('daysoff', request, { initialData: [] });
+  return useQuery(['daysoff', JSON.stringify(params)], request, { initialData: [] });
 };

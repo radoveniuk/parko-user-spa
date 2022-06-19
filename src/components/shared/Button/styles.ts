@@ -11,7 +11,7 @@ export const StyledButton = styled(ButtonMaterial)`
     }
   `}
 
-  ${props => props.color === 'success' && css`
+  ${props => props.variant === 'contained' && props.color === 'success' && css`
     color: #fff !important;
   `}
 `;

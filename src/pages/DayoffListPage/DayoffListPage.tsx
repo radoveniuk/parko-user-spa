@@ -30,7 +30,7 @@ const DayoffListPageRender = () => {
   const debouncedFiltersState = useDebounce(filtersState);
   const { t } = useTranslation();
   const { data, refetch } = useGetDaysoff(debouncedFiltersState);
-  const { data: projects } = useGetProjects();
+  const { data: projects = [] } = useGetProjects();
   const updateDayoffMutation = useUpdateDayoffMutation();
 
   const [selectedItem, setSelectedItem] = useState<IDayOff | null>(null);

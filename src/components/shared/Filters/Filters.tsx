@@ -29,18 +29,20 @@ export const FilterText = ({ filterKey, label }: FilterProps) => {
   );
 };
 
-type FilterAutocompleteProps = FilterProps & AutocompleteProps & {valuePath?: string};
+type FilterAutocompleteProps = FilterProps & AutocompleteProps & {valuePath: string};
 
-export const FilterAutocomplete = ({ filterKey, valuePath, ...rest }: FilterAutocompleteProps) => {
-  const [, setValue] = useFilterState(filterKey);
+export const FilterAutocomplete = ({ filterKey, valuePath, options, ...rest }: FilterAutocompleteProps) => {
+  const [value, setValue] = useFilterState(filterKey);
   return (
     <FilterWrapper>
       <Autocomplete
+        {...rest}
         style={{ minWidth: 200 }}
+        options={options}
+        value={options.find((item) => item[valuePath] === value)}
         onChange={(newValue) => {
           setValue(get(newValue, valuePath || '_id'));
         }}
-        {...rest}
       />
     </FilterWrapper>
   );

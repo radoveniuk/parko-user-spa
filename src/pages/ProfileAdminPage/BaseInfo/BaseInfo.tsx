@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { IUser, UserRole } from 'interfaces/users.interface';
@@ -8,6 +8,9 @@ import Select from 'components/shared/Select';
 import Button from 'components/shared/Button';
 import { useGetProjects } from 'api/query/projectQuery';
 import { ROLES } from 'constants/userRoles';
+import IconButton from 'components/shared/IconButton';
+import { CopyIcon } from 'components/icons';
+import createId from 'helpers/createId';
 
 import { USER_FIELDS } from './fields';
 
@@ -23,6 +26,15 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
+
+  const [resetedPass, setResetedPass] = useState<string | null>(null);
+
+  const resetPass = () => {
+    const pass = createId(15);
+    setResetedPass(pass);
+    onUpdate({ password: pass });
+  };
+
   return (
     <BaseInfoWrapper>
       <div className="user-card">
@@ -58,7 +70,7 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
         </div>
         <div className="settings-item">
           <Select
-            value={projects?.length ? data.project : ''}
+            value={projects?.length ? data.project || '' : ''}
             label={t('user.project')}
             options={projects}
             valuePath="_id"
@@ -67,8 +79,14 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
           />
         </div>
         <div className="settings-item">
-          <Button onClick={() => void onUpdate({ password: '1' })}>{t('user.resetPassword')}</Button>
+          <Button onClick={resetPass}>{t('user.resetPassword')}</Button>
         </div>
+        {resetedPass !== null && (
+          <div className="reseted-pass">
+            {resetedPass}
+            <IconButton onClick={() => void navigator.clipboard.writeText(resetedPass)}><CopyIcon /></IconButton>
+          </div>
+        )}
       </div>
     </BaseInfoWrapper>
   );
