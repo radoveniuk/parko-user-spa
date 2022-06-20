@@ -32,7 +32,7 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
   const resetPass = () => {
     const pass = createId(15);
     setResetedPass(pass);
-    onUpdate({ password: pass });
+    onUpdate({ password: pass, email: data.email });
   };
 
   return (
