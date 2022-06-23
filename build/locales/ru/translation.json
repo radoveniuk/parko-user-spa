@@ -1,0 +1,213 @@
+{
+  "navbar": {
+    "home": "Главная",
+    "profile": "Профиль",
+    "profiles": "Профили",
+    "notifications": "Оповещения",
+    "prepayments": "Авансы",
+    "daysoff": "Отгулы",
+    "paychecks": "Рассчеты",
+    "projects": "Проекты"
+  },
+  "menu": {
+    "prepayment": "Заказать аванс",
+    "paychecks": "Рассчетные листы",
+    "dayoff": "Заказать отгул",
+    "prepaymentList": "Список авансов",
+    "paychecksUpload": "Загрузка рассчетных листов",
+    "dayoffList": "Список отгулов",
+    "profile": "Мой профиль",
+    "notification": "Отправить оповещение"
+  },
+  "footer": {
+    "contacts": "Контакты",
+    "contactsInfo": "В случае технических неполадок или возникновении вопросов, касательно работы системы — обращайтесь по контактам:"
+  },
+  "prepaymentPage": {
+    "title": "Заказ аванса",
+    "form": {
+      "order": "Заказать",
+      "sumMinValidation": "Минимальная сумма - 50",
+      "sumMaxValidation": "Максимальная сумма - 200",
+      "successCreate": "Аванс заказано"
+    }
+  },
+  "dayoffPage": {
+    "title": "Информирование об отсутствии на работе",
+    "form": {
+      "explainReason": "Укажите причину",
+      "successCreate": "Информацию об отгуле отправлено"
+    }
+  },
+  "notifications": "Оповещения",
+  "noData": "Ничего не найдено",
+  "paychecks": "Рассчетные листы",
+  "profile": "Профиль",
+  "user": {
+    "info": "Информация",
+    "login": "Войти",
+    "register": "Регистрация",
+    "password": "Пароль",
+    "email": "Email",
+    "name": "Имя",
+    "surname": "Фамилия",
+    "phone": "Телефон",
+    "birthDate": "Дата рождения",
+    "baseFields": "Общая информация",
+    "docsFields": "Документы",
+    "slovakDocsFields": "Словацкие документы",
+    "adressFields": "Адрес",
+    "biometryFields": "Размер одежды",
+    "expirienceFields": "Опыт",
+    "familyFields": "Семья",
+    "hasInternationalPass": "Загранпаспорт?",
+    "internationalPassNumber": "Номер загранпаспорта",
+    "internationalPassExpire": "Срок действия",
+    "internationalPassAuthority": "Орган, который выдал",
+    "hasIdCard": "ID картка?",
+    "passNumber": "Номер паспорта",
+    "hasPermit": "Есть ВНЖ?",
+    "permitType": "Тип ВНЖ",
+    "permitExpire": "Срок до",
+    "hasPrevPermit": "Имели ли ВНЖ раньше?",
+    "rodneCislo": "Rodné číslo",
+    "IBAN": "IBAN",
+    "ICO": "IČO",
+    "birthPlace": "Место рождения",
+    "country": "Страна",
+    "adress": "Адрес",
+    "city": "Город",
+    "zip": "Индекс",
+    "tshortSize": "Размер футболки",
+    "pantsSize": "Размер штанов",
+    "shoesSize": "Размер обуви",
+    "study": "Образование",
+    "speciality": "Специальность",
+    "familyState": "Семейное положение",
+    "prevSurname": "Девичья фамилия",
+    "hasChildren": "Есть ли у вас дети?",
+    "hasSiblings": "Есть ли брат/сестра?",
+    "motherName": "Имя матери",
+    "motherSurname": "Фамилия матери",
+    "motherPrevSurname": "Девичья фамилия матери",
+    "motherBirthdate": "Дата рождения матери",
+    "fatherName": "Имя отца",
+    "fatherSurname": "Фамилия отца",
+    "fatherBirthdate": "Дата рождения отца",
+    "wrongCredentials": "Неправильный логин или пароль",
+    "dataUpdated": "Данные обновлены",
+    "scancopies": "Скан-копии",
+    "internationalPassScan": "Загранпаспорт",
+    "passScan": "Паспорт",
+    "idCardFaceScan": "ID картка (перед)",
+    "idCardBackScan": "ID картка (обратная сторона)",
+    "permitFaceScan": "ВНЖ (перед)",
+    "permitBackScan": "ВНЖ (обратная сторона)",
+    "updateData": "Обновить данные",
+    "upload": "Загрузить",
+    "uploaded": "Загружено",
+    "childrenJson": "Информация о детях",
+    "siblingsJson": "Информация о братьях/сестрах",
+    "openForm": "Открыть форму",
+    "successfullRegister": "Успешная регистрация! Теперь можете войти",
+    "project": "Проект",
+    "status": "Статус",
+    "resetPassword": "Сброс пароля",
+    "role": "Роль",
+    "admin": "Администрирование пользователя"
+  },
+  "prepayment": {
+    "date": "Дата",
+    "sum": "Сумма",
+    "approved": "Подтвержден",
+    "comment": "Коментарий",
+    "user": "Пользователь",
+    "approval": "Подтверждение аванса",
+    "approve": "Подтвердить",
+    "reject": "Отклонить"
+  },
+  "dayoff": {
+    "dateStart": "Начало",
+    "dateEnd": "Завершение",
+    "reason": "Причина",
+    "adminComment": "Коментарий фирмы",
+    "comment": "Коментарий",
+    "user": "Пользователь",
+    "send": "Отправить"
+  },
+  "profileList": "Профили",
+  "selects": {
+    "permitType": {
+      "business": "Бизнес",
+      "study": "Образование",
+      "work": "Работа"
+    },
+    "study": {
+      "base": "Общее",
+      "middleFull": "Среднее полное",
+      "middleSpecial": "Среднее специальное",
+      "high": "Высшее"
+    },
+    "familyStatus": {
+      "married": "Женат",
+      "single": "Не женат"
+    },
+    "userStatus": {
+      "candidate": "Кандидат",
+      "hired": "Нанят",
+      "fired": "Уволен"
+    },
+    "userRole": {
+      "user": "Пользователь",
+      "admin": "Админ"
+    },
+    "dayoffReason": {
+      "vacation": "Отпуск",
+      "illnes": "Болезнь",
+      "medicalCheck": "Медобследование",
+      "alcohol": "Алкогольное опьянение",
+      "other": "Другое"
+    }
+  },
+  "notFoundText": "Страница не найдена",
+  "search": "Поиск",
+  "true": "Да",
+  "false": "Нет",
+  "prepaymentsList": "Список авансов",
+  "dayoffList": "Список отгулов",
+  "paychecksUpload": "Загрузка рассчетных листов",
+  "file": {
+    "upload": "Перетяните файлы или нажмите",
+    "submit": "Отправить",
+    "add": "Добавить"
+  },
+  "paycheck": {
+    "successfullUpload": "Загрузка прошла успешно"
+  },
+  "projectList": "Проекты",
+  "project": {
+    "new": "Создать новый",
+    "creating": "Новый проект",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "name": "Название",
+    "email": "Email",
+    "phone": "Телефон",
+    "comment": "Коментарий",
+    "dateStart": "Дата начала",
+    "dateEnd": "Дата завершения",
+    "users": "Профили",
+    "data": "Информация",
+    "submit": "Сохранить",
+    "approveRemoving": "Вы собираетесь удалить проект! Вы уверенны?"
+  },
+  "notification": {
+    "success": "Оповещение отправлено",
+    "new": "Новое оповещение",
+    "title": "Тема",
+    "send": "Отправить",
+    "users": "Пользователи"
+  },
+  "language": "Язык",
+  "youNotVerified": "Сейчас основные разделы системы Parko app недоступны. Сначала вам необходимо заполнить информацию о себе в разделе Профиль"
+}

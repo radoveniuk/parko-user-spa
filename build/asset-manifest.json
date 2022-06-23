@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d233e737.css",
+    "main.js": "/static/js/main.7c429d4c.js",
+    "static/media/login-background.png": "/static/media/login-background.d42bd72e5ca2de26d6c5.png",
+    "static/media/comfortaa-all-400-normal.woff": "/static/media/comfortaa-all-400-normal.ce102a58deaac29dcd38.woff",
+    "static/media/logo.png": "/static/media/logo.a4a7e30f44d5e0ca9688.png",
+    "static/media/comfortaa-latin-400-normal.woff2": "/static/media/comfortaa-latin-400-normal.a3ea8fbfbb04d188775f.woff2",
+    "static/media/comfortaa-latin-ext-400-normal.woff2": "/static/media/comfortaa-latin-ext-400-normal.7876f775fde665865844.woff2",
+    "static/media/comfortaa-cyrillic-400-normal.woff2": "/static/media/comfortaa-cyrillic-400-normal.5e64177d05fd762f0d3e.woff2",
+    "static/media/comfortaa-cyrillic-ext-400-normal.woff2": "/static/media/comfortaa-cyrillic-ext-400-normal.f89a5d1e57ca8ec4c98d.woff2",
+    "static/media/comfortaa-greek-400-normal.woff2": "/static/media/comfortaa-greek-400-normal.9c37dba43cd82f97ee61.woff2",
+    "static/media/comfortaa-vietnamese-400-normal.woff2": "/static/media/comfortaa-vietnamese-400-normal.c04c3f9c744784d5a020.woff2",
+    "index.html": "/index.html",
+    "static/media/getFetch.cjs": "/static/media/getFetch.c780682470504fffbd04.cjs",
+    "main.d233e737.css.map": "/static/css/main.d233e737.css.map",
+    "main.7c429d4c.js.map": "/static/js/main.7c429d4c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d233e737.css",
+    "static/js/main.7c429d4c.js"
+  ]
+}

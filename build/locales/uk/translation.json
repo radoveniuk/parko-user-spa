@@ -1,0 +1,213 @@
+{
+  "navbar": {
+    "home": "Головна",
+    "profile": "Профіль",
+    "profiles": "Профілі",
+    "notifications": "Сповіщення",
+    "prepayments": "Аванси",
+    "daysoff": "Відгули",
+    "paychecks": "Розрахунки",
+    "projects": "Проєкти"
+  },
+  "menu": {
+    "prepayment": "Замовити аванс",
+    "paychecks": "Розрахункові листи",
+    "dayoff": "Замовити відгул",
+    "prepaymentList": "Список авансів",
+    "paychecksUpload": "Завантажити розрахункові листи",
+    "dayoffList": "Список відгулів",
+    "profile": "Мій профіль",
+    "notification": "Отправить оповещение"
+  },
+  "footer": {
+    "contacts": "Контакти",
+    "contactsInfo": "У випадку технічних неполадок чи виникнення запитань стосовно роботи системи — звертайтеся по контактам:"
+  },
+  "prepaymentPage": {
+    "title": "Замовлення авансу",
+    "form": {
+      "order": "Замовити",
+      "sumMinValidation": "Мінімальна сума - 50",
+      "sumMaxValidation": "Максимальна сума - 200",
+      "successCreate": "Аванс замовлено"
+    }
+  },
+  "dayoffPage": {
+    "title": "Інформування про відсутність на роботі",
+    "form": {
+      "explainReason": "Вкажіть причину",
+      "successCreate": "Інформацію про відгул надіслано"
+    }
+  },
+  "notifications": "Сповіщення",
+  "noData": "Дані не знайдено",
+  "paychecks": "Розрахункові листи",
+  "profile":  "Профіль",
+  "user": {
+    "info": "Інформація",
+    "login": "Увійти",
+    "register": "Реєстрація",
+    "password": "Пароль",
+    "email": "Email",
+    "name": "Ім'я",
+    "surname": "Прізвище",
+    "phone": "Телефон",
+    "birthDate": "Дата народження",
+    "baseFields": "Загальна інформація",
+    "docsFields": "Документи",
+    "slovakDocsFields": "Словацькі документи",
+    "adressFields": "Адреса",
+    "biometryFields": "Розміри одягу",
+    "expirienceFields": "Досвід",
+    "familyFields": "Сім'я",
+    "hasInternationalPass": "Закордонний паспорт?",
+    "internationalPassNumber": "Номер закордонного паспорту",
+    "internationalPassExpire": "Дійсний до",
+    "internationalPassAuthority": "Орган що видав",
+    "hasIdCard": "ID картка?",
+    "passNumber": "Номер паспорту",
+    "hasPermit": "Маєте ВНЖ?",
+    "permitType": "Тип ВНЖ",
+    "permitExpire": "Дійсний до",
+    "hasPrevPermit": "Чи ви мали ВНЖ раніше?",
+    "rodneCislo": "Rodné číslo",
+    "IBAN": "IBAN",
+    "ICO": "IČO",
+    "birthPlace": "Місце народження",
+    "country": "Країна",
+    "adress": "Адреса",
+    "city": "Місто",
+    "zip": "Індекс",
+    "tshortSize": "Розмір футболки",
+    "pantsSize": "Розмір штанів",
+    "shoesSize": "Розмір взуття",
+    "study": "Освіта",
+    "speciality": "Спеціальність",
+    "familyState": "Сімейне положення",
+    "prevSurname": "Дівоче прізвище",
+    "hasChildren": "Маєте дітей?",
+    "hasSiblings": "Маєте братів/сестер?",
+    "motherName": "Ім'я матері",
+    "motherSurname": "Прізвище матері",
+    "motherPrevSurname": "Дівоче прізвіще матері",
+    "motherBirthdate": "Дата народження матері",
+    "fatherName": "Ім'я батька",
+    "fatherSurname": "Прізвище батька",
+    "fatherBirthdate": "Дата народження батька",
+    "wrongCredentials": "Невірний логін або пароль",
+    "dataUpdated": "Дані оновлено",
+    "scancopies": "Сканкопії",
+    "internationalPassScan": "Закордонний паспорт",
+    "passScan": "Паспорт",
+    "idCardFaceScan": "ID картка (перед)",
+    "idCardBackScan": "ID картка (зворот)",
+    "permitFaceScan": "ВНЖ (перед)",
+    "permitBackScan": "ВНЖ (зворот)",
+    "updateData": "Оновити дані",
+    "upload": "Завантажити",
+    "uploaded": "Завантажено",
+    "childrenJson": "Інформація про дітей",
+    "siblingsJson": "Інформація про братів/сестер",
+    "openForm": "Відкрити форму",
+    "successfullRegister": "Реєстрація успішна! Можете увійти за своїми данними",
+    "project": "Проєкт",
+    "status": "Статус",
+    "resetPassword": "Скинути пароль",
+    "role": "Роль",
+    "admin": "Адміністрування користувача"
+  },
+  "prepayment": {
+    "date": "Дата",
+    "sum": "Сума",
+    "approved": "Підтверджено",
+    "comment": "Коментар",
+    "user": "Користувач",
+    "approval": "Підтвердження авансу",
+    "approve": "Підтвердити",
+    "reject": "Відхилити"
+  },
+  "dayoff": {
+    "dateStart": "Початок",
+    "dateEnd": "Кінець",
+    "reason": "Причина",
+    "adminComment": "Коментар фірми",
+    "comment": "Коментар",
+    "user": "Користувач",
+    "send": "Надіслати"
+  },
+  "profileList": "Профілі",
+  "selects": {
+    "permitType": {
+      "business": "Бізнес",
+      "study": "Навчання",
+      "work": "Робота"
+    },
+    "study": {
+      "base": "Загальна",
+      "middleFull": "Середня повна",
+      "middleSpecial": "Середня спеціальна",
+      "high": "Вища"
+    },
+    "familyStatus": {
+      "married": "Одружений",
+      "single": "Неодружений"
+    },
+    "userStatus": {
+      "candidate": "Кандидат",
+      "hired": "Найнятий",
+      "fired": "Звільнений"
+    },
+    "userRole": {
+      "user": "Користувач",
+      "admin": "Адмін"
+    },
+    "dayoffReason": {
+      "vacation": "Відпустка",
+      "illnes": "Хвороба",
+      "medicalCheck": "Медичне обстеження",
+      "alcohol": "Алкогольне сп'яніння",
+      "other": "Інше"
+    }
+  },
+  "notFoundText": "Сторінку не знайдено",
+  "search": "Пошук",
+  "true": "Так",
+  "false": "Ні",
+  "prepaymentsList": "Список авансів",
+  "dayoffList": "Список відгулів",
+  "paychecksUpload": "Завантаження розрахункових листів",
+  "file": {
+    "upload": "Перетягніть сюди файли, або натисніть",
+    "submit": "Підтвердити",
+    "add": "Додати"
+  },
+  "paycheck": {
+    "successfullUpload": "Розрахункові листи успішно завантажено"
+  },
+  "projectList": "Проєкти",
+  "project": {
+    "new": "Створити новий",
+    "creating": "Новий проєкт",
+    "edit": "Редагувати",
+    "delete": "Видалити",
+    "name": "Назва",
+    "email": "Email",
+    "phone": "Телефон",
+    "comment": "Коментар",
+    "dateStart": "Дата початку",
+    "dateEnd": "Дата завершення",
+    "users": "Профілі",
+    "data": "Інформація",
+    "submit": "Зберегти",
+    "approveRemoving": "Всі дані про проєкт будуть видалені! Ви впевнені?"
+  },
+  "notification": {
+    "success": "Сповіщення надіслано",
+    "new": "Нове сповіщення",
+    "title": "Тема",
+    "send": "Надіслати",
+    "users": "Користувачі"
+  },
+  "language": "Мова",
+  "youNotVerified": "Наразі основні розділи системи Parko app недоступні для вас. Спочатку вам необхідно запомнити інформацію про себе у розділі профіль"
+}
