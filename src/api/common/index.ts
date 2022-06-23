@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { IFile } from 'interfaces/file.interface';
 
-// "proxy": "http://localhost:3000",
+// const baseURL = 'http://localhost:3000';
+const baseURL = 'http://parko-user:3000';
 
 const api = axios.create({
+  baseURL,
   withCredentials: true,
 });
 
-export const uploadFiles = (formData: FormData): Promise<IFile[]> => fetch('/files', {
+export const uploadFiles = (formData: FormData): Promise<IFile[]> => fetch(`${baseURL}/files`, {
   method: 'POST',
   body: formData,
   redirect: 'follow',
