@@ -2,6 +2,7 @@
   "name": "parko-user-client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://parko-user.com:3000",
   "dependencies": {
     "@date-io/luxon": "^2.13.1",
     "@emotion/react": "^11.9.0",
