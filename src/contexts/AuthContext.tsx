@@ -29,7 +29,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userId, setUserId] = useLocalStorageState('userId');
   const loginMutation = useLoginMutation();
   const { data: userData } = useGetUser(userId);
-  const { data: userNotifications = [] } = useGetNotifications({ to: userId });
+  const { data: userNotifications = [] } = useGetNotifications({ to: userId }, { enabled: !!userId });
 
   const isNewNotifications = useMemo(() => !!userNotifications.filter((item) => !item.viewed).length, [userNotifications]);
   const isVerified = useMemo(() => !!userData?.project, [userData]);

@@ -42,8 +42,6 @@ const CreateNotificationPage = () => {
       entityType: 'mail',
     }));
 
-    console.log(notifications);
-
     await Promise.all(notifications.map((_) => createNotificationMutation.mutateAsync(_)));
 
     enqueueSnackbar(t('notification.success'), { variant: 'success' });
@@ -69,7 +67,13 @@ const CreateNotificationPage = () => {
             />
           </div>
           <Input label={t('notification.title')} className="controls-input" {...register('title', { required: true })} />
-          <Button className="controls-input" onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors)}>{t('notification.send')}</Button>
+          <Button
+            className="controls-input"
+            onClick={handleSubmit(submitHandler)}
+            disabled={!isEmpty(errors) || !users.length}
+          >
+            {t('notification.send')}
+          </Button>
         </div>
       </NotificationForm>
       <Controller

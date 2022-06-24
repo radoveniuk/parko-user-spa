@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 
 import { IUser, UserRole } from 'interfaces/users.interface';
 import { STATUSES } from 'constants/userStatuses';
@@ -9,12 +10,14 @@ import Button from 'components/shared/Button';
 import { useGetProjects } from 'api/query/projectQuery';
 import { ROLES } from 'constants/userRoles';
 import IconButton from 'components/shared/IconButton';
-import { CopyIcon } from 'components/icons';
+import { CopyIcon, DeleteIcon } from 'components/icons';
 import createId from 'helpers/createId';
+import { useDeleteUserMutation } from 'api/mutations/userMutation';
+import Dialog from 'components/shared/Dialog';
 
 import { USER_FIELDS } from './fields';
-
-import { BaseInfoWrapper } from './styles';
+import { BaseInfoWrapper, DialogContentWrapper } from './styles';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   data: IUser;
@@ -26,6 +29,10 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
+  const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState(false);
+  const deleteUserMutation = useDeleteUserMutation();
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const [resetedPass, setResetedPass] = useState<string | null>(null);
 
@@ -33,6 +40,15 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
     const pass = createId(15);
     setResetedPass(pass);
     onUpdate({ password: pass, email: data.email });
+  };
+
+  const deleteUser = () => {
+    deleteUserMutation.mutateAsync(data).then(() => {
+      enqueueSnackbar(t('user.removedSuccess'), { variant: 'success' });
+      setTimeout(() => {
+        navigate('/profiles');
+      }, 1000);
+    });
   };
 
   return (
@@ -87,6 +103,23 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
             <IconButton onClick={() => void navigator.clipboard.writeText(resetedPass)}><CopyIcon /></IconButton>
           </div>
         )}
+        <div className="settings-item">
+          <Button
+            color="error"
+            onClick={() => void setIsOpenDeleteDialog(true)}
+          >
+            <DeleteIcon style={{ marginRight: 5 }} />
+            {t('project.delete')}
+          </Button>
+        </div>
+        <Dialog title={t('user.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
+          <DialogContentWrapper>
+            <p className="warning-text">
+              {t('user.approveRemoving')} <strong>({data.name} {data.surname})</strong>
+            </p>
+            <div className="actions"><Button color="error" onClick={deleteUser}>{t('user.approve')}</Button></div>
+          </DialogContentWrapper>
+        </Dialog>
       </div>
     </BaseInfoWrapper>
   );

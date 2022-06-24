@@ -1,3 +1,4 @@
+import { LinearProgress } from '@mui/material';
 import styled from 'styled-components';
 import { colors } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
@@ -37,4 +38,10 @@ export const PageTitle = styled.h2`
   margin: 0;
   color: ${colors.default};
   margin-bottom: 15px;
+  margin-top: 15px;
+`;
+
+export const PageLoader = styled(LinearProgress)`
+  position: absolute !important;
+  width: calc(100% - 20px);
 `;

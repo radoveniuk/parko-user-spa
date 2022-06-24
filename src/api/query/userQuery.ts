@@ -15,7 +15,7 @@ export const getUserListByParams = (params: AnyObject): Promise<IUser[]> => api.
 
 export const useGetUser = (id: string) => {
   const request = (): Promise<IUser> => api.get(`/users/${id}`).then(res => ({ ...res.data.data, password: null }));
-  return useQuery(['user-data', id], request);
+  return useQuery(['user-data', id], request, { enabled: !!id });
 };
 
 export const useGetUserList = (params: AnyObject = {}, options?: QueryOptions) => useQuery<IUser[]>(['users',

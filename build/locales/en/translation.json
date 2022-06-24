@@ -114,7 +114,11 @@
     "status": "Status",
     "resetPassword": "Reset password",
     "role": "Role",
-    "admin": "User administration"
+    "admin": "User administration",
+    "delete": "Delete account",
+    "approveRemoving":"You are about delete user profile! Are you sure?",
+    "approve": "Approve",
+    "removedSuccess": "User has been removed"
   },
   "prepayment": {
     "date": "Date",
@@ -199,7 +203,8 @@
     "users": "Profiles",
     "data": "Info",
     "submit": "Save",
-    "approveRemoving": "You are about delete project! Are you sure?"
+    "approveRemoving": "You are about delete project! Are you sure?",
+    "approve": "Approve"
   },
   "notification": {
     "success": "Notification sended",

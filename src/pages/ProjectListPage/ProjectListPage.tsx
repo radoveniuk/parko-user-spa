@@ -118,7 +118,7 @@ const ProjectListPageRender = () => {
                         <p className="warning-text">
                           {t('project.approveRemoving')} <strong>({selectedProject.name})</strong>
                         </p>
-                        <div className="actions"><Button color="error" onClick={deleteProjectHandler}>{t('approve')}</Button></div>
+                        <div className="actions"><Button color="error" onClick={deleteProjectHandler}>{t('project.approve')}</Button></div>
                       </DialogContentWrapper>
                     </Dialog>
                   </ProjectActionsWrapper>

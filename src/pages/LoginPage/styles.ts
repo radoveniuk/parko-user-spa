@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import backgroundImage from 'components/assets/images/login-background.png';
+import backgroundImage from 'components/assets/images/login-background.webp';
 
 export const LoginPageWrapper = styled.div`
   background-image: url(${backgroundImage});

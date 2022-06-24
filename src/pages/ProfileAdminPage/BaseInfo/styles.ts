@@ -54,3 +54,11 @@ export const BaseInfoWrapper = styled.div`
     }
   }
 `;
+
+export const DialogContentWrapper = styled.div`
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+`;
