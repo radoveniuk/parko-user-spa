@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { IFile } from 'interfaces/file.interface';
 
-// const baseURL = 'http://localhost:3000';
-const baseURL = 'http://parko-user.com:3000';
+const baseURL = 'http://localhost:3000';
+// const baseURL = 'http://parko-user.com:3000';
 
 const api = axios.create({
   baseURL,
