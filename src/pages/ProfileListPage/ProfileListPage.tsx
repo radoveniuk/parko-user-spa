@@ -11,6 +11,8 @@ import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import useDebounce from 'hooks/useDebounce';
 import { IUser } from 'interfaces/users.interface';
+import usePaginatedList from 'hooks/usePaginatedList';
+import Pagination from 'components/shared/Pagination';
 
 const columns = [
   'user.name',
@@ -25,6 +27,7 @@ const ProfileListPageRender = () => {
   const { filtersState } = useFilters();
   const debouncedFiltersState = useDebounce(filtersState);
   const { data, refetch } = useGetUserList(debouncedFiltersState);
+  const { pageItems, paginationConfig } = usePaginatedList(data);
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
 
@@ -42,7 +45,7 @@ const ProfileListPageRender = () => {
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={columns} >
-        {data?.map((user: IUser) => (
+        {pageItems.map((user: IUser) => (
           <Link key={user._id} to={`/profile/${user._id}`} style={{ display: 'contents', color: '#000' }}>
             <ListTableRow>
               <ListTableCell>{user.name}</ListTableCell>
@@ -59,6 +62,7 @@ const ProfileListPageRender = () => {
           </Link>
         ))}
       </ListTable>
+      <Pagination {...paginationConfig} />
     </Page>
   );
 };

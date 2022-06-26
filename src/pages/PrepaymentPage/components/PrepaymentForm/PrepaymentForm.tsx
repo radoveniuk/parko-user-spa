@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import _ from 'lodash-es';
 import { useSnackbar } from 'notistack';
+import { useNavigate } from 'react-router-dom';
 
 import Input from 'components/shared/Input';
 import Button from 'components/shared/Button';
@@ -22,6 +23,7 @@ const PrepaymentForm = () => {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const createPrepayment = useCreatePrepaymentMutation();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const prepayment = {
@@ -34,6 +36,9 @@ const PrepaymentForm = () => {
     createPrepayment.mutateAsync(prepayment)
       .then(() => {
         enqueueSnackbar(t('prepaymentPage.form.successCreate'), { variant: 'success' });
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
       });
   };
 
@@ -60,7 +65,13 @@ const PrepaymentForm = () => {
           {...register('comment')}
         />
       </div>
-      <Button className="button-wrapper" type="submit" disabled={!_.isEmpty(errors)}>{t('prepaymentPage.form.order')}</Button>
+      <Button
+        className="button-wrapper"
+        type="submit"
+        disabled={!_.isEmpty(errors) || createPrepayment.isLoading}
+      >
+        {t('prepaymentPage.form.order')}
+      </Button>
     </StyledForm>
   );
 };

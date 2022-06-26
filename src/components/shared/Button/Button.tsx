@@ -4,6 +4,7 @@ import { StyledButton } from './styles';
 
 type Props = ButtonProps & {
   component?: string;
+  loading?: boolean;
 }
 
 const Button = ({ children, variant = 'contained', ...rest }: Props) => (

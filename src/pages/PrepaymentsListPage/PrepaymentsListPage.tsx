@@ -13,6 +13,8 @@ import Button from 'components/shared/Button';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import { getDateFromIso } from 'helpers/datetime';
+import usePaginatedList from 'hooks/usePaginatedList';
+import Pagination from 'components/shared/Pagination';
 
 import { ApproveDialogWrapper } from './styles';
 
@@ -29,6 +31,7 @@ const PrepaymentsListPageRender = () => {
   const debouncedFiltersState = useDebounce(filtersState);
   const { t } = useTranslation();
   const { data, refetch } = useGetPrepayments(debouncedFiltersState);
+  const { pageItems, paginationConfig } = usePaginatedList(data);
   const { data: projects = [] } = useGetProjects();
   const updatePrepaymentMutation = useUpdatePrepaymentMutation();
 
@@ -53,7 +56,7 @@ const PrepaymentsListPageRender = () => {
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={columns} >
-        {data?.map((item) => (
+        {pageItems.map((item) => (
           <ListTableRow key={item._id} onClick={() => void setSelectedItem(item)}>
             <ListTableCell>{typeof item.user !== 'string' && `${item.user.name} ${item.user.surname}`}</ListTableCell>
             <ListTableCell>{item.createdAt && getDateFromIso(item.createdAt)}</ListTableCell>
@@ -63,6 +66,7 @@ const PrepaymentsListPageRender = () => {
           </ListTableRow>
         ))}
       </ListTable>
+      <Pagination {...paginationConfig} />
       {!!selectedItem && (
         <Dialog title={t('prepayment.approval')} open={!!selectedItem} onClose={() => void setSelectedItem(null)}>
           <ApproveDialogWrapper>

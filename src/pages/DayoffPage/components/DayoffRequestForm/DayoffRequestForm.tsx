@@ -4,6 +4,7 @@ import _ from 'lodash-es';
 import { DateTime } from 'luxon';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
+import { useNavigate } from 'react-router-dom';
 
 import DatePicker from 'components/shared/DatePicker';
 import Select from 'components/shared/Select';
@@ -12,9 +13,9 @@ import Input from 'components/shared/Input';
 import Button from 'components/shared/Button';
 import { useAuthData } from 'contexts/AuthContext';
 import { useCreateDayoffMutation } from 'api/mutations/dayoffMutation';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 
 import { StyledForm } from './styles';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
 
 type Inputs = {
   dateStart: string,
@@ -30,6 +31,7 @@ const DayoffRequestForm = () => {
   const reasonsList = useTranslatedSelect(REASONS, 'dayoffReason');
   const { enqueueSnackbar } = useSnackbar();
   const createDayoffMutation = useCreateDayoffMutation();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const dayoff = {
@@ -43,6 +45,9 @@ const DayoffRequestForm = () => {
 
     createDayoffMutation.mutateAsync(dayoff).then(() => {
       enqueueSnackbar(t('dayoffPage.form.successCreate'), { variant: 'success' });
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
     });
   };
 

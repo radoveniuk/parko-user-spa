@@ -12,9 +12,11 @@ import { IDayOff } from 'interfaces/dayoff.interface';
 import Dialog from 'components/shared/Dialog';
 import Input from 'components/shared/Input';
 import Button from 'components/shared/Button';
+import { useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
+import Pagination from 'components/shared/Pagination';
+import usePaginatedList from 'hooks/usePaginatedList';
 
 import { CommentDialogWrapper } from './styles';
-import { useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
 
 const columns = [
   'dayoff.user',
@@ -30,6 +32,7 @@ const DayoffListPageRender = () => {
   const debouncedFiltersState = useDebounce(filtersState);
   const { t } = useTranslation();
   const { data, refetch } = useGetDaysoff(debouncedFiltersState);
+  const { pageItems, paginationConfig } = usePaginatedList(data);
   const { data: projects = [] } = useGetProjects();
   const updateDayoffMutation = useUpdateDayoffMutation();
 
@@ -56,7 +59,7 @@ const DayoffListPageRender = () => {
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={columns} >
-        {data?.map((item) => (
+        {pageItems.map((item) => (
           <ListTableRow key={item._id} onClick={() => void setSelectedItem(item)}>
             <ListTableCell>{typeof item.user !== 'string' && `${item.user.name} ${item.user.surname}`}</ListTableCell>
             <ListTableCell>{getDateFromIso(item.dateStart)}</ListTableCell>
@@ -67,6 +70,7 @@ const DayoffListPageRender = () => {
           </ListTableRow>
         ))}
       </ListTable>
+      <Pagination {...paginationConfig} />
       {!!selectedItem && (
         <Dialog title={t('dayoff.adminComment')} open={!!selectedItem} onClose={() => void setSelectedItem(null)}>
           <CommentDialogWrapper>
