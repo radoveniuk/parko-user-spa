@@ -26,6 +26,8 @@ export const LoginFormWrapper = styled.div`
       border: none;
       transition: background-color 0.3s;
       cursor: pointer;
+      text-transform: uppercase;
+      font-weight: 600;
 
       &:hover {
         background-color: #2ab740;
