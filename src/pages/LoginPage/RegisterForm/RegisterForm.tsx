@@ -49,6 +49,8 @@ const RegisterForm = () => {
           <PhoneInputWithCountrySelect
             value={field.value}
             onChange={field.onChange}
+            countryOptionsOrder={['UA', 'RU', 'SK']}
+            defaultCountry="SK"
           />
         )}
       />
