@@ -1,18 +1,21 @@
 import React from 'react';
 import _ from 'lodash-es';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
+import PhoneInputWithCountrySelect from 'react-phone-number-input';
 
 import { RegisterUserDto } from 'interfaces/users.interface';
 import { useRegisterMutation } from 'api/mutations/userMutation';
 
-import { RegisterFormWrapper } from './styles';
 import { useTabs } from '../Tabs/TabsContext';
+
+import { RegisterFormWrapper } from './styles';
+import 'react-phone-number-input/style.css';
 
 const RegisterForm = () => {
   const { t } = useTranslation();
-  const { handleSubmit, register, formState: { errors } } = useForm<RegisterUserDto>();
+  const { handleSubmit, register, formState: { errors }, control } = useForm<RegisterUserDto>();
   const registerMutation = useRegisterMutation();
   const { enqueueSnackbar } = useSnackbar();
   const [, setTab] = useTabs();
@@ -30,15 +33,26 @@ const RegisterForm = () => {
 
   return (
     <RegisterFormWrapper>
-      <span>{t('user.name')}</span>
+      <span className={`${errors.name ? 'error' : ''}`}>{t('user.name')}</span>
       <input type="text" {...register('name', { required: true })} />
-      <span>{t('user.surname')}</span>
+      <span className={`${errors.surname ? 'error' : ''}`}>{t('user.surname')}</span>
       <input type="text" {...register('surname', { required: true })} />
-      <span>{t('user.email')}</span>
+      <span className={`${errors.email ? 'error' : ''}`}>{t('user.email')}</span>
       <input type="text" {...register('email', { required: true })} />
-      <span>{t('user.phone')}</span>
-      <input type="text" {...register('phone', { required: true })} />
-      <span>{t('user.password')}</span>
+      <span className={`${errors.phone ? 'error' : ''}`}>{t('user.phone')}</span>
+      <Controller
+        control={control}
+        name="phone"
+        defaultValue=""
+        rules={{ required: true }}
+        render={({ field }) => (
+          <PhoneInputWithCountrySelect
+            value={field.value}
+            onChange={field.onChange}
+          />
+        )}
+      />
+      <span className={`${errors.password ? 'error' : ''}`}>{t('user.password')}</span>
       <input type="password" {...register('password', { required: true })} />
       <button
         onClick={handleSubmit(onSubmitLogin)}

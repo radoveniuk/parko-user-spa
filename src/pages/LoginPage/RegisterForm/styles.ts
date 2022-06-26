@@ -8,6 +8,14 @@ export const RegisterFormWrapper = styled.div`
 
   span {
     color: #fff;
+
+    &.error {
+      color: #f06161;
+      
+      &::after {
+        content: '*';
+      }
+    }
   }
 
   input {
@@ -29,5 +37,13 @@ export const RegisterFormWrapper = styled.div`
     &:hover {
       background-color: #2ab740;
     }
+    
+    &:disabled {
+      background-color: #6a6a6a;
+    }
+  }
+
+  .PhoneInputCountryIcon, .PhoneInputCountrySelectArrow {
+    color: #fff !important;
   }
 `;

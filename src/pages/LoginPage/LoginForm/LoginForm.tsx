@@ -3,10 +3,11 @@ import _ from 'lodash-es';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 import { useLogin } from 'contexts/AuthContext';
+
 import { LoginFormWrapper } from './styles';
-import { useSnackbar } from 'notistack';
 
 type FormFields = {
   email: string;
