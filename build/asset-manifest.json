@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.5505a202.css",
-    "main.js": "/static/js/main.fb57e93b.js",
+    "main.js": "/static/js/main.3ad3d196.js",
     "static/media/login-background.webp": "/static/media/login-background.5c87ef1f80bf24e15cc2.webp",
     "static/media/comfortaa-all-400-normal.woff": "/static/media/comfortaa-all-400-normal.ce102a58deaac29dcd38.woff",
     "static/media/logo.png": "/static/media/logo.a4a7e30f44d5e0ca9688.png",
@@ -14,10 +14,10 @@
     "index.html": "/index.html",
     "static/media/getFetch.cjs": "/static/media/getFetch.c780682470504fffbd04.cjs",
     "main.5505a202.css.map": "/static/css/main.5505a202.css.map",
-    "main.fb57e93b.js.map": "/static/js/main.fb57e93b.js.map"
+    "main.3ad3d196.js.map": "/static/js/main.3ad3d196.js.map"
   },
   "entrypoints": [
     "static/css/main.5505a202.css",
-    "static/js/main.fb57e93b.js"
+    "static/js/main.3ad3d196.js"
   ]
 }
