@@ -118,7 +118,8 @@
     "delete": "Delete account",
     "approveRemoving":"You are about delete user profile! Are you sure?",
     "approve": "Approve",
-    "removedSuccess": "User has been removed"
+    "removedSuccess": "User has been removed",
+    "logout": "Logout"
   },
   "prepayment": {
     "date": "Date",
@@ -204,7 +205,10 @@
     "data": "Info",
     "submit": "Save",
     "approveRemoving": "You are about delete project! Are you sure?",
-    "approve": "Approve"
+    "approve": "Approve",
+    "cost": "Cost",
+    "tariff": "Tariff",
+    "success": "Success!"
   },
   "notification": {
     "success": "Notification sended",
