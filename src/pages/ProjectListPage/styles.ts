@@ -31,7 +31,7 @@ export const ProjectInfoDataWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin: 10px;
+  margin: 20px 10px 10px 10px;
 `;
 
 export const ProjectActionsWrapper = styled.div`
