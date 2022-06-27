@@ -32,13 +32,12 @@ const LoginForm = () => {
   };
 
   return (
-    <LoginFormWrapper>
+    <LoginFormWrapper onSubmit={handleSubmit(onSubmitLogin)}>
       <span>{t('user.email')}</span>
       <input type="text" {...register('email', { required: true })} />
       <span>{t('user.password')}</span>
       <input type="password" {...register('password', { required: { message: t('user.wrongPassword'), value: true } })} />
       <button
-        onClick={handleSubmit(onSubmitLogin)}
         type="submit"
         disabled={!_.isEmpty(errors)}
       >

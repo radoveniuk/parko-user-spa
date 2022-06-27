@@ -11,7 +11,7 @@ const PageContent = () => {
   const [tab] = useTabs();
   return (
     <LoginPageWrapper>
-      <PageHeader>
+      <PageHeader className="login-header">
         <LanguageSelector className="lang-selector" />
       </PageHeader>
       <Tabs>

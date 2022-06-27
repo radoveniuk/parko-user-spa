@@ -7,6 +7,11 @@ export const useLoginMutation = () => {
   return useMutation(loginRequest);
 };
 
+export const useLogoutMutation = () => {
+  const request = (data: IUser) => api.post('/logout', data).then(res => res.data.data);
+  return useMutation(request);
+};
+
 export const useRegisterMutation = () => {
   const registerRequest = (data: RegisterUserDto) => api.post('/signup', data).then(res => res.data.data);
   return useMutation(registerRequest);

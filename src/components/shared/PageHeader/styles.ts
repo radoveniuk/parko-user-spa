@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const HeaderWrapper = styled.header`
   display: flex;
+  align-items: center;
   a {
     display: flex;
     justify-content: center;

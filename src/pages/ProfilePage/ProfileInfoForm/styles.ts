@@ -19,4 +19,10 @@ export const ProfileInfoFormWrapper = styled.div`
       }
     }
   }
+
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
 `;

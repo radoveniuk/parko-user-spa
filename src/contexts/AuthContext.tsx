@@ -2,7 +2,7 @@ import React, {
   createContext, ReactNode, useContext, useMemo, useState,
 } from 'react';
 
-import { useLoginMutation } from 'api/mutations/userMutation';
+import { useLoginMutation, useLogoutMutation } from 'api/mutations/userMutation';
 import { LoginDto, UserRole } from 'interfaces/users.interface';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { useGetUser } from 'api/query/userQuery';
@@ -11,6 +11,7 @@ import { useGetNotifications } from 'api/query/notificationsQuery';
 type contextType = {
   isAuth: boolean;
   login(data: LoginDto): Promise<boolean>;
+  logout(): void;
   userId: string;
   role: UserRole | undefined;
   isNewNotifications: boolean;
@@ -28,7 +29,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuth, setIsAuth] = useState(!!getCookieValue('Authorization'));
   const [userId, setUserId] = useLocalStorageState('userId');
   const loginMutation = useLoginMutation();
-  const { data: userData } = useGetUser(userId);
+  const logoutMutation = useLogoutMutation();
+  const { data: userData } = useGetUser(userId, { enabled: !!userId && isAuth });
   const { data: userNotifications = [] } = useGetNotifications({ to: userId }, { enabled: !!userId });
 
   const isNewNotifications = useMemo(() => !!userNotifications.filter((item) => !item.viewed).length, [userNotifications]);
@@ -44,8 +46,14 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return false;
   };
 
+  const logout = async () => {
+    await logoutMutation.mutateAsync(userData);
+    setIsAuth(false);
+    setUserId('');
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuth, login, userId, role: userData?.role, isNewNotifications, isVerified }}>
+    <AuthContext.Provider value={{ isAuth, login, logout, userId, role: userData?.role, isNewNotifications, isVerified }}>
       {children}
     </AuthContext.Provider>
   );
@@ -65,6 +73,14 @@ export const useLogin = () => {
     throw new Error('Auth provider not exist');
   }
   return authContext.login;
+};
+
+export const useLogout = () => {
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    throw new Error('Auth provider not exist');
+  }
+  return authContext.logout;
 };
 
 export const useAuthData = () => {

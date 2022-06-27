@@ -38,7 +38,7 @@ const RegisterForm = () => {
       <span className={`${errors.surname ? 'error' : ''}`}>{t('user.surname')}</span>
       <input type="text" {...register('surname', { required: true })} />
       <span className={`${errors.email ? 'error' : ''}`}>{t('user.email')}</span>
-      <input type="text" {...register('email', { required: true })} />
+      <input type="text" {...register('email', { validate: (v) => /\S+@\S+\.\S+/.test(v) })} />
       <span className={`${errors.phone ? 'error' : ''}`}>{t('user.phone')}</span>
       <Controller
         control={control}

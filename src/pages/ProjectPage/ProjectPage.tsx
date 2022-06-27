@@ -58,7 +58,7 @@ const ProjectPage = () => {
               label={t('project.email')}
               error={!!errors.email}
               helperText={errors.email?.message}
-              {...register('email', { required: true })}
+              {...register('email', { validate: (v) => /\S+@\S+\.\S+/.test(v) })}
             />
             <Input
               label={t('project.phone')}
@@ -73,6 +73,20 @@ const ProjectPage = () => {
               helperText={errors.comment?.message}
               multiline
               {...register('comment', { required: true })}
+            />
+            <Input
+              label={t('project.cost')}
+              error={!!errors.cost}
+              helperText={errors.cost?.message}
+              type="number"
+              {...register('cost', { required: true })}
+            />
+            <Input
+              label={t('project.tariff')}
+              error={!!errors.tariff}
+              helperText={errors.tariff?.message}
+              type="number"
+              {...register('tariff', { required: true })}
             />
             <Controller
               control={control}

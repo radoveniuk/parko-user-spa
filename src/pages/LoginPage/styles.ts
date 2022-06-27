@@ -7,9 +7,21 @@ export const LoginPageWrapper = styled.div`
   background-size: cover;
   min-height: 100vh;
 
+  .login-header {
+    flex-direction: row-reverse;
+  }
+
   .lang-selector {
     position: absolute;
     top: 30px;
     right: 30px;
+  }
+
+  @media only screen and (max-width: 530px) {
+    .lang-selector {
+      margin-right: 10px;
+      margin-left: 10px;
+      position: inherit;
+    }
   }
 `;

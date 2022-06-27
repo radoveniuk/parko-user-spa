@@ -17,9 +17,9 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import Dialog from 'components/shared/Dialog';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
+import { useDeleteProjectMutation } from 'api/mutations/projectMutation';
 
 import { DialogContentWrapper, ProjectActionsWrapper, ProjectInfoDataWrapper, ProjectInfoWrapper, ProjectsListWrapper } from './styles';
-import { useDeleteProjectMutation } from 'api/mutations/projectMutation';
 
 const listFields = {
   primary: 'name',
@@ -27,7 +27,7 @@ const listFields = {
 };
 
 const usersTableCols = ['user.name', 'user.email', 'user.status'];
-const projectInfoKeys: (keyof IProject)[] = ['name', 'email', 'phone', 'comment', 'dateStart', 'dateEnd'];
+const projectInfoKeys: (keyof IProject)[] = ['name', 'email', 'phone', 'comment', 'cost', 'tariff', 'dateStart', 'dateEnd'];
 
 const ProjectListPageRender = () => {
   const { t } = useTranslation();
