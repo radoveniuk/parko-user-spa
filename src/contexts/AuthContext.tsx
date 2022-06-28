@@ -46,14 +46,16 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return false;
   };
 
-  const logout = async () => {
-    await logoutMutation.mutateAsync(userData);
+  const logout = () => {
+    logoutMutation.mutate(userData);
     setIsAuth(false);
     setUserId('');
   };
 
+  const role = useMemo(() => isAuth && userData ? userData.role : 'user', [userData, isAuth]);
+
   return (
-    <AuthContext.Provider value={{ isAuth, login, logout, userId, role: userData?.role, isNewNotifications, isVerified }}>
+    <AuthContext.Provider value={{ isAuth, login, logout, userId, role, isNewNotifications, isVerified }}>
       {children}
     </AuthContext.Provider>
   );
