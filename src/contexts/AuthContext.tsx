@@ -34,7 +34,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { data: userNotifications = [] } = useGetNotifications({ to: userId }, { enabled: !!userId });
 
   const isNewNotifications = useMemo(() => !!userNotifications.filter((item) => !item.viewed).length, [userNotifications]);
-  const isVerified = useMemo(() => !!userData?.project, [userData]);
+  const isVerified = useMemo(() => !!userData?.project || userData?.role === 'admin', [userData]);
 
   const login = async (data: LoginDto) => {
     const loginResult = await loginMutation.mutateAsync(data);
@@ -47,7 +47,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
-    logoutMutation.mutate(userData);
+    if (userData) {
+      logoutMutation.mutate(userData);
+    }
     setIsAuth(false);
     setUserId('');
   };
