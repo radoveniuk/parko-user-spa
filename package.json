@@ -34,6 +34,7 @@
     "react-i18next": "^11.16.6",
     "react-icons": "^4.3.1",
     "react-number-format": "^4.9.3",
+    "react-papaparse": "^4.0.2",
     "react-phone-number-input": "^3.2.3",
     "react-query": "^3.38.1",
     "react-router-dom": "^6.3.0",

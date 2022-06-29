@@ -1,5 +1,5 @@
 import React, {
-  createContext, ReactNode, useContext, useMemo, useState,
+  createContext, ReactNode, useCallback, useContext, useMemo, useState,
 } from 'react';
 
 import { useLoginMutation, useLogoutMutation } from 'api/mutations/userMutation';
@@ -46,13 +46,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return false;
   };
 
-  const logout = () => {
+  const logout = useCallback(() => {
     if (userData) {
       logoutMutation.mutate(userData);
     }
     setIsAuth(false);
     setUserId('');
-  };
+  }, [logoutMutation, setUserId, userData]);
 
   const role = useMemo(() => isAuth && userData ? userData.role : 'user', [userData, isAuth]);
 

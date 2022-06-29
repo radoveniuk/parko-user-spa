@@ -18,6 +18,7 @@ import ProjectListPage from 'pages/ProjectListPage';
 import ProjectPage from 'pages/ProjectPage';
 import ProfileAdminPage from 'pages/ProfileAdminPage';
 import CreateNotificationPage from 'pages/CreateNotificationPage';
+import UploadProfilesPage from 'pages/UploadProfilesPage';
 
 export default function Router () {
   const { role } = useAuthData();
@@ -47,6 +48,7 @@ export default function Router () {
             <Route path="/projects" element={<ProtectedRoute><ProjectListPage /></ProtectedRoute>} />
             <Route path="/project" element={<ProtectedRoute><ProjectPage /></ProtectedRoute>} />
             <Route path="/create-notification" element={<ProtectedRoute><CreateNotificationPage /></ProtectedRoute>} />
+            <Route path="/upload-profiles" element={<ProtectedRoute><UploadProfilesPage /></ProtectedRoute>} />
           </>
         )}
       </Routes>
