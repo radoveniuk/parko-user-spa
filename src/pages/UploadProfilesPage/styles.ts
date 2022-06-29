@@ -5,4 +5,5 @@ export const RelativeFieldsGrid = styled.div`
   grid-gap: 0.7rem;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
+  overflow-x: auto;
 `;
