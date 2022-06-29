@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 
-const useTranslatedSelect = (values: string[], select: string) => {
+const useTranslatedSelect = (values: string[], entity: string, isSelect = true) => {
   const { t } = useTranslation();
   return values.map((option) => ({
     value: option,
-    label: t(`selects.${select}.${option}`),
+    label: isSelect ? t(`selects.${entity}.${option}`) : t(`${entity}.${option}`),
   }));
 };
 
