@@ -1,15 +1,16 @@
 import React, { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCSVReader } from 'react-papaparse';
+import { invert, omit } from 'lodash-es';
 
 import Select from 'components/shared/Select';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import Button from 'components/shared/Button';
 import { UploadIcon } from 'components/icons';
 import { AnyObject } from 'interfaces/base.types';
-import { invert, omit } from 'lodash-es';
-import { RelativeFieldsGrid } from './styles';
 import { useFileKeys, useRelativeFields, useRows } from '../../UploadProfilesContext';
+
+import { FileUploadingWrapper, RelativeFieldsGrid } from './styles';
 
 const styles = {
   csvReader: {
@@ -22,10 +23,10 @@ const styles = {
   } as CSSProperties,
   acceptedFile: {
     border: '1px solid #ccc',
-    height: 45,
+    height: 35,
     lineHeight: 2.5,
     paddingLeft: 10,
-    width: '80%',
+    width: '40%',
   } as CSSProperties,
 };
 
@@ -48,7 +49,7 @@ const FileUploading = () => {
   const translatedUserFields = useTranslatedSelect(userFields, 'user', false);
 
   return (
-    <>
+    <FileUploadingWrapper>
       <CSVReader
         onUploadAccepted={(res: any) => {
           setFileKeys(res.data?.[0]);
@@ -71,54 +72,53 @@ const FileUploading = () => {
         }: any) => (
           <>
             <div style={styles.csvReader}>
-              <Button {...getRootProps()}>
+              <Button {...getRootProps()} style={{ display: 'flex', gap: 5 }}>
                 <UploadIcon size={20}/>{t('user.upload')}
               </Button>
               <div style={styles.acceptedFile}>
                 {acceptedFile && acceptedFile.name}
               </div>
-              <Button {...getRemoveFileProps()} color="error" variant="outlined" >
-                {t('user.remove')}
+              <Button {...getRemoveFileProps()} disabled={!acceptedFile} color="error" variant="outlined" >
+                {t('userUpload.remove')}
               </Button>
             </div>
             <ProgressBar style={{ backgroundColor: '#123C69' }} />
+            {!!acceptedFile && !!fileKeys.length && (
+              <RelativeFieldsGrid>
+                <div><b>{t('userUpload.fileField')}</b></div>
+                <div><b>{t('userUpload.field')}</b></div>
+                <div><b>{t('userUpload.exampleValue')}</b></div>
+                {fileKeys?.map((fileKey) => (
+                  <div key={fileKey} style={{ display: 'contents' }}>
+                    <div>{fileKey}</div>
+                    <Select
+                      options={translatedUserFields}
+                      onChange={(e) => {
+                        setRelativeFields((prevValue) => {
+                          let newValue = prevValue;
+                          const keyValue = e.target.value as string;
+                          const reverseKey = invert(newValue)[keyValue];
+
+                          if (reverseKey) {
+                            newValue = omit(newValue, [reverseKey]);
+                          }
+                          if (!fileKey) {
+                            return newValue;
+                          }
+                          return { ...newValue, [fileKey]: keyValue };
+                        });
+                      }}
+                      value={relativeFields[fileKey] || ''}
+                    />
+                    <div>{rows[0]?.[fileKey]}</div>
+                  </div>
+                ))}
+              </RelativeFieldsGrid>
+            )}
           </>
         )}
       </CSVReader>
-      {!!fileKeys.length && (
-        <RelativeFieldsGrid>
-          <div><b>{t('user.fileField')}</b></div>
-          <div><b>{t('user.field')}</b></div>
-          <div><b>{t('user.exampleValue')}</b></div>
-          {fileKeys?.map((fileKey) => (
-            <div key={fileKey} style={{ display: 'contents' }}>
-              <div>{fileKey}</div>
-              <Select
-                options={translatedUserFields}
-                label={t('user.field')}
-                onChange={(e) => {
-                  setRelativeFields((prevValue) => {
-                    let newValue = prevValue;
-                    const keyValue = e.target.value as string;
-                    const reverseKey = invert(newValue)[keyValue];
-
-                    if (reverseKey) {
-                      newValue = omit(newValue, [reverseKey]);
-                    }
-                    if (!fileKey) {
-                      return newValue;
-                    }
-                    return { ...newValue, [fileKey]: keyValue };
-                  });
-                }}
-                value={relativeFields[fileKey] || ''}
-              />
-              <div>{rows[0]?.[fileKey]}</div>
-            </div>
-          ))}
-        </RelativeFieldsGrid>
-      )}
-    </>
+    </FileUploadingWrapper>
   );
 };
 

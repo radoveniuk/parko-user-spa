@@ -1,25 +1,22 @@
 import React from 'react';
 import { Step, StepLabel, Stepper as StepperMaterial } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   steps: string[];
   activeStep: number;
 }
 
-const Stepper = ({ steps, activeStep }: Props) => (
-  <StepperMaterial activeStep={activeStep}>
-    {steps.map((label) => {
-      const stepProps: { completed?: boolean } = {};
-      const labelProps: {
-            optional?: React.ReactNode;
-          } = {};
-      return (
-        <Step key={label} {...stepProps}>
-          <StepLabel {...labelProps}>{label}</StepLabel>
+const Stepper = ({ steps, activeStep }: Props) => {
+  const { t } = useTranslation();
+  return (
+    <StepperMaterial activeStep={activeStep}>
+      {steps.map((label) => (
+        <Step key={label}>
+          <StepLabel>{t(label)}</StepLabel>
         </Step>
-      );
-    })}
-  </StepperMaterial>
-);
-
+      ))}
+    </StepperMaterial>
+  );
+};
 export default Stepper;

@@ -7,3 +7,7 @@ export const RelativeFieldsGrid = styled.div`
   align-items: center;
   overflow-x: auto;
 `;
+
+export const FileUploadingWrapper = styled.div`
+  margin-top: 20px;
+`;

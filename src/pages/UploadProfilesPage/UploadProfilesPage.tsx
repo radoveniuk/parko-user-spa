@@ -1,44 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Page, { PageTitle } from 'components/shared/Page';
-
-import UploadProfilesProvider from './UploadProfilesContext';
-import FileUploading from './steps/FileUploading';
-import ResultsPreview from './steps/ResultsPreview/ResultsPreview';
-
 import Button from 'components/shared/Button';
 import Stepper from 'components/shared/Stepper';
 
-const steps = ['fileUploading', 'resultsPreview'];
+import UploadProfilesProvider, { useRelativeFields } from './UploadProfilesContext';
+import FileUploading from './steps/FileUploading';
+import ResultsPreview from './steps/ResultPreview';
+import { StepperWrapper } from './styles';
+import { isEmpty } from 'lodash-es';
+
+const steps = ['userUpload.fileUploading', 'userUpload.resultPreview'];
+
+const StepContent = ({ display, children }: { display: boolean, children: React.ReactNode }) => (
+  <div style={{ display: display ? 'block' : 'none' }}>{children}</div>
+);
 
 const UploadProfilesPageRender = () => {
   const { t } = useTranslation();
+  const [relativeFields] = useRelativeFields();
 
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const handleNext = () => void setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleBack = () => void setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
   return (
-    <Page title={t('user.uploadFromFile')}>
-      <PageTitle>{t('user.uploadFromFile')}</PageTitle>
-      <Stepper activeStep={activeStep} steps={steps} />
-      {activeStep !== steps.length - 1 && <Button onClick={handleNext}>Next</Button>}
-      {activeStep !== 0 && <Button onClick={handleBack}>Back</Button>}
-
-      {activeStep === 0 && <FileUploading />}
-      {activeStep === 1 && <ResultsPreview />}
+    <Page title={t('userUpload.title')}>
+      <PageTitle>{t('userUpload.title')}</PageTitle>
+      <StepperWrapper>
+        <Stepper activeStep={activeStep} steps={steps} />
+        {activeStep !== 0 && <Button onClick={handleBack}>{t('back')}</Button>}
+        {activeStep === 0 && <Button onClick={handleNext} disabled={isEmpty(relativeFields)}>{t('next')}</Button>}
+        {activeStep === steps.length - 1 && <Button onClick={() => {}} color="success">{t('user.upload')}</Button>}
+      </StepperWrapper>
+      <StepContent display={activeStep === 0}><FileUploading /></StepContent>
+      <StepContent display={activeStep === 1}><ResultsPreview /></StepContent>
     </Page>
   );
 };
 
 export default function UploadProfilesPage () {
-  return <UploadProfilesProvider>
-    <UploadProfilesPageRender />
-  </UploadProfilesProvider>;
+  return (
+    <UploadProfilesProvider>
+      <UploadProfilesPageRender />
+    </UploadProfilesProvider>
+  );
 };
