@@ -45,3 +45,9 @@ export const PageLoader = styled(LinearProgress)`
   position: absolute !important;
   width: calc(100% - 20px);
 `;
+
+export const PageActions = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+`;

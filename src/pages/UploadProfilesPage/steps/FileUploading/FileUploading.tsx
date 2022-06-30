@@ -86,7 +86,13 @@ const FileUploading = () => {
                 <div style={styles.acceptedFile}>
                   {acceptedFile && acceptedFile.name}
                 </div>
-                <Button {...restRemoveFileProps} onClick={(e) => { onClickRemove(e); reset(); }} color="error" variant="outlined">
+                <Button
+                  {...restRemoveFileProps}
+                  onClick={(e) => { onClickRemove(e); reset(); }}
+                  disabled={!acceptedFile}
+                  color="error"
+                  variant="outlined"
+                >
                   {t('userUpload.remove')}
                 </Button>
               </div>

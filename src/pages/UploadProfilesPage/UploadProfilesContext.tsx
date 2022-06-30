@@ -17,19 +17,19 @@ const UploadProfilesProvider = ({ children }: { children: ReactNode }) => {
   const [rows, setRows] = useState<AnyObject[]>([]);
   const fileKeysState = useState<string[]>([]);
 
-  const result = useMemo(() => rows
-    .map((row) => {
-      const pickedRow = pick(row, Object.keys(relativeFields));
-      const oldKeys = Object.keys(pickedRow);
-      const newRow: AnyObject = {};
-      oldKeys.forEach((oldKey) => {
-        newRow[relativeFields[oldKey]] = pickedRow[oldKey];
-      });
-      return {
-        ...newRow,
-        password: 'ParkoUser_2022',
-      };
-    }) as IUser[], [rows, relativeFields]);
+  const result = useMemo(() => rows.map((row) => {
+    const pickedRow = pick(row, Object.keys(relativeFields));
+    const oldKeys = Object.keys(pickedRow);
+    const newRow: AnyObject = {};
+    oldKeys.forEach((oldKey) => {
+      newRow[relativeFields[oldKey]] = pickedRow[oldKey];
+    });
+    return {
+      ...newRow,
+      password: 'ParkoUser_2022',
+      role: 'user',
+    } as IUser;
+  }), [rows, relativeFields]);
 
   return (
     <UploadProfilesContext.Provider value={{

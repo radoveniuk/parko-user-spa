@@ -7,10 +7,6 @@ export const LanguageSelectorWrapper = styled.div`
     path {
       stroke: ${themeConfig.palette.primary.main} !important;
     }
-
-    span {
-      margin-left: 5px;
-    }
   }
 `;
 

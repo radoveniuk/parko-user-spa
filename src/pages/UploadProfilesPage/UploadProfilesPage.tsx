@@ -13,6 +13,7 @@ import ResultsPreview from './steps/ResultPreview';
 import Result from './steps/Result';
 
 import { StepperWrapper } from './styles';
+import { useSnackbar } from 'notistack';
 
 const steps = ['userUpload.fileUploading', 'userUpload.resultPreview', 'userUpload.finish'];
 
@@ -25,16 +26,21 @@ const UploadProfilesPageRender = () => {
   const [relativeFields] = useRelativeFields();
   const usersResult = useResult();
   const uploadUsersMutation = useUploadUsersMutation();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => void setActiveStep((prevActiveStep) => prevActiveStep + 1);
   const handleBack = () => void setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
   const uploadResult = () => {
-    uploadUsersMutation.mutateAsync(usersResult).then((e) => {
-      console.log(e);
-      handleNext();
-    });
+    uploadUsersMutation.mutateAsync(usersResult)
+      .then((e) => {
+        console.log(e);
+        handleNext();
+      })
+      .catch(() => {
+        enqueueSnackbar(t('userUpload.errorText'), { variant: 'error' });
+      });
   };
 
   const disableNextStep = !invert(relativeFields).email;

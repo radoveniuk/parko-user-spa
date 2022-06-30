@@ -1,2 +1,2 @@
 export { default } from './Page';
-export { PageTitle } from './styles';
+export { PageTitle, PageActions } from './styles';

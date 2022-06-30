@@ -21,7 +21,7 @@ const LanguageSelector = (props: HTMLAttributes<HTMLDivElement>) => {
     <LanguageSelectorWrapper {...props}>
       <Button variant="outlined" onClick={() => void setOpen(true)}>
         <LanguageIcon size={20} />
-        <span>{i18n.language}</span>
+        {i18n.language}
       </Button>
       <Dialog title={t('language')} open={open} onClose={() => void setOpen(false)}>
         <LangDialogWrapper>

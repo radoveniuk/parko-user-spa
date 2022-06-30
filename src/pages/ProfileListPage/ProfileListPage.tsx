@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import Page, { PageTitle } from 'components/shared/Page';
+import Page, { PageActions, PageTitle } from 'components/shared/Page';
 import { useGetUserList } from 'api/query/userQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
@@ -13,6 +13,8 @@ import useDebounce from 'hooks/useDebounce';
 import { IUser } from 'interfaces/users.interface';
 import usePaginatedList from 'hooks/usePaginatedList';
 import Pagination from 'components/shared/Pagination';
+import Button from 'components/shared/Button';
+import { UploadIcon } from 'components/icons';
 
 const columns = [
   'user.name',
@@ -38,6 +40,11 @@ const ProfileListPageRender = () => {
   return (
     <Page title={t('profileList')}>
       <PageTitle>{t('profileList')}</PageTitle>
+      <PageActions>
+        <Link to="/upload-profiles">
+          <Button><UploadIcon size={20}/>{t('user.import')}</Button>
+        </Link>
+      </PageActions>
       <FiltersBar>
         <FilterText filterKey="search" label={t('search')} />
         <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />

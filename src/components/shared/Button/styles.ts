@@ -4,6 +4,8 @@ import { Button as ButtonMaterial } from '@mui/material';
 
 export const StyledButton = styled(ButtonMaterial)`
   border-radius: 2px;
+  display: flex;
+  gap: 0.7rem;
 
   ${props => props.variant === 'contained' && props.color === 'primary' && css`
     &:hover {

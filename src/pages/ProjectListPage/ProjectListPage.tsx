@@ -71,7 +71,7 @@ const ProjectListPageRender = () => {
       <FiltersBar>
         <FilterText filterKey="search" label={t('search')} />
         <Link to="/project" style={{ marginLeft: 'auto' }}>
-          <Button color="secondary"><PlusIcon size={20} style={{ marginRight: 5 }} />{t('project.new')}</Button>
+          <Button color="secondary"><PlusIcon size={20} />{t('project.new')}</Button>
         </Link>
       </FiltersBar>
       <ProjectsListWrapper>
