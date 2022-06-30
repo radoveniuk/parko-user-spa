@@ -25,7 +25,10 @@ const UploadProfilesProvider = ({ children }: { children: ReactNode }) => {
       oldKeys.forEach((oldKey) => {
         newRow[relativeFields[oldKey]] = pickedRow[oldKey];
       });
-      return newRow;
+      return {
+        ...newRow,
+        password: 'ParkoUser_2022',
+      };
     }) as IUser[], [rows, relativeFields]);
 
   return (

@@ -26,3 +26,8 @@ export const useDeleteUserMutation = () => {
   const request = (data: Partial<IUser> & { _id: string }) => api.delete(`/users/${data._id}`).then(res => res.data.data);
   return useMutation(request);
 };
+
+export const useUploadUsersMutation = () => {
+  const request = (data: Partial<IUser>[]) => api.post('/users/upload', data).then(res => res.data.data);
+  return useMutation(request);
+};

@@ -29,4 +29,8 @@ export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })`
   border-bottom: 1px solid #e9e9e9;
   padding: 10px;
   transition: background-color 0.3s;
+
+  p {
+    margin: 0;
+  }
 `;
