@@ -46,7 +46,7 @@ const FileUploading = () => {
   const [fileKeys, setFileKeys] = useFileKeys();
   const [relativeFields, setRelativeFields] = useRelativeFields();
   const [rows, setRows] = useRows();
-  const translatedUserFields = useTranslatedSelect(userFields, 'user', false);
+  const translatedUserFields = useTranslatedSelect(userFields, 'user', false, true);
 
   const reset = () => {
     setFileKeys([]);

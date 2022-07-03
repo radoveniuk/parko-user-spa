@@ -2,7 +2,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 
 import Table from 'components/shared/Table';
-import { ApprovedIcon } from 'components/icons';
+import { BooleanIcon } from 'components/icons';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { Column } from 'interfaces/table.types';
 import { useAuthData } from 'contexts/AuthContext';
@@ -23,7 +23,7 @@ const columns: Column[] = [
   {
     field: 'isApproved',
     headerName: 'prepayment.approved',
-    valueGetter: (value: boolean | null) => <ApprovedIcon approved={value} size={20} />,
+    valueGetter: (value: boolean | null) => <BooleanIcon value={value} size={20} />,
   },
   {
     field: 'adminComment',

@@ -17,4 +17,4 @@ export { MdSearch as SearchIcon } from 'react-icons/md';
 export { AiFillEdit as EditIcon } from 'react-icons/ai';
 export { GrLanguage as LanguageIcon } from 'react-icons/gr';
 export { MdCopyAll as CopyIcon } from 'react-icons/md';
-export { default as ApprovedIcon } from './ApprovedIcon';
+export { default as BooleanIcon } from './BooleanIcon';

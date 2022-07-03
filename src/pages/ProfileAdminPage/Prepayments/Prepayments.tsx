@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { ApprovedIcon } from 'components/icons';
+import { BooleanIcon } from 'components/icons';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
@@ -41,7 +41,7 @@ const Prepayments = () => {
             <ListTableCell>{item.createdAt && getDateFromIso(item.createdAt)}</ListTableCell>
             <ListTableCell>{`${item.sum}€`}</ListTableCell>
             <ListTableCell>{item.userComment}</ListTableCell>
-            <ListTableCell><ApprovedIcon approved={item.isApproved} size={20} /></ListTableCell>
+            <ListTableCell><BooleanIcon value={item.isApproved} size={20} /></ListTableCell>
           </ListTableRow>
         ))}
       </ListTable>

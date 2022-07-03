@@ -6,17 +6,17 @@ import { IconBaseProps } from 'react-icons';
 import { themeConfig } from 'theme';
 
 type Props = IconBaseProps & {
-  approved: boolean | null
+  value: boolean | null
 }
 
-const ApprovedIcon = ({ approved, ...rest }: Props) => {
-  if (approved) {
+const BooleanIcon = ({ value, ...rest }: Props) => {
+  if (value) {
     return <IoCheckmark color={themeConfig.palette.success.main} {...rest} />;
   }
-  if (approved === false) {
+  if (value === false) {
     return <IoClose color={themeConfig.palette.error.main} {...rest} />;
   }
   return <AiOutlineQuestion {...rest} />;
 };
 
-export default ApprovedIcon;
+export default BooleanIcon;
