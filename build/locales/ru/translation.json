@@ -62,13 +62,13 @@
     "familyFields": "Семья",
     "hasInternationalPass": "Загранпаспорт?",
     "internationalPassNumber": "Номер загранпаспорта",
-    "internationalPassExpire": "Срок действия",
+    "internationalPassExpire": "Срок до (загранпаспорт)",
     "internationalPassAuthority": "Орган, который выдал",
     "hasIdCard": "ID картка?",
     "passNumber": "Номер паспорта",
     "hasPermit": "Есть ВНЖ?",
     "permitType": "Тип ВНЖ",
-    "permitExpire": "Срок до",
+    "permitExpire": "Срок до (ВНЖ)",
     "hasPrevPermit": "Имели ли ВНЖ раньше?",
     "rodneCislo": "Rodné číslo",
     "IBAN": "IBAN",
@@ -119,7 +119,20 @@
     "approveRemoving":"Вы собираетесь удалить профиль пользователя! Вы уверенны?",
     "approve": "Подтвердить",
     "removedSuccess": "Пользователь удален",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "import": "Импорт"
+  },
+  "userUpload": {
+    "title": "Импорт пользователей",
+    "remove": "Убрать",
+    "fileField": "CSV колонка",
+    "field": "Связанное поле",
+    "exampleValue": "Пример",
+    "fileUploading": "Загрузка файла",
+    "resultPreview": "Просмотр",
+    "finish": "Импорт",
+    "successText": "Пользователи были загружены. Это пароль по умолчанию, скопируйте его и отправьте пользователям",
+    "errorText": "Что-то пошло не так"
   },
   "prepayment": {
     "date": "Дата",

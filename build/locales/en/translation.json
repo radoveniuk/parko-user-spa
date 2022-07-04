@@ -121,6 +121,18 @@
     "removedSuccess": "User has been removed",
     "logout": "Logout"
   },
+  "userUpload": {
+    "title": "Upload users",
+    "remove": "Remove",
+    "fileField": "CSV column",
+    "field": "User field",
+    "exampleValue": "Example",
+    "fileUploading": "Upload file",
+    "resultPreview": "Result preview",
+    "finish": "Finish",
+    "successText": "Users have been imported. This is default users password, you can copy it and send to users",
+    "errorText": "Something went wrong"
+  },
   "prepayment": {
     "date": "Date",
     "sum": "Sum",
@@ -218,5 +230,7 @@
     "users": "Users"
   },
   "language": "Language",
-  "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself"
+  "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
+  "next": "Next",
+  "Back": "Back"
 }
