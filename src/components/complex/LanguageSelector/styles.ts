@@ -14,13 +14,14 @@ export const LangDialogWrapper = styled.div`
   max-width: 400px;
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 1rem;
+  justify-content: space-between;
 `;
 
 export const LangButton = styled.button`
   cursor: pointer;
   height: 50px;
-  width: 100px;
+  width: 30%;
   background-color: transparent;
   border: 1px solid;
   border-color: ${themeConfig.palette.secondary.dark};
