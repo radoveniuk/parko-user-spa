@@ -1,9 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { DefaultPassWrapper } from 'pages/UploadProfilesPage/styles';
 import IconButton from 'components/shared/IconButton';
 import { CopyIcon } from 'components/icons';
-import { useTranslation } from 'react-i18next';
+import { DEFAULT_PASS } from 'pages/UploadProfilesPage/constants';
 
 const Result = () => {
   const { t } = useTranslation();
@@ -12,8 +13,8 @@ const Result = () => {
     <>
       {t('userUpload.successText')}
       <DefaultPassWrapper>
-        ParkoUser_2022
-        <IconButton onClick={() => void navigator.clipboard.writeText('ParkoUser_2022')}><CopyIcon /></IconButton>
+        {DEFAULT_PASS}
+        <IconButton onClick={() => void navigator.clipboard.writeText(DEFAULT_PASS)}><CopyIcon /></IconButton>
       </DefaultPassWrapper>
     </>
   );

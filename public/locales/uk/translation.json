@@ -121,6 +121,18 @@
     "removedSuccess": "Профіль видалено",
     "logout": "Вийти"
   },
+  "userUpload": {
+    "title": "Імпорт профілів",
+    "remove": "Прибрати",
+    "fileField": "CSV колонка",
+    "field": "Пов'язане поле",
+    "exampleValue": "Приклад",
+    "fileUploading": "Завантаження файлу",
+    "resultPreview": "Перегляд",
+    "finish": "Імпорт",
+    "successText": "Профілі користувачі завантажено",
+    "errorText": "Щось пішло не так"
+  },
   "prepayment": {
     "date": "Дата",
     "sum": "Сума",

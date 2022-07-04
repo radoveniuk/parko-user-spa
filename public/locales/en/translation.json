@@ -128,7 +128,10 @@
     "field": "User field",
     "exampleValue": "Example",
     "fileUploading": "Upload file",
-    "resultPreview": "Result preview"
+    "resultPreview": "Result preview",
+    "finish": "Finish",
+    "successText": "Users have been imported",
+    "errorText": "Something went wrong"
   },
   "prepayment": {
     "date": "Date",

@@ -4,9 +4,15 @@ import { DateTime } from 'luxon';
 
 import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
+import { DEFAULT_PASS } from './constants';
 
 const TRUE_VALUES = ['áno', 'true', 'yes'];
 const FALSE_VALUES = ['nie', 'false', 'not', 'no'];
+const PERMIT_TYPE_VALUES: AnyObject = {
+  business: ['podnikania', 'business'],
+  study: ['study', 'štúdia'],
+  work: ['work', 'práca'],
+};
 
 type contextType = {
   relativeFieldsState: [AnyObject, Dispatch<SetStateAction<AnyObject>>],
@@ -28,24 +34,38 @@ const UploadProfilesProvider = ({ children }: { children: ReactNode }) => {
     const newRow: AnyObject = {};
 
     oldKeys.forEach((oldKey) => {
-      newRow[relativeFields[oldKey]] = pickedRow[oldKey];
+      const userKey = relativeFields[oldKey];
+
+      newRow[userKey] = pickedRow[oldKey];
 
       if (TRUE_VALUES.includes(pickedRow[oldKey]?.toLowerCase())) {
-        newRow[relativeFields[oldKey]] = true;
+        newRow[userKey] = true;
       }
       if (FALSE_VALUES.includes(pickedRow[oldKey]?.toLowerCase())) {
-        newRow[relativeFields[oldKey]] = false;
+        newRow[userKey] = false;
       }
-      if (relativeFields[oldKey].toLowerCase().includes('size')) {
-        newRow[relativeFields[oldKey]] = pickedRow[oldKey].toUpperCase();
+      if (userKey.toLowerCase().includes('size')) {
+        newRow[userKey] = pickedRow[oldKey].toUpperCase();
       }
-      if (relativeFields[oldKey].toLowerCase().includes('date') || relativeFields[oldKey].toLowerCase().includes('expire')) {
-        newRow[relativeFields[oldKey]] = DateTime.fromFormat(pickedRow[oldKey], 'd.M.yyyy').toISODate();
+      if (userKey.toLowerCase().includes('date') || userKey.toLowerCase().includes('expire')) {
+        newRow[userKey] = DateTime.fromFormat(pickedRow[oldKey], 'd.M.yyyy').toISODate();
+      }
+      if (userKey === 'permitType') {
+        let typeValue = '';
+        for (const key in PERMIT_TYPE_VALUES) {
+          if (Object.prototype.hasOwnProperty.call(PERMIT_TYPE_VALUES, key)) {
+            const type = PERMIT_TYPE_VALUES[key];
+            if (type.includes(pickedRow[oldKey].toLowerCase())) {
+              typeValue = key;
+            }
+          }
+        }
+        newRow[userKey] = typeValue;
       }
     });
     return {
       ...newRow,
-      password: 'ParkoUser_2022',
+      password: DEFAULT_PASS,
       role: 'user',
     } as IUser;
   })
