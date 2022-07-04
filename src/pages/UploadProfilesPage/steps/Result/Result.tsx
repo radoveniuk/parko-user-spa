@@ -10,13 +10,13 @@ const Result = () => {
   const { t } = useTranslation();
 
   return (
-    <>
-      {t('userUpload.successText')}
+    <div style={{ marginTop: '2rem' }}>
+      <div>{t('userUpload.successText')}</div>
       <DefaultPassWrapper>
         {DEFAULT_PASS}
         <IconButton onClick={() => void navigator.clipboard.writeText(DEFAULT_PASS)}><CopyIcon /></IconButton>
       </DefaultPassWrapper>
-    </>
+    </div>
   );
 };
 

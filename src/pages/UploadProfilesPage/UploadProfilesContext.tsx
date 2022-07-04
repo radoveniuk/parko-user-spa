@@ -35,32 +35,36 @@ const UploadProfilesProvider = ({ children }: { children: ReactNode }) => {
 
     oldKeys.forEach((oldKey) => {
       const userKey = relativeFields[oldKey];
+      const pickedValue = pickedRow[oldKey];
 
-      newRow[userKey] = pickedRow[oldKey];
+      newRow[userKey] = pickedValue;
 
-      if (TRUE_VALUES.includes(pickedRow[oldKey]?.toLowerCase())) {
+      if (TRUE_VALUES.includes(pickedValue?.toLowerCase())) {
         newRow[userKey] = true;
       }
-      if (FALSE_VALUES.includes(pickedRow[oldKey]?.toLowerCase())) {
+      if (FALSE_VALUES.includes(pickedValue?.toLowerCase())) {
         newRow[userKey] = false;
       }
       if (userKey.toLowerCase().includes('size')) {
-        newRow[userKey] = pickedRow[oldKey].toUpperCase();
+        newRow[userKey] = pickedValue.toUpperCase();
       }
       if (userKey.toLowerCase().includes('date') || userKey.toLowerCase().includes('expire')) {
-        newRow[userKey] = DateTime.fromFormat(pickedRow[oldKey], 'd.M.yyyy').toISODate();
+        newRow[userKey] = DateTime.fromFormat(pickedValue, 'd.M.yyyy').toISODate();
       }
       if (userKey === 'permitType') {
         let typeValue = '';
         for (const key in PERMIT_TYPE_VALUES) {
           if (Object.prototype.hasOwnProperty.call(PERMIT_TYPE_VALUES, key)) {
             const type = PERMIT_TYPE_VALUES[key];
-            if (type.includes(pickedRow[oldKey].toLowerCase())) {
+            if (type.includes(pickedValue.toLowerCase())) {
               typeValue = key;
             }
           }
         }
         newRow[userKey] = typeValue;
+      }
+      if (userKey === 'email') {
+        newRow[userKey] = pickedValue.toLowerCase();
       }
     });
     return {
