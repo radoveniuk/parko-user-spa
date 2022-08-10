@@ -9,6 +9,7 @@ import PageHeader from '../PageHeader';
 import PageFooter from '../PageFooter';
 
 import { PageContent, PageLoader, PageWrapper } from './styles';
+import LogoutButton from 'components/complex/LogoutButton';
 
 type Props = {
   showNavbar?: boolean;
@@ -42,14 +43,19 @@ const Page = ({ showNavbar = true, title, children }: Props) => {
       <PageContent>
         <PageHeader>
           {showNavbar && <ToggleNavbarButton onClick={toggleNavbar} />}
-          {width > langBreakpoint && <LanguageSelector className="language-selector" />}
+          {width > langBreakpoint && (
+            <div className="page-actions">
+              <LanguageSelector />
+              <LogoutButton />
+            </div>
+          )}
         </PageHeader>
         <section className="content-wrapper">
           {(!!isFetching || !!isMutating) && <PageLoader />}
           {children}
         </section>
         <PageFooter>
-          {width <= langBreakpoint && <LanguageSelector className="language-selector" />}
+          {width <= langBreakpoint && <LanguageSelector className="page-actions" />}
         </PageFooter>
       </PageContent>
     </PageWrapper>

@@ -7,10 +7,12 @@ export const PageWrapper = styled.section`
   display: flex;
   position: relative;
 
-  .language-selector {
+  .page-actions {
     position: absolute;
     right: 30px;
     top: 30px;
+    display: flex;
+    gap: 5px;
   }
 `;
 

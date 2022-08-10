@@ -119,7 +119,8 @@
     "approveRemoving":"Ви збираєтесь видалити профіль! Ви впевені?",
     "approve": "Підтвердити",
     "removedSuccess": "Профіль видалено",
-    "logout": "Вийти"
+    "logout": "Вийти",
+    "import": "Імпорт"
   },
   "userUpload": {
     "title": "Імпорт профілів",

@@ -15,12 +15,12 @@ export const LangDialogWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  justify-content: space-between;
 `;
 
 export const LangButton = styled.button`
   cursor: pointer;
   height: 50px;
+  min-width: 100px;
   width: 30%;
   background-color: transparent;
   border: 1px solid;

@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash-es';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 import Accordion from 'components/shared/Accordion';
 import Button from 'components/shared/Button';
@@ -10,17 +10,17 @@ import Input from 'components/shared/Input';
 import { IUser } from 'interfaces/users.interface';
 import Checkbox from 'components/shared/Checkbox';
 import DatePicker from 'components/shared/DatePicker';
-import { useAuthData, useLogout } from 'contexts/AuthContext';
+import { useAuthData } from 'contexts/AuthContext';
 import { useGetUser } from 'api/query/userQuery';
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import Select from 'components/shared/Select';
-import { useSnackbar } from 'notistack';
 import { useGetCountries } from 'api/query/formFieldsQuery';
 import { FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import FileInput from 'components/shared/FileInput';
 import { uploadFiles } from 'api/common';
 import { AcceptIcon, UploadIcon } from 'components/icons';
+import LogoutButton from 'components/complex/LogoutButton';
 
 import { FIELDS, ADMIN_FIELDS, FieldSection, UserField } from './fields';
 import DialogForm from './DialogForm';
@@ -38,13 +38,6 @@ const ProfileInfoForm = () => {
   const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
   const studyOptions = useTranslatedSelect(STUDY, 'study');
   const permitTypeOptions = useTranslatedSelect(PERMIT_TYPES, 'permitType');
-  const logout = useLogout();
-  const navigate = useNavigate();
-
-  const logoutHandler = () => {
-    logout();
-    navigate('/login');
-  };
 
   const uploadScans = async () => {
     const data = watch();
@@ -215,7 +208,7 @@ const ProfileInfoForm = () => {
         >
           {t('user.updateData')}
         </Button>
-        <Button onClick={logoutHandler} color="error" variant="outlined">{t('user.logout')}</Button>
+        <LogoutButton />
       </div>
     </ProfileInfoFormWrapper>
   );
