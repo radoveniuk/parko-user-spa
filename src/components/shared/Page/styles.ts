@@ -39,8 +39,8 @@ export const PageTitle = styled.h2`
   text-align: center;
   margin: 0;
   color: ${colors.default};
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-bottom: 30px;
+  margin-top: 25px;
 `;
 
 export const PageLoader = styled(LinearProgress)`

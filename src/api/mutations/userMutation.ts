@@ -17,6 +17,11 @@ export const useRegisterMutation = () => {
   return useMutation(registerRequest);
 };
 
+export const useCreateUserMutation = () => {
+  const request = (data: Partial<IUser>) => api.post('/users', data).then(res => res.data.data);
+  return useMutation(request);
+};
+
 export const useUpdateUserMutation = () => {
   const request = (data: Partial<IUser> & { _id: string }) => api.put(`/users/${data._id}`, data).then(res => res.data.data);
   return useMutation(request);

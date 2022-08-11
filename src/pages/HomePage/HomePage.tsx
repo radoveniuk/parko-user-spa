@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { MainMenuGrid, MainMenuLink } from 'components/Menu/MainMenu';
-import Page from 'components/shared/Page';
+import Page, { PageTitle } from 'components/shared/Page';
 import { ADMIN_MENU_ITEMS, INavbarItem, MENU_ITEMS } from 'constants/menu';
 import { useAuthData } from 'contexts/AuthContext';
 import { NoDataWrapper } from './styles';
@@ -22,6 +22,7 @@ const HomePage = () => {
 
   return (
     <Page>
+      <PageTitle>{t('navbar.home')}</PageTitle>
       <MainMenuGrid>
         {menuItems.map((item) => (
           <MainMenuLink key={item.title} to={item.to}>

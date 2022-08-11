@@ -5,11 +5,11 @@ import Navbar, { ToggleNavbarButton } from 'components/Menu/Navbar';
 import LanguageSelector from 'components/complex/LanguageSelector';
 import useViewportWdth from 'hooks/useViewportWdth';
 
-import PageHeader from '../PageHeader';
 import PageFooter from '../PageFooter';
 
 import { PageContent, PageLoader, PageWrapper } from './styles';
 import LogoutButton from 'components/complex/LogoutButton';
+import PageHeader from '../PageHeader';
 
 type Props = {
   showNavbar?: boolean;
@@ -41,22 +41,26 @@ const Page = ({ showNavbar = true, title, children }: Props) => {
     <PageWrapper>
       {showNavbar && <Navbar open={toggledNavbar} onClose={toggleNavbar} />}
       <PageContent>
-        <PageHeader>
-          {showNavbar && <ToggleNavbarButton onClick={toggleNavbar} />}
-          {width > langBreakpoint && (
-            <div className="page-actions">
-              <LanguageSelector />
-              <LogoutButton />
-            </div>
-          )}
-        </PageHeader>
+        {width <= langBreakpoint && (
+          <PageHeader>
+            <ToggleNavbarButton onClick={toggleNavbar} />
+          </PageHeader>
+        )}
+        {width > langBreakpoint && (
+          <div className="page-actions">
+            <LanguageSelector />
+            <LogoutButton />
+          </div>
+        )}
         <section className="content-wrapper">
           {(!!isFetching || !!isMutating) && <PageLoader />}
           {children}
         </section>
-        <PageFooter>
-          {width <= langBreakpoint && <LanguageSelector className="page-actions" />}
-        </PageFooter>
+        {width <= langBreakpoint && (
+          <PageFooter>
+            <LanguageSelector className="page-actions" />
+          </PageFooter>
+        )}
       </PageContent>
     </PageWrapper>
   );

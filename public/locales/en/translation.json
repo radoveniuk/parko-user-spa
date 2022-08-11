@@ -119,7 +119,9 @@
     "approveRemoving":"You are about delete user profile! Are you sure?",
     "approve": "Approve",
     "removedSuccess": "User has been removed",
-    "logout": "Logout"
+    "logout": "Logout",
+    "create": "Create",
+    "edit":"Edit"
   },
   "userUpload": {
     "title": "Upload users",

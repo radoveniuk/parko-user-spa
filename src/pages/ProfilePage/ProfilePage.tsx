@@ -1,6 +1,8 @@
 import React from 'react';
-import Page, { PageTitle } from 'components/shared/Page';
 import { useTranslation } from 'react-i18next';
+
+import Page, { PageTitle } from 'components/shared/Page';
+
 import ProfileInfoForm from './ProfileInfoForm';
 
 const ProfilePage = () => {

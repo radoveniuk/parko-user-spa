@@ -120,7 +120,9 @@
     "approve": "Підтвердити",
     "removedSuccess": "Профіль видалено",
     "logout": "Вийти",
-    "import": "Імпорт"
+    "import": "Імпорт",
+    "create": "Створити",
+    "edit":"Редагувати"
   },
   "userUpload": {
     "title": "Імпорт профілів",

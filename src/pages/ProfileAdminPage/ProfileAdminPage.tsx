@@ -1,13 +1,17 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import Page, { PageTitle } from 'components/shared/Page';
+import { Link, useParams } from 'react-router-dom';
+
+import Page, { PageActions, PageTitle } from 'components/shared/Page';
 import { useGetUser } from 'api/query/userQuery';
-import { useParams } from 'react-router-dom';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
-import BaseInfo from './BaseInfo';
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { IUser } from 'interfaces/users.interface';
+import Button from 'components/shared/Button';
+import { EditIcon } from 'components/icons';
+
 import Prepayments from './Prepayments';
+import BaseInfo from './BaseInfo';
 import Daysoff from './Daysoff';
 import Scans from './Scans';
 
@@ -31,6 +35,11 @@ const ProfileAdminPage = () => {
   return (
     <Page title={t('user.admin')}>
       <PageTitle>{pageTitle}</PageTitle>
+      <PageActions>
+        <Link to={`/profile-editor/${userId}`}>
+          <Button color="secondary"><EditIcon size={20}/>{t('user.edit')}</Button>
+        </Link>
+      </PageActions>
       {profileData && (
         <TabsContainer>
           <Tabs>

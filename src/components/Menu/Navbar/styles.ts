@@ -6,6 +6,55 @@ export const NavbarWrapper = styled(Box)`
   a {
     color: #fff;
   }
+
+  .list-item {
+    padding-top: 0;
+    padding-bottom: 1px;
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+
+  .app-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    a {
+      display: flex;
+      justify-content: center;
+      width: min-content;
+      margin: 30px auto;
+    }
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
+
+    p {
+      font-size: 30px;
+      color: #30384F;
+      margin: 0;
+      font-weight: 400;
+    }
+  }
+
+  .navbar-footer {
+    .contactsList {
+      list-style-type: none;
+      li {
+        margin-bottom: 15px;
+        font-size: 18px;
+        a {
+          color: ${colors.secondary};
+          transition: color 0.3s;
+          &:hover {
+            color: ${colors.secondaryDark};
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const NavItem = styled(ListItemButton)`

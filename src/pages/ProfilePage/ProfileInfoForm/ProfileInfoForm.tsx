@@ -12,7 +12,7 @@ import Checkbox from 'components/shared/Checkbox';
 import DatePicker from 'components/shared/DatePicker';
 import { useAuthData } from 'contexts/AuthContext';
 import { useGetUser } from 'api/query/userQuery';
-import { useUpdateUserMutation } from 'api/mutations/userMutation';
+import { useCreateUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import Select from 'components/shared/Select';
 import { useGetCountries } from 'api/query/formFieldsQuery';
 import { FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'constants/selectsOptions';
@@ -20,19 +20,23 @@ import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import FileInput from 'components/shared/FileInput';
 import { uploadFiles } from 'api/common';
 import { AcceptIcon, UploadIcon } from 'components/icons';
-import LogoutButton from 'components/complex/LogoutButton';
 
 import { FIELDS, ADMIN_FIELDS, FieldSection, UserField } from './fields';
 import DialogForm from './DialogForm';
 
 import { ProfileInfoFormWrapper } from './styles';
+import { useParams } from 'react-router-dom';
 
 const ProfileInfoForm = () => {
+  const isEditor = window.location.href.includes('editor');
+  const { id: editingUserId } = useParams();
+
   const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm<IUser>();
   const { t } = useTranslation();
   const { id, role } = useAuthData();
-  const { data: userData } = useGetUser(id);
+  const { data: userData } = useGetUser(!isEditor ? id : editingUserId || '', { enabled: !isEditor || !!editingUserId });
   const { data: countriesOptions } = useGetCountries();
+  const createUserMutation = useCreateUserMutation();
   const updateUserMutation = useUpdateUserMutation();
   const { enqueueSnackbar } = useSnackbar();
   const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
@@ -77,11 +81,20 @@ const ProfileInfoForm = () => {
         }
       });
 
-    updateUserMutation.mutateAsync(updatedUserData)
-      .then(() => {
-        enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
-      });
+    if (!isEditor || editingUserId) {
+      updateUserMutation.mutateAsync(updatedUserData)
+        .then(() => {
+          enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
+        });
+    } else {
+      createUserMutation.mutateAsync(updatedUserData)
+        .then(() => {
+          enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
+        });
+    }
   };
+
+  console.log(errors);
 
   const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => {
     const selectOptions: any = {
@@ -93,13 +106,13 @@ const ProfileInfoForm = () => {
       study: studyOptions,
     };
 
-    return !_.isUndefined(userData) && (_.isUndefined(fieldData?.visible) || fieldData?.visible?.(watch)) && (
+    return (!_.isUndefined(userData) || isEditor) && (_.isUndefined(fieldData?.visible) || fieldData?.visible?.(watch)) && (
       <div className="field-wrap">
         {(fieldData?.type === 'string' || fieldData?.type === 'number') && (
           <Input
             type={fieldData.type}
             label={t(`user.${fieldName}`)}
-            defaultValue={userData[fieldName] || ''}
+            defaultValue={userData?.[fieldName] || ''}
             error={!!errors[fieldName]}
             {...register(fieldName, {
               required: fieldData.required,
@@ -108,7 +121,7 @@ const ProfileInfoForm = () => {
         )}
         {fieldData?.type === 'boolean' && (
           <Checkbox
-            defaultChecked={!!userData[fieldName] || false}
+            defaultChecked={!!userData?.[fieldName] || false}
             title={t(`user.${fieldName}`)}
             {...register(fieldName)}
           />
@@ -117,7 +130,7 @@ const ProfileInfoForm = () => {
           <Controller
             control={control}
             name={fieldName}
-            defaultValue={userData[fieldName] || ''}
+            defaultValue={userData?.[fieldName] || ''}
             render={({ field }) => (
               <DatePicker
                 value={field.value}
@@ -130,7 +143,7 @@ const ProfileInfoForm = () => {
         {(fieldData?.type === 'select' && selectOptions[fieldName]) && (
           <Select
             options={selectOptions[fieldName] || []}
-            defaultValue={userData[fieldName] || ''}
+            defaultValue={userData?.[fieldName] || ''}
             label={t(`user.${fieldName}`)}
             style={{ minWidth: 200 }}
             error={!!errors[fieldName]}
@@ -148,7 +161,7 @@ const ProfileInfoForm = () => {
           >
             {(() => {
               const value = watch(fieldName) as unknown as FileList;
-              const isFileUploaded = userData[fieldName] || !!value?.length;
+              const isFileUploaded = userData?.[fieldName] || !!value?.length;
               return (
                 <>
                   {isFileUploaded && <><AcceptIcon />&nbsp;{ t('user.uploaded')}</>}
@@ -162,14 +175,14 @@ const ProfileInfoForm = () => {
           <DialogForm
             label={t(`user.${fieldName}`)}
             onChange={(value) => void setValue(fieldName, value)}
-            defaultValueJson={userData[fieldName] as string}
+            defaultValueJson={userData?.[fieldName] as string}
           />
         )}
       </div>
     );
   };
 
-  const fields = role === 'admin' ? ADMIN_FIELDS : FIELDS;
+  const fields = (!isEditor && role === 'admin') ? ADMIN_FIELDS : FIELDS;
 
   return (
     <ProfileInfoFormWrapper>
@@ -208,7 +221,6 @@ const ProfileInfoForm = () => {
         >
           {t('user.updateData')}
         </Button>
-        <LogoutButton />
       </div>
     </ProfileInfoFormWrapper>
   );

@@ -49,6 +49,8 @@ export default function Router () {
             <Route path="/project" element={<ProtectedRoute><ProjectPage /></ProtectedRoute>} />
             <Route path="/create-notification" element={<ProtectedRoute><CreateNotificationPage /></ProtectedRoute>} />
             <Route path="/upload-profiles" element={<ProtectedRoute><UploadProfilesPage /></ProtectedRoute>} />
+            <Route path="/profile-editor" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+            <Route path="/profile-editor/:id" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
           </>
         )}
       </Routes>

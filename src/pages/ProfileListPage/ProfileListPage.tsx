@@ -14,7 +14,7 @@ import { IUser } from 'interfaces/users.interface';
 import usePaginatedList from 'hooks/usePaginatedList';
 import Pagination from 'components/shared/Pagination';
 import Button from 'components/shared/Button';
-import { UploadIcon } from 'components/icons';
+import { PlusIcon, UploadIcon } from 'components/icons';
 
 const columns = [
   'user.name',
@@ -42,7 +42,10 @@ const ProfileListPageRender = () => {
       <PageTitle>{t('profileList')}</PageTitle>
       <PageActions>
         <Link to="/upload-profiles">
-          <Button><UploadIcon size={20}/>{t('user.import')}</Button>
+          <Button color="secondary"><UploadIcon size={20}/>{t('user.import')}</Button>
+        </Link>
+        <Link to="/profile-editor">
+          <Button color="secondary"><PlusIcon size={20}/>{t('user.create')}</Button>
         </Link>
       </PageActions>
       <FiltersBar>

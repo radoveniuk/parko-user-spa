@@ -9,6 +9,7 @@ import IconButton from 'components/shared/IconButton';
 import { themeConfig } from 'theme';
 import { useAuthData } from 'contexts/AuthContext';
 
+import logoImage from 'components/assets/images/logo.png';
 import { Drawer, NavbarWrapper, NavItem, NavItemsList } from './styles';
 
 type Props = {
@@ -38,7 +39,7 @@ const Navbar = ({ open, onClose } : Props) => {
     <NavItemsList>
       {menuItems.map((item) => (
         <Link to={item.to} key={item.title}>
-          <ListItem >
+          <ListItem className="list-item">
             <NavItem
               className={`${item.to === location.pathname
                 ? 'active'
@@ -89,7 +90,19 @@ const Navbar = ({ open, onClose } : Props) => {
         }}
         open
       >
+        <div className="app-logo">
+          <img height={20} width={20} src={logoImage} alt="Parko user logo"/>
+          {(!role || role === 'user') && <p>Parko&nbsp;User</p>}
+          {role === 'admin' && <p>Parko&nbsp;Admin</p>}
+        </div>
         {navbarContent}
+        <div className="navbar-footer">
+          <ul className="contactsList">
+            <li><a href ="mailto:support@parko.sk">support@parko.sk</a></li>
+            <li><a href="https://parko-staff.com/">parko-staff.com</a></li>
+            <li><a href="tel:+421950759277">+421950759277</a></li>
+          </ul>
+        </div>
       </Drawer>
     </NavbarWrapper>
   );
