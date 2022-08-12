@@ -1,25 +1,28 @@
 import React from 'react';
-import { VscFilePdf } from 'react-icons/vsc';
+
 import { themeConfig } from 'theme';
 import downloadFile from 'api/query/downloadFile';
+import { FileIcon } from 'components/icons';
+
 import { FileWrapper } from './styles';
 
 type Props = {
   name: string;
   fileId: string;
+  ext?: string;
 }
 
-const FileItem = ({ fileId, name }: Props) => {
+const FileItem = ({ fileId, name, ext }: Props) => {
   const fileClickHandler = () => {
-    downloadFile(fileId, name);
+    downloadFile(fileId, name, ext || 'pdf');
   };
 
   return (
     <FileWrapper onClick={fileClickHandler}>
       <div className="file-media">
-        <VscFilePdf size={100} color={themeConfig.palette.primary.main} />
+        <FileIcon size={100} color={themeConfig.palette.primary.main} />
       </div>
-      <div className="file-text">{name}</div>
+      <div className="file-text">{name}{ext && <>.{ext}</>}</div>
     </FileWrapper>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { IUser } from 'interfaces/users.interface';
+import { IFile } from 'interfaces/file.interface';
 import { File, Files } from 'components/shared/FileList';
 
 import { ScansWrapper } from './styles';
@@ -18,9 +19,12 @@ const Scans = ({ data }: Props) => {
       <Files>
         {scanKeys
           .filter((scanKey) => data[scanKey])
-          .map((skanKey) => (
-            <File key={skanKey} name={t(`user.${skanKey}`)} fileId={data[skanKey] as string} />
-          ))}
+          .map((skanKey) => {
+            const fileData = data[skanKey] as IFile;
+            return (
+              <File key={skanKey} name={t(`user.${skanKey}`)} fileId={fileData._id} ext={fileData.ext} />
+            );
+          })}
       </Files>
     </ScansWrapper>
   );

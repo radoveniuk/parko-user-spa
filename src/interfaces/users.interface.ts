@@ -1,4 +1,5 @@
 import { IProject } from './project.interface';
+import { IFile } from './file.interface';
 
 export interface IUser {
   _id: string;
@@ -35,12 +36,12 @@ export interface IUser {
   pantsSize: string;
   shoesSize: string;
   // docscans
-  internationalPassScan: string;
-  passScan: string;
-  idCardFaceScan: string;
-  idCardBackScan: string;
-  permitFaceScan: string;
-  permitBackScan: string;
+  internationalPassScan: string | IFile;
+  passScan: string | IFile;
+  idCardFaceScan: string | IFile;
+  idCardBackScan: string | IFile;
+  permitFaceScan: string | IFile;
+  permitBackScan: string | IFile;
   // expirience
   study: string;
   speciality: string;

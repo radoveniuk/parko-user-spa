@@ -3,4 +3,5 @@ export interface IFile {
   path: string;
   originalname: string;
   createdAt?: Date;
+  ext: string;
 }

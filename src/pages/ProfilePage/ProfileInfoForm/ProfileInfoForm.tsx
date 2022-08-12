@@ -54,7 +54,8 @@ const ProfileInfoForm = () => {
     Object.keys(scans).forEach((key) => {
       const file = scans[key][0];
       if (file) {
-        formData.append('files', file, key);
+        const ext = file.name.split('.')[file.name.split('.').length - 1];
+        formData.append('files', file, `${key}.${ext}`);
       }
     });
 
@@ -154,7 +155,6 @@ const ProfileInfoForm = () => {
           <FileInput
             id={fieldName}
             label={t(`user.${fieldName}`)}
-            accept= "application/pdf, image/*"
             {...register(fieldName, { required: fieldData.required })}
           >
             {(() => {
