@@ -64,7 +64,7 @@ const ProfileInfoForm = () => {
       uploadedFilesData.forEach((file) => {
         const fieldName = file.originalname as 'internationalPassScan' | 'passScan' | 'idCardFaceScan' |
         'idCardBackScan' | 'permitFaceScan' | 'permitBackScan';
-        void setValue(fieldName, file._id);
+        setValue(fieldName, file._id);
       });
     }
   };

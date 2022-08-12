@@ -9,11 +9,10 @@ type Props = {
 
 const ListTable = ({ columns, children, ...rest }: Props) => {
   const { t } = useTranslation();
-
   return (
     <ListTableWrapper cols={columns.length} {...rest}>
       <ListTableHeaderRow>
-        {columns.map((column) => <ListTableCell key={column}>{t(column)}</ListTableCell>)}
+        {columns.map((column, index) => <ListTableCell key={column + index}>{t(column)}</ListTableCell>)}
       </ListTableHeaderRow>
       {children}
     </ListTableWrapper>

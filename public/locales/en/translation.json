@@ -198,7 +198,8 @@
   "file": {
     "upload": "Drop files here or click",
     "submit": "Send files",
-    "add": "Add files"
+    "add": "Add files",
+    "name": "Name"
   },
   "paycheck": {
     "successfullUpload": "Paychecks were uploaded"

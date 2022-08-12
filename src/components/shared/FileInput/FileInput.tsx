@@ -4,21 +4,28 @@ import { FileInputWrapper } from './styles';
 
 type Props = HTMLProps<HTMLInputElement> & {
   id: string;
-  label: string;
-  children: React.ReactNode;
+  label?: string;
+  children?: React.ReactNode;
+  buttonComponent?: React.ReactNode;
 }
 
-const FileInput = forwardRef(({ id, label, children, ...rest }: Props, ref: ForwardedRef<HTMLInputElement>) => (
+const FileInput = forwardRef(({ id, label, children, buttonComponent, disabled, ...rest }: Props, ref: ForwardedRef<HTMLInputElement>) => (
   <FileInputWrapper>
     <label htmlFor={id} className="custom-file-upload">
-      <p className="input-label">{label}</p>
-      <Button component="span" variant="outlined">{children}</Button>
+      {!buttonComponent && (
+        <>
+          <p className="input-label">{label}</p>
+          <Button component="span" variant="outlined" disabled={disabled}>{children}</Button>
+        </>
+      )}
+      {buttonComponent}
     </label>
     <input
       {...rest}
       id={id}
       ref={ref}
       type="file"
+      disabled={disabled}
       hidden
     />
   </FileInputWrapper>

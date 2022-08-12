@@ -8,7 +8,6 @@ export const ListTableWrapper = styled.div<{ cols: number }>`
 
 export const ListTableRow = styled.div`
   display: contents;
-  cursor: pointer;
   grid-gap: 20px;
   &:hover {
     .list-table-cell {
