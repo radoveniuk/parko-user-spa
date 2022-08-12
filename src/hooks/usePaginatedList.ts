@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import usePageQueries from './usePageQueries';
 
 type Options = {
   rowsPerPage?: number;
@@ -9,6 +11,8 @@ const usePaginatedList = <T>(list: T[] = [], options?: Options) => {
   const rowsPerPage = options?.rowsPerPage || 10;
   const defaultPage = options?.defaultPage || 1;
   const [page, setPage] = useState(defaultPage);
+  const navigate = useNavigate();
+  const pageQueries = usePageQueries();
 
   const pageItems = useMemo(() => list.slice(rowsPerPage * (page - 1), rowsPerPage * page), [list, page, rowsPerPage]);
   const pagesCount = useMemo(() => Math.ceil(list.length / rowsPerPage), [list, rowsPerPage]);
@@ -17,11 +21,17 @@ const usePaginatedList = <T>(list: T[] = [], options?: Options) => {
     setPage(defaultPage);
   }, [defaultPage, list.length]);
 
+  useEffect(() => {
+    if (pageQueries.page && pageQueries.page !== page.toString()) {
+      setPage(Number(pageQueries.page));
+    }
+  }, [page, pageQueries]);
+
   return {
     pageItems,
     paginationConfig: {
       page,
-      onChange: (_e: any, value: number) => void setPage(value),
+      onChange: (_e: any, value: number) => { setPage(value); navigate({ search: `page=${value}` }); },
       count: pagesCount,
     },
   };

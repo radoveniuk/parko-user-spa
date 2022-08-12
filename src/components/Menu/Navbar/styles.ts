@@ -18,7 +18,7 @@ export const NavbarWrapper = styled(Box)`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px;
+    margin: 18px 10px 10px 10px;
     a {
       display: flex;
       justify-content: center;

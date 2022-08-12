@@ -82,19 +82,17 @@ const ProfileInfoForm = () => {
       });
 
     if (!isEditor || editingUserId) {
-      updateUserMutation.mutateAsync(updatedUserData)
+      updateUserMutation.mutateAsync({ ...updatedUserData, role: 'user' })
         .then(() => {
           enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
         });
     } else {
-      createUserMutation.mutateAsync(updatedUserData)
+      createUserMutation.mutateAsync({ ...updatedUserData, role: 'user' })
         .then(() => {
           enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
         });
     }
   };
-
-  console.log(errors);
 
   const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => {
     const selectOptions: any = {
@@ -210,6 +208,14 @@ const ProfileInfoForm = () => {
           )}
         </div>
       ))}
+      {!_.isEmpty(errors) && (
+        <div className="form-errors">
+          <p>{t('errors')}</p>
+          <ul>
+            {Object.keys(errors).map((item) => (<li key={item}>{t(`user.${item}`)}</li>))}
+          </ul>
+        </div>
+      )}
       <div className="form-actions">
         <Button
           onClick={() => {
