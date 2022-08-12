@@ -19,4 +19,5 @@ export { GrLanguage as LanguageIcon } from 'react-icons/gr';
 export { MdCopyAll as CopyIcon } from 'react-icons/md';
 export { ImExit as ExitIcon } from 'react-icons/im';
 export { AiOutlineFileText as FileIcon } from 'react-icons/ai';
+export { FaFileDownload as DownloadFileIcon } from 'react-icons/fa';
 export { default as BooleanIcon } from './BooleanIcon';
