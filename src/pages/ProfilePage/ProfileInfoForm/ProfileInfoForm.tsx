@@ -132,7 +132,7 @@ const ProfileInfoForm = () => {
             defaultValue={userData?.[fieldName] || ''}
             render={({ field }) => (
               <DatePicker
-                value={field.value}
+                value={field.value as string}
                 onChange={field.onChange}
                 label={t(`user.${fieldName}`)}
               />

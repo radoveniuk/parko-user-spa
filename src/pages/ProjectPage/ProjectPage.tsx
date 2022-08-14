@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
+import { isEmpty } from 'lodash-es';
 
 import Page, { PageTitle } from 'components/shared/Page';
 import { IProject } from 'interfaces/project.interface';
@@ -12,6 +13,9 @@ import Input from 'components/shared/Input';
 import DatePicker from 'components/shared/DatePicker';
 import Button from 'components/shared/Button';
 import { useCreateProjectMutation, useUpdateProjectMutation } from 'api/mutations/projectMutation';
+import Select from 'components/shared/Select';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { PROJECT_TARIFF_TYPE } from 'constants/selectsOptions';
 
 import { ProjectFormWrapper } from './styles';
 
@@ -23,6 +27,7 @@ const ProjectPage = () => {
   const updateProjectMutation = useUpdateProjectMutation();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+  const tariffTypes = useTranslatedSelect(PROJECT_TARIFF_TYPE, 'tariff');
 
   const { register, handleSubmit, formState: { errors }, reset, control, watch } = useForm<IProject>();
 
@@ -58,41 +63,40 @@ const ProjectPage = () => {
               label={t('project.email')}
               error={!!errors.email}
               helperText={errors.email?.message}
-              {...register('email', { validate: (v) => /\S+@\S+\.\S+/.test(v) })}
+              {...register('email', { validate: (v) => /\S+@\S+\.\S+/.test(v) || !v })}
             />
             <Input
               label={t('project.phone')}
               error={!!errors.phone}
               helperText={errors.phone?.message}
               type="number"
-              {...register('phone', { required: true })}
+              {...register('phone')}
             />
             <Input
               label={t('project.comment')}
               error={!!errors.comment}
               helperText={errors.comment?.message}
               multiline
-              {...register('comment', { required: true })}
+              {...register('comment')}
             />
             <Input
               label={t('project.cost')}
               error={!!errors.cost}
               helperText={errors.cost?.message}
               type="number"
-              {...register('cost', { required: true })}
+              {...register('cost')}
             />
-            <Input
+            <Select
               label={t('project.tariff')}
               error={!!errors.tariff}
-              helperText={errors.tariff?.message}
-              type="number"
-              {...register('tariff', { required: true })}
+              options={tariffTypes}
+              className="inputs-select"
+              {...register('tariff')}
             />
             <Controller
               control={control}
               name="dateStart"
-              rules={{ required: true }}
-              defaultValue=""
+              defaultValue={null}
               render={({ field }) => (
                 <DatePicker
                   value={field.value}
@@ -104,8 +108,7 @@ const ProjectPage = () => {
             <Controller
               control={control}
               name="dateEnd"
-              rules={{ required: true }}
-              defaultValue=""
+              defaultValue={null}
               render={({ field }) => (
                 <DatePicker
                   value={field.value}
@@ -115,7 +118,7 @@ const ProjectPage = () => {
               )}
             />
           </div>
-          <Button className="submit-button" onClick={handleSubmit(submitHandler)}>{t('project.submit')}</Button>
+          <Button className="submit-button" onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors)}>{t('project.submit')}</Button>
         </ProjectFormWrapper>
       )}
     </Page>

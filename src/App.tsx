@@ -8,6 +8,7 @@ import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { themeConfig } from 'theme';
 import AuthProvider from 'contexts/AuthContext';
 import { SnackbarProvider } from 'notistack';
+
 import Router from './router';
 
 const theme = createTheme(themeConfig);

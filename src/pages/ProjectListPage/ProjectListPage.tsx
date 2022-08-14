@@ -94,15 +94,24 @@ const ProjectListPageRender = () => {
               </Tabs>
               <TabPanel index={0}>
                 <ProjectInfoDataWrapper>
-                  {projectInfoKeys.map((projectKey) => (
-                    <Input
-                      key={projectKey}
-                      value={!projectKey.includes('date') ? selectedProject[projectKey] : getDateFromIso(selectedProject[projectKey])}
-                      label={t(`project.${projectKey}`)}
-                      InputProps={{ readOnly: true }}
-                      fullWidth
-                    />
-                  ))}
+                  {projectInfoKeys.map((projectKey) => {
+                    let value = selectedProject[projectKey];
+                    if (projectKey.includes('date')) {
+                      value = value ? getDateFromIso(value) : '';
+                    }
+                    if (projectKey === 'tariff') {
+                      value = value ? t(`selects.tariff.${value}`) : '';
+                    }
+                    return (
+                      <Input
+                        key={projectKey}
+                        value={value}
+                        label={t(`project.${projectKey}`)}
+                        InputProps={{ readOnly: true }}
+                        fullWidth
+                      />
+                    );
+                  })}
                   <ProjectActionsWrapper>
                     <Link to={{
                       pathname: '/project',

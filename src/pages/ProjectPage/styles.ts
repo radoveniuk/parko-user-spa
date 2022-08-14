@@ -16,6 +16,10 @@ export const ProjectFormWrapper = styled.div`
     .MuiTextField-root {
       max-width: 213px;
     }
+
+    .inputs-select {
+      width: 213px;
+    }
   }
 
   .submit-button {

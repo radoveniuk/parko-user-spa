@@ -17,3 +17,9 @@ export const STUDY = [
   'middleSpecial',
   'high',
 ];
+
+export const PROJECT_TARIFF_TYPE = [
+  'candidate',
+  'hour',
+  'month',
+];

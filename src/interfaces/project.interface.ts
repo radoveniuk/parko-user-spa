@@ -4,8 +4,8 @@ export interface IProject {
   phone: string;
   name: string;
   comment: string;
-  dateStart: string;
-  dateEnd: string;
+  dateStart: string | null;
+  dateEnd: string | null;
   cost: string;
   tariff: string;
 }

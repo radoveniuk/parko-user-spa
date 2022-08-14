@@ -187,6 +187,11 @@
       "medicalCheck": "Medical check",
       "alcohol": "Alcohol",
       "other": "Other"
+    },
+    "tariff": {
+      "candidate": "Candidate",
+      "hour": "Work hourh",
+      "month": "Work month"
     }
   },
   "notFoundText": "Page not found",
