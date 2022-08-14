@@ -4,7 +4,7 @@ import { CloseIcon } from 'components/icons';
 import IconButton from '../IconButton';
 import { DialogTitle } from './styles';
 
-type Props = DialogProps & {
+export type Props = DialogProps & {
   onClose(): void;
 }
 

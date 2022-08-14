@@ -39,3 +39,10 @@ export const CreateMessageLink = styled(Link)`
     min-width: 50px;
   }
 `;
+
+export const DeleteModalContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+`;

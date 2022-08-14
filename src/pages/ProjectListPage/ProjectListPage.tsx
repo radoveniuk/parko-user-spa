@@ -18,6 +18,9 @@ import Dialog from 'components/shared/Dialog';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import { useDeleteProjectMutation } from 'api/mutations/projectMutation';
+import IconButton from 'components/shared/IconButton';
+
+import OnboardModal from './OnboardModal';
 
 import { DialogContentWrapper, ProjectActionsWrapper, ProjectInfoDataWrapper, ProjectInfoWrapper, ProjectsListWrapper } from './styles';
 
@@ -36,6 +39,7 @@ const ProjectListPageRender = () => {
 
   const { data = [], refetch } = useGetProjects(debouncedFiltersState);
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
+  const [openOnboard, setOpenOnboard] = useState(false);
 
   const {
     data: linkedUsers,
@@ -136,6 +140,14 @@ const ProjectListPageRender = () => {
                     </Link>
                   ))}
                 </ListTable>
+                <IconButton onClick={() => void setOpenOnboard(true)}><PlusIcon size={30}/></IconButton>
+                {openOnboard && (
+                  <OnboardModal
+                    onClose={() => { setOpenOnboard(false); refetchLinkedUsers(); }}
+                    open={openOnboard}
+                    project={selectedProject._id}
+                  />
+                )}
               </TabPanel>
             </TabsContainer>
           </ProjectInfoWrapper>

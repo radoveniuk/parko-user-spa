@@ -1,8 +1,10 @@
-import { ButtonProps } from '@mui/material';
-import Button from 'components/shared/Button';
 import React from 'react';
 import { Link, To } from 'react-router-dom';
-import { NotificationContentWrapper, NotificationTextWrapper, NotificationTitleWrapper } from './styles';
+import { ButtonProps, IconButtonProps } from '@mui/material';
+
+import { DeleteIcon } from 'components/icons';
+import Button from 'components/shared/Button';
+import { DeleteNotificationIconButton, NotificationContentWrapper, NotificationTextWrapper, NotificationTitleWrapper } from './styles';
 
 type NotificationBaseProps = {
   children: React.ReactNode;
@@ -36,4 +38,10 @@ export const NotificationLink = ({ to, children, ...rest }: NotificationLinkProp
       {children}
     </Button>
   </Link>
+);
+
+export const NotificationDeleteButton = (props: IconButtonProps) => (
+  <DeleteNotificationIconButton {...props}>
+    <DeleteIcon />
+  </DeleteNotificationIconButton>
 );

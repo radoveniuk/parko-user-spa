@@ -174,7 +174,8 @@
     "userStatus": {
       "candidate": "Candidate",
       "hired": "Work",
-      "fired": "Fired"
+      "fired": "Fired",
+      "undefined": "-"
     },
     "userRole": {
       "user": "User",
@@ -223,14 +224,16 @@
     "approve": "Approve",
     "cost": "Cost",
     "tariff": "Tariff",
-    "success": "Success!"
+    "success": "Success!",
+    "addProfile": "Add profile to project"
   },
   "notification": {
     "success": "Notification sended",
     "new": "New notification",
     "title": "Title",
     "send": "Send",
-    "users": "Users"
+    "users": "Users",
+    "delete": "Delete notification"
   },
   "language": "Language",
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
