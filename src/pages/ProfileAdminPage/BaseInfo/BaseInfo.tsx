@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
+import { useNavigate } from 'react-router-dom';
 
 import { IUser, UserRole } from 'interfaces/users.interface';
 import { STATUSES } from 'constants/userStatuses';
@@ -14,10 +15,10 @@ import { CopyIcon, DeleteIcon } from 'components/icons';
 import createId from 'helpers/createId';
 import { useDeleteUserMutation } from 'api/mutations/userMutation';
 import Dialog from 'components/shared/Dialog';
+import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
 
 import { USER_FIELDS } from './fields';
 import { BaseInfoWrapper, DialogContentWrapper } from './styles';
-import { useNavigate } from 'react-router-dom';
 
 type Props = {
   data: IUser;
@@ -29,6 +30,8 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
+  const translatedEmploymentTypes = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
+
   const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState(false);
   const deleteUserMutation = useDeleteUserMutation();
   const { enqueueSnackbar } = useSnackbar();
@@ -92,6 +95,14 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
             valuePath="_id"
             labelPath="name"
             onChange={({ target }) => void onUpdate({ project: target.value as string })}
+          />
+        </div>
+        <div className="settings-item">
+          <Select
+            value={data.employmentType || ''}
+            label={t('user.employmentType')}
+            options={translatedEmploymentTypes}
+            onChange={({ target }) => void onUpdate({ employmentType: target.value as string })}
           />
         </div>
         <div className="settings-item">

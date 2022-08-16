@@ -23,3 +23,16 @@ export const PROJECT_TARIFF_TYPE = [
   'hour',
   'month',
 ];
+
+export const EMPLOYMENT_TYPE = [
+  'self',
+  'onCompany',
+  'outsideCompany',
+  'partTime',
+  'sideJob',
+];
+
+export const SALARY_TYPE = [
+  'month',
+  'hour',
+];

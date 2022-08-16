@@ -62,6 +62,10 @@ export interface IUser {
   project: string | IProject;
   status: string;
   role: UserRole;
+  employmentType: string;
+  salary: string;
+  salaryType: string;
+  salaryComment: string;
 }
 
 export type LoginDto = {

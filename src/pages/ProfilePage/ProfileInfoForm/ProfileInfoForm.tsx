@@ -3,6 +3,7 @@ import _ from 'lodash-es';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
+import { useParams } from 'react-router-dom';
 
 import Accordion from 'components/shared/Accordion';
 import Button from 'components/shared/Button';
@@ -25,7 +26,6 @@ import { FIELDS, ADMIN_FIELDS, FieldSection, UserField } from './fields';
 import DialogForm from './DialogForm';
 
 import { ProfileInfoFormWrapper } from './styles';
-import { useParams } from 'react-router-dom';
 
 const ProfileInfoForm = () => {
   const isEditor = window.location.href.includes('editor');

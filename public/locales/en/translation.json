@@ -121,7 +121,11 @@
     "removedSuccess": "User has been removed",
     "logout": "Logout",
     "create": "Create",
-    "edit":"Edit"
+    "edit":"Edit",
+    "salary": "Salary",
+    "salaryType": "Salary type",
+    "salaryComment": "Comment",
+    "employmentType": "Employment type"
   },
   "userUpload": {
     "title": "Upload users",
@@ -192,6 +196,13 @@
       "candidate": "Candidate",
       "hour": "Work hourh",
       "month": "Work month"
+    },
+    "employmentType": {
+      "self": "Self employment",
+      "onCompany": "In the company",
+      "outsideCompany": "Outside of the company",
+      "partTime": "Part-time job",
+      "sideJob": "Side job"
     }
   },
   "notFoundText": "Page not found",
