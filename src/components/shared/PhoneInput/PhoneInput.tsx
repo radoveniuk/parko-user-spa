@@ -11,7 +11,7 @@ const PhoneInput = (props: MuiTelInputProps, ref: ForwardedRef<HTMLInputElement>
     <StyledPhoneInput
       ref={ref}
       defaultCountry="SK"
-      onlyCountries={['UA', 'RU', 'SK', 'GE', 'BY']}
+      onlyCountries={['UA', 'SK', 'GE', 'PL', 'IN', 'VN', 'KZ', 'KG', 'HU', 'CZ', 'RS']}
       langOfCountryName={i18n.language}
       {...props}
     />
