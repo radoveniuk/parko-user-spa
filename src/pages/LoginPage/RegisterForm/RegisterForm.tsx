@@ -3,15 +3,14 @@ import _ from 'lodash-es';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
-import PhoneInputWithCountrySelect from 'react-phone-number-input';
 
 import { RegisterUserDto } from 'interfaces/users.interface';
 import { useRegisterMutation } from 'api/mutations/userMutation';
+import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 
 import { useTabs } from '../Tabs/TabsContext';
 
 import { RegisterFormWrapper } from './styles';
-import 'react-phone-number-input/style.css';
 
 const RegisterForm = () => {
   const { t } = useTranslation();
@@ -44,13 +43,11 @@ const RegisterForm = () => {
         control={control}
         name="phone"
         defaultValue=""
-        rules={{ required: true }}
+        rules={{ required: true, validate: checkPhoneNumber }}
         render={({ field }) => (
-          <PhoneInputWithCountrySelect
+          <PhoneInput
             value={field.value}
             onChange={field.onChange}
-            countryOptionsOrder={['UA', 'RU', 'SK']}
-            defaultCountry="SK"
           />
         )}
       />

@@ -25,7 +25,19 @@ export const RegisterFormWrapper = styled.div`
     outline: none;
   }
 
-  button {
+  .MuiTextField-root {
+    background-color: #fff;
+    
+    .MuiOutlinedInput-root {
+      max-height: 42px;
+    }
+
+    fieldset {
+      border: none;
+    }
+  }
+
+  button[type=submit] {
     margin-top: 20px;
     background-color: #1C7C2B;
     color: #fff;
@@ -42,6 +54,7 @@ export const RegisterFormWrapper = styled.div`
     
     &:disabled {
       background-color: #6a6a6a;
+      pointer-events: none;
     }
   }
 
