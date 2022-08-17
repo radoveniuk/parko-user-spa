@@ -16,6 +16,7 @@ import { useCreateProjectMutation, useUpdateProjectMutation } from 'api/mutation
 import Select from 'components/shared/Select';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { PROJECT_TARIFF_TYPE } from 'constants/selectsOptions';
+import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 
 import { ProjectFormWrapper } from './styles';
 
@@ -65,12 +66,19 @@ const ProjectPage = () => {
               helperText={errors.email?.message}
               {...register('email', { validate: (v) => /\S+@\S+\.\S+/.test(v) || !v })}
             />
-            <Input
-              label={t('project.phone')}
-              error={!!errors.phone}
-              helperText={errors.phone?.message}
-              type="number"
-              {...register('phone')}
+            <Controller
+              control={control}
+              name="phone"
+              defaultValue=""
+              rules={{ validate: (value) => !value || checkPhoneNumber(value) }}
+              render={({ field }) => (
+                <PhoneInput
+                  value={field.value}
+                  onChange={field.onChange}
+                  label={t('project.phone')}
+                  error={!!errors.phone}
+                />
+              )}
             />
             <Input
               label={t('project.comment')}

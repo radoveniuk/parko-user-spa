@@ -13,7 +13,7 @@ export const ProjectFormWrapper = styled.div`
     gap: 20px;
     margin: 0 auto;
 
-    .MuiTextField-root {
+    .MuiTextField-root, .PhoneInput {
       max-width: 213px;
     }
 

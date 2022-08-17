@@ -21,6 +21,7 @@ import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import FileInput from 'components/shared/FileInput';
 import { uploadFiles } from 'api/common';
 import { AcceptIcon, UploadIcon } from 'components/icons';
+import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 
 import { FIELDS, ADMIN_FIELDS, FieldSection, UserField } from './fields';
 import DialogForm from './DialogForm';
@@ -116,6 +117,22 @@ const ProfileInfoForm = () => {
             {...register(fieldName, {
               required: fieldData.required,
             })}
+          />
+        )}
+        {(fieldData?.type === 'phone') && (
+          <Controller
+            control={control}
+            name={fieldName}
+            defaultValue={userData?.[fieldName] || ''}
+            rules={{ validate: (value) => !value || checkPhoneNumber(value as string), required: fieldData.required }}
+            render={({ field }) => (
+              <PhoneInput
+                value={field.value as string}
+                onChange={field.onChange}
+                label={t('project.phone')}
+                error={!!errors.phone}
+              />
+            )}
           />
         )}
         {fieldData?.type === 'boolean' && (

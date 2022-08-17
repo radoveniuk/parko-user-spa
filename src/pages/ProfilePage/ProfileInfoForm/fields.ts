@@ -6,7 +6,7 @@ export type UserFormFields = Partial<IUser> & {
 }
 
 export type UserField = {
-  type: 'string' | 'number' | 'boolean' | 'date' | 'file' | 'select' | 'form';
+  type: 'string' | 'number' | 'boolean' | 'date' | 'file' | 'select' | 'form' | 'phone';
   required?: boolean;
   visible?: (watch: UseFormWatch<IUser>) => boolean;
 }
@@ -36,7 +36,7 @@ const baseFields: UserFieldsList = {
     type: 'string',
   },
   phone: {
-    type: 'string',
+    type: 'phone',
     required: true,
   },
   birthDate: {
