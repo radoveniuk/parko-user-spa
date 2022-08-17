@@ -3,7 +3,7 @@ import _ from 'lodash-es';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Accordion from 'components/shared/Accordion';
 import Button from 'components/shared/Button';
@@ -31,6 +31,7 @@ import { ProfileInfoFormWrapper } from './styles';
 const ProfileInfoForm = () => {
   const isEditor = window.location.href.includes('editor');
   const { id: editingUserId } = useParams();
+  const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm<IUser>();
   const { t } = useTranslation();
@@ -87,11 +88,13 @@ const ProfileInfoForm = () => {
       updateUserMutation.mutateAsync({ ...updatedUserData, role: 'user' })
         .then(() => {
           enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
+          navigate(-1);
         });
     } else {
       createUserMutation.mutateAsync({ ...updatedUserData, role: 'user' })
         .then(() => {
           enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
+          navigate(-1);
         });
     }
   };
