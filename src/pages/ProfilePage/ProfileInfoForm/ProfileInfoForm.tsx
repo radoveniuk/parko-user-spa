@@ -85,7 +85,7 @@ const ProfileInfoForm = () => {
       });
 
     if (!isEditor || editingUserId) {
-      updateUserMutation.mutateAsync({ ...updatedUserData, role: 'user' })
+      updateUserMutation.mutateAsync({ ...updatedUserData })
         .then(() => {
           enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
           navigate(-1);

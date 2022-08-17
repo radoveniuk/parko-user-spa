@@ -1,8 +1,8 @@
 import React, { ForwardedRef, forwardRef } from 'react';
 import { MuiTelInputProps, isValidPhoneNumber } from 'mui-tel-input';
+import { useTranslation } from 'react-i18next';
 
 import { StyledPhoneInput } from './styles';
-import { useTranslation } from 'react-i18next';
 
 const PhoneInput = (props: MuiTelInputProps, ref: ForwardedRef<HTMLInputElement>) => {
   const { i18n } = useTranslation();
