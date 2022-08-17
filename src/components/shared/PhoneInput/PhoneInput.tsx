@@ -8,6 +8,7 @@ const PhoneInput = (props: MuiTelInputProps, ref: ForwardedRef<HTMLInputElement>
     ref={ref}
     defaultCountry="SK"
     preferredCountries={['UA', 'RU', 'SK']}
+    continents={['EU', 'AS']}
     {...props}
   />
 );
