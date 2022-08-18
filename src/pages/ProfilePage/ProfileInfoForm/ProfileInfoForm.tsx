@@ -117,8 +117,12 @@ const ProfileInfoForm = () => {
             label={t(`user.${fieldName}`)}
             defaultValue={userData?.[fieldName] || ''}
             error={!!errors[fieldName]}
+            helperText={errors?.[fieldName] && (errors?.[fieldName] as any).message}
             {...register(fieldName, {
               required: fieldData.required,
+              validate: {
+                isEmail: (value) => fieldData?.validateEmail?.(value as string),
+              },
             })}
           />
         )}

@@ -116,10 +116,11 @@
     "role": "Role",
     "admin": "User administration",
     "delete": "Delete account",
-    "approveRemoving":"You are about delete user profile! Are you sure?",
+    "approveRemoving": "You are about delete user profile! Are you sure?",
     "approve": "Approve",
     "removedSuccess": "User has been removed",
-    "logout": "Logout"
+    "logout": "Logout",
+    "mailError": "Invalid email"
   },
   "userUpload": {
     "title": "Upload users",
