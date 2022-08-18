@@ -124,7 +124,7 @@ const ProfileInfoForm = () => {
             })}
           />
         )}
-        {(fieldData?.type === 'phone') && (
+        {fieldData?.type === 'phone' && (
           <Controller
             control={control}
             name={fieldName}
@@ -234,7 +234,7 @@ const ProfileInfoForm = () => {
         <div className="form-errors">
           <p>{t('errors')}</p>
           <ul>
-            {Object.keys(errors).map((item) => (<li key={item}>{t(`user.${item}`)}</li>))}
+            {Object.keys(errors).map((item) => <li key={item}>{t(`user.${item}`)}</li>)}
           </ul>
         </div>
       )}
