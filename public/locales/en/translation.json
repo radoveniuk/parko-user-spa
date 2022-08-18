@@ -125,7 +125,8 @@
     "salary": "Salary",
     "salaryType": "Salary type",
     "salaryComment": "Comment",
-    "employmentType": "Employment type"
+    "employmentType": "Employment type",
+    "mailError": "Invalid email"
   },
   "userUpload": {
     "title": "Upload users",

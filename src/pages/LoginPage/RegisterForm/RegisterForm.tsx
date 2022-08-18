@@ -7,6 +7,7 @@ import { useSnackbar } from 'notistack';
 import { RegisterUserDto } from 'interfaces/users.interface';
 import { useRegisterMutation } from 'api/mutations/userMutation';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
+import { validateEmail } from 'helpers/validateEmail';
 
 import { useTabs } from '../Tabs/TabsContext';
 
@@ -37,7 +38,7 @@ const RegisterForm = () => {
       <span className={`${errors.surname ? 'error' : ''}`}>{t('user.surname')}</span>
       <input type="text" {...register('surname', { required: true })} />
       <span className={`${errors.email ? 'error' : ''}`}>{t('user.email')}</span>
-      <input type="text" {...register('email', { validate: (v) => /\S+@\S+\.\S+/.test(v) })} />
+      <input type="text" {...register('email', { validate: validateEmail })} />
       <span className={`${errors.phone ? 'error' : ''}`}>{t('user.phone')}</span>
       <Controller
         control={control}

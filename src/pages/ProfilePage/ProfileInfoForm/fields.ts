@@ -1,6 +1,7 @@
-import { validateEmail } from './../../../helpers/validateEmail';
-import { UseFormWatch } from 'react-hook-form';
+import { UseFormWatch, Validate } from 'react-hook-form';
 import { IUser } from 'interfaces/users.interface';
+
+import { validateEmail } from 'helpers/validateEmail';
 
 export type UserFormFields = Partial<IUser> & {
   passScancopy: File;
@@ -10,7 +11,7 @@ export type UserField = {
   type: 'string' | 'number' | 'boolean' | 'date' | 'file' | 'select' | 'form' | 'phone';
   required?: boolean;
   visible?: (watch: UseFormWatch<IUser>) => boolean;
-  validateEmail?: (email: string) => boolean | string;
+  validation?: Record<string, Validate<unknown>>
 }
 
 export type UserFieldsList = {
@@ -25,7 +26,9 @@ const baseFields: UserFieldsList = {
   email: {
     type: 'string',
     required: true,
-    validateEmail,
+    validation: {
+      isEmail: (value) => validateEmail(value as string),
+    },
   },
   name: {
     type: 'string',

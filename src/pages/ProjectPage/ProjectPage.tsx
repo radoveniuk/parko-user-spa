@@ -19,6 +19,7 @@ import { PROJECT_TARIFF_TYPE } from 'constants/selectsOptions';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 
 import { ProjectFormWrapper } from './styles';
+import { validateEmail } from 'helpers/validateEmail';
 
 const ProjectPage = () => {
   const { t } = useTranslation();
@@ -64,7 +65,7 @@ const ProjectPage = () => {
               label={t('project.email')}
               error={!!errors.email}
               helperText={errors.email?.message}
-              {...register('email', { validate: (v) => /\S+@\S+\.\S+/.test(v) || !v })}
+              {...register('email', { validate: (v) => !v || validateEmail(v) })}
             />
             <Controller
               control={control}

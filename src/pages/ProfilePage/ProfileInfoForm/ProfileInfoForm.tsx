@@ -120,9 +120,7 @@ const ProfileInfoForm = () => {
             helperText={errors?.[fieldName] && (errors?.[fieldName] as any).message}
             {...register(fieldName, {
               required: fieldData.required,
-              validate: {
-                isEmail: (value) => fieldData?.validateEmail?.(value as string),
-              },
+              validate: fieldData.validation,
             })}
           />
         )}

@@ -127,7 +127,8 @@
     "salary": "Зарплата",
     "salaryType": "Тип оплати",
     "salaryComment": "Коментар до зарплати",
-    "employmentType": "Тип найму"
+    "employmentType": "Тип найму",
+    "mailError": "Невалідний email"
   },
   "userUpload": {
     "title": "Імпорт профілів",

@@ -126,7 +126,8 @@
     "salary": "Зарплата",
     "salaryType": "Тип оплаты",
     "salaryComment": "Коментарий к зарплате",
-    "employmentType": "Тип найма"
+    "employmentType": "Тип найма",
+    "mailError": "Невалидный email"
   },
   "userUpload": {
     "title": "Импорт пользователей",
