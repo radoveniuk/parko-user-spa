@@ -36,3 +36,12 @@ export const SALARY_TYPE = [
   'month',
   'hour',
 ];
+
+export const USER_SCAN_TYPE = [
+  'internationalPassScan',
+  'passScan',
+  'idCardFaceScan',
+  'idCardBackScan',
+  'permitFaceScan',
+  'permitBackScan',
+];

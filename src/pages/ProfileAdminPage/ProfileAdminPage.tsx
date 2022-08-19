@@ -60,7 +60,7 @@ const ProfileAdminPage = () => {
             <SalarySettings data={profileData} onUpdate={updateUser} />
           </TabPanel>
           <TabPanel index={2}>
-            <Scans data={profileData} />
+            <Scans data={profileData} onUpdate={updateUser} />
           </TabPanel>
           <TabPanel index={3}>
             <Prepayments />
