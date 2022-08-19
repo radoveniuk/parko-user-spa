@@ -27,6 +27,7 @@ import { FIELDS, ADMIN_FIELDS, FieldSection, UserField } from './fields';
 import DialogForm from './DialogForm';
 
 import { ProfileInfoFormWrapper } from './styles';
+import { IFile } from 'interfaces/file.interface';
 
 const ProfileInfoForm = () => {
   const isEditor = window.location.href.includes('editor');
@@ -99,6 +100,15 @@ const ProfileInfoForm = () => {
     }
   };
 
+  const deleteFile = (fieldName: keyof IUser) => {
+    // const valueFile = getValues(fieldName) as unknown as FileList;
+    setValue(fieldName, '');
+    // if (!valueFile.length) return;
+    /* deleteFileMutation.mutateAsync(valueFile[0] as IFile).then(() => {
+      setValue(fieldName, '');
+    }); */
+  };
+
   const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => {
     const selectOptions: any = {
       pantsSize: SIZES,
@@ -124,7 +134,7 @@ const ProfileInfoForm = () => {
             })}
           />
         )}
-        {(fieldData?.type === 'phone') && (
+        {fieldData?.type === 'phone' && (
           <Controller
             control={control}
             name={fieldName}
@@ -194,10 +204,18 @@ const ProfileInfoForm = () => {
             <div>
               {(() => {
                 const valueFile = getValues(fieldName) as unknown as FileList;
-                return Object.keys(valueFile).map((elemFile: string) => <div key={elemFile}>
-                  <button onClick={() => setValue(fieldName, '')}>delete</button>
-                  <p>{valueFile[+elemFile]?.name}</p>
-                </div>);
+                const dataFile = userData?.[fieldName] as IFile;
+                if (valueFile.length) {
+                  return Object.keys(valueFile || {})?.map((elemFile: string) => <div key={`${elemFile}${fieldName}`}>
+                    <button onClick={() => deleteFile(fieldName)}>delete</button>
+                    <p>{valueFile[+elemFile]?.name}</p>
+                  </div>);
+                } else {
+                  return (<div key={`${dataFile.path}`}>
+                    <button>delete</button>
+                    <p>{`${dataFile?.originalname}.${dataFile?.ext}`}</p>
+                  </div>);
+                }
               })()}
             </div>
           </>
@@ -245,7 +263,7 @@ const ProfileInfoForm = () => {
         <div className="form-errors">
           <p>{t('errors')}</p>
           <ul>
-            {Object.keys(errors).map((item) => (<li key={item}>{t(`user.${item}`)}</li>))}
+            {Object.keys(errors).map((item) => <li key={item}>{t(`user.${item}`)}</li>)}
           </ul>
         </div>
       )}

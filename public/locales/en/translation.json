@@ -256,5 +256,6 @@
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
   "next": "Next",
   "Back": "Back",
-  "errors": "Errors"
+  "errors": "Errors",
+  "deleteApprove": "Are you sure?"
 }
