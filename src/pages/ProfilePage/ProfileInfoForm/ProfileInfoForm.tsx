@@ -33,7 +33,7 @@ const ProfileInfoForm = () => {
   const { id: editingUserId } = useParams();
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm<IUser>();
+  const { register, handleSubmit, formState: { errors }, watch, control, setValue, getValues } = useForm<IUser>();
   const { t } = useTranslation();
   const { id, role } = useAuthData();
   const { data: userData } = useGetUser(!isEditor ? id : editingUserId || '', { enabled: !isEditor || !!editingUserId });
@@ -174,22 +174,34 @@ const ProfileInfoForm = () => {
           />
         )}
         {fieldData?.type === 'file' && (
-          <FileInput
-            id={fieldName}
-            label={t(`user.${fieldName}`)}
-            {...register(fieldName, { required: fieldData.required })}
-          >
-            {(() => {
-              const value = watch(fieldName) as unknown as FileList;
-              const isFileUploaded = userData?.[fieldName] || !!value?.length;
-              return (
-                <>
-                  {isFileUploaded && <><AcceptIcon />&nbsp;{ t('user.uploaded')}</>}
-                  {!isFileUploaded && <><UploadIcon />&nbsp;{t('user.upload')}</>}
-                </>
-              );
-            })()}
-          </FileInput>
+          <>
+            <FileInput
+              id={fieldName}
+              label={t(`user.${fieldName}`)}
+              {...register(fieldName, { required: fieldData.required })}
+            >
+              {(() => {
+                const value = watch(fieldName) as unknown as FileList;
+                const isFileUploaded = userData?.[fieldName] || !!value?.length;
+                return (
+                  <>
+                    {isFileUploaded && <><AcceptIcon />&nbsp;{ t('user.uploaded')}</>}
+                    {!isFileUploaded && <><UploadIcon />&nbsp;{t('user.upload')}</>}
+                  </>
+                );
+              })()}
+            </FileInput>
+            <div>
+              {(() => {
+                const valueFile = getValues(fieldName) as unknown as FileList;
+                return Object.keys(valueFile).map((elemFile: string) => <div key={elemFile}>
+                  <button onClick={() => setValue(fieldName, '')}>delete</button>
+                  <p>{valueFile[+elemFile]?.name}</p>
+                </div>);
+              })()}
+            </div>
+          </>
+
         )}
         {fieldData?.type === 'form' && (
           <DialogForm
@@ -203,7 +215,6 @@ const ProfileInfoForm = () => {
   };
 
   const fields = (!isEditor && role === 'admin') ? ADMIN_FIELDS : FIELDS;
-
   return (
     <ProfileInfoFormWrapper>
       {(Object.keys(fields) as FieldSection[]).map((fieldSectionKey, index) => (
