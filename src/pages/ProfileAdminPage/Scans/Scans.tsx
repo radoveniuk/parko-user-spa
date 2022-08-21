@@ -12,11 +12,10 @@ import Select from 'components/shared/Select';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { USER_SCAN_TYPE } from 'constants/selectsOptions';
 import { uploadFiles } from 'api/common';
-import Dialog from 'components/shared/Dialog';
-import Button from 'components/shared/Button';
 import { useDeleteFileMutation } from 'api/mutations/fileMutation';
+import DialogConfirm from 'components/shared/DialogConfirm';
 
-import { DeleteModalContent, ScansWrapper } from './styles';
+import { ScansWrapper } from './styles';
 
 type Props = {
   data: IUser;
@@ -102,16 +101,11 @@ const Scans = ({ data, onUpdate }: Props) => {
           })}
         </ListTable>
       )}
-      <Dialog
+      <DialogConfirm
         open={!!fileToDelete}
+        onSubmit={deleteFile}
         onClose={() => void setFileToDelete(null) }
-        title={t('deleteApprove')}
-      >
-        <DeleteModalContent>
-          <Button color="error" variant="outlined" onClick={deleteFile}>{t('true')}</Button>
-          <Button color="primary" variant="outlined" onClick={() => void setFileToDelete(null) }>{t('false')}</Button>
-        </DeleteModalContent>
-      </Dialog>
+      />
     </ScansWrapper>
   );
 };

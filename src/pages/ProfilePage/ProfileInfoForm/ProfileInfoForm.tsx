@@ -1,5 +1,5 @@
-import React from 'react';
-import _ from 'lodash-es';
+import React, { ChangeEvent, useState } from 'react';
+import _, { omit } from 'lodash-es';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
@@ -20,42 +20,47 @@ import { FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'constants/selectsOp
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import FileInput from 'components/shared/FileInput';
 import { uploadFiles } from 'api/common';
-import { AcceptIcon, UploadIcon } from 'components/icons';
+import { AcceptIcon, DeleteIcon, UploadIcon } from 'components/icons';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
+import { IFile } from 'interfaces/file.interface';
+import { useDeleteFileMutation } from 'api/mutations/fileMutation';
 
 import { FIELDS, ADMIN_FIELDS, FieldSection, UserField } from './fields';
 import DialogForm from './DialogForm';
 
 import { ProfileInfoFormWrapper } from './styles';
-import { IFile } from 'interfaces/file.interface';
+import IconButton from 'components/shared/IconButton';
+import DialogConfirm from 'components/shared/DialogConfirm';
+import downloadFile from 'api/query/downloadFile';
 
 const ProfileInfoForm = () => {
   const isEditor = window.location.href.includes('editor');
-  const { id: editingUserId } = useParams();
+  const { id: editingUserId = '' } = useParams();
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors }, watch, control, setValue, getValues } = useForm<IUser>();
+  const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm<IUser>();
   const { t } = useTranslation();
   const { id, role } = useAuthData();
-  const { data: userData } = useGetUser(!isEditor ? id : editingUserId || '', { enabled: !isEditor || !!editingUserId });
+  const { data: userData } = useGetUser(!isEditor ? id : editingUserId, { enabled: !isEditor || !!editingUserId, refetchOnWindowFocus: false });
   const { data: countriesOptions } = useGetCountries();
   const createUserMutation = useCreateUserMutation();
   const updateUserMutation = useUpdateUserMutation();
+  const deleteFileMutation = useDeleteFileMutation();
+
   const { enqueueSnackbar } = useSnackbar();
   const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
   const studyOptions = useTranslatedSelect(STUDY, 'study');
   const permitTypeOptions = useTranslatedSelect(PERMIT_TYPES, 'permitType');
 
-  const uploadScans = async () => {
-    const data = watch();
-    const scans = (Object.keys(data) as (keyof IUser)[])
-      .filter((key) => key.toLowerCase().includes('scan'))
-      .reduce<{[key: string]: FileList}>((cur, key) => Object.assign(cur, { [key]: data[key] }), {}); ;
+  // eslint-disable-next-line no-unused-vars
+  const [filesStorage, setFilesStorage] = useState<{[key in keyof Partial<IUser>]: File}>({});
+  const [fileToDelete, setFileToDelete] = useState<{ name: keyof Partial<IUser>; data?: IFile; fieldChange(v: any): void } | null>(null);
 
+  const uploadScans = async () => {
     const formData = new window.FormData();
 
-    Object.keys(scans).forEach((key) => {
-      const file = scans[key][0];
+    Object.keys(filesStorage).forEach((key) => {
+      const file = filesStorage[key as keyof IUser];
       if (file) {
         const ext = file.name.split('.')[file.name.split('.').length - 1];
         formData.append('files', file, `${key}.${ext}`);
@@ -100,13 +105,20 @@ const ProfileInfoForm = () => {
     }
   };
 
-  const deleteFile = (fieldName: keyof IUser) => {
-    // const valueFile = getValues(fieldName) as unknown as FileList;
-    setValue(fieldName, '');
-    // if (!valueFile.length) return;
-    /* deleteFileMutation.mutateAsync(valueFile[0] as IFile).then(() => {
-      setValue(fieldName, '');
-    }); */
+  const deleteFile = () => {
+    if (!fileToDelete) return null;
+
+    if (fileToDelete.data) {
+      deleteFileMutation.mutateAsync(fileToDelete.data).then(() => {
+        updateUserMutation.mutate({ _id: !isEditor ? id : editingUserId, [fileToDelete.name]: null });
+        fileToDelete.fieldChange(null);
+        setFileToDelete(null);
+      });
+    } else {
+      setFilesStorage((prev) => omit(prev, fileToDelete.name));
+      fileToDelete.fieldChange(null);
+      setFileToDelete(null);
+    }
   };
 
   const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => {
@@ -184,42 +196,64 @@ const ProfileInfoForm = () => {
           />
         )}
         {fieldData?.type === 'file' && (
-          <>
-            <FileInput
-              id={fieldName}
-              label={t(`user.${fieldName}`)}
-              {...register(fieldName, { required: fieldData.required })}
-            >
-              {(() => {
-                const value = watch(fieldName) as unknown as FileList;
-                const isFileUploaded = userData?.[fieldName] || !!value?.length;
-                return (
-                  <>
-                    {isFileUploaded && <><AcceptIcon />&nbsp;{ t('user.uploaded')}</>}
-                    {!isFileUploaded && <><UploadIcon />&nbsp;{t('user.upload')}</>}
-                  </>
-                );
-              })()}
-            </FileInput>
-            <div>
-              {(() => {
-                const valueFile = getValues(fieldName) as unknown as FileList;
-                const dataFile = userData?.[fieldName] as IFile;
-                if (valueFile.length) {
-                  return Object.keys(valueFile || {})?.map((elemFile: string) => <div key={`${elemFile}${fieldName}`}>
-                    <button onClick={() => deleteFile(fieldName)}>delete</button>
-                    <p>{valueFile[+elemFile]?.name}</p>
-                  </div>);
-                } else {
-                  return (<div key={`${dataFile.path}`}>
-                    <button>delete</button>
-                    <p>{`${dataFile?.originalname}.${dataFile?.ext}`}</p>
-                  </div>);
-                }
-              })()}
-            </div>
-          </>
-
+          <Controller
+            control={control}
+            name={fieldName}
+            defaultValue={userData?.[fieldName] || undefined}
+            render={({ field }) => (
+              <div>
+                <FileInput
+                  id={fieldName}
+                  label={t(`user.${fieldName}`)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    setFilesStorage((prev) => ({ ...prev, [fieldName]: e.target.files?.[0] as File }));
+                    field.onChange(null);
+                  }}
+                >
+                  {(() => {
+                    const isFileUploaded = !!filesStorage[fieldName] || !!field.value;
+                    return (
+                      <>
+                        {isFileUploaded && <><AcceptIcon />&nbsp;{ t('user.uploaded')}</>}
+                        {!isFileUploaded && <><UploadIcon />&nbsp;{t('user.upload')}</>}
+                      </>
+                    );
+                  })()}
+                </FileInput>
+                <div className="file-actions">
+                  {!!filesStorage[fieldName] && (
+                    <>
+                      <span>{filesStorage[fieldName]?.name}</span>
+                      <IconButton
+                        onClick={() => {
+                          setFileToDelete({ name: fieldName, fieldChange: field.onChange });
+                        }}
+                      >
+                        <DeleteIcon size={15} />
+                      </IconButton>
+                    </>
+                  )}
+                  {!filesStorage[fieldName] && !!field.value && (
+                    <>
+                      <span
+                        className="download-file-link"
+                        onClick={() => void downloadFile((field.value as IFile)._id, t(`user.${fieldName}`), (field.value as IFile).ext || 'pdf')}
+                      >
+                        {`${t(`user.${(field.value as IFile).originalname}`)}.${(field.value as IFile).ext}`}
+                      </span>
+                      <IconButton
+                        onClick={() => {
+                          setFileToDelete({ name: fieldName, data: field.value as IFile, fieldChange: field.onChange });
+                        }}
+                      >
+                        <DeleteIcon size={15} />
+                      </IconButton>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+          />
         )}
         {fieldData?.type === 'form' && (
           <DialogForm
@@ -232,7 +266,10 @@ const ProfileInfoForm = () => {
     );
   };
 
+  if (isEditor && editingUserId && !userData) return null;
+
   const fields = (!isEditor && role === 'admin') ? ADMIN_FIELDS : FIELDS;
+
   return (
     <ProfileInfoFormWrapper>
       {(Object.keys(fields) as FieldSection[]).map((fieldSectionKey, index) => (
@@ -279,6 +316,13 @@ const ProfileInfoForm = () => {
           {t('user.updateData')}
         </Button>
       </div>
+      {!!fileToDelete && (
+        <DialogConfirm
+          open={!!fileToDelete}
+          onSubmit={deleteFile}
+          onClose={() => void setFileToDelete(null) }
+        />
+      )}
     </ProfileInfoFormWrapper>
   );
 };

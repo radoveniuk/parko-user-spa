@@ -21,6 +21,19 @@ export const ProfileInfoFormWrapper = styled.div`
     }
   }
 
+  .file-actions {
+    text-align: left;
+
+    .download-file-link {
+      color: ${themeConfig.palette.primary.light};
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   .form-errors {
     text-align: left;
     color: ${themeConfig.palette.error.main};
