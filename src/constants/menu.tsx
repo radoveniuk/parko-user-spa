@@ -43,14 +43,14 @@ export const NAVBAR_ITEMS: INavbarItem[] = [
     to: '/prepayment',
   },
   {
-    title: 'navbar.paychecks',
-    icon: <PaycheckIcon size={30} />,
-    to: '/paychecks',
-  },
-  {
     title: 'navbar.daysoff',
     icon: <DayoffIcon size={30} />,
     to: '/dayoff',
+  },
+  {
+    title: 'navbar.paychecks',
+    icon: <PaycheckIcon size={30} />,
+    to: '/paychecks',
   },
 ];
 
@@ -99,14 +99,14 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     to: '/prepayments',
   },
   {
-    title: 'navbar.paychecks',
-    icon: <UploadIcon size={30} />,
-    to: '/paychecks-upload',
-  },
-  {
     title: 'navbar.daysoff',
     icon: <DayoffIcon size={30} />,
     to: '/daysoff',
+  },
+  {
+    title: 'navbar.paychecks',
+    icon: <UploadIcon size={30} />,
+    to: '/paychecks-upload',
   },
 ];
 
