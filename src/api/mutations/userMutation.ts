@@ -1,9 +1,16 @@
-import api from 'api/common';
-import { IUser, LoginDto, RegisterUserDto } from 'interfaces/users.interface';
 import { useMutation } from 'react-query';
 
+import api from 'api/common';
+import { setCookie } from 'helpers/cookies';
+import { IUser, LoginDto, RegisterUserDto } from 'interfaces/users.interface';
+
 export const useLoginMutation = () => {
-  const loginRequest = (data: LoginDto): Promise<IUser> => api.post('/login', data).then(res => res.data.data);
+  const loginRequest = (data: LoginDto): Promise<IUser> => api.post('/login', data).then(res => {
+    const { token, expiresIn } = res.data.data.token;
+    api.defaults.headers.common.Authorization = `Bearer ${token}`;
+    setCookie('Authorization', token, expiresIn);
+    return res.data.data.findUser;
+  });
   return useMutation(loginRequest);
 };
 

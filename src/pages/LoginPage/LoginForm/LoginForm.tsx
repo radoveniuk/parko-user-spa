@@ -23,9 +23,7 @@ const LoginForm = () => {
 
   const onSubmitLogin: SubmitHandler<FormFields> = async (data) => {
     login(data)
-      .then(() => {
-        navigate('/');
-      })
+      .then(() => { navigate('/'); })
       .catch(() => {
         enqueueSnackbar(t('user.wrongCredentials'), { variant: 'error' });
       });

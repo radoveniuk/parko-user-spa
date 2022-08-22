@@ -7,6 +7,7 @@ import { LoginDto, UserRole } from 'interfaces/users.interface';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { useGetUser } from 'api/query/userQuery';
 import { useGetNotifications } from 'api/query/notificationsQuery';
+import { eraseCookie, getCookieValue } from 'helpers/cookies';
 
 type contextType = {
   isAuth: boolean;
@@ -20,10 +21,6 @@ type contextType = {
 
 const AuthContext = createContext<contextType | undefined>(undefined);
 AuthContext.displayName = 'AuthContext';
-
-const getCookieValue = (name: string) => (
-  document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || '' // || true
-);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuth, setIsAuth] = useState(!!getCookieValue('Authorization'));
@@ -48,7 +45,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = useCallback(() => {
     if (userData) {
-      logoutMutation.mutate(userData);
+      logoutMutation.mutateAsync(userData).then(() => {
+        eraseCookie('Authorization');
+      });
     }
     setIsAuth(false);
     setUserId('');
