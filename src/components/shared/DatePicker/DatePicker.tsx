@@ -35,7 +35,7 @@ const DateFormat = forwardRef<NumberFormat<string>, NumberFormatProps>(
 
 type Props = {
   value?: string | null;
-  onChange(v: string): void;
+  onChange(v: string, isValid?: boolean): void;
   label: string;
 }
 
@@ -61,7 +61,7 @@ const DatePicker = ({ value: defaultValue, onChange, label }: Props) => {
       value={value}
       onChange={(e) => {
         setValue(e.target.value);
-        onChange(dateRegex.test(e.target.value) ? DateTime.fromFormat(e.target.value, 'dd.MM.yyyy').toISODate() : '');
+        onChange(dateRegex.test(e.target.value) ? DateTime.fromFormat(e.target.value, 'dd.MM.yyyy').toISODate() : '', dateRegex.test(e.target.value));
       }}
       placeholder="DD.MM.YYYY"
       InputProps={{ inputComponent: DateFormat as any }}
@@ -71,3 +71,5 @@ const DatePicker = ({ value: defaultValue, onChange, label }: Props) => {
 };
 
 export default DatePicker;
+
+export const isValidDate = (v: string) => dateRegex.test(v);

@@ -82,7 +82,7 @@ export const NavItem = styled(ListItemButton)`
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background-color: #ff6666;
+      background-color: #fff;
       position: absolute;
     }
   }
