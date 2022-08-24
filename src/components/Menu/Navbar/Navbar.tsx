@@ -8,8 +8,9 @@ import { MenuIcon } from 'components/icons';
 import IconButton from 'components/shared/IconButton';
 import { themeConfig } from 'theme';
 import { useAuthData } from 'contexts/AuthContext';
-
+import { useNotifications } from 'contexts/NotificationContext';
 import logoImage from 'components/assets/images/logo.png';
+
 import { Drawer, NavbarWrapper, NavItem, NavItemsList } from './styles';
 
 type Props = {
@@ -22,7 +23,8 @@ const drawerWidth = 300;
 const Navbar = ({ open, onClose } : Props) => {
   const { t } = useTranslation();
   const location = useLocation();
-  const { role, isNewNotifications, isVerified } = useAuthData();
+  const { role, isVerified } = useAuthData();
+  const isNewNotification = useNotifications();
   let menuItems: INavbarItem[] = [];
 
   if (role === 'user' && isVerified) {
@@ -43,7 +45,7 @@ const Navbar = ({ open, onClose } : Props) => {
             <NavItem
               className={`${item.to === location.pathname
                 ? 'active'
-                : ''}${item.to === '/notifications' && isNewNotifications
+                : ''}${item.to === '/notifications' && isNewNotification
                 ? ' notifications'
                 : ''}`
               }

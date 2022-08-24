@@ -6,7 +6,6 @@ import { useLoginMutation, useLogoutMutation } from 'api/mutations/userMutation'
 import { LoginDto, UserRole } from 'interfaces/users.interface';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { useGetUser } from 'api/query/userQuery';
-import { useGetNotifications } from 'api/query/notificationsQuery';
 import { eraseCookie, getCookieValue } from 'helpers/cookies';
 
 type contextType = {
@@ -15,7 +14,6 @@ type contextType = {
   logout(): void;
   userId: string;
   role: UserRole | undefined;
-  isNewNotifications: boolean;
   isVerified: boolean;
 };
 
@@ -27,10 +25,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userId, setUserId] = useLocalStorageState('userId');
   const loginMutation = useLoginMutation();
   const logoutMutation = useLogoutMutation();
-  const { data: userData } = useGetUser(userId, { enabled: !!userId && isAuth });
-  const { data: userNotifications = [] } = useGetNotifications({ to: userId }, { enabled: !!userId });
+  const { data: userData } = useGetUser(userId, { enabled: !!userId && isAuth, refetchOnWindowFocus: false });
 
-  const isNewNotifications = useMemo(() => !!userNotifications.filter((item) => !item.viewed).length, [userNotifications]);
   const isVerified = useMemo(() => !!userData?.project || userData?.role === 'admin', [userData]);
 
   const login = async (data: LoginDto) => {
@@ -56,7 +52,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const role = useMemo(() => isAuth && userData ? userData.role : 'user', [userData, isAuth]);
 
   return (
-    <AuthContext.Provider value={{ isAuth, login, logout, userId, role, isNewNotifications, isVerified }}>
+    <AuthContext.Provider value={{ isAuth, login, logout, userId, role, isVerified }}>
       {children}
     </AuthContext.Provider>
   );
@@ -95,7 +91,6 @@ export const useAuthData = () => {
   return {
     id: authContext.userId,
     role: authContext.role,
-    isNewNotifications: authContext.isNewNotifications,
     isVerified: authContext.isVerified,
   };
 };
