@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+import usePageQueries from 'hooks/usePageQueries';
+import { useContext, useEffect } from 'react';
 import { FiltersContext } from './FiltersContext';
 
 const useFilters = () => {
@@ -17,10 +18,18 @@ export const useFilterState = (filterKey: string): [string, (value: string) => v
   const {
     filtersState, addFilter, removeFilter,
   } = context;
+  const pageQueries = usePageQueries();
 
   const update = (value: string) => {
     value ? addFilter(filterKey, value) : removeFilter(filterKey);
   };
+
+  useEffect(() => {
+    const queryValue = pageQueries[filterKey];
+    if (queryValue && queryValue !== filtersState[filterKey]) {
+      addFilter(filterKey, queryValue);
+    }
+  }, [addFilter, filterKey, filtersState, pageQueries]);
 
   return [filtersState[filterKey], update];
 };

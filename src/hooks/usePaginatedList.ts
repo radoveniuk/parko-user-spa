@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import usePageQueries from './usePageQueries';
 
 type Options = {
@@ -31,7 +31,15 @@ const usePaginatedList = <T>(list: T[] = [], options?: Options) => {
     pageItems,
     paginationConfig: {
       page,
-      onChange: (_e: any, value: number) => { setPage(value); navigate({ search: `page=${value}` }); },
+      onChange: (_e: any, value: number) => {
+        setPage(value);
+        navigate({
+          search: createSearchParams({
+            ...pageQueries,
+            page: `${value}`,
+          }).toString(),
+        });
+      },
       count: pagesCount,
     },
   };

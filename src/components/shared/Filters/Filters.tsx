@@ -54,7 +54,7 @@ export const FilterSelect = ({ filterKey, label, ...rest }: FilterProps & Select
     <FilterWrapper>
       <Select
         label={label}
-        value={value || ''}
+        value={rest.options?.length ? value || '' : ''}
         onChange={({ target }) => void setValue(target.value as string)}
         style={{ minWidth: 200 }}
         {...rest}

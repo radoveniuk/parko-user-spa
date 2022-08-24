@@ -96,7 +96,7 @@ const OnboardModalRender = ({ onClose, project, ...rest }: Props) => {
 
 export default function OnboardModal (props: Props) {
   return (
-    <FiltersProvider>
+    <FiltersProvider disablePageQueries>
       <OnboardModalRender {...props} />
     </FiltersProvider>
   );
