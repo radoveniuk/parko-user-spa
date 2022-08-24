@@ -116,10 +116,16 @@
     "role": "Role",
     "admin": "User administration",
     "delete": "Delete account",
-    "approveRemoving": "You are about delete user profile! Are you sure?",
+    "approveRemoving":"You are about delete user profile! Are you sure?",
     "approve": "Approve",
     "removedSuccess": "User has been removed",
     "logout": "Logout",
+    "create": "Create",
+    "edit":"Edit",
+    "salary": "Salary",
+    "salaryType": "Salary type",
+    "salaryComment": "Comment",
+    "employmentType": "Employment type",
     "mailError": "Invalid email"
   },
   "userUpload": {
@@ -173,7 +179,8 @@
     "userStatus": {
       "candidate": "Candidate",
       "hired": "Work",
-      "fired": "Fired"
+      "fired": "Fired",
+      "undefined": "-"
     },
     "userRole": {
       "user": "User",
@@ -185,6 +192,18 @@
       "medicalCheck": "Medical check",
       "alcohol": "Alcohol",
       "other": "Other"
+    },
+    "tariff": {
+      "candidate": "Candidate",
+      "hour": "Work hourh",
+      "month": "Work month"
+    },
+    "employmentType": {
+      "self": "Self employment",
+      "onCompany": "In the company",
+      "outsideCompany": "Outside of the company",
+      "partTime": "Part-time job",
+      "sideJob": "Side job"
     }
   },
   "notFoundText": "Page not found",
@@ -197,7 +216,8 @@
   "file": {
     "upload": "Drop files here or click",
     "submit": "Send files",
-    "add": "Add files"
+    "add": "Add files",
+    "name": "Name"
   },
   "paycheck": {
     "successfullUpload": "Paychecks were uploaded"
@@ -221,17 +241,21 @@
     "approve": "Approve",
     "cost": "Cost",
     "tariff": "Tariff",
-    "success": "Success!"
+    "success": "Success!",
+    "addProfile": "Add profile to project"
   },
   "notification": {
     "success": "Notification sended",
     "new": "New notification",
     "title": "Title",
     "send": "Send",
-    "users": "Users"
+    "users": "Users",
+    "delete": "Delete notification"
   },
   "language": "Language",
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
   "next": "Next",
-  "Back": "Back"
+  "Back": "Back",
+  "errors": "Errors",
+  "deleteApprove": "Are you sure?"
 }
