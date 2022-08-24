@@ -44,10 +44,7 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
       }
     } else {
       navigate({
-        search: createSearchParams({
-          ...omit(pageQueries, key),
-          page: '1',
-        }).toString(),
+        search: createSearchParams({ page: '1' }).toString(),
       });
     }
   };
