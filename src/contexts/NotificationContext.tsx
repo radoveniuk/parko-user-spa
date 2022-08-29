@@ -1,10 +1,13 @@
 import React, {
-  createContext, ReactNode, useContext, useEffect, useMemo,
+  createContext, ReactNode, useContext, useEffect, useState,
 } from 'react';
-import { useLocation } from 'react-router-dom';
+import { io } from 'socket.io-client';
+import { useQueryClient } from 'react-query';
 
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { useGetNotifications } from 'api/query/notificationsQuery';
+import { INotification } from 'interfaces/notification.interface';
+import { BASE_URL } from 'api/common';
 
 type contextType = {
   newNotification: boolean;
@@ -13,21 +16,42 @@ type contextType = {
 const NotificationContext = createContext<contextType | undefined>(undefined);
 NotificationContext.displayName = 'NotificationContext';
 
+const socket = io(BASE_URL);
+
 const NotificationProvider = ({ children }: { children: ReactNode }) => {
   const [userId] = useLocalStorageState('userId');
   const {
     data: userNotifications = [],
     refetch: refetchNotifications,
   } = useGetNotifications({ to: userId }, { enabled: !!userId, refetchOnWindowFocus: false });
-  const location = useLocation();
+  const [newNotification, setNewNotification] = useState(false);
+  const queryClient = useQueryClient();
 
-  const newNotification = useMemo(() => !!userNotifications.filter((item) => !item.viewed).length, [userNotifications]);
+  useEffect(() => {
+    if (userNotifications.length) {
+      console.log(!!userNotifications.filter((item) => !item.viewed).length);
+
+      setNewNotification(!!userNotifications.filter((item) => !item.viewed).length);
+    }
+  }, [userNotifications]);
 
   useEffect(() => {
     if (userId) {
       refetchNotifications();
     }
-  }, [location.pathname, refetchNotifications, userId]);
+  }, [refetchNotifications, userId]);
+
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log('Wss connected');
+    });
+    socket.on('newNotification', (data: INotification) => {
+      if (data.to === userId) {
+        setNewNotification(true);
+        queryClient.setQueryData(['notifications', JSON.stringify({ to: userId })], [data, ...userNotifications]);
+      }
+    });
+  }, [queryClient, userId, userNotifications]);
 
   return (
     <NotificationContext.Provider value={{ newNotification }}>
