@@ -29,8 +29,6 @@ const NotificationProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (userNotifications.length) {
-      console.log(!!userNotifications.filter((item) => !item.viewed).length);
-
       setNewNotification(!!userNotifications.filter((item) => !item.viewed).length);
     }
   }, [userNotifications]);
@@ -47,7 +45,6 @@ const NotificationProvider = ({ children }: { children: ReactNode }) => {
     });
     socket.on('newNotification', (data: INotification) => {
       if (data.to === userId) {
-        setNewNotification(true);
         queryClient.setQueryData(['notifications', JSON.stringify({ to: userId })], [data, ...userNotifications]);
       }
     });
