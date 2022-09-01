@@ -126,7 +126,8 @@
     "salaryType": "Salary type",
     "salaryComment": "Comment",
     "employmentType": "Employment type",
-    "mailError": "Invalid email"
+    "mailError": "Invalid email",
+    "export": "Export"
   },
   "userUpload": {
     "title": "Upload users",
@@ -250,7 +251,9 @@
     "title": "Title",
     "send": "Send",
     "users": "Users",
-    "delete": "Delete notification"
+    "delete": "Delete notification",
+    "in": "Income",
+    "out": "Sent"
   },
   "language": "Language",
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 import Page, { PageActions, PageTitle } from 'components/shared/Page';
 import { useGetUser } from 'api/query/userQuery';
@@ -15,7 +16,7 @@ import BaseInfo from './BaseInfo';
 import Daysoff from './Daysoff';
 import Scans from './Scans';
 import SalarySettings from './SalarySettings';
-import { useSnackbar } from 'notistack';
+import Notifications from 'components/complex/Notifications';
 
 const ProfileAdminPage = () => {
   const { t } = useTranslation();
@@ -52,6 +53,7 @@ const ProfileAdminPage = () => {
             <Tab label={t('user.scancopies')} />
             <Tab label={t('navbar.prepayments')} />
             <Tab label={t('navbar.daysoff')} />
+            <Tab label={t('navbar.notifications')} />
           </Tabs>
           <TabPanel index={0}>
             <BaseInfo data={profileData} onUpdate={updateUser} />
@@ -67,6 +69,9 @@ const ProfileAdminPage = () => {
           </TabPanel>
           <TabPanel index={4}>
             <Daysoff />
+          </TabPanel>
+          <TabPanel index={5}>
+            <Notifications options={{ to: userId }} />
           </TabPanel>
         </TabsContainer>
       )}

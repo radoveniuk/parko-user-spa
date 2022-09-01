@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
+
 import usePageQueries from './usePageQueries';
+import usePrev from './usePrev';
 
 type Options = {
   rowsPerPage?: number;
@@ -17,9 +19,24 @@ const usePaginatedList = <T>(list: T[] = [], options?: Options) => {
   const pageItems = useMemo(() => list.slice(rowsPerPage * (page - 1), rowsPerPage * page), [list, page, rowsPerPage]);
   const pagesCount = useMemo(() => Math.ceil(list.length / rowsPerPage), [list, rowsPerPage]);
 
+  const onChange = useCallback((_e: any, value: number) => {
+    setPage(value);
+    navigate({
+      search: createSearchParams({
+        ...pageQueries,
+        page: `${value}`,
+      }).toString(),
+    });
+  }, [navigate, pageQueries]);
+
+  const prevRowsPerPage = usePrev(options?.rowsPerPage);
+  const prevListLength = usePrev(list.length);
+
   useEffect(() => {
-    setPage(defaultPage);
-  }, [defaultPage, list.length]);
+    if (options?.rowsPerPage !== prevRowsPerPage || list.length !== prevListLength) {
+      onChange(null, defaultPage);
+    }
+  }, [defaultPage, list.length, onChange, options?.rowsPerPage, prevListLength, prevRowsPerPage]);
 
   useEffect(() => {
     if (pageQueries.page && pageQueries.page !== page.toString()) {
@@ -31,15 +48,7 @@ const usePaginatedList = <T>(list: T[] = [], options?: Options) => {
     pageItems,
     paginationConfig: {
       page,
-      onChange: (_e: any, value: number) => {
-        setPage(value);
-        navigate({
-          search: createSearchParams({
-            ...pageQueries,
-            page: `${value}`,
-          }).toString(),
-        });
-      },
+      onChange,
       count: pagesCount,
     },
   };

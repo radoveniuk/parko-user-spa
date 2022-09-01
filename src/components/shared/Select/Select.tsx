@@ -3,20 +3,22 @@ import React, { forwardRef, useMemo } from 'react';
 import SelectMaterial, { SelectProps as SelectPropsMaterial } from '@mui/material/Select';
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 
+type Option = {[key: string | number]: any}
+
 export type SelectProps = SelectPropsMaterial & {
-  options?: string[] | {[key: string | number]: any}[];
+  options?: string[] | number[] | Option[];
   valuePath?: string;
   labelPath?: string;
 }
 
-const Select = forwardRef(({ label, options, valuePath = 'value', labelPath = 'label', ...rest }: SelectProps, ref) => {
+const Select = forwardRef(({ label, options = [], valuePath = 'value', labelPath = 'label', ...rest }: SelectProps, ref) => {
   const menuItems = useMemo(() => {
     if (options) {
       return options.map((item) => {
         if (typeof item === 'object' && (!valuePath || !labelPath)) {
           throw new Error('Object path not specified!');
         }
-        if (typeof item === 'string') {
+        if (['string', 'number'].includes(typeof item)) {
           return { value: item, label: item };
         }
         return {
