@@ -261,5 +261,6 @@
   "next": "Вперед",
   "Back": "Назад",
   "errors": "Ошибки при вводе:",
-  "deleteApprove": "Вы уверенны?"
+  "deleteApprove": "Вы уверенны?",
+  "rowsPerPage": "Количество строк"
 }

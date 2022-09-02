@@ -11,6 +11,7 @@ import { AnyObject } from 'interfaces/base.types';
 import { useFileKeys, useRelativeFields, useRows } from '../../UploadProfilesContext';
 
 import { FileUploadingWrapper, RelativeFieldsGrid } from './styles';
+import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
 
 const styles = {
   csvReader: {
@@ -30,23 +31,13 @@ const styles = {
   } as CSSProperties,
 };
 
-const userFields = ['email', 'name', 'surname', 'phone',
-  'IBAN', 'ICO', 'adress', 'birthDate', 'birthPlace', 'city', 'country',
-  'familyState', 'fatherBirthdate', 'fatherName', 'fatherSurname', 'hasChildren',
-  'hasIdCard', 'hasInternationalPass', 'hasPermit', 'hasPrevPermit', 'hasSiblings',
-  'motherBirthdate', 'motherName', 'motherPrevSurname', 'motherSurname', 'pantsSize',
-  'passNumber', 'prevSurname', 'shoesSize', 'speciality', 'study', 'tshortSize', 'zip',
-  'internationalPassAuthority', 'internationalPassExpire', 'internationalPassNumber',
-  'permitExpire', 'permitType', 'rodneCislo', 'role', 'status',
-];
-
 const FileUploading = () => {
   const { t } = useTranslation();
   const { CSVReader } = useCSVReader();
   const [fileKeys, setFileKeys] = useFileKeys();
   const [relativeFields, setRelativeFields] = useRelativeFields();
   const [rows, setRows] = useRows();
-  const translatedUserFields = useTranslatedSelect(userFields, 'user', false, true);
+  const translatedUserFields = useTranslatedSelect(IMPORTABLE_USER_FIELDS, 'user', false, true);
 
   const reset = () => {
     setFileKeys([]);

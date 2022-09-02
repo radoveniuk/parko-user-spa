@@ -20,5 +20,5 @@ export { MdCopyAll as CopyIcon } from 'react-icons/md';
 export { ImExit as ExitIcon } from 'react-icons/im';
 export { AiOutlineFileText as FileIcon } from 'react-icons/ai';
 export { FaFileDownload as DownloadFileIcon } from 'react-icons/fa';
-export { BiImport as ImportIcon } from 'react-icons/bi';
+export { BiImport as ExportIcon } from 'react-icons/bi';
 export { default as BooleanIcon } from './BooleanIcon';

@@ -260,5 +260,6 @@
   "next": "Next",
   "Back": "Back",
   "errors": "Errors",
-  "deleteApprove": "Are you sure?"
+  "deleteApprove": "Are you sure?",
+  "rowsPerPage": "Rows per page"
 }

@@ -261,5 +261,6 @@
   "next": "Вперед",
   "Back": "Назад",
   "errors": "Помилкові поля:",
-  "deleteApprove": "Ви впевнені?"
+  "deleteApprove": "Ви впевнені?",
+  "rowsPerPage": "Кількість рядів"
 }
