@@ -4,11 +4,10 @@ import { pick } from 'lodash-es';
 import { DateTime } from 'luxon';
 import { usePapaParse } from 'react-papaparse';
 
-import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
 import { useGetProjects } from 'api/query/projectQuery';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
+import { STATUSES } from 'constants/userStatuses';
 import useDebounce from 'hooks/useDebounce';
 import { useGetUserList } from 'api/query/userQuery';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
@@ -16,13 +15,13 @@ import { IUser } from 'interfaces/users.interface';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
+import Page, { PageTitle } from 'components/shared/Page';
+import { ExportProfilesWrapper } from './styles';
+import { ExportIcon } from 'components/icons';
 
-import { ModalContentWrapper } from './styles';
-
-type Props = DialogProps;
-
-const ExportModalRender = ({ onClose, ...rest }: Props) => {
+const ExportProfilesPageContent = () => {
   const { t } = useTranslation();
+
   const { data: projects = [] } = useGetProjects();
 
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
@@ -33,8 +32,10 @@ const ExportModalRender = ({ onClose, ...rest }: Props) => {
 
   const [selectedProfiles, setSelectedProfiles] = useState<string[]>([]);
   const { jsonToCSV } = usePapaParse();
+  const [touched, setTouched] = useState(false);
 
   const selectProfile = (profile: IUser, checked: boolean) => {
+    setTouched(true);
     setSelectedProfiles((prev) => {
       if (checked) {
         return [...prev, profile._id];
@@ -62,55 +63,53 @@ const ExportModalRender = ({ onClose, ...rest }: Props) => {
     link.setAttribute('download', `Parko_Users_Export_${DateTime.now().toFormat('dd.MM.yyyy')}.csv`);
     document.body.appendChild(link);
     link.click();
-    onClose();
   };
 
   useEffect(() => {
     refetch();
   }, [debouncedFiltersState, refetch]);
 
+  useEffect(() => {
+    if (users.length && !touched) {
+      setSelectedProfiles(users.map((item) => item._id));
+    }
+  }, [users, touched]);
+
   return (
-    <Dialog {...rest} onClose={onClose} title={t('user.export')} maxWidth={false}>
-      <ModalContentWrapper>
-        <FiltersBar>
-          <FilterText filterKey="search" label={t('search')} />
-          <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
-          <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} />
-          <ClearFiLtersButton />
-        </FiltersBar>
-        <ListTable columns={['user.name', 'user.email', 'user.status', 'user.project']} className="profiles-grid">
-          {users?.map((user) => (
+    <Page title="user.export">
+      <PageTitle>{t('user.export')}</PageTitle>
+      <FiltersBar>
+        <FilterText filterKey="search" label={t('search')} />
+        <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
+        <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} />
+        <ClearFiLtersButton />
+      </FiltersBar>
+      <ExportProfilesWrapper>
+        <ListTable columns={['', ...IMPORTABLE_USER_FIELDS.map((item) => `user.${item}`)]} className="profiles-grid">
+          {users.map((user) => (
             <ListTableRow key={user._id}>
               <ListTableCell>
                 <Checkbox
                   checked={selectedProfiles.includes(user._id)}
-                  title={`${user.name} ${user.surname}`}
                   onChange={(e) => void selectProfile(user, e.target.checked)}
                 />
               </ListTableCell>
-              <ListTableCell>{user.email}</ListTableCell>
-              <ListTableCell>{user.status && (
-                <p
-                  style={{ color: STATUSES_COLORS[user.status] }}>
-                  {t(`selects.userStatus.${user.status}`)}
-                </p>
-              )}</ListTableCell>
-              <ListTableCell>{typeof user.project === 'object' && user.project?.name}</ListTableCell>
+              {IMPORTABLE_USER_FIELDS.map((item) => (
+                <ListTableCell key={`${user._id}-${item}`}>{user[item] as string}</ListTableCell>
+              ))}
             </ListTableRow>
           ))}
         </ListTable>
-        <div className="modal-footer">
-          <Button disabled={!selectedProfiles.length} onClick={exportData}>{t('project.approve')}</Button>
-        </div>
-      </ModalContentWrapper>
-    </Dialog>
+        <Button disabled={!selectedProfiles.length} onClick={exportData}><ExportIcon size={20}/>{t('project.approve')}</Button>
+      </ExportProfilesWrapper>
+    </Page>
   );
 };
 
-export default function ExportModal (props: Props) {
+export default function ExportProfilesPage () {
   return (
     <FiltersProvider disablePageQueries>
-      <ExportModalRender {...props} />
+      <ExportProfilesPageContent />
     </FiltersProvider>
   );
 };

@@ -17,8 +17,6 @@ import Button from 'components/shared/Button';
 import { ExportIcon, PlusIcon, UploadIcon } from 'components/icons';
 import Select from 'components/shared/Select';
 
-import ExportModal from './ExportModal';
-
 const ROWS_PER_PAGE_OPTIONS = [20, 50, 100, 200, 500, 1000];
 
 const COLUMNS = [
@@ -38,7 +36,6 @@ const ProfileListPageRender = () => {
   const { pageItems, paginationConfig } = usePaginatedList(data, { rowsPerPage });
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
-  const [openExport, setOpenExport] = useState(false);
 
   useEffect(() => {
     refetch();
@@ -48,8 +45,10 @@ const ProfileListPageRender = () => {
     <Page title={t('profileList')}>
       <PageTitle>{t('profileList')}</PageTitle>
       <PageActions>
-        <Button color="secondary" variant="outlined" onClick={() => void setOpenExport(true)}><ExportIcon size={20}/>{t('user.export')}</Button>
-        <Link to="/upload-profiles">
+        <Link to="/export-profiles">
+          <Button color="secondary" variant="outlined"><ExportIcon size={20}/>{t('user.export')}</Button>
+        </Link>
+        <Link to="/import-profiles">
           <Button color="secondary"><UploadIcon size={20}/>{t('user.import')}</Button>
         </Link>
         <Link to="/profile-editor">
@@ -90,9 +89,6 @@ const ProfileListPageRender = () => {
         ))}
       </ListTable>
       <Pagination {...paginationConfig} />
-      {openExport && (
-        <ExportModal open={openExport} onClose={() => void setOpenExport(false)} />
-      )}
     </Page>
   );
 };
