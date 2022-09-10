@@ -30,7 +30,7 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
-  const translatedEmploymentTypes = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
+  const translatedEmploymentTypes = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType', true, false);
 
   const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState(false);
   const deleteUserMutation = useDeleteUserMutation();

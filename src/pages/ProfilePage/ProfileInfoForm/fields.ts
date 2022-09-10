@@ -47,33 +47,27 @@ const baseFields: UserFieldsList = {
   },
   birthDate: {
     type: 'date',
-    required: true,
   },
 };
 
 const docsFields: UserFieldsList = {
   hasInternationalPass: {
     type: 'boolean',
-    required: true,
   },
   internationalPassNumber: {
     type: 'string',
-    required: true,
     visible: (watch) => watch('hasInternationalPass'),
   },
   internationalPassExpire: {
     type: 'date',
-    required: true,
     visible: (watch) => watch('hasInternationalPass') && !watch('hasPermit'),
   },
   internationalPassAuthority: {
     type: 'string',
-    required: true,
     visible: (watch) => watch('hasInternationalPass') && !watch('hasPermit'),
   },
   passNumber: {
     type: 'string',
-    required: true,
     visible: (watch) => !watch('hasInternationalPass'),
   },
   hasIdCard: {
@@ -102,11 +96,9 @@ export const slovakDocsFields: UserFieldsList = {
   },
   IBAN: {
     type: 'string',
-    required: true,
   },
   ICO: {
     type: 'string',
-    required: true,
     visible: (watch) => watch('permitType') === 'business',
   },
 };
@@ -141,23 +133,18 @@ export const scancopies: UserFieldsList = {
 export const adressFields: UserFieldsList = {
   birthPlace: {
     type: 'string',
-    required: true,
   },
   country: {
     type: 'select',
-    required: true,
   },
   adress: {
     type: 'string',
-    required: true,
   },
   city: {
     type: 'string',
-    required: true,
   },
   zip: {
     type: 'string',
-    required: true,
   },
 };
 

@@ -26,8 +26,7 @@ export const PROJECT_TARIFF_TYPE = [
 
 export const EMPLOYMENT_TYPE = [
   'self',
-  'onCompany',
-  'outsideCompany',
+  'fullTime',
   'partTime',
   'sideJob',
 ];

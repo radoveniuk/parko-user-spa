@@ -203,6 +203,7 @@
       "self": "Self employment",
       "onCompany": "In the company",
       "outsideCompany": "Outside of the company",
+      "fullTime": "Full time employment",
       "partTime": "Part-time job",
       "sideJob": "Side job"
     }
