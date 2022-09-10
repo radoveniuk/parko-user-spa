@@ -262,5 +262,7 @@
   "Back": "Назад",
   "errors": "Ошибки при вводе:",
   "deleteApprove": "Вы уверенны?",
-  "rowsPerPage": "Количество строк"
+  "rowsPerPage": "Количество строк",
+  "selectAll": "Выбрать всё",
+  "selectAllCols": "Выбрать все колонки"
 }

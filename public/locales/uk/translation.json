@@ -262,5 +262,7 @@
   "Back": "Назад",
   "errors": "Помилкові поля:",
   "deleteApprove": "Ви впевнені?",
-  "rowsPerPage": "Кількість рядів"
+  "rowsPerPage": "Кількість рядів",
+  "selectAll": "Вибрати все",
+  "selectAllCols": "Вибрати вси колонки"
 }

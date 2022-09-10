@@ -5,14 +5,16 @@ import { ListTableCell, ListTableHeaderRow, ListTableWrapper } from './styles';
 type Props = {
   columns: string[]
   children?: ReactNode;
+  columnComponent?: (col: string) => ReactNode;
+  stickyHeader?: boolean;
 } & HTMLAttributes<HTMLDivElement>
 
-const ListTable = ({ columns, children, ...rest }: Props) => {
+const ListTable = ({ columns, children, columnComponent, stickyHeader, ...rest }: Props) => {
   const { t } = useTranslation();
   return (
     <ListTableWrapper cols={columns.length} {...rest}>
-      <ListTableHeaderRow>
-        {columns.map((column, index) => <ListTableCell key={column + index}>{t(column)}</ListTableCell>)}
+      <ListTableHeaderRow sticky={stickyHeader}>
+        {columns.map((column, index) => <ListTableCell key={column + index}>{columnComponent?.(column) || t(column)}</ListTableCell>)}
       </ListTableHeaderRow>
       {children}
     </ListTableWrapper>

@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pick } from 'lodash-es';
 import { DateTime } from 'luxon';
 import { usePapaParse } from 'react-papaparse';
 
-import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
-import { useGetProjects } from 'api/query/projectQuery';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import { STATUSES } from 'constants/userStatuses';
-import useDebounce from 'hooks/useDebounce';
 import { useGetUserList } from 'api/query/userQuery';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { IUser } from 'interfaces/users.interface';
@@ -16,26 +11,20 @@ import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
 import Page, { PageTitle } from 'components/shared/Page';
-import { ExportProfilesWrapper } from './styles';
 import { ExportIcon } from 'components/icons';
 
-const ExportProfilesPageContent = () => {
+import { ExportProfilesWrapper } from './styles';
+
+const ExportProfilesPage = () => {
   const { t } = useTranslation();
 
-  const { data: projects = [] } = useGetProjects();
-
-  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
-
-  const { filtersState } = useFilters();
-  const debouncedFiltersState = useDebounce(filtersState);
-  const { data: users = [], refetch } = useGetUserList(debouncedFiltersState);
+  const { data: users = [] } = useGetUserList();
 
   const [selectedProfiles, setSelectedProfiles] = useState<string[]>([]);
   const { jsonToCSV } = usePapaParse();
-  const [touched, setTouched] = useState(false);
+  const [colsToExport, setColsToExport] = useState<(keyof IUser)[]>([]);
 
   const selectProfile = (profile: IUser, checked: boolean) => {
-    setTouched(true);
     setSelectedProfiles((prev) => {
       if (checked) {
         return [...prev, profile._id];
@@ -44,48 +33,83 @@ const ExportProfilesPageContent = () => {
     });
   };
 
-  const exportData = () => {
+  const exportData = (ext: 'csv' | 'xlsx' = 'csv') => {
     const dataToExport = users
       .filter((item) => selectedProfiles.includes(item._id))
       .map((item) => {
-        const pickedItem = pick(item, IMPORTABLE_USER_FIELDS) as Record<keyof IUser, string | boolean>;
+        const pickedItem = pick(item, colsToExport) as Record<keyof IUser, string | boolean>;
         const exportItem: Record<string, string | boolean> = {};
         IMPORTABLE_USER_FIELDS.forEach((key) => {
-          exportItem[t(`user.${key}`)] = pickedItem[key] || '';
+          if (colsToExport.includes(key)) {
+            exportItem[t(`user.${key}`)] = pickedItem[key] || '';
+          }
         });
         return exportItem;
       });
 
-    const csvContent = `data:text/csv;charset=utf-8,${jsonToCSV(dataToExport)}`;
+    const prefix = ext === 'xlsx' ? 'data:application/vnd.ms-excel;charset=utf-8,' : 'data:text/csv;charset=utf-8,';
+    const csvContent = `${prefix}${jsonToCSV(dataToExport)}`;
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `Parko_Users_Export_${DateTime.now().toFormat('dd.MM.yyyy')}.csv`);
+    link.setAttribute('download', `Parko_Users_Export_${DateTime.now().toFormat('dd.MM.yyyy')}.${ext}`);
     document.body.appendChild(link);
     link.click();
   };
 
-  useEffect(() => {
-    refetch();
-  }, [debouncedFiltersState, refetch]);
+  const selectAll = useCallback(() => void setSelectedProfiles(users.map((item) => item._id)), [users]);
 
-  useEffect(() => {
-    if (users.length && !touched) {
-      setSelectedProfiles(users.map((item) => item._id));
-    }
-  }, [users, touched]);
+  const disableExport = !selectedProfiles.length || !colsToExport.length;
 
   return (
-    <Page title="user.export">
+    <Page title={t('user.export')}>
       <PageTitle>{t('user.export')}</PageTitle>
-      <FiltersBar>
-        <FilterText filterKey="search" label={t('search')} />
-        <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
-        <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} />
-        <ClearFiLtersButton />
-      </FiltersBar>
       <ExportProfilesWrapper>
-        <ListTable columns={['', ...IMPORTABLE_USER_FIELDS.map((item) => `user.${item}`)]} className="profiles-grid">
+        <div className="fast-actions">
+          <Checkbox
+            title={t('selectAll')}
+            checked={selectedProfiles.length === users.length}
+            onChange={(e) => {
+              if (e.target.checked) {
+                selectAll();
+                return;
+              }
+              setSelectedProfiles([]);
+            }}
+          />
+          <Checkbox
+            title={t('selectAllCols')}
+            checked={colsToExport.length === IMPORTABLE_USER_FIELDS.length}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setColsToExport(IMPORTABLE_USER_FIELDS);
+                return;
+              }
+              setColsToExport([]);
+            }}
+
+          />
+          <Button disabled={disableExport} onClick={() => void exportData()}><ExportIcon size={20}/>csv</Button>
+          <Button disabled={disableExport} onClick={() => void exportData('xlsx')}><ExportIcon size={20}/>xlsx</Button>
+        </div>
+        <ListTable
+          columns={['', ...IMPORTABLE_USER_FIELDS]}
+          columnComponent={(col) => col && (
+            <Checkbox
+              title={t(`user.${col}`)}
+              checked={colsToExport.includes(col as keyof IUser)}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setColsToExport((prev) => [...prev, col as keyof IUser]);
+                } else {
+                  setColsToExport((prev) => prev.filter((item) => item !== col));
+                }
+              }}
+            />
+          )}
+          className="profiles-grid"
+          stickyHeader
+        >
           {users.map((user) => (
             <ListTableRow key={user._id}>
               <ListTableCell>
@@ -100,16 +124,9 @@ const ExportProfilesPageContent = () => {
             </ListTableRow>
           ))}
         </ListTable>
-        <Button disabled={!selectedProfiles.length} onClick={exportData}><ExportIcon size={20}/>{t('project.approve')}</Button>
       </ExportProfilesWrapper>
     </Page>
   );
 };
 
-export default function ExportProfilesPage () {
-  return (
-    <FiltersProvider disablePageQueries>
-      <ExportProfilesPageContent />
-    </FiltersProvider>
-  );
-};
+export default ExportProfilesPage;

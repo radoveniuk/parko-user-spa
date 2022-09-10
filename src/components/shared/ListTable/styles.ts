@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const ListTableWrapper = styled.div<{ cols: number }>`
   display: grid;
@@ -16,9 +16,17 @@ export const ListTableRow = styled.div`
   }
 `;
 
-export const ListTableHeaderRow = styled.div`
+export const ListTableHeaderRow = styled.div<{ sticky?: boolean }>`
   display: contents;
   font-weight: 700;
+
+  ${props => props.sticky && css`
+    .list-table-cell {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+  `}
 `;
 
 export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })`
@@ -28,6 +36,7 @@ export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })`
   border-bottom: 1px solid #e9e9e9;
   padding: 10px;
   transition: background-color 0.3s;
+  background-color: #fff;
 
   p {
     margin: 0;

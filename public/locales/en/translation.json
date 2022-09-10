@@ -261,5 +261,7 @@
   "Back": "Back",
   "errors": "Errors",
   "deleteApprove": "Are you sure?",
-  "rowsPerPage": "Rows per page"
+  "rowsPerPage": "Rows per page",
+  "selectAll": "Select all items",
+  "selectAllCols": "Select all columns"
 }
