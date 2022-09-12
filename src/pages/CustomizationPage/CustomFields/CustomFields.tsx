@@ -1,23 +1,31 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useQueryClient } from 'react-query';
 
 import List from 'components/shared/List';
 
-import { CustomFieldsWrapper } from './styles';
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
+import {
+  useCreateCustomFormFieldMutation,
+  useDeleteCustomFormFieldMutation,
+  useUpdateCustomFormFieldMutation,
+} from 'api/mutations/customFormsMutation';
 import { CustomFormEntity, CustomFormFieldType, ICustomFormField } from 'interfaces/form.interface';
-import { useCreateCustomFormFieldMutation } from 'api/mutations/customFormsMutation';
 import Button from 'components/shared/Button';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { LANGUAGES } from 'constants/languages';
 import Input from 'components/shared/Input';
 import Select from 'components/shared/Select';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { useGetProjects } from 'api/query/projectQuery';
 import Checkbox from 'components/shared/Checkbox';
+import DialogConfirm from 'components/shared/DialogConfirm';
 
-const CUSTOM_FIELD_TYPES: CustomFormFieldType[] = ['boolean', 'date', 'email', 'number', 'phone', 'string'];
+import CustomSections from './CustomSections';
+
+import { CustomFieldsWrapper } from './styles';
+
+const CUSTOM_FIELD_TYPES: CustomFormFieldType[] = ['boolean', 'date', 'number', 'phone', 'string'];
 
 const DEFAULT_CUSTOM_FIELD: ICustomFormField = {
   entity: 'user',
@@ -40,17 +48,38 @@ type Props = {
 const CustomFields = ({
   entity,
 }: Props) => {
-  const { data = [] } = useGetCustomFormFields({ entity });
-  const { data: projects = [] } = useGetProjects();
-  const createCustomField = useCreateCustomFormFieldMutation();
   const { i18n, t } = useTranslation();
-  const { register, handleSubmit, reset, watch } = useForm<ICustomFormField>();
+  const queryClient = useQueryClient();
+  const { data: projects = [] } = useGetProjects();
+
+  const { data: customFields = [] } = useGetCustomFormFields({ entity });
+  const createCustomField = useCreateCustomFormFieldMutation();
+  const updateCustomField = useUpdateCustomFormFieldMutation();
+  const deleteCustomField = useDeleteCustomFormFieldMutation();
+
+  const { register, handleSubmit, reset, formState: { errors }, control } = useForm<ICustomFormField>();
 
   const [activeCustomField, setActiveCustomField] = useState<ICustomFormField | null>(null);
+  const [customFieldToDelete, setCustomFieldToDelete] = useState<ICustomFormField | null>(null);
   const fieldTypeOptions = useTranslatedSelect(CUSTOM_FIELD_TYPES, 'customForms');
 
   const submitSaveField: SubmitHandler<ICustomFormField> = (data) => {
-    createCustomField.mutate(data);
+    if (!data._id) {
+      createCustomField.mutateAsync(data).then((res) => {
+        queryClient.setQueryData(['customFormFields', JSON.stringify({ entity })], [...customFields, res]);
+      });
+    } else {
+      updateCustomField.mutate(data);
+    }
+  };
+
+  const submitDeleteField = () => {
+    if (!customFieldToDelete?._id) return;
+    deleteCustomField.mutateAsync(customFieldToDelete._id).then(() => {
+      queryClient.setQueryData(['customFormFields', JSON.stringify({ entity })], customFields.filter((item) => item._id !== customFieldToDelete._id));
+      setActiveCustomField(null);
+      setCustomFieldToDelete(null);
+    });
   };
 
   useEffect(() => {
@@ -63,7 +92,7 @@ const CustomFields = ({
     <CustomFieldsWrapper>
       <List
         className="custom-fields-list"
-        data={data}
+        data={customFields}
         fields={{
           primary: `names.${i18n.language}`,
         }}
@@ -73,6 +102,7 @@ const CustomFields = ({
             setActiveCustomField(item);
           });
         }}
+        defaultSelected={activeCustomField?._id}
       />
       {activeCustomField !== null && (
         <form onSubmit={handleSubmit(submitSaveField)} className="update-custom-field-form">
@@ -82,7 +112,9 @@ const CustomFields = ({
               <Input
                 key={item.code}
                 label={`${item.code} - ${item.title}`}
-                {...register(`names.${item.code}`)}
+                InputLabelProps={{ shrink: true }}
+                error={!!errors.names?.[item.code]}
+                {...register(`names.${item.code}`, { required: true })}
               />
             ))}
           </div>
@@ -105,21 +137,41 @@ const CustomFields = ({
             />
             <Checkbox defaultChecked={activeCustomField.required} title={t('customForms.required')} {...register('required')} />
           </div>
-          <span className="form-label">{t('customForms.sections')}</span>
-          <div className="config-wrapper">
-
-          </div>
+          <Controller
+            control={control}
+            name="section"
+            defaultValue={activeCustomField.section}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <CustomSections value={field.value} onChange={field.onChange} entity={entity} />
+            )}
+          />
           <div className="config-wrapper">
             <Button type="submit">{t('customForms.save')}</Button>
-            <Button color="error" variant="outlined" type="button">{t('customForms.delete')}</Button>
+            {!!activeCustomField._id && (
+              <Button
+                color="error"
+                variant="outlined"
+                type="button"
+                onClick={() => void setCustomFieldToDelete(activeCustomField)}
+              >{t('customForms.delete')}</Button>
+            )}
           </div>
         </form>
       )}
       <Button
         color="secondary"
         className="create-custom-field-button"
-        onClick={() => void setActiveCustomField({ ...DEFAULT_CUSTOM_FIELD, entity })}
+        onClick={() => {
+          setActiveCustomField(null);
+          setTimeout(() => {
+            setActiveCustomField({ ...DEFAULT_CUSTOM_FIELD, entity });
+          });
+        }}
       >+</Button>
+      {customFieldToDelete !== null && (
+        <DialogConfirm open={!!customFieldToDelete} onClose={() => void setCustomFieldToDelete(null)} onSubmit={submitDeleteField} />
+      )}
     </CustomFieldsWrapper>
   );
 };

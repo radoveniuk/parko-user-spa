@@ -37,7 +37,7 @@ const ExportProfilesPage = () => {
     const dataToExport = users
       .filter((item) => selectedProfiles.includes(item._id))
       .map((item) => {
-        const pickedItem = pick(item, colsToExport) as Record<keyof IUser, string | boolean>;
+        const pickedItem = pick(item, colsToExport) as unknown as Record<keyof IUser, string | boolean>;
         const exportItem: Record<string, string | boolean> = {};
         IMPORTABLE_USER_FIELDS.forEach((key) => {
           if (colsToExport.includes(key)) {

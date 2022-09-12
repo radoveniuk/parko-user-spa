@@ -9,7 +9,7 @@ export interface ICustomFormField {
   type: CustomFormFieldType;
   required: boolean;
   section: string | null;
-  projects: string[];
+  projects: string[] | string;
 }
 
 export interface ICustomFormSection {

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import _, { omit } from 'lodash-es';
+import _ from 'lodash-es';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
@@ -27,6 +27,8 @@ import { useDeleteFileMutation } from 'api/mutations/fileMutation';
 import IconButton from 'components/shared/IconButton';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import downloadFile from 'api/query/downloadFile';
+import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
+import CustomField from 'components/complex/CustomField';
 
 import { FIELDS, ADMIN_FIELDS, FieldSection, UserField } from './fields';
 import DialogForm from './DialogForm';
@@ -39,7 +41,7 @@ const ProfileInfoForm = () => {
   const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors }, watch, control, setValue } = useForm<IUser>();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { id, role } = useAuthData();
   const { data: userData } = useGetUser(!isEditor ? id : editingUserId, { enabled: !isEditor || !!editingUserId, refetchOnWindowFocus: false });
   const { data: countriesOptions } = useGetCountries();
@@ -55,6 +57,13 @@ const ProfileInfoForm = () => {
   // eslint-disable-next-line no-unused-vars
   const [filesStorage, setFilesStorage] = useState<{[key in keyof Partial<IUser>]: File}>({});
   const [fileToDelete, setFileToDelete] = useState<{ name: keyof Partial<IUser>; data?: IFile; fieldChange(v: any): void } | null>(null);
+
+  // custom fields
+  const { data: customSections = [] } = useGetCustomFormSections({ entity: 'user' });
+  const { data: customFields = [] } = useGetCustomFormFields({
+    entity: 'user',
+    projects: userData?.project ? [userData.project as string] : 'null',
+  }, { enabled: !!userData });
 
   const uploadScans = async () => {
     const formData = new window.FormData();
@@ -115,7 +124,7 @@ const ProfileInfoForm = () => {
         setFileToDelete(null);
       });
     } else {
-      setFilesStorage((prev) => omit(prev, fileToDelete.name));
+      setFilesStorage((prev) => _.omit(prev, fileToDelete.name));
       fileToDelete.fieldChange(null);
       setFileToDelete(null);
     }
@@ -296,11 +305,48 @@ const ProfileInfoForm = () => {
           )}
         </div>
       ))}
+      {(isEditor || role === 'user') &&
+       customSections
+         .filter((section) => customFields.some((customField) => customField.section === section._id))
+         .map((section) => (
+           <Accordion
+             key={section._id}
+             title={section.names[i18n.language]}
+             id={section._id}
+             className="accordion"
+           >
+             <div className="accordion-content">
+               {customFields
+                 .filter((customField) => customField.section === section._id)
+                 .map((customField) => (
+                   <Controller
+                     key={customField._id}
+                     name={`customFields.${customField._id}`}
+                     rules={{ required: customField.required }}
+                     control={control}
+                     defaultValue={userData?.customFields?.[customField._id as string] || ''}
+                     render={({ field }) => (
+                       <div className="field-wrap">
+                         <CustomField
+                           value={field.value}
+                           onChange={field.onChange}
+                           metadata={customField}
+                         />
+                       </div>
+                     )}
+                   />
+                 ))}
+             </div>
+           </Accordion>
+         ))}
       {!_.isEmpty(errors) && (
         <div className="form-errors">
           <p>{t('errors')}</p>
           <ul>
-            {Object.keys(errors).map((item) => <li key={item}>{t(`user.${item}`)}</li>)}
+            {Object.keys(_.omit(errors, 'customFields')).map((item) => <li key={item}>{t(`user.${item}`)}</li>)}
+            {Object.keys(errors.customFields || {}).map((item) => (
+              <li key={item}>{customFields.find((customField) => customField._id === item)?.names[i18n.language]}</li>
+            ))}
           </ul>
         </div>
       )}

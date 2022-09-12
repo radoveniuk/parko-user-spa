@@ -7,7 +7,8 @@
     "prepayments": "Prepayments",
     "daysoff": "Days off",
     "paychecks": "Paychecks",
-    "projects": "Projects"
+    "projects": "Projects",
+    "customization": "Customization"
   },
   "menu": {
     "prepayment": "Request prepayment",
@@ -206,6 +207,13 @@
       "fullTime": "Full time employment",
       "partTime": "Part-time job",
       "sideJob": "Side job"
+    },
+    "customForms": {
+      "string": "Text",
+      "boolean": "Yes/No",
+      "number": "Number",
+      "phone": "Phone number",
+      "date": "Date"
     }
   },
   "notFoundText": "Page not found",
@@ -255,6 +263,16 @@
     "delete": "Delete notification",
     "in": "Income",
     "out": "Sent"
+  },
+  "customForms": {
+    "names": "Name",
+    "configuration": "Connfiguration",
+    "projects": "Projects",
+    "type": "Type",
+    "required": "Required",
+    "section": "Form's section",
+    "save": "Save",
+    "delete":"Delete"
   },
   "language": "Language",
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",

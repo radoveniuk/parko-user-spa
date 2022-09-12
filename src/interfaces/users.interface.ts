@@ -66,6 +66,8 @@ export interface IUser {
   salary: string;
   salaryType: string;
   salaryComment: string;
+
+  customFields: Record<string, unknown>;
 }
 
 export type LoginDto = {

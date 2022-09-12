@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import _ from 'lodash-es';
+import React, { useState, useEffect } from 'react';
+import _, { isEqual } from 'lodash-es';
 
 import MaterialList, { ListProps } from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
@@ -17,10 +17,11 @@ type Props = ListProps & {
   };
   onSelect?(value: any): void;
   highlite?: [string, any];
+  defaultSelected?: unknown;
 }
 
-const List = ({ data, fields, onSelect, highlite, ...rest }: Props) => {
-  const [selected, setSelected] = useState(null);
+const List = ({ data, fields, onSelect, highlite, defaultSelected, ...rest }: Props) => {
+  const [selected, setSelected] = useState(defaultSelected);
 
   const getText = (item: AnyObject, path: string | string[]) => {
     if (typeof path === 'string') {
@@ -28,6 +29,13 @@ const List = ({ data, fields, onSelect, highlite, ...rest }: Props) => {
     }
     return path.map((pathItem) => _.get(item, pathItem)).join(' ');
   };
+
+  useEffect(() => {
+    if (!isEqual(selected, defaultSelected)) {
+      setSelected(defaultSelected);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultSelected]);
 
   return (
     <MaterialList sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} {...rest}>
