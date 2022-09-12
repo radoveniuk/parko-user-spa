@@ -24,14 +24,14 @@ import { AcceptIcon, DeleteIcon, UploadIcon } from 'components/icons';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import { IFile } from 'interfaces/file.interface';
 import { useDeleteFileMutation } from 'api/mutations/fileMutation';
+import IconButton from 'components/shared/IconButton';
+import DialogConfirm from 'components/shared/DialogConfirm';
+import downloadFile from 'api/query/downloadFile';
 
 import { FIELDS, ADMIN_FIELDS, FieldSection, UserField } from './fields';
 import DialogForm from './DialogForm';
 
 import { ProfileInfoFormWrapper } from './styles';
-import IconButton from 'components/shared/IconButton';
-import DialogConfirm from 'components/shared/DialogConfirm';
-import downloadFile from 'api/query/downloadFile';
 
 const ProfileInfoForm = () => {
   const isEditor = window.location.href.includes('editor');

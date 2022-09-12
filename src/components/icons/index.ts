@@ -21,4 +21,5 @@ export { ImExit as ExitIcon } from 'react-icons/im';
 export { AiOutlineFileText as FileIcon } from 'react-icons/ai';
 export { FaFileDownload as DownloadFileIcon } from 'react-icons/fa';
 export { BiImport as ExportIcon } from 'react-icons/bi';
+export { RiToolsFill as CustomizeIcon } from 'react-icons/ri';
 export { default as BooleanIcon } from './BooleanIcon';

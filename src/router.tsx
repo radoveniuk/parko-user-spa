@@ -21,6 +21,7 @@ import CreateNotificationPage from 'pages/CreateNotificationPage';
 import UploadProfilesPage from 'pages/UploadProfilesPage';
 import NotificationProvider from 'contexts/NotificationContext';
 import ExportProfilesPage from 'pages/ExportProfilesPage';
+import CustomizationPage from 'pages/CustomizationPage';
 
 export default function Router () {
   const { role } = useAuthData();
@@ -55,6 +56,7 @@ export default function Router () {
               <Route path="/export-profiles" element={<ProtectedRoute><ExportProfilesPage /></ProtectedRoute>} />
               <Route path="/profile-editor" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
               <Route path="/profile-editor/:id" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+              <Route path="/customization" element={<ProtectedRoute><CustomizationPage /></ProtectedRoute>} />
             </>
           )}
         </Routes>

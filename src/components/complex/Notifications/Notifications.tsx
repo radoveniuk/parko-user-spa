@@ -10,7 +10,7 @@ import { INotification } from 'interfaces/notification.interface';
 
 import { NotificationContent, NotificationDeleteButton, NotificationTitle } from './NotificationContent';
 
-import { DeleteModalContent, EmptyDataWrapper, NotificationWrapper } from './style';
+import { DeleteModalContent, EmptyDataWrapper, NotificationWrapper } from './styles';
 
 type Props = {
   options: Partial<INotification>;

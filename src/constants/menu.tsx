@@ -1,5 +1,8 @@
 import React from 'react';
-import { DayoffIcon, HomeIcon, NotificationIcon, PaycheckIcon, PrepaymentIcon, ProjectIcon, UploadIcon, UserIcon, UsersIcon } from 'components/icons';
+import {
+  CustomizeIcon, DayoffIcon, HomeIcon, NotificationIcon, PaycheckIcon,
+  PrepaymentIcon, ProjectIcon, UploadIcon, UserIcon, UsersIcon,
+} from 'components/icons';
 import { To } from 'react-router-dom';
 
 export type INavbarItem = {
@@ -107,6 +110,11 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     title: 'navbar.paychecks',
     icon: <UploadIcon size={30} />,
     to: '/paychecks-upload',
+  },
+  {
+    title: 'navbar.customization',
+    icon: <CustomizeIcon size={30} />,
+    to: '/customization',
   },
 ];
 
