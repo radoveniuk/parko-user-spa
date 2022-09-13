@@ -6,9 +6,12 @@ export const ProjectsListWrapper = styled.div`
   .projects-list {
     border-right: 1px solid #e9e9e9;
     min-width: 33%;
-    max-height: calc(100vh - 190px);
-    min-height: calc(100vh - 190px);
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
+  }
+
+  .users-table {
+    max-height: calc(100vh - 275px);
   }
 `;
 

@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+import { useQueryClient } from 'react-query';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -17,10 +17,11 @@ import { CustomFormEntity, ICustomFormSection } from 'interfaces/form.interface'
 import Dialog from 'components/shared/Dialog';
 import { LANGUAGES } from 'constants/languages';
 import Input from 'components/shared/Input';
-
-import { CustomSectionForm } from './styles';
-import { useQueryClient } from 'react-query';
 import DialogConfirm from 'components/shared/DialogConfirm';
+import useDebounce from 'hooks/useDebounce';
+import { fetchTranslation } from 'api/query/translationQuery';
+
+import { CustomSectionForm, CustomSectionsWrapper } from './styles';
 
 const DEFAULT_SECTION: ICustomFormSection = {
   entity: 'user',
@@ -30,6 +31,7 @@ const DEFAULT_SECTION: ICustomFormSection = {
     uk: '',
     sk: '',
   },
+  order: 0,
 };
 
 type Props = {
@@ -40,7 +42,7 @@ type Props = {
 
 const CustomSections = ({ value, onChange, entity }: Props) => {
   const { i18n, t } = useTranslation();
-  const { register, handleSubmit, reset, formState: { errors }, control } = useForm<ICustomFormSection>();
+  const { register, handleSubmit, reset, formState: { errors }, getValues, setValue } = useForm<ICustomFormSection>();
   const queryClient = useQueryClient();
 
   const { data: customSections = [], refetch } = useGetCustomFormSections({ entity });
@@ -50,6 +52,21 @@ const CustomSections = ({ value, onChange, entity }: Props) => {
 
   const [sectionData, setSectionData] = useState<ICustomFormSection | null>(null);
   const [sectionToDelete, setSectionToDelete] = useState<ICustomFormSection | null>(null);
+
+  const [nameToTranslate, setNameToTranslate] = useState<{ fromLang: string; text: '' } | null>(null);
+  const debouncedNameToTranslate = useDebounce(nameToTranslate, 800);
+
+  const getNearestOrder = () => {
+    let order = 0;
+    customSections.forEach((item) => {
+      if (order === item.order) {
+        order += 1;
+      }
+    });
+    return order;
+  };
+
+  const isFreeOrder = (order: number) => customSections.every((item) => item.order.toString() !== order.toString());
 
   const submitSaveFormSection: SubmitHandler<ICustomFormSection> = (data) => {
     if (!data._id) {
@@ -83,23 +100,53 @@ const CustomSections = ({ value, onChange, entity }: Props) => {
     }
   }, [sectionData, reset]);
 
+  useEffect(() => {
+    if (debouncedNameToTranslate?.text.trim()) {
+      const names = getValues('names');
+      const anotherLangs = Object.keys(names)
+        .filter((langCode) => !names[langCode])
+        .map((langCode) => langCode !== 'en' ? langCode : `${langCode}-us`);
+
+      const fetchWrapper = async (toLang: string) => {
+        const value = await fetchTranslation({ toLang, ...debouncedNameToTranslate });
+        return {
+          value, code: toLang,
+        };
+      };
+
+      Promise.all(anotherLangs.map((toLang) => fetchWrapper(toLang)))
+        .then((results) => {
+          console.log(results);
+          results.forEach((res) => {
+            setValue(`names.${res.code.replace('-us', '')}`, res.value);
+          });
+        });
+    }
+  }, [debouncedNameToTranslate, getValues, setValue]);
+
   return (
-    <div>
-      <RadioButtonGroup label={t('customForms.section')} value={value} onChange={(e) => void onChange(e.target.value)}>
+    <CustomSectionsWrapper>
+      <RadioButtonGroup label={t('customForms.section')} className="sections-grid" value={value} onChange={(e) => void onChange(e.target.value)}>
         {customSections.map((item) => (
           <div key={item._id} className="section-radio-wrapper">
             <RadioButton label={item.names[i18n.language]} value={item._id} />
             <IconButton onClick={() => void setSectionData(item)}><EditIcon /></IconButton>
             <IconButton onClick={() => void setSectionToDelete(item)}><DeleteIcon /></IconButton>
+            <p>{item.order}</p>
           </div>
         ))}
       </RadioButtonGroup>
       <div>
-        <Button variant="outlined" onClick={() => void setSectionData({ ...DEFAULT_SECTION, entity })}><PlusIcon size={20} />{t('add')}</Button>
+        <Button
+          variant="outlined"
+          onClick={() => void setSectionData({ ...DEFAULT_SECTION, entity, order: getNearestOrder() })}
+        >
+          <PlusIcon size={20} />{t('add')}
+        </Button>
       </div>
       {!!sectionData && (
         <Dialog open={!!sectionData} onClose={() => void setSectionData(null)} title={t('customForms.section')}>
-          <CustomSectionForm onSubmit={handleSubmit(submitSaveFormSection)} className="update-custom-field-form">
+          <CustomSectionForm className="update-custom-field-form">
             <span className="form-label">{t('customForms.names')}</span>
             <div className="config-wrapper">
               {LANGUAGES.map((item) => (
@@ -108,12 +155,24 @@ const CustomSections = ({ value, onChange, entity }: Props) => {
                   label={`${item.code} - ${item.title}`}
                   InputLabelProps={{ shrink: true }}
                   error={!!errors.names?.[item.code]}
-                  {...register(`names.${item.code}`, { required: true })}
+                  {...register(`names.${item.code}`, {
+                    required: true,
+                    onChange: (e) => {
+                      setNameToTranslate({ text: e.target.value, fromLang: item.code });
+                    },
+                  })}
                 />
               ))}
+              <Input
+                label={t('customForms.order')}
+                InputLabelProps={{ shrink: true }}
+                error={!!errors.order}
+                type="number"
+                {...register('order', { required: true, validate: isFreeOrder })}
+              />
             </div>
             <div className="config-wrapper">
-              <Button type="submit">{t('customForms.save')}</Button>
+              <Button onClick={handleSubmit(submitSaveFormSection)}>{t('customForms.save')}</Button>
             </div>
           </CustomSectionForm>
         </Dialog>
@@ -121,7 +180,7 @@ const CustomSections = ({ value, onChange, entity }: Props) => {
       {sectionToDelete !== null && (
         <DialogConfirm open={!!sectionToDelete} onClose={() => void setSectionToDelete(null)} onSubmit={submitDeleteSection} />
       )}
-    </div>
+    </CustomSectionsWrapper>
   );
 };
 

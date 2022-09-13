@@ -272,7 +272,8 @@
     "required": "Required",
     "section": "Form's section",
     "save": "Save",
-    "delete":"Delete"
+    "delete":"Delete",
+    "order": "Order"
   },
   "language": "Language",
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",

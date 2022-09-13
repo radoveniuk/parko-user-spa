@@ -42,10 +42,5 @@ export const CustomFieldsWrapper = styled.div`
       flex-wrap: wrap;
       gap: 10px;
     }
-
-    .section-radio-wrapper {
-      display: flex;
-      gap: 10px;
-    }
   }
 `;

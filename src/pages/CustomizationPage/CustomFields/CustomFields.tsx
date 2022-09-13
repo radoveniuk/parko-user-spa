@@ -20,6 +20,8 @@ import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { useGetProjects } from 'api/query/projectQuery';
 import Checkbox from 'components/shared/Checkbox';
 import DialogConfirm from 'components/shared/DialogConfirm';
+import { fetchTranslation } from 'api/query/translationQuery';
+import useDebounce from 'hooks/useDebounce';
 
 import CustomSections from './CustomSections';
 
@@ -57,16 +59,23 @@ const CustomFields = ({
   const updateCustomField = useUpdateCustomFormFieldMutation();
   const deleteCustomField = useDeleteCustomFormFieldMutation();
 
-  const { register, handleSubmit, reset, formState: { errors }, control } = useForm<ICustomFormField>();
+  const { register, handleSubmit, reset, formState: { errors }, control, getValues, setValue } = useForm<ICustomFormField>();
 
   const [activeCustomField, setActiveCustomField] = useState<ICustomFormField | null>(null);
   const [customFieldToDelete, setCustomFieldToDelete] = useState<ICustomFormField | null>(null);
   const fieldTypeOptions = useTranslatedSelect(CUSTOM_FIELD_TYPES, 'customForms');
 
+  const [nameToTranslate, setNameToTranslate] = useState<{ fromLang: string; text: '' } | null>(null);
+  const debouncedNameToTranslate = useDebounce(nameToTranslate, 800);
+
   const submitSaveField: SubmitHandler<ICustomFormField> = (data) => {
     if (!data._id) {
       createCustomField.mutateAsync(data).then((res) => {
-        queryClient.setQueryData(['customFormFields', JSON.stringify({ entity })], [...customFields, res]);
+        queryClient.setQueryData(['customFormFields', JSON.stringify({ entity })], [res, ...customFields]);
+        setActiveCustomField(null);
+        setTimeout(() => {
+          setActiveCustomField(res);
+        });
       });
     } else {
       updateCustomField.mutate(data);
@@ -87,6 +96,30 @@ const CustomFields = ({
       reset(activeCustomField);
     }
   }, [activeCustomField, reset]);
+
+  useEffect(() => {
+    if (debouncedNameToTranslate?.text.trim()) {
+      const names = getValues('names');
+      const anotherLangs = Object.keys(names)
+        .filter((langCode) => !names[langCode])
+        .map((langCode) => langCode !== 'en' ? langCode : `${langCode}-us`);
+
+      const fetchWrapper = async (toLang: string) => {
+        const value = await fetchTranslation({ toLang, ...debouncedNameToTranslate });
+        return {
+          value, code: toLang,
+        };
+      };
+
+      Promise.all(anotherLangs.map((toLang) => fetchWrapper(toLang)))
+        .then((results) => {
+          console.log(results);
+          results.forEach((res) => {
+            setValue(`names.${res.code.replace('-us', '')}`, res.value);
+          });
+        });
+    }
+  }, [debouncedNameToTranslate, getValues, setValue]);
 
   return (
     <CustomFieldsWrapper>
@@ -114,7 +147,12 @@ const CustomFields = ({
                 label={`${item.code} - ${item.title}`}
                 InputLabelProps={{ shrink: true }}
                 error={!!errors.names?.[item.code]}
-                {...register(`names.${item.code}`, { required: true })}
+                {...register(`names.${item.code}`, {
+                  required: true,
+                  onChange: (e) => {
+                    setNameToTranslate({ text: e.target.value, fromLang: item.code });
+                  },
+                })}
               />
             ))}
           </div>

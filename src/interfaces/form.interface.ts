@@ -16,4 +16,5 @@ export interface ICustomFormSection {
   _id?: string;
   names: Record<string, string>;
   entity: CustomFormEntity;
+  order: number;
 }

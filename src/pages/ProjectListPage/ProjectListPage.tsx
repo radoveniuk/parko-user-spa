@@ -138,7 +138,7 @@ const ProjectListPageRender = () => {
                 </ProjectInfoDataWrapper>
               </TabPanel>
               <TabPanel index={1}>
-                <ListTable columns={usersTableCols}>
+                <ListTable columns={usersTableCols} className="users-table" stickyHeader>
                   {linkedUsers?.map((user) => (
                     <Link key={user._id} to={`/profile/${user._id}`} style={{ display: 'contents', color: '#000' }}>
                       <ListTableRow>
