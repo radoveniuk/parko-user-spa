@@ -68,6 +68,8 @@ export interface IUser {
   salaryComment: string;
 
   customFields: Record<string, unknown>;
+
+  otherScans?: string[] | IFile[];
 }
 
 export type LoginDto = {

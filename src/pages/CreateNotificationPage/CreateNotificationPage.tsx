@@ -32,7 +32,7 @@ const CreateNotificationPage = () => {
   const [users, setUsers] = useState<IUser[]>([]);
 
   const submitHandler: SubmitHandler<INotification> = async (data) => {
-    const notifications: INotification[] = users.map((user) => ({
+    const notifications: Partial<INotification>[] = users.map((user) => ({
       from: id,
       to: user._id,
       title: data.title,

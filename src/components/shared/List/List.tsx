@@ -8,11 +8,11 @@ import { ListItemButton } from '@mui/material';
 import { AnyObject } from 'interfaces/base.types';
 import { StyledListItem } from './styles';
 
-type Props = ListProps & {
-  data: any[];
+type Props<T> = ListProps & {
+  data: T[];
   fields: {
     primary: string | string[];
-    secondary?: string | string[];
+    secondary?: string | string[] | ((row: T) => string | React.ReactNode);
     text?: string;
   };
   onSelect?(value: any): void;
@@ -20,7 +20,7 @@ type Props = ListProps & {
   defaultSelected?: unknown;
 }
 
-const List = ({ data, fields, onSelect, highlite, defaultSelected, ...rest }: Props) => {
+export default function List <T extends { _id: string }> ({ data, fields, onSelect, highlite, defaultSelected, ...rest }: Props<T>) {
   const [selected, setSelected] = useState(defaultSelected);
 
   const getText = (item: AnyObject, path: string | string[]) => {
@@ -55,7 +55,9 @@ const List = ({ data, fields, onSelect, highlite, defaultSelected, ...rest }: Pr
                   variant="body2"
                   color="text.primary"
                 >
-                  {getText(item, fields.secondary)}
+                  {(Array.isArray(fields.secondary) || typeof fields.secondary === 'string')
+                    ? getText(item, fields.secondary)
+                    : fields.secondary(item)}
                 </Typography>
               )}
             />
@@ -65,5 +67,3 @@ const List = ({ data, fields, onSelect, highlite, defaultSelected, ...rest }: Pr
     </MaterialList>
   );
 };
-
-export default List;

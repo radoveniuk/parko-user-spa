@@ -43,4 +43,5 @@ export const USER_SCAN_TYPE = [
   'idCardBackScan',
   'permitFaceScan',
   'permitBackScan',
+  'other',
 ];

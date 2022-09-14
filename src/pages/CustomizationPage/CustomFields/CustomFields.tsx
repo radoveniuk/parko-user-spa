@@ -29,7 +29,7 @@ import { CustomFieldsWrapper } from './styles';
 
 const CUSTOM_FIELD_TYPES: CustomFormFieldType[] = ['boolean', 'date', 'number', 'phone', 'string'];
 
-const DEFAULT_CUSTOM_FIELD: ICustomFormField = {
+const DEFAULT_CUSTOM_FIELD: Partial<ICustomFormField> = {
   entity: 'user',
   names: {
     en: '',
@@ -61,8 +61,8 @@ const CustomFields = ({
 
   const { register, handleSubmit, reset, formState: { errors }, control, getValues, setValue } = useForm<ICustomFormField>();
 
-  const [activeCustomField, setActiveCustomField] = useState<ICustomFormField | null>(null);
-  const [customFieldToDelete, setCustomFieldToDelete] = useState<ICustomFormField | null>(null);
+  const [activeCustomField, setActiveCustomField] = useState<Partial<ICustomFormField> | null>(null);
+  const [customFieldToDelete, setCustomFieldToDelete] = useState<Partial<ICustomFormField> | null>(null);
   const fieldTypeOptions = useTranslatedSelect(CUSTOM_FIELD_TYPES, 'customForms');
 
   const [nameToTranslate, setNameToTranslate] = useState<{ fromLang: string; text: '' } | null>(null);
@@ -123,7 +123,7 @@ const CustomFields = ({
 
   return (
     <CustomFieldsWrapper>
-      <List
+      <List<ICustomFormField>
         className="custom-fields-list"
         data={customFields}
         fields={{

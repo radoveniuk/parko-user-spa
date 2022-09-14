@@ -8,7 +8,7 @@ export const ScansWrapper = styled.div`
   }
   .file-grid {
     max-width: min-content;
-    grid-template-columns: max-content 1fr 1fr 1fr !important;
+    grid-template-columns: max-content 1fr 1fr 1fr 1fr 1fr 1fr !important;
 
     .file-row {
       cursor: default;

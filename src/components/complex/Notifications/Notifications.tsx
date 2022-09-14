@@ -11,6 +11,8 @@ import { INotification } from 'interfaces/notification.interface';
 import { NotificationContent, NotificationDeleteButton, NotificationTitle } from './NotificationContent';
 
 import { DeleteModalContent, EmptyDataWrapper, NotificationWrapper } from './styles';
+import { IUser } from 'interfaces/users.interface';
+import { getDateFromIso } from 'helpers/datetime';
 
 type Props = {
   options: Partial<INotification>;
@@ -58,12 +60,15 @@ const Notifications = ({
 
   return (
     <NotificationWrapper>
-      <List
+      <List<INotification>
         className="notifications-list"
         data={data}
         fields={{
           primary: 'title',
-          secondary: [`${mode}.name`, `${mode}.surname`],
+          secondary: (row) => {
+            const user = row[mode] as IUser;
+            return <div>{user.name} {user.surname} <i>{getDateFromIso(row.createdAt, 'dd.MM.yyyy HH:mm')}</i></div>;
+          },
         }}
         onSelect={selectNotificationHandler}
         highlite={['viewed', false]}
