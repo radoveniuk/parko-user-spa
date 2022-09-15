@@ -71,15 +71,16 @@ const ProfileInfoForm = () => {
     Object.keys(filesStorage).forEach((key) => {
       const file = filesStorage[key as keyof IUser];
       if (file) {
-        const ext = file.name.split('.')[file.name.split('.').length - 1];
-        formData.append('files', file, `${key}.${ext}`);
+        // const ext = file.name.split('.')[file.name.split('.').length - 1];
+        formData.append('files', file);
+        formData.append(file.name, JSON.stringify({ type: key }));
       }
     });
 
     if (formData.get('files')) {
       const uploadedFilesData = await uploadFiles(formData);
       uploadedFilesData.forEach((file) => {
-        const fieldName = file.originalname as 'internationalPassScan' | 'passScan' | 'idCardFaceScan' |
+        const fieldName = file.metadata?.type as 'internationalPassScan' | 'passScan' | 'idCardFaceScan' |
         'idCardBackScan' | 'permitFaceScan' | 'permitBackScan';
         setValue(fieldName, file._id);
       });
@@ -246,17 +247,21 @@ const ProfileInfoForm = () => {
                     <>
                       <span
                         className="download-file-link"
-                        onClick={() => void downloadFile((field.value as IFile)._id, t(`user.${fieldName}`), (field.value as IFile).ext || 'pdf')}
-                      >
-                        {`${t(`user.${(field.value as IFile).originalname}`)}.${(field.value as IFile).ext}`}
-                      </span>
-                      <IconButton
                         onClick={() => {
-                          setFileToDelete({ name: fieldName, data: field.value as IFile, fieldChange: field.onChange });
+                          downloadFile((field.value as IFile)._id, (field.value as IFile).originalname, (field.value as IFile).ext || 'pdf');
                         }}
                       >
-                        <DeleteIcon size={15} />
-                      </IconButton>
+                        {(field.value as IFile).originalname}.{(field.value as IFile).ext}
+                      </span>
+                      {role === 'admin' && (
+                        <IconButton
+                          onClick={() => {
+                            setFileToDelete({ name: fieldName, data: field.value as IFile, fieldChange: field.onChange });
+                          }}
+                        >
+                          <DeleteIcon size={15} />
+                        </IconButton>
+                      )}
                     </>
                   )}
                 </div>

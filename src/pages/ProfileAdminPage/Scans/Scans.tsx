@@ -27,7 +27,7 @@ const cols = [
   'file.name',
   'file.ext',
   'file.type',
-  'file.comment',
+  'comment',
   '',
   '',
   '',
@@ -104,7 +104,7 @@ const Scans = ({ data, onUpdate }: Props) => {
                 <ListTableCell>{fileData.metadata?.comment}</ListTableCell>
                 <ListTableCell>
                   <IconButton
-                    onClick={() => void downloadFile(fileData._id, t(`user.${scanKey}`), fileData.ext || 'pdf')}
+                    onClick={() => void downloadFile(fileData._id, fileData.originalname, fileData.ext || 'pdf')}
                   >
                     <DownloadFileIcon />
                   </IconButton>

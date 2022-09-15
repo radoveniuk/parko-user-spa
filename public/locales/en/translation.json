@@ -128,7 +128,8 @@
     "salaryComment": "Comment",
     "employmentType": "Employment type",
     "mailError": "Invalid email",
-    "export": "Export"
+    "export": "Export",
+    "other": "Other"
   },
   "userUpload": {
     "title": "Upload users",
@@ -227,7 +228,9 @@
     "upload": "Drop files here or click",
     "submit": "Send files",
     "add": "Add files",
-    "name": "Name"
+    "name": "Name",
+    "ext": "Extention",
+    "type": "Type"
   },
   "paycheck": {
     "successfullUpload": "Paychecks were uploaded"
@@ -283,5 +286,8 @@
   "deleteApprove": "Are you sure?",
   "rowsPerPage": "Rows per page",
   "selectAll": "Select all items",
-  "selectAllCols": "Select all columns"
+  "selectAllCols": "Select all columns",
+  "add": "Add",
+  "comment": "Comment",
+  "other": "Other"
 }
