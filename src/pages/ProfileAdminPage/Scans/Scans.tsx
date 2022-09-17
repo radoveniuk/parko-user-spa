@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { IUser } from 'interfaces/users.interface';
@@ -42,6 +42,7 @@ const Scans = ({ data, onUpdate }: Props) => {
   const [selectedType, setSelectedType] = useState('');
   const [fileToDelete, setFileToDelete] = useState<IFile | null>(null);
   const [comment, setComment] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const updateFile = async (fileKey: string, file: File, fileComment?: string) => {
     const formData = new window.FormData();
@@ -50,6 +51,12 @@ const Scans = ({ data, onUpdate }: Props) => {
     formData.append(file.name, JSON.stringify({ comment: fileComment, type: fileKey }));
 
     const [uploadedFileData] = await uploadFiles(formData);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+    setComment('');
+
     if (fileKey !== 'other') {
       onUpdate({ [fileKey]: uploadedFileData._id });
     } else {
@@ -63,14 +70,13 @@ const Scans = ({ data, onUpdate }: Props) => {
     }
   };
 
-  const deleteFile = () => {
-    if (!fileToDelete) return;
-    deleteFileMutation.mutateAsync(fileToDelete).then(() => {
-      if (fileToDelete.metadata?.type !== 'other') {
-        onUpdate({ [fileToDelete.originalname]: null });
+  const deleteFile = (file: IFile) => {
+    deleteFileMutation.mutateAsync(file).then(() => {
+      if (file.metadata?.type !== 'other') {
+        onUpdate({ [file.originalname]: null });
       } else {
         const oldOtherScans = (data.otherScans || []) as IFile[];
-        const newOtherScans = oldOtherScans.filter((item) => item._id !== fileToDelete._id).map((item) => item._id);
+        const newOtherScans = oldOtherScans.filter((item) => item._id !== file._id).map((item) => item._id);
         onUpdate({
           otherScans: newOtherScans,
         });
@@ -83,11 +89,12 @@ const Scans = ({ data, onUpdate }: Props) => {
     <ScansWrapper>
       <div className="upload-new-wrapper">
         <Select options={translatedKeys} label={t('user.scancopies')} onChange={(e) => void setSelectedType(e.target.value as string)} />
-        <Input label={t('comment')} onChange={(e) => void setComment(e.target.value)} error={selectedType === 'other' && !comment} />
+        <Input label={t('comment')} value={comment} onChange={(e) => void setComment(e.target.value)} error={selectedType === 'other' && !comment} />
         <FileInput
           id="fileInput"
           disabled={!selectedType || (selectedType === 'other' && !comment)}
           onChange={(e: ChangeEvent<HTMLInputElement>) => { updateFile(selectedType, e.target.files?.[0] as File, comment); }}
+          ref={fileInputRef}
         >
           <UploadIcon />&nbsp;{t('user.upload')}
         </FileInput>
@@ -148,7 +155,10 @@ const Scans = ({ data, onUpdate }: Props) => {
                 <ListTableCell>
                   <FileInput
                     id={comment}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => { updateFile('other', e.target.files?.[0] as File, comment); }}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                      deleteFile(fileData);
+                      updateFile('other', e.target.files?.[0] as File, comment);
+                    }}
                     buttonComponent={(
                       <IconButton
                         className="file-input"
@@ -166,7 +176,7 @@ const Scans = ({ data, onUpdate }: Props) => {
       )}
       <DialogConfirm
         open={!!fileToDelete}
-        onSubmit={deleteFile}
+        onSubmit={() => void deleteFile(fileToDelete as IFile)}
         onClose={() => void setFileToDelete(null) }
       />
     </ScansWrapper>
