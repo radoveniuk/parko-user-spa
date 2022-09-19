@@ -1,13 +1,13 @@
 import React, {
   createContext, ReactNode, useContext, useEffect, useState,
 } from 'react';
-import { io } from 'socket.io-client';
-import { useQueryClient } from 'react-query';
+// import { io } from 'socket.io-client';
+// import { useQueryClient } from 'react-query';
 
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { useGetNotifications } from 'api/query/notificationsQuery';
-import { INotification } from 'interfaces/notification.interface';
-import { BASE_URL } from 'api/common';
+// import { INotification } from 'interfaces/notification.interface';
+// import { BASE_URL } from 'api/common';
 
 type contextType = {
   newNotification: boolean;
@@ -16,7 +16,7 @@ type contextType = {
 const NotificationContext = createContext<contextType | undefined>(undefined);
 NotificationContext.displayName = 'NotificationContext';
 
-const socket = io(BASE_URL, { autoConnect: true });
+// const socket = io(BASE_URL, { autoConnect: true });
 
 const NotificationProvider = ({ children }: { children: ReactNode }) => {
   const [userId] = useLocalStorageState('userId');
@@ -25,7 +25,7 @@ const NotificationProvider = ({ children }: { children: ReactNode }) => {
     refetch: refetchNotifications,
   } = useGetNotifications({ to: userId }, { enabled: !!userId, refetchOnWindowFocus: false });
   const [newNotification, setNewNotification] = useState(false);
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   useEffect(() => {
     if (userNotifications.length) {
@@ -39,16 +39,16 @@ const NotificationProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [refetchNotifications, userId]);
 
-  useEffect(() => {
-    socket.on('connect', () => {
-      console.log('Wss connected');
-    });
-    socket.on('newNotification', (data: INotification) => {
-      if (data.to === userId) {
-        queryClient.setQueryData(['notifications', JSON.stringify({ to: userId })], [data, ...userNotifications]);
-      }
-    });
-  }, [queryClient, userId, userNotifications]);
+  // useEffect(() => {
+  //   socket.on('connect', () => {
+  //     console.log('Wss connected');
+  //   });
+  //   socket.on('newNotification', (data: INotification) => {
+  //     if (data.to === userId) {
+  //       queryClient.setQueryData(['notifications', JSON.stringify({ to: userId })], [data, ...userNotifications]);
+  //     }
+  //   });
+  // }, [queryClient, userId, userNotifications]);
 
   return (
     <NotificationContext.Provider value={{ newNotification }}>
