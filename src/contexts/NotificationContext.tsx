@@ -16,7 +16,7 @@ type contextType = {
 const NotificationContext = createContext<contextType | undefined>(undefined);
 NotificationContext.displayName = 'NotificationContext';
 
-const socket = io(BASE_URL);
+const socket = io(BASE_URL, { autoConnect: true });
 
 const NotificationProvider = ({ children }: { children: ReactNode }) => {
   const [userId] = useLocalStorageState('userId');
