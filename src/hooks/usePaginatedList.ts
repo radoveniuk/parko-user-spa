@@ -29,14 +29,14 @@ const usePaginatedList = <T>(list: T[] = [], options?: Options) => {
     });
   }, [navigate, pageQueries]);
 
-  const prevRowsPerPage = usePrev(options?.rowsPerPage);
+  const prevRowsPerPage = usePrev(rowsPerPage);
   const prevListLength = usePrev(list.length);
 
   useEffect(() => {
-    if (options?.rowsPerPage !== prevRowsPerPage || list.length !== prevListLength) {
+    if ((rowsPerPage !== prevRowsPerPage && prevRowsPerPage) || (list.length !== prevListLength && prevListLength)) {
       onChange(null, defaultPage);
     }
-  }, [defaultPage, list.length, onChange, options?.rowsPerPage, prevListLength, prevRowsPerPage]);
+  }, [defaultPage, list.length, onChange, rowsPerPage, prevListLength, prevRowsPerPage]);
 
   useEffect(() => {
     if (pageQueries.page && pageQueries.page !== page.toString()) {
