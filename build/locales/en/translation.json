@@ -7,7 +7,8 @@
     "prepayments": "Prepayments",
     "daysoff": "Days off",
     "paychecks": "Paychecks",
-    "projects": "Projects"
+    "projects": "Projects",
+    "customization": "Customization"
   },
   "menu": {
     "prepayment": "Request prepayment",
@@ -126,7 +127,9 @@
     "salaryType": "Salary type",
     "salaryComment": "Comment",
     "employmentType": "Employment type",
-    "mailError": "Invalid email"
+    "mailError": "Invalid email",
+    "export": "Export",
+    "other": "Other"
   },
   "userUpload": {
     "title": "Upload users",
@@ -202,8 +205,16 @@
       "self": "Self employment",
       "onCompany": "In the company",
       "outsideCompany": "Outside of the company",
+      "fullTime": "Full time employment",
       "partTime": "Part-time job",
       "sideJob": "Side job"
+    },
+    "customForms": {
+      "string": "Text",
+      "boolean": "Yes/No",
+      "number": "Number",
+      "phone": "Phone number",
+      "date": "Date"
     }
   },
   "notFoundText": "Page not found",
@@ -217,7 +228,9 @@
     "upload": "Drop files here or click",
     "submit": "Send files",
     "add": "Add files",
-    "name": "Name"
+    "name": "Name",
+    "ext": "Extention",
+    "type": "Type"
   },
   "paycheck": {
     "successfullUpload": "Paychecks were uploaded"
@@ -250,12 +263,31 @@
     "title": "Title",
     "send": "Send",
     "users": "Users",
-    "delete": "Delete notification"
+    "delete": "Delete notification",
+    "in": "Income",
+    "out": "Sent"
+  },
+  "customForms": {
+    "names": "Name",
+    "configuration": "Connfiguration",
+    "projects": "Projects",
+    "type": "Type",
+    "required": "Required",
+    "section": "Form's section",
+    "save": "Save",
+    "delete":"Delete",
+    "order": "Order"
   },
   "language": "Language",
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
   "next": "Next",
   "Back": "Back",
   "errors": "Errors",
-  "deleteApprove": "Are you sure?"
+  "deleteApprove": "Are you sure?",
+  "rowsPerPage": "Rows per page",
+  "selectAll": "Select all items",
+  "selectAllCols": "Select all columns",
+  "add": "Add",
+  "comment": "Comment",
+  "other": "Other"
 }
