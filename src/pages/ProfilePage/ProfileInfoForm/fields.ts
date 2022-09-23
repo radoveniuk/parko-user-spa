@@ -1,7 +1,7 @@
 import { UseFormWatch, Validate } from 'react-hook-form';
-import { IUser } from 'interfaces/users.interface';
 
 import { validateEmail } from 'helpers/validateEmail';
+import { IUser } from 'interfaces/users.interface';
 
 export type UserFormFields = Partial<IUser> & {
   passScancopy: File;

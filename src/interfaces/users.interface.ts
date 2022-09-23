@@ -1,5 +1,5 @@
-import { IProject } from './project.interface';
 import { IFile } from './file.interface';
+import { IProject } from './project.interface';
 
 export interface IUser {
   _id: string;

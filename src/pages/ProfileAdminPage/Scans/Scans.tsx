@@ -1,20 +1,24 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { IUser } from 'interfaces/users.interface';
-import { IFile } from 'interfaces/file.interface';
-import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import IconButton from 'components/shared/IconButton';
-import { CloseIcon, DownloadFileIcon, EditIcon, UploadIcon } from 'components/icons';
-import downloadFile from 'api/query/downloadFile';
-import FileInput from 'components/shared/FileInput';
-import Select from 'components/shared/Select';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import { USER_SCAN_TYPE } from 'constants/selectsOptions';
 import { uploadFiles } from 'api/common';
 import { useDeleteFileMutation } from 'api/mutations/fileMutation';
+import downloadFile from 'api/query/downloadFile';
+
+import { CloseIcon, DownloadFileIcon, EditIcon, UploadIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
+import FileInput from 'components/shared/FileInput';
+import IconButton from 'components/shared/IconButton';
 import Input from 'components/shared/Input';
+import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import Select from 'components/shared/Select';
+
+import { USER_SCAN_TYPE } from 'constants/selectsOptions';
+
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
+
+import { IFile } from 'interfaces/file.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import { ScansWrapper } from './styles';
 

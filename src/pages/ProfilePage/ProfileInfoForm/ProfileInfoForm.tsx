@@ -1,38 +1,37 @@
 import React, { ChangeEvent, useState } from 'react';
-import _ from 'lodash-es';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
 import { useNavigate, useParams } from 'react-router-dom';
+import _ from 'lodash-es';
+import { useSnackbar } from 'notistack';
 
+import { uploadFiles } from 'api/common';
+import { useDeleteFileMutation } from 'api/mutations/fileMutation';
+import { useCreateUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
+import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
+import downloadFile from 'api/query/downloadFile';
+import { useGetCountries } from 'api/query/formFieldsQuery';
+import { useGetUser } from 'api/query/userQuery';
+import CustomField from 'components/complex/CustomField';
+import { AcceptIcon, DeleteIcon, UploadIcon } from 'components/icons';
 import Accordion from 'components/shared/Accordion';
 import Button from 'components/shared/Button';
-import Input from 'components/shared/Input';
-import { IUser } from 'interfaces/users.interface';
 import Checkbox from 'components/shared/Checkbox';
 import DatePicker from 'components/shared/DatePicker';
-import { useAuthData } from 'contexts/AuthContext';
-import { useGetUser } from 'api/query/userQuery';
-import { useCreateUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
-import Select from 'components/shared/Select';
-import { useGetCountries } from 'api/query/formFieldsQuery';
-import { FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'constants/selectsOptions';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import FileInput from 'components/shared/FileInput';
-import { uploadFiles } from 'api/common';
-import { AcceptIcon, DeleteIcon, UploadIcon } from 'components/icons';
-import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
-import { IFile } from 'interfaces/file.interface';
-import { useDeleteFileMutation } from 'api/mutations/fileMutation';
-import IconButton from 'components/shared/IconButton';
 import DialogConfirm from 'components/shared/DialogConfirm';
-import downloadFile from 'api/query/downloadFile';
-import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
-import CustomField from 'components/complex/CustomField';
+import FileInput from 'components/shared/FileInput';
+import IconButton from 'components/shared/IconButton';
+import Input from 'components/shared/Input';
+import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
+import Select from 'components/shared/Select';
+import { FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'constants/selectsOptions';
+import { useAuthData } from 'contexts/AuthContext';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IFile } from 'interfaces/file.interface';
+import { IUser } from 'interfaces/users.interface';
 
-import { FIELDS, ADMIN_FIELDS, FieldSection, UserField } from './fields';
 import DialogForm from './DialogForm';
-
+import { ADMIN_FIELDS, FIELDS, FieldSection, UserField } from './fields';
 import { ProfileInfoFormWrapper } from './styles';
 
 const ProfileInfoForm = () => {

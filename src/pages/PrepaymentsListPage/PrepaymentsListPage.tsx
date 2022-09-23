@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { BooleanIcon } from 'components/icons';
-import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import { useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetProjects } from 'api/query/projectQuery';
-import Page, { PageTitle } from 'components/shared/Page';
-import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
-import useDebounce from 'hooks/useDebounce';
-import Dialog from 'components/shared/Dialog';
+import { BooleanIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import { IPrepayment } from 'interfaces/prepayment.interface';
-import { useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
-import { getDateFromIso } from 'helpers/datetime';
-import usePaginatedList from 'hooks/usePaginatedList';
+import Dialog from 'components/shared/Dialog';
+import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
+import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import Page, { PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
+import { getDateFromIso } from 'helpers/datetime';
+import useDebounce from 'hooks/useDebounce';
+import usePaginatedList from 'hooks/usePaginatedList';
+import { IPrepayment } from 'interfaces/prepayment.interface';
 
 import { ApproveDialogWrapper } from './styles';
 

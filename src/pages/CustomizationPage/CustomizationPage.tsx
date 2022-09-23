@@ -21,6 +21,7 @@ const CustomizationPage = () => {
           <CustomFields entity="user" />
         </TabPanel>
         <TabPanel index={1}>
+          <CustomFields entity="project" />
         </TabPanel>
       </TabsContainer>
     </Page>

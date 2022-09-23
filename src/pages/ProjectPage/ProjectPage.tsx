@@ -1,28 +1,31 @@
 import React, { useEffect } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { useSnackbar } from 'notistack';
 import { isEmpty } from 'lodash-es';
+import { useSnackbar } from 'notistack';
 
-import Page, { PageTitle } from 'components/shared/Page';
-import { IProject } from 'interfaces/project.interface';
-import usePageQueries from 'hooks/usePageQueries';
-import { useGetProject } from 'api/query/projectQuery';
-import Input from 'components/shared/Input';
-import DatePicker from 'components/shared/DatePicker';
-import Button from 'components/shared/Button';
 import { useCreateProjectMutation, useUpdateProjectMutation } from 'api/mutations/projectMutation';
-import Select from 'components/shared/Select';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import { PROJECT_TARIFF_TYPE } from 'constants/selectsOptions';
+import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
+import { useGetProject } from 'api/query/projectQuery';
+import CustomField from 'components/complex/CustomField';
+import Accordion from 'components/shared/Accordion';
+import Button from 'components/shared/Button';
+import DatePicker from 'components/shared/DatePicker';
+import Input from 'components/shared/Input';
+import Page, { PageTitle } from 'components/shared/Page';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
+import Select from 'components/shared/Select';
+import { PROJECT_TARIFF_TYPE } from 'constants/selectsOptions';
+import { validateEmail } from 'helpers/validateEmail';
+import usePageQueries from 'hooks/usePageQueries';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IProject } from 'interfaces/project.interface';
 
 import { ProjectFormWrapper } from './styles';
-import { validateEmail } from 'helpers/validateEmail';
 
 const ProjectPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { id } = usePageQueries();
   const { data: projectData } = useGetProject(id);
   const createProjectMutation = useCreateProjectMutation();
@@ -30,6 +33,13 @@ const ProjectPage = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const tariffTypes = useTranslatedSelect(PROJECT_TARIFF_TYPE, 'tariff');
+
+  // custom fields
+  const { data: customSections = [] } = useGetCustomFormSections({ entity: 'project' });
+  const { data: customFields = [] } = useGetCustomFormFields({
+    entity: 'project',
+    projects: [id],
+  });
 
   const { register, handleSubmit, formState: { errors }, reset, control, watch } = useForm<IProject>();
 
@@ -127,6 +137,39 @@ const ProjectPage = () => {
               )}
             />
           </div>
+          {customSections
+            .filter((section) => customFields.some((customField) => customField.section === section._id))
+            .map((section) => (
+              <Accordion
+                key={section._id}
+                title={section.names[i18n.language]}
+                id={section._id}
+                className="accordion"
+              >
+                <div className="accordion-content">
+                  {customFields
+                    .filter((customField) => customField.section === section._id)
+                    .map((customField) => (
+                      <Controller
+                        key={customField._id}
+                        name={`customFields.${customField._id}`}
+                        rules={{ required: customField.required }}
+                        control={control}
+                        defaultValue={projectData?.customFields?.[customField._id as string] || ''}
+                        render={({ field }) => (
+                          <div className="field-wrap">
+                            <CustomField
+                              value={field.value}
+                              onChange={field.onChange}
+                              metadata={customField}
+                            />
+                          </div>
+                        )}
+                      />
+                    ))}
+                </div>
+              </Accordion>
+            ))}
           <Button className="submit-button" onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors)}>{t('project.submit')}</Button>
         </ProjectFormWrapper>
       )}

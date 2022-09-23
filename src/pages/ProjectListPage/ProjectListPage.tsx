@@ -2,26 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { IProject } from 'interfaces/project.interface';
-import { STATUSES_COLORS } from 'constants/userStatuses';
-import useDebounce from 'hooks/useDebounce';
-import { getDateFromIso } from 'helpers/datetime';
-import Page, { PageTitle } from 'components/shared/Page';
-import { FiltersBar, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
-import List from 'components/shared/List';
-import Button from 'components/shared/Button';
-import Input from 'components/shared/Input';
-import { DeleteIcon, EditIcon, PlusIcon } from 'components/icons';
-import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
-import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import Dialog from 'components/shared/Dialog';
+import { useDeleteProjectMutation } from 'api/mutations/projectMutation';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
-import { useDeleteProjectMutation } from 'api/mutations/projectMutation';
+import { DeleteIcon, EditIcon, PlusIcon } from 'components/icons';
+import Button from 'components/shared/Button';
+import Dialog from 'components/shared/Dialog';
+import { FiltersBar, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
 import IconButton from 'components/shared/IconButton';
+import Input from 'components/shared/Input';
+import List from 'components/shared/List';
+import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import Page, { PageTitle } from 'components/shared/Page';
+import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
+import { STATUSES_COLORS } from 'constants/userStatuses';
+import { getDateFromIso } from 'helpers/datetime';
+import useDebounce from 'hooks/useDebounce';
+import { IProject } from 'interfaces/project.interface';
 
 import OnboardModal from './OnboardModal';
-
 import { DialogContentWrapper, ProjectActionsWrapper, ProjectInfoDataWrapper, ProjectInfoWrapper, ProjectsListWrapper } from './styles';
 
 const listFields = {
@@ -96,7 +95,7 @@ const ProjectListPageRender = () => {
                 <ProjectInfoDataWrapper>
                   {projectInfoKeys.map((projectKey) => {
                     let value = selectedProject[projectKey];
-                    if (projectKey.includes('date')) {
+                    if (projectKey.includes('date') && typeof value === 'string') {
                       value = value ? getDateFromIso(value) : '';
                     }
                     if (projectKey === 'tariff') {

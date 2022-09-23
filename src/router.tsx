@@ -1,27 +1,30 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import ProtectedRoute from 'components/shared/ProtectedRoute/ProtectedRoute';
+
+import { useAuthData } from 'contexts/AuthContext';
+import NotificationProvider from 'contexts/NotificationContext';
+
+import CreateNotificationPage from 'pages/CreateNotificationPage';
+import CustomizationPage from 'pages/CustomizationPage';
+import DayoffListPage from 'pages/DayoffListPage';
+import DayoffPage from 'pages/DayoffPage';
+import ExportProfilesPage from 'pages/ExportProfilesPage';
 import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
-import PrepaymentPage from 'pages/PrepaymentPage';
-import DayoffPage from 'pages/DayoffPage';
+import NotFoundPage from 'pages/NotFoundPage';
 import NotificationsPage from 'pages/NotificationsPage';
 import PaychecksPage from 'pages/PaychecksPage';
-import ProfilePage from 'pages/ProfilePage';
-import { useAuthData } from 'contexts/AuthContext';
-import PrepaymentsListPage from 'pages/PrepaymentsListPage';
-import NotFoundPage from 'pages/NotFoundPage';
-import DayoffListPage from 'pages/DayoffListPage';
 import PaychecksUploadPage from 'pages/PaychecksUploadPage';
+import PrepaymentPage from 'pages/PrepaymentPage';
+import PrepaymentsListPage from 'pages/PrepaymentsListPage';
+import ProfileAdminPage from 'pages/ProfileAdminPage';
 import ProfileListPage from 'pages/ProfileListPage';
+import ProfilePage from 'pages/ProfilePage';
 import ProjectListPage from 'pages/ProjectListPage';
 import ProjectPage from 'pages/ProjectPage';
-import ProfileAdminPage from 'pages/ProfileAdminPage';
-import CreateNotificationPage from 'pages/CreateNotificationPage';
 import UploadProfilesPage from 'pages/UploadProfilesPage';
-import NotificationProvider from 'contexts/NotificationContext';
-import ExportProfilesPage from 'pages/ExportProfilesPage';
-import CustomizationPage from 'pages/CustomizationPage';
 
 export default function Router () {
   const { role } = useAuthData();
