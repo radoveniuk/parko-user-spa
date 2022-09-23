@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-
 import { Autocomplete as AutocompleteMaterial } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+
 import Input from '../Input';
 
 export type AutocompleteProps = {

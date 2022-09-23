@@ -3,42 +3,38 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { useDeleteProjectMutation } from 'api/mutations/projectMutation';
+import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import { DeleteIcon, EditIcon, PlusIcon } from 'components/icons';
+import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
-import { FiltersBar, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
+import { FiltersBar } from 'components/shared/Filters';
 import IconButton from 'components/shared/IconButton';
 import Input from 'components/shared/Input';
-import List from 'components/shared/List';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Page, { PageTitle } from 'components/shared/Page';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
-import useDebounce from 'hooks/useDebounce';
 import { IProject } from 'interfaces/project.interface';
 
 import OnboardModal from './OnboardModal';
 import { DialogContentWrapper, ProjectActionsWrapper, ProjectInfoDataWrapper, ProjectInfoWrapper, ProjectsListWrapper } from './styles';
 
-const listFields = {
-  primary: 'name',
-  secondary: 'email',
-};
-
 const usersTableCols = ['user.name', 'user.email', 'user.status'];
 const projectInfoKeys: (keyof IProject)[] = ['name', 'email', 'phone', 'comment', 'cost', 'tariff', 'dateStart', 'dateEnd'];
 
-const ProjectListPageRender = () => {
-  const { t } = useTranslation();
-  const { filtersState } = useFilters();
-  const debouncedFiltersState = useDebounce(filtersState);
+const ProjectListPage = () => {
+  const { t, i18n } = useTranslation();
 
-  const { data = [], refetch } = useGetProjects(debouncedFiltersState);
+  const { data = [], refetch, isFetching } = useGetProjects();
   const [selectedProject, setSelectedProject] = useState<IProject | null>(null);
   const [openOnboard, setOpenOnboard] = useState(false);
+
+  const { data: customSections = [] } = useGetCustomFormSections({ entity: 'project' });
+  const { data: customFields = [] } = useGetCustomFormFields({ entity: 'project' });
 
   const {
     data: linkedUsers,
@@ -59,10 +55,6 @@ const ProjectListPageRender = () => {
   };
 
   useEffect(() => {
-    refetch();
-  }, [debouncedFiltersState, refetch]);
-
-  useEffect(() => {
     if (selectedProject) {
       refetchLinkedUsers();
     }
@@ -72,26 +64,48 @@ const ProjectListPageRender = () => {
     <Page title={t('projectList')}>
       <PageTitle>{t('projectList')}</PageTitle>
       <FiltersBar>
-        <FilterText filterKey="search" label={t('search')} />
+        <Autocomplete
+          options={data}
+          loading={isFetching}
+          label={t('search')}
+          labelKey="name"
+          style={{ minWidth: 350, maxWidth: 350 }}
+          onChange={(value: IProject) => setSelectedProject(value)}
+        />
         <Link to="/project" style={{ marginLeft: 'auto' }}>
           <Button color="secondary"><PlusIcon size={20} />{t('project.new')}</Button>
         </Link>
       </FiltersBar>
       <ProjectsListWrapper>
-        <List
-          className="projects-list"
-          data={data}
-          fields={listFields}
-          onSelect={(project) => void setSelectedProject(project)}
-        />
         {selectedProject !== null && (
           <ProjectInfoWrapper>
             <TabsContainer key={selectedProject._id}>
               <Tabs>
-                <Tab label={t('project.data')} />
                 <Tab label={t('project.users')} />
+                <Tab label={t('project.data')} />
               </Tabs>
               <TabPanel index={0}>
+                <ListTable columns={usersTableCols} className="users-table" stickyHeader>
+                  {linkedUsers?.map((user) => (
+                    <Link key={user._id} to={`/profile/${user._id}`} style={{ display: 'contents', color: '#000' }}>
+                      <ListTableRow>
+                        <ListTableCell>{`${user.name} ${user.surname}`}</ListTableCell>
+                        <ListTableCell>{user.email}</ListTableCell>
+                        <ListTableCell style={{ color: STATUSES_COLORS[user.status] }}>{t(`selects.userStatus.${user.status}`)}</ListTableCell>
+                      </ListTableRow>
+                    </Link>
+                  ))}
+                </ListTable>
+                <IconButton onClick={() => void setOpenOnboard(true)}><PlusIcon size={30}/></IconButton>
+                {openOnboard && (
+                  <OnboardModal
+                    onClose={() => { setOpenOnboard(false); refetchLinkedUsers(); }}
+                    open={openOnboard}
+                    project={selectedProject._id}
+                  />
+                )}
+              </TabPanel>
+              <TabPanel index={1}>
                 <ProjectInfoDataWrapper>
                   {projectInfoKeys.map((projectKey) => {
                     let value = selectedProject[projectKey];
@@ -107,10 +121,30 @@ const ProjectListPageRender = () => {
                         value={value}
                         label={t(`project.${projectKey}`)}
                         InputProps={{ readOnly: true }}
-                        fullWidth
+                        className="project-prop"
                       />
                     );
                   })}
+                  {customSections
+                    .filter((section) => customFields.some((customField) =>
+                      selectedProject?.customFields?.[customField._id as string] && customField.section === section._id))
+                    .map((section) => (
+                      <div
+                        key={section._id}
+                      >
+                        {customFields
+                          .filter((customField) => customField.section === section._id)
+                          .map((customField) => (
+                            <Input
+                              key={customField._id}
+                              value={selectedProject?.customFields?.[customField._id as string] || ''}
+                              label={customField.names[i18n.language]}
+                              InputProps={{ readOnly: true }}
+                              className="project-prop"
+                            />
+                          ))}
+                      </div>
+                    ))}
                   <ProjectActionsWrapper>
                     <Link to={{
                       pathname: '/project',
@@ -136,27 +170,6 @@ const ProjectListPageRender = () => {
                   </ProjectActionsWrapper>
                 </ProjectInfoDataWrapper>
               </TabPanel>
-              <TabPanel index={1}>
-                <ListTable columns={usersTableCols} className="users-table" stickyHeader>
-                  {linkedUsers?.map((user) => (
-                    <Link key={user._id} to={`/profile/${user._id}`} style={{ display: 'contents', color: '#000' }}>
-                      <ListTableRow>
-                        <ListTableCell>{`${user.name} ${user.surname}`}</ListTableCell>
-                        <ListTableCell>{user.email}</ListTableCell>
-                        <ListTableCell style={{ color: STATUSES_COLORS[user.status] }}>{t(`selects.userStatus.${user.status}`)}</ListTableCell>
-                      </ListTableRow>
-                    </Link>
-                  ))}
-                </ListTable>
-                <IconButton onClick={() => void setOpenOnboard(true)}><PlusIcon size={30}/></IconButton>
-                {openOnboard && (
-                  <OnboardModal
-                    onClose={() => { setOpenOnboard(false); refetchLinkedUsers(); }}
-                    open={openOnboard}
-                    project={selectedProject._id}
-                  />
-                )}
-              </TabPanel>
             </TabsContainer>
           </ProjectInfoWrapper>
         )}
@@ -165,10 +178,4 @@ const ProjectListPageRender = () => {
   );
 };
 
-export default function ProjectListPage () {
-  return (
-    <FiltersProvider>
-      <ProjectListPageRender />
-    </FiltersProvider>
-  );
-};
+export default ProjectListPage;

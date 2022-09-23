@@ -64,79 +64,86 @@ const ProjectPage = () => {
       <PageTitle>{watch('name') || t('project.creating')}</PageTitle>
       {((!!id && !!projectData) || (!id)) && (
         <ProjectFormWrapper>
-          <div className="inputs">
-            <Input
-              label={t('project.name')}
-              error={!!errors.name}
-              helperText={errors.name?.message}
-              {...register('name', { required: true })}
-            />
-            <Input
-              label={t('project.email')}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              {...register('email', { validate: (v) => !v || validateEmail(v) })}
-            />
-            <Controller
-              control={control}
-              name="phone"
-              defaultValue=""
-              rules={{ validate: (value) => !value || checkPhoneNumber(value) }}
-              render={({ field }) => (
-                <PhoneInput
-                  value={field.value}
-                  onChange={field.onChange}
-                  label={t('project.phone')}
-                  error={!!errors.phone}
-                />
-              )}
-            />
-            <Input
-              label={t('project.comment')}
-              error={!!errors.comment}
-              helperText={errors.comment?.message}
-              multiline
-              {...register('comment')}
-            />
-            <Input
-              label={t('project.cost')}
-              error={!!errors.cost}
-              helperText={errors.cost?.message}
-              type="number"
-              {...register('cost')}
-            />
-            <Select
-              label={t('project.tariff')}
-              error={!!errors.tariff}
-              options={tariffTypes}
-              className="inputs-select"
-              {...register('tariff')}
-            />
-            <Controller
-              control={control}
-              name="dateStart"
-              defaultValue={null}
-              render={({ field }) => (
-                <DatePicker
-                  value={field.value}
-                  onChange={field.onChange}
-                  label={t('project.dateStart')}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="dateEnd"
-              defaultValue={null}
-              render={({ field }) => (
-                <DatePicker
-                  value={field.value}
-                  onChange={field.onChange}
-                  label={t('project.dateEnd')}
-                />
-              )}
-            />
-          </div>
+          <Accordion
+            title={t('project.mainInfo')}
+            id="main-props"
+            className="accordion"
+            defaultExpanded
+          >
+            <div className="inputs">
+              <Input
+                label={t('project.name')}
+                error={!!errors.name}
+                helperText={errors.name?.message}
+                {...register('name', { required: true })}
+              />
+              <Input
+                label={t('project.email')}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                {...register('email', { validate: (v) => !v || validateEmail(v) })}
+              />
+              <Controller
+                control={control}
+                name="phone"
+                defaultValue=""
+                rules={{ validate: (value) => !value || checkPhoneNumber(value) }}
+                render={({ field }) => (
+                  <PhoneInput
+                    value={field.value}
+                    onChange={field.onChange}
+                    label={t('project.phone')}
+                    error={!!errors.phone}
+                  />
+                )}
+              />
+              <Input
+                label={t('project.comment')}
+                error={!!errors.comment}
+                helperText={errors.comment?.message}
+                multiline
+                {...register('comment')}
+              />
+              <Input
+                label={t('project.cost')}
+                error={!!errors.cost}
+                helperText={errors.cost?.message}
+                type="number"
+                {...register('cost')}
+              />
+              <Select
+                label={t('project.tariff')}
+                error={!!errors.tariff}
+                options={tariffTypes}
+                className="inputs-select"
+                {...register('tariff')}
+              />
+              <Controller
+                control={control}
+                name="dateStart"
+                defaultValue={null}
+                render={({ field }) => (
+                  <DatePicker
+                    value={field.value}
+                    onChange={field.onChange}
+                    label={t('project.dateStart')}
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="dateEnd"
+                defaultValue={null}
+                render={({ field }) => (
+                  <DatePicker
+                    value={field.value}
+                    onChange={field.onChange}
+                    label={t('project.dateEnd')}
+                  />
+                )}
+              />
+            </div>
+          </Accordion>
           {customSections
             .filter((section) => customFields.some((customField) => customField.section === section._id))
             .map((section) => (
@@ -146,7 +153,7 @@ const ProjectPage = () => {
                 id={section._id}
                 className="accordion"
               >
-                <div className="accordion-content">
+                <div className="inputs">
                   {customFields
                     .filter((customField) => customField.section === section._id)
                     .map((customField) => (

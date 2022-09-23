@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ICustomFormField } from 'interfaces/form.interface';
-import Input from 'components/shared/Input';
-import PhoneInput from 'components/shared/PhoneInput';
 import Checkbox from 'components/shared/Checkbox';
 import DatePicker from 'components/shared/DatePicker';
+import Input from 'components/shared/Input';
+import PhoneInput from 'components/shared/PhoneInput';
+import { ICustomFormField } from 'interfaces/form.interface';
 
 type CustomFieldProps = {
   value: unknown;

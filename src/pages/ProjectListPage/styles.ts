@@ -3,13 +3,6 @@ import styled from 'styled-components';
 export const ProjectsListWrapper = styled.div`
   display: flex;
 
-  .projects-list {
-    border-right: 1px solid #e9e9e9;
-    min-width: 33%;
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
-  }
-
   .users-table {
     max-height: calc(100vh - 275px);
   }
@@ -32,9 +25,15 @@ export const ProjectInfoWrapper = styled.div`
 
 export const ProjectInfoDataWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 20px;
   margin: 20px 10px 10px 10px;
+  
+  .project-prop {
+    min-width: 300px;
+    max-width: 300px;
+  }
 `;
 
 export const ProjectActionsWrapper = styled.div`

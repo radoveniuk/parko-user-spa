@@ -255,7 +255,8 @@
     "cost": "Cost",
     "tariff": "Tariff",
     "success": "Success!",
-    "addProfile": "Add profile to project"
+    "addProfile": "Add profile to project",
+    "mainInfo": "Main info"
   },
   "notification": {
     "success": "Notification sended",
