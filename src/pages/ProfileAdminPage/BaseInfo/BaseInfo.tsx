@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
-import { IUser, UserRole } from 'interfaces/users.interface';
-import { STATUSES } from 'constants/userStatuses';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import Select from 'components/shared/Select';
-import Button from 'components/shared/Button';
-import { useGetProjects } from 'api/query/projectQuery';
-import { ROLES } from 'constants/userRoles';
-import IconButton from 'components/shared/IconButton';
-import { CopyIcon, DeleteIcon } from 'components/icons';
-import createId from 'helpers/createId';
 import { useDeleteUserMutation } from 'api/mutations/userMutation';
+import { useGetProjects } from 'api/query/projectQuery';
+import { CopyIcon, DeleteIcon } from 'components/icons';
+import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
+import IconButton from 'components/shared/IconButton';
+import Select from 'components/shared/Select';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
+import { ROLES } from 'constants/userRoles';
+import { STATUSES } from 'constants/userStatuses';
+import createId from 'helpers/createId';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IUser, UserRole } from 'interfaces/users.interface';
 
 import { USER_FIELDS } from './fields';
 import { BaseInfoWrapper, DialogContentWrapper } from './styles';
@@ -118,6 +118,7 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
           <Button
             color="error"
             onClick={() => void setIsOpenDeleteDialog(true)}
+            variant="outlined"
           >
             <DeleteIcon style={{ marginRight: 5 }} />
             {t('project.delete')}

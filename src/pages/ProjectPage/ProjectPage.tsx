@@ -35,11 +35,11 @@ const ProjectPage = () => {
   const tariffTypes = useTranslatedSelect(PROJECT_TARIFF_TYPE, 'tariff');
 
   // custom fields
-  const { data: customSections = [] } = useGetCustomFormSections({ entity: 'project' });
+  const { data: customSections = [] } = useGetCustomFormSections({ entity: 'project' }, { enabled: !!id });
   const { data: customFields = [] } = useGetCustomFormFields({
     entity: 'project',
     projects: [id],
-  });
+  }, { enabled: !!id });
 
   const { register, handleSubmit, formState: { errors }, reset, control, watch } = useForm<IProject>();
 

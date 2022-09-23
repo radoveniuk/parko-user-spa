@@ -24,11 +24,13 @@ export const ProjectInfoWrapper = styled.div`
 `;
 
 export const ProjectInfoDataWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin: 20px 10px 10px 10px;
+  .project-props {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px 10px 10px 10px;
+  }
   
   .project-prop {
     min-width: 300px;
@@ -39,6 +41,7 @@ export const ProjectInfoDataWrapper = styled.div`
 export const ProjectActionsWrapper = styled.div`
   display: flex;
   gap: 10px;
+  justify-content: center;
 `;
 
 export const DialogContentWrapper = styled.div`

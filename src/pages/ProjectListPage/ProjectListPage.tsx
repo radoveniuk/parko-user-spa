@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { createSearchParams, Link, useNavigate } from 'react-router-dom';
 
 import { useDeleteProjectMutation } from 'api/mutations/projectMutation';
 import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
@@ -18,6 +18,7 @@ import Page, { PageTitle } from 'components/shared/Page';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
+import usePageQueries from 'hooks/usePageQueries';
 import { IProject } from 'interfaces/project.interface';
 
 import OnboardModal from './OnboardModal';
@@ -43,6 +44,10 @@ const ProjectListPage = () => {
 
   const deleteProjectMutation = useDeleteProjectMutation();
 
+  const navigate = useNavigate();
+  // eslint-disable-next-line no-unused-vars
+  const pageQueries = usePageQueries();
+
   const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState(false);
 
   const deleteProjectHandler = async () => {
@@ -60,17 +65,31 @@ const ProjectListPage = () => {
     }
   }, [selectedProject, refetchLinkedUsers]);
 
+  useEffect(() => {
+    if (!pageQueries.id) {
+      setSelectedProject(null);
+      return;
+    }
+    const project = data.find((item) => item._id === pageQueries.id) || null;
+    setSelectedProject(project);
+  }, [data, pageQueries.id]);
+
   return (
     <Page title={t('projectList')}>
       <PageTitle>{t('projectList')}</PageTitle>
       <FiltersBar>
         <Autocomplete
           options={data}
+          value={selectedProject}
           loading={isFetching}
           label={t('search')}
           labelKey="name"
           style={{ minWidth: 350, maxWidth: 350 }}
-          onChange={(value: IProject) => setSelectedProject(value)}
+          onChange={(value: IProject) => {
+            navigate({
+              search: value ? createSearchParams({ id: value._id }).toString() : '',
+            });
+          }}
         />
         <Link to="/project" style={{ marginLeft: 'auto' }}>
           <Button color="secondary"><PlusIcon size={20} />{t('project.new')}</Button>
@@ -107,44 +126,46 @@ const ProjectListPage = () => {
               </TabPanel>
               <TabPanel index={1}>
                 <ProjectInfoDataWrapper>
-                  {projectInfoKeys.map((projectKey) => {
-                    let value = selectedProject[projectKey];
-                    if (projectKey.includes('date') && typeof value === 'string') {
-                      value = value ? getDateFromIso(value) : '';
-                    }
-                    if (projectKey === 'tariff') {
-                      value = value ? t(`selects.tariff.${value}`) : '';
-                    }
-                    return (
-                      <Input
-                        key={projectKey}
-                        value={value}
-                        label={t(`project.${projectKey}`)}
-                        InputProps={{ readOnly: true }}
-                        className="project-prop"
-                      />
-                    );
-                  })}
-                  {customSections
-                    .filter((section) => customFields.some((customField) =>
-                      selectedProject?.customFields?.[customField._id as string] && customField.section === section._id))
-                    .map((section) => (
-                      <div
-                        key={section._id}
-                      >
-                        {customFields
-                          .filter((customField) => customField.section === section._id)
-                          .map((customField) => (
-                            <Input
-                              key={customField._id}
-                              value={selectedProject?.customFields?.[customField._id as string] || ''}
-                              label={customField.names[i18n.language]}
-                              InputProps={{ readOnly: true }}
-                              className="project-prop"
-                            />
-                          ))}
-                      </div>
-                    ))}
+                  <div className="project-props">
+                    {projectInfoKeys.map((projectKey) => {
+                      let value = selectedProject[projectKey];
+                      if (projectKey.includes('date') && typeof value === 'string') {
+                        value = value ? getDateFromIso(value) : '';
+                      }
+                      if (projectKey === 'tariff') {
+                        value = value ? t(`selects.tariff.${value}`) : '';
+                      }
+                      return (
+                        <Input
+                          key={projectKey}
+                          value={value}
+                          label={t(`project.${projectKey}`)}
+                          InputProps={{ readOnly: true }}
+                          className="project-prop"
+                        />
+                      );
+                    })}
+                    {customSections
+                      .filter((section) => customFields.some((customField) =>
+                        selectedProject?.customFields?.[customField._id as string] && customField.section === section._id))
+                      .map((section) => (
+                        <React.Fragment
+                          key={section._id}
+                        >
+                          {customFields
+                            .filter((customField) => customField.section === section._id)
+                            .map((customField) => (
+                              <Input
+                                key={customField._id}
+                                value={selectedProject?.customFields?.[customField._id as string] || ''}
+                                label={customField.names[i18n.language]}
+                                InputProps={{ readOnly: true }}
+                                className="project-prop"
+                              />
+                            ))}
+                        </React.Fragment>
+                      ))}
+                  </div>
                   <ProjectActionsWrapper>
                     <Link to={{
                       pathname: '/project',
@@ -154,6 +175,7 @@ const ProjectListPage = () => {
                     </Link>
                     <Button
                       color="error"
+                      variant="outlined"
                       onClick={() => void setIsOpenDeleteDialog(true)}
                     >
                       <DeleteIcon style={{ marginRight: 5 }} />
