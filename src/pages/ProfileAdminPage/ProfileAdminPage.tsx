@@ -3,20 +3,21 @@ import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
-import Page, { PageActions, PageTitle } from 'components/shared/Page';
-import { useGetUser } from 'api/query/userQuery';
-import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
-import { IUser } from 'interfaces/users.interface';
-import Button from 'components/shared/Button';
+import { useGetUser } from 'api/query/userQuery';
+import Notifications from 'components/complex/Notifications';
 import { EditIcon } from 'components/icons';
+import Button from 'components/shared/Button';
+import Page, { PageActions, PageTitle } from 'components/shared/Page';
+import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
+import { IUser } from 'interfaces/users.interface';
 
-import Prepayments from './Prepayments';
 import BaseInfo from './BaseInfo';
 import Daysoff from './Daysoff';
-import Scans from './Scans';
+import Prepayments from './Prepayments';
 import SalarySettings from './SalarySettings';
-import Notifications from 'components/complex/Notifications';
+import Scans from './Scans';
+import UploadedPaychecks from './UploadedPaychecks';
 
 const ProfileAdminPage = () => {
   const { t } = useTranslation();
@@ -51,6 +52,7 @@ const ProfileAdminPage = () => {
             <Tab label={t('user.baseFields')} />
             <Tab label={t('user.salary')} />
             <Tab label={t('user.scancopies')} />
+            <Tab label={t('navbar.paychecks')} />
             <Tab label={t('navbar.prepayments')} />
             <Tab label={t('navbar.daysoff')} />
             <Tab label={t('navbar.notifications')} />
@@ -65,12 +67,15 @@ const ProfileAdminPage = () => {
             <Scans data={profileData} onUpdate={updateUser} />
           </TabPanel>
           <TabPanel index={3}>
-            <Prepayments />
+            <UploadedPaychecks />
           </TabPanel>
           <TabPanel index={4}>
-            <Daysoff />
+            <Prepayments />
           </TabPanel>
           <TabPanel index={5}>
+            <Daysoff />
+          </TabPanel>
+          <TabPanel index={6}>
             <Notifications options={{ to: userId }} />
           </TabPanel>
         </TabsContainer>

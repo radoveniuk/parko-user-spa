@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Page, { PageTitle } from 'components/shared/Page';
-import { useAuthData } from 'contexts/AuthContext';
-import Button from 'components/shared/Button';
-import { EditIcon } from 'components/icons';
-import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import Notifications from 'components/complex/Notifications';
+import { EditIcon } from 'components/icons';
+import Button from 'components/shared/Button';
+import Page, { PageTitle } from 'components/shared/Page';
+import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
+import { useAuthData } from 'contexts/AuthContext';
 
 import { CreateMessageLink } from './styles';
 
