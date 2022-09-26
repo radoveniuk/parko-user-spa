@@ -236,7 +236,9 @@
     "successfullUpload": "Paychecks were uploaded",
     "message": "Attention! System works only with formats: «ММ.YYYY - ProjectName - Name Surname» or «ММ.YYYY_-_ProjectName_-_Name_Surname»",
     "upload": "Uploading",
-    "uploaded": "Ready documents"
+    "uploaded": "Ready documents",
+    "date": "Date",
+    "user": "User"
   },
   "projectList": "Projects",
   "project": {

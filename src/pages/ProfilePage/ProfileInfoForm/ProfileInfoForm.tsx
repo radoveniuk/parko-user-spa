@@ -14,7 +14,7 @@ import { useGetCountries } from 'api/query/formFieldsQuery';
 import { useGetUser } from 'api/query/userQuery';
 import CustomField from 'components/complex/CustomField';
 import { AcceptIcon, DeleteIcon, UploadIcon } from 'components/icons';
-import Accordion from 'components/shared/Accordion';
+import Accordion, { AccordionContent } from 'components/shared/Accordion';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import DatePicker from 'components/shared/DatePicker';
@@ -298,13 +298,13 @@ const ProfileInfoForm = () => {
               className="accordion"
               defaultExpanded={index === 0}
             >
-              <div className="accordion-content">
+              <AccordionContent>
                 {(Object.keys(fields[fieldSectionKey]) as (keyof IUser)[]).map((key) => (
                   <div key={key}>
                     {generateField(key, fields[fieldSectionKey][key])}
                   </div>
                 ))}
-              </div>
+              </AccordionContent>
             </Accordion>
           )}
         </div>
@@ -319,7 +319,7 @@ const ProfileInfoForm = () => {
              id={section._id}
              className="accordion"
            >
-             <div className="accordion-content">
+             <AccordionContent>
                {customFields
                  .filter((customField) => customField.section === section._id)
                  .map((customField) => (
@@ -340,7 +340,7 @@ const ProfileInfoForm = () => {
                      )}
                    />
                  ))}
-             </div>
+             </AccordionContent>
            </Accordion>
          ))}
       {!_.isEmpty(errors) && (

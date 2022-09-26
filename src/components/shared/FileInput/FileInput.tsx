@@ -1,5 +1,7 @@
 import React, { ForwardedRef, forwardRef, HTMLProps } from 'react';
+
 import Button from '../Button';
+
 import { FileInputWrapper } from './styles';
 
 type Props = HTMLProps<HTMLInputElement> & {

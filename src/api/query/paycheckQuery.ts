@@ -1,6 +1,7 @@
+import { useQuery } from 'react-query';
+
 import api from 'api/common';
 import { IPaycheck } from 'interfaces/paycheck.interface';
-import { useQuery } from 'react-query';
 
 export const useGetPaycheckList = (params: Partial<IPaycheck> = {}) => {
   const request = (): Promise<IPaycheck[]> => api.get('/paychecks', {
@@ -10,5 +11,5 @@ export const useGetPaycheckList = (params: Partial<IPaycheck> = {}) => {
     },
     params,
   }).then(res => res.data.data);
-  return useQuery('paychecks', request, { initialData: [] });
+  return useQuery(['paychecks', JSON.stringify(params)], request, { initialData: [] });
 };

@@ -6,6 +6,7 @@ import { useSnackbar } from 'notistack';
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetUser } from 'api/query/userQuery';
 import Notifications from 'components/complex/Notifications';
+import UploadedPaychecks from 'components/complex/UploadedPaychecks';
 import { EditIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Page, { PageActions, PageTitle } from 'components/shared/Page';
@@ -17,7 +18,6 @@ import Daysoff from './Daysoff';
 import Prepayments from './Prepayments';
 import SalarySettings from './SalarySettings';
 import Scans from './Scans';
-import UploadedPaychecks from './UploadedPaychecks';
 
 const ProfileAdminPage = () => {
   const { t } = useTranslation();
@@ -67,7 +67,7 @@ const ProfileAdminPage = () => {
             <Scans data={profileData} onUpdate={updateUser} />
           </TabPanel>
           <TabPanel index={3}>
-            <UploadedPaychecks />
+            <UploadedPaychecks filter={{ user: profileData._id }} />
           </TabPanel>
           <TabPanel index={4}>
             <Prepayments />

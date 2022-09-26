@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import Page, { PageActions, PageTitle } from 'components/shared/Page';
-import { useGetUserList } from 'api/query/userQuery';
 import { useGetProjects } from 'api/query/projectQuery';
-import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
-import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import useDebounce from 'hooks/useDebounce';
-import { IUser } from 'interfaces/users.interface';
-import usePaginatedList from 'hooks/usePaginatedList';
-import Pagination from 'components/shared/Pagination';
-import Button from 'components/shared/Button';
+import { useGetUserList } from 'api/query/userQuery';
 import { ExportIcon, PlusIcon, UploadIcon } from 'components/icons';
+import Button from 'components/shared/Button';
+import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
+import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import Page, { PageActions, PageTitle } from 'components/shared/Page';
+import Pagination from 'components/shared/Pagination';
 import Select from 'components/shared/Select';
+import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
+import useDebounce from 'hooks/useDebounce';
+import usePaginatedList from 'hooks/usePaginatedList';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IUser } from 'interfaces/users.interface';
 
 const ROWS_PER_PAGE_OPTIONS = [20, 50, 100, 200, 500, 1000];
 
@@ -55,7 +55,7 @@ const ProfileListPageRender = () => {
           <Button color="secondary"><PlusIcon size={20}/>{t('user.create')}</Button>
         </Link>
       </PageActions>
-      <FiltersBar>
+      <FiltersBar style={{ marginTop: 10 }}>
         <FilterText filterKey="search" label={t('search')} />
         <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
         <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} />

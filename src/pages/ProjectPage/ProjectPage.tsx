@@ -9,7 +9,7 @@ import { useCreateProjectMutation, useUpdateProjectMutation } from 'api/mutation
 import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import { useGetProject } from 'api/query/projectQuery';
 import CustomField from 'components/complex/CustomField';
-import Accordion from 'components/shared/Accordion';
+import Accordion, { AccordionContent } from 'components/shared/Accordion';
 import Button from 'components/shared/Button';
 import DatePicker from 'components/shared/DatePicker';
 import Input from 'components/shared/Input';
@@ -70,7 +70,7 @@ const ProjectPage = () => {
             className="accordion"
             defaultExpanded
           >
-            <div className="inputs">
+            <AccordionContent>
               <Input
                 label={t('project.name')}
                 error={!!errors.name}
@@ -142,7 +142,7 @@ const ProjectPage = () => {
                   />
                 )}
               />
-            </div>
+            </AccordionContent>
           </Accordion>
           {customSections
             .filter((section) => customFields.some((customField) => customField.section === section._id))
@@ -153,7 +153,7 @@ const ProjectPage = () => {
                 id={section._id}
                 className="accordion"
               >
-                <div className="inputs">
+                <AccordionContent>
                   {customFields
                     .filter((customField) => customField.section === section._id)
                     .map((customField) => (
@@ -174,7 +174,7 @@ const ProjectPage = () => {
                         )}
                       />
                     ))}
-                </div>
+                </AccordionContent>
               </Accordion>
             ))}
           <Button className="submit-button" onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors)}>{t('project.submit')}</Button>

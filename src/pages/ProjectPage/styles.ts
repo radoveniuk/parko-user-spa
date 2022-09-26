@@ -5,14 +5,7 @@ export const ProjectFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   
-  .inputs {
-    justify-content: center;
-    max-width: 500px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin: 0 auto;
-
+  .accordion {
     .MuiTextField-root, .PhoneInput {
       max-width: 213px;
     }

@@ -2,10 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import ProtectedRoute from 'components/shared/ProtectedRoute/ProtectedRoute';
-
 import { useAuthData } from 'contexts/AuthContext';
 import NotificationProvider from 'contexts/NotificationContext';
-
 import CreateNotificationPage from 'pages/CreateNotificationPage';
 import CustomizationPage from 'pages/CustomizationPage';
 import DayoffListPage from 'pages/DayoffListPage';
