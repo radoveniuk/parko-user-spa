@@ -8,7 +8,8 @@
     "daysoff": "Days off",
     "paychecks": "Paychecks",
     "projects": "Projects",
-    "customization": "Customization"
+    "customization": "Customization",
+    "accommodation": "Accommodation"
   },
   "menu": {
     "prepayment": "Request prepayment",
@@ -201,6 +202,10 @@
       "hour": "Work hourh",
       "month": "Work month"
     },
+    "accommodationTariff": {
+      "night": "Night",
+      "month": "Month"
+    },
     "employmentType": {
       "self": "Self employment",
       "onCompany": "In the company",
@@ -284,6 +289,18 @@
     "delete":"Delete",
     "order": "Order"
   },
+  "accommodation": {
+    "owner": "Owner",
+    "adress": "Adress",
+    "checkIn": "Check In date",
+    "checkOut": "Check Out date",
+    "cost": "Cost",
+    "create": "Create",
+    "managerPhone": "Manager's phone",
+    "receptionPhone": "Reception's phone",
+    "comment": "Comment",
+    "tariff": "Tariff"
+  },
   "language": "Language",
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
   "next": "Next",
@@ -295,5 +312,6 @@
   "selectAllCols": "Select all columns",
   "add": "Add",
   "comment": "Comment",
-  "other": "Other"
+  "other": "Other",
+  "approve": "Approve"
 }

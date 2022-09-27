@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useIsFetching, useIsMutating } from 'react-query';
 
-import Navbar, { ToggleNavbarButton } from 'components/Menu/Navbar';
 import LanguageSelector from 'components/complex/LanguageSelector';
+import Navbar, { ToggleNavbarButton } from 'components/Menu/Navbar';
 import useViewportWdth from 'hooks/useViewportWdth';
 
 import PageFooter from '../PageFooter';
+import PageHeader from '../PageHeader';
 
 import { PageContent, PageLoader, PageWrapper } from './styles';
-import LogoutButton from 'components/complex/LogoutButton';
-import PageHeader from '../PageHeader';
 
 type Props = {
   showNavbar?: boolean;
@@ -45,12 +44,6 @@ const Page = ({ showNavbar = true, title, children }: Props) => {
           <PageHeader>
             <ToggleNavbarButton onClick={toggleNavbar} />
           </PageHeader>
-        )}
-        {width > langBreakpoint && (
-          <div className="page-actions">
-            <LanguageSelector />
-            <LogoutButton />
-          </div>
         )}
         <section className="content-wrapper">
           {(!!isFetching || !!isMutating) && <PageLoader />}

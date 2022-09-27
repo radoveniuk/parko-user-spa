@@ -24,6 +24,11 @@ export const PROJECT_TARIFF_TYPE = [
   'month',
 ];
 
+export const ACCOMMODATION_TARIFF_TYPE = [
+  'night',
+  'month',
+];
+
 export const EMPLOYMENT_TYPE = [
   'self',
   'fullTime',

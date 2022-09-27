@@ -1,14 +1,14 @@
-import _ from 'lodash-es';
 import React, { forwardRef, useMemo } from 'react';
-import SelectMaterial, { SelectProps as SelectPropsMaterial } from '@mui/material/Select';
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
+import SelectMaterial, { SelectProps as SelectPropsMaterial } from '@mui/material/Select';
+import _ from 'lodash-es';
 
 type Option = {[key: string | number]: any}
 
 export type SelectProps = SelectPropsMaterial & {
   options?: string[] | number[] | Option[];
   valuePath?: string;
-  labelPath?: string;
+  labelPath?: string | string[];
 }
 
 const Select = forwardRef(({ label, options = [], valuePath = 'value', labelPath = 'label', ...rest }: SelectProps, ref) => {

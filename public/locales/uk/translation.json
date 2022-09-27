@@ -8,7 +8,8 @@
     "daysoff": "Відгули",
     "paychecks": "Фактури",
     "projects": "Проєкти",
-    "customization": "Кастомізація"
+    "customization": "Кастомізація",
+    "accommodation": "Житло"
   },
   "menu": {
     "prepayment": "Замовити аванс",
@@ -202,6 +203,10 @@
       "hour": "Година",
       "month": "Місяць"
     },
+    "accommodationTariff": {
+      "night": "Ніч",
+      "month": "Місяць"
+    },
     "employmentType": {
       "self": "Приватний підприємець",
       "onCompany": "Працевлаштування в компанії",
@@ -285,6 +290,18 @@
     "delete":"Видалити",
     "order": "Порядок"
   },
+  "accommodation": {
+    "owner": "Власник",
+    "adress": "Адреса",
+    "checkIn": "Дата Check In",
+    "checkOut": "Дата Check Out",
+    "cost": "Сума",
+    "create": "Створити житло",
+    "managerPhone": "Телефон менеджера",
+    "receptionPhone": "Телефон рецепції",
+    "comment": "Коментар",
+    "tariff": "Тариф"
+  },
   "language": "Мова",
   "youNotVerified": "Наразі основні розділи системи Parko app недоступні для вас. Спочатку вам необхідно заповнити інформацію про себе у розділі профіль",
   "next": "Вперед",
@@ -296,5 +313,6 @@
   "selectAllCols": "Вибрати вси колонки",
   "add": "Додати",
   "comment": "Коментар",
-  "other": "Інше"
+  "other": "Інше",
+  "approve": "Підтвердити"
 }

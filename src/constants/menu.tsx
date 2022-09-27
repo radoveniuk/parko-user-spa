@@ -1,9 +1,11 @@
 import React from 'react';
+import { To } from 'react-router-dom';
+
 import {
+  AccommodationIcon,
   CustomizeIcon, DayoffIcon, HomeIcon, NotificationIcon, PaycheckIcon,
   PrepaymentIcon, ProjectIcon, UploadIcon, UserIcon, UsersIcon,
 } from 'components/icons';
-import { To } from 'react-router-dom';
 
 export type INavbarItem = {
   title: string,
@@ -90,6 +92,11 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     title: 'navbar.projects',
     icon: <ProjectIcon size={30} />,
     to: '/projects',
+  },
+  {
+    title: 'navbar.accommodation',
+    icon: <AccommodationIcon size={30} />,
+    to: '/accommodation',
   },
   {
     title: 'navbar.notifications',

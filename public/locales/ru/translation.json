@@ -8,7 +8,8 @@
     "daysoff": "Отгулы",
     "paychecks": "Фактуры",
     "projects": "Проекты",
-    "customization": "Кастомизация"
+    "customization": "Кастомизация",
+    "accommodation": "Жилье"
   },
   "menu": {
     "prepayment": "Заказать аванс",
@@ -202,6 +203,10 @@
       "hour": "За отработ. час",
       "month": "За отработ. месяц"
     },
+    "accommodationTariff": {
+      "night": "Ночь",
+      "month": "Месяц"
+    },
     "employmentType": {
       "self": "Частный предприниматель",
       "onCompany": "Трудоустройство в компании",
@@ -285,6 +290,18 @@
     "delete":"Удалить",
     "order": "Порядок"
   },
+  "accommodation": {
+    "owner": "Владелец",
+    "adress": "Адрес",
+    "checkIn": "Дата Check In",
+    "checkOut": "Дата Check Out",
+    "cost": "Сумма",
+    "create": "Создать жилье",
+    "managerPhone": "Телефон менеджера",
+    "receptionPhone": "Телефон рецепции",
+    "comment": "Коментарий",
+    "tariff": "Тариф"
+  },
   "language": "Язык",
   "youNotVerified": "Сейчас основные разделы системы Parko app недоступны. Сначала вам необходимо заполнить информацию о себе в разделе Профиль",
   "next": "Вперед",
@@ -296,5 +313,6 @@
   "selectAllCols": "Выбрать все колонки",
   "add": "Добавить",
   "comment": "Коментарий",
-  "other": "Другое"
+  "other": "Другое",
+  "approve": "Подтвердить"
 }

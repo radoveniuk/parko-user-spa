@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
-import { ADMIN_NAVBAR_ITEMS, INavbarItem, LITE_NAVBAR_ITEMS, NAVBAR_ITEMS } from 'constants/menu';
+import logoImage from 'components/assets/images/logo.png';
+import LanguageSelector from 'components/complex/LanguageSelector';
+import LogoutButton from 'components/complex/LogoutButton';
 import { MenuIcon } from 'components/icons';
 import IconButton from 'components/shared/IconButton';
-import { themeConfig } from 'theme';
+import { ADMIN_NAVBAR_ITEMS, INavbarItem, LITE_NAVBAR_ITEMS, NAVBAR_ITEMS } from 'constants/menu';
 import { useAuthData } from 'contexts/AuthContext';
 import { useNotifications } from 'contexts/NotificationContext';
-import logoImage from 'components/assets/images/logo.png';
+import { themeConfig } from 'theme';
 
 import { Drawer, NavbarWrapper, NavItem, NavItemsList } from './styles';
 
@@ -99,6 +101,10 @@ const Navbar = ({ open, onClose } : Props) => {
         </div>
         {navbarContent}
         <div className="navbar-footer">
+          <div className="actions">
+            <LanguageSelector />
+            <LogoutButton />
+          </div>
           <ul className="contactsList">
             <li><a href ="mailto:support@parko.sk">support@parko.sk</a></li>
             <li><a href="https://parko-staff.com/">parko-staff.com</a></li>

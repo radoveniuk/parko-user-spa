@@ -69,7 +69,7 @@ const CreateNotificationPage = () => {
         <div className="controls">
           <Search<IUser>
             url="/users"
-            onSelect={(user) => void addUser(user)}
+            onSelectItem={(user) => void addUser(user)}
             searchItemComponent={(user) => `${user.name} ${user.surname} ${user.project ? `(${(user.project as IProject).name})` : ''}`}
             placeholder={t('notification.users')}
           />

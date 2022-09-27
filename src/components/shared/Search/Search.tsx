@@ -14,14 +14,14 @@ export type SearchProps<T> = {
   url?: string;
   dataList?: T[];
   searchFields?: (keyof Partial<T>)[];
-  onSelect(item: T): void;
+  onSelectItem(item: T): void;
   searchItemComponent: ((item: T) => string | React.ReactNode);
   closeAfterSelect?: boolean;
   placeholder?: string;
 };
 
 const Search = <T extends MongoEntity>({
-  url, dataList, searchFields, searchItemComponent, onSelect, closeAfterSelect = true, placeholder,
+  url, dataList, searchFields, searchItemComponent, onSelectItem: onSelect, closeAfterSelect = true, placeholder,
 }: SearchProps<T>) => {
   const { t } = useTranslation();
   const [searchValue, setSearchValue] = useState<string>('');

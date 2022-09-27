@@ -1,5 +1,6 @@
 import { LinearProgress } from '@mui/material';
 import styled from 'styled-components';
+
 import { colors } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
 

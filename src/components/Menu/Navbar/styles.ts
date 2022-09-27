@@ -1,5 +1,6 @@
 import { Box, Drawer as DrawerMaterial, List, ListItemButton } from '@mui/material';
 import styled from 'styled-components';
+
 import { colors } from 'theme';
 
 export const NavbarWrapper = styled(Box)`
@@ -40,6 +41,12 @@ export const NavbarWrapper = styled(Box)`
   }
 
   .navbar-footer {
+    .actions {
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+    }
+
     .contactsList {
       list-style-type: none;
       li {
