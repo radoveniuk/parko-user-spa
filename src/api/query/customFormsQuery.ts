@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 
 import api from 'api/common';
-import { QueryOptions } from 'interfaces/query.types';
 import { ICustomFormField, ICustomFormSection } from 'interfaces/form.interface';
+import { QueryOptions } from 'interfaces/query.types';
 
 const PATH = '/custom-form';
 

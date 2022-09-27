@@ -11,13 +11,10 @@ export const NotificationForm = styled.form`
       max-width: 350px;
     }
 
-    .notification-users {
+    .selected-users {
       display: flex;
-      align-items: center;
       flex-wrap: wrap;
       gap: 10px;
-
-      color: #A0A0A0;
     }
   }
 `;

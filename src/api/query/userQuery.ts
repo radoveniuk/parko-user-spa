@@ -1,10 +1,10 @@
 import { useQuery } from 'react-query';
 
 import api from 'api/common';
-import { AnyObject } from 'interfaces/base.types';
-import { IUser } from 'interfaces/users.interface';
-import { QueryOptions } from 'interfaces/query.types';
 import { getCookieValue } from 'helpers/cookies';
+import { AnyObject } from 'interfaces/base.types';
+import { QueryOptions } from 'interfaces/query.types';
+import { IUser } from 'interfaces/users.interface';
 
 export const getUserListByParams = (params: AnyObject): Promise<IUser[]> => api.get('/users', {
   headers: {

@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import _, { isEqual } from 'lodash-es';
-
+import React, { useEffect, useState } from 'react';
+import { ListItemButton } from '@mui/material';
 import MaterialList, { ListProps } from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import { ListItemButton } from '@mui/material';
-import { AnyObject } from 'interfaces/base.types';
+import _, { isEqual } from 'lodash-es';
+
+import { AnyObject, MongoEntity } from 'interfaces/base.types';
+
 import { StyledListItem } from './styles';
 
 type Props<T> = ListProps & {
@@ -20,7 +21,7 @@ type Props<T> = ListProps & {
   defaultSelected?: unknown;
 }
 
-export default function List <T extends { _id: string }> ({ data, fields, onSelect, highlite, defaultSelected, ...rest }: Props<T>) {
+export default function List <T extends MongoEntity> ({ data, fields, onSelect, highlite, defaultSelected, ...rest }: Props<T>) {
   const [selected, setSelected] = useState(defaultSelected);
 
   const getText = (item: AnyObject, path: string | string[]) => {

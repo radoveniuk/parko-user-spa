@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { isEmpty } from 'lodash-es';
+import { useSnackbar } from 'notistack';
 
-import { INotification } from 'interfaces/notification.interface';
-import Page, { PageTitle } from 'components/shared/Page';
-import Editor from 'components/complex/Editor';
-import Input from 'components/shared/Input';
-import Button from 'components/shared/Button';
-import { IUser } from 'interfaces/users.interface';
-import { useGetUserList } from 'api/query/userQuery';
-import Autocomplete from 'components/shared/Autocomplete';
-import { useAuthData } from 'contexts/AuthContext';
 import { useCreateNotificationMutation } from 'api/mutations/notificationMutation';
+import Editor from 'components/complex/Editor';
+import Button from 'components/shared/Button';
+import Chip from 'components/shared/Chip';
+import Input from 'components/shared/Input';
+import Page, { PageTitle } from 'components/shared/Page';
+import Search from 'components/shared/Search';
+import { useAuthData } from 'contexts/AuthContext';
+import { INotification } from 'interfaces/notification.interface';
+import { IProject } from 'interfaces/project.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import { NotificationForm } from './styles';
 
@@ -25,11 +26,22 @@ const CreateNotificationPage = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { data: userList = [], isFetching: userListFetching } = useGetUserList();
-
   const createNotificationMutation = useCreateNotificationMutation();
 
   const [users, setUsers] = useState<IUser[]>([]);
+
+  const addUser = (user: IUser) => {
+    setUsers((prev) => {
+      if (prev.every((item) => item._id !== user._id)) {
+        return [...prev, user];
+      }
+      return prev;
+    });
+  };
+
+  const removeUser = (id: string) => {
+    setUsers((prev) => prev.filter((item) => item._id !== id));
+  };
 
   const submitHandler: SubmitHandler<INotification> = async (data) => {
     const notifications: Partial<INotification>[] = users.map((user) => ({
@@ -55,17 +67,23 @@ const CreateNotificationPage = () => {
       <PageTitle>{t('notification.new')}</PageTitle>
       <NotificationForm>
         <div className="controls">
-          <div className="notification-users">
-            <Autocomplete
-              multiple
-              options={userList}
-              loading={userListFetching}
-              label={t('notification.users')}
-              labelKey="email"
-              style={{ minWidth: 350, maxWidth: 350 }}
-              onChange={setUsers}
-            />
-          </div>
+          <Search<IUser>
+            url="/users"
+            onSelect={(user) => void addUser(user)}
+            searchItemComponent={(user) => `${user.name} ${user.surname} ${user.project ? `(${(user.project as IProject).name})` : ''}`}
+            placeholder={t('notification.users')}
+          />
+          {!!users.length && (
+            <div className="selected-users">
+              {users.map((item) => (
+                <Chip
+                  key={item._id}
+                  label={`${item.name} ${item.surname}`}
+                  onDelete={() => void removeUser(item._id)}
+                />
+              ))}
+            </div>
+          )}
           <Input label={t('notification.title')} className="controls-input" {...register('title', { required: true })} />
           <Button
             className="controls-input"
