@@ -34,6 +34,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
   });
   const { data: accommodations = [] } = useGetAccommodations();
   const [selectedUser, setSelectedUser] = useState<IUser | undefined>(data?.user as IUser);
+  const [notificateOwner, setNotificateOwner] = useState<boolean>(!data?.checkOutDate);
   const createResidence = useCreateResidence();
   const updateResidence = useUpdateResidence();
 
@@ -42,7 +43,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
     const values = { ...v, user: selectedUser._id };
 
     const mutation = values._id ? updateResidence : createResidence;
-    mutation.mutateAsync(values).then(() => { onClose(); });
+    mutation.mutateAsync({ data: values, notificate: notificateOwner }).then(() => { onClose(); });
   };
 
   return (
@@ -99,7 +100,11 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
           )}
         </div>
         <div className="actions">
-          <Checkbox defaultChecked={!data?.checkOutDate} title={t('accommodation.notificate')} />
+          <Checkbox
+            defaultChecked={notificateOwner}
+            onChange={(e) => void setNotificateOwner(e.target.checked)}
+            title={t('accommodation.notificate')}
+          />
           <Button onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors) || !selectedUser}>{t('OK')}</Button>
         </div>
       </DialogContentWrapper>

@@ -51,11 +51,12 @@ const getDays = (residence: IResidence) => {
 
   if (residence.checkOutDate) {
     const checkOut = DateTime.fromISO(residence.checkOutDate);
-    const diff = checkIn.diff(checkOut, 'days');
-    return -diff.days.toFixed();
+    const diff = -checkIn.diff(checkOut, 'days').days.toFixed();
+    return diff > 0 ? diff : 0;
   }
 
-  return -checkIn.diffNow('days').days.toFixed();
+  const diff = -checkIn.diffNow('days').days.toFixed();
+  return diff > 0 ? diff : 0;
 };
 
 const Residences = () => {
