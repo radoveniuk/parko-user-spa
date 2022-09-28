@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useGetNotifications } from 'api/query/notificationsQuery';
 import { useDeleteNotificationMutation, useUpdateNotificationMutation } from 'api/mutations/notificationMutation';
-import Dialog from 'components/shared/Dialog';
+import { useGetNotifications } from 'api/query/notificationsQuery';
 import Button from 'components/shared/Button';
+import Dialog from 'components/shared/Dialog';
 import List from 'components/shared/List';
+import { getDateFromIso } from 'helpers/datetime';
 import { INotification } from 'interfaces/notification.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import { NotificationContent, NotificationDeleteButton, NotificationTitle } from './NotificationContent';
-
 import { DeleteModalContent, EmptyDataWrapper, NotificationWrapper } from './styles';
-import { IUser } from 'interfaces/users.interface';
-import { getDateFromIso } from 'helpers/datetime';
 
 type Props = {
   options: Partial<INotification>;

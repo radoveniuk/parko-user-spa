@@ -1,5 +1,6 @@
 import React, { HTMLAttributes, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { ListTableCell, ListTableHeaderRow, ListTableWrapper } from './styles';
 
 type Props = {

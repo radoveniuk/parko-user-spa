@@ -22,7 +22,7 @@ export default TabsProvider;
 export const useTabs = () => {
   const context = useContext(TabsContext);
   if (!context) {
-    throw new Error('Context not conected');
+    throw new Error('Context not connected');
   }
   return context;
 };

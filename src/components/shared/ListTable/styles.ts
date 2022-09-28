@@ -19,6 +19,7 @@ export const ListTableRow = styled.div`
 export const ListTableHeaderRow = styled.div<{ sticky?: boolean }>`
   display: contents;
   font-weight: 700;
+  white-space: nowrap;
 
   ${props => props.sticky && css`
     .list-table-cell {

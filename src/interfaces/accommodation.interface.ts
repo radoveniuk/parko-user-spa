@@ -2,7 +2,8 @@ export interface IAccommodation {
   _id: string;
   email: string;
   comment: string;
-  cost: string;
+  costNight: string;
+  costMonth: string;
   tariff: string;
   owner: string;
   adress: string;

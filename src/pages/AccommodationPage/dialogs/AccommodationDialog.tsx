@@ -3,6 +3,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { isEmpty } from 'lodash-es';
 
+import { useCreateAccommodation, useUpdateAccommodation } from 'api/mutations/accommodationMutation';
 import Button from 'components/shared/Button';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import Input from 'components/shared/Input';
@@ -19,18 +20,23 @@ type Props = DialogProps & {
   data?: IAccommodation
 };
 
-const AccommodationDialog = ({ data, ...rest }:Props) => {
+const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
   const { t } = useTranslation();
   const { register, formState: { errors }, control, handleSubmit } = useForm<IAccommodation>({ defaultValues: data });
+  const createAccommodation = useCreateAccommodation();
+  const updateAccommodation = useUpdateAccommodation();
 
   const tariffTypes = useTranslatedSelect(ACCOMMODATION_TARIFF_TYPE, 'accommodationTariff');
 
   const submitHandler: SubmitHandler<IAccommodation> = (values) => {
-    console.log(values);
+    const mutation = values._id ? updateAccommodation : createAccommodation;
+    mutation.mutateAsync(values).then(() => {
+      onClose();
+    });
   };
 
   return (
-    <Dialog title={t('navbar.accommodation')} {...rest}>
+    <Dialog onClose={onClose} title={t('navbar.accommodation')} {...rest}>
       <DialogContentWrapper>
         <div className="form">
           <Input
@@ -85,18 +91,27 @@ const AccommodationDialog = ({ data, ...rest }:Props) => {
             )}
           />
           <Input
-            label={t('accommodation.cost')}
-            error={!!errors.cost}
-            helperText={errors.cost?.message}
+            label={t('accommodation.costNight')}
+            error={!!errors.costNight}
+            helperText={errors.costNight?.message}
             type="number"
             className="form-field"
-            {...register('cost')}
+            {...register('costNight')}
+          />
+          <Input
+            label={t('accommodation.costMonth')}
+            error={!!errors.costMonth}
+            helperText={errors.costMonth?.message}
+            type="number"
+            className="form-field"
+            {...register('costMonth')}
           />
           <Select
             label={t('accommodation.tariff')}
             error={!!errors.tariff}
             options={tariffTypes}
             className="form-field"
+            value={data?.tariff || ''}
             {...register('tariff')}
           />
           <Input
