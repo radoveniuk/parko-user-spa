@@ -17,11 +17,12 @@ export type SearchProps<T> = {
   onSelectItem(item: T): void;
   searchItemComponent: ((item: T) => string | React.ReactNode);
   closeAfterSelect?: boolean;
+  clearAfterSelect?: boolean;
   placeholder?: string;
 };
 
 const Search = <T extends MongoEntity>({
-  url, dataList, searchFields, searchItemComponent, onSelectItem: onSelect, closeAfterSelect = true, placeholder,
+  url, dataList, searchFields, searchItemComponent, onSelectItem: onSelect, closeAfterSelect = true, placeholder, clearAfterSelect = false,
 }: SearchProps<T>) => {
   const { t } = useTranslation();
   const [searchValue, setSearchValue] = useState<string>('');
@@ -90,6 +91,7 @@ const Search = <T extends MongoEntity>({
               className="search-result-item"
               onClick={() => {
                 closeAfterSelect && setOpenSeacrhBox(false);
+                clearAfterSelect && setSearchValue('');
                 onSelect(item);
               }}
             >

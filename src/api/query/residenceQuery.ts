@@ -1,9 +1,10 @@
 import { useQuery } from 'react-query';
 
 import api from 'api/common';
+import { AnyObject } from 'interfaces/base.types';
 import { IResidence } from 'interfaces/residence.interface';
 
-export const useGetResidences = (params: Partial<IResidence> = {}) => {
+export const useGetResidences = (params: AnyObject = {}) => {
   const request = (): Promise<IResidence[]> => api.get('/residences', {
     headers: {
       'Content-Type': 'application/json',

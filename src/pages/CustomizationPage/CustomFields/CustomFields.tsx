@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 
-import List from 'components/shared/List';
-
-import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import {
   useCreateCustomFormFieldMutation,
   useDeleteCustomFormFieldMutation,
   useUpdateCustomFormFieldMutation,
 } from 'api/mutations/customFormsMutation';
-import { CustomFormEntity, CustomFormFieldType, ICustomFormField } from 'interfaces/form.interface';
-import Button from 'components/shared/Button';
-import { LANGUAGES } from 'constants/languages';
-import Input from 'components/shared/Input';
-import Select from 'components/shared/Select';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
+import { fetchTranslation } from 'api/query/translationQuery';
+import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import DialogConfirm from 'components/shared/DialogConfirm';
-import { fetchTranslation } from 'api/query/translationQuery';
+import Input from 'components/shared/Input';
+import List from 'components/shared/List';
+import Select from 'components/shared/Select';
+import { LANGUAGES } from 'constants/languages';
 import useDebounce from 'hooks/useDebounce';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { CustomFormEntity, CustomFormFieldType, ICustomFormField } from 'interfaces/form.interface';
 
 import CustomSections from './CustomSections';
-
 import { CustomFieldsWrapper } from './styles';
 
 const CUSTOM_FIELD_TYPES: CustomFormFieldType[] = ['boolean', 'date', 'number', 'phone', 'string'];
@@ -113,7 +111,6 @@ const CustomFields = ({
 
       Promise.all(anotherLangs.map((toLang) => fetchWrapper(toLang)))
         .then((results) => {
-          console.log(results);
           results.forEach((res) => {
             setValue(`names.${res.code.replace('-us', '')}`, res.value);
           });

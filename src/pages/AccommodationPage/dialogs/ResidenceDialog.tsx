@@ -5,16 +5,14 @@ import { isEmpty } from 'lodash-es';
 
 import { useCreateResidence, useUpdateResidence } from 'api/mutations/residenceMutation';
 import { useGetAccommodations } from 'api/query/accommodationQuery';
+import { useGetUserList } from 'api/query/userQuery';
+import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import DatePicker from 'components/shared/DatePicker';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
-import Search from 'components/shared/Search';
-import Select from 'components/shared/Select';
 import { IAccommodation } from 'interfaces/accommodation.interface';
-import { IProject } from 'interfaces/project.interface';
 import { IResidence } from 'interfaces/residence.interface';
-import { IUser } from 'interfaces/users.interface';
 
 import { DialogContentWrapper } from './styles';
 
@@ -24,7 +22,7 @@ type Props = DialogProps & {
 
 const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
   const { t } = useTranslation();
-  const { register, formState: { errors }, control, handleSubmit } = useForm<IResidence>({
+  const { formState: { errors }, control, handleSubmit } = useForm<IResidence>({
     defaultValues: {
       _id: data?._id,
       checkInDate: data?.checkInDate,
@@ -33,14 +31,13 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
     },
   });
   const { data: accommodations = [] } = useGetAccommodations();
-  const [selectedUser, setSelectedUser] = useState<IUser | undefined>(data?.user as IUser);
+  const { data: users = [] } = useGetUserList();
   const [notificateOwner, setNotificateOwner] = useState<boolean>(!data?.checkOutDate);
   const createResidence = useCreateResidence();
   const updateResidence = useUpdateResidence();
 
   const submitHandler: SubmitHandler<IResidence> = (v) => {
-    if (!selectedUser) return;
-    const values: IResidence = { ...v, user: selectedUser._id, checkInDate: v.checkInDate || null, checkOutDate: v.checkOutDate || null };
+    const values: IResidence = { ...v, checkInDate: v.checkInDate || null, checkOutDate: v.checkOutDate || null };
 
     const mutation = values._id ? updateResidence : createResidence;
     mutation.mutateAsync({ data: values, notificate: notificateOwner }).then(() => { onClose(); });
@@ -48,28 +45,44 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
 
   return (
     <Dialog
-      title={`Check in ${data?.checkOutDate ? '- Check out' : ''} ${selectedUser ? `(${selectedUser.name} ${selectedUser.surname})` : ''}`}
+      title={`Check in ${data?.checkOutDate ? '- Check out' : ''}`}
       onClose={onClose}
       {...rest}
     >
       <DialogContentWrapper>
         <div className="form">
-          <Search<IUser>
-            url="/users"
-            placeholder={t('navbar.profiles')}
-            searchItemComponent={(user) => `${user.name} ${user.surname} ${user.project ? `(${(user.project as IProject).name})` : ''}`}
-            onSelectItem={(user) => void setSelectedUser(user)}
-          />
+          {users.length && (
+            <Controller
+              control={control}
+              name="user"
+              defaultValue=""
+              rules={{ required: true }}
+              render={({ field }) => (
+                <Autocomplete
+                  options={users}
+                  label={t('navbar.profiles')}
+                  getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
+                  className="form-field"
+                  onChange={(v) => void field.onChange(v?._id || '')}
+                />
+              )}
+            />
+          )}
           {accommodations.length && (
-            <Select
-              label={t('navbar.accommodation')}
-              error={!!errors.accommodation}
-              options={accommodations}
-              valuePath="_id"
-              labelPath={['adress', 'owner']}
-              className="form-field"
-              defaultValue={(data?.accommodation as IAccommodation)?._id || ''}
-              {...register('accommodation', { required: true })}
+            <Controller
+              control={control}
+              name="accommodation"
+              defaultValue=""
+              rules={{ required: true }}
+              render={({ field }) => (
+                <Autocomplete
+                  options={accommodations}
+                  label={t('navbar.accommodation')}
+                  getOptionLabel={(option) => `${option.adress} (${option.owner})`}
+                  className="form-field"
+                  onChange={(v) => void field.onChange(v?._id || '')}
+                />
+              )}
             />
           )}
           <Controller
@@ -105,7 +118,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
             onChange={(e) => void setNotificateOwner(e.target.checked)}
             title={t('accommodation.notificate')}
           />
-          <Button onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors) || !selectedUser}>{t('OK')}</Button>
+          <Button onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors)}>{t('OK')}</Button>
         </div>
       </DialogContentWrapper>
     </Dialog>

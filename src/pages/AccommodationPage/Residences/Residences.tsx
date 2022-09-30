@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
-import { useGetResidences } from 'api/query/residenceQuery';
 import { useGetProjects } from 'api/query/projectQuery';
+import { useGetResidences } from 'api/query/residenceQuery';
 import { CloseIcon, EditIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
@@ -16,8 +16,8 @@ import { getDateFromIso } from 'helpers/datetime';
 import useDebounce from 'hooks/useDebounce';
 import usePrev from 'hooks/usePrev';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import { IProject } from 'interfaces/project.interface';
 import { IAccommodation } from 'interfaces/accommodation.interface';
+import { IProject } from 'interfaces/project.interface';
 import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';
 
@@ -134,7 +134,15 @@ const Residences = () => {
               <Link to={`/projects?id=${((item.metadata.user as IUser).project as IProject)?._id}`} className="table-link">{item.project}</Link>
             </ListTableCell>
             <ListTableCell>{item.owner}</ListTableCell>
-            <ListTableCell><div role="button" className="table-link" onClick={() => void setOpenAccommodation(item.metadata.accommodation as IAccommodation)}>{item.adress}</div></ListTableCell>
+            <ListTableCell>
+              <div
+                role="button"
+                className="table-link"
+                onClick={() => void setOpenAccommodation(item.metadata.accommodation as IAccommodation)}
+              >
+                {item.adress}
+              </div>
+            </ListTableCell>
             <ListTableCell>{item.checkInDate}</ListTableCell>
             <ListTableCell>{item.checkOutDate}</ListTableCell>
             <ListTableCell>{item.days}</ListTableCell>

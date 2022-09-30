@@ -45,12 +45,10 @@ const Navbar = ({ open, onClose } : Props) => {
         <Link to={item.to} key={item.title}>
           <ListItem className="list-item">
             <NavItem
-              className={`${item.to === location.pathname
-                ? 'active'
-                : ''}${item.to === '/notifications' && isNewNotification
-                ? ' notifications'
-                : ''}`
-              }
+              className={`
+                ${(item.to === location.pathname || item?.relativeLocations?.includes(location.pathname.split('/')[1])) ? 'active' : ''}
+                ${item.to === '/notifications' && isNewNotification ? ' notifications' : ''}
+              `}
             >
               <ListItemIcon className="nav-icon">
                 {item.icon}

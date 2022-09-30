@@ -16,6 +16,7 @@ import { IUser } from 'interfaces/users.interface';
 import BaseInfo from './BaseInfo';
 import Daysoff from './Daysoff';
 import Prepayments from './Prepayments';
+import Residences from './Residences';
 import SalarySettings from './SalarySettings';
 import Scans from './Scans';
 
@@ -56,6 +57,7 @@ const ProfileAdminPage = () => {
             <Tab label={t('navbar.prepayments')} />
             <Tab label={t('navbar.daysoff')} />
             <Tab label={t('navbar.notifications')} />
+            <Tab label={t('accommodation.residences')} />
           </Tabs>
           <TabPanel index={0}>
             <BaseInfo data={profileData} onUpdate={updateUser} />
@@ -77,6 +79,9 @@ const ProfileAdminPage = () => {
           </TabPanel>
           <TabPanel index={6}>
             <Notifications options={{ to: userId }} />
+          </TabPanel>
+          <TabPanel index={7}>
+            <Residences />
           </TabPanel>
         </TabsContainer>
       )}

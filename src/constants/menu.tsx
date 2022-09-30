@@ -11,6 +11,7 @@ export type INavbarItem = {
   title: string,
   icon: React.ReactNode,
   to: To,
+  relativeLocations?: To[]
 };
 
 export const LITE_NAVBAR_ITEMS = [
@@ -87,11 +88,13 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     title: 'navbar.profiles',
     icon: <UsersIcon size={30} />,
     to: '/profiles',
+    relativeLocations: ['profile', 'profile-editor'],
   },
   {
     title: 'navbar.projects',
     icon: <ProjectIcon size={30} />,
     to: '/projects',
+    relativeLocations: ['project'],
   },
   {
     title: 'navbar.accommodation',
@@ -102,6 +105,7 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     title: 'navbar.notifications',
     icon: <NotificationIcon size={30} />,
     to: '/notifications',
+    relativeLocations: ['create-notification'],
   },
   {
     title: 'navbar.prepayments',

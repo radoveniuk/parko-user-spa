@@ -9,23 +9,25 @@ export type AutocompleteProps = {
   loading?: boolean;
   options: any[];
   label: string;
-  labelKey: string;
+  labelKey?: string;
+  getOptionLabel?(item: any): string;
   multiple?: boolean;
   limitTags?: number;
   style?: React.CSSProperties;
   onChange?(value: any | any[] | null): void;
   value?: any;
+  className?: string;
 }
 
 const AutoComplete = ({
-  label, loading, labelKey, onChange, defaultOpen, value, ...rest
+  label, loading, labelKey, onChange, defaultOpen, value, getOptionLabel, ...rest
 }: AutocompleteProps) => {
   const [open, setOpen] = useState(false);
 
   return (
     <AutocompleteMaterial
       {...rest}
-      getOptionLabel={option => option[labelKey]}
+      getOptionLabel={option => labelKey ? option[labelKey] : getOptionLabel?.(option)}
       onChange={(e, newValue) => void onChange?.(newValue)}
       value={value}
       renderInput={(params) => (
