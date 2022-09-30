@@ -1,28 +1,34 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { useGetResidences } from 'api/query/residenceQuery';
+import { useGetProjects } from 'api/query/projectQuery';
 import { CloseIcon, EditIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
-import { FilterDate } from 'components/shared/Filters/Filters';
+import { ClearFiLtersButton, FilterDate, FilterSelect, FilterText } from 'components/shared/Filters/Filters';
 import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import useDebounce from 'hooks/useDebounce';
 import usePrev from 'hooks/usePrev';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IProject } from 'interfaces/project.interface';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';
-import { themeConfig } from 'theme';
 
+import { useActiveAccommodation } from '../contexts/AccommodationContext';
 import { useActiveResidence } from '../contexts/ResidenceContext';
+
+import { ResidencesWrapper } from './styles';
 
 const COLUMNS = [
   'user.name',
+  'user.project',
   'accommodation.owner',
   'accommodation.adress',
   'accommodation.checkIn',
@@ -37,6 +43,7 @@ const COLUMNS = [
 type ResidenceTableRow = {
   _id: string;
   user: string;
+  project: string;
   owner: string;
   adress: string;
   checkInDate: string | null;
@@ -66,14 +73,18 @@ const Residences = () => {
   const { t } = useTranslation();
   const { filtersState } = useFilters();
   const debouncedFiltersState = useDebounce(filtersState);
-  const { data: residences = [], refetch } = useGetResidences(filtersState);
+  const { data: projects = [] } = useGetProjects();
+  const activeOptions = useTranslatedSelect(['true', 'false']);
+
+  const { data: residences = [], refetch } = useGetResidences(debouncedFiltersState);
   const tableData: ResidenceTableRow[] = useMemo(() => residences.map((item) => {
-    const { name, surname } = item.user as IUser;
+    const { name, surname, project } = item.user as IUser;
     const { owner, adress, costNight } = item.accommodation as IAccommodation;
     const days = getDays(item) || 0;
     return {
       _id: item._id,
       user: `${name} ${surname}`,
+      project: (project as IProject)?.name,
       owner,
       adress,
       checkInDate: getDateFromIso(item.checkInDate),
@@ -86,6 +97,7 @@ const Residences = () => {
   }), [residences]);
 
   const [openResidence, setOpenResidence] = useActiveResidence();
+  const [, setOpenAccommodation] = useActiveAccommodation();
 
   const deleteResidence = useDeleteResidence();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
@@ -102,19 +114,27 @@ const Residences = () => {
   }, [debouncedFiltersState, refetch]);
 
   return (
-    <>
+    <ResidencesWrapper>
       <FiltersBar>
         <FilterDate label={t('firstDate')} filterKey="firstDate" />
         <FilterDate label={t('lastDate')} filterKey="lastDate" />
+        <FilterSelect filterKey="active" label={t('accommodation.active')} options={activeOptions} />
+        <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
+        <FilterText filterKey="accommodationOwner" label={t('accommodation.owner')} />
+        <FilterText filterKey="accommodationAdress" label={t('accommodation.adress')} />
+        <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={COLUMNS} >
         {tableData.map((item) => (
           <ListTableRow key={item._id}>
             <ListTableCell>
-              <Link to={`/profile/${(item.metadata.user as IUser)._id}`} style={{ color: themeConfig.palette.primary.light }}>{item.user}</Link>
+              <Link to={`/profile/${(item.metadata.user as IUser)._id}`} className="table-link">{item.user}</Link>
+            </ListTableCell>
+            <ListTableCell>
+              <Link to={`/projects?id=${((item.metadata.user as IUser).project as IProject)?._id}`} className="table-link">{item.project}</Link>
             </ListTableCell>
             <ListTableCell>{item.owner}</ListTableCell>
-            <ListTableCell>{item.adress}</ListTableCell>
+            <ListTableCell><div role="button" className="table-link" onClick={() => void setOpenAccommodation(item.metadata.accommodation as IAccommodation)}>{item.adress}</div></ListTableCell>
             <ListTableCell>{item.checkInDate}</ListTableCell>
             <ListTableCell>{item.checkOutDate}</ListTableCell>
             <ListTableCell>{item.days}</ListTableCell>
@@ -135,7 +155,7 @@ const Residences = () => {
           });
         }}
       />
-    </>
+    </ResidencesWrapper>
   );
 };
 

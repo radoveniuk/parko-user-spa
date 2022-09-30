@@ -52,6 +52,8 @@ const DatePicker = ({ value: defaultValue, onChange, label }: Props) => {
       if (isFormatted) {
         setValue(defaultValue);
       }
+    } else {
+      setValue('');
     }
   }, [defaultValue]);
 
