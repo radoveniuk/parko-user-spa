@@ -3,13 +3,14 @@ import { get, isEmpty } from 'lodash-es';
 
 import { CloseIcon } from 'components/icons';
 
+import Autocomplete, { AutocompleteProps } from '../Autocomplete';
+import DatePicker from '../DatePicker';
 import IconButton from '../IconButton';
 import Input from '../Input';
 import Select, { SelectProps } from '../Select';
-import useFilters, { useFilterState } from './useFilters';
 
 import { ClearFiltersWrapper, FilterWrapper } from './styles';
-import Autocomplete, { AutocompleteProps } from '../Autocomplete';
+import useFilters, { useFilterState } from './useFilters';
 
 type FilterProps = {
   filterKey: string;
@@ -24,6 +25,23 @@ export const FilterText = ({ filterKey, label }: FilterProps) => {
         label={label}
         value={value || ''}
         onChange={({ target }) => void setValue(target.value)}
+      />
+    </FilterWrapper>
+  );
+};
+
+export const FilterDate = ({ filterKey, label }: FilterProps) => {
+  const [value, setValue] = useFilterState(filterKey);
+  return (
+    <FilterWrapper>
+      <DatePicker
+        label={label}
+        value={value || ''}
+        onChange={(v, isValid) => {
+          if (isValid) {
+            setValue(v);
+          }
+        }}
       />
     </FilterWrapper>
   );

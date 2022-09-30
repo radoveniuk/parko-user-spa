@@ -1,11 +1,11 @@
 import React, {
   createContext, ReactNode, useState,
 } from 'react';
-import { omit } from 'lodash-es';
 import { createSearchParams, useNavigate } from 'react-router-dom';
+import { omit } from 'lodash-es';
 
-import { AnyObject } from 'interfaces/base.types';
 import usePageQueries from 'hooks/usePageQueries';
+import { AnyObject } from 'interfaces/base.types';
 
 type Props = {
   children: ReactNode;

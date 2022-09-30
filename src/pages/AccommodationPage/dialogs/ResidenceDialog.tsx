@@ -40,7 +40,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
 
   const submitHandler: SubmitHandler<IResidence> = (v) => {
     if (!selectedUser) return;
-    const values = { ...v, user: selectedUser._id };
+    const values: IResidence = { ...v, user: selectedUser._id, checkInDate: v.checkInDate || null, checkOutDate: v.checkOutDate || null };
 
     const mutation = values._id ? updateResidence : createResidence;
     mutation.mutateAsync({ data: values, notificate: notificateOwner }).then(() => { onClose(); });
@@ -101,7 +101,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
         </div>
         <div className="actions">
           <Checkbox
-            defaultChecked={notificateOwner}
+            checked={notificateOwner}
             onChange={(e) => void setNotificateOwner(e.target.checked)}
             title={t('accommodation.notificate')}
           />

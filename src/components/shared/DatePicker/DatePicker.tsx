@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useState } from 'react';
-import { DateTime } from 'luxon';
-import { TextField } from '@mui/material';
 import NumberFormat from 'react-number-format';
+import { TextField } from '@mui/material';
+import { DateTime } from 'luxon';
 
 const dateRegex = /^([0-2][0-9]|(3)[0-1])(\.)(((0)[0-9])|((1)[0-2]))(\.)\d{4}$/;
 
@@ -61,7 +61,11 @@ const DatePicker = ({ value: defaultValue, onChange, label }: Props) => {
       value={value}
       onChange={(e) => {
         setValue(e.target.value);
-        onChange(dateRegex.test(e.target.value) ? DateTime.fromFormat(e.target.value, 'dd.MM.yyyy').toISODate() : '', dateRegex.test(e.target.value));
+        const isValid = dateRegex.test(e.target.value);
+        onChange(
+          isValid ? DateTime.fromFormat(e.target.value, 'dd.MM.yyyy').toISODate() : '',
+          isValid || e.target.value === '',
+        );
       }}
       placeholder="DD.MM.YYYY"
       InputProps={{ inputComponent: DateFormat as any }}

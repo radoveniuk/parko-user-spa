@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { CheckInIcon, CheckOutIcon, PlusIcon } from 'components/icons';
@@ -9,6 +9,7 @@ import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import AccommodationProvider, { useActiveAccommodation } from './contexts/AccommodationContext';
 import ResidenceProvider, { useActiveResidence } from './contexts/ResidenceContext';
 import AccommodationDialog from './dialogs/AccommodationDialog';
+import CheckoutDialog from './dialogs/CheckoutDialog';
 import ResidenceDialog from './dialogs/ResidenceDialog';
 import Accommodations from './Accommodations';
 import Residences from './Residences';
@@ -18,6 +19,7 @@ const AccommodationPageRender = () => {
 
   const [openAccommodation, setOpenAccommodation] = useActiveAccommodation();
   const [openResidence, setOpenResidence] = useActiveResidence();
+  const [openCheckout, setOpenCheckout] = useState(false);
 
   return (
     <Page title={t('navbar.accommodation')}>
@@ -25,7 +27,7 @@ const AccommodationPageRender = () => {
       <PageActions>
         <Button color="secondary" onClick={() => void setOpenAccommodation(true)}><PlusIcon size={20}/>{t('accommodation.create')}</Button>
         <Button color="secondary" variant="outlined" onClick={() => void setOpenResidence(true)}><CheckInIcon size={20}/>CheckIn</Button>
-        <Button color="secondary" variant="outlined"><CheckOutIcon size={20}/>CheckOut</Button>
+        <Button color="secondary" variant="outlined" onClick={() => void setOpenCheckout(true)}><CheckOutIcon size={20}/>CheckOut</Button>
       </PageActions>
       <TabsContainer>
         <Tabs>
@@ -51,6 +53,12 @@ const AccommodationPageRender = () => {
           open={!!openResidence}
           onClose={() => void setOpenResidence(false)}
           data={typeof openResidence === 'boolean' ? undefined : openResidence}
+        />
+      )}
+      {openCheckout && (
+        <CheckoutDialog
+          open={!!openCheckout}
+          onClose={() => void setOpenCheckout(false)}
         />
       )}
     </Page>
