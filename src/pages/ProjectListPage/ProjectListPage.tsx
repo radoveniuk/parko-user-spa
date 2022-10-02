@@ -45,7 +45,6 @@ const ProjectListPage = () => {
   const deleteProjectMutation = useDeleteProjectMutation();
 
   const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
   const pageQueries = usePageQueries();
 
   const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState(false);
@@ -92,7 +91,7 @@ const ProjectListPage = () => {
           }}
         />
         <Link to="/project" style={{ marginLeft: 'auto' }}>
-          <Button color="secondary"><PlusIcon size={20} />{t('project.new')}</Button>
+          <Button><PlusIcon size={20} />{t('project.new')}</Button>
         </Link>
       </FiltersBar>
       <ProjectsListWrapper>

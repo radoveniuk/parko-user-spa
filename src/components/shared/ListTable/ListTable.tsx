@@ -6,7 +6,7 @@ import { ListTableCell, ListTableHeaderRow, ListTableWrapper } from './styles';
 type Props = {
   columns: string[]
   children?: ReactNode;
-  columnComponent?: (col: string) => ReactNode;
+  columnComponent?: (col: string, index: number) => ReactNode;
   stickyHeader?: boolean;
 } & HTMLAttributes<HTMLDivElement>
 
@@ -15,7 +15,7 @@ const ListTable = ({ columns, children, columnComponent, stickyHeader, ...rest }
   return (
     <ListTableWrapper cols={columns.length} {...rest}>
       <ListTableHeaderRow sticky={stickyHeader}>
-        {columns.map((column, index) => <ListTableCell key={column + index}>{columnComponent?.(column) || t(column)}</ListTableCell>)}
+        {columns.map((column, index) => <ListTableCell key={column + index}>{columnComponent?.(column, index) || t(column)}</ListTableCell>)}
       </ListTableHeaderRow>
       {children}
     </ListTableWrapper>

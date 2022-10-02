@@ -31,6 +31,7 @@ const AutoComplete = ({
       getOptionLabel={option => labelKey ? option[labelKey] : getOptionLabel?.(option)}
       onChange={(e, newValue) => void onChange?.(newValue)}
       value={value}
+      isOptionEqualToValue={(option, value) => option._id === value._id}
       renderInput={(params) => (
         <Input
           {...params}

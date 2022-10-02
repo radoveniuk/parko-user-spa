@@ -32,7 +32,7 @@ const NotificationsPage = () => {
       </TabsContainer>
       {role === 'admin' && (
         <CreateMessageLink to="/create-notification">
-          <Button color="secondary"><EditIcon size={20} /></Button>
+          <Button><EditIcon size={20} /></Button>
         </CreateMessageLink>
       )}
     </Page>

@@ -1,21 +1,21 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { usePapaParse } from 'react-papaparse';
 import { pick } from 'lodash-es';
 import { DateTime } from 'luxon';
-import { usePapaParse } from 'react-papaparse';
 
 import { useGetUserList } from 'api/query/userQuery';
-import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { IUser } from 'interfaces/users.interface';
+import { ExportIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
-import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
+import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Page, { PageTitle } from 'components/shared/Page';
-import { ExportIcon } from 'components/icons';
+import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
+import { IUser } from 'interfaces/users.interface';
 
 import { ExportProfilesWrapper } from './styles';
 
-const ExportProfilesPage = () => {
+const ExportResidencesPage = () => {
   const { t } = useTranslation();
 
   const { data: users = [] } = useGetUserList();
@@ -129,4 +129,4 @@ const ExportProfilesPage = () => {
   );
 };
 
-export default ExportProfilesPage;
+export default ExportResidencesPage;

@@ -88,7 +88,7 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     title: 'navbar.profiles',
     icon: <UsersIcon size={30} />,
     to: '/profiles',
-    relativeLocations: ['profile', 'profile-editor'],
+    relativeLocations: ['profile', 'profile-editor', 'export-profiles', 'import-profiles'],
   },
   {
     title: 'navbar.projects',
@@ -100,6 +100,7 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     title: 'navbar.accommodation',
     icon: <AccommodationIcon size={30} />,
     to: '/accommodation',
+    relativeLocations: ['export-residences'],
   },
   {
     title: 'navbar.notifications',

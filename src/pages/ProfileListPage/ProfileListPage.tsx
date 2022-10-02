@@ -45,14 +45,14 @@ const ProfileListPageRender = () => {
     <Page title={t('profileList')}>
       <PageTitle>{t('profileList')}</PageTitle>
       <PageActions>
-        <Link to="/export-profiles">
-          <Button color="secondary" variant="outlined"><ExportIcon size={20}/>{t('user.export')}</Button>
+        <Link to="/profile-editor">
+          <Button><PlusIcon size={20}/>{t('user.create')}</Button>
         </Link>
         <Link to="/import-profiles">
-          <Button color="secondary"><UploadIcon size={20}/>{t('user.import')}</Button>
+          <Button><UploadIcon size={20}/>{t('user.import')}</Button>
         </Link>
-        <Link to="/profile-editor">
-          <Button color="secondary"><PlusIcon size={20}/>{t('user.create')}</Button>
+        <Link to="/export-profiles">
+          <Button color="secondary" variant="outlined"><ExportIcon size={20}/>{t('user.export')}</Button>
         </Link>
       </PageActions>
       <FiltersBar style={{ marginTop: 10 }}>

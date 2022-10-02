@@ -59,7 +59,7 @@ const CheckoutDialog = ({ onClose, ...rest }: DialogProps) => {
             onChange={(e) => void setNotificateOwner(e.target.checked)}
             title={t('accommodation.notificate')}
           />
-          <Button onClick={submitHandler} disabled={!selectedResidence || !checkOutDate}>{t('OK')}</Button>
+          <Button onClick={submitHandler} disabled={!selectedResidence || !checkOutDate}>{t('approve')}</Button>
         </div>
       </DialogContentWrapper>
     </Dialog>

@@ -9,9 +9,10 @@ export type SelectProps = SelectPropsMaterial & {
   options?: string[] | number[] | Option[];
   valuePath?: string;
   labelPath?: string | string[];
+  emptyItem?: string;
 }
 
-const Select = forwardRef(({ label, options = [], valuePath = 'value', labelPath = 'label', ...rest }: SelectProps, ref) => {
+const Select = forwardRef(({ label, options = [], valuePath = 'value', labelPath = 'label', emptyItem, ...rest }: SelectProps, ref) => {
   const menuItems = useMemo(() => {
     if (options) {
       return options.map((item) => {
@@ -39,6 +40,11 @@ const Select = forwardRef(({ label, options = [], valuePath = 'value', labelPath
         style={{ minWidth: 200 }}
         {...rest}
       >
+        {emptyItem && (
+          <MenuItem value="">
+            <em>{emptyItem}</em>
+          </MenuItem>
+        )}
         {menuItems?.map((menuItem) => (
           <MenuItem key={menuItem.value} value={menuItem.value}>{menuItem.label}</MenuItem>
         ))}

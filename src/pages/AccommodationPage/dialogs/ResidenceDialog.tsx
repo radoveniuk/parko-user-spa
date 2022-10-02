@@ -31,7 +31,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
     },
   });
   const { data: accommodations = [] } = useGetAccommodations();
-  const { data: users = [] } = useGetUserList();
+  const { data: users = [] } = useGetUserList({ role: 'user' });
   const [notificateOwner, setNotificateOwner] = useState<boolean>(!data?.checkOutDate);
   const createResidence = useCreateResidence();
   const updateResidence = useUpdateResidence();
@@ -51,11 +51,10 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
     >
       <DialogContentWrapper>
         <div className="form">
-          {users.length && (
+          {!!users.length && (
             <Controller
               control={control}
               name="user"
-              defaultValue=""
               rules={{ required: true }}
               render={({ field }) => (
                 <Autocomplete
@@ -63,12 +62,13 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
                   label={t('navbar.profiles')}
                   getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
                   className="form-field"
+                  defaultValue={data?.user || null}
                   onChange={(v) => void field.onChange(v?._id || '')}
                 />
               )}
             />
           )}
-          {accommodations.length && (
+          {!!accommodations.length && (
             <Controller
               control={control}
               name="accommodation"
@@ -80,6 +80,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
                   label={t('navbar.accommodation')}
                   getOptionLabel={(option) => `${option.adress} (${option.owner})`}
                   className="form-field"
+                  defaultValue={data?.accommodation || null}
                   onChange={(v) => void field.onChange(v?._id || '')}
                 />
               )}
@@ -94,6 +95,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
                 value={field.value}
                 onChange={field.onChange}
                 label={t('accommodation.checkIn')}
+                className="form-field"
               />
             )}
           />
@@ -107,6 +109,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
                   value={field.value}
                   onChange={field.onChange}
                   label={t('accommodation.checkOut')}
+                  className="form-field"
                 />
               )}
             />
@@ -118,7 +121,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
             onChange={(e) => void setNotificateOwner(e.target.checked)}
             title={t('accommodation.notificate')}
           />
-          <Button onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors)}>{t('OK')}</Button>
+          <Button onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors)}>{t('approve')}</Button>
         </div>
       </DialogContentWrapper>
     </Dialog>

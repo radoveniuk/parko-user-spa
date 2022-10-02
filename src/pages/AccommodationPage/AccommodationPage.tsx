@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
-import { CheckInIcon, CheckOutIcon, PlusIcon } from 'components/icons';
+import { CheckInIcon, CheckOutIcon, ExportIcon, PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Page, { PageActions, PageTitle } from 'components/shared/Page';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
@@ -26,8 +27,11 @@ const AccommodationPageRender = () => {
       <PageTitle>{t('navbar.accommodation')}</PageTitle>
       <PageActions>
         <Button color="secondary" onClick={() => void setOpenAccommodation(true)}><PlusIcon size={20}/>{t('accommodation.create')}</Button>
-        <Button color="secondary" variant="outlined" onClick={() => void setOpenResidence(true)}><CheckInIcon size={20}/>CheckIn</Button>
-        <Button color="secondary" variant="outlined" onClick={() => void setOpenCheckout(true)}><CheckOutIcon size={20}/>CheckOut</Button>
+        <Button onClick={() => void setOpenResidence(true)}><CheckInIcon size={20}/>CheckIn</Button>
+        <Button onClick={() => void setOpenCheckout(true)}><CheckOutIcon size={20}/>CheckOut</Button>
+        <Link to="/export-residences">
+          <Button color="secondary" variant="outlined"><ExportIcon size={20}/>{t('user.export')}</Button>
+        </Link>
       </PageActions>
       <TabsContainer>
         <Tabs>

@@ -10,6 +10,7 @@ import CustomizationPage from 'pages/CustomizationPage';
 import DayoffListPage from 'pages/DayoffListPage';
 import DayoffPage from 'pages/DayoffPage';
 import ExportProfilesPage from 'pages/ExportProfilesPage';
+import ExportResidencesPage from 'pages/ExportResidencesPage';
 import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
 import NotFoundPage from 'pages/NotFoundPage';
@@ -60,6 +61,7 @@ export default function Router () {
               <Route path="/profile-editor/:id" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
               <Route path="/customization" element={<ProtectedRoute><CustomizationPage /></ProtectedRoute>} />
               <Route path="/accommodation" element={<ProtectedRoute><AccommodationPage /></ProtectedRoute>} />
+              <Route path="/export-residences" element={<ProtectedRoute><ExportResidencesPage /></ProtectedRoute>} />
             </>
           )}
         </Routes>

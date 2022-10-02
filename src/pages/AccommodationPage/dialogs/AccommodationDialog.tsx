@@ -111,7 +111,7 @@ const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
             error={!!errors.tariff}
             options={tariffTypes}
             className="form-field"
-            value={data?.tariff || ''}
+            defaultValue={data?.tariff || ''}
             {...register('tariff')}
           />
           <Input
@@ -124,7 +124,7 @@ const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
           />
         </div>
         <div className="actions">
-          <Button onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors)}>{t('OK')}</Button>
+          <Button onClick={handleSubmit(submitHandler)} disabled={!isEmpty(errors)}>{t('approve')}</Button>
         </div>
       </DialogContentWrapper>
     </Dialog>

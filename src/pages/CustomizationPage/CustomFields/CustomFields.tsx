@@ -195,7 +195,6 @@ const CustomFields = ({
         </form>
       )}
       <Button
-        color="secondary"
         className="create-custom-field-button"
         onClick={() => {
           setActiveCustomField(null);
