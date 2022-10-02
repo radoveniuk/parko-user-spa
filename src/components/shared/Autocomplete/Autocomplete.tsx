@@ -16,6 +16,7 @@ export type AutocompleteProps = {
   style?: React.CSSProperties;
   onChange?(value: any | any[] | null): void;
   value?: any;
+  defaultValue?: any;
   className?: string;
 }
 

@@ -6,10 +6,11 @@ import { DateTime } from 'luxon';
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetResidences } from 'api/query/residenceQuery';
+import { useGetUserList } from 'api/query/userQuery';
 import { CloseIcon, EditIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
-import { ClearFiLtersButton, FilterDate, FilterSelect, FilterText } from 'components/shared/Filters/Filters';
+import { ClearFiLtersButton, FilterAutocomplete, FilterDate, FilterSelect, FilterText } from 'components/shared/Filters/Filters';
 import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
@@ -75,6 +76,7 @@ const Residences = () => {
   const debouncedFiltersState = useDebounce(filtersState);
   const { data: projects = [] } = useGetProjects();
   const activeOptions = useTranslatedSelect(['true', 'false']);
+  const { data: users = [] } = useGetUserList();
 
   const { data: residences = [], refetch } = useGetResidences(debouncedFiltersState);
   const tableData: ResidenceTableRow[] = useMemo(() => residences.map((item) => {
@@ -119,7 +121,18 @@ const Residences = () => {
         <FilterDate label={t('firstDate')} filterKey="firstDate" />
         <FilterDate label={t('lastDate')} filterKey="lastDate" />
         <FilterSelect filterKey="active" label={t('accommodation.active')} options={activeOptions} />
-        <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
+        <FilterAutocomplete
+          filterKey="user"
+          label={t('navbar.profiles')}
+          options={users}
+          getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
+        />
+        <FilterAutocomplete
+          filterKey="project"
+          label={t('user.project')}
+          options={projects}
+          labelKey="name"
+        />
         <FilterText filterKey="accommodationOwner" label={t('accommodation.owner')} />
         <FilterText filterKey="accommodationAdress" label={t('accommodation.adress')} />
         <ClearFiLtersButton />

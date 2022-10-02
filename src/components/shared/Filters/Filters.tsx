@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, isEmpty } from 'lodash-es';
+import { isEmpty } from 'lodash-es';
 
 import { CloseIcon } from 'components/icons';
 
@@ -47,9 +47,9 @@ export const FilterDate = ({ filterKey, label }: FilterProps) => {
   );
 };
 
-type FilterAutocompleteProps = FilterProps & AutocompleteProps & {valuePath: string};
+type FilterAutocompleteProps = FilterProps & AutocompleteProps;
 
-export const FilterAutocomplete = ({ filterKey, valuePath, options, ...rest }: FilterAutocompleteProps) => {
+export const FilterAutocomplete = ({ filterKey, options, ...rest }: FilterAutocompleteProps) => {
   const [value, setValue] = useFilterState(filterKey);
   return (
     <FilterWrapper>
@@ -57,9 +57,9 @@ export const FilterAutocomplete = ({ filterKey, valuePath, options, ...rest }: F
         {...rest}
         style={{ minWidth: 200 }}
         options={options}
-        value={options.find((item) => item[valuePath] === value)}
+        value={options.find((item) => item._id === value) || null}
         onChange={(newValue) => {
-          setValue(get(newValue, valuePath || '_id'));
+          setValue(newValue?._id || null);
         }}
       />
     </FilterWrapper>
