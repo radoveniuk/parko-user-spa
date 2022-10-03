@@ -18,10 +18,11 @@ export type AutocompleteProps = {
   value?: any;
   defaultValue?: any;
   className?: string;
+  error?: boolean;
 }
 
 const AutoComplete = ({
-  label, loading, labelKey, onChange, defaultOpen, value, getOptionLabel, ...rest
+  label, loading, labelKey, onChange, defaultOpen, value, getOptionLabel, error, ...rest
 }: AutocompleteProps) => {
   const [open, setOpen] = useState(false);
 
@@ -36,6 +37,7 @@ const AutoComplete = ({
         <Input
           {...params}
           label={label}
+          error={error}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

@@ -64,7 +64,7 @@ const CustomFields = ({
   const fieldTypeOptions = useTranslatedSelect(CUSTOM_FIELD_TYPES, 'customForms');
 
   const [nameToTranslate, setNameToTranslate] = useState<{ fromLang: string; text: '' } | null>(null);
-  const debouncedNameToTranslate = useDebounce(nameToTranslate, 800);
+  const debouncedNameToTranslate = useDebounce(nameToTranslate, 1500);
 
   const submitSaveField: SubmitHandler<ICustomFormField> = (data) => {
     if (!data._id) {

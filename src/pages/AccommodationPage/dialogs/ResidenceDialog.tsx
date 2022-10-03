@@ -64,6 +64,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
                   className="form-field"
                   defaultValue={data?.user || null}
                   onChange={(v) => void field.onChange(v?._id || '')}
+                  error={!!errors.user}
                 />
               )}
             />
@@ -82,6 +83,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
                   className="form-field"
                   defaultValue={data?.accommodation || null}
                   onChange={(v) => void field.onChange(v?._id || '')}
+                  error={!!errors.accommodation}
                 />
               )}
             />
@@ -90,12 +92,14 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
             control={control}
             name="checkInDate"
             defaultValue={null}
+            rules={{ required: true }}
             render={({ field }) => (
               <DatePicker
                 value={field.value}
                 onChange={field.onChange}
                 label={t('accommodation.checkIn')}
                 className="form-field"
+                error={!!errors.checkInDate}
               />
             )}
           />

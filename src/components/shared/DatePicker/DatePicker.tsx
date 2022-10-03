@@ -38,9 +38,10 @@ type Props = {
   onChange(v: string, isValid?: boolean): void;
   label: string;
   className?:string;
+  error?: boolean;
 }
 
-const DatePicker = ({ value: defaultValue, onChange, label, className }: Props) => {
+const DatePicker = ({ value: defaultValue, onChange, label, className, error }: Props) => {
   const [value, setValue] = useState<string>('');
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const DatePicker = ({ value: defaultValue, onChange, label, className }: Props) 
       }}
       placeholder="DD.MM.YYYY"
       InputProps={{ inputComponent: DateFormat as any }}
-      error={!!value && !dateRegex.test(value)}
+      error={(!!value && !dateRegex.test(value)) || error}
       className={className}
     />
   );

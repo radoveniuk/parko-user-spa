@@ -48,7 +48,7 @@ const ProjectPage = () => {
     mutation.mutateAsync(data).then(() => {
       enqueueSnackbar(t('project.success'), { variant: 'success' });
       setTimeout(() => {
-        navigate('/projects');
+        navigate(-1);
       }, 1000);
     });
   };

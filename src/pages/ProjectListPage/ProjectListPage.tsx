@@ -19,6 +19,7 @@ import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import usePageQueries from 'hooks/usePageQueries';
+import { ICustomFormField } from 'interfaces/form.interface';
 import { IProject } from 'interfaces/project.interface';
 
 import OnboardModal from './OnboardModal';
@@ -48,6 +49,16 @@ const ProjectListPage = () => {
   const pageQueries = usePageQueries();
 
   const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState(false);
+
+  const prepareCustomFieldValue = (value: string, fieldData: ICustomFormField) => {
+    if (fieldData.type === 'boolean') {
+      return t(value);
+    }
+    if (fieldData.type === 'date') {
+      return getDateFromIso(value);
+    }
+    return value;
+  };
 
   const deleteProjectHandler = async () => {
     if (selectedProject) {
@@ -146,7 +157,7 @@ const ProjectListPage = () => {
                     })}
                     {customSections
                       .filter((section) => customFields.some((customField) =>
-                        selectedProject?.customFields?.[customField._id as string] && customField.section === section._id))
+                        selectedProject?.customFields?.[customField._id] && customField.section === section._id))
                       .map((section) => (
                         <React.Fragment
                           key={section._id}
@@ -156,7 +167,7 @@ const ProjectListPage = () => {
                             .map((customField) => (
                               <Input
                                 key={customField._id}
-                                value={selectedProject?.customFields?.[customField._id as string] || ''}
+                                value={prepareCustomFieldValue(selectedProject?.customFields?.[customField._id] as string, customField) || ''}
                                 label={customField.names[i18n.language]}
                                 InputProps={{ readOnly: true }}
                                 className="project-prop"
