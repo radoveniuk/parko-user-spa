@@ -75,7 +75,7 @@ const Residences = () => {
   const activeOptions = useTranslatedSelect(['true', 'false']);
   const { data: filters, refetch: refetchFilters } = useGetResidenceFilterLists();
 
-  const { data: residences = [], refetch } = useGetResidences(debouncedFiltersState);
+  const { data: residences = [], refetch } = useGetResidences(debouncedFiltersState, { enabled: false });
   const tableData: ResidenceTableRow[] = useMemo(() => residences.map((item) => {
     const { name, surname, project } = item.user as IUser;
     const { owner, adress, costNight } = item.accommodation as IAccommodation;
@@ -110,7 +110,9 @@ const Residences = () => {
   }, [openResidence, prevResidence, refetch, refetchFilters]);
 
   useEffect(() => {
-    refetch();
+    if (debouncedFiltersState) {
+      refetch();
+    }
   }, [debouncedFiltersState, refetch]);
 
   return (

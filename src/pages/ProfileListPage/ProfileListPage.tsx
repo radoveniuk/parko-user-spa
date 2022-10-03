@@ -6,7 +6,7 @@ import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import { ExportIcon, PlusIcon, UploadIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
+import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Page, { PageActions, PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
@@ -31,15 +31,19 @@ const ProfileListPageRender = () => {
   const { t } = useTranslation();
   const { filtersState } = useFilters();
   const debouncedFiltersState = useDebounce(filtersState);
-  const { data = [], refetch } = useGetUserList(debouncedFiltersState);
+
+  const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
   const [rowsPerPage, setRowsPerPage] = useState(20);
   const { pageItems, paginationConfig } = usePaginatedList(data, { rowsPerPage });
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
 
   useEffect(() => {
-    refetch();
-  }, [debouncedFiltersState, refetch]);
+    if (debouncedFiltersState) {
+      refetch();
+    }
+    return () => { remove(); };
+  }, [debouncedFiltersState, refetch, remove]);
 
   return (
     <Page title={t('profileList')}>
@@ -57,7 +61,7 @@ const ProfileListPageRender = () => {
       </PageActions>
       <FiltersBar style={{ marginTop: 10 }}>
         <FilterText filterKey="search" label={t('search')} />
-        <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
+        <FilterAutocomplete filterKey="project" label={t('user.project')} options={projects} labelKey="name" />
         <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} />
         <ClearFiLtersButton />
         <div style={{ marginLeft: 'auto' }}>

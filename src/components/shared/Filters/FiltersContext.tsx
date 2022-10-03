@@ -13,17 +13,18 @@ type Props = {
 }
 
 type contextType = {
-  filtersState: {[key: string]: string};
+  filtersState: {[key: string]: string} | undefined;
   addFilter(key: string, value: string): void;
   removeFilter(key: string): void;
   clearFilters(): void;
+  initFilters(): void;
 };
 
 export const FiltersContext = createContext<contextType | undefined>(undefined);
 FiltersContext.displayName = 'FiltersContext';
 
 const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
-  const [filtersState, setFiltersState] = useState<AnyObject>({});
+  const [filtersState, setFiltersState] = useState<AnyObject | undefined>(undefined);
   const navigate = useNavigate();
   const pageQueries = usePageQueries();
 
@@ -66,8 +67,12 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
     });
   };
 
+  const initFilters = () => {
+    setFiltersState({});
+  };
+
   return (
-    <FiltersContext.Provider value={{ filtersState, addFilter, removeFilter, clearFilters }}>
+    <FiltersContext.Provider value={{ filtersState, addFilter, removeFilter, clearFilters, initFilters }}>
       {children}
     </FiltersContext.Provider>
   );

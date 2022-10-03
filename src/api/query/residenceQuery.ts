@@ -3,10 +3,11 @@ import { useQuery } from 'react-query';
 import api from 'api/common';
 import { AnyObject } from 'interfaces/base.types';
 import { IProject } from 'interfaces/project.interface';
+import { QueryOptions } from 'interfaces/query.types';
 import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';
 
-export const useGetResidences = (params: AnyObject = {}) => {
+export const useGetResidences = (params: AnyObject = {}, options?: QueryOptions) => {
   const request = (): Promise<IResidence[]> => api.get('/residences', {
     headers: {
       'Content-Type': 'application/json',
@@ -16,7 +17,7 @@ export const useGetResidences = (params: AnyObject = {}) => {
       ...params,
     },
   }).then(res => res.data.data);
-  return useQuery(['residences', JSON.stringify(params)], request, { initialData: [] });
+  return useQuery<IResidence[]>(['residences', JSON.stringify(params)], request, { initialData: [], ...options });
 };
 
 export const useGetResidence = (id: string) => {
