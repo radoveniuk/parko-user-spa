@@ -4,6 +4,7 @@ import { ButtonProps, IconButtonProps } from '@mui/material';
 
 import { DeleteIcon } from 'components/icons';
 import Button from 'components/shared/Button';
+
 import { DeleteNotificationIconButton, NotificationContentWrapper, NotificationTextWrapper, NotificationTitleWrapper } from './styles';
 
 type NotificationBaseProps = {

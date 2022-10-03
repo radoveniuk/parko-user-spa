@@ -6,6 +6,7 @@ import { useGetNotifications } from 'api/query/notificationsQuery';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
 import List from 'components/shared/List';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { INotification } from 'interfaces/notification.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -22,6 +23,7 @@ const Notifications = ({
   options,
   mode = 'from',
 }: Props) => {
+  const { role } = useAuthData();
   const { data = [], refetch } = useGetNotifications(options);
   const { t } = useTranslation();
   const updateNotificationMutation = useUpdateNotificationMutation();
@@ -74,7 +76,7 @@ const Notifications = ({
       />
       {selectedNotification !== null && (
         <NotificationContent>
-          <NotificationDeleteButton onClick={() => void setOpenDeleteModal(true)} />
+          {role === 'admin' && <NotificationDeleteButton onClick={() => void setOpenDeleteModal(true)} />}
           <NotificationTitle>{selectedNotification.title}</NotificationTitle>
           <div dangerouslySetInnerHTML={{ __html: selectedNotification.message }} />
         </NotificationContent>
