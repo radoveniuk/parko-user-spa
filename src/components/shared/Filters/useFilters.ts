@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { isEmpty } from 'lodash-es';
+import { isEmpty, omit } from 'lodash-es';
 
 import usePageQueries from 'hooks/usePageQueries';
 
@@ -12,7 +12,7 @@ const useFilters = () => {
   }
   const pageQueries = usePageQueries();
   useEffect(() => {
-    if (isEmpty(pageQueries)) {
+    if (isEmpty(omit(pageQueries, 'page'))) {
       context.initFilters();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
