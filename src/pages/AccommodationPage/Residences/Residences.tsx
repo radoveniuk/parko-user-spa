@@ -96,18 +96,19 @@ const Residences = () => {
   }), [residences]);
 
   const [openResidence, setOpenResidence] = useActiveResidence();
-  const [, setOpenAccommodation] = useActiveAccommodation();
+  const [openAccomodation, setOpenAccommodation] = useActiveAccommodation();
 
   const deleteResidence = useDeleteResidence();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
   const prevResidence = usePrev(openResidence);
+  const prevAccommodation = usePrev(openAccomodation);
   useEffect(() => {
-    if (!!prevResidence && !openResidence) {
+    if ((!!prevResidence && !openResidence) || (!!prevAccommodation && !openAccomodation)) {
       refetch();
       refetchFilters();
     }
-  }, [openResidence, prevResidence, refetch, refetchFilters]);
+  }, [openAccomodation, openResidence, prevAccommodation, prevResidence, refetch, refetchFilters]);
 
   useEffect(() => {
     if (debouncedFiltersState) {
