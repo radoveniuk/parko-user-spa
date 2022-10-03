@@ -62,7 +62,7 @@ const ProfileListPageRender = () => {
       <FiltersBar style={{ marginTop: 10 }}>
         <FilterText filterKey="search" label={t('search')} />
         <FilterAutocomplete filterKey="project" label={t('user.project')} options={projects} labelKey="name" />
-        <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} />
+        <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} emptyItem={t('selectAll')} />
         <ClearFiLtersButton />
         <div style={{ marginLeft: 'auto' }}>
           <Select

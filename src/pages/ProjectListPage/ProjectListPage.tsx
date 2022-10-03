@@ -157,7 +157,8 @@ const ProjectListPage = () => {
                     })}
                     {customSections
                       .filter((section) => customFields.some((customField) =>
-                        selectedProject?.customFields?.[customField._id] && customField.section === section._id))
+                        // eslint-disable-next-line no-prototype-builtins
+                        selectedProject?.customFields?.hasOwnProperty(customField._id) && customField.section === section._id))
                       .map((section) => (
                         <React.Fragment
                           key={section._id}

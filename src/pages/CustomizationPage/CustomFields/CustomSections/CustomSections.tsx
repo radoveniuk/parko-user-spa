@@ -1,7 +1,7 @@
-import { useQueryClient } from 'react-query';
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 
 import {
   useCreateCustomFormSectionMutation,
@@ -9,17 +9,17 @@ import {
   useUpdateCustomFormSectionMutation,
 } from 'api/mutations/customFormsMutation';
 import { useGetCustomFormSections } from 'api/query/customFormsQuery';
+import { fetchTranslation } from 'api/query/translationQuery';
 import { DeleteIcon, EditIcon, PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import IconButton from 'components/shared/IconButton';
-import RadioButtonGroup, { RadioButton } from 'components/shared/RadioButtonGroup';
-import { CustomFormEntity, ICustomFormSection } from 'interfaces/form.interface';
 import Dialog from 'components/shared/Dialog';
-import { LANGUAGES } from 'constants/languages';
-import Input from 'components/shared/Input';
 import DialogConfirm from 'components/shared/DialogConfirm';
+import IconButton from 'components/shared/IconButton';
+import Input from 'components/shared/Input';
+import RadioButtonGroup, { RadioButton } from 'components/shared/RadioButtonGroup';
+import { LANGUAGES } from 'constants/languages';
 import useDebounce from 'hooks/useDebounce';
-import { fetchTranslation } from 'api/query/translationQuery';
+import { CustomFormEntity, ICustomFormSection } from 'interfaces/form.interface';
 
 import { CustomSectionForm, CustomSectionsWrapper } from './styles';
 
@@ -116,7 +116,6 @@ const CustomSections = ({ value, onChange, entity }: Props) => {
 
       Promise.all(anotherLangs.map((toLang) => fetchWrapper(toLang)))
         .then((results) => {
-          console.log(results);
           results.forEach((res) => {
             setValue(`names.${res.code.replace('-us', '')}`, res.value);
           });
