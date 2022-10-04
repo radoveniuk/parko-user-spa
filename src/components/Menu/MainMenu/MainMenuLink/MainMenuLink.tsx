@@ -39,12 +39,14 @@ const MainMenuLink = ({ children, to }: Props) => {
     `;
     }
 
-    const onMouseEnter = () => {
+    function onMouseEnter () {
+      if (!card) return;
       bounds = card.getBoundingClientRect();
       document.addEventListener('mousemove', rotateToMouse);
     };
 
-    const onMouseLeave = () => {
+    function onMouseLeave () {
+      if (!card) return;
       document.removeEventListener('mousemove', rotateToMouse);
       card.style.transform = '';
       card.style.background = '';

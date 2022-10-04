@@ -4,7 +4,7 @@ import { To } from 'react-router-dom';
 import {
   AccommodationIcon,
   CustomizeIcon, DayoffIcon, HomeIcon, NotificationIcon, PaycheckIcon,
-  PrepaymentIcon, ProjectIcon, UploadIcon, UserIcon, UsersIcon,
+  PrepaymentIcon, ProjectIcon, UserIcon, UsersIcon,
 } from 'components/icons';
 
 export type INavbarItem = {
@@ -120,7 +120,7 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
   },
   {
     title: 'navbar.paychecks',
-    icon: <UploadIcon size={30} />,
+    icon: <PaycheckIcon size={30} />,
     to: '/paychecks-upload',
   },
   {
@@ -138,7 +138,7 @@ export const ADMIN_MENU_ITEMS: INavbarItem[] = [
   },
   {
     title: 'menu.paychecksUpload',
-    icon: <UploadIcon size={60} />,
+    icon: <PaycheckIcon size={60} />,
     to: '/paychecks-upload',
   },
   {
