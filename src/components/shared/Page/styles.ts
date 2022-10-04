@@ -1,7 +1,6 @@
 import { LinearProgress } from '@mui/material';
 import styled from 'styled-components';
 
-import { colors } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
 
 export const PageWrapper = styled.section`
@@ -39,7 +38,7 @@ export const PageTitle = styled.h2`
   font-size: 400;
   text-align: center;
   margin: 0;
-  color: ${colors.default};
+  color: #30384F;
   margin-bottom: 30px;
   margin-top: 25px;
 `;

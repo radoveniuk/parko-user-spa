@@ -323,5 +323,6 @@
   "other": "Інше",
   "approve": "Підтвердити",
   "firstDate": "Дата від",
-  "lastDate": "Дата до"
+  "lastDate": "Дата до",
+  "welcomeText": "Ласкаво просимо до системи Parko User, "
 }

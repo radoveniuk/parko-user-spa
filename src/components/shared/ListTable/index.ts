@@ -1,2 +1,2 @@
 export { default } from './ListTable';
-export { ListTableRow, ListTableCell } from './styles';
+export { ListTableCell, ListTableRow } from './styles';

@@ -1,1 +1,1 @@
-export { NotificationContent, NotificationTitle, NotificationText, NotificationLink, NotificationDeleteButton } from './NotificationContent';
+export { NotificationContent, NotificationDeleteButton, NotificationLink, NotificationText, NotificationTitle } from './NotificationContent';

@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+
 import { themeConfig } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
 
 export const StyledMenuButton = styled.button`
-  width: 22vw;
-  height: 22vw;
+  width: 280px;
+  height: 280px;
   background-color: ${themeConfig.palette.primary.main};
   color: #fff;
   display: flex;
@@ -28,5 +29,6 @@ export const StyledMenuButton = styled.button`
     width: 100%;
     margin-top: 25px;
     justify-content: space-around;
+    height: 120px;
   }
 `;

@@ -1,7 +1,9 @@
 import { Box, Drawer as DrawerMaterial, List, ListItemButton } from '@mui/material';
 import styled from 'styled-components';
 
-import { colors } from 'theme';
+import { themeConfig } from 'theme';
+
+const NAV_BG_COLOR = process.env.REACT_APP_COLOR_NAVBAR || '#EEE2DC';
 
 export const NavbarWrapper = styled(Box)`
   a {
@@ -53,10 +55,10 @@ export const NavbarWrapper = styled(Box)`
         margin-bottom: 15px;
         font-size: 18px;
         a {
-          color: ${colors.secondary};
+          color: ${themeConfig.palette.secondary.main};
           transition: color 0.3s;
           &:hover {
-            color: ${colors.secondaryDark};
+            color: ${themeConfig.palette.secondary.dark};
           }
         }
       }
@@ -65,7 +67,7 @@ export const NavbarWrapper = styled(Box)`
 `;
 
 export const NavItem = styled(ListItemButton)`
-  background-color: ${colors.secondary} !important;
+  background-color: ${themeConfig.palette.secondary.main} !important;
   color: #fff;
   height: 70px;
   color: #fff !important;
@@ -80,7 +82,7 @@ export const NavItem = styled(ListItemButton)`
   }
   
   &.active, &:hover {
-    background-color: ${colors.secondaryDark} !important;
+    background-color: ${themeConfig.palette.secondary.dark} !important;
   }
 
   &.notifications {
@@ -96,11 +98,11 @@ export const NavItem = styled(ListItemButton)`
 `;
 
 export const NavItemsList = styled(List)`
-  background-color: ${colors.navBackground};
+  background-color: ${NAV_BG_COLOR};
 `;
 
 export const Drawer = styled(DrawerMaterial)`
   .MuiDrawer-paper {
-    background-color: ${colors.navBackground} !important;
+    background-color: ${NAV_BG_COLOR} !important;
   }
 `;

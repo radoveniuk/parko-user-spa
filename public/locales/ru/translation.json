@@ -16,7 +16,7 @@
     "paychecks": "Рассчетные листы",
     "dayoff": "Заказать отгул",
     "prepaymentList": "Список авансов",
-    "paychecksUpload": "Загрузка рассчетных листов",
+    "paychecksUpload": "Загрузка фактур",
     "dayoffList": "Список отгулов",
     "profile": "Мой профиль",
     "notification": "Отправить оповещение"
@@ -323,5 +323,6 @@
   "other": "Другое",
   "approve": "Подтвердить",
   "firstDate": "Дата от",
-  "lastDate": "Дата до"
+  "lastDate": "Дата до",
+  "welcomeText": "Добро пожаловать в систему Parko User, "
 }

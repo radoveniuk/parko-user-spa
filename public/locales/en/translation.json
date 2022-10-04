@@ -322,5 +322,6 @@
   "other": "Other",
   "approve": "Approve",
   "firstDate": "Date from",
-  "lastDate": "Date to"
+  "lastDate": "Date to",
+  "welcomeText": "Welcome to the Parko User system, "
 }

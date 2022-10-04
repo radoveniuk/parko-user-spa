@@ -3,10 +3,10 @@ import React, {
 } from 'react';
 
 import { useLoginMutation, useLogoutMutation } from 'api/mutations/userMutation';
-import { LoginDto, UserRole } from 'interfaces/users.interface';
-import useLocalStorageState from 'hooks/useLocalStorageState';
 import { useGetUser } from 'api/query/userQuery';
 import { eraseCookie, getCookieValue } from 'helpers/cookies';
+import useLocalStorageState from 'hooks/useLocalStorageState';
+import { LoginDto, UserRole } from 'interfaces/users.interface';
 
 type contextType = {
   isAuth: boolean;
@@ -15,6 +15,7 @@ type contextType = {
   userId: string;
   role: UserRole | undefined;
   isVerified: boolean;
+  username: string;
 };
 
 const AuthContext = createContext<contextType | undefined>(undefined);
@@ -52,7 +53,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const role = useMemo(() => isAuth && userData ? userData.role : 'user', [userData, isAuth]);
 
   return (
-    <AuthContext.Provider value={{ isAuth, login, logout, userId, role, isVerified }}>
+    <AuthContext.Provider value={{ isAuth, login, logout, userId, role, isVerified, username: `${userData?.name} ${userData?.surname}` }}>
       {children}
     </AuthContext.Provider>
   );
@@ -92,6 +93,7 @@ export const useAuthData = () => {
     id: authContext.userId,
     role: authContext.role,
     isVerified: authContext.isVerified,
+    username: authContext.username,
   };
 };
 

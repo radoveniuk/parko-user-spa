@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { colors } from 'theme';
+
+import { themeConfig } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
 
 export const FooterWrapper = styled.footer`
-  background-color: ${colors.secondaryLight};
+  background-color: ${themeConfig.palette.secondary.light};
   margin-top: auto;
   padding: 30px 75px;
   position: relative;
@@ -23,7 +24,7 @@ export const FooterWrapper = styled.footer`
     display: flex;
     
     .contactsInfo {
-      color: ${colors.default};
+      color: #30384F;
       width: 100%;
       padding-right: 15px;
   
@@ -39,10 +40,10 @@ export const FooterWrapper = styled.footer`
         margin-bottom: 15px;
         font-size: 18px;
         a {
-          color: ${colors.secondary};
+          color: ${themeConfig.palette.secondary.main};
           transition: color 0.3s;
           &:hover {
-            color: ${colors.secondaryDark};
+            color: ${themeConfig.palette.secondary.dark};
           }
         }
       }
