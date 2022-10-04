@@ -8,7 +8,8 @@
     "daysoff": "Days off",
     "paychecks": "Paychecks",
     "projects": "Projects",
-    "customization": "Customization"
+    "customization": "Customization",
+    "accommodation": "Accommodation"
   },
   "menu": {
     "prepayment": "Request prepayment",
@@ -201,6 +202,10 @@
       "hour": "Work hourh",
       "month": "Work month"
     },
+    "accommodationTariff": {
+      "night": "Night",
+      "month": "Month"
+    },
     "employmentType": {
       "self": "Self employment",
       "onCompany": "In the company",
@@ -233,7 +238,12 @@
     "type": "Type"
   },
   "paycheck": {
-    "successfullUpload": "Paychecks were uploaded"
+    "successfullUpload": "Paychecks were uploaded",
+    "message": "Attention! System works only with formats: «ММ.YYYY - ProjectName - Name Surname» or «ММ.YYYY_-_ProjectName_-_Name_Surname»",
+    "upload": "Uploading",
+    "uploaded": "Ready documents",
+    "date": "Date",
+    "user": "User"
   },
   "projectList": "Projects",
   "project": {
@@ -255,7 +265,8 @@
     "cost": "Cost",
     "tariff": "Tariff",
     "success": "Success!",
-    "addProfile": "Add profile to project"
+    "addProfile": "Add profile to project",
+    "mainInfo": "Main info"
   },
   "notification": {
     "success": "Notification sended",
@@ -278,6 +289,25 @@
     "delete":"Delete",
     "order": "Order"
   },
+  "accommodation": {
+    "owner": "Owner",
+    "adress": "Adress",
+    "checkIn": "Check In date",
+    "checkOut": "Check Out date",
+    "create": "Create",
+    "managerPhone": "Manager's phone",
+    "receptionPhone": "Reception's phone",
+    "comment": "Comment",
+    "tariff": "Tariff",
+    "days": "Days",
+    "costNight": "Cost for a night",
+    "costMonth": "Cost for a month",
+    "sum": "Sum",
+    "residences": "Residences",
+    "objects": "Items",
+    "notificate": "Notificate owner",
+    "active": "Active"
+  },
   "language": "Language",
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
   "next": "Next",
@@ -289,5 +319,9 @@
   "selectAllCols": "Select all columns",
   "add": "Add",
   "comment": "Comment",
-  "other": "Other"
+  "other": "Other",
+  "approve": "Approve",
+  "firstDate": "Date from",
+  "lastDate": "Date to",
+  "welcomeText": "Welcome to the Parko User system, "
 }
