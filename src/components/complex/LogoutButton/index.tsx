@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-import { useLogout } from 'contexts/AuthContext';
-import Button from 'components/shared/Button';
 import { ExitIcon } from 'components/icons';
+import Button from 'components/shared/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
+import { useLogout } from 'contexts/AuthContext';
 
-const LogoutButton = () => {
+type Props = {
+  fullText?: boolean;
+}
+
+const LogoutButton = ({ fullText = true }: Props) => {
   const logout = useLogout();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -20,7 +24,7 @@ const LogoutButton = () => {
 
   return (
     <>
-      <Button onClick={() => void setOpen(true)} color="error" variant="outlined"><ExitIcon />{t('user.logout')}</Button>
+      <Button onClick={() => void setOpen(true)} color="error" variant="outlined"><ExitIcon size={20} />{fullText && t('user.logout')}</Button>
       <DialogConfirm
         open={open}
         onSubmit={logoutHandler}
