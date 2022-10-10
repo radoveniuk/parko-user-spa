@@ -30,7 +30,8 @@ type Props = {
   toggle(): void,
 }
 
-const drawerWidth = 300;
+const DEFAULT_WIDTH = 300;
+const COLLAPSED_WIDTH = 80;
 
 const Navbar = ({ open, toggle } : Props) => {
   const { t } = useTranslation();
@@ -77,7 +78,7 @@ const Navbar = ({ open, toggle } : Props) => {
   return (
     <NavbarWrapper
       component="nav"
-      sx={{ width: { sm: open ? drawerWidth : 80 }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: open ? DEFAULT_WIDTH : COLLAPSED_WIDTH, transition: 'width 0.2s' }, flexShrink: { sm: 0 } }}
       aria-label="navbar menu"
     >
       <Drawer
@@ -90,7 +91,7 @@ const Navbar = ({ open, toggle } : Props) => {
         }}
         sx={{
           display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: DEFAULT_WIDTH },
         }}
       >
         {navbarContent}
@@ -99,7 +100,7 @@ const Navbar = ({ open, toggle } : Props) => {
         variant="permanent"
         sx={{
           display: { xs: 'none', sm: 'block' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: open ? drawerWidth : 80 },
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: open ? DEFAULT_WIDTH : COLLAPSED_WIDTH, transition: 'width 0.2s' },
         }}
         open={open}
       >
