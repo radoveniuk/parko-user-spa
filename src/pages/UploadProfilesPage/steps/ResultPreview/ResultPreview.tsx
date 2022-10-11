@@ -1,10 +1,11 @@
 import React from 'react';
-
 import { invert } from 'lodash-es';
-import { IUser } from 'interfaces/users.interface';
-import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { useRelativeFields, useResult } from '../../UploadProfilesContext';
+
 import { BooleanIcon } from 'components/icons';
+import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import { IUser } from 'interfaces/users.interface';
+
+import { useRelativeFields, useResult } from '../../UploadProfilesContext';
 
 const ResultsPreview = () => {
   const [relativeFields] = useRelativeFields();

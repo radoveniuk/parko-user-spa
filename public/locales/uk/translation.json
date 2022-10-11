@@ -9,7 +9,8 @@
     "paychecks": "Фактури",
     "projects": "Проєкти",
     "customization": "Кастомізація",
-    "accommodation": "Житло"
+    "accommodation": "Житло",
+    "docsTemplates": "Шаблони документів"
   },
   "menu": {
     "prepayment": "Замовити аванс",
@@ -308,6 +309,10 @@
     "objects": "Обьекти житла",
     "notificate": "Сповістити власника",
     "active": "Активно"
+  },
+  "docsTemplates": {
+    "template": "Шаблон",
+    "codes": "Коди"
   },
   "language": "Мова",
   "youNotVerified": "Наразі основні розділи системи Parko app недоступні для вас. Спочатку вам необхідно заповнити інформацію про себе у розділі профіль",

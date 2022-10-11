@@ -9,7 +9,8 @@
     "paychecks": "Paychecks",
     "projects": "Projects",
     "customization": "Customization",
-    "accommodation": "Accommodation"
+    "accommodation": "Accommodation",
+    "docsTemplates": "Docs templates"
   },
   "menu": {
     "prepayment": "Request prepayment",
@@ -307,6 +308,10 @@
     "objects": "Items",
     "notificate": "Notificate owner",
     "active": "Active"
+  },
+  "docsTemplates": {
+    "template": "Template",
+    "codes": "Codes"
   },
   "language": "Language",
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
