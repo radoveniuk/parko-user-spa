@@ -325,6 +325,7 @@
   "deleteApprove": "Вы уверенны?",
   "rowsPerPage": "Количество строк",
   "selectAll": "Выбрать всё",
+  "removeSelect": "Убрать выбор",
   "selectAllCols": "Выбрать все колонки",
   "add": "Добавить",
   "comment": "Коментарий",
@@ -332,5 +333,6 @@
   "approve": "Подтвердить",
   "firstDate": "Дата от",
   "lastDate": "Дата до",
-  "welcomeText": "Добро пожаловать в систему Parko User, "
+  "welcomeText": "Добро пожаловать в систему Parko User, ",
+  "download": "Завантажити"
 }

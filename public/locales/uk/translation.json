@@ -325,6 +325,7 @@
   "deleteApprove": "Ви впевнені?",
   "rowsPerPage": "Кількість рядів",
   "selectAll": "Вибрати все",
+  "removeSelect": "Прибрати вибір",
   "selectAllCols": "Вибрати вси колонки",
   "add": "Додати",
   "comment": "Коментар",
@@ -332,5 +333,6 @@
   "approve": "Підтвердити",
   "firstDate": "Дата від",
   "lastDate": "Дата до",
-  "welcomeText": "Ласкаво просимо до системи Parko User, "
+  "welcomeText": "Ласкаво просимо до системи Parko User, ",
+  "download": "Скачать"
 }

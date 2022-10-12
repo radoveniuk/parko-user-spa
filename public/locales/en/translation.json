@@ -323,7 +323,8 @@
   "errors": "Errors",
   "deleteApprove": "Are you sure?",
   "rowsPerPage": "Rows per page",
-  "selectAll": "Select all items",
+  "selectAll": "Select all",
+  "removeSelect": "Remove selection",
   "selectAllCols": "Select all columns",
   "add": "Add",
   "comment": "Comment",
@@ -331,5 +332,6 @@
   "approve": "Approve",
   "firstDate": "Date from",
   "lastDate": "Date to",
-  "welcomeText": "Welcome to the Parko User system, "
+  "welcomeText": "Welcome to the Parko User system, ",
+  "download": "Download"
 }

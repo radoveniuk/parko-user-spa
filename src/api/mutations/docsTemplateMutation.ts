@@ -23,8 +23,8 @@ export const useDownloadPrintedTemplate = () => {
     api.post('/docs-templates-print', data, { responseType: 'blob' }).then(res => res.data);
   const downloadMutation = useMutation(request);
 
-  return (userId: string[], templateId: string) => {
-    downloadMutation.mutateAsync({ userId, templateId }).then((res) => {
+  return async (userId: string[], templateId: string) => {
+    await downloadMutation.mutateAsync({ userId, templateId }).then((res) => {
       saveFile(res, 'docs.zip');
     });
   };

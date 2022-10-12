@@ -6,6 +6,7 @@ import { useSnackbar } from 'notistack';
 import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetUser } from 'api/query/userQuery';
 import Notifications from 'components/complex/Notifications';
+import PrintDocDialog from 'components/complex/PrintDocDialog';
 import UploadedPaychecks from 'components/complex/UploadedPaychecks';
 import { CustomizeIcon, DeleteIcon, EditIcon, PrintIcon } from 'components/icons';
 import Button from 'components/shared/Button';
@@ -18,7 +19,6 @@ import { IUser } from 'interfaces/users.interface';
 import BaseInfo from './BaseInfo';
 import Daysoff from './Daysoff';
 import Prepayments from './Prepayments';
-import PrintDocDialog from './PrintDocDialog';
 import Residences from './Residences';
 import SalarySettings from './SalarySettings';
 import Scans from './Scans';
@@ -115,8 +115,8 @@ const ProfileAdminPage = () => {
           </TabPanel>
         </TabsContainer>
       )}
-      {openPrintDialog && (
-        <PrintDocDialog open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
+      {openPrintDialog && profileData !== undefined && (
+        <PrintDocDialog ids={[profileData._id]} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
       )}
       <Dialog title={t('user.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
         <DeleteDialogContent>
