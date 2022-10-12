@@ -4,6 +4,7 @@ export { AiFillEdit as EditIcon } from 'react-icons/ai';
 export { AiOutlineFileText as FileIcon } from 'react-icons/ai';
 export { BiImport as ExportIcon } from 'react-icons/bi';
 export { BiBuildingHouse as AccommodationIcon } from 'react-icons/bi';
+export { BiPrinter as PrintIcon } from 'react-icons/bi';
 export { BsFillCloudUploadFill as UploadIcon } from 'react-icons/bs';
 export { BsPlus as PlusIcon } from 'react-icons/bs';
 export { BsEyeFill as EyeIcon } from 'react-icons/bs';

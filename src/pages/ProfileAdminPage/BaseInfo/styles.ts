@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { themeConfig } from 'theme';
 
 export const BaseInfoWrapper = styled.div`
@@ -52,13 +53,5 @@ export const BaseInfoWrapper = styled.div`
     button {
       margin-left: auto;
     }
-  }
-`;
-
-export const DialogContentWrapper = styled.div`
-
-  .actions {
-    display: flex;
-    justify-content: flex-end;
   }
 `;

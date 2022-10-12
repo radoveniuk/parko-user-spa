@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useDeleteDocsTemplate } from 'api/mutations/docsTemplateMutation';
+import { useDeleteFileMutation } from 'api/mutations/fileMutation';
 import { useGetDocsTemplates } from 'api/query/docsTemplateQuery';
 import downloadFile from 'api/query/downloadFile';
 import { CloseIcon, DownloadFileIcon, EditIcon, EyeIcon, PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import Dialog from 'components/shared/Dialog';
+import DialogConfirm from 'components/shared/DialogConfirm';
 import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { PageActions } from 'components/shared/Page';
+import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
+import { IFile } from 'interfaces/file.interface';
 
+import { FieldsDialog, TemplateDialog } from './dialogs';
 import { DocsTemplatesWrapper } from './styles';
 
 const COLS = [
@@ -22,10 +27,13 @@ const COLS = [
 
 const DocsTemplates = () => {
   const { t } = useTranslation();
-  const { data: docsTemplates = [] } = useGetDocsTemplates();
+  const { data: docsTemplates = [], refetch } = useGetDocsTemplates();
+  const deleteTemplateMutation = useDeleteDocsTemplate();
+  const deleteFileMutation = useDeleteFileMutation();
 
-  const [openTemplate, setOpenTemplate] = useState(false);
+  const [openTemplate, setOpenTemplate] = useState<IDocsTemplate | boolean>(false);
   const [openFieldCodes, setOpenFieldCodes] = useState(false);
+  const [deleteTemplate, setDeleteTemplate] = useState<IDocsTemplate | null>(null);
 
   return (
     <DocsTemplatesWrapper>
@@ -45,16 +53,37 @@ const DocsTemplates = () => {
                 <DownloadFileIcon />
               </IconButton>
             </ListTableCell>
-            <ListTableCell><IconButton><EditIcon /></IconButton></ListTableCell>
-            <ListTableCell><IconButton><CloseIcon /></IconButton></ListTableCell>
+            <ListTableCell onClick={() => void setOpenTemplate(templateItem)}><IconButton><EditIcon /></IconButton></ListTableCell>
+            <ListTableCell onClick={() => void setDeleteTemplate(templateItem)}><IconButton><CloseIcon /></IconButton></ListTableCell>
           </ListTableRow>
         ))}
       </ListTable>
       {!!openTemplate && (
-        <Dialog title={t('docsTemplates.template')} open={!!openTemplate} onClose={() => void setOpenTemplate(false)}></Dialog>
+        <TemplateDialog
+          defaultData={openTemplate}
+          title={t('docsTemplates.template')}
+          open={!!openTemplate}
+          onClose={() => { setOpenTemplate(false); refetch(); }}
+        />
       )}
       {!!openFieldCodes && (
-        <Dialog title={t('docsTemplates.codes')} open={!!openFieldCodes} onClose={() => void setOpenFieldCodes(false)}></Dialog>
+        <FieldsDialog title={t('docsTemplates.codes')} open={!!openFieldCodes} onClose={() => void setOpenFieldCodes(false)}/>
+      )}
+      {!!deleteTemplate && (
+        <DialogConfirm
+          open={!!deleteTemplate}
+          onClose={() => void setDeleteTemplate(null)}
+          onSubmit={() => {
+            if (!deleteTemplate?._id) return;
+            Promise.all([
+              deleteTemplateMutation.mutateAsync(deleteTemplate._id),
+              deleteFileMutation.mutateAsync(deleteTemplate.file as IFile),
+            ]).then(() => {
+              setDeleteTemplate(null);
+              refetch();
+            });
+          }}
+        />
       )}
     </DocsTemplatesWrapper>
   );
