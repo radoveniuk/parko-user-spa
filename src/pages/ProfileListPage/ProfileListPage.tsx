@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
-import { CheckAllIcon, CustomizeIcon, ExportIcon, PlusIcon, PrintIcon, RemoveCheckIcon, UploadIcon } from 'components/icons';
+import { CheckAllIcon, ExportIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SelectMenuIcon, UploadIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import Menu, { MenuItem } from 'components/shared/Menu';
+import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Page, { PageActions, PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
 import Select from 'components/shared/Select';
@@ -61,21 +61,27 @@ const ProfileListPageRender = () => {
           <Link to="/profile-editor">
             <Button><PlusIcon size={20}/>{t('user.create')}</Button>
           </Link>
-          <Link to="/import-profiles">
-            <Button><UploadIcon size={20}/>{t('user.import')}</Button>
-          </Link>
-          <Link to="/export-profiles">
-            <Button color="secondary" variant="outlined"><ExportIcon size={20}/>{t('user.export')}</Button>
-          </Link>
-          <Menu title={<><CustomizeIcon size={20}/>{t('fastActions')}</>}>
+          <Menu title={<><SelectMenuIcon size={20}/>{t('fastActions')}</>}>
             <MenuItem onClick={() => void setSelectedItems(data.map((item) => item._id))}>
               <CheckAllIcon size={20} />{t('selectAll')}
             </MenuItem>
             <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
               <RemoveCheckIcon size={20} />{t('removeSelect')}
             </MenuItem>
+            <Divider />
             <MenuItem disabled={!selectedItems.length} onClick={() => void setOpenPrintDialog(true)}>
               <PrintIcon size={20} />{t('docsTemplates.print')}
+            </MenuItem>
+            <Divider />
+            <MenuItem>
+              <Link to="/import-profiles">
+                <UploadIcon size={20} />{t('user.import')}
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/export-profiles">
+                <ExportIcon size={20} />{t('user.export')}
+              </Link>
             </MenuItem>
           </Menu>
         </PageActions>

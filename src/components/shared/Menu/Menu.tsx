@@ -1,4 +1,5 @@
 import * as React from 'react';
+import DividerMaterial from '@mui/material/Divider';
 import MaterialMenu from '@mui/material/Menu';
 import MenuItemMaterial from '@mui/material/MenuItem';
 import styled from 'styled-components';
@@ -60,3 +61,5 @@ export const MenuItem = styled(MenuItemMaterial)<{ color?: 'primary' | 'secondar
     justify-content: center;
   }
 `;
+
+export const Divider = DividerMaterial;

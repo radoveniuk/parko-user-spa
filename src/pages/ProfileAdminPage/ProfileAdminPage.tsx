@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Divider } from '@mui/material';
 import { useSnackbar } from 'notistack';
 
 import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
@@ -8,7 +9,7 @@ import { useGetUser } from 'api/query/userQuery';
 import Notifications from 'components/complex/Notifications';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import UploadedPaychecks from 'components/complex/UploadedPaychecks';
-import { CustomizeIcon, DeleteIcon, EditIcon, PrintIcon } from 'components/icons';
+import { DeleteIcon, EditIcon, PrintIcon, SelectMenuIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
 import Menu, { MenuItem } from 'components/shared/Menu';
@@ -62,15 +63,14 @@ const ProfileAdminPage = () => {
     <Page title={t('user.admin')}>
       <PageTitle>{pageTitle}</PageTitle>
       <PageActions>
-        <Menu title={<><CustomizeIcon size={20}/>{t('fastActions')}</>}>
-          <MenuItem>
-            <Link to={`/profile-editor/${userId}`}>
-              <EditIcon size={20}/>{t('user.edit')}
-            </Link>
-          </MenuItem>
+        <Link to={`/profile-editor/${userId}`}>
+          <Button><EditIcon size={20}/>{t('user.edit')}</Button>
+        </Link>
+        <Menu title={<><SelectMenuIcon size={20}/>{t('fastActions')}</>}>
           <MenuItem onClick={() => void setOpenPrintDialog(true)}>
             <PrintIcon size={20} />{t('docsTemplates.print')}
           </MenuItem>
+          <Divider />
           <MenuItem color="error" onClick={() => void setIsOpenDeleteDialog(true)}>
             <DeleteIcon />
             {t('project.delete')}
