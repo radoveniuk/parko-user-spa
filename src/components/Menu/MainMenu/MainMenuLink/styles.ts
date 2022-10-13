@@ -18,7 +18,7 @@ export const StyledMenuButton = styled.button`
   line-height: 30px;
   cursor: pointer;
 
-  transition: background-color 0.3s;
+  transition: transform 0.2s, background-color 0.3s;
 
   &:hover {
     background-color: ${themeConfig.palette.primary.light};

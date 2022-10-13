@@ -51,7 +51,7 @@ export default function Menu ({ title, children }: Props) {
   );
 }
 
-export const MenuItem = styled(MenuItemMaterial)<{ color?: string }>`
+export const MenuItem = styled(MenuItemMaterial)<{ color?: 'primary' | 'secondary' | 'error' | 'success'}>`
   &, a {
     text-decoration: none;
     color: ${p => themeConfig.palette[p.color || 'primary'].main} !important;
