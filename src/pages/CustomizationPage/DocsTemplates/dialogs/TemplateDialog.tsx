@@ -9,6 +9,7 @@ import Dialog, { DialogProps } from 'components/shared/Dialog';
 import FileInput from 'components/shared/FileInput';
 import Input from 'components/shared/Input';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
+import { IFile } from 'interfaces/file.interface';
 
 import { DialogContentWrapper } from './styles';
 
@@ -25,21 +26,28 @@ export const TemplateDialog = ({ defaultData, onClose, ...rest }: Props) => {
   const [file, setFile] = useState<File | null>(null);
 
   const submitHandler = async () => {
-    if (!file || !name) return;
+    if (!name) return;
 
-    const formData = new window.FormData();
-    formData.append('files', file);
-    const [uploadedFileData] = await uploadFiles(formData);
+    const updateFn = (uploadedFileData: IFile) => {
+      const mutation = defaultData === true ? createTemplate : updateTemplate;
 
-    const mutation = defaultData === true ? createTemplate : updateTemplate;
+      mutation.mutateAsync({
+        name,
+        file: uploadedFileData?._id,
+        ...(defaultData !== true && { _id: defaultData._id }),
+      }).then(() => {
+        onClose();
+      });
+    };
 
-    mutation.mutateAsync({
-      name,
-      file: uploadedFileData._id,
-      ...(defaultData !== true && { _id: defaultData._id }),
-    }).then(() => {
-      onClose();
-    });
+    if (file !== null) {
+      const formData = new window.FormData();
+      formData.append('files', file);
+      const [uploadedFileData] = await uploadFiles(formData);
+      updateFn(uploadedFileData);
+    } else if (defaultData !== true) {
+      updateFn((defaultData.file as IFile));
+    }
   };
 
   return (

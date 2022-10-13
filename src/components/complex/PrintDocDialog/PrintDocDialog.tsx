@@ -19,12 +19,12 @@ const PrintDocDialog = ({ ids, onClose, ...rest }: Props) => {
   const { t } = useTranslation();
   const { data: docsTemplates = [] } = useGetDocsTemplates();
   const downloadDoc = useDownloadPrintedTemplate();
-  const [selectedTemplate, setSelectedTemplate] = useState<IDocsTemplate | null>(null);
+  const [selectedTemplates, setSelectedTemplates] = useState<IDocsTemplate[]>([]);
 
   const downloadHandler = () => {
-    if (!ids.length || !selectedTemplate?._id) return;
+    if (!ids.length || !selectedTemplates.length) return;
     onClose();
-    downloadDoc(ids, selectedTemplate._id);
+    downloadDoc(ids, selectedTemplates.map((item) => item._id as string));
   };
 
   return (
@@ -34,9 +34,11 @@ const PrintDocDialog = ({ ids, onClose, ...rest }: Props) => {
           options={docsTemplates}
           label={t('navbar.docsTemplates')}
           labelKey="name"
-          onChange={setSelectedTemplate}
+          onChange={setSelectedTemplates}
+          multiple
+          className="templates-select"
         />
-        <Button onClick={downloadHandler} disabled={!selectedTemplate}><DownloadFileIcon size={20} />{t('download')}</Button>
+        <Button onClick={downloadHandler} disabled={!selectedTemplates.length}><DownloadFileIcon size={20} />{t('download')}</Button>
       </DialogContentWrapper>
     </Dialog>
   );

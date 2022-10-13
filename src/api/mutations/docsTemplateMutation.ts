@@ -19,11 +19,11 @@ export const useDeleteDocsTemplate = () => {
 };
 
 export const useDownloadPrintedTemplate = () => {
-  const request = (data: { userId: string[], templateId: string }) =>
+  const request = (data: { userId: string[], templateId: string[] }) =>
     api.post('/docs-templates-print', data, { responseType: 'blob' }).then(res => res.data);
   const downloadMutation = useMutation(request);
 
-  return async (userId: string[], templateId: string) => {
+  return async (userId: string[], templateId: string[]) => {
     await downloadMutation.mutateAsync({ userId, templateId }).then((res) => {
       saveFile(res, 'docs.zip');
     });

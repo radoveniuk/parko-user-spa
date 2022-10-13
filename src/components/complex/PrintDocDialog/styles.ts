@@ -6,4 +6,9 @@ export const DialogContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 10px;
+
+  .templates-select {
+    min-width: 270px;
+    max-width: 270px;
+  }
 `;

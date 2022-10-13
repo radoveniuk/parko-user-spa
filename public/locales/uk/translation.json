@@ -314,7 +314,9 @@
     "template": "Шаблон",
     "codes": "Коди",
     "file": "Файл docx",
-    "print": "Згенерувати документ "
+    "print": "Згенерувати документ",
+    "fieldName": "Назва поля",
+    "fieldCode": "Код в шаблоні"
   },
   "fastActions": "Дії",
   "language": "Мова",

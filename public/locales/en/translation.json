@@ -313,7 +313,9 @@
     "template": "Template",
     "codes": "Codes",
     "file": "File docx",
-    "print": "Print docs"
+    "print": "Print docs",
+    "fieldName": "Field name",
+    "fieldCode": "Template code"
   },
   "fastActions": "Operations",
   "language": "Language",
