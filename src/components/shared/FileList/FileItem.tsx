@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { themeConfig } from 'theme';
 import downloadFile from 'api/query/downloadFile';
 import { FileIcon } from 'components/icons';
+import { themeConfig } from 'theme';
 
 import { FileWrapper } from './styles';
 

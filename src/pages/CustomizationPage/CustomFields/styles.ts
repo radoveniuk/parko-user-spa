@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { themeConfig } from 'theme';
 
 const borderColor = '#e9e9e9';

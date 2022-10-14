@@ -1,6 +1,7 @@
+import { useMutation } from 'react-query';
+
 import api from 'api/common';
 import { IProject } from 'interfaces/project.interface';
-import { useMutation } from 'react-query';
 
 export const useCreateProjectMutation = () => {
   const request = (data: IProject) => api.post('/projects', data).then(res => res.data.data);

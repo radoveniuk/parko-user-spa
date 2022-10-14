@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { themeConfig } from 'theme';
 
 export const LabelWrapper = styled.label`

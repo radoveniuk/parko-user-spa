@@ -1,7 +1,7 @@
 import React from 'react';
-import { IoClose, IoCheckmark } from 'react-icons/io5';
-import { AiOutlineQuestion } from 'react-icons/ai';
 import { IconBaseProps } from 'react-icons';
+import { AiOutlineQuestion } from 'react-icons/ai';
+import { IoCheckmark, IoClose } from 'react-icons/io5';
 
 import { themeConfig } from 'theme';
 

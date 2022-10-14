@@ -1,6 +1,7 @@
+import { useQuery } from 'react-query';
+
 import api from 'api/common';
 import { IDayOff } from 'interfaces/dayoff.interface';
-import { useQuery } from 'react-query';
 
 export const useGetDaysoff = (params: Partial<IDayOff> = {}) => {
   const request = (): Promise<IDayOff[]> => api.get('/days-off', {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Step, StepLabel, Stepper as StepperMaterial } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { Step, StepLabel, Stepper as StepperMaterial } from '@mui/material';
 
 type Props = {
   steps: string[];

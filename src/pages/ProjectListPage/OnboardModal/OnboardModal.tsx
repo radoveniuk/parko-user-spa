@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useUpdateUserMutation } from 'api/mutations/userMutation';
+import { useGetProjects } from 'api/query/projectQuery';
+import { useGetUserList } from 'api/query/userQuery';
+import Button from 'components/shared/Button';
+import Chip from 'components/shared/Chip';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
-import { useGetProjects } from 'api/query/projectQuery';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import useDebounce from 'hooks/useDebounce';
-import { useGetUserList } from 'api/query/userQuery';
-import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';
-import Chip from 'components/shared/Chip';
-import Button from 'components/shared/Button';
 
 import { ModalContentWrapper } from './styles';
-import { useUpdateUserMutation } from 'api/mutations/userMutation';
 
 type Props = DialogProps & { project: string };
 

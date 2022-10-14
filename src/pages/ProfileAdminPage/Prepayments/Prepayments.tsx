@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
-import { BooleanIcon } from 'components/icons';
-import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
-import { IPrepayment } from 'interfaces/prepayment.interface';
-import Dialog from 'components/shared/Dialog';
-import { ApproveDialogWrapper } from './styles';
-import { getDateFromIso } from 'helpers/datetime';
+import { useGetPrepayments } from 'api/query/prepaymentQuery';
+import { BooleanIcon } from 'components/icons';
 import Button from 'components/shared/Button';
+import Dialog from 'components/shared/Dialog';
+import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import { getDateFromIso } from 'helpers/datetime';
+import { IPrepayment } from 'interfaces/prepayment.interface';
+
+import { ApproveDialogWrapper } from './styles';
 
 const columns = [
   'prepayment.date',

@@ -1,7 +1,8 @@
+import { useQuery } from 'react-query';
+
 import api from 'api/common';
 import { INotification } from 'interfaces/notification.interface';
 import { QueryOptions } from 'interfaces/query.types';
-import { useQuery } from 'react-query';
 
 export const useGetNotifications = (params: Partial<INotification> = {}, options: QueryOptions = {}) => {
   const request = (): Promise<INotification[]> => api.get('/notifications', {

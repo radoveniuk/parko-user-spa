@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import Page, { PageTitle } from 'components/shared/Page';
 
 const NotFoundPage = () => {
