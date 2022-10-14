@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
+import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { useGetResidenceFilterLists, useGetResidences } from 'api/query/residenceQuery';
 import { CloseIcon, EditIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
@@ -74,6 +75,7 @@ const Residences = () => {
   const debouncedFiltersState = useDebounce(filtersState);
   const activeOptions = useTranslatedSelect(['true', 'false']);
   const { data: filters, refetch: refetchFilters } = useGetResidenceFilterLists();
+  const { data: accommodations = [] } = useGetAccommodations();
 
   const { data: residences = [], refetch, remove } = useGetResidences(debouncedFiltersState, { enabled: false });
   const tableData: ResidenceTableRow[] = useMemo(() => residences.map((item) => {
@@ -140,7 +142,12 @@ const Residences = () => {
           />
         )}
         <FilterText filterKey="accommodationOwner" label={t('accommodation.owner')} />
-        <FilterText filterKey="accommodationAdress" label={t('accommodation.adress')} />
+        <FilterAutocomplete
+          filterKey="accommodation"
+          label={t('accommodation.adress')}
+          options={accommodations}
+          labelKey="adress"
+        />
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={COLUMNS} >
