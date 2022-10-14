@@ -1,17 +1,23 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { usePapaParse } from 'react-papaparse';
-import { pick } from 'lodash-es';
+import { get, pick } from 'lodash-es';
 import { DateTime } from 'luxon';
 
+import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import { ExportIcon } from 'components/icons';
+import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
+import { FiltersBar } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Page, { PageTitle } from 'components/shared/Page';
+import Select from 'components/shared/Select';
 import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
+import { STATUSES } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
 
@@ -19,6 +25,9 @@ import { ExportProfilesWrapper } from './styles';
 
 const ExportResidencesPage = () => {
   const { t } = useTranslation();
+
+  const { data: projects = [] } = useGetProjects();
+  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
 
   const { data = [] } = useGetUserList();
   const users = useMemo(() => data.map((item) => {
@@ -35,12 +44,22 @@ const ExportResidencesPage = () => {
   const { jsonToCSV } = usePapaParse();
   const [colsToExport, setColsToExport] = useState<(keyof IUser)[]>([]);
 
-  const selectProfile = (profile: IUser, checked: boolean) => {
+  const selectProfile = (profileId: string, checked: boolean) => {
     setSelectedProfiles((prev) => {
       if (checked) {
-        return [...prev, profile._id];
+        return [...prev, profileId];
       }
-      return prev.filter((item) => item !== profile._id);
+      return prev.filter((item) => item !== profileId);
+    });
+  };
+
+  const selectProfileByFilter = (key: string, value: unknown) => {
+    setSelectedProfiles((prev) => {
+      const selectedValues = data
+        .filter((item) => get(item, key) === value)
+        .map((item) => item._id);
+      const allValues = new Set([...prev, ...selectedValues]);
+      return Array.from(allValues);
     });
   };
 
@@ -103,6 +122,25 @@ const ExportResidencesPage = () => {
           <Button disabled={disableExport} onClick={() => void exportData()}><ExportIcon size={20}/>csv</Button>
           <Button disabled={disableExport} onClick={() => void exportData('xlsx')}><ExportIcon size={20}/>xlsx</Button>
         </div>
+        <FiltersBar>
+          <Autocomplete
+            label={t('search')}
+            options={data}
+            getOptionLabel={(row) => `${row.name} ${row.surname}`}
+            onChange={(item) => { item && selectProfileByFilter('_id', item._id); }}
+          />
+          <Autocomplete
+            label={t('user.project')}
+            options={projects}
+            getOptionLabel={(row) => row.name}
+            onChange={(item) => { item && selectProfileByFilter('project._id', item._id); }}
+          />
+          <Select
+            label={t('user.status')}
+            options={translatedStatuses}
+            onChange={(e) => { selectProfileByFilter('status', e.target.value); }}
+          />
+        </FiltersBar>
         <ListTable
           columns={['', ...IMPORTABLE_USER_FIELDS]}
           columnComponent={(col) => col && (
@@ -126,7 +164,7 @@ const ExportResidencesPage = () => {
               <ListTableCell>
                 <Checkbox
                   checked={selectedProfiles.includes(user._id)}
-                  onChange={(e) => void selectProfile(user, e.target.checked)}
+                  onChange={(e) => void selectProfile(user._id, e.target.checked)}
                 />
               </ListTableCell>
               {IMPORTABLE_USER_FIELDS.map((item) => (

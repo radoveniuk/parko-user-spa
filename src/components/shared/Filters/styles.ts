@@ -5,11 +5,13 @@ export const FiltersBar = styled.div`
   flex-wrap: wrap;
   align-items: center;
   border-bottom: 1px solid #e9e9e9;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 export const FilterWrapper = styled.div`
   min-width: 200px;
-  padding: 10px;
 `;
 
 export const ClearFiltersWrapper = styled.div`
