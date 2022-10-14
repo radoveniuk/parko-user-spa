@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
+import { useGetDaysoff } from 'api/query/dayoffQuery';
+import { useGetProjects } from 'api/query/projectQuery';
+import { useGetUserListForFilter } from 'api/query/userQuery';
+import Button from 'components/shared/Button';
+import Dialog from 'components/shared/Dialog';
+import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
+import Input from 'components/shared/Input';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Page, { PageTitle } from 'components/shared/Page';
-import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
-import useDebounce from 'hooks/useDebounce';
-import { useGetDaysoff } from 'api/query/dayoffQuery';
-import { getDateFromIso } from 'helpers/datetime';
-import { useGetProjects } from 'api/query/projectQuery';
-import { IDayOff } from 'interfaces/dayoff.interface';
-import Dialog from 'components/shared/Dialog';
-import Input from 'components/shared/Input';
-import Button from 'components/shared/Button';
-import { useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
 import Pagination from 'components/shared/Pagination';
+import { getDateFromIso } from 'helpers/datetime';
+import useDebounce from 'hooks/useDebounce';
 import usePaginatedList from 'hooks/usePaginatedList';
+import { IDayOff } from 'interfaces/dayoff.interface';
 
 import { CommentDialogWrapper } from './styles';
 
@@ -34,6 +35,8 @@ const DayoffListPageRender = () => {
   const { data, refetch } = useGetDaysoff(debouncedFiltersState);
   const { pageItems, paginationConfig } = usePaginatedList(data);
   const { data: projects = [] } = useGetProjects();
+  const { data: users = [] } = useGetUserListForFilter();
+
   const updateDayoffMutation = useUpdateDayoffMutation();
 
   const [selectedItem, setSelectedItem] = useState<IDayOff | null>(null);
@@ -54,8 +57,8 @@ const DayoffListPageRender = () => {
     <Page title={t('dayoffList')}>
       <PageTitle>{t('dayoffList')}</PageTitle>
       <FiltersBar>
-        <FilterText filterKey="search" label={t('search')} />
-        <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
+        <FilterAutocomplete options={users} getOptionLabel={(user) => `${user.name} ${user.surname}`} filterKey="user" label={t('search')} />
+        <FilterAutocomplete filterKey="project" label={t('user.project')} options={projects} labelKey="name" />
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={columns} >

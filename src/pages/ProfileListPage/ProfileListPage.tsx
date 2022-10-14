@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { useGetProjects } from 'api/query/projectQuery';
-import { useGetUserList } from 'api/query/userQuery';
+import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { CheckAllIcon, ExportIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SelectMenuIcon, UploadIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
-import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
+import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Page, { PageActions, PageTitle } from 'components/shared/Page';
@@ -38,6 +38,7 @@ const ProfileListPageRender = () => {
   const debouncedFiltersState = useDebounce(filtersState);
 
   const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
+  const { data: usersFilter = [] } = useGetUserListForFilter();
   const [rowsPerPage, setRowsPerPage] = useState(20);
   const { pageItems, paginationConfig } = usePaginatedList(data, { rowsPerPage });
   const { data: projects = [] } = useGetProjects();
@@ -86,7 +87,7 @@ const ProfileListPageRender = () => {
           </Menu>
         </PageActions>
         <FiltersBar style={{ marginTop: 10 }}>
-          <FilterText filterKey="search" label={t('search')} />
+          <FilterAutocomplete options={usersFilter} getOptionLabel={(user) => `${user.name} ${user.surname}`} filterKey="_id" label={t('search')} />
           <FilterAutocomplete filterKey="project" label={t('user.project')} options={projects} labelKey="name" />
           <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} emptyItem={t('selectAll')} />
           <ClearFiLtersButton />

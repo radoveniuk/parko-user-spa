@@ -6,12 +6,13 @@ export const FiltersBar = styled.div`
   align-items: center;
   border-bottom: 1px solid #e9e9e9;
   gap: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 `;
 
 export const FilterWrapper = styled.div`
   min-width: 200px;
+  max-width: 200px;
 `;
 
 export const ClearFiltersWrapper = styled.div`

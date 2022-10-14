@@ -49,8 +49,9 @@ export const FilterDate = ({ filterKey, label }: FilterProps) => {
 
 type FilterAutocompleteProps = FilterProps & AutocompleteProps;
 
-export const FilterAutocomplete = ({ filterKey, options, ...rest }: FilterAutocompleteProps) => {
+export const FilterAutocomplete = ({ filterKey, options = [], ...rest }: FilterAutocompleteProps) => {
   const [value, setValue] = useFilterState(filterKey);
+
   return (
     <FilterWrapper>
       <Autocomplete

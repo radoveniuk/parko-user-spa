@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetProjects } from 'api/query/projectQuery';
+import { useGetUserListForFilter } from 'api/query/userQuery';
 import { BooleanIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
-import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
+import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Page, { PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
@@ -33,6 +34,7 @@ const PrepaymentsListPageRender = () => {
   const { data, refetch } = useGetPrepayments(debouncedFiltersState);
   const { pageItems, paginationConfig } = usePaginatedList(data);
   const { data: projects = [] } = useGetProjects();
+  const { data: users = [] } = useGetUserListForFilter();
   const updatePrepaymentMutation = useUpdatePrepaymentMutation();
 
   const [selectedItem, setSelectedItem] = useState<IPrepayment | null>(null);
@@ -51,8 +53,8 @@ const PrepaymentsListPageRender = () => {
     <Page title={t('prepaymentsList')}>
       <PageTitle>{t('prepaymentsList')}</PageTitle>
       <FiltersBar>
-        <FilterText filterKey="search" label={t('search')} />
-        <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
+        <FilterAutocomplete options={users} getOptionLabel={(user) => `${user.name} ${user.surname}`} filterKey="user" label={t('search')} />
+        <FilterAutocomplete filterKey="project" label={t('user.project')} options={projects} labelKey="name" />
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={columns} >

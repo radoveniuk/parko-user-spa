@@ -26,7 +26,16 @@ export const useGetUserList = (params: AnyObject = {}, options?: QueryOptions) =
   () => getUserListByParams(params),
   {
     initialData: [],
-    refetchOnWindowFocus: false,
+    ...options,
+  },
+);
+
+export const useGetUserListForFilter = (options?: QueryOptions) => useQuery<IUser[]>(
+  ['users-filter'],
+  () => api.get('/users-filter').then(res => res.data.data),
+  {
+    initialData: [],
+    cacheTime: Infinity,
     ...options,
   },
 );
