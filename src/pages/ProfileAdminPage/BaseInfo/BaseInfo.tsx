@@ -77,6 +77,7 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
             valuePath="_id"
             labelPath="name"
             onChange={({ target }) => void onUpdate({ project: target.value as string })}
+            emptyItem={t('false')}
           />
         </div>
         <div className="settings-item">
@@ -85,6 +86,7 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
             label={t('user.employmentType')}
             options={translatedEmploymentTypes}
             onChange={({ target }) => void onUpdate({ employmentType: target.value as string })}
+            emptyItem={t('false')}
           />
         </div>
         <div className="settings-item">

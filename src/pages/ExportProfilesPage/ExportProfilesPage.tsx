@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { usePapaParse } from 'react-papaparse';
 import { pick } from 'lodash-es';
@@ -11,6 +11,8 @@ import Checkbox from 'components/shared/Checkbox';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Page, { PageTitle } from 'components/shared/Page';
 import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
+import { getDateFromIso } from 'helpers/datetime';
+import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
 
 import { ExportProfilesWrapper } from './styles';
@@ -18,7 +20,16 @@ import { ExportProfilesWrapper } from './styles';
 const ExportResidencesPage = () => {
   const { t } = useTranslation();
 
-  const { data: users = [] } = useGetUserList();
+  const { data = [] } = useGetUserList();
+  const users = useMemo(() => data.map((item) => {
+    const newItem: AnyObject = { ...item };
+    Object.keys(newItem).forEach((userKey) => {
+      if (typeof newItem[userKey] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(newItem[userKey])) {
+        newItem[userKey] = getDateFromIso(newItem[userKey]);
+      }
+    });
+    return newItem as IUser;
+  }), [data]);
 
   const [selectedProfiles, setSelectedProfiles] = useState<string[]>([]);
   const { jsonToCSV } = usePapaParse();

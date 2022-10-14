@@ -23,6 +23,7 @@ import { ICustomFormField } from 'interfaces/form.interface';
 import { IProject } from 'interfaces/project.interface';
 
 import OnboardModal from './OnboardModal';
+import ProjectModal from './ProjectModal';
 import { DialogContentWrapper, ProjectActionsWrapper, ProjectInfoDataWrapper, ProjectInfoWrapper, ProjectsListWrapper } from './styles';
 
 const usersTableCols = ['user.name', 'user.email', 'user.status'];
@@ -49,6 +50,8 @@ const ProjectListPage = () => {
   const pageQueries = usePageQueries();
 
   const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState(false);
+
+  const [projectDialogData, setProjectDialogData] = useState<IProject | boolean>(false);
 
   const prepareCustomFieldValue = (value: string, fieldData: ICustomFormField) => {
     if (fieldData.type === 'boolean') {
@@ -101,9 +104,9 @@ const ProjectListPage = () => {
             });
           }}
         />
-        <Link to="/project" style={{ marginLeft: 'auto' }}>
-          <Button><PlusIcon size={20} />{t('project.new')}</Button>
-        </Link>
+        <Button onClick={() => void setProjectDialogData(true)} style={{ marginLeft: 'auto' }}>
+          <PlusIcon size={20} />{t('project.new')}
+        </Button>
       </FiltersBar>
       <ProjectsListWrapper>
         {selectedProject !== null && (
@@ -178,12 +181,11 @@ const ProjectListPage = () => {
                       ))}
                   </div>
                   <ProjectActionsWrapper>
-                    <Link to={{
-                      pathname: '/project',
-                      search: `?id=${selectedProject._id}`,
-                    }}>
-                      <Button color="secondary"><EditIcon style={{ marginRight: 5 }} />{t('project.edit')}</Button>
-                    </Link>
+                    <Button
+                      onClick={() => void setProjectDialogData(selectedProject)}
+                    >
+                      <EditIcon style={{ marginRight: 5 }} />{t('project.edit')}
+                    </Button>
                     <Button
                       color="error"
                       variant="outlined"
@@ -200,6 +202,13 @@ const ProjectListPage = () => {
                         <div className="actions"><Button color="error" onClick={deleteProjectHandler}>{t('project.approve')}</Button></div>
                       </DialogContentWrapper>
                     </Dialog>
+                    {!!projectDialogData && (
+                      <ProjectModal
+                        onClose={() => { setProjectDialogData(false); refetch(); }}
+                        open={!!projectDialogData}
+                        defaultValues={projectDialogData}
+                      />
+                    )}
                   </ProjectActionsWrapper>
                 </ProjectInfoDataWrapper>
               </TabPanel>

@@ -23,7 +23,6 @@ import ProfileAdminPage from 'pages/ProfileAdminPage';
 import ProfileListPage from 'pages/ProfileListPage';
 import ProfilePage from 'pages/ProfilePage';
 import ProjectListPage from 'pages/ProjectListPage';
-import ProjectPage from 'pages/ProjectPage';
 import UploadProfilesPage from 'pages/UploadProfilesPage';
 
 export default function Router () {
@@ -53,7 +52,6 @@ export default function Router () {
               <Route path="/profiles" element={<ProtectedRoute><ProfileListPage /></ProtectedRoute>} />
               <Route path="/profile/:id" element={<ProtectedRoute><ProfileAdminPage /></ProtectedRoute>} />
               <Route path="/projects" element={<ProtectedRoute><ProjectListPage /></ProtectedRoute>} />
-              <Route path="/project" element={<ProtectedRoute><ProjectPage /></ProtectedRoute>} />
               <Route path="/create-notification" element={<ProtectedRoute><CreateNotificationPage /></ProtectedRoute>} />
               <Route path="/import-profiles" element={<ProtectedRoute><UploadProfilesPage /></ProtectedRoute>} />
               <Route path="/export-profiles" element={<ProtectedRoute><ExportProfilesPage /></ProtectedRoute>} />
