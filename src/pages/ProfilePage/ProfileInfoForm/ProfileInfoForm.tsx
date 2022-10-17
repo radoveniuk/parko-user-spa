@@ -10,7 +10,6 @@ import { useDeleteFileMutation } from 'api/mutations/fileMutation';
 import { useCreateUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import downloadFile from 'api/query/downloadFile';
-import { useGetCountries } from 'api/query/formFieldsQuery';
 import { useGetUser } from 'api/query/userQuery';
 import CustomField from 'components/complex/CustomField';
 import { AcceptIcon, DeleteIcon, UploadIcon } from 'components/icons';
@@ -24,6 +23,7 @@ import IconButton from 'components/shared/IconButton';
 import Input from 'components/shared/Input';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import Select from 'components/shared/Select';
+import { COUNTRIES } from 'constants/countries';
 import { FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'constants/selectsOptions';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -43,7 +43,6 @@ const ProfileInfoForm = () => {
   const { t, i18n } = useTranslation();
   const { id, role } = useAuthData();
   const { data: userData } = useGetUser(!isEditor ? id : editingUserId, { enabled: !isEditor || !!editingUserId, refetchOnWindowFocus: false });
-  const { data: countriesOptions } = useGetCountries();
   const createUserMutation = useCreateUserMutation();
   const updateUserMutation = useUpdateUserMutation();
   const deleteFileMutation = useDeleteFileMutation();
@@ -135,7 +134,7 @@ const ProfileInfoForm = () => {
       pantsSize: SIZES,
       tshortSize: SIZES,
       permitType: permitTypeOptions,
-      country: countriesOptions,
+      country: COUNTRIES.sort(),
       familyState: familyStateOptions,
       study: studyOptions,
     };
