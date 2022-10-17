@@ -2,6 +2,7 @@ import React from 'react';
 import { isEmpty } from 'lodash-es';
 
 import { CloseIcon } from 'components/icons';
+import { MongoEntity } from 'interfaces/base.types';
 
 import Autocomplete, { AutocompleteProps } from '../Autocomplete';
 import DatePicker from '../DatePicker';
@@ -58,9 +59,10 @@ export const FilterAutocomplete = ({ filterKey, options = [], ...rest }: FilterA
         {...rest}
         style={{ minWidth: 200 }}
         options={options}
-        value={options.find((item) => item._id === value) || null}
-        onChange={(newValue) => {
-          setValue(newValue?._id || null);
+        value={!rest.multiple ? options.find((item) => item._id === value) || null : options.filter((item) => value.includes(item._id) || undefined)}
+        onChange={(v) => {
+          const newValue = rest.multiple ? v.map((item: MongoEntity) => item._id).toString() : v?._id || null;
+          setValue(newValue || null);
         }}
       />
     </FilterWrapper>

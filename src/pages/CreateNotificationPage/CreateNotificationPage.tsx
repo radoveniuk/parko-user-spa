@@ -64,6 +64,7 @@ const CreateNotificationPage = () => {
               getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
               style={{ minWidth: 350, maxWidth: 350 }}
               onChange={setUsers}
+              disableCloseOnSelect
             />
           </div>
           <Input label={t('notification.title')} className="controls-input" {...register('title', { required: true })} />

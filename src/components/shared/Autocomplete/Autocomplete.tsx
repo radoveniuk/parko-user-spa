@@ -19,6 +19,7 @@ export type AutocompleteProps = {
   defaultValue?: any;
   className?: string;
   error?: boolean;
+  disableCloseOnSelect?: boolean;
 }
 
 const AutoComplete = ({

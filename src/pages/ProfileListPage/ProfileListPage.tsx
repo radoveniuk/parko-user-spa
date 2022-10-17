@@ -87,7 +87,13 @@ const ProfileListPageRender = () => {
           </Menu>
         </PageActions>
         <FiltersBar style={{ marginTop: 10 }}>
-          <FilterAutocomplete options={usersFilter} getOptionLabel={(user) => `${user.name} ${user.surname}`} filterKey="_id" label={t('search')} />
+          <FilterAutocomplete
+            multiple
+            options={usersFilter}
+            getOptionLabel={(user) => `${user.name} ${user.surname}`}
+            filterKey="_id"
+            label={t('search')}
+          />
           <FilterAutocomplete filterKey="project" label={t('user.project')} options={projects} labelKey="name" />
           <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} emptyItem={t('selectAll')} />
           <ClearFiLtersButton />

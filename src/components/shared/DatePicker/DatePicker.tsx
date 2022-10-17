@@ -26,10 +26,6 @@ const DatePicker = ({ value: defaultValue, onChange, label, className, error }: 
       if (isIso) {
         setValue(DateTime.fromISO(defaultValue));
       }
-      const isFormatted = !DateTime.fromFormat(defaultValue, 'dd.MM.yyyy').invalidReason;
-      if (isFormatted) {
-        setValue(DateTime.fromFormat(defaultValue, 'dd.MM.yyyy'));
-      }
     } else {
       setValue(null);
     }
