@@ -9,12 +9,15 @@ import { BooleanIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { FilterDate } from 'components/shared/Filters/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Page, { PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
+import { STATUSES } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import useDebounce from 'hooks/useDebounce';
 import usePaginatedList from 'hooks/usePaginatedList';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 
 import { ApproveDialogWrapper } from './styles';
@@ -32,6 +35,7 @@ const PrepaymentsListPageRender = () => {
   const debouncedFiltersState = useDebounce(filtersState);
   const { t } = useTranslation();
   const { data, refetch } = useGetPrepayments(debouncedFiltersState);
+  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
   const { pageItems, paginationConfig } = usePaginatedList(data);
   const { data: projects = [] } = useGetProjects();
   const { data: users = [] } = useGetUserListForFilter();
@@ -53,8 +57,29 @@ const PrepaymentsListPageRender = () => {
     <Page title={t('prepaymentsList')}>
       <PageTitle>{t('prepaymentsList')}</PageTitle>
       <FiltersBar>
-        <FilterAutocomplete options={users} getOptionLabel={(user) => `${user.name} ${user.surname}`} filterKey="user" label={t('search')} />
-        <FilterAutocomplete filterKey="project" label={t('user.project')} options={projects} labelKey="name" />
+        <FilterAutocomplete
+          multiple
+          options={users}
+          getOptionLabel={(user) => `${user.name} ${user.surname}`}
+          filterKey="users"
+          label={t('search')}
+        />
+        <FilterAutocomplete
+          multiple
+          filterKey="projects"
+          label={t('user.project')}
+          options={projects}
+          labelKey="name"
+        />
+        <FilterAutocomplete
+          multiple
+          filterKey="userStatuses"
+          label={t('user.status')}
+          options={translatedStatuses}
+          labelKey="label"
+        />
+        <FilterDate filterKey="firstDate" label={t('firstDate')} />
+        <FilterDate filterKey="lastDate" label={t('lastDate')} />
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={columns} >

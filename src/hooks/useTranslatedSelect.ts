@@ -13,6 +13,7 @@ const useTranslatedSelect = (values: string[], entity?: string, isSelect = true,
 
   const translatedItems = useMemo(() => values
     .map((option) => ({
+      _id: option,
       value: option,
       label: getLabel(option),
     }))

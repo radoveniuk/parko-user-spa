@@ -8,7 +8,7 @@ import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { CheckAllIcon, ExportIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SelectMenuIcon, UploadIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
-import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Page, { PageActions, PageTitle } from 'components/shared/Page';
@@ -91,11 +91,23 @@ const ProfileListPageRender = () => {
             multiple
             options={usersFilter}
             getOptionLabel={(user) => `${user.name} ${user.surname}`}
-            filterKey="_id"
+            filterKey="ids"
             label={t('search')}
           />
-          <FilterAutocomplete filterKey="project" label={t('user.project')} options={projects} labelKey="name" />
-          <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} emptyItem={t('selectAll')} />
+          <FilterAutocomplete
+            multiple
+            filterKey="projects"
+            label={t('user.project')}
+            options={projects}
+            labelKey="name"
+          />
+          <FilterAutocomplete
+            multiple
+            filterKey="statuses"
+            label={t('user.status')}
+            options={translatedStatuses}
+            labelKey="label"
+          />
           <ClearFiLtersButton />
           <div style={{ marginLeft: 'auto' }}>
             <Select
