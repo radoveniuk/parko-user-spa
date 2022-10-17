@@ -40,11 +40,9 @@ const DatePicker = ({ value: defaultValue, onChange, label, className, error }: 
         value={value}
         onChange={(luxonValue: DateTime | null) => {
           setValue(luxonValue);
-          const stringValue = luxonValue?.toFormat('dd.MM.yyyy');
-          const isValid = dateRegex.test(stringValue as string);
           onChange(
-            isValid ? luxonValue?.toISODate() || '' : '',
-            isValid || stringValue === '',
+            luxonValue?.isValid ? luxonValue?.toISODate() || '' : '',
+            luxonValue?.isValid,
           );
         }}
         renderInput={(params) => <TextField {...params} error={error}/>}

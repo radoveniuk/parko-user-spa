@@ -2,6 +2,7 @@ import React from 'react';
 import { isEmpty } from 'lodash-es';
 
 import { CloseIcon } from 'components/icons';
+import usePrev from 'hooks/usePrev';
 import { MongoEntity } from 'interfaces/base.types';
 
 import Autocomplete, { AutocompleteProps } from '../Autocomplete';
@@ -33,13 +34,14 @@ export const FilterText = ({ filterKey, label }: FilterProps) => {
 
 export const FilterDate = ({ filterKey, label }: FilterProps) => {
   const [value, setValue] = useFilterState(filterKey);
+  const prevValue = usePrev(value);
   return (
     <FilterWrapper>
       <DatePicker
         label={label}
         value={value || ''}
-        onChange={(v, isValid) => {
-          if (isValid) {
+        onChange={(v) => {
+          if (v !== prevValue) {
             setValue(v);
           }
         }}
