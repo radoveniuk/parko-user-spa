@@ -1,15 +1,16 @@
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import _ from 'lodash-es';
 
-import Input from 'components/shared/Input';
-import { IUser } from 'interfaces/users.interface';
-import { useTranslation } from 'react-i18next';
-import Select from 'components/shared/Select';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import { SALARY_TYPE } from 'constants/selectsOptions';
-import { SalaryFormWrapper } from './styles';
 import Button from 'components/shared/Button';
+import Input from 'components/shared/Input';
+import Select from 'components/shared/Select';
+import { SALARY_TYPE } from 'constants/selectsOptions';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IUser } from 'interfaces/users.interface';
+
+import { SalaryFormWrapper } from './styles';
 
 type Props = {
   data: IUser;

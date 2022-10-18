@@ -1,7 +1,8 @@
 import React from 'react';
-import { TabProps, Tabs as TabsMaterial, Tab as TabMaterial } from '@mui/material';
-import TabsProvider, { useTabs } from './TabsContext';
+import { Tab as TabMaterial, TabProps, Tabs as TabsMaterial } from '@mui/material';
+
 import { TabsWrapper } from './styles';
+import TabsProvider, { useTabs } from './TabsContext';
 
 type BaseProps = {
   children: React.ReactNode;

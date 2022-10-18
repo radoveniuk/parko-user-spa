@@ -2,8 +2,9 @@ import React from 'react';
 import Dropzone, { IFileWithMeta, StatusValue } from 'react-dropzone-uploader';
 import { useTranslation } from 'react-i18next';
 
-import 'react-dropzone-uploader/dist/styles.css';
 import { FileUploadAreaWrapper } from './styles';
+
+import 'react-dropzone-uploader/dist/styles.css';
 
 type Props = {
   accept?: string;

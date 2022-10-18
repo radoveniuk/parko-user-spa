@@ -3,15 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { useCSVReader } from 'react-papaparse';
 import { invert, omit } from 'lodash-es';
 
-import Select from 'components/shared/Select';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import Button from 'components/shared/Button';
 import { UploadIcon } from 'components/icons';
+import Button from 'components/shared/Button';
+import Select from 'components/shared/Select';
+import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
+
 import { useFileKeys, useRelativeFields, useRows } from '../../UploadProfilesContext';
 
 import { FileUploadingWrapper, RelativeFieldsGrid } from './styles';
-import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
 
 const styles = {
   csvReader: {

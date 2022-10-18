@@ -1,14 +1,18 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Divider } from '@mui/material';
 import { useSnackbar } from 'notistack';
 
-import { useUpdateUserMutation } from 'api/mutations/userMutation';
+import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetUser } from 'api/query/userQuery';
 import Notifications from 'components/complex/Notifications';
-import UploadedPaychecks from 'components/complex/UploadedPaychecks';
-import { EditIcon } from 'components/icons';
+import Paychecks from 'components/complex/Paychecks';
+import PrintDocDialog from 'components/complex/PrintDocDialog';
+import { DeleteIcon, EditIcon, PrintIcon, SelectMenuIcon } from 'components/icons';
 import Button from 'components/shared/Button';
+import Dialog from 'components/shared/Dialog';
+import Menu, { MenuItem } from 'components/shared/Menu';
 import Page, { PageActions, PageTitle } from 'components/shared/Page';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { IUser } from 'interfaces/users.interface';
@@ -19,6 +23,7 @@ import Prepayments from './Prepayments';
 import Residences from './Residences';
 import SalarySettings from './SalarySettings';
 import Scans from './Scans';
+import { DeleteDialogContent } from './styles';
 
 const ProfileAdminPage = () => {
   const { t } = useTranslation();
@@ -39,13 +44,38 @@ const ProfileAdminPage = () => {
     }
   };
 
+  const [openPrintDialog, setOpenPrintDialog] = useState(false);
+
+  const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState(false);
+  const deleteUserMutation = useDeleteUserMutation();
+  const navigate = useNavigate();
+
+  const deleteUser = () => {
+    deleteUserMutation.mutateAsync(profileData as IUser).then(() => {
+      enqueueSnackbar(t('user.removedSuccess'), { variant: 'success' });
+      setTimeout(() => {
+        navigate('/profiles');
+      }, 1000);
+    });
+  };
+
   return (
     <Page title={t('user.admin')}>
       <PageTitle>{pageTitle}</PageTitle>
       <PageActions>
         <Link to={`/profile-editor/${userId}`}>
-          <Button color="secondary"><EditIcon size={20}/>{t('user.edit')}</Button>
+          <Button><EditIcon size={20}/>{t('user.edit')}</Button>
         </Link>
+        <Menu title={<><SelectMenuIcon size={20}/>{t('fastActions')}</>}>
+          <MenuItem onClick={() => void setOpenPrintDialog(true)}>
+            <PrintIcon size={20} />{t('docsTemplates.print')}
+          </MenuItem>
+          <Divider />
+          <MenuItem color="error" onClick={() => void setIsOpenDeleteDialog(true)}>
+            <DeleteIcon />
+            {t('project.delete')}
+          </MenuItem>
+        </Menu>
       </PageActions>
       {profileData && (
         <TabsContainer>
@@ -69,7 +99,7 @@ const ProfileAdminPage = () => {
             <Scans data={profileData} onUpdate={updateUser} />
           </TabPanel>
           <TabPanel index={3}>
-            <UploadedPaychecks filter={{ user: profileData._id }} />
+            <Paychecks filter={{ user: profileData._id }} />
           </TabPanel>
           <TabPanel index={4}>
             <Prepayments />
@@ -85,6 +115,17 @@ const ProfileAdminPage = () => {
           </TabPanel>
         </TabsContainer>
       )}
+      {openPrintDialog && profileData !== undefined && (
+        <PrintDocDialog ids={[profileData._id]} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
+      )}
+      <Dialog title={t('user.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
+        <DeleteDialogContent>
+          <p className="warning-text">
+            {t('user.approveRemoving')} <strong>({profileData?.name} {profileData?.surname})</strong>
+          </p>
+          <div className="actions"><Button color="error" onClick={deleteUser}>{t('user.approve')}</Button></div>
+        </DeleteDialogContent>
+      </Dialog>
     </Page>
   );
 };

@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
 
-import { useDeleteUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
-import { CopyIcon, DeleteIcon } from 'components/icons';
+import { CopyIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import Dialog from 'components/shared/Dialog';
 import IconButton from 'components/shared/IconButton';
 import Select from 'components/shared/Select';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
@@ -18,7 +14,7 @@ import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser, UserRole } from 'interfaces/users.interface';
 
 import { USER_FIELDS } from './fields';
-import { BaseInfoWrapper, DialogContentWrapper } from './styles';
+import { BaseInfoWrapper } from './styles';
 
 type Props = {
   data: IUser;
@@ -32,11 +28,6 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
   const translatedEmploymentTypes = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType', true, false);
 
-  const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState(false);
-  const deleteUserMutation = useDeleteUserMutation();
-  const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
-
   const [resetedPass, setResetedPass] = useState<string | null>(null);
 
   const resetPass = () => {
@@ -45,19 +36,9 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
     onUpdate({ password: pass, email: data.email });
   };
 
-  const deleteUser = () => {
-    deleteUserMutation.mutateAsync(data).then(() => {
-      enqueueSnackbar(t('user.removedSuccess'), { variant: 'success' });
-      setTimeout(() => {
-        navigate('/profiles');
-      }, 1000);
-    });
-  };
-
   return (
     <BaseInfoWrapper>
       <div className="user-card">
-        <p className="user-card-title">{t('user.info')}</p>
         {USER_FIELDS.map((field) => {
           const fieldKey = typeof field === 'string' ? field : field.key;
           const value = typeof field === 'string' ? data[fieldKey] : field.get(data[fieldKey]);
@@ -95,6 +76,7 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
             valuePath="_id"
             labelPath="name"
             onChange={({ target }) => void onUpdate({ project: target.value as string })}
+            emptyItem={t('false')}
           />
         </div>
         <div className="settings-item">
@@ -103,10 +85,11 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
             label={t('user.employmentType')}
             options={translatedEmploymentTypes}
             onChange={({ target }) => void onUpdate({ employmentType: target.value as string })}
+            emptyItem={t('false')}
           />
         </div>
         <div className="settings-item">
-          <Button onClick={resetPass}>{t('user.resetPassword')}</Button>
+          <Button onClick={resetPass} variant="outlined" color="error">{t('user.resetPassword')}</Button>
         </div>
         {resetedPass !== null && (
           <div className="reseted-pass">
@@ -114,24 +97,6 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
             <IconButton onClick={() => void navigator.clipboard.writeText(resetedPass)}><CopyIcon /></IconButton>
           </div>
         )}
-        <div className="settings-item">
-          <Button
-            color="error"
-            onClick={() => void setIsOpenDeleteDialog(true)}
-            variant="outlined"
-          >
-            <DeleteIcon style={{ marginRight: 5 }} />
-            {t('project.delete')}
-          </Button>
-        </div>
-        <Dialog title={t('user.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
-          <DialogContentWrapper>
-            <p className="warning-text">
-              {t('user.approveRemoving')} <strong>({data.name} {data.surname})</strong>
-            </p>
-            <div className="actions"><Button color="error" onClick={deleteUser}>{t('user.approve')}</Button></div>
-          </DialogContentWrapper>
-        </Dialog>
       </div>
     </BaseInfoWrapper>
   );

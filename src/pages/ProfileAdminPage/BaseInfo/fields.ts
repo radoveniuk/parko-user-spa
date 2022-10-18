@@ -1,5 +1,6 @@
-import { IUser } from 'interfaces/users.interface';
 import { DateTime } from 'luxon';
+
+import { IUser } from 'interfaces/users.interface';
 
 type UserField = keyof IUser | {
   key: keyof IUser,

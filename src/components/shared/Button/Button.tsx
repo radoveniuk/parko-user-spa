@@ -1,5 +1,6 @@
 import React from 'react';
 import { ButtonProps } from '@mui/material';
+
 import { StyledButton } from './styles';
 
 type Props = ButtonProps & {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import UploadedPaychecks from 'components/complex/UploadedPaychecks';
+import Paychecks from 'components/complex/Paychecks';
 import Page, { PageTitle } from 'components/shared/Page';
 import { useAuthData } from 'contexts/AuthContext';
 
@@ -11,7 +11,7 @@ const PaychecksPage = () => {
   return (
     <Page title={t('paychecks')}>
       <PageTitle>{t('paychecks')}</PageTitle>
-      <UploadedPaychecks filter={{ user: id }} />
+      <Paychecks filter={{ user: id }} />
     </Page>
   );
 };

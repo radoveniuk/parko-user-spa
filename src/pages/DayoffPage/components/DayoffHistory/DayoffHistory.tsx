@@ -1,10 +1,10 @@
 import React from 'react';
+import { t } from 'i18next';
 import { DateTime } from 'luxon';
 
-import Table from 'components/shared/Table';
 import { useGetDaysoff } from 'api/query/dayoffQuery';
+import Table from 'components/shared/Table';
 import { useAuthData } from 'contexts/AuthContext';
-import { t } from 'i18next';
 import { Column } from 'interfaces/table.types';
 
 import { HistoryWrapper } from './styles';

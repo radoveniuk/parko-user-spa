@@ -9,7 +9,8 @@
     "paychecks": "Фактури",
     "projects": "Проєкти",
     "customization": "Кастомізація",
-    "accommodation": "Житло"
+    "accommodation": "Житло",
+    "docsTemplates": "Шаблони документів"
   },
   "menu": {
     "prepayment": "Замовити аванс",
@@ -309,6 +310,15 @@
     "notificate": "Сповістити власника",
     "active": "Активно"
   },
+  "docsTemplates": {
+    "template": "Шаблон",
+    "codes": "Коди",
+    "file": "Файл docx",
+    "print": "Згенерувати документ",
+    "fieldName": "Назва поля",
+    "fieldCode": "Код в шаблоні"
+  },
+  "fastActions": "Дії",
   "language": "Мова",
   "youNotVerified": "Наразі основні розділи системи Parko app недоступні для вас. Спочатку вам необхідно заповнити інформацію про себе у розділі профіль",
   "next": "Вперед",
@@ -317,6 +327,7 @@
   "deleteApprove": "Ви впевнені?",
   "rowsPerPage": "Кількість рядів",
   "selectAll": "Вибрати все",
+  "removeSelect": "Прибрати вибір",
   "selectAllCols": "Вибрати вси колонки",
   "add": "Додати",
   "comment": "Коментар",
@@ -324,5 +335,6 @@
   "approve": "Підтвердити",
   "firstDate": "Дата від",
   "lastDate": "Дата до",
-  "welcomeText": "Ласкаво просимо до системи Parko User, "
+  "welcomeText": "Ласкаво просимо до системи Parko User, ",
+  "download": "Скачать"
 }

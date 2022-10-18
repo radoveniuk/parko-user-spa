@@ -9,7 +9,8 @@
     "paychecks": "Paychecks",
     "projects": "Projects",
     "customization": "Customization",
-    "accommodation": "Accommodation"
+    "accommodation": "Accommodation",
+    "docsTemplates": "Docs templates"
   },
   "menu": {
     "prepayment": "Request prepayment",
@@ -308,6 +309,15 @@
     "notificate": "Notificate owner",
     "active": "Active"
   },
+  "docsTemplates": {
+    "template": "Template",
+    "codes": "Codes",
+    "file": "File docx",
+    "print": "Print docs",
+    "fieldName": "Field name",
+    "fieldCode": "Template code"
+  },
+  "fastActions": "Operations",
   "language": "Language",
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
   "next": "Next",
@@ -315,7 +325,8 @@
   "errors": "Errors",
   "deleteApprove": "Are you sure?",
   "rowsPerPage": "Rows per page",
-  "selectAll": "Select all items",
+  "selectAll": "Select all",
+  "removeSelect": "Remove selection",
   "selectAllCols": "Select all columns",
   "add": "Add",
   "comment": "Comment",
@@ -323,5 +334,6 @@
   "approve": "Approve",
   "firstDate": "Date from",
   "lastDate": "Date to",
-  "welcomeText": "Welcome to the Parko User system, "
+  "welcomeText": "Welcome to the Parko User system, ",
+  "download": "Download"
 }

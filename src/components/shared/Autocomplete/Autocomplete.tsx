@@ -19,6 +19,7 @@ export type AutocompleteProps = {
   defaultValue?: any;
   className?: string;
   error?: boolean;
+  disableCloseOnSelect?: boolean;
 }
 
 const AutoComplete = ({
@@ -28,7 +29,7 @@ const AutoComplete = ({
 
   return (
     <AutocompleteMaterial
-      {...rest}
+      style={{ minWidth: 223 }}
       getOptionLabel={option => labelKey ? option[labelKey] : getOptionLabel?.(option)}
       onChange={(e, newValue) => void onChange?.(newValue)}
       value={value}
@@ -52,6 +53,7 @@ const AutoComplete = ({
       open={defaultOpen || open}
       onOpen={() => void setOpen(true)}
       onClose={() => void setOpen(false)}
+      {...rest}
     />
   );
 };

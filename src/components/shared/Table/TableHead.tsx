@@ -1,6 +1,6 @@
 import React from 'react';
-import { TableCell, TableHead as TableHeadMaterial, TableRow } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { TableCell, TableHead as TableHeadMaterial, TableRow } from '@mui/material';
 
 import { Column } from 'interfaces/table.types';
 

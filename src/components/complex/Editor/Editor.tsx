@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { EditorState, convertToRaw } from 'draft-js';
 import { Editor as WisywygEditor } from 'react-draft-wysiwyg';
+import { convertToRaw, EditorState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorWrapper } from './styles';
+
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 type Props = {
   onChange(value: any): void

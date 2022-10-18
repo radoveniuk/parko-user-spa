@@ -1,15 +1,16 @@
 import React from 'react';
+import Paper from '@mui/material/Paper';
 import TableMaterial from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+
+import { Column, Row } from 'interfaces/table.types';
 
 import { TableWrapper } from './styles';
 import TableHead from './TableHead';
-import { Column, Row } from 'interfaces/table.types';
 
 type TableProps = {
   rowsPerPage?: number;

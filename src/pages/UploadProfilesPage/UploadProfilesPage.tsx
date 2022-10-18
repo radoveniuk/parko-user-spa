@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { invert } from 'lodash-es';
-
-import Page, { PageTitle } from 'components/shared/Page';
-import Button from 'components/shared/Button';
-import Stepper from 'components/shared/Stepper';
-import { useUploadUsersMutation } from 'api/mutations/userMutation';
-
-import UploadProfilesProvider, { useRelativeFields, useResult } from './UploadProfilesContext';
-import FileUploading from './steps/FileUploading';
-import ResultsPreview from './steps/ResultPreview';
-import Result from './steps/Result';
-
-import { StepperWrapper } from './styles';
 import { useSnackbar } from 'notistack';
+
+import { useUploadUsersMutation } from 'api/mutations/userMutation';
+import Button from 'components/shared/Button';
+import Page, { PageTitle } from 'components/shared/Page';
+import Stepper from 'components/shared/Stepper';
+
+import FileUploading from './steps/FileUploading';
+import Result from './steps/Result';
+import ResultsPreview from './steps/ResultPreview';
+import { StepperWrapper } from './styles';
+import UploadProfilesProvider, { useRelativeFields, useResult } from './UploadProfilesContext';
 
 const steps = ['userUpload.fileUploading', 'userUpload.resultPreview', 'userUpload.finish'];
 

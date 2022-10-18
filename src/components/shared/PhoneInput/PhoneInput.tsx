@@ -1,6 +1,6 @@
 import React, { ForwardedRef, forwardRef } from 'react';
-import { MuiTelInputProps, isValidPhoneNumber } from 'mui-tel-input';
 import { useTranslation } from 'react-i18next';
+import { isValidPhoneNumber, MuiTelInputProps } from 'mui-tel-input';
 
 import { StyledPhoneInput } from './styles';
 

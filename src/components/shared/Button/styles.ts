@@ -1,6 +1,7 @@
-import styled, { css } from 'styled-components';
-import { themeConfig } from 'theme';
 import { Button as ButtonMaterial } from '@mui/material';
+import styled, { css } from 'styled-components';
+
+import { themeConfig } from 'theme';
 
 export const StyledButton = styled(ButtonMaterial)`
   border-radius: 2px;

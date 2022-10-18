@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Dialog, { DialogProps } from '../Dialog';
 import Button from '../Button';
+import Dialog, { DialogProps } from '../Dialog';
 
 import { DialogContent } from './styles';
 
