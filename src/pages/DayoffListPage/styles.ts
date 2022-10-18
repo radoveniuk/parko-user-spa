@@ -4,7 +4,6 @@ export const CommentDialogWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-
   p {
     margin: 0;
   }
