@@ -8,15 +8,17 @@ import { DateTime } from 'luxon';
 
 const dateRegex = /^([0-2][0-9]|(3)[0-1])(\.)(((0)[0-9])|((1)[0-2]))(\.)\d{4}$/;
 
-type Props = {
+export type Props = {
   value?: string | null;
   onChange(v: string, isValid?: boolean): void;
   label: string;
   className?:string;
   error?: boolean;
+  minDate?: string;
+  maxDate?: string;
 }
 
-const DatePicker = ({ value: defaultValue, onChange, label, className, error }: Props) => {
+const DatePicker = ({ value: defaultValue, onChange, label, className, error, minDate, maxDate }: Props) => {
   const [value, setValue] = useState<DateTime | null>(null);
   const { i18n } = useTranslation();
 
@@ -46,6 +48,8 @@ const DatePicker = ({ value: defaultValue, onChange, label, className, error }: 
           );
         }}
         renderInput={(params) => <TextField {...params} error={error}/>}
+        minDate={minDate ? DateTime.fromISO(minDate) : undefined}
+        maxDate={maxDate ? DateTime.fromISO(maxDate) : undefined}
       />
     </LocalizationProvider>
   );

@@ -7,8 +7,8 @@ import { useSnackbar } from 'notistack';
 import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetUser } from 'api/query/userQuery';
 import Notifications from 'components/complex/Notifications';
+import Paychecks from 'components/complex/Paychecks';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
-import UploadedPaychecks from 'components/complex/UploadedPaychecks';
 import { DeleteIcon, EditIcon, PrintIcon, SelectMenuIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
@@ -99,7 +99,7 @@ const ProfileAdminPage = () => {
             <Scans data={profileData} onUpdate={updateUser} />
           </TabPanel>
           <TabPanel index={3}>
-            <UploadedPaychecks filter={{ user: profileData._id }} />
+            <Paychecks filter={{ user: profileData._id }} />
           </TabPanel>
           <TabPanel index={4}>
             <Prepayments />

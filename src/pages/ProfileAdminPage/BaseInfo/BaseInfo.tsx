@@ -39,7 +39,6 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
   return (
     <BaseInfoWrapper>
       <div className="user-card">
-        <p className="user-card-title">{t('user.info')}</p>
         {USER_FIELDS.map((field) => {
           const fieldKey = typeof field === 'string' ? field : field.key;
           const value = typeof field === 'string' ? data[fieldKey] : field.get(data[fieldKey]);

@@ -37,7 +37,7 @@ type Props = {
   filter?: Partial<IPaycheck>
 }
 
-const UploadedPaychecks = ({ filter }: Props) => {
+const Paychecks = ({ filter }: Props) => {
   const { data = [], refetch } = useGetPaycheckList(filter);
   const updatePaycheckMutation = useUpdatePaycheckMutation();
   const deletePaycheckMutation = useDeletePaycheckMutation();
@@ -126,4 +126,4 @@ const UploadedPaychecks = ({ filter }: Props) => {
   );
 };
 
-export default UploadedPaychecks;
+export default Paychecks;

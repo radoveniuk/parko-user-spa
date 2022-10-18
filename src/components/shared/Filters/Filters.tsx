@@ -2,14 +2,13 @@ import React from 'react';
 import { isEmpty } from 'lodash-es';
 
 import { CloseIcon } from 'components/icons';
+import Autocomplete, { AutocompleteProps } from 'components/shared/Autocomplete';
+import DatePicker, { DatePickerProps } from 'components/shared/DatePicker';
+import IconButton from 'components/shared/IconButton';
+import Input from 'components/shared/Input';
+import Select, { SelectProps } from 'components/shared/Select';
 import usePrev from 'hooks/usePrev';
 import { MongoEntity } from 'interfaces/base.types';
-
-import Autocomplete, { AutocompleteProps } from '../Autocomplete';
-import DatePicker from '../DatePicker';
-import IconButton from '../IconButton';
-import Input from '../Input';
-import Select, { SelectProps } from '../Select';
 
 import { ClearFiltersWrapper, FilterWrapper } from './styles';
 import useFilters, { useFilterState } from './useFilters';
@@ -32,12 +31,13 @@ export const FilterText = ({ filterKey, label }: FilterProps) => {
   );
 };
 
-export const FilterDate = ({ filterKey, label }: FilterProps) => {
+export const FilterDate = ({ filterKey, label, ...rest }: FilterProps & Partial<DatePickerProps>) => {
   const [value, setValue] = useFilterState(filterKey);
   const prevValue = usePrev(value);
   return (
     <FilterWrapper>
       <DatePicker
+        {...rest}
         label={label}
         value={value || ''}
         onChange={(v) => {
