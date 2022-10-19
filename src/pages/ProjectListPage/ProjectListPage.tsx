@@ -202,13 +202,6 @@ const ProjectListPage = () => {
                         <div className="actions"><Button color="error" onClick={deleteProjectHandler}>{t('project.approve')}</Button></div>
                       </DialogContentWrapper>
                     </Dialog>
-                    {!!projectDialogData && (
-                      <ProjectModal
-                        onClose={() => { setProjectDialogData(false); refetch(); }}
-                        open={!!projectDialogData}
-                        defaultValues={projectDialogData}
-                      />
-                    )}
                   </ProjectActionsWrapper>
                 </ProjectInfoDataWrapper>
               </TabPanel>
@@ -216,6 +209,13 @@ const ProjectListPage = () => {
           </ProjectInfoWrapper>
         )}
       </ProjectsListWrapper>
+      {!!projectDialogData && (
+        <ProjectModal
+          onClose={() => { setProjectDialogData(false); refetch(); }}
+          open={!!projectDialogData}
+          defaultValues={projectDialogData}
+        />
+      )}
     </Page>
   );
 };
