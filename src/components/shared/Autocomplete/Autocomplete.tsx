@@ -20,6 +20,7 @@ export type AutocompleteProps = {
   className?: string;
   error?: boolean;
   disableCloseOnSelect?: boolean;
+  autoComplete?: boolean;
 }
 
 const AutoComplete = ({
@@ -30,6 +31,11 @@ const AutoComplete = ({
   return (
     <AutocompleteMaterial
       style={{ minWidth: 223 }}
+      renderOption={(props, option) => (
+        <li {...props} key={option._id}>
+          {labelKey ? option[labelKey] : getOptionLabel?.(option)}
+        </li>
+      )}
       getOptionLabel={option => labelKey ? option[labelKey] : getOptionLabel?.(option)}
       onChange={(e, newValue) => void onChange?.(newValue)}
       value={value}

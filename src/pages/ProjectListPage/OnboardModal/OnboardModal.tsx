@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
-import { useGetUserList } from 'api/query/userQuery';
+import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import Button from 'components/shared/Button';
 import Chip from 'components/shared/Chip';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
-import { ClearFiLtersButton, FiltersBar, FilterSelect, FiltersProvider, FilterText, useFilters } from 'components/shared/Filters';
+import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import useDebounce from 'hooks/useDebounce';
@@ -24,6 +24,7 @@ const OnboardModalRender = ({ onClose, project, ...rest }: Props) => {
 
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
 
+  const { data: usersFilter = [] } = useGetUserListForFilter();
   const { filtersState } = useFilters();
   const debouncedFiltersState = useDebounce(filtersState);
   const { data: users, refetch } = useGetUserList(debouncedFiltersState);
@@ -57,9 +58,27 @@ const OnboardModalRender = ({ onClose, project, ...rest }: Props) => {
     <Dialog {...rest} onClose={onClose} title={t('project.addProfile')} maxWidth={false}>
       <ModalContentWrapper>
         <FiltersBar>
-          <FilterText filterKey="search" label={t('search')} />
-          <FilterSelect filterKey="project" label={t('user.project')} options={projects} valuePath="_id" labelPath="name" />
-          <FilterSelect filterKey="status" label={t('user.status')} options={translatedStatuses} />
+          <FilterAutocomplete
+            multiple
+            options={usersFilter}
+            getOptionLabel={(user) => `${user.name} ${user.surname}`}
+            filterKey="ids"
+            label={t('search')}
+          />
+          <FilterAutocomplete
+            multiple
+            filterKey="projects"
+            label={t('user.project')}
+            options={projects}
+            labelKey="name"
+          />
+          <FilterAutocomplete
+            multiple
+            filterKey="statuses"
+            label={t('user.status')}
+            options={translatedStatuses}
+            labelKey="label"
+          />
           <ClearFiLtersButton />
         </FiltersBar>
         <ListTable columns={['user.name', 'user.email', 'user.status', 'user.project']} className="profiles-grid">

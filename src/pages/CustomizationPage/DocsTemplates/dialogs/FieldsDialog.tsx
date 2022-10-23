@@ -19,11 +19,11 @@ export const FieldsDialog = ({ ...rest }: DialogProps) => {
             <ListTableCell>{t(`user.${field}`)}</ListTableCell>
             <ListTableCell>
               <IconButton
-                onClick={() => void navigator.clipboard.writeText(field)}
+                onClick={() => void navigator.clipboard.writeText(`{${field}}`)}
               >
                 <CopyIcon />
               </IconButton>
-              {field}
+              &#123;{field}&#125;
             </ListTableCell>
           </ListTableRow>
         ))}
@@ -32,11 +32,11 @@ export const FieldsDialog = ({ ...rest }: DialogProps) => {
             <ListTableCell>{customField.names[i18n.language]}</ListTableCell>
             <ListTableCell>
               <IconButton
-                onClick={() => void navigator.clipboard.writeText(`_${customField.names.en}`)}
+                onClick={() => void navigator.clipboard.writeText(`{_${customField.names.en}}`)}
               >
                 <CopyIcon />
               </IconButton>
-              _{customField.names.en}
+              &#123;_{customField.names.en}&#125;
             </ListTableCell>
           </ListTableRow>
         ))}

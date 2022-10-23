@@ -33,38 +33,36 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
       ...prevState,
       [key]: value,
     }));
-    if (!disablePageQueries) {
-      if (pageQueries[key] !== value) {
-        navigate({
-          search: createSearchParams({
-            ...pageQueries,
-            page: '1',
-            [key]: value,
-          }).toString(),
-        });
-      }
-    } else {
+    if (!disablePageQueries && pageQueries[key] !== value) {
       navigate({
-        search: createSearchParams({ page: '1' }).toString(),
+        search: createSearchParams({
+          ...pageQueries,
+          page: '1',
+          [key]: value,
+        }).toString(),
       });
     }
   };
 
   const removeFilter = (key: string) => {
     setFiltersState((prevState) => omit(prevState, [key]));
-    navigate({
-      search: createSearchParams({
-        ...omit(pageQueries, key),
-        page: '1',
-      }).toString(),
-    });
+    if (!disablePageQueries) {
+      navigate({
+        search: createSearchParams({
+          ...omit(pageQueries, key),
+          page: '1',
+        }).toString(),
+      });
+    }
   };
 
   const clearFilters = () => {
     setFiltersState({});
-    navigate({
-      search: createSearchParams({ page: '1' }).toString(),
-    });
+    if (!disablePageQueries) {
+      navigate({
+        search: createSearchParams({ page: '1' }).toString(),
+      });
+    }
   };
 
   const initFilters = () => {

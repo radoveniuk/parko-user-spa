@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash-es';
 import { useSnackbar } from 'notistack';
 
 import { useCreateNotificationMutation } from 'api/mutations/notificationMutation';
-import { useGetUserList } from 'api/query/userQuery';
+import { useGetUserListForFilter } from 'api/query/userQuery';
 import Editor from 'components/complex/Editor';
 import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
@@ -25,7 +25,7 @@ const CreateNotificationPage = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { data: userList = [], isFetching: userListFetching } = useGetUserList();
+  const { data: userList = [], isFetching: userListFetching } = useGetUserListForFilter();
 
   const createNotificationMutation = useCreateNotificationMutation();
 

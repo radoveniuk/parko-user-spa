@@ -74,16 +74,16 @@ const ProfileListPageRender = () => {
               <PrintIcon size={20} />{t('docsTemplates.print')}
             </MenuItem>
             <Divider />
-            <MenuItem>
-              <Link to="/import-profiles">
+            <Link to="/import-profiles">
+              <MenuItem>
                 <UploadIcon size={20} />{t('user.import')}
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to="/export-profiles">
+              </MenuItem>
+            </Link>
+            <Link to="/export-profiles">
+              <MenuItem>
                 <ExportIcon size={20} />{t('user.export')}
-              </Link>
-            </MenuItem>
+              </MenuItem>
+            </Link>
           </Menu>
         </PageActions>
         <FiltersBar style={{ marginTop: 10 }}>

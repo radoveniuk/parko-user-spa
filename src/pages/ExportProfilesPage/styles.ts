@@ -5,7 +5,7 @@ export const ExportProfilesWrapper = styled.div`
   flex-direction: column;
 
   .profiles-grid {
-    max-height: calc(100vh - 150px);
+    max-height: calc(100vh - 250px);
   }
 
   .fast-actions {

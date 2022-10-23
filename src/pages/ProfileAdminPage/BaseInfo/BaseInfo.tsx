@@ -75,7 +75,7 @@ const BaseInfo = ({ data, onUpdate }: Props) => {
             options={projects}
             valuePath="_id"
             labelPath="name"
-            onChange={({ target }) => void onUpdate({ project: target.value as string })}
+            onChange={({ target }) => void onUpdate({ project: target.value as string || null })}
             emptyItem={t('false')}
           />
         </div>
