@@ -223,7 +223,7 @@
       "date": "Date"
     }
   },
-  "notFoundText": "Page not found",
+  "notFoundPage": "Page not found",
   "search": "Пошук",
   "true": "Yes",
   "false": "No",

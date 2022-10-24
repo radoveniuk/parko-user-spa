@@ -40,7 +40,7 @@ const Page = ({ showNavbar = true, title, children }: Props) => {
     <PageWrapper>
       {showNavbar && <Navbar open={toggledNavbar} toggle={toggleNavbar} />}
       <PageContent>
-        {width <= langBreakpoint && (
+        {width <= langBreakpoint && showNavbar && (
           <PageHeader>
             <ToggleNavbarButton onClick={toggleNavbar} />
           </PageHeader>
