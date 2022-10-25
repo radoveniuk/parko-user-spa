@@ -59,6 +59,7 @@ const AutoComplete = ({
       open={defaultOpen || open}
       onOpen={() => void setOpen(true)}
       onClose={() => void setOpen(false)}
+      disableCloseOnSelect={!!rest.multiple || rest.disableCloseOnSelect}
       {...rest}
     />
   );
