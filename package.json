@@ -1,9 +1,9 @@
 {
   "name": "parko-user-client",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": false,
   "dependencies": {
-    "@date-io/luxon": "^2.13.1",
+    "@date-io/luxon": "^2.16.0",
     "@emotion/react": "^11.9.0",
     "@emotion/style": "^0.8.0",
     "@emotion/styled": "^11.8.1",
@@ -11,6 +11,7 @@
     "@mui/material": "^5.6.2",
     "@mui/utils": "^5.6.1",
     "@mui/x-data-grid": "^5.9.0",
+    "@mui/x-date-pickers": "^5.0.4",
     "@types/jest": "^27.4.1",
     "@types/luxon": "^2.3.1",
     "@types/node": "^16.11.27",

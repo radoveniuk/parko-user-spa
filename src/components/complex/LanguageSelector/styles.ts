@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+
 import { themeConfig } from 'theme';
 
 export const LanguageSelectorWrapper = styled.div`
   button {
-    width: 80px;
+    max-width: 80px;
     path {
       stroke: ${themeConfig.palette.primary.main} !important;
     }

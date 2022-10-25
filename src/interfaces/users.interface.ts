@@ -59,7 +59,7 @@ export interface IUser {
   fatherName: string;
   fatherSurname: string;
   fatherBirthdate: string;
-  project: string | IProject;
+  project: string | IProject | null;
   status: string;
   role: UserRole;
   employmentType: string;

@@ -1,7 +1,8 @@
+import { useQuery } from 'react-query';
+
 import api from 'api/common';
 import { IFile } from 'interfaces/file.interface';
 import { QueryOptions } from 'interfaces/query.types';
-import { useQuery } from 'react-query';
 
 export const useGetFiles = (ids: string[], options?: QueryOptions) => {
   const request = (): Promise<IFile[]> => api.get('/files', {

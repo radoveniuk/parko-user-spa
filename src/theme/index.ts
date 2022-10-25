@@ -1,4 +1,6 @@
-export const themeConfig = {
+import { AnyObject } from 'interfaces/base.types';
+
+export const themeConfig: AnyObject = {
   palette: {
     primary: {
       main: process.env.REACT_APP_COLOR_PRIMARY_MAIN || '#123C69',

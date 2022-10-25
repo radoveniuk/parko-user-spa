@@ -1,11 +1,11 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 
-import Table from 'components/shared/Table';
-import { BooleanIcon } from 'components/icons';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
-import { Column } from 'interfaces/table.types';
+import { BooleanIcon } from 'components/icons';
+import Table from 'components/shared/Table';
 import { useAuthData } from 'contexts/AuthContext';
+import { Column } from 'interfaces/table.types';
 
 import { HistoryWrapper } from './styles';
 

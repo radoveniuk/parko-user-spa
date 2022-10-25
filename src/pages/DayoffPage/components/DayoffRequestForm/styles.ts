@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { SM } from 'theme/sizeBreakpoints';
 
 export const StyledForm = styled.form`

@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+
 import { themeConfig } from 'theme';
 
 export const BaseInfoWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
 
   .user-card {
     border: 1px solid #c7c7c7;
@@ -12,7 +13,8 @@ export const BaseInfoWrapper = styled.div`
     box-shadow: 0px 10px 21px -10px rgba(0,0,0,0.75);
     padding: 12px;
     overflow-y: auto;
-    max-height: calc(100vh - 240px);
+    max-height: calc(100vh - 270px);
+    max-width: 100%;
 
     .user-card-title {
       text-align: center;
@@ -24,6 +26,7 @@ export const BaseInfoWrapper = styled.div`
         color: #888888;
         margin: 5px 0;
         font-size: 12px;
+        min-width: 300px;
       }
 
       strong {
@@ -52,13 +55,5 @@ export const BaseInfoWrapper = styled.div`
     button {
       margin-left: auto;
     }
-  }
-`;
-
-export const DialogContentWrapper = styled.div`
-
-  .actions {
-    display: flex;
-    justify-content: flex-end;
   }
 `;

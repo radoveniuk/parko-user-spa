@@ -95,6 +95,14 @@ export const NavItem = styled(ListItemButton)`
       position: absolute;
     }
   }
+
+  &:not(.open) {
+    justify-content: center;
+    
+    .nav-icon {
+      justify-content: center;
+    }
+  }
 `;
 
 export const NavItemsList = styled(List)`

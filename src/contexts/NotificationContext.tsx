@@ -1,11 +1,11 @@
 import React, {
   createContext, ReactNode, useContext, useEffect, useState,
 } from 'react';
+
+import { useGetNotifications } from 'api/query/notificationsQuery';
 // import { io } from 'socket.io-client';
 // import { useQueryClient } from 'react-query';
-
 import useLocalStorageState from 'hooks/useLocalStorageState';
-import { useGetNotifications } from 'api/query/notificationsQuery';
 // import { INotification } from 'interfaces/notification.interface';
 // import { BASE_URL } from 'api/common';
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import Page, { PageTitle } from 'components/shared/Page';
-import DayoffRequestForm from './components/DayoffRequestForm';
+
 import DayoffHistory from './components/DayoffHistory';
+import DayoffRequestForm from './components/DayoffRequestForm';
 
 const PrepaymentPage = () => {
   const { t } = useTranslation();
