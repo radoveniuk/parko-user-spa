@@ -8,11 +8,12 @@ import Button from 'components/shared/Button';
 import { themeConfig } from 'theme';
 
 type Props = {
+  disabled?: boolean;
   title: string | React.ReactNode;
   children: React.ReactNode;
 };
 
-export default function Menu ({ title, children }: Props) {
+export default function Menu ({ title, children, disabled }: Props) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const buttonId = React.useId();
@@ -34,6 +35,7 @@ export default function Menu ({ title, children }: Props) {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         variant="outlined"
+        disabled={disabled}
       >
         {title}
       </Button>
