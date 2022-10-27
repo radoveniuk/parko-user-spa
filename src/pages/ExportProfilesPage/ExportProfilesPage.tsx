@@ -1,22 +1,21 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { usePapaParse } from 'react-papaparse';
-import { get, pick } from 'lodash-es';
-import { DateTime } from 'luxon';
+import { get } from 'lodash-es';
 
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import { ExportIcon } from 'components/icons';
 import Autocomplete from 'components/shared/Autocomplete';
-import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import { FiltersBar } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import Menu, { MenuItem } from 'components/shared/Menu';
 import Page, { PageTitle } from 'components/shared/Page';
 import Select from 'components/shared/Select';
 import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
 import { STATUSES } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
+import { useExportData } from 'hooks/useExportData';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
@@ -41,8 +40,13 @@ const ExportResidencesPage = () => {
   }), [data]);
 
   const [selectedProfiles, setSelectedProfiles] = useState<string[]>([]);
-  const { jsonToCSV } = usePapaParse();
   const [colsToExport, setColsToExport] = useState<(keyof IUser)[]>([]);
+  const exportData = useExportData({
+    data: users.filter((item) => selectedProfiles.includes(item._id)),
+    colsToExport,
+    cols: IMPORTABLE_USER_FIELDS,
+    entity: 'user',
+  });
 
   const selectProfile = (profileId: string, checked: boolean) => {
     setSelectedProfiles((prev) => {
@@ -61,30 +65,6 @@ const ExportResidencesPage = () => {
       const allValues = new Set([...prev, ...selectedValues]);
       return Array.from(allValues);
     });
-  };
-
-  const exportData = (ext: 'csv' | 'xlsx' = 'csv') => {
-    const dataToExport = users
-      .filter((item) => selectedProfiles.includes(item._id))
-      .map((item) => {
-        const pickedItem = pick(item, colsToExport) as unknown as Record<keyof IUser, string | boolean>;
-        const exportItem: Record<string, string | boolean> = {};
-        IMPORTABLE_USER_FIELDS.forEach((key) => {
-          if (colsToExport.includes(key)) {
-            exportItem[t(`user.${key}`)] = pickedItem[key] || '';
-          }
-        });
-        return exportItem;
-      });
-
-    const prefix = ext === 'xlsx' ? 'data:application/vnd.ms-excel;charset=utf-8,' : 'data:text/csv;charset=utf-8,';
-    const csvContent = `${prefix}${jsonToCSV(dataToExport)}`;
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `Parko_Users_Export_${DateTime.now().toFormat('dd.MM.yyyy')}.${ext}`);
-    document.body.appendChild(link);
-    link.click();
   };
 
   const selectAll = useCallback(() => void setSelectedProfiles(users.map((item) => item._id)), [users]);
@@ -117,10 +97,23 @@ const ExportResidencesPage = () => {
               }
               setColsToExport([]);
             }}
-
           />
-          <Button disabled={disableExport} onClick={() => void exportData()}><ExportIcon size={20}/>csv</Button>
-          <Button disabled={disableExport} onClick={() => void exportData('xlsx')}><ExportIcon size={20}/>xlsx</Button>
+          <Menu disabled={disableExport} title={<><ExportIcon size={20}/>{t('download')}</>}>
+            <MenuItem
+              onClick={() => {
+                exportData();
+              }}
+              style={{ width: 150 }}
+            >
+              CSV
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                exportData('xlsx');
+              }}
+              style={{ width: 150 }}
+            >XLSX</MenuItem>
+          </Menu>
         </div>
         <FiltersBar>
           <Autocomplete

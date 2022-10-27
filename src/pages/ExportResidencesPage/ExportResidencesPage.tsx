@@ -1,16 +1,14 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { usePapaParse } from 'react-papaparse';
-import { pick } from 'lodash-es';
-import { DateTime } from 'luxon';
 
 import { useGetResidences } from 'api/query/residenceQuery';
 import { ExportIcon } from 'components/icons';
-import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import Menu, { MenuItem } from 'components/shared/Menu';
 import Page, { PageTitle } from 'components/shared/Page';
 import { getDateFromIso } from 'helpers/datetime';
+import { useExportData } from 'hooks/useExportData';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -74,8 +72,14 @@ const ExportProfilesPage = () => {
   }), [residences]);
 
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  const { jsonToCSV } = usePapaParse();
   const [colsToExport, setColsToExport] = useState<(keyof ResidenceTableRow)[]>([]);
+
+  const exportData = useExportData({
+    data: tableData.filter((item) => selectedItems.includes(item._id)),
+    colsToExport,
+    cols: COLUMNS,
+    colsTitles: COLUMN_TITLES.filter((item) => !!item),
+  });
 
   const selectItem = (tableRow: ResidenceTableRow, checked: boolean) => {
     setSelectedItems((prev) => {
@@ -84,30 +88,6 @@ const ExportProfilesPage = () => {
       }
       return prev.filter((item) => item !== tableRow._id);
     });
-  };
-
-  const exportData = (ext: 'csv' | 'xlsx' = 'csv') => {
-    const dataToExport = tableData
-      .filter((item) => selectedItems.includes(item._id))
-      .map((item) => {
-        const pickedItem = pick(item, colsToExport) as unknown as Record<keyof ResidenceTableRow, string | boolean>;
-        const exportItem: Record<string, string | boolean> = {};
-        COLUMNS.forEach((key, index) => {
-          if (colsToExport.includes(key)) {
-            exportItem[t(COLUMN_TITLES[index + 1])] = pickedItem[key] || '';
-          }
-        });
-        return exportItem;
-      });
-
-    const prefix = ext === 'xlsx' ? 'data:application/vnd.ms-excel;charset=utf-8,' : 'data:text/csv;charset=utf-8,';
-    const csvContent = `${prefix}${jsonToCSV(dataToExport)}`;
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `Parko_Accommodations_Export_${DateTime.now().toFormat('dd.MM.yyyy')}.${ext}`);
-    document.body.appendChild(link);
-    link.click();
   };
 
   const selectAll = useCallback(() => void setSelectedItems(residences.map((item) => item._id)), [residences]);
@@ -142,8 +122,22 @@ const ExportProfilesPage = () => {
             }}
 
           />
-          <Button disabled={disableExport} onClick={() => void exportData()}><ExportIcon size={20}/>csv</Button>
-          <Button disabled={disableExport} onClick={() => void exportData('xlsx')}><ExportIcon size={20}/>xlsx</Button>
+          <Menu disabled={disableExport} title={<><ExportIcon size={20}/>{t('download')}</>}>
+            <MenuItem
+              onClick={() => {
+                exportData();
+              }}
+              style={{ width: 150 }}
+            >
+              CSV
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                exportData('xlsx');
+              }}
+              style={{ width: 150 }}
+            >XLSX</MenuItem>
+          </Menu>
         </div>
         <ListTable
           columns={COLUMN_TITLES}

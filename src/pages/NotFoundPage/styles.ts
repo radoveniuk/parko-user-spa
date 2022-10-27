@@ -11,8 +11,12 @@ export const NotFoundPageWrapper = styled.div`
 
   .four_zero_four_bg {
     background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    width: 100%;
+    max-width: 800px;
     height: 400px;
+    max-height: 600px;
     background-position: center;
+    background-size: cover;
   }
  
   .four_zero_four_bg h1{
