@@ -13,7 +13,7 @@ export const FileUploadAreaWrapper = styled.div`
   }
 
   .dzu-submitButton, .dzu-inputLabelWithFiles {
-    font-family: Comfortaa;
+    font-family: 'Open Sans';
     font-weight: 500;
     font-size: 0.875rem;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -41,7 +41,7 @@ export const FileUploadAreaWrapper = styled.div`
   }
 
   .dzu-inputLabel {
-    font-family: Comfortaa;
+    font-family: "Open Sans";
     color: ${themeConfig.palette.primary.main};
   }
 
