@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useIsFetching, useIsMutating } from 'react-query';
 
 import LanguageSelector from 'components/complex/LanguageSelector';
@@ -21,12 +21,9 @@ const DEFAULT_TITLE = 'Parko User — Personal Managment System by Parko Staff';
 const langBreakpoint = 790;
 
 const Page = ({ showNavbar = true, title, children }: Props) => {
-  const [toggledNavbar, setToggledNavbar] = useState(false);
   const width = useViewportWdth();
   const isFetching = useIsFetching();
   const isMutating = useIsMutating();
-
-  const toggleNavbar = () => void setToggledNavbar((prev) => !prev);
 
   useEffect(() => {
     if (title) {
@@ -38,11 +35,11 @@ const Page = ({ showNavbar = true, title, children }: Props) => {
 
   return (
     <PageWrapper>
-      {showNavbar && <Navbar open={toggledNavbar} toggle={toggleNavbar} />}
+      {showNavbar && <Navbar />}
       <PageContent>
         {width <= langBreakpoint && showNavbar && (
           <PageHeader>
-            <ToggleNavbarButton onClick={toggleNavbar} />
+            <ToggleNavbarButton />
           </PageHeader>
         )}
         <section className="content-wrapper">
