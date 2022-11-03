@@ -8,23 +8,35 @@ import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import { DialogContentWrapper } from './styles';
 
 type Props = DialogProps & {
-  ids: string[];
+  users: IUser[];
 }
 
-const PrintDocDialog = ({ ids, onClose, ...rest }: Props) => {
+const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
   const { t } = useTranslation();
   const { data: docsTemplates = [] } = useGetDocsTemplates();
   const downloadDoc = useDownloadPrintedTemplate();
   const [selectedTemplates, setSelectedTemplates] = useState<IDocsTemplate[]>([]);
 
   const downloadHandler = () => {
-    if (!ids.length || !selectedTemplates.length) return;
+    if (!users.length || !selectedTemplates.length) return;
     onClose();
-    downloadDoc(ids, selectedTemplates.map((item) => item._id as string));
+    if (users.length === 1 && selectedTemplates.length === 1) {
+      downloadDoc(
+        users.map((item) => item._id),
+        selectedTemplates.map((item) => item._id as string),
+        `${selectedTemplates[0].name}_${users[0].name}_${users[0].surname}.docx`,
+      );
+    } else {
+      downloadDoc(
+        users.map((item) => item._id),
+        selectedTemplates.map((item) => item._id as string),
+      );
+    }
   };
 
   return (
@@ -37,6 +49,7 @@ const PrintDocDialog = ({ ids, onClose, ...rest }: Props) => {
           onChange={setSelectedTemplates}
           multiple
           className="templates-select"
+          disableCloseOnSelect={false}
         />
         <Button onClick={downloadHandler} disabled={!selectedTemplates.length}><DownloadFileIcon size={20} />{t('download')}</Button>
       </DialogContentWrapper>

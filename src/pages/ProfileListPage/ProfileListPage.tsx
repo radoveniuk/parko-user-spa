@@ -44,7 +44,7 @@ const ProfileListPageRender = () => {
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
 
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const ProfileListPageRender = () => {
             <Button><PlusIcon size={20}/>{t('user.create')}</Button>
           </Link>
           <Menu title={<><SelectMenuIcon size={20}/>{t('fastActions')}</>}>
-            <MenuItem onClick={() => void setSelectedItems(data.map((item) => item._id))}>
+            <MenuItem onClick={() => void setSelectedItems(data)}>
               <CheckAllIcon size={20} />{t('selectAll')}
             </MenuItem>
             <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
@@ -124,14 +124,14 @@ const ProfileListPageRender = () => {
             <ListTableRow key={user._id}>
               <ListTableCell>
                 <Checkbox
-                  checked={selectedItems.includes(user._id)}
+                  checked={selectedItems.some((item) => item._id === user._id)}
                   data-id={user._id}
                   onChange={(e) => {
                     setSelectedItems((prev) => {
                       if (e.target.checked) {
-                        return [...prev, user._id];
+                        return [...prev, user];
                       }
-                      return prev.filter((item) => item !== user._id);
+                      return prev.filter((item) => item._id !== user._id);
                     });
                   }}
                 />
@@ -158,7 +158,7 @@ const ProfileListPageRender = () => {
         <Pagination {...paginationConfig} />
       </Page>
       {openPrintDialog && (
-        <PrintDocDialog ids={selectedItems} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
+        <PrintDocDialog users={selectedItems} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
       )}
     </ProfileListPageWrapper>
   );
