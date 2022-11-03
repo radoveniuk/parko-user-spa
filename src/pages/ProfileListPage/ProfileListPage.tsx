@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
-import PrintDocDialog from 'components/complex/PrintDocDialog';
+import PrintDocDialog, { UserData } from 'components/complex/PrintDocDialog';
 import { CheckAllIcon, ExportIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SelectMenuIcon, UploadIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
@@ -44,7 +44,7 @@ const ProfileListPageRender = () => {
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
 
-  const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
+  const [selectedItems, setSelectedItems] = useState<UserData[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
 
   useEffect(() => {
@@ -129,7 +129,8 @@ const ProfileListPageRender = () => {
                   onChange={(e) => {
                     setSelectedItems((prev) => {
                       if (e.target.checked) {
-                        return [...prev, user];
+                        const { _id, name, surname } = user;
+                        return [...prev, { _id, name, surname }];
                       }
                       return prev.filter((item) => item._id !== user._id);
                     });

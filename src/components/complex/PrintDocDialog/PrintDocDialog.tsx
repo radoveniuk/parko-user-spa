@@ -8,12 +8,17 @@ import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
-import { IUser } from 'interfaces/users.interface';
 
 import { DialogContentWrapper } from './styles';
 
+export type UserData = {
+  _id: string,
+  name: string,
+  surname: string,
+}
+
 type Props = DialogProps & {
-  users: IUser[];
+  users: UserData[];
 }
 
 const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
