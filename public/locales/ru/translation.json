@@ -132,7 +132,23 @@
     "employmentType": "Тип найма",
     "mailError": "Невалидный email",
     "export": "Экспорт",
-    "other": "Другое"
+    "other": "Другое",
+    "sex": "Пол",
+    "systemFields": "Системные данные",
+    "permitFields": "Данные о ВНЖ/ПМЖ",
+    "businessFields": "Данные об ИП",
+    "workFields": "Данные о работе",
+    "recruiter": "Рекрутер",
+    "source": "Источник",
+    "permitStartDate": "Срок от (ВНЖ)",
+    "hasMedicalExamination": "Медосмотр",
+    "position": "Рабочая позиция",
+    "cooperationStartDate": "Начало сотрудничества",
+    "cooperationEndDate": "Окончание сотрудничества",
+    "DIC": "DIČ",
+    "permitAdress": "Регистрационный адрес",
+    "permitDepartment": "Районное управление",
+    "permitNumber": "Номер записи в реестре"
   },
   "userUpload": {
     "title": "Импорт пользователей",
@@ -190,7 +206,8 @@
     },
     "userRole": {
       "user": "Пользователь",
-      "admin": "Админ"
+      "admin": "Админ",
+      "recruiter": "Рекрутер"
     },
     "dayoffReason": {
       "vacation": "Отпуск",
@@ -337,5 +354,7 @@
   "lastDate": "Дата до",
   "welcomeText": "Добро пожаловать в систему Parko User, ",
   "download": "Скачать",
-  "noSelected": "Не выбрано"
+  "noSelected": "Не выбрано",
+  "male": "Мужской",
+  "female": "Женский"
 }

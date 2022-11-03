@@ -94,7 +94,7 @@ export interface IUser2 {
   name: string;
   surname: string;
   email: string;
-  password: string;
+  password?: string;
   phone: string;
   birthDate: string;
   passNumber: string;
@@ -134,7 +134,7 @@ export interface IUser2 {
   cooperationStartDate: string;
   cooperationEndDate: string;
   // settings
-  role: string;
+  role: UserRole;
   status: string;
   // customization
   customFields: Record<string, unknown>;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Checkbox from 'components/shared/Checkbox';
+import BooleanSelect from 'components/shared/BooleanSelect';
 import DatePicker from 'components/shared/DatePicker';
 import Input from 'components/shared/Input';
 import PhoneInput from 'components/shared/PhoneInput';
@@ -25,7 +25,15 @@ const CustomField = ({ value, onChange, metadata }: CustomFieldProps) => {
 
   if (type === 'phone') return <PhoneInput value={value as string || ''} onChange={onChange} label={metadata.names[i18n.language]} />;
 
-  if (type === 'boolean') return <Checkbox checked={value as boolean || false} onChange={onChange} title={metadata.names[i18n.language]} />;
+  if (type === 'boolean') {
+    return (
+      <BooleanSelect
+        defaultValue={typeof value === 'boolean' ? value : false}
+        onChange={onChange}
+        label={metadata.names[i18n.language]}
+      />
+    );
+  }
 
   if (type === 'date') return <DatePicker value={value as string || ''} onChange={onChange} label={metadata.names[i18n.language]} />;
 

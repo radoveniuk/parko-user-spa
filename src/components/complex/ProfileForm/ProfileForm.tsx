@@ -1,7 +1,9 @@
-import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import React, { useMemo } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import _ from 'lodash-es';
 
+import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import Accordion, { AccordionContent } from 'components/shared/Accordion';
 import BooleanSelect from 'components/shared/BooleanSelect';
@@ -13,7 +15,10 @@ import { COUNTRIES } from 'constants/countries';
 import { EMPLOYMENT_TYPE, FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'constants/selectsOptions';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { AnyObject } from 'interfaces/base.types';
 import { IUser2 } from 'interfaces/users.interface';
+
+import CustomField from '../CustomField';
 
 import { SECTIONS, UserField } from './fields';
 import { ProfileFormWrapper } from './styles';
@@ -23,9 +28,9 @@ type Props = {
 }
 
 const ProfileForm = ({ defaultValues }: Props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { role } = useAuthData();
-  const { register, formState: { errors }, control } = useForm<IUser2>();
+  const { register, formState: { errors }, control } = useFormContext<IUser2>();
 
   const { data: recruiters = [] } = useGetUserList({ role: 'admin' });
 
@@ -33,8 +38,16 @@ const ProfileForm = ({ defaultValues }: Props) => {
   const studyOptions = useTranslatedSelect(STUDY, 'study');
   const permitTypeOptions = useTranslatedSelect(PERMIT_TYPES, 'permitType');
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
+  const sexOptions = useTranslatedSelect(['male', 'female']);
 
-  const selectOptions: any = {
+  // custom fields
+  const { data: customSections = [] } = useGetCustomFormSections({ entity: 'user' });
+  const { data: customFields = [] } = useGetCustomFormFields({
+    entity: 'user',
+    projects: defaultValues?.project ? [defaultValues.project as string] : 'null',
+  }, { enabled: !!defaultValues });
+
+  const selectOptions: AnyObject = useMemo(() => ({
     pantsSize: SIZES,
     tshortSize: SIZES,
     permitType: permitTypeOptions,
@@ -43,9 +56,9 @@ const ProfileForm = ({ defaultValues }: Props) => {
     study: studyOptions,
     recruiter: recruiters.map((item) => `${item.name} ${item.surname}`),
     source: recruiters.map((item) => `${item.name} ${item.surname}`),
-    sex: ['male', 'female'],
+    sex: sexOptions,
     employmentType: employmentTypeOptions,
-  };
+  }), [employmentTypeOptions, familyStateOptions, permitTypeOptions, recruiters, sexOptions, studyOptions]);
 
   const generateField = (fieldName: keyof IUser2, fieldData: UserField | undefined) => (
     <div className="field-wrap">
@@ -146,6 +159,50 @@ const ProfileForm = ({ defaultValues }: Props) => {
           </AccordionContent>
         </Accordion>
       ))}
+      {customSections
+        .filter((section) => customFields.some((customField) => customField.section === section._id))
+        .map((section) => (
+          <Accordion
+            key={section._id}
+            title={section.names[i18n.language]}
+            id={section._id}
+            className="accordion"
+          >
+            <AccordionContent>
+              {customFields
+                .filter((customField) => customField.section === section._id)
+                .map((customField) => (
+                  <Controller
+                    key={customField._id}
+                    name={`customFields.${customField._id}`}
+                    rules={{ required: customField.required }}
+                    control={control}
+                    defaultValue={defaultValues?.customFields?.[customField._id as string] || ''}
+                    render={({ field }) => (
+                      <div className="field-wrap">
+                        <CustomField
+                          value={field.value}
+                          onChange={field.onChange}
+                          metadata={customField}
+                        />
+                      </div>
+                    )}
+                  />
+                ))}
+            </AccordionContent>
+          </Accordion>
+        ))}
+      {!_.isEmpty(errors) && (
+        <div className="form-errors">
+          <p>{t('errors')}</p>
+          <ul>
+            {Object.keys(_.omit(errors, 'customFields')).map((item) => <li key={item}>{t(`user.${item}`)}</li>)}
+            {Object.keys(errors.customFields || {}).map((item) => (
+              <li key={item}>{customFields.find((customField) => customField._id === item)?.names[i18n.language]}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </ProfileFormWrapper>
   );
 };

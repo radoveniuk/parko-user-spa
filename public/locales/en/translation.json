@@ -131,7 +131,23 @@
     "employmentType": "Employment type",
     "mailError": "Invalid email",
     "export": "Export",
-    "other": "Other"
+    "other": "Other",
+    "sex": "Sex",
+    "systemFields": "System data",
+    "permitFields": "Permit data",
+    "businessFields": "Business data",
+    "workFields": "Working data",
+    "recruiter": "Recruiter",
+    "source": "Source",
+    "permitStartDate": "Permit start",
+    "hasMedicalExamination": "Has medical check?",
+    "position": "Position",
+    "cooperationStartDate": "Cooperation start",
+    "cooperationEndDate": "Cooperation end",
+    "DIC": "DIČ",
+    "permitAdress": "Permit register adress",
+    "permitDepartment":"Permit department",
+    "permitNumber": "Permit document number"
   },
   "userUpload": {
     "title": "Upload users",
@@ -189,7 +205,8 @@
     },
     "userRole": {
       "user": "User",
-      "admin": "Admin"
+      "admin": "Admin",
+      "recruiter": "Recruiter"
     },
     "dayoffReason": {
       "vacation": "Vacation",
@@ -336,5 +353,7 @@
   "lastDate": "Date to",
   "welcomeText": "Welcome to the Parko User system, ",
   "download": "Download",
-  "noSelected": "Nothing"
+  "noSelected": "Nothing",
+  "male": "Male",
+  "female": "Female"
 }
