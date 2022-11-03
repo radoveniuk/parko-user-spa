@@ -167,6 +167,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
             title={section.names[i18n.language]}
             id={section._id}
             className="accordion"
+            defaultExpanded
           >
             <AccordionContent>
               {customFields

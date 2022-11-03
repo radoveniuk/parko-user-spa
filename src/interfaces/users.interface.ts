@@ -139,4 +139,8 @@ export interface IUser2 {
   // customization
   customFields: Record<string, unknown>;
   otherScans: any[];
+  // salary
+  salary: string;
+  salaryType: string;
+  salaryComment: string;
 }

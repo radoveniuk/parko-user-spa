@@ -90,6 +90,8 @@ const Scans = ({ data, onUpdate }: Props) => {
       <div className="upload-new-wrapper">
         <Select options={translatedKeys} label={t('user.scancopies')} onChange={(e) => void setSelectedType(e.target.value as string)} />
         <Input label={t('comment')} value={comment} onChange={(e) => void setComment(e.target.value)} error={selectedType === 'other' && !comment} />
+      </div>
+      <div className="file-input-wrapper">
         <FileInput
           id="fileInput"
           disabled={!selectedType || (selectedType === 'other' && !comment)}

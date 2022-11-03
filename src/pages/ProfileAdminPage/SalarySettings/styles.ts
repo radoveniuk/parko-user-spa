@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
 export const SalaryFormWrapper = styled.form`
-  padding: 15px;
-
   .inputs {
     display: flex;
-    gap: 20px;
-    max-width: 500px;
+    gap: 25px;
+    max-width: 600px;
     justify-content: space-between;
     flex-wrap: wrap;
   

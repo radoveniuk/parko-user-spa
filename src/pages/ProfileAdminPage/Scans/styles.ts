@@ -6,6 +6,11 @@ export const ScansWrapper = styled.div`
     gap: 15px;
     align-items: flex-end;
   }
+
+  .file-input-wrapper {
+    margin: 20px 0;
+  }
+  
   .file-grid {
     max-width: min-content;
     grid-template-columns: max-content 1fr 1fr 1fr 1fr 1fr 1fr !important;

@@ -28,7 +28,7 @@ const CustomField = ({ value, onChange, metadata }: CustomFieldProps) => {
   if (type === 'boolean') {
     return (
       <BooleanSelect
-        defaultValue={typeof value === 'boolean' ? value : false}
+        defaultValue={typeof value === 'boolean' ? value : undefined}
         onChange={onChange}
         label={metadata.names[i18n.language]}
       />

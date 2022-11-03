@@ -24,21 +24,7 @@ export const ProfileInfoFormWrapper = styled.div`
         text-decoration: underline;
       }
     }
-  }
-
-  .form-errors {
-    text-align: left;
-    color: ${themeConfig.palette.error.main};
-
-    p {
-      padding-left: 20px;
-      font-weight: 600;
-    }
-
-    ul {
-      padding-left: 30px;
-    }
-  }
+  } 
 
   .form-actions {
     display: flex;

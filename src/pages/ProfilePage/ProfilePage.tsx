@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import _ from 'lodash-es';
 import { useSnackbar } from 'notistack';
 
@@ -12,12 +12,13 @@ import Button from 'components/shared/Button';
 import Page, { PageTitle } from 'components/shared/Page';
 import { useAuthData } from 'contexts/AuthContext';
 import { IUser2 } from 'interfaces/users.interface';
+import { DEFAULT_PASS } from 'pages/UploadProfilesPage/constants';
 
 import { ProfilePageActions } from './styles';
 
-const isEditor = window.location.pathname.includes('create');
-
 const ProfilePage = () => {
+  const location = useLocation();
+  const isEditor = useMemo(() => location.pathname.includes('create'), [location]);
   const { id } = useAuthData();
   const { data, refetch } = useGetUser(id, { enabled: !isEditor });
   const { t } = useTranslation();
@@ -28,18 +29,17 @@ const ProfilePage = () => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<IUser2> = async (values) => {
-    const updatedUserData = { ...data, ...values };
-    if (!updatedUserData.password) {
-      delete updatedUserData.password;
-    }
-
     if (isEditor) {
-      createUserMutation.mutateAsync({ ...updatedUserData, role: 'user' })
+      createUserMutation.mutateAsync({ ...values, role: 'user', password: DEFAULT_PASS })
         .then(() => {
           enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
           navigate(-1);
         });
     } else {
+      const updatedUserData = { ...data, ...values };
+      if (!updatedUserData.password) {
+        delete updatedUserData.password;
+      }
       updateUserMutation.mutateAsync({ ...updatedUserData })
         .then(() => {
           enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
