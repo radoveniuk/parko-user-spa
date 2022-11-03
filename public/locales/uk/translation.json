@@ -336,5 +336,6 @@
   "firstDate": "Дата від",
   "lastDate": "Дата до",
   "welcomeText": "Ласкаво просимо до системи Parko User, ",
-  "download": "Скачать"
+  "download": "Скачать",
+  "noSelected": "Не вибрано"
 }

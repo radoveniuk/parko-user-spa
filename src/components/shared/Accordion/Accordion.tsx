@@ -4,7 +4,7 @@ import { Accordion as AccordionMaterial, AccordionDetails, AccordionProps, Accor
 import styled from 'styled-components';
 
 const Accordion = ({ children, title, id, ...rest }: AccordionProps) => (
-  <AccordionMaterial {...rest}>
+  <AccordionMaterial className="accordion" {...rest}>
     <AccordionSummary expandIcon={<MdExpandMore />} id={id}>
       {title}
     </AccordionSummary>

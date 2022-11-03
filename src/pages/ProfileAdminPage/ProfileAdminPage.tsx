@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Divider } from '@mui/material';
 import { useSnackbar } from 'notistack';
 
@@ -63,9 +63,7 @@ const ProfileAdminPage = () => {
     <Page title={t('user.admin')}>
       <PageTitle>{pageTitle}</PageTitle>
       <PageActions>
-        <Link to={`/profile-editor/${userId}`}>
-          <Button><EditIcon size={20}/>{t('user.edit')}</Button>
-        </Link>
+        <Button><EditIcon size={20}/>{t('user.edit')}</Button>
         <Menu title={<><SelectMenuIcon size={20}/>{t('fastActions')}</>}>
           <MenuItem onClick={() => void setOpenPrintDialog(true)}>
             <PrintIcon size={20} />{t('docsTemplates.print')}

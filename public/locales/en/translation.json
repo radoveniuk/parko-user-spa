@@ -335,5 +335,6 @@
   "firstDate": "Date from",
   "lastDate": "Date to",
   "welcomeText": "Welcome to the Parko User system, ",
-  "download": "Download"
+  "download": "Download",
+  "noSelected": "Nothing"
 }
