@@ -36,19 +36,24 @@ export const ProfileTabContent = styled.div`
     height: auto;
   }
 
-  .section-title {
-    font-size: 20px;
-    margin-bottom: 20px;
-  };
-
+  
   .section-card {
-    padding: 20px;
     border: 1px solid #9F9D9D;
     border-radius: 20px;
     margin-left: 20px;
-
+    
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 20px;
+    };
     @media (max-width: ${SM}) {
       border: none;
+      margin-left: 0;
+      padding: 20px 0;
+
+      .section-title {
+        text-align: center;
+      };
     }
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -17,12 +17,14 @@ import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
 import Page from 'components/shared/Page';
 import Select from 'components/shared/Select';
-import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
+import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
 import { ROLES } from 'constants/userRoles';
 import { STATUSES } from 'constants/userStatuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import useViewportWidth from 'hooks/useViewportWsdth';
 import { IUser } from 'interfaces/users.interface';
+import { SM } from 'theme/sizeBreakpoints';
 
 import Daysoff from './Daysoff';
 import Prepayments from './Prepayments';
@@ -31,13 +33,17 @@ import SalarySettings from './SalarySettings';
 import Scans from './Scans';
 import { DeleteDialogContent, ProfileCard, ProfileDataWrapper, ProfileTabContent } from './styles';
 
-const ProfileAdminPage = () => {
+const smBreakpoint = Number(SM.replace('px', ''));
+
+const ProfileAdminPageRender = () => {
   const { t } = useTranslation();
   const { id: userId } = useParams();
   const { data: profileData, refetch } = useGetUser(userId as string);
   const { enqueueSnackbar } = useSnackbar();
   const updateUserMutation = useUpdateUserMutation();
   const methods = useForm<IUser>();
+  const viewportWidth = useViewportWidth();
+  const [activeTab] = useTabs();
 
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
   const translatedEmploymentTypes = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType', true, false);
@@ -77,12 +83,41 @@ const ProfileAdminPage = () => {
     });
   };
 
+  const tabContentRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (tabContentRef.current !== null) {
+      tabContentRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [activeTab]);
+
+  const profileActions = (
+    <div className="profile-actions">
+      {[0, 1].includes(activeTab) && (
+        <Button
+          disabled={!methods.formState.isDirty || !isEmpty(methods.formState.errors)}
+          onClick={methods.handleSubmit(onSubmit)}
+        >
+          {t('user.updateData')}
+        </Button>
+      )}
+      {activeTab === 0 && (
+        <Button variant="outlined">
+          {t('user.password')}
+        </Button>
+      )}
+      <Button variant="outlined" color="error" onClick={() => void setIsOpenDeleteDialog(true)} className="delete-button">
+        <DeleteIcon/>
+        {t('project.delete')}
+      </Button>
+    </div>
+  );
+
   return (
     <Page title={t('user.admin')}>
       <FormProvider {...methods}>
         <ProfileDataWrapper>
           {profileData && (
-            <TabsContainer>
+            <>
               <div>
                 <ProfileCard>
                   <div className="card-title">{profileData.name} {profileData.surname}</div>
@@ -144,23 +179,9 @@ const ProfileAdminPage = () => {
                     <Tab label={t('accommodation.residences')} />
                   </Tabs>
                 </ProfileCard>
-                <div className="profile-actions">
-                  <Button
-                    disabled={!methods.formState.isDirty || !isEmpty(methods.formState.errors)}
-                    onClick={methods.handleSubmit(onSubmit)}
-                  >
-                    {t('user.updateData')}
-                  </Button>
-                  <Button variant="outlined">
-                    {t('user.password')}
-                  </Button>
-                  <Button variant="outlined" color="error" onClick={() => void setIsOpenDeleteDialog(true)} className="delete-button">
-                    <DeleteIcon/>
-                    {t('project.delete')}
-                  </Button>
-                </div>
+                {viewportWidth > smBreakpoint && profileActions}
               </div>
-              <ProfileTabContent>
+              <ProfileTabContent ref={tabContentRef}>
                 <TabPanel index={0}>
                   <ProfileForm defaultValues={profileData as unknown as IUser} />
                 </TabPanel>
@@ -207,7 +228,8 @@ const ProfileAdminPage = () => {
                   </div>
                 </TabPanel>
               </ProfileTabContent>
-            </TabsContainer>
+              {viewportWidth <= smBreakpoint && profileActions}
+            </>
           )}
         </ProfileDataWrapper>
       </FormProvider>
@@ -226,4 +248,10 @@ const ProfileAdminPage = () => {
   );
 };
 
-export default ProfileAdminPage;
+export default function ProfileAdminPage () {
+  return (
+    <TabsContainer>
+      <ProfileAdminPageRender />
+    </TabsContainer>
+  );
+};
