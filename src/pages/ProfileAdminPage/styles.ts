@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
+import { SM } from 'theme/sizeBreakpoints';
 
 export const DeleteDialogContent = styled.div`
   .actions {
@@ -13,6 +14,7 @@ export const ProfileDataWrapper = styled.div`
   margin-top: 25px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 
   .profile-actions {
     display: flex;
@@ -30,6 +32,10 @@ export const ProfileTabContent = styled.div`
   overflow-y: auto;
   flex-grow: 1;
 
+  @media (max-width: ${SM}) {
+    height: auto;
+  }
+
   .section-title {
     font-size: 20px;
     margin-bottom: 20px;
@@ -40,6 +46,10 @@ export const ProfileTabContent = styled.div`
     border: 1px solid #9F9D9D;
     border-radius: 20px;
     margin-left: 20px;
+
+    @media (max-width: ${SM}) {
+      border: none;
+    }
   }
 `;
 
@@ -52,6 +62,11 @@ export const ProfileCard = styled.div`
   align-items: center;
   gap: 25px;
   position: relative;
+
+  @media (max-width: ${SM}) {
+    border: none;
+    padding: 0;
+  }
 
   .card-title {
     font-size: 20px;
@@ -81,7 +96,6 @@ export const ProfileCard = styled.div`
       .MuiInputBase-root {
         max-width: 180px;
         min-width: 180px !important;
-
       }
     }
   }
@@ -104,6 +118,10 @@ export const ProfileCard = styled.div`
   .tabs-options {
     height: 40vh;
     position: relative;
+
+    @media (max-width: ${SM}) {
+      height: auto;
+    }
   }
 `;
 

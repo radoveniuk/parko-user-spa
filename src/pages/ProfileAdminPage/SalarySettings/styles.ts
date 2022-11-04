@@ -1,19 +1,24 @@
 import styled from 'styled-components';
 
+import { SM } from 'theme/sizeBreakpoints';
+
 export const SalaryFormWrapper = styled.form`
   .inputs {
-    display: flex;
-    gap: 25px;
-    max-width: 600px;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-gap: 25px;
+    grid-template-columns: 200px 200px;
   
     div:last-child {
-      width: 100%;
+      grid-column-start: 1;
+      grid-column-end: 3;
     }
-  
-    div:not(:last-child) {
-      flex: 1;
+
+    @media (max-width: ${SM}) {
+      grid-template-columns: 1fr;
+      div:last-child {
+        grid-column-start: 1;
+        grid-column-end: 2;
+      }
     }
   }
 

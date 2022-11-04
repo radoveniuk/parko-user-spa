@@ -248,13 +248,11 @@ const ProfileForm = ({ defaultValues }: Props) => {
                     control={control}
                     defaultValue={defaultValues?.customFields?.[customField._id as string] || ''}
                     render={({ field }) => (
-                      <div className="field-wrap">
-                        <CustomField
-                          value={field.value}
-                          onChange={field.onChange}
-                          metadata={customField}
-                        />
-                      </div>
+                      <CustomField
+                        value={field.value}
+                        onChange={field.onChange}
+                        metadata={customField}
+                      />
                     )}
                   />
                 ))}

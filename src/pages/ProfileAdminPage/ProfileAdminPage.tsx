@@ -52,7 +52,7 @@ const ProfileAdminPage = () => {
 
   const updateUser = (values: Partial<IUser>) => {
     if (userId) {
-      updateUserMutation.mutateAsync({ _id: userId, ...values })
+      updateUserMutation.mutateAsync({ ...values, _id: userId, project: values.project || null })
         .then(() => {
           refetch();
           enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
@@ -117,14 +117,16 @@ const ProfileAdminPage = () => {
                       label={t('user.employmentType')}
                       {...methods.register('employmentType')}
                     />
-                    <Select
-                      options={projects}
-                      defaultValue={projects?.length ? profileData.project || '' : ''}
-                      label={t('user.project')}
-                      valuePath="_id"
-                      labelPath="name"
-                      {...methods.register('project')}
-                    />
+                    {!!projects.length && (
+                      <Select
+                        options={projects}
+                        defaultValue={projects?.length ? profileData.project || '' : ''}
+                        label={t('user.project')}
+                        valuePath="_id"
+                        labelPath="name"
+                        {...methods.register('project')}
+                      />
+                    )}
                   </div>
                   <div className="profile-contacts">
                     <div>{profileData.phone}</div>

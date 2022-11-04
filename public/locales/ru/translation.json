@@ -148,7 +148,9 @@
     "DIC": "DIČ",
     "permitAdress": "Регистрационный адрес",
     "permitDepartment": "Районное управление",
-    "permitNumber": "Номер записи в реестре"
+    "permitNumber": "Номер записи в реестре",
+    "blocked": "Черный список",
+    "notes": "Заметки"
   },
   "userUpload": {
     "title": "Импорт пользователей",

@@ -33,7 +33,7 @@ export interface IUser {
   // system data
   recruiter: string;
   source: string;
-  project: string | IProject;
+  project: string | IProject | null;
   // adress
   country: string;
   adress: string;

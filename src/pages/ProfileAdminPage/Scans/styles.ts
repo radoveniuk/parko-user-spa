@@ -5,6 +5,11 @@ export const ScansWrapper = styled.div`
     display: flex;
     gap: 15px;
     align-items: flex-end;
+    flex-wrap: wrap;
+
+    .settings-input {
+      width: 200px;
+    }
   }
 
   .file-input-wrapper {
@@ -27,7 +32,6 @@ export const ScansWrapper = styled.div`
             pointer-events: none;
           }
         }
-      
     }
   }
 `;
