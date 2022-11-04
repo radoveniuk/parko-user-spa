@@ -15,7 +15,7 @@ const booleanOptions = ['true', 'false'];
 const BooleanSelect = ({ defaultValue, onChange, label }: Props) => {
   const { t } = useTranslation();
   const options = useTranslatedSelect(booleanOptions);
-  const [value, setValue] = useState(defaultValue !== undefined ? `${defaultValue}` : undefined);
+  const [value, setValue] = useState(defaultValue !== undefined ? `${defaultValue}` : '');
 
   return (
     <Select

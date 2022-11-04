@@ -22,7 +22,7 @@ import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
 import { ROLES } from 'constants/userRoles';
 import { STATUSES } from 'constants/userStatuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import { IUser, IUser2 } from 'interfaces/users.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import Daysoff from './Daysoff';
 import Prepayments from './Prepayments';
@@ -34,10 +34,10 @@ import { DeleteDialogContent, ProfileCard, ProfileDataWrapper, ProfileTabContent
 const ProfileAdminPage = () => {
   const { t } = useTranslation();
   const { id: userId } = useParams();
-  const { data: profileData, refetch } = useGetUser(userId || '');
+  const { data: profileData, refetch } = useGetUser(userId as string);
   const { enqueueSnackbar } = useSnackbar();
   const updateUserMutation = useUpdateUserMutation();
-  const methods = useForm<IUser2>();
+  const methods = useForm<IUser>();
 
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
   const translatedEmploymentTypes = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType', true, false);
@@ -50,7 +50,7 @@ const ProfileAdminPage = () => {
   const deleteUserMutation = useDeleteUserMutation();
   const navigate = useNavigate();
 
-  const updateUser = (values: Partial<IUser2>) => {
+  const updateUser = (values: Partial<IUser>) => {
     if (userId) {
       updateUserMutation.mutateAsync({ _id: userId, ...values })
         .then(() => {
@@ -60,7 +60,7 @@ const ProfileAdminPage = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<IUser2> = async (values) => {
+  const onSubmit: SubmitHandler<IUser> = async (values) => {
     const updatedUserData = { ...profileData, ...values };
     if (!updatedUserData.password) {
       delete updatedUserData.password;
@@ -87,7 +87,7 @@ const ProfileAdminPage = () => {
                 <ProfileCard>
                   <div className="card-title">{profileData.name} {profileData.surname}</div>
                   <div className="card-fast-actions">
-                    <Link to="/create-notification">
+                    <Link to={{ pathname: '/create-notification' }} state={{ defaultProfileId: profileData._id }}>
                       <Button><NotificationIcon size={20} /></Button>
                     </Link>
                     <a href={`mailto:${profileData.email}`}>
@@ -101,19 +101,19 @@ const ProfileAdminPage = () => {
                   <div className="card-profile-settings">
                     <Select
                       options={translatedRoles}
-                      defaultValue={profileData.role}
+                      defaultValue={profileData.role || ''}
                       label={t('user.role')}
                       {...methods.register('role')}
                     />
                     <Select
                       options={translatedStatuses}
-                      defaultValue={profileData.status}
+                      defaultValue={profileData.status || ''}
                       label={t('user.status')}
                       {...methods.register('status')}
                     />
                     <Select
                       options={translatedEmploymentTypes}
-                      defaultValue={profileData.employmentType}
+                      defaultValue={profileData.employmentType || ''}
                       label={t('user.employmentType')}
                       {...methods.register('employmentType')}
                     />
@@ -143,9 +143,12 @@ const ProfileAdminPage = () => {
                   </Tabs>
                 </ProfileCard>
                 <div className="profile-actions">
-                  {methods.formState.isDirty && (
-                    <Button disabled={!isEmpty(methods.formState.errors)} onClick={methods.handleSubmit(onSubmit)}>{t('user.updateData')}</Button>
-                  )}
+                  <Button
+                    disabled={!methods.formState.isDirty || !isEmpty(methods.formState.errors)}
+                    onClick={methods.handleSubmit(onSubmit)}
+                  >
+                    {t('user.updateData')}
+                  </Button>
                   <Button variant="outlined">
                     {t('user.password')}
                   </Button>
@@ -157,7 +160,7 @@ const ProfileAdminPage = () => {
               </div>
               <ProfileTabContent>
                 <TabPanel index={0}>
-                  <ProfileForm defaultValues={profileData as unknown as IUser2} />
+                  <ProfileForm defaultValues={profileData as unknown as IUser} />
                 </TabPanel>
                 <TabPanel index={1}>
                   <div className="section-card">

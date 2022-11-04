@@ -123,11 +123,11 @@ const Scans = ({ data, onUpdate }: Props) => {
                     id={scanKey}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => { updateFile(scanKey, e.target.files?.[0] as File); }}
                     buttonComponent={(
-                      <IconButton
-                        className="file-input"
-                      >
-                        <EditIcon />
-                      </IconButton>
+                      <div className="file-input">
+                        <IconButton>
+                          <EditIcon />
+                        </IconButton>
+                      </div>
                     )}
                   />
                 </ListTableCell>

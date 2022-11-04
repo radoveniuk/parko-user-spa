@@ -25,3 +25,14 @@ export const ProfileFormWrapper = styled.div`
     }
   }
 `;
+
+export const AccordionFieldsWrapper = styled.div<{ cols: number }>`
+  display: grid;
+  grid-template-columns: repeat(${(props) => props.cols}, 200px);
+  grid-gap: 20px;
+  
+  .textarea {
+    grid-column-start: 1;
+    grid-column-end: ${(props) => props.cols + 1};
+  }
+`;

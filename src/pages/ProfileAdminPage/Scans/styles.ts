@@ -17,18 +17,17 @@ export const ScansWrapper = styled.div`
 
     .file-row {
       cursor: default;
-
-      button {
-        cursor: default;
-        
-        &.file-input {
-          pointer-events: none;
+        .file-input {
+          cursor: pointer;
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+            border-radius: 50%;
+          }
+          button {
+            pointer-events: none;
+          }
         }
-
-        &:hover {
-          background-color: transparent;
-        }
-      }
+      
     }
   }
 `;

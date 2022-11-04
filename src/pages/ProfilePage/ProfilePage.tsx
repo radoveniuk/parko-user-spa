@@ -11,7 +11,7 @@ import ProfileForm from 'components/complex/ProfileForm';
 import Button from 'components/shared/Button';
 import Page, { PageTitle } from 'components/shared/Page';
 import { useAuthData } from 'contexts/AuthContext';
-import { IUser2 } from 'interfaces/users.interface';
+import { IUser } from 'interfaces/users.interface';
 import { DEFAULT_PASS } from 'pages/UploadProfilesPage/constants';
 
 import { ProfilePageActions } from './styles';
@@ -22,13 +22,13 @@ const ProfilePage = () => {
   const { id } = useAuthData();
   const { data, refetch } = useGetUser(id, { enabled: !isEditor });
   const { t } = useTranslation();
-  const methods = useForm<IUser2>();
+  const methods = useForm<IUser>();
   const { enqueueSnackbar } = useSnackbar();
   const createUserMutation = useCreateUserMutation();
   const updateUserMutation = useUpdateUserMutation();
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<IUser2> = async (values) => {
+  const onSubmit: SubmitHandler<IUser> = async (values) => {
     if (isEditor) {
       createUserMutation.mutateAsync({ ...values, role: 'user', password: DEFAULT_PASS })
         .then(() => {
@@ -54,7 +54,7 @@ const ProfilePage = () => {
       <PageTitle>{t('profile')}</PageTitle>
       {(isEditor || !!data) && (
         <FormProvider {...methods}>
-          <ProfileForm defaultValues={!isEditor ? data as unknown as IUser2 : undefined} />
+          <ProfileForm defaultValues={!isEditor ? data as unknown as IUser : undefined} />
           <ProfilePageActions>
             <Button
               onClick={() => {

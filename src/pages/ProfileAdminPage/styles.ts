@@ -12,6 +12,7 @@ export const DeleteDialogContent = styled.div`
 export const ProfileDataWrapper = styled.div`
   margin-top: 25px;
   display: flex;
+  flex-wrap: wrap;
 
   .profile-actions {
     display: flex;
@@ -26,8 +27,8 @@ export const ProfileDataWrapper = styled.div`
 
 export const ProfileTabContent = styled.div`
   height: 95vh;
-  width: 100%;
   overflow-y: auto;
+  flex-grow: 1;
 
   .section-title {
     font-size: 20px;
@@ -104,4 +105,15 @@ export const ProfileCard = styled.div`
     height: 40vh;
     position: relative;
   }
+`;
+
+export const EmptyDataWrapper = styled.div`
+  height: calc(100vh - 165px);
+  font-size: 30px;
+  font-weight: 600;
+  color: #b9b9b9;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

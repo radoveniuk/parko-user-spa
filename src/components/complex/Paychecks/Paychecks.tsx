@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { uploadFiles } from 'api/common';
 import { useDeleteFileMutation } from 'api/mutations/fileMutation';
@@ -16,7 +17,7 @@ import { IFile } from 'interfaces/file.interface';
 import { IPaycheck } from 'interfaces/paycheck.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { UploadedPaychecksWrapper } from './styles';
+import { EmptyDataWrapper, UploadedPaychecksWrapper } from './styles';
 
 const ADMIN_COLS = [
   'paycheck.date',
@@ -38,6 +39,7 @@ type Props = {
 }
 
 const Paychecks = ({ filter }: Props) => {
+  const { t } = useTranslation();
   const { data = [], refetch } = useGetPaycheckList(filter);
   const updatePaycheckMutation = useUpdatePaycheckMutation();
   const deletePaycheckMutation = useDeletePaycheckMutation();
@@ -45,6 +47,14 @@ const Paychecks = ({ filter }: Props) => {
   const { role } = useAuthData();
 
   const [itemToDelete, setItemToDelete] = useState<IPaycheck | null>(null);
+
+  if (!data.length) {
+    return (
+      <EmptyDataWrapper>
+        {t('noData')}
+      </EmptyDataWrapper>
+    );
+  };
 
   const deletePaycheck = async () => {
     if (!itemToDelete) return;
@@ -67,8 +77,6 @@ const Paychecks = ({ filter }: Props) => {
     await updatePaycheckMutation.mutateAsync({ _id: paycheckItem._id, linkedFile: uploadedFileData._id });
     refetch();
   };
-
-  if (!data.length) return null;
 
   const cols = role === 'admin' ? (!filter?.user ? ADMIN_COLS : ADMIN_COLS.filter((item) => item !== 'paycheck.user')) : USER_COLS;
 

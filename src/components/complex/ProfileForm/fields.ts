@@ -1,7 +1,7 @@
 import { Validate } from 'react-hook-form';
 
 import { validateEmail } from 'helpers/validateEmail';
-import { IUser2 } from 'interfaces/users.interface';
+import { IUser } from 'interfaces/users.interface';
 
 export type UserField = {
   type: 'string' | 'number' | 'boolean' | 'date' | 'select' | 'phone' | 'textarea';
@@ -12,10 +12,10 @@ export type UserField = {
 
 export type UserFieldsList = {
   // eslint-disable-next-line no-unused-vars
-  [key in keyof Partial<IUser2>]: UserField;
+  [key in keyof Partial<IUser>]: UserField;
 };
 
-const baseFields: UserFieldsList = {
+export const BASE_FIELDS: UserFieldsList = {
   name: {
     type: 'string',
     required: true,
@@ -35,7 +35,7 @@ const baseFields: UserFieldsList = {
     type: 'date',
   },
   passNumber: {
-    type: 'select',
+    type: 'string',
   },
   phone: {
     type: 'phone',
@@ -57,7 +57,7 @@ const baseFields: UserFieldsList = {
   },
 };
 
-export const adressFields: UserFieldsList = {
+export const ADRESS_FIELDS: UserFieldsList = {
   adress: {
     type: 'string',
   },
@@ -72,7 +72,7 @@ export const adressFields: UserFieldsList = {
   },
 };
 
-export const systemFields: UserFieldsList = {
+export const SYSTEM_FIELDS: UserFieldsList = {
   recruiter: {
     type: 'select',
   },
@@ -81,7 +81,7 @@ export const systemFields: UserFieldsList = {
   },
 };
 
-export const permitFields: UserFieldsList = {
+export const PERMIT_FIELDS: UserFieldsList = {
   hasPermit: {
     type: 'boolean',
   },
@@ -102,7 +102,7 @@ export const permitFields: UserFieldsList = {
   },
 };
 
-export const businessFields: UserFieldsList = {
+export const BUSINESS_FIELDS: UserFieldsList = {
   ICO: {
     type: 'string',
   },
@@ -120,7 +120,7 @@ export const businessFields: UserFieldsList = {
   },
 };
 
-export const biometryFields: UserFieldsList = {
+export const BIOMETRY_FIELDS: UserFieldsList = {
   tshortSize: {
     type: 'select',
   },
@@ -132,7 +132,7 @@ export const biometryFields: UserFieldsList = {
   },
 };
 
-export const workFields: UserFieldsList = {
+export const WORK_FIELDS: UserFieldsList = {
   employmentType: {
     type: 'select',
   },
@@ -149,14 +149,3 @@ export const workFields: UserFieldsList = {
 
 export type FieldSection = 'baseFields' |
 'docsFields' | 'adressFields' | 'biometryFields' | 'expirienceFields' | 'familyFields' | 'slovakDocsFields' | 'scancopies';
-
-// eslint-disable-next-line no-unused-vars
-export const SECTIONS: {[key: string]: UserFieldsList} = {
-  baseFields,
-  adressFields,
-  systemFields,
-  permitFields,
-  businessFields,
-  biometryFields,
-  workFields,
-};

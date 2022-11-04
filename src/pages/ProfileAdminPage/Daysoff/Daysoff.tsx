@@ -11,6 +11,8 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import { getDateFromIso } from 'helpers/datetime';
 import { IDayOff } from 'interfaces/dayoff.interface';
 
+import { EmptyDataWrapper } from '../styles';
+
 import { CommentDialogWrapper } from './styles';
 
 const columns = [
@@ -34,6 +36,14 @@ const Daysoff = () => {
       setSelectedItem(undefined);
       refetch();
     });
+  };
+
+  if (!data?.length) {
+    return (
+      <EmptyDataWrapper>
+        {t('noData')}
+      </EmptyDataWrapper>
+    );
   };
 
   return (

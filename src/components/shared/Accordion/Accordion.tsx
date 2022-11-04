@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { MdExpandMore } from 'react-icons/md';
 import { Accordion as AccordionMaterial, AccordionDetails, AccordionProps, AccordionSummary } from '@mui/material';
 import styled from 'styled-components';
 
-const Accordion = ({ children, title, id, ...rest }: AccordionProps) => (
-  <AccordionMaterial className="accordion" {...rest}>
-    <AccordionSummary expandIcon={<MdExpandMore />} id={id}>
-      {title}
-    </AccordionSummary>
-    <AccordionDetails>
-      {children}
-    </AccordionDetails>
-  </AccordionMaterial>
-);
+const Accordion = ({ children, title, id, ...rest }: AccordionProps) => {
+  const fakeId = useId();
+  return (
+    <AccordionMaterial className="accordion" {...rest}>
+      <AccordionSummary expandIcon={<MdExpandMore />} id={id || fakeId}>
+        {title}
+      </AccordionSummary>
+      <AccordionDetails>
+        {children}
+      </AccordionDetails>
+    </AccordionMaterial>
+  );
+};
 
 export default Accordion;
 

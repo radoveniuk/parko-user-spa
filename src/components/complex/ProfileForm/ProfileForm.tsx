@@ -5,7 +5,7 @@ import _ from 'lodash-es';
 
 import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import { useGetUserList } from 'api/query/userQuery';
-import Accordion, { AccordionContent } from 'components/shared/Accordion';
+import Accordion from 'components/shared/Accordion';
 import BooleanSelect from 'components/shared/BooleanSelect';
 import DatePicker from 'components/shared/DatePicker';
 import Input from 'components/shared/Input';
@@ -16,24 +16,27 @@ import { EMPLOYMENT_TYPE, FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'co
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
-import { IUser2 } from 'interfaces/users.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import CustomField from '../CustomField';
 
-import { SECTIONS, UserField } from './fields';
-import { ProfileFormWrapper } from './styles';
+import {
+  ADRESS_FIELDS, BASE_FIELDS, BIOMETRY_FIELDS, BUSINESS_FIELDS,
+  PERMIT_FIELDS, SYSTEM_FIELDS, UserField, UserFieldsList, WORK_FIELDS,
+} from './fields';
+import { AccordionFieldsWrapper, ProfileFormWrapper } from './styles';
 
 type Props = {
-  defaultValues?: IUser2;
+  defaultValues?: IUser;
 }
 
 const ProfileForm = ({ defaultValues }: Props) => {
+  const { register, formState: { errors }, control } = useFormContext<IUser>();
   const { t, i18n } = useTranslation();
   const { role } = useAuthData();
-  const { register, formState: { errors }, control } = useFormContext<IUser2>();
 
-  const { data: recruiters = [] } = useGetUserList({ role: 'admin' });
-
+  // options
+  const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
   const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
   const studyOptions = useTranslatedSelect(STUDY, 'study');
   const permitTypeOptions = useTranslatedSelect(PERMIT_TYPES, 'permitType');
@@ -60,105 +63,170 @@ const ProfileForm = ({ defaultValues }: Props) => {
     employmentType: employmentTypeOptions,
   }), [employmentTypeOptions, familyStateOptions, permitTypeOptions, recruiters, sexOptions, studyOptions]);
 
-  const generateField = (fieldName: keyof IUser2, fieldData: UserField | undefined) => (
-    <div className="field-wrap">
-      {(fieldData?.type === 'string' || fieldData?.type === 'number') && (
-        <Input
-          type={fieldData.type}
-          label={t(`user.${fieldName}`)}
-          defaultValue={defaultValues?.[fieldName] || ''}
-          error={!!errors[fieldName]}
-          helperText={errors?.[fieldName] && (errors?.[fieldName] as any).message}
-          {...register(fieldName, {
-            required: fieldData.required,
-            validate: fieldData.validation,
-          })}
-        />
-      )}
-      {fieldData?.type === 'phone' && (
-        <Controller
-          control={control}
-          name={fieldName}
-          defaultValue={defaultValues?.[fieldName] || ''}
-          rules={{ validate: (value) => !value || checkPhoneNumber(value as string), required: fieldData.required }}
-          render={({ field }) => (
-            <PhoneInput
-              value={field.value as string}
-              onChange={field.onChange}
-              label={t('project.phone')}
-              error={!!errors.phone}
-            />
-          )}
-        />
-      )}
-      {fieldData?.type === 'boolean' && (
-        <Controller
-          control={control}
-          name={fieldName}
-          defaultValue={typeof defaultValues?.[fieldName] === 'boolean' ? defaultValues?.[fieldName] : undefined}
-          render={({ field }) => (
-            <BooleanSelect
-              defaultValue={field.value as boolean}
-              onChange={field.onChange}
-              label={t(`user.${fieldName}`)}
-            />
-          )}
-        />
-      )}
-      {fieldData?.type === 'date' && (
-        <Controller
-          control={control}
-          name={fieldName}
-          defaultValue={defaultValues?.[fieldName] || ''}
-          render={({ field }) => (
-            <DatePicker
-              value={field.value as string}
-              onChange={field.onChange}
-              label={t(`user.${fieldName}`)}
-            />
-          )}
-        />
-      )}
-      {(fieldData?.type === 'select' && selectOptions[fieldName]) && (
-        <Select
-          options={selectOptions[fieldName] || []}
-          defaultValue={defaultValues?.[fieldName] || ''}
-          label={t(`user.${fieldName}`)}
-          style={{ minWidth: 200 }}
-          error={!!errors[fieldName]}
-          {...register(fieldName, {
-            required: fieldData.required,
-          })}
-        />
-      )}
-    </div>
-  );
+  const generateAccordionContent = (fields: UserFieldsList) => {
+    const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => (
+      <>
+        {(fieldData?.type === 'string' || fieldData?.type === 'number') && (
+          <Input
+            type={fieldData.type}
+            label={t(`user.${fieldName}`)}
+            defaultValue={defaultValues?.[fieldName] || ''}
+            error={!!errors[fieldName]}
+            helperText={errors?.[fieldName] && (errors?.[fieldName] as any).message}
+            {...register(fieldName, {
+              required: fieldData.required,
+              validate: fieldData.validation,
+            })}
+          />
+        )}
+        {(fieldData?.type === 'textarea') && (
+          <Input
+            className="textarea"
+            type={fieldData.type}
+            label={t(`user.${fieldName}`)}
+            defaultValue={defaultValues?.[fieldName] || ''}
+            error={!!errors[fieldName]}
+            multiline
+            helperText={errors?.[fieldName] && (errors?.[fieldName] as any).message}
+            {...register(fieldName, {
+              required: fieldData.required,
+              validate: fieldData.validation,
+            })}
+          />
+        )}
+        {fieldData?.type === 'phone' && (
+          <Controller
+            control={control}
+            name={fieldName}
+            defaultValue={defaultValues?.[fieldName] || ''}
+            rules={{ validate: (value) => !value || checkPhoneNumber(value as string), required: fieldData.required }}
+            render={({ field }) => (
+              <PhoneInput
+                value={field.value as string}
+                onChange={field.onChange}
+                label={t('project.phone')}
+                error={!!errors.phone}
+              />
+            )}
+          />
+        )}
+        {fieldData?.type === 'boolean' && (
+          <Controller
+            control={control}
+            name={fieldName}
+            defaultValue={typeof defaultValues?.[fieldName] === 'boolean' ? defaultValues?.[fieldName] : undefined}
+            render={({ field }) => (
+              <BooleanSelect
+                defaultValue={field.value as boolean}
+                onChange={field.onChange}
+                label={t(`user.${fieldName}`)}
+              />
+            )}
+          />
+        )}
+        {fieldData?.type === 'date' && (
+          <Controller
+            control={control}
+            name={fieldName}
+            defaultValue={defaultValues?.[fieldName] || ''}
+            render={({ field }) => (
+              <DatePicker
+                value={field.value as string}
+                onChange={field.onChange}
+                label={t(`user.${fieldName}`)}
+              />
+            )}
+          />
+        )}
+        {(fieldData?.type === 'select' && selectOptions[fieldName]) && (
+          <Select
+            options={selectOptions[fieldName] || []}
+            defaultValue={defaultValues?.[fieldName] || ''}
+            label={t(`user.${fieldName}`)}
+            style={{ minWidth: 200 }}
+            error={!!errors[fieldName]}
+            {...register(fieldName, {
+              required: fieldData.required,
+            })}
+          />
+        )}
+      </>
+    );
+    return (
+      <>
+        {(Object.keys(fields) as (keyof IUser)[]).map((fieldKey) => {
+          const fieldData = fields[fieldKey];
+          if (fieldData?.permissionRoles === undefined || fieldData.permissionRoles.includes(role as string)) {
+            return (
+              <React.Fragment key={fieldKey}>
+                {generateField(fieldKey, fieldData)}
+              </React.Fragment>
+            );
+          }
+          return null;
+        })}
+      </>
+    );
+  };
 
   return (
     <ProfileFormWrapper>
-      {Object.keys(SECTIONS).map((sectionKey: string) => (
-        <Accordion
-          key={sectionKey}
-          title={t(`user.${sectionKey}`)}
-          id={sectionKey}
-          className="accordion"
-          defaultExpanded
-        >
-          <AccordionContent>
-            {(Object.keys(SECTIONS[sectionKey]) as (keyof IUser2)[]).map((fieldKey) => {
-              const fieldData = SECTIONS[sectionKey][fieldKey];
-              if (fieldData?.permissionRoles === undefined || fieldData.permissionRoles.includes(role as string)) {
-                return (
-                  <React.Fragment key={fieldKey}>
-                    {generateField(fieldKey, fieldData)}
-                  </React.Fragment>
-                );
-              }
-              return null;
-            })}
-          </AccordionContent>
-        </Accordion>
-      ))}
+      <Accordion
+        title={t('user.baseFields')}
+        defaultExpanded
+      >
+        <AccordionFieldsWrapper cols={3}>
+          {generateAccordionContent(BASE_FIELDS)}
+        </AccordionFieldsWrapper>
+      </Accordion>
+      <Accordion
+        title={t('user.adressFields')}
+        defaultExpanded
+      >
+        <AccordionFieldsWrapper cols={2}>
+          {generateAccordionContent(ADRESS_FIELDS)}
+        </AccordionFieldsWrapper>
+      </Accordion>
+      <Accordion
+        title={t('user.systemFields')}
+        defaultExpanded
+      >
+        <AccordionFieldsWrapper cols={2}>
+          {generateAccordionContent(SYSTEM_FIELDS)}
+        </AccordionFieldsWrapper>
+      </Accordion>
+      <Accordion
+        title={t('user.permitFields')}
+        defaultExpanded
+      >
+        <AccordionFieldsWrapper cols={3}>
+          {generateAccordionContent(PERMIT_FIELDS)}
+        </AccordionFieldsWrapper>
+      </Accordion>
+      <Accordion
+        title={t('user.businessFields')}
+        defaultExpanded
+      >
+        <AccordionFieldsWrapper cols={3}>
+          {generateAccordionContent(BUSINESS_FIELDS)}
+        </AccordionFieldsWrapper>
+      </Accordion>
+      <Accordion
+        title={t('user.biometryFields')}
+        defaultExpanded
+      >
+        <AccordionFieldsWrapper cols={3}>
+          {generateAccordionContent(BIOMETRY_FIELDS)}
+        </AccordionFieldsWrapper>
+      </Accordion>
+      <Accordion
+        title={t('user.workFields')}
+        defaultExpanded
+      >
+        <AccordionFieldsWrapper cols={2}>
+          {generateAccordionContent(WORK_FIELDS)}
+        </AccordionFieldsWrapper>
+      </Accordion>
       {customSections
         .filter((section) => customFields.some((customField) => customField.section === section._id))
         .map((section) => (
@@ -169,7 +237,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
             className="accordion"
             defaultExpanded
           >
-            <AccordionContent>
+            <AccordionFieldsWrapper cols={3}>
               {customFields
                 .filter((customField) => customField.section === section._id)
                 .map((customField) => (
@@ -190,7 +258,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
                     )}
                   />
                 ))}
-            </AccordionContent>
+            </AccordionFieldsWrapper>
           </Accordion>
         ))}
       {!_.isEmpty(errors) && (
