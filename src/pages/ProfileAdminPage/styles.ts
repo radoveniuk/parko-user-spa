@@ -13,7 +13,6 @@ export const DeleteDialogContent = styled.div`
 export const ProfileDataWrapper = styled.div`
   margin-top: 25px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
 
   .profile-actions {
@@ -24,6 +23,10 @@ export const ProfileDataWrapper = styled.div`
     .delete-button {
       margin-left: auto;
     }
+  }
+
+  @media (max-width: ${SM}) {
+    flex-direction: column;
   }
 `;
 
@@ -41,6 +44,7 @@ export const ProfileTabContent = styled.div`
     border: 1px solid #9F9D9D;
     border-radius: 20px;
     margin-left: 20px;
+    padding: 20px;
     
     .section-title {
       font-size: 20px;

@@ -5,3 +5,7 @@ export const ProfilePageActions = styled.div`
   gap: 1rem;
   justify-content: center;
 `;
+
+export const TabContentWrapper = styled.div`
+  margin: 20px;
+`;

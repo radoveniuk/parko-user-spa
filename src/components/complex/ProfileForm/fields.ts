@@ -4,7 +4,7 @@ import { validateEmail } from 'helpers/validateEmail';
 import { IUser } from 'interfaces/users.interface';
 
 export type UserField = {
-  type: 'string' | 'number' | 'boolean' | 'date' | 'select' | 'phone' | 'textarea';
+  type: 'string' | 'number' | 'boolean' | 'date' | 'select' | 'dynamic-select' | 'phone' | 'textarea';
   required?: boolean;
   validation?: Record<string, Validate<unknown>>;
   permissionRoles?: string[];
@@ -74,10 +74,10 @@ export const ADRESS_FIELDS: UserFieldsList = {
 
 export const SYSTEM_FIELDS: UserFieldsList = {
   recruiter: {
-    type: 'select',
+    type: 'dynamic-select',
   },
   source: {
-    type: 'select',
+    type: 'dynamic-select',
   },
 };
 

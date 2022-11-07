@@ -12,6 +12,7 @@ import Notifications from 'components/complex/Notifications';
 import Paychecks from 'components/complex/Paychecks';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import ProfileForm from 'components/complex/ProfileForm';
+import ProfileScans from 'components/complex/ProfileScans';
 import { DeleteIcon, EmailIcon, NotificationIcon, PhoneIcon, PrintIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
@@ -30,7 +31,6 @@ import Daysoff from './Daysoff';
 import Prepayments from './Prepayments';
 import Residences from './Residences';
 import SalarySettings from './SalarySettings';
-import Scans from './Scans';
 import { DeleteDialogContent, ProfileCard, ProfileDataWrapper, ProfileTabContent } from './styles';
 
 const smBreakpoint = Number(SM.replace('px', ''));
@@ -194,7 +194,7 @@ const ProfileAdminPageRender = () => {
                 <TabPanel index={2}>
                   <div className="section-card">
                     <div className="section-title">{t('user.scancopies')}</div>
-                    <Scans data={profileData} onUpdate={updateUser} />
+                    <ProfileScans id={userId || ''} />
                   </div>
                 </TabPanel>
                 <TabPanel index={3}>

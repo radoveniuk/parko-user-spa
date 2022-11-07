@@ -12,7 +12,7 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import Menu, { MenuItem } from 'components/shared/Menu';
 import Page, { PageTitle } from 'components/shared/Page';
 import Select from 'components/shared/Select';
-import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
+import { DYNAMIC_FIELDS, IMPORTABLE_USER_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
 import { STATUSES } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
@@ -35,9 +35,32 @@ const ExportResidencesPage = () => {
       if (typeof newItem[userKey] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(newItem[userKey])) {
         newItem[userKey] = getDateFromIso(newItem[userKey]);
       }
+      if (TRANSLATED_FIELDS.includes(userKey as keyof IUser)) {
+        if (typeof newItem[userKey] === 'boolean') {
+          newItem[userKey] = t(newItem[userKey]);
+        } else if (newItem[userKey]) {
+          if (userKey === 'role') {
+            newItem[userKey] = t(`selects.userRole.${newItem[userKey]}`);
+          }
+          if (userKey === 'status') {
+            newItem[userKey] = t(`selects.userStatus.${newItem[userKey]}`);
+          }
+          if (userKey === 'permitType') {
+            newItem[userKey] = t(`selects.permitType.${newItem[userKey]}`);
+          }
+          if (userKey === 'sex') {
+            newItem[userKey] = t(newItem[userKey]);
+          }
+        }
+      }
+      if (DYNAMIC_FIELDS.includes(userKey as keyof IUser)) {
+        if (userKey === 'project') {
+          newItem[userKey] = newItem[userKey]?.name;
+        }
+      }
     });
     return newItem as IUser;
-  }), [data]);
+  }), [data, t]);
 
   const [selectedProfiles, setSelectedProfiles] = useState<string[]>([]);
   const [colsToExport, setColsToExport] = useState<(keyof IUser)[]>([]);

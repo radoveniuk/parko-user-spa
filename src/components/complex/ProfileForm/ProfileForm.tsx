@@ -57,11 +57,20 @@ const ProfileForm = ({ defaultValues }: Props) => {
     country: COUNTRIES.sort(),
     familyState: familyStateOptions,
     study: studyOptions,
-    recruiter: recruiters.map((item) => `${item.name} ${item.surname}`),
-    source: recruiters.map((item) => `${item.name} ${item.surname}`),
     sex: sexOptions,
     employmentType: employmentTypeOptions,
-  }), [employmentTypeOptions, familyStateOptions, permitTypeOptions, recruiters, sexOptions, studyOptions]);
+  }), [employmentTypeOptions, familyStateOptions, permitTypeOptions, sexOptions, studyOptions]);
+
+  const dynamicSelectOptions: AnyObject = useMemo(() => ({
+    recruiter: {
+      options: recruiters.map((item) => ({ _id: item._id, label: `${item.name} ${item.surname}` })),
+      labelPath: 'label',
+    },
+    source: {
+      options: recruiters.map((item) => ({ _id: item._id, label: `${item.name} ${item.surname}` })),
+      labelPath: 'label',
+    },
+  }), [recruiters]);
 
   const generateAccordionContent = (fields: UserFieldsList) => {
     const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => (
@@ -145,6 +154,20 @@ const ProfileForm = ({ defaultValues }: Props) => {
             label={t(`user.${fieldName}`)}
             style={{ minWidth: 200 }}
             error={!!errors[fieldName]}
+            {...register(fieldName, {
+              required: fieldData.required,
+            })}
+          />
+        )}
+        {(fieldData?.type === 'dynamic-select' && dynamicSelectOptions[fieldName]?.options?.length) && (
+          <Select
+            options={dynamicSelectOptions[fieldName].options || []}
+            defaultValue={defaultValues?.[fieldName] || ''}
+            label={t(`user.${fieldName}`)}
+            style={{ minWidth: 200 }}
+            error={!!errors[fieldName]}
+            valuePath="_id"
+            labelPath={dynamicSelectOptions[fieldName].labelPath}
             {...register(fieldName, {
               required: fieldData.required,
             })}

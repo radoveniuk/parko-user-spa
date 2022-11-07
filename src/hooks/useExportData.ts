@@ -41,6 +41,8 @@ export const useExportData = ({ data, colsToExport, cols, colsTitles, entity }: 
       link.click();
     }
     if (ext === 'xlsx') {
+      console.log(data);
+
       const dataToExport = [
         {
           sheet: 'Results',
