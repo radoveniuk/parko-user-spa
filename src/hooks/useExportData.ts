@@ -27,7 +27,7 @@ export const useExportData = ({ data, colsToExport, cols, colsTitles, entity }: 
           const exportItem: Record<string, string | boolean> = {};
           cols.forEach((key, index) => {
             if (colsToExport.includes(key)) {
-              exportItem[colsTitles ? t(colsTitles[index]) : t(`${entity}.${key}`)] = pickedItem[key] || '';
+              exportItem[colsTitles ? t(colsTitles[index]) : t(`${entity}.${key}`).replace(`${entity}.`, '')] = pickedItem[key] || '';
             }
           });
           return exportItem;
@@ -41,13 +41,14 @@ export const useExportData = ({ data, colsToExport, cols, colsTitles, entity }: 
       link.click();
     }
     if (ext === 'xlsx') {
-      console.log(data);
-
       const dataToExport = [
         {
           sheet: 'Results',
           columns: [
-            ...colsToExport.map((col, index) => ({ label: colsTitles ? t(colsTitles[index]) : t(`${entity}.${col}`), value: col })),
+            ...colsToExport.map((col, index) => ({
+              label: colsTitles ? t(colsTitles[index]) : t(`${entity}.${col}`).replace(`${entity}.`, ''),
+              value: col,
+            })),
           ],
           content: data,
         },

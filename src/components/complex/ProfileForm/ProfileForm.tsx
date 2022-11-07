@@ -269,7 +269,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
                     name={`customFields.${customField._id}`}
                     rules={{ required: customField.required }}
                     control={control}
-                    defaultValue={defaultValues?.customFields?.[customField._id as string] || ''}
+                    defaultValue={defaultValues?.customFields?.[customField._id as string]}
                     render={({ field }) => (
                       <CustomField
                         value={field.value}

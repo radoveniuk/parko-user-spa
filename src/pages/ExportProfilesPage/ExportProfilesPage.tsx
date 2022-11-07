@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { get } from 'lodash-es';
 
+import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import { ExportIcon } from 'components/icons';
@@ -23,10 +24,16 @@ import { IUser } from 'interfaces/users.interface';
 import { ExportProfilesWrapper } from './styles';
 
 const ExportResidencesPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
+
+  // custom cols
+  const { data: customFields = [] } = useGetCustomFormFields({
+    entity: 'user',
+  });
+  const customColumns = useMemo(() => customFields.map((customField) => customField.names[i18n.language]), [customFields, i18n.language]);
 
   const { data = [] } = useGetUserList();
   const users = useMemo(() => data.map((item) => {
@@ -59,15 +66,25 @@ const ExportResidencesPage = () => {
         }
       }
     });
+    customFields.forEach((customField) => {
+      const customFieldValue = newItem.customFields?.[customField._id];
+      newItem[customField.names[i18n.language]] = customFieldValue;
+      if (typeof customFieldValue === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(customFieldValue)) {
+        newItem[customField.names[i18n.language]] = getDateFromIso(customFieldValue);
+      }
+      if (typeof customFieldValue === 'boolean') {
+        newItem[customField.names[i18n.language]] = t(`${customFieldValue}`);
+      }
+    });
     return newItem as IUser;
-  }), [data, t]);
+  }), [customFields, data, i18n.language, t]);
 
   const [selectedProfiles, setSelectedProfiles] = useState<string[]>([]);
-  const [colsToExport, setColsToExport] = useState<(keyof IUser)[]>([]);
+  const [colsToExport, setColsToExport] = useState<string[]>([]);
   const exportData = useExportData({
     data: users.filter((item) => selectedProfiles.includes(item._id)),
     colsToExport,
-    cols: IMPORTABLE_USER_FIELDS,
+    cols: [...IMPORTABLE_USER_FIELDS, ...customColumns],
     entity: 'user',
   });
 
@@ -112,10 +129,10 @@ const ExportResidencesPage = () => {
           />
           <Checkbox
             title={t('selectAllCols')}
-            checked={colsToExport.length === IMPORTABLE_USER_FIELDS.length}
+            checked={colsToExport.length === [...IMPORTABLE_USER_FIELDS, ...customColumns].length}
             onChange={(e) => {
               if (e.target.checked) {
-                setColsToExport(IMPORTABLE_USER_FIELDS);
+                setColsToExport([...IMPORTABLE_USER_FIELDS, ...customColumns]);
                 return;
               }
               setColsToExport([]);
@@ -158,20 +175,28 @@ const ExportResidencesPage = () => {
           />
         </FiltersBar>
         <ListTable
-          columns={['', ...IMPORTABLE_USER_FIELDS]}
-          columnComponent={(col) => col && (
-            <Checkbox
-              title={t(`user.${col}`)}
-              checked={colsToExport.includes(col as keyof IUser)}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  setColsToExport((prev) => [...prev, col as keyof IUser]);
-                } else {
-                  setColsToExport((prev) => prev.filter((item) => item !== col));
-                }
-              }}
-            />
-          )}
+          columns={['', ...IMPORTABLE_USER_FIELDS, ...customColumns]}
+          columnComponent={(col) => {
+            if (col) {
+              let componentTitle = t(`user.${col}`);
+              if (customColumns.includes(col)) {
+                componentTitle = col;
+              }
+              return (
+                <Checkbox
+                  title={componentTitle}
+                  checked={colsToExport.includes(col as keyof IUser)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setColsToExport((prev) => [...prev, col as keyof IUser]);
+                    } else {
+                      setColsToExport((prev) => prev.filter((item) => item !== col));
+                    }
+                  }}
+                />
+              );
+            }
+          }}
           className="profiles-grid"
           stickyHeader
         >
@@ -185,6 +210,9 @@ const ExportResidencesPage = () => {
               </ListTableCell>
               {IMPORTABLE_USER_FIELDS.map((item) => (
                 <ListTableCell key={`${user._id}-${item}`}>{user[item] as string}</ListTableCell>
+              ))}
+              {customColumns.map((item) => (
+                <ListTableCell key={`${user._id}-${item}`}>{user[item as keyof IUser] as string}</ListTableCell>
               ))}
             </ListTableRow>
           ))}
