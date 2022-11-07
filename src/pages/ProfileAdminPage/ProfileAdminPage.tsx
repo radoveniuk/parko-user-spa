@@ -116,7 +116,7 @@ const ProfileAdminPage = () => {
         </TabsContainer>
       )}
       {openPrintDialog && profileData !== undefined && (
-        <PrintDocDialog ids={[profileData._id]} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
+        <PrintDocDialog users={[profileData]} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
       )}
       <Dialog title={t('user.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
         <DeleteDialogContent>

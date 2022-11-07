@@ -12,3 +12,8 @@ export const useUpdateDayoffMutation = () => {
   const request = (data: Partial<IDayOff>) => api.put(`/days-off/${data._id}`, data).then(res => res.data.data);
   return useMutation(request);
 };
+
+export const useDeleteDayoffMutation = () => {
+  const request = (id: string) => api.delete(`/days-off/${id}`).then(res => res.data.data);
+  return useMutation(request);
+};

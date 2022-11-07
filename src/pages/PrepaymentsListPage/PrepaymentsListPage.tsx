@@ -1,33 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
-import { useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
+import { useDeletePrepaymentMutation, useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
-import { BooleanIcon } from 'components/icons';
+import { BooleanIcon, CloseIcon, EditIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
+import DialogConfirm from 'components/shared/DialogConfirm';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { FilterDate } from 'components/shared/Filters/Filters';
+import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Page, { PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
-import { STATUSES } from 'constants/userStatuses';
+import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import useDebounce from 'hooks/useDebounce';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IPrepayment } from 'interfaces/prepayment.interface';
+import { IProject } from 'interfaces/project.interface';
+import { INewUser } from 'interfaces/users.interface';
 
 import { ApproveDialogWrapper } from './styles';
 
 const columns = [
   'prepayment.user',
+  'user.project',
+  'user.status',
   'prepayment.date',
   'prepayment.sum',
   'prepayment.comment',
   'prepayment.approved',
+  '',
+  '',
 ];
 
 const PrepaymentsListPageRender = () => {
@@ -40,8 +49,10 @@ const PrepaymentsListPageRender = () => {
   const { data: projects = [] } = useGetProjects();
   const { data: users = [] } = useGetUserListForFilter();
   const updatePrepaymentMutation = useUpdatePrepaymentMutation();
+  const deletePrepaymentMutation = useDeletePrepaymentMutation();
 
   const [selectedItem, setSelectedItem] = useState<IPrepayment | null>(null);
+  const [itemToDelete, setItemToDelete] = useState<string | null>(null);
 
   const updatePrepaymentHandler = (isApproved: boolean) => {
     if (selectedItem !== null) {
@@ -83,15 +94,42 @@ const PrepaymentsListPageRender = () => {
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={columns} >
-        {pageItems.map((item) => (
-          <ListTableRow key={item._id} onClick={() => void setSelectedItem(item)}>
-            <ListTableCell>{typeof item.user !== 'string' && `${item.user.name} ${item.user.surname}`}</ListTableCell>
-            <ListTableCell>{item.createdAt && getDateFromIso(item.createdAt)}</ListTableCell>
-            <ListTableCell>{`${item.sum}€`}</ListTableCell>
-            <ListTableCell>{item.userComment}</ListTableCell>
-            <ListTableCell><BooleanIcon value={item.isApproved} size={20} /></ListTableCell>
-          </ListTableRow>
-        ))}
+        {pageItems.map((item) => {
+          const user = item.user as INewUser;
+          const project = user.project as IProject;
+          return (
+            <ListTableRow key={item._id}>
+              <ListTableCell>
+                <Link
+                  to={`/profile/${user._id}`}
+                  className="table-link"
+                >
+                  {user.name} {user.surname}
+                </Link>
+              </ListTableCell>
+              <ListTableCell>
+                <Link
+                  to={`/projects?id=${project._id}`}
+                  className="table-link"
+                >
+                  {project.name}
+                </Link>
+              </ListTableCell>
+              <ListTableCell>
+                <p
+                  style={{ color: STATUSES_COLORS[user.status] }}>
+                  {t(`selects.userStatus.${user.status}`)}
+                </p>
+              </ListTableCell>
+              <ListTableCell>{item.createdAt && getDateFromIso(item.createdAt)}</ListTableCell>
+              <ListTableCell>{`${item.sum}€`}</ListTableCell>
+              <ListTableCell>{item.userComment}</ListTableCell>
+              <ListTableCell><BooleanIcon value={item.isApproved} size={20} /></ListTableCell>
+              <ListTableCell><IconButton onClick={() => void setSelectedItem(item)}><EditIcon /></IconButton></ListTableCell>
+              <ListTableCell><IconButton onClick={() => void setItemToDelete(item._id)}><CloseIcon /></IconButton></ListTableCell>
+            </ListTableRow>
+          );
+        })}
       </ListTable>
       <Pagination {...paginationConfig} />
       {!!selectedItem && (
@@ -110,6 +148,16 @@ const PrepaymentsListPageRender = () => {
           </ApproveDialogWrapper>
         </Dialog>
       )}
+      <DialogConfirm
+        onClose={() => void setItemToDelete(null)}
+        open={!!itemToDelete}
+        onSubmit={() => {
+          deletePrepaymentMutation.mutateAsync(itemToDelete as string).then(() => {
+            setItemToDelete(null);
+            refetch();
+          });
+        }}
+      />
     </Page>
   );
 };

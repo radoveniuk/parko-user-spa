@@ -52,7 +52,7 @@ const CustomFields = ({
   const queryClient = useQueryClient();
   const { data: projects = [] } = useGetProjects();
 
-  const { data: customFields = [] } = useGetCustomFormFields({ entity });
+  const { data: customFields = [], refetch } = useGetCustomFormFields({ entity });
   const createCustomField = useCreateCustomFormFieldMutation();
   const updateCustomField = useUpdateCustomFormFieldMutation();
   const deleteCustomField = useDeleteCustomFormFieldMutation();
@@ -66,9 +66,21 @@ const CustomFields = ({
   const [nameToTranslate, setNameToTranslate] = useState<{ fromLang: string; text: '' } | null>(null);
   const debouncedNameToTranslate = useDebounce(nameToTranslate, 1500);
 
+  const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (projects?.length && activeCustomField) {
+      setSelectedProjects(projects?.length ? activeCustomField.projects || [] : []);
+    }
+  }, [activeCustomField, projects?.length]);
+
   const submitSaveField: SubmitHandler<ICustomFormField> = (data) => {
+    const valuesToSave = {
+      ...data,
+      projects: selectedProjects,
+    };
     if (!data._id) {
-      createCustomField.mutateAsync(data).then((res) => {
+      createCustomField.mutateAsync(valuesToSave).then((res) => {
         queryClient.setQueryData(['customFormFields', JSON.stringify({ entity })], [res, ...customFields]);
         setActiveCustomField(null);
         setTimeout(() => {
@@ -76,7 +88,7 @@ const CustomFields = ({
         });
       });
     } else {
-      updateCustomField.mutate(data);
+      updateCustomField.mutateAsync(valuesToSave).then(() => void refetch());
     }
   };
 
@@ -161,15 +173,28 @@ const CustomFields = ({
               defaultValue={activeCustomField.type || ''}
               {...register('type')}
             />
+          </div>
+          <div className="config-wrapper">
             <Select
-              defaultValue={projects?.length ? activeCustomField.projects || '' : ''}
               multiple
+              value={selectedProjects}
               label={t('customForms.projects')}
               options={projects}
               valuePath="_id"
               labelPath="name"
-              {...register('projects')}
+              onChange={(e) => {
+                setSelectedProjects(e.target.value as string[]);
+              }}
             />
+            <Checkbox
+              checked={selectedProjects.length === projects.length}
+              title={t('selectAll')}
+              onChange={(e) => {
+                setSelectedProjects(e.target.checked ? projects.map((item) => item._id) : []);
+              }}
+            />
+          </div>
+          <div className="config-wrapper">
             <Checkbox defaultChecked={activeCustomField.required} title={t('customForms.required')} {...register('required')} />
           </div>
           <Controller
