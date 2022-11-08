@@ -1,8 +1,9 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCSVReader } from 'react-papaparse';
 import { invert, omit } from 'lodash-es';
 
+import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { UploadIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Select from 'components/shared/Select';
@@ -33,12 +34,21 @@ const styles = {
 };
 
 const FileUploading = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { CSVReader } = useCSVReader();
   const [fileKeys, setFileKeys] = useFileKeys();
   const [relativeFields, setRelativeFields] = useRelativeFields();
   const [rows, setRows] = useRows();
   const translatedUserFields = useTranslatedSelect(IMPORTABLE_USER_FIELDS, 'user', false, true);
+
+  // custom cols
+  const { data: customFieldsData = [] } = useGetCustomFormFields({
+    entity: 'user',
+  });
+  const customUserFields = useMemo(() => customFieldsData.map((customField) => ({
+    value: customField._id,
+    label: customField.names[i18n.language],
+  })), [customFieldsData, i18n.language]);
 
   const reset = () => {
     setFileKeys([]);
@@ -52,14 +62,15 @@ const FileUploading = () => {
         onUploadAccepted={(res: any) => {
           setFileKeys(res.data?.[0]);
           const [headerRow, ...newRows] = res.data;
-          newRows.pop();
-          setRows(newRows.map((rowItems: string[]) => {
-            const rowObject: AnyObject = {};
-            rowItems.forEach((rowItem, index) => {
-              rowObject[headerRow[index]] = rowItem;
-            });
-            return rowObject;
-          }));
+          setRows(newRows
+            .filter((rowItems: string[]) => rowItems.some((rowItem) => !!rowItem))
+            .map((rowItems: string[]) => {
+              const rowObject: AnyObject = {};
+              rowItems.forEach((rowItem, index) => {
+                rowObject[headerRow[index]] = rowItem;
+              });
+              return rowObject;
+            }));
         }}
       >
         {({
@@ -98,7 +109,7 @@ const FileUploading = () => {
                     <div key={fileKey} style={{ display: 'contents' }}>
                       <div>{fileKey}</div>
                       <Select
-                        options={translatedUserFields}
+                        options={[...translatedUserFields, ...customUserFields]}
                         onChange={(e) => {
                           setRelativeFields((prevValue) => {
                             let newValue = prevValue;

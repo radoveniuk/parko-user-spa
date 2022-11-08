@@ -7,6 +7,8 @@ import { useUploadUsersMutation } from 'api/mutations/userMutation';
 import Button from 'components/shared/Button';
 import Page, { PageTitle } from 'components/shared/Page';
 import Stepper from 'components/shared/Stepper';
+import { isMongoId } from 'helpers/regex';
+import { AnyObject } from 'interfaces/base.types';
 
 import FileUploading from './steps/FileUploading';
 import Result from './steps/Result';
@@ -32,7 +34,18 @@ const UploadProfilesPageRender = () => {
   const handleBack = () => void setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
   const uploadResult = () => {
-    uploadUsersMutation.mutateAsync(usersResult)
+    const dataToUpload = usersResult.map((oldItem) => {
+      const item: AnyObject = { ...oldItem, customFields: {} };
+      Object.keys(oldItem).forEach((oldKey) => {
+        if (isMongoId(oldKey)) {
+          item.customFields[oldKey] = item[oldKey];
+          delete item[oldKey];
+        }
+      });
+      return item;
+    });
+
+    uploadUsersMutation.mutateAsync(dataToUpload)
       .then((e) => {
         console.log(e);
         handleNext();

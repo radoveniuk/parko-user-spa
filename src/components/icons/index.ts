@@ -9,6 +9,7 @@ export { BiMenuAltLeft as SelectMenuIcon } from 'react-icons/bi';
 export { BsFillCloudUploadFill as UploadIcon } from 'react-icons/bs';
 export { BsPlus as PlusIcon } from 'react-icons/bs';
 export { BsEyeFill as EyeIcon } from 'react-icons/bs';
+export { BsEyeSlashFill as EyeSlashIcon } from 'react-icons/bs';
 export { FaUserTie as UserIcon } from 'react-icons/fa';
 export { FaUsers as UsersIcon } from 'react-icons/fa';
 export { FaFileDownload as DownloadFileIcon } from 'react-icons/fa';
