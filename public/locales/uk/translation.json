@@ -148,7 +148,11 @@
     "DIC": "DIČ",
     "permitAdress": "Реєстраційна адреса",
     "permitDepartment": "Районний відділ",
-    "permitNumber": "Номер запису в реєстрі"
+    "permitNumber": "Номер запису в реєстрі",
+    "blocked": "Black list",
+    "notes": "Notes",
+    "oldPassword": "Old password",
+    "newPassword": "New password"
   },
   "userUpload": {
     "title": "Імпорт профілів",
@@ -334,6 +338,11 @@
     "print": "Згенерувати документ",
     "fieldName": "Назва поля",
     "fieldCode": "Код в шаблоні"
+  },
+  "errorTexts": {
+    "emptyPassword": "Пароль не може бути пустим",
+    "passwordsNotMatched": "Паролі не співпадають",
+    "wrongOldPassword": "Помилковий попередній пароль"
   },
   "fastActions": "Дії",
   "language": "Мова",

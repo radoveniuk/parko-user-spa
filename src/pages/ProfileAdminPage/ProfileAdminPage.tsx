@@ -13,7 +13,7 @@ import Paychecks from 'components/complex/Paychecks';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import ProfileForm from 'components/complex/ProfileForm';
 import ProfileScans from 'components/complex/ProfileScans';
-import { DeleteIcon, EmailIcon, NotificationIcon, PhoneIcon, PrintIcon } from 'components/icons';
+import { DeleteIcon, EmailIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
 import Page from 'components/shared/Page';
@@ -29,6 +29,7 @@ import { SM } from 'theme/sizeBreakpoints';
 
 import Daysoff from './Daysoff';
 import Prepayments from './Prepayments';
+import ResetPasswordDialog from './ResetPasswordDialog';
 import Residences from './Residences';
 import SalarySettings from './SalarySettings';
 import { DeleteDialogContent, ProfileCard, ProfileDataWrapper, ProfileTabContent } from './styles';
@@ -56,12 +57,15 @@ const ProfileAdminPageRender = () => {
   const deleteUserMutation = useDeleteUserMutation();
   const navigate = useNavigate();
 
+  const [openResetPass, setOpenResetPass] = useState(false);
+
   const updateUser = (values: Partial<IUser>) => {
     if (userId) {
       updateUserMutation.mutateAsync({ ...values, _id: userId, project: values.project || null })
         .then(() => {
           refetch();
           enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
+          setOpenResetPass(false);
         });
     }
   };
@@ -101,11 +105,12 @@ const ProfileAdminPageRender = () => {
         </Button>
       )}
       {activeTab === 0 && (
-        <Button variant="outlined">
-          {t('user.password')}
+        <Button variant="outlined" color="error" onClick={() => void setOpenResetPass(true)}>
+          <PasswordIcon />
+          {t('user.resetPassword')}
         </Button>
       )}
-      <Button variant="outlined" color="error" onClick={() => void setIsOpenDeleteDialog(true)} className="delete-button">
+      <Button color="error" onClick={() => void setIsOpenDeleteDialog(true)} className="delete-button">
         <DeleteIcon/>
         {t('project.delete')}
       </Button>
@@ -244,6 +249,9 @@ const ProfileAdminPageRender = () => {
           <div className="actions"><Button color="error" onClick={deleteUser}>{t('user.approve')}</Button></div>
         </DeleteDialogContent>
       </Dialog>
+      {openResetPass && (
+        <ResetPasswordDialog open={openResetPass} onClose={() => void setOpenResetPass(false)} onUpdate={updateUser} />
+      )}
     </Page>
   );
 };

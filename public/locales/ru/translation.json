@@ -150,7 +150,9 @@
     "permitDepartment": "Районное управление",
     "permitNumber": "Номер записи в реестре",
     "blocked": "Черный список",
-    "notes": "Заметки"
+    "notes": "Заметки",
+    "oldPassword": "Предыдущий пароль",
+    "newPassword": "Новый пароль"
   },
   "userUpload": {
     "title": "Импорт пользователей",
@@ -336,6 +338,11 @@
     "print": "Генерация документа",
     "fieldName": "Название поля",
     "fieldCode": "Код в шаблоне"
+  },
+  "errorTexts": {
+    "emptyPassword": "Пароль не может быть пустым",
+    "passwordsNotMatched": "Пароли не совпадают",
+    "wrongOldPassword": "Неверный старый пароль"
   },
   "fastActions": "Действия",
   "language": "Язык",

@@ -147,7 +147,11 @@
     "DIC": "DIČ",
     "permitAdress": "Permit register adress",
     "permitDepartment":"Permit department",
-    "permitNumber": "Permit document number"
+    "permitNumber": "Permit document number",
+    "blocked": "Чорний список",
+    "notes": "Примітки",
+    "oldPassword": "Попередній пароль",
+    "newPassword": "Новий пароль"
   },
   "userUpload": {
     "title": "Upload users",
@@ -333,6 +337,11 @@
     "print": "Print docs",
     "fieldName": "Field name",
     "fieldCode": "Template code"
+  },
+  "errorTexts": {
+    "emptyPassword": "Password is empty",
+    "passwordsNotMatched": "Passwords does not match",
+    "wrongOldPassword": "Wrong old password"
   },
   "fastActions": "Operations",
   "language": "Language",
