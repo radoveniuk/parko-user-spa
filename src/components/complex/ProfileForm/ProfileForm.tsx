@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import _ from 'lodash-es';
 
 import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
+import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import Accordion from 'components/shared/Accordion';
 import BooleanSelect from 'components/shared/BooleanSelect';
@@ -12,7 +13,7 @@ import Input from 'components/shared/Input';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import Select from 'components/shared/Select';
 import { COUNTRIES } from 'constants/countries';
-import { EMPLOYMENT_TYPE, FAMILY_STATUSES, PERMIT_TYPES, SIZES, STUDY } from 'constants/selectsOptions';
+import { EMPLOYMENT_TYPE, FAMILY_STATUSES, SIZES, STUDY } from 'constants/selectsOptions';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
@@ -37,9 +38,11 @@ const ProfileForm = ({ defaultValues }: Props) => {
 
   // options
   const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
+  const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
+  const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
+  const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
   const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
   const studyOptions = useTranslatedSelect(STUDY, 'study');
-  const permitTypeOptions = useTranslatedSelect(PERMIT_TYPES, 'permitType');
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
   const sexOptions = useTranslatedSelect(['male', 'female']);
 
@@ -53,13 +56,12 @@ const ProfileForm = ({ defaultValues }: Props) => {
   const selectOptions: AnyObject = useMemo(() => ({
     pantsSize: SIZES,
     tshortSize: SIZES,
-    permitType: permitTypeOptions,
     country: COUNTRIES.sort(),
     familyState: familyStateOptions,
     study: studyOptions,
     sex: sexOptions,
     employmentType: employmentTypeOptions,
-  }), [employmentTypeOptions, familyStateOptions, permitTypeOptions, sexOptions, studyOptions]);
+  }), [employmentTypeOptions, familyStateOptions, sexOptions, studyOptions]);
 
   const dynamicSelectOptions: AnyObject = useMemo(() => ({
     recruiter: {
@@ -67,10 +69,18 @@ const ProfileForm = ({ defaultValues }: Props) => {
       labelPath: 'label',
     },
     source: {
-      options: recruiters.map((item) => ({ _id: item._id, label: `${item.name} ${item.surname}` })),
+      options: sourceDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
       labelPath: 'label',
     },
-  }), [recruiters]);
+    permitType: {
+      options: permitTypeDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
+      labelPath: 'label',
+    },
+    cooperationType: {
+      options: cooperationTypeDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
+      labelPath: 'label',
+    },
+  }), [cooperationTypeDictionary?.options, permitTypeDictionary?.options, recruiters, sourceDictionary?.options]);
 
   const generateAccordionContent = (fields: UserFieldsList) => {
     const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => (

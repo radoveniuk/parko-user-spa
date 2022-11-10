@@ -59,6 +59,7 @@ export interface IUser {
   shoesSize: string;
   // work data
   employmentType: string;
+  cooperationType: string;
   position: string;
   cooperationStartDate: string;
   cooperationEndDate: string;

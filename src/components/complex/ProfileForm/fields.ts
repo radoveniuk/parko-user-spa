@@ -89,7 +89,7 @@ export const PERMIT_FIELDS: UserFieldsList = {
     type: 'string',
   },
   permitType: {
-    type: 'select',
+    type: 'dynamic-select',
   },
   permitStartDate: {
     type: 'date',
@@ -133,8 +133,8 @@ export const BIOMETRY_FIELDS: UserFieldsList = {
 };
 
 export const WORK_FIELDS: UserFieldsList = {
-  employmentType: {
-    type: 'select',
+  cooperationType: {
+    type: 'dynamic-select',
   },
   position: {
     type: 'string',
