@@ -149,10 +149,11 @@
     "permitAdress": "Реєстраційна адреса",
     "permitDepartment": "Районний відділ",
     "permitNumber": "Номер запису в реєстрі",
-    "blocked": "Black list",
-    "notes": "Notes",
-    "oldPassword": "Old password",
-    "newPassword": "New password"
+    "blocked": "Чорний список",
+    "notes": "Примітки",
+    "oldPassword": "Попередній пароль",
+    "newPassword": "Новий пароль",
+    "cooperationType": "Тип співпраці"
   },
   "userUpload": {
     "title": "Імпорт профілів",
@@ -163,8 +164,7 @@
     "fileUploading": "Завантаження файлу",
     "resultPreview": "Перегляд",
     "finish": "Імпорт",
-    "successText": "Профілі користувачі завантажено. Це - пароль за замовчуванням, скопіюйте його та надішліть користувачам",
-    "errorText": "Щось пішло не так"
+    "successText": "Профілі користувачі завантажено. Це - пароль за замовчуванням, скопіюйте його та надішліть користувачам"
   },
   "prepayment": {
     "date": "Дата",
@@ -242,7 +242,8 @@
       "boolean": "Так/Ні",
       "number": "Число",
       "phone": "Телефон",
-      "date": "Дата"
+      "date": "Дата",
+      "select": "Випадаючий список"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -310,7 +311,8 @@
     "section": "Секція на формі",
     "save": "Зберегти",
     "delete":"Видалити",
-    "order": "Порядок"
+    "order": "Порядок",
+    "source":"Джерело"
   },
   "accommodation": {
     "owner": "Власник",
@@ -339,10 +341,16 @@
     "fieldName": "Назва поля",
     "fieldCode": "Код в шаблоні"
   },
+  "dictionaries": "Списки",
+  "dictionary": {
+    "name": "Назва",
+    "addOption": "Додати варіант"
+  },
   "errorTexts": {
     "emptyPassword": "Пароль не може бути пустим",
     "passwordsNotMatched": "Паролі не співпадають",
-    "wrongOldPassword": "Помилковий попередній пароль"
+    "wrongOldPassword": "Помилковий попередній пароль",
+    "sww": "Щось пішло не так"
   },
   "fastActions": "Дії",
   "language": "Мова",

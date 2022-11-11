@@ -1,47 +1,96 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 
-// import { useTranslation } from 'react-i18next';
+import { useCreateDictionaryMutation, useDeleteDictionaryMutation, useUpdateDictionaryMutation } from 'api/mutations/dictionaryMutation';
 import { useGetDictionaries } from 'api/query/dictionariesQuery';
+import { PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
+import Chip from 'components/shared/Chip';
+import DialogConfirm from 'components/shared/DialogConfirm';
+import IconButton from 'components/shared/IconButton';
+import Input from 'components/shared/Input';
 import List from 'components/shared/List';
 import { IDictionary } from 'interfaces/dictionary.interface';
 
 import { DictionariesWrapper } from './styles';
 
+const DEFAULT_FORM_VALUES: Partial<IDictionary> = {
+  name: '',
+  options: [],
+  disabled: false,
+};
+
 const Dictionaries = () => {
-  // const { i18n } = useTranslation();
+  const { t } = useTranslation();
+  const { enqueueSnackbar } = useSnackbar();
 
-  const { data: customFields = [] } = useGetDictionaries();
-  // const createCustomField = useCreateCustomFormFieldMutation();
-  // const updateCustomField = useUpdateCustomFormFieldMutation();
-  // const deleteCustomField = useDeleteCustomFormFieldMutation();
+  const { data: dictionaries = [], refetch } = useGetDictionaries();
+  const createDictionary = useCreateDictionaryMutation();
+  const updateDictionary = useUpdateDictionaryMutation();
+  const deleteDictionary = useDeleteDictionaryMutation();
 
-  // const { register, handleSubmit, reset, formState: { errors }, control, getValues, setValue } = useForm<IDictionary>();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<IDictionary>();
 
   const [activeDictionary, setActiveDictionary] = useState<Partial<IDictionary> | null>(null);
-  // const [dictionaryToDelete, setDictionaryToDelete] = useState<Partial<IDictionary> | null>(null);
+  const [dictionaryToDelete, setDictionaryToDelete] = useState<Partial<IDictionary> | null>(null);
 
-  // const submitSaveField: SubmitHandler<IDictionary> = (data) => {
-  //   console.log(data);
+  const [dictionaryOptions, setDictionaryOptions] = useState<string[] | null>(null);
+  const [optionText, setOptionText] = useState('');
 
-  //   if (!data._id) {
-  //     // TODO create
-  //   } else {
-  //     // TODO update
-  //   }
-  // };
+  const addOption = () => {
+    if (!optionText) return;
+    setDictionaryOptions((prev) => {
+      const dictionarySet = new Set(prev || []);
+      dictionarySet.add(optionText);
+      return [...Array.from(dictionarySet)];
+    });
+    setOptionText('');
+  };
 
-  // useEffect(() => {
-  //   if (activeCustomField !== null) {
-  //     reset(activeCustomField);
-  //   }
-  // }, [activeCustomField, reset]);
+  const removeOption = (option: string) => {
+    setDictionaryOptions((prev) => prev?.filter((filterOption) => filterOption !== option) || null);
+    setOptionText('');
+  };
+
+  const submitSave: SubmitHandler<IDictionary> = (values) => {
+    const data: IDictionary = { ...values, options: dictionaryOptions || [] };
+    if (!data._id) {
+      createDictionary.mutateAsync(data)
+        .then(() => void refetch())
+        .catch(() => {
+          enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
+        });
+    } else {
+      updateDictionary.mutateAsync(data)
+        .then(() => void refetch())
+        .catch(() => {
+          enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
+        });
+    }
+  };
+
+  const submitDelete = () => {
+    if (!dictionaryToDelete?._id) return;
+    deleteDictionary.mutateAsync(dictionaryToDelete._id).then(() => {
+      refetch();
+      setDictionaryToDelete(null);
+      setDictionaryOptions(null);
+    });
+  };
+
+  useEffect(() => {
+    if (activeDictionary !== null) {
+      reset(activeDictionary);
+    }
+  }, [activeDictionary, reset]);
 
   return (
     <DictionariesWrapper>
       <List<IDictionary>
-        className="custom-fields-list"
-        data={customFields}
+        className="dictionaries-list"
+        data={dictionaries}
         fields={{
           primary: 'name',
         }}
@@ -49,89 +98,70 @@ const Dictionaries = () => {
           setActiveDictionary(null);
           setTimeout(() => {
             setActiveDictionary(item);
+            setDictionaryOptions(item.options);
           });
         }}
         defaultSelected={activeDictionary?._id}
       />
-      {/* {activeCustomField !== null && (
-        <form onSubmit={handleSubmit(submitSaveField)} className="update-custom-field-form">
-          <span className="form-label">{t('customForms.names')}</span>
-          <div className="config-wrapper">
-            {LANGUAGES.map((item) => (
-              <Input
-                key={item.code}
-                label={`${item.code} - ${item.title}`}
-                InputLabelProps={{ shrink: true }}
-                error={!!errors.names?.[item.code]}
-                {...register(`names.${item.code}`, {
-                  required: true,
-                  onChange: (e) => {
-                    setNameToTranslate({ text: e.target.value, fromLang: item.code });
-                  },
-                })}
+      {activeDictionary !== null && (
+        <div className="form">
+          <Input
+            label={t('dictionary.name')}
+            error={!!errors.name}
+            disabled={activeDictionary.disabled}
+            {...register('name', {
+              required: true,
+            })}
+          />
+          <Input
+            label={t('dictionary.addOption')}
+            value={optionText}
+            onChange={(e) => void setOptionText(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                addOption();
+              }
+            }}
+            InputProps={{
+              endAdornment: (
+                <IconButton onClick={addOption}><PlusIcon /></IconButton>
+              ),
+            }}
+          />
+          <div className="chips-wrapper">
+            {dictionaryOptions?.map((option) => (
+              <Chip
+                key={option}
+                label={option}
+                onDelete={() => void removeOption(option)}
               />
             ))}
           </div>
-          <span className="form-label">{t('customForms.configuration')}</span>
           <div className="config-wrapper">
-            <Select
-              options={fieldTypeOptions}
-              label={t('customForms.type')}
-              defaultValue={activeCustomField.type || ''}
-              {...register('type')}
-            />
-          </div>
-          <div className="config-wrapper">
-            <Select
-              multiple
-              value={selectedProjects}
-              label={t('customForms.projects')}
-              options={projects}
-              valuePath="_id"
-              labelPath="name"
-              onChange={(e) => {
-                setSelectedProjects(e.target.value as string[]);
-              }}
-            />
-            <Checkbox
-              checked={selectedProjects.length === projects.length}
-              title={t('selectAll')}
-              onChange={(e) => {
-                setSelectedProjects(e.target.checked ? projects.map((item) => item._id) : []);
-              }}
-            />
-          </div>
-          <div className="config-wrapper">
-            <Checkbox defaultChecked={activeCustomField.required} title={t('customForms.required')} {...register('required')} />
-          </div>
-          <Controller
-            control={control}
-            name="section"
-            defaultValue={activeCustomField.section}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <CustomSections value={field.value} onChange={field.onChange} entity={entity} />
-            )}
-          />
-          <div className="config-wrapper">
-            <Button type="submit">{t('customForms.save')}</Button>
-            {!!activeCustomField._id && (
+            <Button type="button" onClick={handleSubmit(submitSave)}>{t('customForms.save')}</Button>
+            {!!activeDictionary._id && !activeDictionary.disabled && (
               <Button
                 color="error"
                 variant="outlined"
                 type="button"
-                onClick={() => void setCustomFieldToDelete(activeCustomField)}
-              >{t('customForms.delete')}</Button>
+                onClick={() => void setDictionaryToDelete(activeDictionary)}
+              >
+                {t('customForms.delete')}
+              </Button>
             )}
           </div>
-        </form>
-      )} */}
+        </div>
+      )}
       <Button
-        className="create-custom-field-button"
+        className="create-fab"
         onClick={() => {
-          setActiveDictionary(null);
+          setActiveDictionary(DEFAULT_FORM_VALUES);
+          setDictionaryOptions(null);
         }}
       >+</Button>
+      {dictionaryToDelete !== null && (
+        <DialogConfirm open={!!dictionaryToDelete} onClose={() => void setDictionaryToDelete(null)} onSubmit={submitDelete} />
+      )}
     </DictionariesWrapper>
   );
 };

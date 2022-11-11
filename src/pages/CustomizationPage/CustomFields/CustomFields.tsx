@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import { useSnackbar } from 'notistack';
 
 import {
   useCreateCustomFormFieldMutation,
@@ -9,6 +10,7 @@ import {
   useUpdateCustomFormFieldMutation,
 } from 'api/mutations/customFormsMutation';
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
+import { useGetDictionaries } from 'api/query/dictionariesQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { fetchTranslation } from 'api/query/translationQuery';
 import Button from 'components/shared/Button';
@@ -20,12 +22,13 @@ import Select from 'components/shared/Select';
 import { LANGUAGES } from 'constants/languages';
 import useDebounce from 'hooks/useDebounce';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IDictionary } from 'interfaces/dictionary.interface';
 import { CustomFormEntity, CustomFormFieldType, ICustomFormField } from 'interfaces/form.interface';
 
 import CustomSections from './CustomSections';
 import { CustomFieldsWrapper } from './styles';
 
-const CUSTOM_FIELD_TYPES: CustomFormFieldType[] = ['boolean', 'date', 'number', 'phone', 'string'];
+const CUSTOM_FIELD_TYPES: CustomFormFieldType[] = ['boolean', 'date', 'number', 'phone', 'string', 'select'];
 
 const DEFAULT_CUSTOM_FIELD: Partial<ICustomFormField> = {
   entity: 'user',
@@ -50,6 +53,7 @@ const CustomFields = ({
 }: Props) => {
   const { i18n, t } = useTranslation();
   const queryClient = useQueryClient();
+  const { enqueueSnackbar } = useSnackbar();
   const { data: projects = [] } = useGetProjects();
 
   const { data: customFields = [], refetch } = useGetCustomFormFields({ entity });
@@ -57,11 +61,12 @@ const CustomFields = ({
   const updateCustomField = useUpdateCustomFormFieldMutation();
   const deleteCustomField = useDeleteCustomFormFieldMutation();
 
-  const { register, handleSubmit, reset, formState: { errors }, control, getValues, setValue } = useForm<ICustomFormField>();
+  const { register, handleSubmit, reset, formState: { errors }, control, getValues, setValue, watch } = useForm<ICustomFormField>();
 
   const [activeCustomField, setActiveCustomField] = useState<Partial<ICustomFormField> | null>(null);
   const [customFieldToDelete, setCustomFieldToDelete] = useState<Partial<ICustomFormField> | null>(null);
   const fieldTypeOptions = useTranslatedSelect(CUSTOM_FIELD_TYPES, 'customForms');
+  const { data: dictionaries } = useGetDictionaries();
 
   const [nameToTranslate, setNameToTranslate] = useState<{ fromLang: string; text: '' } | null>(null);
   const debouncedNameToTranslate = useDebounce(nameToTranslate, 1500);
@@ -80,15 +85,23 @@ const CustomFields = ({
       projects: selectedProjects,
     };
     if (!data._id) {
-      createCustomField.mutateAsync(valuesToSave).then((res) => {
-        queryClient.setQueryData(['customFormFields', JSON.stringify({ entity })], [res, ...customFields]);
-        setActiveCustomField(null);
-        setTimeout(() => {
-          setActiveCustomField(res);
+      createCustomField.mutateAsync(valuesToSave)
+        .then((res) => {
+          queryClient.setQueryData(['customFormFields', JSON.stringify({ entity })], [res, ...customFields]);
+          setActiveCustomField(null);
+          setTimeout(() => {
+            setActiveCustomField(res);
+          });
+        })
+        .catch(() => {
+          enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
         });
-      });
     } else {
-      updateCustomField.mutateAsync(valuesToSave).then(() => void refetch());
+      updateCustomField.mutateAsync(valuesToSave)
+        .then(() => void refetch())
+        .catch(() => {
+          enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
+        });
     }
   };
 
@@ -173,6 +186,17 @@ const CustomFields = ({
               defaultValue={activeCustomField.type || ''}
               {...register('type')}
             />
+            {watch('type') === 'select' && (
+              <Select
+                options={dictionaries}
+                label={t('customForms.source')}
+                defaultValue={(activeCustomField.source as IDictionary)?._id || ''}
+                valuePath="_id"
+                labelPath="name"
+                error={!!errors.source}
+                {...register('source', { required: true })}
+              />
+            )}
           </div>
           <div className="config-wrapper">
             <Select

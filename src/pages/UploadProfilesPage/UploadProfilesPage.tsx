@@ -51,7 +51,7 @@ const UploadProfilesPageRender = () => {
         handleNext();
       })
       .catch(() => {
-        enqueueSnackbar(t('userUpload.errorText'), { variant: 'error' });
+        enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
       });
   };
 

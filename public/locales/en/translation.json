@@ -148,10 +148,11 @@
     "permitAdress": "Permit register adress",
     "permitDepartment":"Permit department",
     "permitNumber": "Permit document number",
-    "blocked": "Чорний список",
-    "notes": "Примітки",
-    "oldPassword": "Попередній пароль",
-    "newPassword": "Новий пароль"
+    "blocked": "Black list",
+    "notes": "Notes",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "cooperationType": "Cooperation type"
   },
   "userUpload": {
     "title": "Upload users",
@@ -162,8 +163,7 @@
     "fileUploading": "Upload file",
     "resultPreview": "Result preview",
     "finish": "Finish",
-    "successText": "Users have been imported. This is default users password, you can copy it and send to users",
-    "errorText": "Something went wrong"
+    "successText": "Users have been imported. This is default users password, you can copy it and send to users"
   },
   "prepayment": {
     "date": "Date",
@@ -241,7 +241,8 @@
       "boolean": "Yes/No",
       "number": "Number",
       "phone": "Phone number",
-      "date": "Date"
+      "date": "Date",
+      "select": "Dropdown list"
     }
   },
   "notFoundPage": "Page not found",
@@ -309,7 +310,8 @@
     "section": "Form's section",
     "save": "Save",
     "delete":"Delete",
-    "order": "Order"
+    "order": "Order",
+    "source": "Source"
   },
   "accommodation": {
     "owner": "Owner",
@@ -338,10 +340,16 @@
     "fieldName": "Field name",
     "fieldCode": "Template code"
   },
+  "dictionaries": "Lists",
+  "dictionary": {
+    "name": "Name",
+    "addOption": "Add new option"
+  },
   "errorTexts": {
     "emptyPassword": "Password is empty",
     "passwordsNotMatched": "Passwords does not match",
-    "wrongOldPassword": "Wrong old password"
+    "wrongOldPassword": "Wrong old password",
+    "sww": "Something went wrong"
   },
   "fastActions": "Operations",
   "language": "Language",

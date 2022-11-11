@@ -8,7 +8,7 @@ export const DictionariesWrapper = styled.div`
   display: flex;
   border-top: 1px solid ${borderColor};
 
-  .custom-fields-list {
+  .dictionaries-list {
     border-right: 1px solid ${borderColor};
     min-width: 33%;
     max-height: calc(100vh - 190px);
@@ -16,7 +16,7 @@ export const DictionariesWrapper = styled.div`
     overflow-y: auto;
   }
 
-  .create-custom-field-button {
+  .create-fab {
     position: absolute;
     bottom: 30px;
     right: 10px;
@@ -28,14 +28,26 @@ export const DictionariesWrapper = styled.div`
     font-size: 30px;
   }
 
-  form {
+  .form {
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 
+    .MuiTextField-root {
+      max-width: 300px;
+    }
+
     .form-label {
       color: ${themeConfig.palette.primary.main};
+    }
+
+    .chips-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      flex-wrap: wrap;
+      overflow: auto;
     }
 
     .config-wrapper {

@@ -39,6 +39,9 @@ const ProfilePage = () => {
         .then(() => {
           enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
           navigate(-1);
+        })
+        .catch(() => {
+          enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
         });
     } else {
       const updatedUserData = { ...data, ...values };

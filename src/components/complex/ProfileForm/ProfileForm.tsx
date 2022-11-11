@@ -41,6 +41,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
+  const { data: profilePositionDictionary } = useGetDictionary('PROFILE_POSITIONS');
   const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
   const studyOptions = useTranslatedSelect(STUDY, 'study');
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
@@ -80,7 +81,11 @@ const ProfileForm = ({ defaultValues }: Props) => {
       options: cooperationTypeDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
       labelPath: 'label',
     },
-  }), [cooperationTypeDictionary?.options, permitTypeDictionary?.options, recruiters, sourceDictionary?.options]);
+    position: {
+      options: profilePositionDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
+      labelPath: 'label',
+    },
+  }), [cooperationTypeDictionary?.options, permitTypeDictionary?.options, profilePositionDictionary?.options, recruiters, sourceDictionary?.options]);
 
   const generateAccordionContent = (fields: UserFieldsList) => {
     const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => (

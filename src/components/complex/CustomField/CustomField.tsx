@@ -5,6 +5,8 @@ import BooleanSelect from 'components/shared/BooleanSelect';
 import DatePicker from 'components/shared/DatePicker';
 import Input from 'components/shared/Input';
 import PhoneInput from 'components/shared/PhoneInput';
+import Select from 'components/shared/Select';
+import { IDictionary } from 'interfaces/dictionary.interface';
 import { ICustomFormField } from 'interfaces/form.interface';
 
 type CustomFieldProps = {
@@ -18,8 +20,6 @@ const CustomField = ({ value, onChange, metadata }: CustomFieldProps) => {
   const { type } = metadata;
 
   const textChange = (e: any) => void onChange(e.target.value);
-
-  if (type === 'string') return <Input value={value} onChange={textChange} label={metadata.names[i18n.language]} />;
 
   if (type === 'number') return <Input value={value} onChange={textChange} label={metadata.names[i18n.language]} type="number" />;
 
@@ -37,7 +37,18 @@ const CustomField = ({ value, onChange, metadata }: CustomFieldProps) => {
 
   if (type === 'date') return <DatePicker value={value as string || ''} onChange={onChange} label={metadata.names[i18n.language]} />;
 
-  return null;
+  if (type === 'select') {
+    return (
+      <Select
+        value={value as string || ''}
+        options={(metadata.source as IDictionary).options}
+        onChange={onChange}
+        label={metadata.names[i18n.language]}
+      />
+    );
+  }
+
+  return <Input value={value} onChange={textChange} label={metadata.names[i18n.language]} />;
 };
 
 export default CustomField;

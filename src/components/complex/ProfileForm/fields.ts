@@ -137,7 +137,7 @@ export const WORK_FIELDS: UserFieldsList = {
     type: 'dynamic-select',
   },
   position: {
-    type: 'string',
+    type: 'dynamic-select',
   },
   cooperationStartDate: {
     type: 'date',
