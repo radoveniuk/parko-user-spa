@@ -1,7 +1,6 @@
 import React from 'react';
-import { Tab as TabMaterial, TabProps, Tabs as TabsMaterial } from '@mui/material';
+import { Tab as TabMaterial, TabProps, Tabs as TabsMaterial, TabsProps } from '@mui/material';
 
-import { TabsWrapper } from './styles';
 import TabsProvider, { useTabs } from './TabsContext';
 
 type BaseProps = {
@@ -14,12 +13,10 @@ export const TabsContainer = ({ children }: BaseProps) => (
   </TabsProvider>
 );
 
-export const Tabs = ({ children }: BaseProps) => {
+export const Tabs = ({ children, ...rest }: BaseProps & TabsProps) => {
   const [tab, setTab] = useTabs();
   return (
-    <TabsWrapper>
-      <TabsMaterial value={tab} onChange={(e, value) => void setTab(value)}>{children}</TabsMaterial>
-    </TabsWrapper>
+    <TabsMaterial value={tab} onChange={(e, value) => void setTab(value)} {...rest}>{children}</TabsMaterial>
   );
 };
 

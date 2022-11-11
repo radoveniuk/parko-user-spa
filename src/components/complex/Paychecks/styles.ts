@@ -18,3 +18,14 @@ export const UploadedPaychecksWrapper = styled.div`
     white-space: nowrap;
   }
 `;
+
+export const EmptyDataWrapper = styled.div`
+  height: calc(100vh - 165px);
+  font-size: 30px;
+  font-weight: 600;
+  color: #b9b9b9;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

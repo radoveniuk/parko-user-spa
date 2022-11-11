@@ -59,7 +59,7 @@ const ProfileListPageRender = () => {
       <Page title={t('profileList')}>
         <PageTitle>{t('profileList')}</PageTitle>
         <PageActions>
-          <Link to="/profile-editor">
+          <Link to="/create-profile">
             <Button><PlusIcon size={20}/>{t('user.create')}</Button>
           </Link>
           <Menu title={<><SelectMenuIcon size={20}/>{t('fastActions')}</>}>

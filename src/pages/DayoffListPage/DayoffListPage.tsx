@@ -24,7 +24,7 @@ import usePaginatedList from 'hooks/usePaginatedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IDayOff } from 'interfaces/dayoff.interface';
 import { IProject } from 'interfaces/project.interface';
-import { INewUser } from 'interfaces/users.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import { CommentDialogWrapper } from './styles';
 
@@ -100,7 +100,7 @@ const DayoffListPageRender = () => {
       </FiltersBar>
       <ListTable columns={columns} >
         {pageItems.map((item) => {
-          const user = item.user as INewUser;
+          const user = item.user as IUser;
           const project = user.project as IProject;
           return (
             <ListTableRow key={item._id}>

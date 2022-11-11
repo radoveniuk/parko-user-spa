@@ -3,7 +3,7 @@ import { useIsFetching, useIsMutating } from 'react-query';
 
 import LanguageSelector from 'components/complex/LanguageSelector';
 import Navbar, { ToggleNavbarButton } from 'components/Menu/Navbar';
-import useViewportWdth from 'hooks/useViewportWdth';
+import useViewportWidth from 'hooks/useViewportWsdth';
 
 import PageFooter from '../PageFooter';
 import PageHeader from '../PageHeader';
@@ -21,7 +21,7 @@ const DEFAULT_TITLE = 'Parko User — Personal Managment System by Parko Staff';
 const langBreakpoint = 790;
 
 const Page = ({ showNavbar = true, title, children }: Props) => {
-  const width = useViewportWdth();
+  const width = useViewportWidth();
   const isFetching = useIsFetching();
   const isMutating = useIsMutating();
 

@@ -1,8 +1,8 @@
-import { INewUser } from './users.interface';
+import { IUser } from './users.interface';
 
 export interface IDayOff {
   _id: string;
-  user: string | INewUser;
+  user: string | IUser;
   dateStart: string;
   dateEnd: string;
   reason: string;

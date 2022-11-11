@@ -2,13 +2,14 @@ import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, 
 import { pick } from 'lodash-es';
 import { DateTime } from 'luxon';
 
+import { TRANSLATED_FIELDS } from 'constants/userCsv';
 import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
 
 import { DEFAULT_PASS } from './constants';
 
-const TRUE_VALUES = ['áno', 'true', 'yes'];
-const FALSE_VALUES = ['nie', 'false', 'not', 'no'];
+const TRUE_VALUES = ['áno', 'true', 'yes', 'да', 'так'];
+const FALSE_VALUES = ['nie', 'false', 'not', 'no', 'нет', 'ні'];
 const PERMIT_TYPE_VALUES: AnyObject = {
   business: ['podnikania', 'business'],
   study: ['study', 'štúdia'],
@@ -52,17 +53,20 @@ const UploadProfilesProvider = ({ children }: { children: ReactNode }) => {
       if (userKey.toLowerCase().includes('date') || userKey.toLowerCase().includes('expire')) {
         newRow[userKey] = DateTime.fromFormat(pickedValue, 'd.M.yyyy').toISODate();
       }
-      if (userKey === 'permitType') {
-        let typeValue = '';
-        for (const key in PERMIT_TYPE_VALUES) {
-          if (Object.prototype.hasOwnProperty.call(PERMIT_TYPE_VALUES, key)) {
-            const type = PERMIT_TYPE_VALUES[key];
-            if (type.includes(pickedValue.toLowerCase())) {
-              typeValue = key;
+      if (TRANSLATED_FIELDS.includes(userKey)) {
+        newRow[userKey] = pickedValue?.toLowerCase();
+        if (userKey === 'permitType') {
+          let typeValue = '';
+          for (const key in PERMIT_TYPE_VALUES) {
+            if (Object.prototype.hasOwnProperty.call(PERMIT_TYPE_VALUES, key)) {
+              const type = PERMIT_TYPE_VALUES[key];
+              if (type.includes(pickedValue.toLowerCase())) {
+                typeValue = key;
+              }
             }
           }
+          newRow[userKey] = typeValue;
         }
-        newRow[userKey] = typeValue;
       }
       if (userKey === 'email') {
         newRow[userKey] = pickedValue.toLowerCase();

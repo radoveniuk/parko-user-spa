@@ -23,7 +23,7 @@ import usePaginatedList from 'hooks/usePaginatedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IProject } from 'interfaces/project.interface';
-import { INewUser } from 'interfaces/users.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import { ApproveDialogWrapper } from './styles';
 
@@ -95,7 +95,7 @@ const PrepaymentsListPageRender = () => {
       </FiltersBar>
       <ListTable columns={columns} >
         {pageItems.map((item) => {
-          const user = item.user as INewUser;
+          const user = item.user as IUser;
           const project = user.project as IProject;
           return (
             <ListTableRow key={item._id}>

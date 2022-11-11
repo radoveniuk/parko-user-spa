@@ -5,6 +5,7 @@ import Page, { PageTitle } from 'components/shared/Page';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 
 import CustomFields from './CustomFields';
+import Dictionaries from './Dictionaries';
 import DocsTemplates from './DocsTemplates';
 
 const CustomizationPage = () => {
@@ -17,6 +18,7 @@ const CustomizationPage = () => {
         <Tabs>
           <Tab label={t('navbar.profiles')} />
           <Tab label={t('navbar.projects')} />
+          <Tab label={t('dictionaries')} />
           <Tab label={t('navbar.docsTemplates')} />
         </Tabs>
         <TabPanel index={0}>
@@ -26,6 +28,9 @@ const CustomizationPage = () => {
           <CustomFields entity="project" />
         </TabPanel>
         <TabPanel index={2}>
+          <Dictionaries />
+        </TabPanel>
+        <TabPanel index={3}>
           <DocsTemplates />
         </TabPanel>
       </TabsContainer>

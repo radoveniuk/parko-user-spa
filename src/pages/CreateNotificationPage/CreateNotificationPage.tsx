@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
 import { useSnackbar } from 'notistack';
 
@@ -23,6 +23,7 @@ const CreateNotificationPage = () => {
   const { handleSubmit, control, register, formState: { errors } } = useForm<INotification>();
   const { id } = useAuthData();
   const navigate = useNavigate();
+  const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
 
   const { data: userList = [], isFetching: userListFetching } = useGetUserListForFilter();
@@ -50,6 +51,13 @@ const CreateNotificationPage = () => {
     }, 1000);
   };
 
+  const defaultProfile = useMemo(() => {
+    const defaultProfileId = (location.state as any)?.defaultProfileId;
+    return userList.find((item) => item._id === defaultProfileId);
+  }, [location.state, userList]);
+
+  if (!userList.length) return null;
+
   return (
     <Page>
       <PageTitle>{t('notification.new')}</PageTitle>
@@ -57,6 +65,7 @@ const CreateNotificationPage = () => {
         <div className="controls">
           <div className="notification-users">
             <Autocomplete
+              defaultValue={defaultProfile ? [defaultProfile] : []}
               multiple
               options={userList}
               loading={userListFetching}

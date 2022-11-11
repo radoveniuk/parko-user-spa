@@ -57,8 +57,7 @@ export default function Router () {
                 <Route path="/create-notification" element={<ProtectedRoute><CreateNotificationPage /></ProtectedRoute>} />
                 <Route path="/import-profiles" element={<ProtectedRoute><UploadProfilesPage /></ProtectedRoute>} />
                 <Route path="/export-profiles" element={<ProtectedRoute><ExportProfilesPage /></ProtectedRoute>} />
-                <Route path="/profile-editor" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-                <Route path="/profile-editor/:id" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                <Route path="/create-profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                 <Route path="/customization" element={<ProtectedRoute><CustomizationPage /></ProtectedRoute>} />
                 <Route path="/accommodation" element={<ProtectedRoute><AccommodationPage /></ProtectedRoute>} />
                 <Route path="/export-residences" element={<ProtectedRoute><ExportResidencesPage /></ProtectedRoute>} />

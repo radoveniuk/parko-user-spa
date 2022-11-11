@@ -9,6 +9,7 @@ import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import { validateEmail } from 'helpers/validateEmail';
 import { RegisterUserDto } from 'interfaces/users.interface';
 
+import PasswordInput from '../components/PasswordInput';
 import { useTabs } from '../Tabs/TabsContext';
 
 import { RegisterFormWrapper } from './styles';
@@ -53,7 +54,7 @@ const RegisterForm = () => {
         )}
       />
       <span className={`${errors.password ? 'error' : ''}`}>{t('user.password')}</span>
-      <input type="password" {...register('password', { required: true })} />
+      <PasswordInput {...register('password', { required: true })} />
       <button
         onClick={handleSubmit(onSubmitLogin)}
         type="submit"

@@ -18,7 +18,7 @@ export const LoginFormWrapper = styled.form`
       outline: none;
     }
 
-    button {
+    button:not(.MuiIconButton-root) {
       margin-top: 20px;
       background-color: #1C7C2B;
       color: #fff;
