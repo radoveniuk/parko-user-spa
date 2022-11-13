@@ -24,15 +24,15 @@ export const LangButton = styled.button`
   min-width: 100px;
   width: 30%;
   background-color: transparent;
-  border: 1px solid;
-  border-color: ${themeConfig.palette.secondary.dark};
+  border: 1px solid #ffded2;
   color: ${themeConfig.palette.secondary.dark};
   text-align: left;
   border-radius: 3px;
+  font-size: 15px;
+  text-align: center;
 
-  transition: color, border-color 0.3s;
+  transition: color, background-color 0.3s;
   &:hover {
-    color: ${themeConfig.palette.secondary.main};
-    border-color: ${themeConfig.palette.secondary.main};
+    background-color: #ffded2;
   }
 `;
