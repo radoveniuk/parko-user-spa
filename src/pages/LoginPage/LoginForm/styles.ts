@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const LoginFormWrapper = styled.form`
-
     padding: 30px 30px 60px 30px;
     display: flex;
     flex-direction: column;

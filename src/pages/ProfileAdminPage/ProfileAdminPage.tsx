@@ -3,7 +3,6 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
-import { useSnackbar } from 'notistack';
 
 import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
@@ -40,7 +39,6 @@ const ProfileAdminPageRender = () => {
   const { t } = useTranslation();
   const { id: userId } = useParams();
   const { data: profileData, refetch } = useGetUser(userId as string);
-  const { enqueueSnackbar } = useSnackbar();
   const updateUserMutation = useUpdateUserMutation();
   const methods = useForm<IUser>();
   const viewportWidth = useViewportWidth();
@@ -64,7 +62,6 @@ const ProfileAdminPageRender = () => {
       updateUserMutation.mutateAsync({ ...values, _id: userId, project: values.project || null })
         .then(() => {
           refetch();
-          enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
           setOpenResetPass(false);
         });
     }
@@ -80,7 +77,6 @@ const ProfileAdminPageRender = () => {
 
   const deleteUser = () => {
     deleteUserMutation.mutateAsync(profileData as IUser).then(() => {
-      enqueueSnackbar(t('user.removedSuccess'), { variant: 'success' });
       setTimeout(() => {
         navigate('/profiles');
       }, 1000);

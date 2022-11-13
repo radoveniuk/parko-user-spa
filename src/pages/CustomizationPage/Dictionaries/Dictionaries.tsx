@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
 
 import { useCreateDictionaryMutation, useDeleteDictionaryMutation, useUpdateDictionaryMutation } from 'api/mutations/dictionaryMutation';
 import { useGetDictionaries } from 'api/query/dictionariesQuery';
@@ -24,7 +23,6 @@ const DEFAULT_FORM_VALUES: Partial<IDictionary> = {
 
 const Dictionaries = () => {
   const { t } = useTranslation();
-  const { enqueueSnackbar } = useSnackbar();
 
   const { data: dictionaries = [], refetch } = useGetDictionaries();
   const createDictionary = useCreateDictionaryMutation();
@@ -58,16 +56,10 @@ const Dictionaries = () => {
     const data: IDictionary = { ...values, options: dictionaryOptions || [] };
     if (!data._id) {
       createDictionary.mutateAsync(data)
-        .then(() => void refetch())
-        .catch(() => {
-          enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
-        });
+        .then(() => void refetch());
     } else {
       updateDictionary.mutateAsync(data)
-        .then(() => void refetch())
-        .catch(() => {
-          enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
-        });
+        .then(() => void refetch());
     }
   };
 

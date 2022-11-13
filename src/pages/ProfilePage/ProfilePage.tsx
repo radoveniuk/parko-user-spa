@@ -3,7 +3,6 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import _ from 'lodash-es';
-import { useSnackbar } from 'notistack';
 
 import { useCreateUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetUser } from 'api/query/userQuery';
@@ -27,7 +26,6 @@ const ProfilePage = () => {
   const { data, refetch } = useGetUser(id, { enabled: !isEditor });
   const { t } = useTranslation();
   const methods = useForm<IUser>();
-  const { enqueueSnackbar } = useSnackbar();
   const createUserMutation = useCreateUserMutation();
   const updateUserMutation = useUpdateUserMutation();
   const navigate = useNavigate();
@@ -37,11 +35,7 @@ const ProfilePage = () => {
     if (isEditor) {
       createUserMutation.mutateAsync({ ...values, role: 'user', password: DEFAULT_PASS })
         .then(() => {
-          enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
           navigate(-1);
-        })
-        .catch(() => {
-          enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
         });
     } else {
       const updatedUserData = { ...data, ...values };
@@ -50,7 +44,6 @@ const ProfilePage = () => {
       }
       updateUserMutation.mutateAsync({ ...updatedUserData })
         .then(() => {
-          enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
           refetch();
           navigate(-1);
         });

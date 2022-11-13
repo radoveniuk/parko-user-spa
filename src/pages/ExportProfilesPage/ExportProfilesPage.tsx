@@ -13,7 +13,7 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import Menu, { MenuItem } from 'components/shared/Menu';
 import Page, { PageTitle } from 'components/shared/Page';
 import Select from 'components/shared/Select';
-import { DYNAMIC_FIELDS, IMPORTABLE_USER_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
+import { DYNAMIC_FIELDS, EXPORT_USER_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
 import { STATUSES } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
@@ -84,7 +84,7 @@ const ExportResidencesPage = () => {
   const exportData = useExportData({
     data: users.filter((item) => selectedProfiles.includes(item._id)),
     colsToExport,
-    cols: [...IMPORTABLE_USER_FIELDS, ...customColumns],
+    cols: [...EXPORT_USER_FIELDS, ...customColumns],
     entity: 'user',
   });
 
@@ -129,10 +129,10 @@ const ExportResidencesPage = () => {
           />
           <Checkbox
             title={t('selectAllCols')}
-            checked={colsToExport.length === [...IMPORTABLE_USER_FIELDS, ...customColumns].length}
+            checked={colsToExport.length === [...EXPORT_USER_FIELDS, ...customColumns].length}
             onChange={(e) => {
               if (e.target.checked) {
-                setColsToExport([...IMPORTABLE_USER_FIELDS, ...customColumns]);
+                setColsToExport([...EXPORT_USER_FIELDS, ...customColumns]);
                 return;
               }
               setColsToExport([]);
@@ -175,7 +175,7 @@ const ExportResidencesPage = () => {
           />
         </FiltersBar>
         <ListTable
-          columns={['', ...IMPORTABLE_USER_FIELDS, ...customColumns]}
+          columns={['', ...EXPORT_USER_FIELDS, ...customColumns]}
           columnComponent={(col) => {
             if (col) {
               let componentTitle = t(`user.${col}`);
@@ -208,7 +208,7 @@ const ExportResidencesPage = () => {
                   onChange={(e) => void selectProfile(user._id, e.target.checked)}
                 />
               </ListTableCell>
-              {IMPORTABLE_USER_FIELDS.map((item) => (
+              {EXPORT_USER_FIELDS.map((item) => (
                 <ListTableCell key={`${user._id}-${item}`}>{user[item] as string}</ListTableCell>
               ))}
               {customColumns.map((item) => (

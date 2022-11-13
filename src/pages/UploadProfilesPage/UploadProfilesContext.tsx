@@ -10,11 +10,6 @@ import { DEFAULT_PASS } from './constants';
 
 const TRUE_VALUES = ['áno', 'true', 'yes', 'да', 'так'];
 const FALSE_VALUES = ['nie', 'false', 'not', 'no', 'нет', 'ні'];
-const PERMIT_TYPE_VALUES: AnyObject = {
-  business: ['podnikania', 'business'],
-  study: ['study', 'štúdia'],
-  work: ['work', 'práca'],
-};
 
 type contextType = {
   relativeFieldsState: [AnyObject, Dispatch<SetStateAction<AnyObject>>],
@@ -55,18 +50,6 @@ const UploadProfilesProvider = ({ children }: { children: ReactNode }) => {
       }
       if (TRANSLATED_FIELDS.includes(userKey)) {
         newRow[userKey] = pickedValue?.toLowerCase();
-        if (userKey === 'permitType') {
-          let typeValue = '';
-          for (const key in PERMIT_TYPE_VALUES) {
-            if (Object.prototype.hasOwnProperty.call(PERMIT_TYPE_VALUES, key)) {
-              const type = PERMIT_TYPE_VALUES[key];
-              if (type.includes(pickedValue.toLowerCase())) {
-                typeValue = key;
-              }
-            }
-          }
-          newRow[userKey] = typeValue;
-        }
       }
       if (userKey === 'email') {
         newRow[userKey] = pickedValue.toLowerCase();

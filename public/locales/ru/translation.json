@@ -98,7 +98,6 @@
     "fatherSurname": "Фамилия отца",
     "fatherBirthdate": "Дата рождения отца",
     "wrongCredentials": "Неправильный логин или пароль",
-    "dataUpdated": "Данные обновлены",
     "scancopies": "Скан-копии",
     "internationalPassScan": "Загранпаспорт",
     "passScan": "Паспорт",
@@ -288,7 +287,6 @@
     "approve": "Подтвердить",
     "cost": "Стоимость",
     "tariff": "Тариф",
-    "success": "Изменения внесены успешно",
     "addProfile": "Добавление профилей в проект",
     "mainInfo": "Основная информация"
   },
@@ -373,5 +371,6 @@
   "download": "Скачать",
   "noSelected": "Не выбрано",
   "male": "Мужской",
-  "female": "Женский"
+  "female": "Женский",
+  "dataUpdated": "Данные обновлены"
 }

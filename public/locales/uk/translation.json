@@ -98,7 +98,6 @@
     "fatherSurname": "Прізвище батька",
     "fatherBirthdate": "Дата народження батька",
     "wrongCredentials": "Невірний логін або пароль",
-    "dataUpdated": "Дані оновлено",
     "scancopies": "Сканкопії",
     "internationalPassScan": "Закордонний паспорт",
     "passScan": "Паспорт",
@@ -288,7 +287,6 @@
     "approve": "Підтвердити",
     "cost": "Вартість",
     "tariff": "Тариф",
-    "success": "Зміни внесено успішно",
     "addProfile": "Додати профілі в проект",
     "mainInfo": "Головна інформація"
   },
@@ -373,5 +371,6 @@
   "download": "Скачать",
   "noSelected": "Не вибрано",
   "male": "Чоловіча",
-  "female": "Жіноча"
+  "female": "Жіноча",
+  "dataUpdated": "Дані оновлено"
 }

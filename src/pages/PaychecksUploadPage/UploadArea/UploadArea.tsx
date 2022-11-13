@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import { useSnackbar } from 'notistack';
 
 import { uploadFiles } from 'api/common';
 import { useCreatePaychecksMutation } from 'api/mutations/paycheckMutation';
@@ -27,7 +26,6 @@ const validateFileName = (str: string) => getParamsFromName(str).length === 4;
 const UploadArea = () => {
   const { t } = useTranslation();
   const createPaychecks = useCreatePaychecksMutation();
-  const { enqueueSnackbar } = useSnackbar();
 
   const uploadPaychecks = async (files: File[]) => {
     const formData = new window.FormData();
@@ -51,10 +49,7 @@ const UploadArea = () => {
     };
 
     const paychecks = await Promise.all(uploadingResultList.map(getPaycheckData));
-
-    await createPaychecks.mutateAsync(paychecks);
-
-    enqueueSnackbar(t('paycheck.successfullUpload'), { variant: 'success' });
+    createPaychecks.mutate(paychecks);
   };
   return (
     <UploadAreaWrapper>

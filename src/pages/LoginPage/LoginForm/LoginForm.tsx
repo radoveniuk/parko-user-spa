@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash-es';
-import { useSnackbar } from 'notistack';
 
 import { useLogin } from 'contexts/AuthContext';
 
@@ -21,14 +20,10 @@ const LoginForm = () => {
   const { handleSubmit, register, formState: { errors } } = useForm<FormFields>();
   const login = useLogin();
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
 
   const onSubmitLogin: SubmitHandler<FormFields> = async (data) => {
     login(data)
-      .then(() => { navigate('/'); })
-      .catch(() => {
-        enqueueSnackbar(t('user.wrongCredentials'), { variant: 'error' });
-      });
+      .then(() => { navigate('/'); });
   };
 
   return (

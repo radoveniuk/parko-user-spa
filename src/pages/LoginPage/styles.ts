@@ -8,6 +8,12 @@ export const LoginPageWrapper = styled.div`
   background-size: cover;
   min-height: 100vh;
 
+  input[type=text],
+  input[type=password] {
+      -webkit-appearance: none;
+      border-radius: 0;
+  }
+
   .login-header {
     flex-direction: row-reverse;
   }

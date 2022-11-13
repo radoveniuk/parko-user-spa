@@ -7,7 +7,7 @@ import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { UploadIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Select from 'components/shared/Select';
-import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
+import { IMPORT_USER_FIELDS } from 'constants/userCsv';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
 
@@ -39,7 +39,7 @@ const FileUploading = () => {
   const [fileKeys, setFileKeys] = useFileKeys();
   const [relativeFields, setRelativeFields] = useRelativeFields();
   const [rows, setRows] = useRows();
-  const translatedUserFields = useTranslatedSelect(IMPORTABLE_USER_FIELDS, 'user', false, true);
+  const translatedUserFields = useTranslatedSelect(IMPORT_USER_FIELDS, 'user', false, true);
 
   // custom cols
   const { data: customFieldsData = [] } = useGetCustomFormFields({

@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
-import { useSnackbar } from 'notistack';
 
 import { uploadFiles } from 'api/common';
 import { useDeleteFileMutation } from 'api/mutations/fileMutation';
@@ -43,7 +42,6 @@ const ProfileScans = ({ id }: Props) => {
   const updateUserMutation = useUpdateUserMutation();
 
   const { t } = useTranslation();
-  const { enqueueSnackbar } = useSnackbar();
 
   const translatedKeys = useTranslatedSelect(USER_SCAN_TYPE, 'user', false, false);
   const [selectedType, setSelectedType] = useState('');
@@ -55,7 +53,6 @@ const ProfileScans = ({ id }: Props) => {
     updateUserMutation.mutateAsync({ ...values, _id: id, project: values.project || null })
       .then(() => {
         refetch();
-        enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
       });
   };
 

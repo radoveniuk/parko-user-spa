@@ -44,7 +44,6 @@ const CreateNotificationPage = () => {
     }));
 
     await Promise.all(notifications.map((_) => createNotificationMutation.mutateAsync(_)));
-
     enqueueSnackbar(t('notification.success'), { variant: 'success' });
     setTimeout(() => {
       navigate('/notifications');

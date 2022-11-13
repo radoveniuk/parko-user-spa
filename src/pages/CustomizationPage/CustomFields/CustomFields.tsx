@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
-import { useSnackbar } from 'notistack';
 
 import {
   useCreateCustomFormFieldMutation,
@@ -53,7 +52,6 @@ const CustomFields = ({
 }: Props) => {
   const { i18n, t } = useTranslation();
   const queryClient = useQueryClient();
-  const { enqueueSnackbar } = useSnackbar();
   const { data: projects = [] } = useGetProjects();
 
   const { data: customFields = [], refetch } = useGetCustomFormFields({ entity });
@@ -92,16 +90,10 @@ const CustomFields = ({
           setTimeout(() => {
             setActiveCustomField(res);
           });
-        })
-        .catch(() => {
-          enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
         });
     } else {
       updateCustomField.mutateAsync(valuesToSave)
-        .then(() => void refetch())
-        .catch(() => {
-          enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
-        });
+        .then(() => void refetch());
     }
   };
 

@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
 
 import { useLoginMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import Button from 'components/shared/Button';
@@ -23,8 +22,6 @@ const ResetPasswordDialog = ({ email, ...props }: Props) => {
 
   const login = useLoginMutation();
   const updateUserMutation = useUpdateUserMutation();
-
-  const { enqueueSnackbar } = useSnackbar();
 
   const validateOldPassword = async () => {
     if (!oldPassword) {
@@ -64,7 +61,6 @@ const ResetPasswordDialog = ({ email, ...props }: Props) => {
 
     updateUserMutation.mutateAsync({ ...userData, password: password })
       .then(() => {
-        enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
         props.onClose();
       });
   };

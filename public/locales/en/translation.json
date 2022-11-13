@@ -98,7 +98,6 @@
     "fatherSurname": "Father`s surname",
     "fatherBirthdate": "Father`s birth date",
     "wrongCredentials": "Wrong login or password",
-    "dataUpdated": "Data updated",
     "scancopies": "Document scans",
     "internationalPassScan": "International pass",
     "passScan": "Pass",
@@ -287,7 +286,6 @@
     "approve": "Approve",
     "cost": "Cost",
     "tariff": "Tariff",
-    "success": "Success!",
     "addProfile": "Add profile to project",
     "mainInfo": "Main info"
   },
@@ -372,5 +370,6 @@
   "download": "Download",
   "noSelected": "Nothing",
   "male": "Male",
-  "female": "Female"
+  "female": "Female",
+  "dataUpdated": "Data updated"
 }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { invert } from 'lodash-es';
-import { useSnackbar } from 'notistack';
 
 import { useUploadUsersMutation } from 'api/mutations/userMutation';
 import Button from 'components/shared/Button';
@@ -27,7 +26,6 @@ const UploadProfilesPageRender = () => {
   const [relativeFields] = useRelativeFields();
   const usersResult = useResult();
   const uploadUsersMutation = useUploadUsersMutation();
-  const { enqueueSnackbar } = useSnackbar();
 
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => void setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -49,9 +47,6 @@ const UploadProfilesPageRender = () => {
       .then((e) => {
         console.log(e);
         handleNext();
-      })
-      .catch(() => {
-        enqueueSnackbar(t('errorTexts.sww'), { variant: 'error' });
       });
   };
 
