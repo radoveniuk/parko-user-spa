@@ -347,7 +347,8 @@
     "emptyPassword": "Password is empty",
     "passwordsNotMatched": "Passwords does not match",
     "wrongOldPassword": "Wrong old password",
-    "sww": "Something went wrong"
+    "sww": "Something went wrong",
+    "requiredField": "Field is required"
   },
   "fastActions": "Operations",
   "language": "Language",

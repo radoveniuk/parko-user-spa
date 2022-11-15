@@ -217,9 +217,17 @@ const CustomFields = ({
             control={control}
             name="section"
             defaultValue={activeCustomField.section}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <CustomSections value={field.value} onChange={field.onChange} entity={entity} />
+            rules={{
+              required: {
+                value: true,
+                message: t('errorTexts.requiredField'),
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <>
+                <CustomSections value={field.value} onChange={field.onChange} entity={entity} error={!!fieldState.error} />
+                {!!fieldState.error && <div className="error-text">{fieldState.error.message}</div>}
+              </>
             )}
           />
           <div className="config-wrapper">

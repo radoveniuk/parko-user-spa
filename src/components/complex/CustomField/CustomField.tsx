@@ -41,7 +41,7 @@ const CustomField = ({ value, onChange, metadata }: CustomFieldProps) => {
     return (
       <Select
         value={value as string || ''}
-        options={(metadata.source as IDictionary).options}
+        options={(metadata.source as IDictionary)?.options || []}
         onChange={onChange}
         label={metadata.names[i18n.language]}
       />

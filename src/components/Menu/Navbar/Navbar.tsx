@@ -99,7 +99,7 @@ const Navbar = () => {
             <>
               <img height={20} width={20} src={logoImage} alt="Parko user logo"/>
               {(!role || role === 'user') && <p>Parko&nbsp;User</p>}
-              {role === 'admin' && <p>Parko&nbsp;Admin</p>}
+              {['admin', 'recruiter'].includes(role as string) && <p>Parko&nbsp;Admin</p>}
             </>
           )}
           <ToggleNavbarButton />

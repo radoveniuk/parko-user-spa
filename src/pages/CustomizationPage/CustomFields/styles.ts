@@ -43,5 +43,10 @@ export const CustomFieldsWrapper = styled.div`
       flex-wrap: wrap;
       gap: 10px;
     }
+
+    .error-text {
+      color: ${themeConfig.palette.error.main};
+      font-size: 11px;
+    }
   }
 `;

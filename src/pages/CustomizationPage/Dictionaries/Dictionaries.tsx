@@ -56,7 +56,12 @@ const Dictionaries = () => {
     const data: IDictionary = { ...values, options: dictionaryOptions || [] };
     if (!data._id) {
       createDictionary.mutateAsync(data)
-        .then(() => void refetch());
+        .then((res) => {
+          refetch();
+          if (res._id) {
+            setActiveDictionary(res);
+          }
+        });
     } else {
       updateDictionary.mutateAsync(data)
         .then(() => void refetch());
@@ -67,6 +72,7 @@ const Dictionaries = () => {
     if (!dictionaryToDelete?._id) return;
     deleteDictionary.mutateAsync(dictionaryToDelete._id).then(() => {
       refetch();
+      setActiveDictionary(null);
       setDictionaryToDelete(null);
       setDictionaryOptions(null);
     });
@@ -100,6 +106,7 @@ const Dictionaries = () => {
           <Input
             label={t('dictionary.name')}
             error={!!errors.name}
+            InputLabelProps={{ shrink: true }}
             disabled={activeDictionary.disabled}
             {...register('name', {
               required: true,

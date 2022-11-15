@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { themeConfig } from 'theme';
 
@@ -18,7 +18,7 @@ export const CustomSectionForm = styled.div`
   }
 `;
 
-export const CustomSectionsWrapper = styled.div`
+export const CustomSectionsWrapper = styled.div<{ error?: boolean }>`
   .sections-grid {
     display: grid;
     grid-template-columns: 1fr 40px 40px 40px;
@@ -28,4 +28,10 @@ export const CustomSectionsWrapper = styled.div`
       gap: 10px;
     }
   }
+
+  ${(props) => props.error && css`
+    .MuiFormLabel-root {
+      color: ${themeConfig.palette.error.main};
+    }
+  `}
 `;

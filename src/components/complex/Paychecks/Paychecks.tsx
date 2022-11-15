@@ -78,7 +78,9 @@ const Paychecks = ({ filter }: Props) => {
     refetch();
   };
 
-  const cols = role === 'admin' ? (!filter?.user ? ADMIN_COLS : ADMIN_COLS.filter((item) => item !== 'paycheck.user')) : USER_COLS;
+  const cols = ['admin', 'recruiter'].includes(role as string)
+    ? (!filter?.user ? ADMIN_COLS : ADMIN_COLS.filter((item) => item !== 'paycheck.user'))
+    : USER_COLS;
 
   return (
     <UploadedPaychecksWrapper>
@@ -98,7 +100,7 @@ const Paychecks = ({ filter }: Props) => {
                 <DownloadFileIcon />
               </IconButton>
             </ListTableCell>
-            {role === 'admin' && (
+            {['admin', 'recruiter'].includes(role as string) && (
               <>
                 <ListTableCell>
                   <FileInput

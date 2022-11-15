@@ -5,7 +5,7 @@ import { SM } from 'theme/sizeBreakpoints';
 
 export const ProfileFormWrapper = styled.div`
   .accordion {
-    margin: 20px !important;
+    margin: 0 20px 20px 20px !important;
 
     .MuiSelect-select {
       text-align: left;

@@ -69,7 +69,7 @@
     "internationalPassAuthority": "Орган, который выдал",
     "hasIdCard": "ID картка?",
     "passNumber": "Номер паспорта",
-    "hasPermit": "Есть ВНЖ?",
+    "hasPermit": "ВНЖ/ПМЖ",
     "permitType": "Тип ВНЖ",
     "permitExpire": "Срок до (ВНЖ)",
     "hasPrevPermit": "Имели ли ВНЖ раньше?",
@@ -348,7 +348,8 @@
     "emptyPassword": "Пароль не может быть пустым",
     "passwordsNotMatched": "Пароли не совпадают",
     "wrongOldPassword": "Неверный старый пароль",
-    "sww": "Что-то пошло не так"
+    "sww": "Что-то пошло не так",
+    "requiredField": "Поле обязательное"
   },
   "fastActions": "Действия",
   "language": "Язык",

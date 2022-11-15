@@ -15,7 +15,7 @@ export type RegisterUserDto = {
   role: UserRole;
 }
 
-export type UserRole = 'user' | 'admin'
+export type UserRole = 'user' | 'admin' | 'recruiter';
 
 export interface IUser {
   _id: string;

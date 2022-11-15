@@ -35,12 +35,13 @@ const DEFAULT_SECTION: ICustomFormSection = {
 };
 
 type Props = {
-  value: string| null,
-  onChange(v: string): void,
-  entity: CustomFormEntity,
+  value: string| null;
+  onChange(v: string): void;
+  entity: CustomFormEntity;
+  error?: boolean;
 }
 
-const CustomSections = ({ value, onChange, entity }: Props) => {
+const CustomSections = ({ value, onChange, entity, error }: Props) => {
   const { i18n, t } = useTranslation();
   const { register, handleSubmit, reset, formState: { errors }, getValues, setValue } = useForm<ICustomFormSection>();
   const queryClient = useQueryClient();
@@ -124,7 +125,7 @@ const CustomSections = ({ value, onChange, entity }: Props) => {
   }, [debouncedNameToTranslate, getValues, setValue]);
 
   return (
-    <CustomSectionsWrapper>
+    <CustomSectionsWrapper error={error}>
       <RadioButtonGroup label={t('customForms.section')} className="sections-grid" value={value} onChange={(e) => void onChange(e.target.value)}>
         {customSections.map((item) => (
           <div key={item._id} className="section-radio-wrapper">

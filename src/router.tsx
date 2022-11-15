@@ -34,7 +34,6 @@ export default function Router () {
       <NotificationProvider>
         <NavbarStateProvider>
           <Routes>
-            <Route path="*" element={<NotFoundPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
@@ -46,7 +45,7 @@ export default function Router () {
                 <Route path="/paychecks" element={<ProtectedRoute><PaychecksPage /></ProtectedRoute>} />
               </>
             )}
-            {role === 'admin' && (
+            {['admin', 'recruiter'].includes(role as string) && (
               <>
                 <Route path="/prepayments" element={<ProtectedRoute><PrepaymentsListPage /></ProtectedRoute>} />
                 <Route path="/daysoff" element={<ProtectedRoute><DayoffListPage /></ProtectedRoute>} />
@@ -63,6 +62,7 @@ export default function Router () {
                 <Route path="/export-residences" element={<ProtectedRoute><ExportResidencesPage /></ProtectedRoute>} />
               </>
             )}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </NavbarStateProvider>
       </NotificationProvider>

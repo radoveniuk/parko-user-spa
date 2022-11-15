@@ -49,11 +49,11 @@ export const BASE_FIELDS: UserFieldsList = {
   },
   blocked: {
     type: 'boolean',
-    permissionRoles: ['admin', 'reqruiter'],
+    permissionRoles: ['admin', 'recruiter'],
   },
   notes: {
     type: 'textarea',
-    permissionRoles: ['admin', 'reqruiter'],
+    permissionRoles: ['admin', 'recruiter'],
   },
 };
 

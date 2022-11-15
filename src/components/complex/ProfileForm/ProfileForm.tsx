@@ -225,7 +225,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
           {generateAccordionContent(ADRESS_FIELDS)}
         </AccordionFieldsWrapper>
       </Accordion>
-      {role === 'admin' && (
+      {['admin', 'recruiter'].includes(role as string) && (
         <Accordion
           title={t('user.systemFields')}
           defaultExpanded
@@ -259,7 +259,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
           {generateAccordionContent(BIOMETRY_FIELDS)}
         </AccordionFieldsWrapper>
       </Accordion>
-      {role === 'admin' && (
+      {['admin', 'recruiter'].includes(role as string) && (
         <Accordion
           title={t('user.workFields')}
           defaultExpanded
