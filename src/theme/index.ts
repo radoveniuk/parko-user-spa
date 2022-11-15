@@ -22,6 +22,6 @@ export const themeConfig: AnyObject = {
     },
   },
   typography: {
-    fontFamily: 'Comfortaa',
+    fontFamily: 'Open Sans',
   },
 };

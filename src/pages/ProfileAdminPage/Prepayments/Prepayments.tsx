@@ -11,6 +11,8 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import { getDateFromIso } from 'helpers/datetime';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 
+import { EmptyDataWrapper } from '../styles';
+
 import { ApproveDialogWrapper } from './styles';
 
 const columns = [
@@ -32,6 +34,14 @@ const Prepayments = () => {
     if (selectedItem) {
       updatePrepaymentMutation.mutateAsync({ ...selectedItem, isApproved }).then(() => { setSelectedItem(undefined); refetch(); });
     }
+  };
+
+  if (!data?.length) {
+    return (
+      <EmptyDataWrapper>
+        {t('noData')}
+      </EmptyDataWrapper>
+    );
   };
 
   return (

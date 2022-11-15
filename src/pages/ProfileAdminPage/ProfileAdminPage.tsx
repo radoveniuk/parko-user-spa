@@ -1,48 +1,53 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Divider } from '@mui/material';
-import { useSnackbar } from 'notistack';
+import { isEmpty } from 'lodash-es';
 
 import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
+import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUser } from 'api/query/userQuery';
 import Notifications from 'components/complex/Notifications';
 import Paychecks from 'components/complex/Paychecks';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
-import { DeleteIcon, EditIcon, PrintIcon, SelectMenuIcon } from 'components/icons';
+import ProfileForm from 'components/complex/ProfileForm';
+import ProfileScans from 'components/complex/ProfileScans';
+import { DeleteIcon, EmailIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
-import Menu, { MenuItem } from 'components/shared/Menu';
-import Page, { PageActions, PageTitle } from 'components/shared/Page';
-import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
+import Page from 'components/shared/Page';
+import Select from 'components/shared/Select';
+import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
+import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
+import { ROLES } from 'constants/userRoles';
+import { STATUSES } from 'constants/userStatuses';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import useViewportWidth from 'hooks/useViewportWsdth';
 import { IUser } from 'interfaces/users.interface';
+import { SM } from 'theme/sizeBreakpoints';
 
-import BaseInfo from './BaseInfo';
 import Daysoff from './Daysoff';
 import Prepayments from './Prepayments';
+import ResetPasswordDialog from './ResetPasswordDialog';
 import Residences from './Residences';
 import SalarySettings from './SalarySettings';
-import Scans from './Scans';
-import { DeleteDialogContent } from './styles';
+import { DeleteDialogContent, ProfileCard, ProfileDataWrapper, ProfileTabContent } from './styles';
 
-const ProfileAdminPage = () => {
+const smBreakpoint = Number(SM.replace('px', ''));
+
+const ProfileAdminPageRender = () => {
   const { t } = useTranslation();
   const { id: userId } = useParams();
-  const { data: profileData, refetch } = useGetUser(userId || '');
-  const { enqueueSnackbar } = useSnackbar();
+  const { data: profileData, refetch } = useGetUser(userId as string);
   const updateUserMutation = useUpdateUserMutation();
+  const methods = useForm<IUser>();
+  const viewportWidth = useViewportWidth();
+  const [activeTab] = useTabs();
 
-  const pageTitle = useMemo(() => profileData ? `${profileData.name} ${profileData.surname}` : t('profile'), [profileData, t]);
-
-  const updateUser = (values: Partial<IUser>) => {
-    if (userId) {
-      updateUserMutation.mutateAsync({ _id: userId, ...values })
-        .then(() => {
-          refetch();
-          enqueueSnackbar(t('user.dataUpdated'), { variant: 'success' });
-        });
-    }
-  };
+  const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
+  const translatedEmploymentTypes = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType', true, false);
+  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
+  const { data: projects = [] } = useGetProjects();
 
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
 
@@ -50,73 +55,187 @@ const ProfileAdminPage = () => {
   const deleteUserMutation = useDeleteUserMutation();
   const navigate = useNavigate();
 
+  const [openResetPass, setOpenResetPass] = useState(false);
+
+  const updateUser = (values: Partial<IUser>) => {
+    if (userId) {
+      updateUserMutation.mutateAsync({ ...values, _id: userId, project: values.project || null })
+        .then(() => {
+          refetch();
+          setOpenResetPass(false);
+        });
+    }
+  };
+
+  const onSubmit: SubmitHandler<IUser> = async (values) => {
+    const updatedUserData = { ...profileData, ...values };
+    if (!updatedUserData.password) {
+      delete updatedUserData.password;
+    }
+    updateUser(updatedUserData);
+  };
+
   const deleteUser = () => {
     deleteUserMutation.mutateAsync(profileData as IUser).then(() => {
-      enqueueSnackbar(t('user.removedSuccess'), { variant: 'success' });
       setTimeout(() => {
         navigate('/profiles');
       }, 1000);
     });
   };
 
+  const tabContentRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (tabContentRef.current !== null) {
+      tabContentRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [activeTab]);
+
+  const profileActions = (
+    <div className="profile-actions">
+      {[0, 1].includes(activeTab) && (
+        <Button
+          disabled={!methods.formState.isDirty || !isEmpty(methods.formState.errors)}
+          onClick={methods.handleSubmit(onSubmit)}
+        >
+          {t('user.updateData')}
+        </Button>
+      )}
+      {activeTab === 0 && (
+        <Button variant="outlined" color="error" onClick={() => void setOpenResetPass(true)}>
+          <PasswordIcon />
+          {t('user.resetPassword')}
+        </Button>
+      )}
+      <Button color="error" onClick={() => void setIsOpenDeleteDialog(true)} className="delete-button">
+        <DeleteIcon/>
+        {t('project.delete')}
+      </Button>
+    </div>
+  );
+
   return (
     <Page title={t('user.admin')}>
-      <PageTitle>{pageTitle}</PageTitle>
-      <PageActions>
-        <Link to={`/profile-editor/${userId}`}>
-          <Button><EditIcon size={20}/>{t('user.edit')}</Button>
-        </Link>
-        <Menu title={<><SelectMenuIcon size={20}/>{t('fastActions')}</>}>
-          <MenuItem onClick={() => void setOpenPrintDialog(true)}>
-            <PrintIcon size={20} />{t('docsTemplates.print')}
-          </MenuItem>
-          <Divider />
-          <MenuItem color="error" onClick={() => void setIsOpenDeleteDialog(true)}>
-            <DeleteIcon />
-            {t('project.delete')}
-          </MenuItem>
-        </Menu>
-      </PageActions>
-      {profileData && (
-        <TabsContainer>
-          <Tabs>
-            <Tab label={t('user.baseFields')} />
-            <Tab label={t('user.salary')} />
-            <Tab label={t('user.scancopies')} />
-            <Tab label={t('navbar.paychecks')} />
-            <Tab label={t('navbar.prepayments')} />
-            <Tab label={t('navbar.daysoff')} />
-            <Tab label={t('navbar.notifications')} />
-            <Tab label={t('accommodation.residences')} />
-          </Tabs>
-          <TabPanel index={0}>
-            <BaseInfo data={profileData} onUpdate={updateUser} />
-          </TabPanel>
-          <TabPanel index={1}>
-            <SalarySettings data={profileData} onUpdate={updateUser} />
-          </TabPanel>
-          <TabPanel index={2}>
-            <Scans data={profileData} onUpdate={updateUser} />
-          </TabPanel>
-          <TabPanel index={3}>
-            <Paychecks filter={{ user: profileData._id }} />
-          </TabPanel>
-          <TabPanel index={4}>
-            <Prepayments />
-          </TabPanel>
-          <TabPanel index={5}>
-            <Daysoff />
-          </TabPanel>
-          <TabPanel index={6}>
-            <Notifications options={{ to: userId }} />
-          </TabPanel>
-          <TabPanel index={7}>
-            <Residences />
-          </TabPanel>
-        </TabsContainer>
-      )}
+      <FormProvider {...methods}>
+        <ProfileDataWrapper>
+          {profileData && (
+            <>
+              <div>
+                <ProfileCard>
+                  <div className="card-title">{profileData.name} {profileData.surname}</div>
+                  <div className="card-fast-actions">
+                    <Link to={{ pathname: '/create-notification' }} state={{ defaultProfileId: profileData._id }}>
+                      <Button><NotificationIcon size={20} /></Button>
+                    </Link>
+                    <a href={`mailto:${profileData.email}`}>
+                      <Button><EmailIcon size={20} /></Button>
+                    </a>
+                    <a href={`tel:${profileData.phone}`}>
+                      <Button><PhoneIcon size={20} /></Button>
+                    </a>
+                    <Button onClick={() => void setOpenPrintDialog(true)}><PrintIcon size={20} /></Button>
+                  </div>
+                  <div className="card-profile-settings">
+                    <Select
+                      options={translatedRoles}
+                      defaultValue={profileData.role || ''}
+                      label={t('user.role')}
+                      {...methods.register('role')}
+                    />
+                    <Select
+                      options={translatedStatuses}
+                      defaultValue={profileData.status || ''}
+                      label={t('user.status')}
+                      {...methods.register('status')}
+                    />
+                    <Select
+                      options={translatedEmploymentTypes}
+                      defaultValue={profileData.employmentType || ''}
+                      label={t('user.employmentType')}
+                      {...methods.register('employmentType')}
+                    />
+                    {!!projects.length && (
+                      <Select
+                        options={projects}
+                        defaultValue={projects?.length ? profileData.project || '' : ''}
+                        label={t('user.project')}
+                        valuePath="_id"
+                        labelPath="name"
+                        {...methods.register('project')}
+                      />
+                    )}
+                  </div>
+                  <div className="profile-contacts">
+                    <div>{profileData.phone}</div>
+                    <div>{profileData.email}</div>
+                  </div>
+                  <div className="card-divider" />
+                  <Tabs className="tabs-options" orientation="vertical" variant="scrollable" scrollButtons>
+                    <Tab label={t('user.baseFields')} />
+                    <Tab label={t('user.salary')} />
+                    <Tab label={t('user.scancopies')} />
+                    <Tab label={t('navbar.paychecks')} />
+                    <Tab label={t('navbar.prepayments')} />
+                    <Tab label={t('navbar.daysoff')} />
+                    <Tab label={t('navbar.notifications')} />
+                    <Tab label={t('accommodation.residences')} />
+                  </Tabs>
+                </ProfileCard>
+                {viewportWidth > smBreakpoint && profileActions}
+              </div>
+              <ProfileTabContent ref={tabContentRef}>
+                <TabPanel index={0}>
+                  <ProfileForm defaultValues={profileData as unknown as IUser} />
+                </TabPanel>
+                <TabPanel index={1}>
+                  <div className="section-card">
+                    <div className="section-title">{t('user.salary')}</div>
+                    <SalarySettings data={profileData} />
+                  </div>
+                </TabPanel>
+                <TabPanel index={2}>
+                  <div className="section-card">
+                    <div className="section-title">{t('user.scancopies')}</div>
+                    <ProfileScans id={userId || ''} />
+                  </div>
+                </TabPanel>
+                <TabPanel index={3}>
+                  <div className="section-card">
+                    <div className="section-title">{t('navbar.paychecks')}</div>
+                    <Paychecks filter={{ user: profileData._id }} />
+                  </div>
+                </TabPanel>
+                <TabPanel index={4}>
+                  <div className="section-card">
+                    <div className="section-title">{t('navbar.prepayments')}</div>
+                    <Prepayments />
+                  </div>
+                </TabPanel>
+                <TabPanel index={5}>
+                  <div className="section-card">
+                    <div className="section-title">{t('navbar.daysoff')}</div>
+                    <Daysoff />
+                  </div>
+                </TabPanel>
+                <TabPanel index={6}>
+                  <div className="section-card">
+                    <div className="section-title">{t('navbar.notifications')}</div>
+                    <Notifications options={{ to: userId }} />
+                  </div>
+                </TabPanel>
+                <TabPanel index={7}>
+                  <div className="section-card">
+                    <div className="section-title">{t('accommodation.residences')}</div>
+                    <Residences />
+                  </div>
+                </TabPanel>
+              </ProfileTabContent>
+              {viewportWidth <= smBreakpoint && profileActions}
+            </>
+          )}
+        </ProfileDataWrapper>
+      </FormProvider>
       {openPrintDialog && profileData !== undefined && (
-        <PrintDocDialog ids={[profileData._id]} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
+        <PrintDocDialog users={[profileData]} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
       )}
       <Dialog title={t('user.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
         <DeleteDialogContent>
@@ -126,8 +245,17 @@ const ProfileAdminPage = () => {
           <div className="actions"><Button color="error" onClick={deleteUser}>{t('user.approve')}</Button></div>
         </DeleteDialogContent>
       </Dialog>
+      {openResetPass && (
+        <ResetPasswordDialog open={openResetPass} onClose={() => void setOpenResetPass(false)} onUpdate={updateUser} />
+      )}
     </Page>
   );
 };
 
-export default ProfileAdminPage;
+export default function ProfileAdminPage () {
+  return (
+    <TabsContainer>
+      <ProfileAdminPageRender />
+    </TabsContainer>
+  );
+};

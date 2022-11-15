@@ -13,14 +13,14 @@ import { NoDataWrapper } from './styles';
 const HomePage = () => {
   const { t } = useTranslation();
   const { role, isVerified, username } = useAuthData();
-  const { data: dashboard } = useGetDashboardData({ enabled: role === 'admin' });
+  const { data: dashboard } = useGetDashboardData({ enabled: ['admin', 'recruiter'].includes(role as string) });
 
   let menuItems: INavbarItem[] = [];
 
   if (role === 'user' && isVerified) {
     menuItems = MENU_ITEMS;
   }
-  if (role === 'admin') {
+  if (['admin', 'recruiter'].includes(role as string)) {
     menuItems = ADMIN_MENU_ITEMS;
   }
 
@@ -34,7 +34,7 @@ const HomePage = () => {
             {item.icon}
           </MainMenuLink>
         ))}
-        {!!dashboard && (
+        {!!dashboard && ['admin', 'recruiter'].includes(role as string) && (
           <>
             <MainMenuLink to="/profiles">
               <p>{t('navbar.profiles')} ({dashboard.users})</p>

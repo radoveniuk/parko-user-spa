@@ -88,8 +88,21 @@ const Scans = ({ data, onUpdate }: Props) => {
   return (
     <ScansWrapper>
       <div className="upload-new-wrapper">
-        <Select options={translatedKeys} label={t('user.scancopies')} onChange={(e) => void setSelectedType(e.target.value as string)} />
-        <Input label={t('comment')} value={comment} onChange={(e) => void setComment(e.target.value)} error={selectedType === 'other' && !comment} />
+        <Select
+          options={translatedKeys}
+          label={t('user.scancopies')}
+          onChange={(e) => void setSelectedType(e.target.value as string)}
+          className="settings-input"
+        />
+        <Input
+          label={t('comment')}
+          value={comment}
+          onChange={(e) => void setComment(e.target.value)}
+          error={selectedType === 'other' && !comment}
+          className="settings-input"
+        />
+      </div>
+      <div className="file-input-wrapper">
         <FileInput
           id="fileInput"
           disabled={!selectedType || (selectedType === 'other' && !comment)}
@@ -121,11 +134,11 @@ const Scans = ({ data, onUpdate }: Props) => {
                     id={scanKey}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => { updateFile(scanKey, e.target.files?.[0] as File); }}
                     buttonComponent={(
-                      <IconButton
-                        className="file-input"
-                      >
-                        <EditIcon />
-                      </IconButton>
+                      <div className="file-input">
+                        <IconButton>
+                          <EditIcon />
+                        </IconButton>
+                      </div>
                     )}
                   />
                 </ListTableCell>

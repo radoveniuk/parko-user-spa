@@ -18,7 +18,7 @@ const PageHeader = ({ children, ...rest }: Props) => {
       <Link to="/">
         <HeaderLogo src={logoImage} alt="Parko user logo"/>
         {(!role || role === 'user') && <HeaderText>Parko&nbsp;User</HeaderText>}
-        {role === 'admin' && <HeaderText>Parko&nbsp;Admin</HeaderText>}
+        {['admin', 'recruiter'].includes(role as string) && <HeaderText>Parko&nbsp;Admin</HeaderText>}
       </Link>
     </HeaderWrapper>
   );

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const LoginFormWrapper = styled.form`
-
     padding: 30px 30px 60px 30px;
     display: flex;
     flex-direction: column;
@@ -18,7 +17,7 @@ export const LoginFormWrapper = styled.form`
       outline: none;
     }
 
-    button {
+    button:not(.MuiIconButton-root) {
       margin-top: 20px;
       background-color: #1C7C2B;
       color: #fff;

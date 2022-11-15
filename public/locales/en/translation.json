@@ -98,7 +98,6 @@
     "fatherSurname": "Father`s surname",
     "fatherBirthdate": "Father`s birth date",
     "wrongCredentials": "Wrong login or password",
-    "dataUpdated": "Data updated",
     "scancopies": "Document scans",
     "internationalPassScan": "International pass",
     "passScan": "Pass",
@@ -131,7 +130,28 @@
     "employmentType": "Employment type",
     "mailError": "Invalid email",
     "export": "Export",
-    "other": "Other"
+    "other": "Other",
+    "sex": "Sex",
+    "systemFields": "System data",
+    "permitFields": "Permit data",
+    "businessFields": "Business data",
+    "workFields": "Working data",
+    "recruiter": "Recruiter",
+    "source": "Source",
+    "permitStartDate": "Permit start",
+    "hasMedicalExamination": "Has medical check?",
+    "position": "Position",
+    "cooperationStartDate": "Cooperation start",
+    "cooperationEndDate": "Cooperation end",
+    "DIC": "DIČ",
+    "permitAdress": "Permit register adress",
+    "permitDepartment":"Permit department",
+    "permitNumber": "Permit document number",
+    "blocked": "Black list",
+    "notes": "Notes",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "cooperationType": "Cooperation type"
   },
   "userUpload": {
     "title": "Upload users",
@@ -142,8 +162,7 @@
     "fileUploading": "Upload file",
     "resultPreview": "Result preview",
     "finish": "Finish",
-    "successText": "Users have been imported. This is default users password, you can copy it and send to users",
-    "errorText": "Something went wrong"
+    "successText": "Users have been imported. This is default users password, you can copy it and send to users"
   },
   "prepayment": {
     "date": "Date",
@@ -189,7 +208,8 @@
     },
     "userRole": {
       "user": "User",
-      "admin": "Admin"
+      "admin": "Admin",
+      "recruiter": "Recruiter"
     },
     "dayoffReason": {
       "vacation": "Vacation",
@@ -220,7 +240,8 @@
       "boolean": "Yes/No",
       "number": "Number",
       "phone": "Phone number",
-      "date": "Date"
+      "date": "Date",
+      "select": "Dropdown list"
     }
   },
   "notFoundPage": "Page not found",
@@ -265,7 +286,6 @@
     "approve": "Approve",
     "cost": "Cost",
     "tariff": "Tariff",
-    "success": "Success!",
     "addProfile": "Add profile to project",
     "mainInfo": "Main info"
   },
@@ -288,7 +308,8 @@
     "section": "Form's section",
     "save": "Save",
     "delete":"Delete",
-    "order": "Order"
+    "order": "Order",
+    "source": "Source"
   },
   "accommodation": {
     "owner": "Owner",
@@ -317,11 +338,23 @@
     "fieldName": "Field name",
     "fieldCode": "Template code"
   },
+  "dictionaries": "Lists",
+  "dictionary": {
+    "name": "Name",
+    "addOption": "Add new option"
+  },
+  "errorTexts": {
+    "emptyPassword": "Password is empty",
+    "passwordsNotMatched": "Passwords does not match",
+    "wrongOldPassword": "Wrong old password",
+    "sww": "Something went wrong",
+    "requiredField": "Field is required"
+  },
   "fastActions": "Operations",
   "language": "Language",
   "youNotVerified": "Now you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
   "next": "Next",
-  "Back": "Back",
+  "back": "Back",
   "errors": "Errors",
   "deleteApprove": "Are you sure?",
   "rowsPerPage": "Rows per page",
@@ -335,5 +368,10 @@
   "firstDate": "Date from",
   "lastDate": "Date to",
   "welcomeText": "Welcome to the Parko User system, ",
-  "download": "Download"
+  "download": "Download",
+  "noSelected": "Nothing",
+  "male": "Male",
+  "female": "Female",
+  "dataUpdated": "Data updated",
+  "example": "Example"
 }

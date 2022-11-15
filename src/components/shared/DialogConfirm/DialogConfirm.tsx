@@ -16,6 +16,11 @@ const DialogConfirm = ({ onSubmit, title, onClose, ...rest }: Props) => {
     <Dialog
       title={title || t('deleteApprove')}
       onClose={onClose}
+      onKeyPress={(e) => {
+        if (e.key === 'Enter') {
+          onSubmit();
+        }
+      }}
       {...rest}
     >
       <DialogContent>

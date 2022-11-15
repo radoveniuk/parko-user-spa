@@ -1,12 +1,13 @@
-import React, { CSSProperties } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCSVReader } from 'react-papaparse';
 import { invert, omit } from 'lodash-es';
 
-import { UploadIcon } from 'components/icons';
+import { useGetCustomFormFields } from 'api/query/customFormsQuery';
+import { DownloadFileIcon, UploadIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Select from 'components/shared/Select';
-import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
+import { IMPORT_USER_FIELDS } from 'constants/userCsv';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
 
@@ -14,31 +15,22 @@ import { useFileKeys, useRelativeFields, useRows } from '../../UploadProfilesCon
 
 import { FileUploadingWrapper, RelativeFieldsGrid } from './styles';
 
-const styles = {
-  csvReader: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: 20,
-  } as CSSProperties,
-  browseFile: {
-    width: '20%',
-  } as CSSProperties,
-  acceptedFile: {
-    border: '1px solid #ccc',
-    height: 35,
-    lineHeight: 2.5,
-    paddingLeft: 10,
-    width: '40%',
-  } as CSSProperties,
-};
-
 const FileUploading = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { CSVReader } = useCSVReader();
   const [fileKeys, setFileKeys] = useFileKeys();
   const [relativeFields, setRelativeFields] = useRelativeFields();
   const [rows, setRows] = useRows();
-  const translatedUserFields = useTranslatedSelect(IMPORTABLE_USER_FIELDS, 'user', false, true);
+  const translatedUserFields = useTranslatedSelect(IMPORT_USER_FIELDS, 'user', false, true);
+
+  // custom cols
+  const { data: customFieldsData = [] } = useGetCustomFormFields({
+    entity: 'user',
+  });
+  const customUserFields = useMemo(() => customFieldsData.map((customField) => ({
+    value: customField._id,
+    label: customField.names[i18n.language],
+  })), [customFieldsData, i18n.language]);
 
   const reset = () => {
     setFileKeys([]);
@@ -52,14 +44,15 @@ const FileUploading = () => {
         onUploadAccepted={(res: any) => {
           setFileKeys(res.data?.[0]);
           const [headerRow, ...newRows] = res.data;
-          newRows.pop();
-          setRows(newRows.map((rowItems: string[]) => {
-            const rowObject: AnyObject = {};
-            rowItems.forEach((rowItem, index) => {
-              rowObject[headerRow[index]] = rowItem;
-            });
-            return rowObject;
-          }));
+          setRows(newRows
+            .filter((rowItems: string[]) => rowItems.some((rowItem) => !!rowItem))
+            .map((rowItems: string[]) => {
+              const rowObject: AnyObject = {};
+              rowItems.forEach((rowItem, index) => {
+                rowObject[headerRow[index]] = rowItem;
+              });
+              return rowObject;
+            }));
         }}
       >
         {({
@@ -71,11 +64,16 @@ const FileUploading = () => {
           const { onClick: onClickRemove, ...restRemoveFileProps } = getRemoveFileProps();
           return (
             <>
-              <div style={styles.csvReader}>
+              <div className="csvReader">
+                <a download href="/files/Parko_import_example.csv">
+                  <Button variant="text" color="secondary">
+                    <DownloadFileIcon />{t('example')}
+                  </Button>
+                </a>
                 <Button {...getRootProps()} style={{ display: 'flex', gap: 5 }}>
                   <UploadIcon size={20}/>{t('user.upload')}
                 </Button>
-                <div style={styles.acceptedFile}>
+                <div className="acceptedFile">
                   {acceptedFile && acceptedFile.name}
                 </div>
                 <Button
@@ -98,7 +96,7 @@ const FileUploading = () => {
                     <div key={fileKey} style={{ display: 'contents' }}>
                       <div>{fileKey}</div>
                       <Select
-                        options={translatedUserFields}
+                        options={[...translatedUserFields, ...customUserFields]}
                         onChange={(e) => {
                           setRelativeFields((prevValue) => {
                             let newValue = prevValue;

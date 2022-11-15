@@ -30,7 +30,7 @@ const NotificationsPage = () => {
           <Notifications options={{ from: id }} mode="to" />
         </TabPanel>
       </TabsContainer>
-      {role === 'admin' && (
+      {['admin', 'recruiter'].includes(role as string) && (
         <CreateMessageLink to="/create-notification">
           <Button><EditIcon size={20} /></Button>
         </CreateMessageLink>

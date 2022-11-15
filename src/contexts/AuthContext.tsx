@@ -28,7 +28,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logoutMutation = useLogoutMutation();
   const { data: userData } = useGetUser(userId, { enabled: !!userId && isAuth, refetchOnWindowFocus: false });
 
-  const isVerified = useMemo(() => !!userData?.project || userData?.role === 'admin', [userData]);
+  const isVerified = useMemo(() => !!userData?.project || ['admin', 'recruiter'].includes(userData?.role as string), [userData]);
 
   const login = async (data: LoginDto) => {
     const loginResult = await loginMutation.mutateAsync(data);
@@ -50,7 +50,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUserId('');
   }, [logoutMutation, setUserId, userData]);
 
-  const role = useMemo(() => isAuth && userData ? userData.role : 'user', [userData, isAuth]);
+  const role = useMemo(() => isAuth && userData ? userData.role : undefined, [userData, isAuth]);
 
   return (
     <AuthContext.Provider value={{ isAuth, login, logout, userId, role, isVerified, username: `${userData?.name} ${userData?.surname}` }}>

@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { themeConfig } from 'theme';
+
 export const ListTableWrapper = styled.div<{ cols: number }>`
   display: grid;
   grid-template-columns: repeat(${props => props.cols}, 1fr);
@@ -41,5 +43,14 @@ export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })`
 
   p {
     margin: 0;
+  }
+
+  .table-link {
+    color: ${themeConfig.palette.primary.light};
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;

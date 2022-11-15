@@ -10,4 +10,22 @@ export const RelativeFieldsGrid = styled.div`
 
 export const FileUploadingWrapper = styled.div`
   margin-top: 20px;
+
+  .csvReader {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+
+    a:first-child {
+      margin-right: 20px;
+    }
+  }
+
+  .acceptedFile {
+    border: 1px solid #ccc;
+    height: 35px;
+    line-height: 2.5;
+    padding-left: 10px;
+    width: 40%;
+  }
 `;

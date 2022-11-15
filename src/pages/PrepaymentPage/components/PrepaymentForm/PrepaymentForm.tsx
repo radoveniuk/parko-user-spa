@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash-es';
-import { useSnackbar } from 'notistack';
 
 import { useCreatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import Button from 'components/shared/Button';
@@ -21,7 +20,6 @@ const PrepaymentForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
   const { id } = useAuthData();
   const { t } = useTranslation();
-  const { enqueueSnackbar } = useSnackbar();
   const createPrepayment = useCreatePrepaymentMutation();
   const navigate = useNavigate();
 
@@ -35,7 +33,6 @@ const PrepaymentForm = () => {
 
     createPrepayment.mutateAsync(prepayment)
       .then(() => {
-        enqueueSnackbar(t('prepaymentPage.form.successCreate'), { variant: 'success' });
         setTimeout(() => {
           navigate('/');
         }, 1000);

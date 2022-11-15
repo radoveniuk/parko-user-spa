@@ -9,6 +9,7 @@ import {
   useUpdateCustomFormFieldMutation,
 } from 'api/mutations/customFormsMutation';
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
+import { useGetDictionaries } from 'api/query/dictionariesQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { fetchTranslation } from 'api/query/translationQuery';
 import Button from 'components/shared/Button';
@@ -20,12 +21,13 @@ import Select from 'components/shared/Select';
 import { LANGUAGES } from 'constants/languages';
 import useDebounce from 'hooks/useDebounce';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IDictionary } from 'interfaces/dictionary.interface';
 import { CustomFormEntity, CustomFormFieldType, ICustomFormField } from 'interfaces/form.interface';
 
 import CustomSections from './CustomSections';
 import { CustomFieldsWrapper } from './styles';
 
-const CUSTOM_FIELD_TYPES: CustomFormFieldType[] = ['boolean', 'date', 'number', 'phone', 'string'];
+const CUSTOM_FIELD_TYPES: CustomFormFieldType[] = ['boolean', 'date', 'number', 'phone', 'string', 'select'];
 
 const DEFAULT_CUSTOM_FIELD: Partial<ICustomFormField> = {
   entity: 'user',
@@ -52,31 +54,46 @@ const CustomFields = ({
   const queryClient = useQueryClient();
   const { data: projects = [] } = useGetProjects();
 
-  const { data: customFields = [] } = useGetCustomFormFields({ entity });
+  const { data: customFields = [], refetch } = useGetCustomFormFields({ entity });
   const createCustomField = useCreateCustomFormFieldMutation();
   const updateCustomField = useUpdateCustomFormFieldMutation();
   const deleteCustomField = useDeleteCustomFormFieldMutation();
 
-  const { register, handleSubmit, reset, formState: { errors }, control, getValues, setValue } = useForm<ICustomFormField>();
+  const { register, handleSubmit, reset, formState: { errors }, control, getValues, setValue, watch } = useForm<ICustomFormField>();
 
   const [activeCustomField, setActiveCustomField] = useState<Partial<ICustomFormField> | null>(null);
   const [customFieldToDelete, setCustomFieldToDelete] = useState<Partial<ICustomFormField> | null>(null);
   const fieldTypeOptions = useTranslatedSelect(CUSTOM_FIELD_TYPES, 'customForms');
+  const { data: dictionaries } = useGetDictionaries();
 
   const [nameToTranslate, setNameToTranslate] = useState<{ fromLang: string; text: '' } | null>(null);
   const debouncedNameToTranslate = useDebounce(nameToTranslate, 1500);
 
+  const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (projects?.length && activeCustomField) {
+      setSelectedProjects(projects?.length ? activeCustomField.projects || [] : []);
+    }
+  }, [activeCustomField, projects?.length]);
+
   const submitSaveField: SubmitHandler<ICustomFormField> = (data) => {
+    const valuesToSave = {
+      ...data,
+      projects: selectedProjects,
+    };
     if (!data._id) {
-      createCustomField.mutateAsync(data).then((res) => {
-        queryClient.setQueryData(['customFormFields', JSON.stringify({ entity })], [res, ...customFields]);
-        setActiveCustomField(null);
-        setTimeout(() => {
-          setActiveCustomField(res);
+      createCustomField.mutateAsync(valuesToSave)
+        .then((res) => {
+          queryClient.setQueryData(['customFormFields', JSON.stringify({ entity })], [res, ...customFields]);
+          setActiveCustomField(null);
+          setTimeout(() => {
+            setActiveCustomField(res);
+          });
         });
-      });
     } else {
-      updateCustomField.mutate(data);
+      updateCustomField.mutateAsync(valuesToSave)
+        .then(() => void refetch());
     }
   };
 
@@ -161,24 +178,56 @@ const CustomFields = ({
               defaultValue={activeCustomField.type || ''}
               {...register('type')}
             />
+            {watch('type') === 'select' && (
+              <Select
+                options={dictionaries}
+                label={t('customForms.source')}
+                defaultValue={(activeCustomField.source as IDictionary)?._id || ''}
+                valuePath="_id"
+                labelPath="name"
+                error={!!errors.source}
+                {...register('source', { required: true })}
+              />
+            )}
+          </div>
+          <div className="config-wrapper">
             <Select
-              defaultValue={projects?.length ? activeCustomField.projects || '' : ''}
               multiple
+              value={selectedProjects}
               label={t('customForms.projects')}
               options={projects}
               valuePath="_id"
               labelPath="name"
-              {...register('projects')}
+              onChange={(e) => {
+                setSelectedProjects(e.target.value as string[]);
+              }}
             />
+            <Checkbox
+              checked={selectedProjects.length === projects.length}
+              title={t('selectAll')}
+              onChange={(e) => {
+                setSelectedProjects(e.target.checked ? projects.map((item) => item._id) : []);
+              }}
+            />
+          </div>
+          <div className="config-wrapper">
             <Checkbox defaultChecked={activeCustomField.required} title={t('customForms.required')} {...register('required')} />
           </div>
           <Controller
             control={control}
             name="section"
             defaultValue={activeCustomField.section}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <CustomSections value={field.value} onChange={field.onChange} entity={entity} />
+            rules={{
+              required: {
+                value: true,
+                message: t('errorTexts.requiredField'),
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <>
+                <CustomSections value={field.value} onChange={field.onChange} entity={entity} error={!!fieldState.error} />
+                {!!fieldState.error && <div className="error-text">{fieldState.error.message}</div>}
+              </>
             )}
           />
           <div className="config-wrapper">

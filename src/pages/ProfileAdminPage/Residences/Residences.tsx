@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
@@ -7,6 +8,8 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import { getDateFromIso } from 'helpers/datetime';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IResidence } from 'interfaces/residence.interface';
+
+import { EmptyDataWrapper } from '../styles';
 
 const COLUMNS = [
   'accommodation.owner',
@@ -17,6 +20,7 @@ const COLUMNS = [
   'accommodation.costNight',
   'accommodation.sum',
 ];
+
 type ResidenceTableRow = {
   _id: string;
   owner: string;
@@ -45,6 +49,7 @@ const getDays = (residence: IResidence) => {
 };
 
 const Residences = () => {
+  const { t } = useTranslation();
   const { id: user } = useParams();
 
   const { data: residences = [] } = useGetResidences({ user });
@@ -63,6 +68,14 @@ const Residences = () => {
       metadata: item,
     };
   }), [residences]);
+
+  if (!residences.length) {
+    return (
+      <EmptyDataWrapper>
+        {t('noData')}
+      </EmptyDataWrapper>
+    );
+  };
 
   return (
     <ListTable columns={COLUMNS} >

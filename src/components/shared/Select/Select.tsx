@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef, useMemo, useState } from 'react';
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import SelectMaterial, { SelectProps as SelectPropsMaterial } from '@mui/material/Select';
 import _ from 'lodash-es';
@@ -12,7 +12,11 @@ export type SelectProps = SelectPropsMaterial & {
   emptyItem?: string;
 }
 
-const Select = forwardRef(({ label, options = [], valuePath = 'value', labelPath = 'label', emptyItem, ...rest }: SelectProps, ref) => {
+const Select = forwardRef(({
+  label, options = [], valuePath = 'value',
+  labelPath = 'label', emptyItem, defaultValue, onChange, ...rest
+}: SelectProps, ref) => {
+  const [selectedValue, setSelectedValue] = useState<unknown>(defaultValue || '');
   const menuItems = useMemo(() => {
     if (options) {
       return options.map((item) => {
@@ -35,9 +39,13 @@ const Select = forwardRef(({ label, options = [], valuePath = 'value', labelPath
       <InputLabel>{label}</InputLabel>
       <SelectMaterial
         label={label}
-        defaultValue=""
+        value={selectedValue}
         ref={ref}
         style={{ minWidth: 200 }}
+        onChange={(e, child) => {
+          setSelectedValue(e.target.value);
+          onChange?.(e, child);
+        }}
         {...rest}
       >
         {emptyItem && (

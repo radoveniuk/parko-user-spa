@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-const useViewportWdth = () => {
+const useViewportWidth = () => {
   const [width, setWidth] = useState(window.innerWidth);
 
   const setSize = useCallback(() => {
@@ -20,4 +20,4 @@ const useViewportWdth = () => {
   return width;
 };
 
-export default useViewportWdth;
+export default useViewportWidth;

@@ -69,7 +69,7 @@
     "internationalPassAuthority": "Орган що видав",
     "hasIdCard": "ID картка?",
     "passNumber": "Номер паспорту",
-    "hasPermit": "Маєте ВНЖ?",
+    "hasPermit": "ВНЖ/ПМЖ",
     "permitType": "Тип ВНЖ",
     "permitExpire": "Дійсний до (ВНЖ)",
     "hasPrevPermit": "Чи ви мали ВНЖ раніше?",
@@ -98,7 +98,6 @@
     "fatherSurname": "Прізвище батька",
     "fatherBirthdate": "Дата народження батька",
     "wrongCredentials": "Невірний логін або пароль",
-    "dataUpdated": "Дані оновлено",
     "scancopies": "Сканкопії",
     "internationalPassScan": "Закордонний паспорт",
     "passScan": "Паспорт",
@@ -132,7 +131,28 @@
     "employmentType": "Тип найму",
     "mailError": "Невалідний email",
     "export": "Експорт",
-    "other": "Інше"
+    "other": "Інше",
+    "sex": "Стать",
+    "systemFields": "Системні дані",
+    "permitFields": "Дані про ВНЖ/ПМЖ",
+    "businessFields": "Дані про ІП",
+    "workFields": "Дані про роботу",
+    "recruiter": "Рекрутер",
+    "source": "Джерело",
+    "permitStartDate": "Срок від (ВНЖ)",
+    "hasMedicalExamination": "Медогляд",
+    "position": "Робоча позиція",
+    "cooperationStartDate": "Початок співпраці",
+    "cooperationEndDate": "Кінець співпраці",
+    "DIC": "DIČ",
+    "permitAdress": "Реєстраційна адреса",
+    "permitDepartment": "Районний відділ",
+    "permitNumber": "Номер запису в реєстрі",
+    "blocked": "Чорний список",
+    "notes": "Примітки",
+    "oldPassword": "Попередній пароль",
+    "newPassword": "Новий пароль",
+    "cooperationType": "Тип співпраці"
   },
   "userUpload": {
     "title": "Імпорт профілів",
@@ -143,8 +163,7 @@
     "fileUploading": "Завантаження файлу",
     "resultPreview": "Перегляд",
     "finish": "Імпорт",
-    "successText": "Профілі користувачі завантажено. Це - пароль за замовчуванням, скопіюйте його та надішліть користувачам",
-    "errorText": "Щось пішло не так"
+    "successText": "Профілі користувачі завантажено. Це - пароль за замовчуванням, скопіюйте його та надішліть користувачам"
   },
   "prepayment": {
     "date": "Дата",
@@ -190,7 +209,8 @@
     },
     "userRole": {
       "user": "Користувач",
-      "admin": "Адмін"
+      "admin": "Адмін",
+      "recruiter": "Рекрутер"
     },
     "dayoffReason": {
       "vacation": "Відпустка",
@@ -221,7 +241,8 @@
       "boolean": "Так/Ні",
       "number": "Число",
       "phone": "Телефон",
-      "date": "Дата"
+      "date": "Дата",
+      "select": "Випадаючий список"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -266,7 +287,6 @@
     "approve": "Підтвердити",
     "cost": "Вартість",
     "tariff": "Тариф",
-    "success": "Зміни внесено успішно",
     "addProfile": "Додати профілі в проект",
     "mainInfo": "Головна інформація"
   },
@@ -289,7 +309,8 @@
     "section": "Секція на формі",
     "save": "Зберегти",
     "delete":"Видалити",
-    "order": "Порядок"
+    "order": "Порядок",
+    "source":"Джерело"
   },
   "accommodation": {
     "owner": "Власник",
@@ -318,11 +339,23 @@
     "fieldName": "Назва поля",
     "fieldCode": "Код в шаблоні"
   },
+  "dictionaries": "Списки",
+  "dictionary": {
+    "name": "Назва",
+    "addOption": "Додати варіант"
+  },
+  "errorTexts": {
+    "emptyPassword": "Пароль не може бути пустим",
+    "passwordsNotMatched": "Паролі не співпадають",
+    "wrongOldPassword": "Помилковий попередній пароль",
+    "sww": "Щось пішло не так",
+    "requiredField": "Поле обовʼязкове"
+  },
   "fastActions": "Дії",
   "language": "Мова",
   "youNotVerified": "Наразі основні розділи системи Parko app недоступні для вас. Спочатку вам необхідно заповнити інформацію про себе у розділі профіль",
   "next": "Вперед",
-  "Back": "Назад",
+  "back": "Назад",
   "errors": "Помилкові поля:",
   "deleteApprove": "Ви впевнені?",
   "rowsPerPage": "Кількість рядів",
@@ -336,5 +369,10 @@
   "firstDate": "Дата від",
   "lastDate": "Дата до",
   "welcomeText": "Ласкаво просимо до системи Parko User, ",
-  "download": "Скачать"
+  "download": "Скачать",
+  "noSelected": "Не вибрано",
+  "male": "Чоловіча",
+  "female": "Жіноча",
+  "dataUpdated": "Дані оновлено",
+  "example": "Приклад"
 }

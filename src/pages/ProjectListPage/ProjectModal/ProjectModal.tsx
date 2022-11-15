@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { isEmpty } from 'lodash-es';
-import { useSnackbar } from 'notistack';
 
 import { useCreateProjectMutation, useUpdateProjectMutation } from 'api/mutations/projectMutation';
 import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
@@ -29,7 +28,6 @@ const ProjectModal = ({ defaultValues, onClose, ...rest }: Props) => {
   const { t, i18n } = useTranslation();
   const createProjectMutation = useCreateProjectMutation();
   const updateProjectMutation = useUpdateProjectMutation();
-  const { enqueueSnackbar } = useSnackbar();
   const tariffTypes = useTranslatedSelect(PROJECT_TARIFF_TYPE, 'tariff');
 
   // custom fields
@@ -44,7 +42,6 @@ const ProjectModal = ({ defaultValues, onClose, ...rest }: Props) => {
   const submitHandler: SubmitHandler<IProject> = async (data) => {
     const mutation = defaultValues !== true ? updateProjectMutation : createProjectMutation;
     mutation.mutateAsync(data).then(() => {
-      enqueueSnackbar(t('project.success'), { variant: 'success' });
       onClose();
     });
   };

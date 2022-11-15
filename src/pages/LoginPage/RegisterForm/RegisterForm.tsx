@@ -2,13 +2,13 @@ import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash-es';
-import { useSnackbar } from 'notistack';
 
 import { useRegisterMutation } from 'api/mutations/userMutation';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import { validateEmail } from 'helpers/validateEmail';
 import { RegisterUserDto } from 'interfaces/users.interface';
 
+import PasswordInput from '../components/PasswordInput';
 import { useTabs } from '../Tabs/TabsContext';
 
 import { RegisterFormWrapper } from './styles';
@@ -17,17 +17,12 @@ const RegisterForm = () => {
   const { t } = useTranslation();
   const { handleSubmit, register, formState: { errors }, control } = useForm<RegisterUserDto>();
   const registerMutation = useRegisterMutation();
-  const { enqueueSnackbar } = useSnackbar();
   const [, setTab] = useTabs();
 
   const onSubmitLogin: SubmitHandler<RegisterUserDto> = async (data) => {
     registerMutation.mutateAsync({ ...data, role: 'user' })
       .then(() => {
-        enqueueSnackbar(t('user.successfullRegister'), { variant: 'success' });
         setTab('login');
-      })
-      .catch(() => {
-        enqueueSnackbar(t('user.failedRegister'), { variant: 'error' });
       });
   };
 
@@ -53,7 +48,7 @@ const RegisterForm = () => {
         )}
       />
       <span className={`${errors.password ? 'error' : ''}`}>{t('user.password')}</span>
-      <input type="password" {...register('password', { required: true })} />
+      <PasswordInput {...register('password', { required: true })} />
       <button
         onClick={handleSubmit(onSubmitLogin)}
         type="submit"

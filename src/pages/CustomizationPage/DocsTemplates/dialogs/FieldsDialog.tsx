@@ -6,7 +6,7 @@ import { CopyIcon } from 'components/icons';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { IMPORTABLE_USER_FIELDS } from 'constants/userCsv';
+import { EXPORT_USER_FIELDS } from 'constants/userCsv';
 
 export const FieldsDialog = ({ ...rest }: DialogProps) => {
   const { t, i18n } = useTranslation();
@@ -14,7 +14,7 @@ export const FieldsDialog = ({ ...rest }: DialogProps) => {
   return (
     <Dialog {...rest}>
       <ListTable columns={['docsTemplates.fieldName', 'docsTemplates.fieldCode']}>
-        {IMPORTABLE_USER_FIELDS.map((field) => (
+        {EXPORT_USER_FIELDS.map((field) => (
           <ListTableRow key={field}>
             <ListTableCell>{t(`user.${field}`)}</ListTableCell>
             <ListTableCell>

@@ -5,6 +5,6 @@ const Checkbox = forwardRef(({ title, ...rest }: CheckboxProps, ref: ForwardedRe
   <FormControlLabel control={<CheckBoxMaterial ref={ref} {...rest} />} label={title}/>
 ));
 
-Checkbox.displayName = 'Input';
+Checkbox.displayName = 'Checkbox';
 
 export default Checkbox;

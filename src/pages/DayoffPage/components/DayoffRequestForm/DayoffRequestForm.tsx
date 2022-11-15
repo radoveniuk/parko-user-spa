@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash-es';
 import { DateTime } from 'luxon';
-import { useSnackbar } from 'notistack';
 
 import { useCreateDayoffMutation } from 'api/mutations/dayoffMutation';
 import Button from 'components/shared/Button';
@@ -29,7 +28,6 @@ const DayoffRequestForm = () => {
   const { t } = useTranslation();
   const { id } = useAuthData();
   const reasonsList = useTranslatedSelect(REASONS, 'dayoffReason');
-  const { enqueueSnackbar } = useSnackbar();
   const createDayoffMutation = useCreateDayoffMutation();
   const navigate = useNavigate();
 
@@ -44,7 +42,6 @@ const DayoffRequestForm = () => {
     };
 
     createDayoffMutation.mutateAsync(dayoff).then(() => {
-      enqueueSnackbar(t('dayoffPage.form.successCreate'), { variant: 'success' });
       setTimeout(() => {
         navigate('/');
       }, 1000);
