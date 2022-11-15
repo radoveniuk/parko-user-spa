@@ -9,6 +9,7 @@ export const HeaderWrapper = styled.header`
     position: sticky;
     top: 0;
     background-color: #fff;
+    z-index: 10;
   }
 
   a {
