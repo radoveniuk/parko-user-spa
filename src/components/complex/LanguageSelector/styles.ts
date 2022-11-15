@@ -13,16 +13,18 @@ export const LanguageSelectorWrapper = styled.div`
 
 export const LangDialogWrapper = styled.div`
   max-width: 400px;
+  min-width: 300px;
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1rem;
+  position: relative;
 `;
 
 export const LangButton = styled.button`
   cursor: pointer;
   height: 50px;
   min-width: 100px;
-  width: 30%;
   background-color: transparent;
   border: 1px solid #ffded2;
   color: ${themeConfig.palette.secondary.dark};

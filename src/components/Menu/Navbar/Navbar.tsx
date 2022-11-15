@@ -85,7 +85,12 @@ const Navbar = () => {
         variant="permanent"
         sx={{
           display: { xs: 'none', sm: 'block' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: expanded ? DEFAULT_WIDTH : COLLAPSED_WIDTH, transition: 'width 0.2s' },
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: expanded ? DEFAULT_WIDTH : COLLAPSED_WIDTH,
+            transition: 'width 0.2s',
+            overflowX: 'hidden',
+          },
         }}
         open={expanded}
       >

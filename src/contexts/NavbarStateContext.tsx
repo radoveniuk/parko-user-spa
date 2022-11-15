@@ -3,6 +3,10 @@ import { useLocation } from 'react-router-dom';
 
 import { ADMIN_NAVBAR_ITEMS, INavbarItem, LITE_NAVBAR_ITEMS, NAVBAR_ITEMS } from 'constants/menu';
 import { useAuthData } from 'contexts/AuthContext';
+import useViewportWidth from 'hooks/useViewportWsdth';
+import { SM } from 'theme/sizeBreakpoints';
+
+const smBreakpoint = Number(SM.replace('px', ''));
 
 type ContextType = { expandedState: [boolean, React.Dispatch<React.SetStateAction<boolean>>], activeLink?: string, items: INavbarItem[] };
 
@@ -10,8 +14,10 @@ const NavbarStateContext = createContext<ContextType>({ expandedState: [false, (
 
 const NavbarStateProvider = ({ children }: { children: ReactNode }) => {
   const expandedState = useState(false);
+  const [, setExpanded] = expandedState;
   const [activeLink, setActiveLink] = useState<string | undefined>('/');
   const location = useLocation();
+  const viewportWidth = useViewportWidth();
 
   const { role, isVerified } = useAuthData();
 
@@ -28,7 +34,11 @@ const NavbarStateProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const currentLink = menuItems.find((item) => item.to === location.pathname || item?.relativeLocations?.includes(location.pathname.split('/')[1]));
     setActiveLink(currentLink?.to as string);
-  }, [location.pathname, menuItems]);
+
+    if (viewportWidth <= smBreakpoint) {
+      setExpanded(false);
+    }
+  }, [location.pathname, menuItems, setExpanded, viewportWidth]);
 
   return (
     <NavbarStateContext.Provider

@@ -8,11 +8,13 @@ export const HeaderWrapper = styled.header`
     justify-content: center;
     width: min-content;
     margin: 30px auto;
+    align-items: center;
+    gap: 15px;
   }
 `;
 
 export const HeaderText = styled.h1`
-  font-size: 40px;
+  font-size: 30px;
   color: #30384F;
   margin: 0;
   font-weight: 400;
