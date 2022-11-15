@@ -3,6 +3,14 @@ import styled from 'styled-components';
 export const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
+  
+  &:has(.toggle-menu-icon) {
+    height: 60px;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+  }
+
   a {
     display: flex;
     justify-content: center;
