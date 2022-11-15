@@ -372,5 +372,6 @@
   "noSelected": "Не выбрано",
   "male": "Мужской",
   "female": "Женский",
-  "dataUpdated": "Данные обновлены"
+  "dataUpdated": "Данные обновлены",
+  "example": "Пример"
 }

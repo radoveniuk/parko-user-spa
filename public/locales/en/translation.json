@@ -371,5 +371,6 @@
   "noSelected": "Nothing",
   "male": "Male",
   "female": "Female",
-  "dataUpdated": "Data updated"
+  "dataUpdated": "Data updated",
+  "example": "Example"
 }

@@ -1,10 +1,10 @@
-import React, { CSSProperties, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCSVReader } from 'react-papaparse';
 import { invert, omit } from 'lodash-es';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
-import { UploadIcon } from 'components/icons';
+import { DownloadFileIcon, UploadIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Select from 'components/shared/Select';
 import { IMPORT_USER_FIELDS } from 'constants/userCsv';
@@ -14,24 +14,6 @@ import { AnyObject } from 'interfaces/base.types';
 import { useFileKeys, useRelativeFields, useRows } from '../../UploadProfilesContext';
 
 import { FileUploadingWrapper, RelativeFieldsGrid } from './styles';
-
-const styles = {
-  csvReader: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: 20,
-  } as CSSProperties,
-  browseFile: {
-    width: '20%',
-  } as CSSProperties,
-  acceptedFile: {
-    border: '1px solid #ccc',
-    height: 35,
-    lineHeight: 2.5,
-    paddingLeft: 10,
-    width: '40%',
-  } as CSSProperties,
-};
 
 const FileUploading = () => {
   const { t, i18n } = useTranslation();
@@ -82,11 +64,16 @@ const FileUploading = () => {
           const { onClick: onClickRemove, ...restRemoveFileProps } = getRemoveFileProps();
           return (
             <>
-              <div style={styles.csvReader}>
+              <div className="csvReader">
+                <a download href="/files/Parko_import_example.csv">
+                  <Button variant="text" color="secondary">
+                    <DownloadFileIcon />{t('example')}
+                  </Button>
+                </a>
                 <Button {...getRootProps()} style={{ display: 'flex', gap: 5 }}>
                   <UploadIcon size={20}/>{t('user.upload')}
                 </Button>
-                <div style={styles.acceptedFile}>
+                <div className="acceptedFile">
                   {acceptedFile && acceptedFile.name}
                 </div>
                 <Button
