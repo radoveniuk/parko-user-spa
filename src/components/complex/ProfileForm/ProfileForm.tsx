@@ -225,14 +225,16 @@ const ProfileForm = ({ defaultValues }: Props) => {
           {generateAccordionContent(ADRESS_FIELDS)}
         </AccordionFieldsWrapper>
       </Accordion>
-      <Accordion
-        title={t('user.systemFields')}
-        defaultExpanded
-      >
-        <AccordionFieldsWrapper cols={2}>
-          {generateAccordionContent(SYSTEM_FIELDS)}
-        </AccordionFieldsWrapper>
-      </Accordion>
+      {role === 'admin' && (
+        <Accordion
+          title={t('user.systemFields')}
+          defaultExpanded
+        >
+          <AccordionFieldsWrapper cols={2}>
+            {generateAccordionContent(SYSTEM_FIELDS)}
+          </AccordionFieldsWrapper>
+        </Accordion>
+      )}
       <Accordion
         title={t('user.permitFields')}
         defaultExpanded
@@ -257,14 +259,16 @@ const ProfileForm = ({ defaultValues }: Props) => {
           {generateAccordionContent(BIOMETRY_FIELDS)}
         </AccordionFieldsWrapper>
       </Accordion>
-      <Accordion
-        title={t('user.workFields')}
-        defaultExpanded
-      >
-        <AccordionFieldsWrapper cols={2}>
-          {generateAccordionContent(WORK_FIELDS)}
-        </AccordionFieldsWrapper>
-      </Accordion>
+      {role === 'admin' && (
+        <Accordion
+          title={t('user.workFields')}
+          defaultExpanded
+        >
+          <AccordionFieldsWrapper cols={2}>
+            {generateAccordionContent(WORK_FIELDS)}
+          </AccordionFieldsWrapper>
+        </Accordion>
+      )}
       {customSections
         .filter((section) => customFields.some((customField) => customField.section === section._id))
         .map((section) => (

@@ -34,7 +34,7 @@ const HomePage = () => {
             {item.icon}
           </MainMenuLink>
         ))}
-        {!!dashboard && (
+        {!!dashboard && role === 'admin' && (
           <>
             <MainMenuLink to="/profiles">
               <p>{t('navbar.profiles')} ({dashboard.users})</p>
