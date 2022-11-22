@@ -49,8 +49,8 @@ const ProfileScans = ({ id }: Props) => {
   const [comment, setComment] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const onUpdate = async (values: Partial<IUser>) => {
-    updateUserMutation.mutateAsync({ ...values, _id: id, project: values.project || null })
+  const updateHandler = async (values: Partial<IUser>) => {
+    updateUserMutation.mutateAsync({ ...values, _id: id })
       .then(() => {
         refetch();
       });
@@ -71,10 +71,10 @@ const ProfileScans = ({ id }: Props) => {
     setComment('');
 
     if (fileKey !== 'other') {
-      onUpdate({ [fileKey]: uploadedFileData._id });
+      updateHandler({ [fileKey]: uploadedFileData._id });
     } else {
       const oldOtherScans = (data.otherScans || []) as IFile[];
-      onUpdate({
+      updateHandler({
         otherScans: [
           ...oldOtherScans.map((item) => item._id),
           uploadedFileData._id,
@@ -87,11 +87,11 @@ const ProfileScans = ({ id }: Props) => {
     if (!data) return null;
     deleteFileMutation.mutateAsync(file).then(() => {
       if (file.metadata?.type !== 'other') {
-        onUpdate({ [file.originalname]: null });
+        updateHandler({ [file.originalname]: null });
       } else {
         const oldOtherScans = (data.otherScans || []) as IFile[];
         const newOtherScans = oldOtherScans.filter((item) => item._id !== file._id).map((item) => item._id);
-        onUpdate({
+        updateHandler({
           otherScans: newOtherScans,
         });
       }
