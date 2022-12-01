@@ -83,20 +83,19 @@ const ProfileScans = ({ id }: Props) => {
     }
   };
 
-  const deleteFile = (file: IFile) => {
+  const deleteFile = async (file: IFile) => {
     if (!data) return null;
-    deleteFileMutation.mutateAsync(file).then(() => {
-      if (file.metadata?.type !== 'other') {
-        updateHandler({ [file.originalname]: null });
-      } else {
-        const oldOtherScans = (data.otherScans || []) as IFile[];
-        const newOtherScans = oldOtherScans.filter((item) => item._id !== file._id).map((item) => item._id);
-        updateHandler({
-          otherScans: newOtherScans,
-        });
-      }
-      setFileToDelete(null);
-    });
+    await deleteFileMutation.mutateAsync(file);
+    if (file.metadata?.type !== 'other') {
+      await updateHandler({ [file.originalname]: null });
+    } else {
+      const oldOtherScans = (data.otherScans || []) as IFile[];
+      const newOtherScans = oldOtherScans.filter((item) => item._id !== file._id).map((item) => item._id);
+      await updateHandler({
+        otherScans: newOtherScans,
+      });
+    }
+    setFileToDelete(null);
   };
 
   if (!data) return null;
@@ -188,15 +187,16 @@ const ProfileScans = ({ id }: Props) => {
                   <FileInput
                     id={comment}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                      deleteFile(fileData);
-                      updateFile('other', e.target.files?.[0] as File, comment);
+                      deleteFile(fileData).then(() => {
+                        updateFile('other', e.target.files?.[0] as File, comment);
+                      });
                     }}
                     buttonComponent={(
-                      <IconButton
-                        className="file-input"
-                      >
-                        <EditIcon />
-                      </IconButton>
+                      <div className="file-input">
+                        <IconButton>
+                          <EditIcon />
+                        </IconButton>
+                      </div>
                     )}
                   />
                 </ListTableCell>
