@@ -174,7 +174,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
             })}
           />
         )}
-        {(fieldData?.type === 'dynamic-select' && dynamicSelectOptions[fieldName]?.options?.length) && (
+        {(fieldData?.type === 'dynamic-select' && !!dynamicSelectOptions[fieldName]?.options?.length) && (
           <Select
             options={dynamicSelectOptions[fieldName].options || []}
             defaultValue={defaultValues?.[fieldName] || ''}
