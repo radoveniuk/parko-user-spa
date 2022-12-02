@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { IconButton } from '@mui/material';
 
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog, { UserData } from 'components/complex/PrintDocDialog';
-import { CheckAllIcon, ExportIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SelectMenuIcon, UploadIcon } from 'components/icons';
+import {
+  BooleanIcon, CheckAllIcon, ExportIcon, PlusIcon, PrintIcon,
+  RemoveCheckIcon, SelectMenuIcon, SettingsIcon, UploadIcon,
+} from 'components/icons';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
@@ -14,8 +18,11 @@ import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Page, { PageActions, PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
 import Select from 'components/shared/Select';
+import { EXPORT_USER_FIELDS } from 'constants/userCsv';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
+import { getDateFromIso } from 'helpers/datetime';
 import useDebounce from 'hooks/useDebounce';
+import useOutsideClick from 'hooks/useOutsideClick';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';
@@ -24,10 +31,15 @@ import { ProfileListPageWrapper } from './styles';
 
 const ROWS_PER_PAGE_OPTIONS = [20, 50, 100, 200, 500, 1000];
 
-const COLUMNS = [
+const STATIC_COLS = [
   '',
   'user.name',
-  'user.email',
+];
+
+const COLS_TO_SETTINGS = EXPORT_USER_FIELDS.filter((item) => !['name', 'surname'].includes(item)).map((col) => `user.${col}`);
+
+const DEFAULT_COLS = [
+  'user.birthDate',
   'user.project',
   'user.status',
 ];
@@ -47,15 +59,26 @@ const ProfileListPageRender = () => {
   const [selectedItems, setSelectedItems] = useState<UserData[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
 
+  const [openColsSettins, setOpenColsSettings] = useState(false);
+  const [activeCols, setActiveCols] = useState(DEFAULT_COLS);
+  const colsSettingsRef = useRef<HTMLDivElement>(null);
+  useOutsideClick(colsSettingsRef, () => {
+    setOpenColsSettings(false);
+  });
+
+  const toggleColumnsSettings = () => {
+    setOpenColsSettings((prev) => !prev);
+  };
+
   useEffect(() => {
     if (debouncedFiltersState) {
       refetch();
     }
-    return () => { remove(); };
+    // return () => { remove(); };
   }, [debouncedFiltersState, refetch, remove]);
 
   return (
-    <ProfileListPageWrapper>
+    <ProfileListPageWrapper cols={activeCols.length}>
       <Page title={t('profileList')}>
         <PageTitle>{t('profileList')}</PageTitle>
         <PageActions>
@@ -109,7 +132,39 @@ const ProfileListPageRender = () => {
             labelKey="label"
           />
           <ClearFiLtersButton />
-          <div style={{ marginLeft: 'auto' }}>
+          <div className="table-settings-wrapper">
+            <div className="cols-settings-wrapper" ref={colsSettingsRef}>
+              <IconButton onClick={toggleColumnsSettings}><SettingsIcon /></IconButton>
+              {openColsSettins && (
+                <div className="cols-settings">
+                  <Checkbox
+                    title={t('selectAll')}
+                    checked={activeCols.length === COLS_TO_SETTINGS.length}
+                    onChange={(e) => void setActiveCols(() => {
+                      if (e.target.checked) {
+                        return COLS_TO_SETTINGS;
+                      } else {
+                        return DEFAULT_COLS;
+                      }
+                    })}
+                  />
+                  {COLS_TO_SETTINGS.map((field) => (
+                    <Checkbox
+                      key={field}
+                      title={t(field)}
+                      checked={activeCols.includes(field)}
+                      onChange={(e) => void setActiveCols((prev) => {
+                        if (e.target.checked) {
+                          return [...prev, field];
+                        } else {
+                          return prev.filter((item) => item !== field);
+                        }
+                      })}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
             <Select
               label={t('rowsPerPage')}
               value={rowsPerPage}
@@ -119,7 +174,7 @@ const ProfileListPageRender = () => {
             />
           </div>
         </FiltersBar>
-        <ListTable columns={COLUMNS} className="users-table">
+        <ListTable columns={[...STATIC_COLS, ...activeCols]} className="users-table">
           {pageItems.map((user: IUser) => (
             <ListTableRow key={user._id}>
               <ListTableCell>
@@ -145,14 +200,39 @@ const ProfileListPageRender = () => {
                   {user.name} {user.surname}
                 </Link>
               </ListTableCell>
-              <ListTableCell>{user.email}</ListTableCell>
-              <ListTableCell>{typeof user.project === 'object' && user.project?.name}</ListTableCell>
-              <ListTableCell>{user.status && (
-                <p
-                  style={{ color: STATUSES_COLORS[user.status] }}>
-                  {t(`selects.userStatus.${user.status}`)}
-                </p>
-              )}</ListTableCell>
+              {activeCols.map((colName) => {
+                const userField = colName.replace('user.', '') as keyof IUser;
+                if (userField.includes('Date') || userField === 'permitExpire') {
+                  return <ListTableCell key={colName}>{getDateFromIso(user[userField])}</ListTableCell>;
+                }
+                if (userField === 'project') {
+                  return <ListTableCell key={colName}>{typeof user.project === 'object' && user.project?.name}</ListTableCell>;
+                }
+                if (userField === 'status') {
+                  return (
+                    <ListTableCell key={colName} color={STATUSES_COLORS[user.status]}>
+                      {user.status && t(`selects.userStatus.${user.status}`)}
+                    </ListTableCell>
+                  );
+                }
+                if (typeof user[userField] === 'boolean') {
+                  return <ListTableCell key={colName}><BooleanIcon value={user[userField] as boolean} /></ListTableCell>;
+                }
+                if (userField === 'sex') {
+                  return <ListTableCell key={colName}>{t(user[userField])}</ListTableCell>;
+                }
+                if (userField === 'role') {
+                  return <ListTableCell key={colName}>{t(`selects.userRole.${user[userField]}`)}</ListTableCell>;
+                }
+                if (userField === 'recruiter') {
+                  return (
+                    <ListTableCell key={colName}>
+                      {typeof user.recruiter === 'object' && !!user.recruiter && `${user.recruiter?.name} ${user.recruiter?.surname}` }
+                    </ListTableCell>
+                  );
+                }
+                return <ListTableCell key={colName}>{user[userField]?.toString()}</ListTableCell>;
+              })}
             </ListTableRow>
           ))}
         </ListTable>

@@ -18,6 +18,7 @@ export { FaMoneyCheckAlt as PaycheckIcon } from 'react-icons/fa';
 export { GiReceiveMoney as PrepaymentIcon } from 'react-icons/gi';
 export { GrLanguage as LanguageIcon } from 'react-icons/gr';
 export { ImExit as ExitIcon } from 'react-icons/im';
+export { IoMdSettings as SettingsIcon } from 'react-icons/io';
 export { IoNotificationsSharp as NotificationIcon } from 'react-icons/io5';
 export { IoHome as HomeIcon } from 'react-icons/io5';
 export { IoMenu as MenuIcon } from 'react-icons/io5';
