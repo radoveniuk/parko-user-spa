@@ -22,6 +22,7 @@ import { EXPORT_USER_FIELDS } from 'constants/userCsv';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import useDebounce from 'hooks/useDebounce';
+import useLocalStorageState from 'hooks/useLocalStorageState';
 import useOutsideClick from 'hooks/useOutsideClick';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -60,7 +61,8 @@ const ProfileListPageRender = () => {
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
 
   const [openColsSettins, setOpenColsSettings] = useState(false);
-  const [activeCols, setActiveCols] = useState(DEFAULT_COLS);
+  const [storedColsSettings, setStoredColsSettings] = useLocalStorageState('profilesTableCols');
+  const [activeCols, setActiveCols] = useState<string[]>(storedColsSettings ? JSON.parse(storedColsSettings).cols : DEFAULT_COLS);
   const colsSettingsRef = useRef<HTMLDivElement>(null);
   useOutsideClick(colsSettingsRef, () => {
     setOpenColsSettings(false);
@@ -74,8 +76,12 @@ const ProfileListPageRender = () => {
     if (debouncedFiltersState) {
       refetch();
     }
-    // return () => { remove(); };
+    return () => { remove(); };
   }, [debouncedFiltersState, refetch, remove]);
+
+  useEffect(() => {
+    setStoredColsSettings(JSON.stringify({ cols: activeCols }));
+  }, [activeCols, setStoredColsSettings]);
 
   return (
     <ProfileListPageWrapper cols={activeCols.length}>
