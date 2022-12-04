@@ -8,7 +8,7 @@ export const ListTableWrapper = styled.div<{ cols: number }>`
   overflow: auto;
 `;
 
-export const ListTableRow = styled.div`
+export const ListTableRow = styled.div.attrs({ className: 'list-table-row' })`
   display: contents;
   grid-gap: 20px;
   &:hover {

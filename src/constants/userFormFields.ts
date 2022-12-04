@@ -147,5 +147,28 @@ export const WORK_FIELDS: UserFieldsList = {
   },
 };
 
+const SYSTEM_SETTINGS_FIELDS: UserFieldsList = {
+  project: {
+    type: 'dynamic-select',
+  },
+  status: {
+    type: 'select',
+  },
+  role: {
+    type: 'select',
+  },
+};
+
+export const ALL_FORM_FIELDS = {
+  ...BASE_FIELDS,
+  ...ADRESS_FIELDS,
+  ...SYSTEM_FIELDS,
+  ...PERMIT_FIELDS,
+  ...BUSINESS_FIELDS,
+  ...BIOMETRY_FIELDS,
+  ...WORK_FIELDS,
+  ...SYSTEM_SETTINGS_FIELDS,
+};
+
 export type FieldSection = 'baseFields' |
 'docsFields' | 'adressFields' | 'biometryFields' | 'expirienceFields' | 'familyFields' | 'slovakDocsFields' | 'scancopies';

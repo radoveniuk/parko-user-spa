@@ -31,7 +31,7 @@ export interface IUser {
   blocked: boolean;
   notes: string;
   // system data
-  recruiter: string | { name: string; surname: string; };
+  recruiter: string | { name: string; surname: string; } | null;
   source: string;
   project: string | IProject | null;
   // adress

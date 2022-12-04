@@ -18,6 +18,23 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     .list-table-cell {
       white-space: nowrap;
     }
+
+    .fast-edit-profile {
+      opacity: 0;
+      transition: .3s;
+      margin-left: auto;
+      margin-right: 10px;
+
+      &.active {
+        opacity: 1;
+      }
+    }
+    
+    .list-table-row:hover {
+      .fast-edit-profile {
+        opacity: 1;
+      }
+    }
   }
 
   .table-settings-wrapper {
