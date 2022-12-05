@@ -1,6 +1,6 @@
 {
   "name": "parko-user-client",
-  "version": "3.2.3",
+  "version": "3.3.0",
   "private": false,
   "dependencies": {
     "@date-io/luxon": "^2.16.0",

@@ -16,8 +16,8 @@ export const LANGUAGES: Language[] = [
     code: 'ru',
     title: 'Русский',
   },
-  // {
-  //   code: 'sk',
-  //   title: 'Slovenský',
-  // },
+  {
+    code: 'sk',
+    title: 'Slovenský',
+  },
 ];
