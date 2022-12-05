@@ -14,6 +14,10 @@ import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import Select from 'components/shared/Select';
 import { COUNTRIES } from 'constants/countries';
 import { EMPLOYMENT_TYPE, FAMILY_STATUSES, SIZES, STUDY } from 'constants/selectsOptions';
+import {
+  ADRESS_FIELDS, BASE_FIELDS, BIOMETRY_FIELDS, BUSINESS_FIELDS,
+  PERMIT_FIELDS, SYSTEM_FIELDS, UserField, UserFieldsList, WORK_FIELDS,
+} from 'constants/userFormFields';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
@@ -21,10 +25,6 @@ import { IUser } from 'interfaces/users.interface';
 
 import CustomField from '../CustomField';
 
-import {
-  ADRESS_FIELDS, BASE_FIELDS, BIOMETRY_FIELDS, BUSINESS_FIELDS,
-  PERMIT_FIELDS, SYSTEM_FIELDS, UserField, UserFieldsList, WORK_FIELDS,
-} from './fields';
 import { AccordionFieldsWrapper, ProfileFormWrapper } from './styles';
 
 type Props = {

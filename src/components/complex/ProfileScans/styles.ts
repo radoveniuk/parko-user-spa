@@ -20,7 +20,7 @@ export const ScansWrapper = styled.div`
     max-width: min-content;
     grid-template-columns: max-content 1fr 1fr 1fr 1fr 1fr 1fr !important;
 
-    .file-row {
+    .list-table-row {
       cursor: default;
         .file-input {
           cursor: pointer;

@@ -8,7 +8,7 @@ export const ListTableWrapper = styled.div<{ cols: number }>`
   overflow: auto;
 `;
 
-export const ListTableRow = styled.div`
+export const ListTableRow = styled.div.attrs({ className: 'list-table-row' })`
   display: contents;
   grid-gap: 20px;
   &:hover {
@@ -32,7 +32,7 @@ export const ListTableHeaderRow = styled.div<{ sticky?: boolean }>`
   `}
 `;
 
-export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })`
+export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })<{ color?: string }>`
   min-height: 30px;
   display: flex;
   align-items: center;
@@ -40,6 +40,9 @@ export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })`
   padding: 10px;
   transition: background-color 0.3s;
   background-color: #fff;
+  ${(props) => props.color && css`
+    color: ${props.color};
+  `}
 
   p {
     margin: 0;
