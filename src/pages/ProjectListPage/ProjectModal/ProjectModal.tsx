@@ -89,6 +89,14 @@ const ProjectModal = ({ defaultValues, onClose, ...rest }: Props) => {
               )}
             />
             <Input
+              label={t('project.status')}
+              {...register('status')}
+            />
+            <Input
+              label={t('project.location')}
+              {...register('location')}
+            />
+            <Input
               label={t('project.comment')}
               error={!!errors.comment}
               helperText={errors.comment?.message}

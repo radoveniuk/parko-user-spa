@@ -8,5 +8,8 @@ export interface IProject {
   dateEnd: string | null;
   cost: string;
   tariff: string;
+  status: string;
+  location: string;
+  stages: string[];
   customFields: Record<string, unknown>;
 }

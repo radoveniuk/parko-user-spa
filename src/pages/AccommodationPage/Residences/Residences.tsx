@@ -13,7 +13,6 @@ import { ClearFiLtersButton, FilterAutocomplete, FilterDate, FilterSelect, Filte
 import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
-import useDebounce from 'hooks/useDebounce';
 import usePrev from 'hooks/usePrev';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IAccommodation } from 'interfaces/accommodation.interface';
@@ -71,8 +70,7 @@ const getDays = (residence: IResidence) => {
 
 const Residences = () => {
   const { t } = useTranslation();
-  const { filtersState } = useFilters();
-  const debouncedFiltersState = useDebounce(filtersState);
+  const { debouncedFiltersState } = useFilters();
   const activeOptions = useTranslatedSelect(['true', 'false']);
   const { data: filters, refetch: refetchFilters } = useGetResidenceFilterLists();
   const { data: accommodations = [] } = useGetAccommodations();

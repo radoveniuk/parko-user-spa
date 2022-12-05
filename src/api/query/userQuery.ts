@@ -30,9 +30,9 @@ export const useGetUserList = (params: AnyObject = {}, options?: QueryOptions) =
   },
 );
 
-export const useGetUserListForFilter = (options?: QueryOptions) => useQuery<IUser[]>(
-  ['users-filter'],
-  () => api.get('/users-filter').then(res => res.data.data),
+export const useGetUserListForFilter = (params: AnyObject = {}, options?: QueryOptions) => useQuery<IUser[]>(
+  ['users-filter', JSON.stringify(params)],
+  () => api.get('/users-filter', { params }).then(res => res.data.data),
   {
     initialData: [],
     cacheTime: Infinity,

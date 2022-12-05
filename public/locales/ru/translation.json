@@ -2,7 +2,7 @@
   "navbar": {
     "home": "Главная",
     "profile": "Профиль",
-    "profiles": "Профили",
+    "profiles": "Сотрудники",
     "notifications": "Оповещения",
     "prepayments": "Авансы",
     "daysoff": "Отгулы",
@@ -184,7 +184,7 @@
     "user": "Пользователь",
     "send": "Отправить"
   },
-  "profileList": "Профили",
+  "profileList": "Сотрудники",
   "selects": {
     "permitType": {
       "business": "Бизнес",
@@ -280,7 +280,7 @@
     "comment": "Коментарий",
     "dateStart": "Дата начала",
     "dateEnd": "Дата завершения",
-    "users": "Профили",
+    "users": "Сотрудники",
     "data": "Информация",
     "submit": "Сохранить",
     "approveRemoving": "Вы собираетесь удалить проект! Вы уверенны?" ,
