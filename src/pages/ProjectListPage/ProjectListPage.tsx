@@ -79,7 +79,6 @@ const ProjectListPage = () => {
         <ProjectModal
           onClose={() => { setProjectDialogData(false); refetch(); }}
           open={!!projectDialogData}
-          defaultValues={projectDialogData}
         />
       )}
     </Page>

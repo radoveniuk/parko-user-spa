@@ -26,12 +26,11 @@ import useLocalStorageState from 'hooks/useLocalStorageState';
 import useOutsideClick from 'hooks/useOutsideClick';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { ROWS_PER_PAGE_OPTIONS } from 'interfaces/table.types';
 import { IUser } from 'interfaces/users.interface';
 
 import ProfileRow from './ProfileRow';
 import { ProfileListPageWrapper } from './styles';
-
-const ROWS_PER_PAGE_OPTIONS = [20, 50, 100, 200, 500, 1000];
 
 const STATIC_COLS = [
   '',

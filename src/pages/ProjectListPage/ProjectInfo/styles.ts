@@ -14,6 +14,10 @@ export const ProjectInfoWrapper = styled.div`
     max-height: calc(100vh - 353px);
     grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 1fr;
   }
+
+  .table-settings {
+    margin-left: auto;
+  }
 `;
 
 export const ProjectInfoDataWrapper = styled.div`

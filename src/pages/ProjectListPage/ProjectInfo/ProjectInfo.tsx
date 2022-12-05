@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { useDeleteProjectMutation } from 'api/mutations/projectMutation';
-import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
+import { useDeleteProjectMutation, useUpdateProjectMutation } from 'api/mutations/projectMutation';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
-import { CheckAllIcon, DeleteIcon, EditIcon, ExportIcon, PlusIcon, PrintIcon, RemoveCheckIcon } from 'components/icons';
+import { CheckAllIcon, DeleteIcon, ExportIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import Dialog from 'components/shared/Dialog';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, useFilters } from 'components/shared/Filters';
-import Input from 'components/shared/Input';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Pagination from 'components/shared/Pagination';
+import Select from 'components/shared/Select';
 import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
@@ -23,17 +23,16 @@ import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import { ICustomFormField } from 'interfaces/form.interface';
 import { IProject } from 'interfaces/project.interface';
+import { ROWS_PER_PAGE_OPTIONS } from 'interfaces/table.types';
 import { IUser } from 'interfaces/users.interface';
 
 import OnboardModal from '../OnboardModal';
+import ProjectForm from '../ProjectForm';
 
 import { DialogContentWrapper, ProjectActionsWrapper, ProjectInfoDataWrapper, ProjectInfoWrapper } from './styles';
 
 const TABLE_COLS = ['', 'user.name', 'user.employmentType', 'user.position', 'user.cooperationStartDate', 'user.cooperationEndDate', 'user.status'];
-
-const projectInfoKeys: (keyof IProject)[] = ['name', 'email', 'phone', 'comment', 'cost', 'tariff', 'dateStart', 'dateEnd'];
 
 type Props = {
   data: IProject;
@@ -41,7 +40,8 @@ type Props = {
 }
 
 const ProjectInfoRender = ({ data, onDelete }: Props) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const methods = useForm<IProject>({ defaultValues: data });
   const [openOnboard, setOpenOnboard] = useState(false);
   const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState(false);
   const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
@@ -53,6 +53,7 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
     cols: TABLE_COLS.filter((col) => !!col).map((col) => col.replace('user.', '')),
     entity: 'user',
   });
+  const updateProjectMutation = useUpdateProjectMutation();
 
   const [activeTab] = useTabs();
 
@@ -69,21 +70,10 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
     data: linkedUsersFilter = [],
   } = useGetUserListForFilter({ project: data._id });
 
-  const { pageItems: pageLinkedUsers, paginationConfig } = usePaginatedList(linkedUsers);
-
-  const { data: customSections = [] } = useGetCustomFormSections({ entity: 'project' });
-  const { data: customFields = [] } = useGetCustomFormFields({ entity: 'project' });
+  // pagination
+  const [rowsPerPage, setRowsPerPage] = useState(20);
+  const { pageItems: pageLinkedUsers, paginationConfig } = usePaginatedList(linkedUsers, { rowsPerPage });
   const deleteProjectMutation = useDeleteProjectMutation();
-
-  const prepareCustomFieldValue = (value: string, fieldData: ICustomFormField) => {
-    if (fieldData.type === 'boolean') {
-      return t(value);
-    }
-    if (fieldData.type === 'date') {
-      return getDateFromIso(value);
-    }
-    return value;
-  };
 
   const deleteProjectHandler = async () => {
     deleteProjectMutation.mutateAsync(data._id);
@@ -98,6 +88,10 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
     status: t(`selects.userStatus.${user.status}`),
     employmentType: t(`selects.employmentType.${user.employmentType}`),
   });
+
+  const submitEdit: SubmitHandler<IProject> = async (data) => {
+    updateProjectMutation.mutate(data);
+  };
 
   useEffect(() => {
     if (debouncedFiltersState) {
@@ -117,7 +111,7 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
                 <PlusIcon size={20} />{t('project.addProfile')}
               </MenuItem>
               <Divider />
-              <MenuItem onClick={() => void setSelectedItems(linkedUsers.map(prepareUserToExport))}>
+              <MenuItem disabled={!linkedUsers.length} onClick={() => void setSelectedItems(linkedUsers.map(prepareUserToExport))}>
                 <CheckAllIcon size={20} />{t('selectAll')}
               </MenuItem>
               <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
@@ -160,6 +154,15 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
             label={t('user.employmentType')}
           />
           <ClearFiLtersButton />
+          <div className="table-settings">
+            <Select
+              label={t('rowsPerPage')}
+              value={rowsPerPage}
+              options={ROWS_PER_PAGE_OPTIONS}
+              onChange={(e) => void setRowsPerPage(e.target.value as number)}
+              style={{ minWidth: 200 }}
+            />
+          </div>
         </FiltersBar>
         <ListTable columns={TABLE_COLS} className="users-table" stickyHeader>
           {pageLinkedUsers.map((user) => (
@@ -196,49 +199,13 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
       <TabPanel index={1}>
         <ProjectInfoDataWrapper>
           <div className="project-props">
-            {projectInfoKeys.map((projectKey) => {
-              let value = data[projectKey];
-              if (projectKey.includes('date') && typeof value === 'string') {
-                value = value ? getDateFromIso(value) : '';
-              }
-              if (projectKey === 'tariff') {
-                value = value ? t(`selects.tariff.${value}`) : '';
-              }
-              return (
-                <Input
-                  key={projectKey}
-                  value={value}
-                  label={t(`project.${projectKey}`)}
-                  InputProps={{ readOnly: true }}
-                  className="project-prop"
-                />
-              );
-            })}
-            {customSections
-              .filter((section) => customFields.some((customField) =>
-                // eslint-disable-next-line no-prototype-builtins
-                data?.customFields?.hasOwnProperty(customField._id) && customField.section === section._id))
-              .map((section) => (
-                <React.Fragment
-                  key={section._id}
-                >
-                  {customFields
-                    .filter((customField) => customField.section === section._id)
-                    .map((customField) => (
-                      <Input
-                        key={customField._id}
-                        value={prepareCustomFieldValue(data?.customFields?.[customField._id] as string, customField) || ''}
-                        label={customField.names[i18n.language]}
-                        InputProps={{ readOnly: true }}
-                        className="project-prop"
-                      />
-                    ))}
-                </React.Fragment>
-              ))}
+            <FormProvider {...methods}>
+              <ProjectForm defaultValues={data} />
+            </FormProvider>
           </div>
           <ProjectActionsWrapper>
-            <Button>
-              <EditIcon />{t('project.edit')}
+            <Button disabled={!methods.formState.isDirty} onClick={methods.handleSubmit(submitEdit)}>
+              <SaveIcon />{t('project.submit')}
             </Button>
             <Button
               color="error"

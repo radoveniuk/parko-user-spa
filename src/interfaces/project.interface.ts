@@ -1,3 +1,5 @@
+import { AnyObject } from './base.types';
+
 export interface IProject {
   _id: string;
   email: string;
@@ -11,5 +13,5 @@ export interface IProject {
   status: string;
   location: string;
   stages: string[];
-  customFields: Record<string, unknown>;
+  customFields: AnyObject;
 }

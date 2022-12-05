@@ -287,7 +287,10 @@
     "cost": "Cost",
     "tariff": "Tariff",
     "addProfile": "Add profile to project",
-    "mainInfo": "Main info"
+    "mainInfo": "Main info",
+    "location": "Location",
+    "stages": "Stages of employment",
+    "status": "Status"
   },
   "notification": {
     "success": "Notification sended",
