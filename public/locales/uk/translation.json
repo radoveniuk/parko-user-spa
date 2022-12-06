@@ -288,7 +288,12 @@
     "cost": "Вартість",
     "tariff": "Тариф",
     "addProfile": "Додати профілі в проект",
-    "mainInfo": "Головна інформація"
+    "mainInfo": "Головна інформація",
+    "location": "Локація",
+    "stages": "Етапи працевлаштування",
+    "status": "Статус",
+    "cooperationFrom": "Співпраця від",
+    "cooperationTo": "Співпраця до"
   },
   "notification": {
     "success": "Сповіщення надіслано",

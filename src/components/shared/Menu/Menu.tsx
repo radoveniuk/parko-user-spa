@@ -1,19 +1,22 @@
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import DividerMaterial from '@mui/material/Divider';
 import MaterialMenu from '@mui/material/Menu';
 import MenuItemMaterial from '@mui/material/MenuItem';
 import styled from 'styled-components';
 
+import { SelectMenuIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import { themeConfig } from 'theme';
 
 type Props = {
   disabled?: boolean;
-  title: string | React.ReactNode;
+  title?: string | React.ReactNode;
   children: React.ReactNode;
 };
 
 export default function Menu ({ title, children, disabled }: Props) {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const buttonId = React.useId();
@@ -37,7 +40,7 @@ export default function Menu ({ title, children, disabled }: Props) {
         variant="outlined"
         disabled={disabled}
       >
-        {title}
+        {title || <><SelectMenuIcon size={20}/>{t('fastActions')}</>}
       </Button>
       <MaterialMenu
         id={menuId}

@@ -287,7 +287,12 @@
     "tariff": "Tarifa",
     "success": "Zmeny boli úspešne vykonané",
     "addProfile": "Pridanie profilov do projektu",
-    "mainInfo": "Základné informácie"
+    "mainInfo": "Základné informácie",
+    "location": "Lokacia",
+    "stages": "Etapy zamestnania",
+    "status": "Status",
+    "cooperationFrom": "Praca od",
+    "cooperationTo": "Praca do"
   },
   "notification": {
     "success": "Notifikácie odoslane",

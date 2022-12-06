@@ -18,7 +18,6 @@ import Page, { PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
-import useDebounce from 'hooks/useDebounce';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IPrepayment } from 'interfaces/prepayment.interface';
@@ -40,8 +39,7 @@ const columns = [
 ];
 
 const PrepaymentsListPageRender = () => {
-  const { filtersState } = useFilters();
-  const debouncedFiltersState = useDebounce(filtersState);
+  const { debouncedFiltersState } = useFilters();
   const { t } = useTranslation();
   const { data, refetch } = useGetPrepayments(debouncedFiltersState);
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');

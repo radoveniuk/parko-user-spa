@@ -35,7 +35,7 @@ export const FilterDate = ({ filterKey, label, ...rest }: FilterProps & Partial<
   const [value, setValue] = useFilterState(filterKey);
   const prevValue = usePrev(value);
   return (
-    <FilterWrapper>
+    <FilterWrapper style={{ maxWidth: 200 }}>
       <DatePicker
         {...rest}
         label={label}
