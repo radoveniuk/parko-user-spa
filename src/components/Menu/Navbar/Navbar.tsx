@@ -25,7 +25,7 @@ export const ToggleNavbarButton = () => {
 };
 
 const DEFAULT_WIDTH = 300;
-const COLLAPSED_WIDTH = 80;
+const COLLAPSED_WIDTH = 70;
 
 const Navbar = () => {
   const { t } = useTranslation();

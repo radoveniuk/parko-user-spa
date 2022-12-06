@@ -6,6 +6,7 @@ import { useAuthData } from 'contexts/AuthContext';
 import NavbarStateProvider from 'contexts/NavbarStateContext';
 import NotificationProvider from 'contexts/NotificationContext';
 import AccommodationPage from 'pages/AccommodationPage';
+import ClientListPage from 'pages/ClientListPage';
 import CreateNotificationPage from 'pages/CreateNotificationPage';
 import CustomizationPage from 'pages/CustomizationPage';
 import DayoffListPage from 'pages/DayoffListPage';
@@ -60,6 +61,7 @@ export default function Router () {
                 <Route path="/customization" element={<ProtectedRoute><CustomizationPage /></ProtectedRoute>} />
                 <Route path="/accommodation" element={<ProtectedRoute><AccommodationPage /></ProtectedRoute>} />
                 <Route path="/export-residences" element={<ProtectedRoute><ExportResidencesPage /></ProtectedRoute>} />
+                <Route path="/clients" element={<ProtectedRoute><ClientListPage /></ProtectedRoute>} />
               </>
             )}
             <Route path="*" element={<NotFoundPage />} />

@@ -10,7 +10,8 @@
     "projects": "Projects",
     "customization": "Customization",
     "accommodation": "Accommodation",
-    "docsTemplates": "Docs templates"
+    "docsTemplates": "Docs templates",
+    "clients": "Clients"
   },
   "menu": {
     "prepayment": "Request prepayment",
