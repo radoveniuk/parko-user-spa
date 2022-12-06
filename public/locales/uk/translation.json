@@ -291,7 +291,9 @@
     "mainInfo": "Головна інформація",
     "location": "Локація",
     "stages": "Етапи працевлаштування",
-    "status": "Статус"
+    "status": "Статус",
+    "cooperationFrom": "Співпраця від",
+    "cooperationTo": "Співпраця до"
   },
   "notification": {
     "success": "Сповіщення надіслано",

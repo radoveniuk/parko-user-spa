@@ -290,7 +290,9 @@
     "mainInfo": "Základné informácie",
     "location": "Lokacia",
     "stages": "Etapy zamestnania",
-    "status": "Status"
+    "status": "Status",
+    "cooperationFrom": "Praca od",
+    "cooperationTo": "Praca do"
   },
   "notification": {
     "success": "Notifikácie odoslane",

@@ -12,6 +12,7 @@ import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import Dialog from 'components/shared/Dialog';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { FilterDate } from 'components/shared/Filters/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Pagination from 'components/shared/Pagination';
@@ -152,6 +153,14 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
             options={employmentTypeOptions}
             filterKey="employmentType"
             label={t('user.employmentType')}
+          />
+          <FilterDate
+            filterKey="cooperationFrom"
+            label={t('project.cooperationFrom')}
+          />
+          <FilterDate
+            filterKey="cooperationTo"
+            label={t('project.cooperationTo')}
           />
           <ClearFiLtersButton />
           <div className="table-settings">

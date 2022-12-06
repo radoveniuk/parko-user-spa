@@ -290,7 +290,9 @@
     "mainInfo": "Main info",
     "location": "Location",
     "stages": "Stages of employment",
-    "status": "Status"
+    "status": "Status",
+    "cooperationFrom": "Cooperation from",
+    "cooperationTo": "Cooperation to"
   },
   "notification": {
     "success": "Notification sended",

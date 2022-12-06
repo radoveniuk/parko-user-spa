@@ -291,7 +291,9 @@
     "mainInfo": "Основная информация",
     "location": "Локация",
     "stages": "Этапы трудоустройства",
-    "status": "Статус"
+    "status": "Статус",
+    "cooperationFrom": "Сотрудничесво от",
+    "cooperationTo": "Сотрудничесво до"
   },
   "notification": {
     "success": "Оповещение отправлено",
