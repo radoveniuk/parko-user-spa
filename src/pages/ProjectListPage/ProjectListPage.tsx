@@ -27,6 +27,12 @@ const ProjectListPage = () => {
 
   const [projectDialogData, setProjectDialogData] = useState<IProject | boolean>(false);
 
+  const selectProject = (value: IProject) => {
+    navigate({
+      search: value ? createSearchParams({ id: value._id }).toString() : '',
+    });
+  };
+
   useEffect(() => {
     if (!pageQueries.id) {
       setSelectedProject(null);
@@ -47,11 +53,7 @@ const ProjectListPage = () => {
           label={t('search')}
           labelKey="name"
           style={{ minWidth: 350, maxWidth: 350 }}
-          onChange={(value: IProject) => {
-            navigate({
-              search: value ? createSearchParams({ id: value._id }).toString() : '',
-            });
-          }}
+          onChange={selectProject}
         />
         <Button onClick={() => void setProjectDialogData(true)} style={{ marginLeft: 'auto' }}>
           <PlusIcon size={20} />{t('project.new')}
@@ -65,11 +67,7 @@ const ProjectListPage = () => {
             primary: 'name',
           }}
           defaultSelected={selectedProject?._id}
-          onSelect={(value) => {
-            navigate({
-              search: value ? createSearchParams({ id: value._id }).toString() : '',
-            });
-          }}
+          onSelect={(value) => void selectProject(value)}
         />
         {selectedProject !== null && (
           <ProjectInfo data={selectedProject} onDelete={refetch} key={selectedProject?._id} />

@@ -11,7 +11,7 @@ export const ProjectInfoWrapper = styled.div`
   }
 
   .users-table {
-    max-height: calc(100vh - 353px);
+    max-height: calc(100vh - 420px);
     grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 

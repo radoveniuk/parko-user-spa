@@ -1,7 +1,6 @@
 export interface IClient {
   _id: string;
   name: string;
-  company: string;
   ICO: string;
   DIC: string;
   ICDPH: string;
