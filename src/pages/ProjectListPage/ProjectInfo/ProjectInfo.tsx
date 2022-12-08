@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { useDeleteProjectMutation, useUpdateProjectMutation } from 'api/mutations/projectMutation';
+import { useGetClients } from 'api/query/clientQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
@@ -62,6 +63,10 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
     data: linkedUsers = [],
     refetch: refetchLinkedUsers,
   } = useGetUserList({ project: data._id, ...debouncedFiltersState });
+
+  const {
+    data: clients = [],
+  } = useGetClients();
 
   // filters data
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
@@ -212,28 +217,39 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
               <ProjectForm defaultValues={data} />
             </FormProvider>
           </div>
-          <ProjectActionsWrapper>
-            <Button disabled={!methods.formState.isDirty} onClick={methods.handleSubmit(submitEdit)}>
-              <SaveIcon />{t('project.submit')}
-            </Button>
-            <Button
-              color="error"
-              variant="outlined"
-              onClick={() => void setIsOpenDeleteDialog(true)}
-            >
-              <DeleteIcon />
-              {t('project.delete')}
-            </Button>
-            <Dialog title={t('project.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
-              <DialogContentWrapper>
-                <p className="warning-text">
-                  {t('project.approveRemoving')} <strong>({data.name})</strong>
-                </p>
-                <div className="actions"><Button color="error" onClick={deleteProjectHandler}>{t('project.approve')}</Button></div>
-              </DialogContentWrapper>
-            </Dialog>
-          </ProjectActionsWrapper>
+          <div className="project-client">
+            <Select
+              options={clients}
+              emptyItem={t('noSelected')}
+              label={t('project.client')}
+              labelPath="name"
+              valuePath="_id"
+              defaultValue={data.client || ''}
+              {...methods.register('client')}
+            />
+          </div>
         </ProjectInfoDataWrapper>
+        <ProjectActionsWrapper>
+          <Button disabled={!methods.formState.isDirty} onClick={methods.handleSubmit(submitEdit)}>
+            <SaveIcon />{t('project.submit')}
+          </Button>
+          <Button
+            color="error"
+            variant="outlined"
+            onClick={() => void setIsOpenDeleteDialog(true)}
+          >
+            <DeleteIcon />
+            {t('project.delete')}
+          </Button>
+          <Dialog title={t('project.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
+            <DialogContentWrapper>
+              <p className="warning-text">
+                {t('project.approveRemoving')} <strong>({data.name})</strong>
+              </p>
+              <div className="actions"><Button color="error" onClick={deleteProjectHandler}>{t('project.approve')}</Button></div>
+            </DialogContentWrapper>
+          </Dialog>
+        </ProjectActionsWrapper>
       </TabPanel>
       {openPrintDialog && (
         <PrintDocDialog users={selectedItems} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />

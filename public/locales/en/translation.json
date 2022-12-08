@@ -293,7 +293,8 @@
     "stages": "Stages of employment",
     "status": "Status",
     "cooperationFrom": "Cooperation from",
-    "cooperationTo": "Cooperation to"
+    "cooperationTo": "Cooperation to",
+    "client": "Client"
   },
   "notification": {
     "success": "Notification sended",

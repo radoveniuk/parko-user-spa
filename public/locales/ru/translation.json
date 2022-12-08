@@ -294,7 +294,8 @@
     "stages": "Этапы трудоустройства",
     "status": "Статус",
     "cooperationFrom": "Сотрудничесво от",
-    "cooperationTo": "Сотрудничесво до"
+    "cooperationTo": "Сотрудничесво до",
+    "client": "Клиент"
   },
   "notification": {
     "success": "Оповещение отправлено",

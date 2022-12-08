@@ -293,7 +293,8 @@
     "stages": "Etapy zamestnania",
     "status": "Status",
     "cooperationFrom": "Praca od",
-    "cooperationTo": "Praca do"
+    "cooperationTo": "Praca do",
+    "client": "Klient"
   },
   "notification": {
     "success": "Notifikácie odoslane",

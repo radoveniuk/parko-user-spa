@@ -3,8 +3,9 @@ import { useQuery } from 'react-query';
 import api from 'api/common';
 import { AnyObject } from 'interfaces/base.types';
 import { IProject } from 'interfaces/project.interface';
+import { QueryOptions } from 'interfaces/query.types';
 
-export const useGetProjects = (params: AnyObject = {}) => {
+export const useGetProjects = (params: AnyObject = {}, options?: QueryOptions) => {
   const request = (): Promise<IProject[]> => api.get('/projects', {
     headers: {
       'Content-Type': 'application/json',
@@ -14,7 +15,7 @@ export const useGetProjects = (params: AnyObject = {}) => {
       ...params,
     },
   }).then(res => res.data.data);
-  return useQuery(['projects', JSON.stringify(params)], request, { initialData: [], refetchOnWindowFocus: false });
+  return useQuery<IProject[]>(['projects', JSON.stringify(params)], request, { initialData: [], ...options });
 };
 
 export const useGetProject = (id: string) => {

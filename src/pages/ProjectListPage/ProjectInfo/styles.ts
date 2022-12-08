@@ -21,17 +21,27 @@ export const ProjectInfoWrapper = styled.div`
 `;
 
 export const ProjectInfoDataWrapper = styled.div`
+  display: flex;
+  max-height: calc(100vh - 280px);
+  overflow-x: auto;
+  
   .project-props {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
     margin: 20px 10px 10px 10px;
+    flex-grow: 2;
   }
   
   .project-prop {
     min-width: 300px;
     max-width: 300px;
+  }
+
+  .project-client {
+    padding: 30px;
+    flex-grow: 1;
   }
 `;
 export const ProjectActionsWrapper = styled.div`
