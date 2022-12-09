@@ -11,6 +11,7 @@ export const ClientsListWrapper = styled.div`
 
     @media (min-width: ${SM}) {
       min-width: 300px;
+      max-width: 300px;
     }
   }
 `;
