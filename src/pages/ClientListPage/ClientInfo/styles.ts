@@ -36,4 +36,10 @@ export const ClientInfoWrapper = styled.div`
   .table-settings {
     margin-left: auto;
   }
+
+  .client-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+  }
 `;

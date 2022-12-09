@@ -1,13 +1,18 @@
 import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { isEmpty } from 'lodash-es';
 
 import { useGetCachedClient, useGetClient } from 'api/query/clientQuery';
-import { CheckAllIcon, ExportIcon, PrintIcon, RemoveCheckIcon } from 'components/icons';
+import { CheckAllIcon, DeleteIcon, ExportIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
+import Button from 'components/shared/Button';
 import { FiltersProvider } from 'components/shared/Filters';
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
 import usePageQueries from 'hooks/usePageQueries';
+import { IClient } from 'interfaces/client.interface';
 
+import ClientForm from './components/ClientForm';
 import Profiles from './components/Profiles';
 import Projects from './components/Projects';
 import ClientInfoProvider from './ClientInfoContext';
@@ -20,8 +25,11 @@ const ClientInfoRender = () => {
 
   const cachedClient = useGetCachedClient(pageQueries.id);
   const { data: client } = useGetClient(pageQueries.id, { enabled: !!cachedClient });
+  const methods = useForm<IClient>({ defaultValues: cachedClient || client });
 
   if (!cachedClient && !client) return null;
+
+  console.log(methods.formState.errors);
 
   return (
     <ClientInfoWrapper>
@@ -61,9 +69,13 @@ const ClientInfoRender = () => {
         </FiltersProvider>
       </TabPanel>
       <TabPanel index={2}>
-        <pre>
-          {JSON.stringify(client, null, 2)}
-        </pre>
+        <FormProvider {...methods}>
+          <ClientForm />
+        </FormProvider>
+        <div className="client-actions">
+          <Button disabled={!isEmpty(methods.formState.errors) || !methods.formState.isDirty}><SaveIcon />{t('save')}</Button>
+          <Button color="error" variant="outlined"><DeleteIcon />{t('save')}</Button>
+        </div>
       </TabPanel>
     </ClientInfoWrapper>
   );
