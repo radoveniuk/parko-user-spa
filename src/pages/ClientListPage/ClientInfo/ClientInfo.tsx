@@ -8,8 +8,9 @@ import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
 import usePageQueries from 'hooks/usePageQueries';
 
-import Profiles from './Profiles';
-import Projects from './Projects';
+import Profiles from './components/Profiles';
+import Projects from './components/Projects';
+import ClientInfoProvider from './ClientInfoContext';
 import { ClientInfoWrapper } from './styles';
 
 const ClientInfoRender = () => {
@@ -28,7 +29,7 @@ const ClientInfoRender = () => {
         <Tab label={t('project.users')} />
         <Tab label={t('project.data')} />
       </Tabs>
-      {activeTab === 1 && (
+      {[0, 1].includes(activeTab) && (
         <div className="table-actions">
           <Menu>
             <MenuItem>
@@ -49,10 +50,14 @@ const ClientInfoRender = () => {
         </div>
       )}
       <TabPanel index={0}>
-        <Projects />
+        <FiltersProvider disablePageQueries>
+          <Projects />
+        </FiltersProvider>
       </TabPanel>
       <TabPanel index={1}>
-        <Profiles />
+        <FiltersProvider disablePageQueries>
+          <Profiles />
+        </FiltersProvider>
       </TabPanel>
       <TabPanel index={2}>
         <pre>
@@ -66,10 +71,10 @@ const ClientInfoRender = () => {
 
 export default function ClientInfo () {
   return (
-    <TabsContainer>
-      <FiltersProvider disablePageQueries>
+    <ClientInfoProvider>
+      <TabsContainer>
         <ClientInfoRender />
-      </FiltersProvider>
-    </TabsContainer>
+      </TabsContainer>
+    </ClientInfoProvider>
   );
 };

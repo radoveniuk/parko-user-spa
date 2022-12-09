@@ -37,11 +37,14 @@ export const useGetUserListByClient = (client: string, options?: QueryOptions) =
   const queryClient = useQueryClient();
   const cachedProjects: IProject[] | undefined = queryClient.getQueryData(['projects', JSON.stringify({ client })]);
   const { data: projects = [] } = useGetProjects({ client }, { enabled: !cachedProjects });
+  const projectIds = (cachedProjects || projects).map((item) => item._id);
+
   return useQuery<IUser[]>(
     ['users', 'client', client],
-    () => getUserListByParams({ project: (cachedProjects || projects).map((item) => item._id) }),
+    () => getUserListByParams({ project: projectIds }),
     {
       initialData: [],
+      enabled: !!projectIds.length,
       ...options,
     },
   );

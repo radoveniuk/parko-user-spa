@@ -26,8 +26,8 @@ export const ClientInfoWrapper = styled.div`
   }
 
   .users-table {
-    max-height: calc(100vh - 353px);
-    grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 1fr;
+    max-height: calc(100vh - 390px);
+    grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     @media (max-width: ${SM}) {
       max-height: none;
     }

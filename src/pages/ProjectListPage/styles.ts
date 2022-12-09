@@ -4,7 +4,7 @@ export const ProjectsListWrapper = styled.div`
   display: flex;
 
   .projects-list {
-    max-height: calc(100vh - 243px);
+    max-height: calc(100vh - 175px);
     overflow: auto;
   }
 `;
