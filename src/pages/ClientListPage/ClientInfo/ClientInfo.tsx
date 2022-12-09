@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useGetCachedClient } from 'api/query/clientQuery';
+import { useGetCachedClient, useGetClient } from 'api/query/clientQuery';
 import { CheckAllIcon, ExportIcon, PrintIcon, RemoveCheckIcon } from 'components/icons';
 import { FiltersProvider } from 'components/shared/Filters';
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
@@ -18,9 +18,10 @@ const ClientInfoRender = () => {
   const [activeTab] = useTabs();
   const pageQueries = usePageQueries();
 
-  const client = useGetCachedClient(pageQueries.id);
+  const cachedClient = useGetCachedClient(pageQueries.id);
+  const { data: client } = useGetClient(pageQueries.id, { enabled: !!cachedClient });
 
-  if (!client) return null;
+  if (!cachedClient && !client) return null;
 
   return (
     <ClientInfoWrapper>
@@ -62,7 +63,6 @@ const ClientInfoRender = () => {
       <TabPanel index={2}>
         <pre>
           {JSON.stringify(client, null, 2)}
-
         </pre>
       </TabPanel>
     </ClientInfoWrapper>
