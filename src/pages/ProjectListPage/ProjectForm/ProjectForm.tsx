@@ -9,7 +9,7 @@ import DatePicker from 'components/shared/DatePicker';
 import Input from 'components/shared/Input';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import Select from 'components/shared/Select';
-import { PROJECT_TARIFF_TYPE } from 'constants/selectsOptions';
+import { PROJECT_STATUS, PROJECT_TARIFF_TYPE } from 'constants/selectsOptions';
 import { validateEmail } from 'helpers/validateEmail';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IProject } from 'interfaces/project.interface';
@@ -25,6 +25,7 @@ type Props = {
 const ProjectForm = ({ defaultValues }: Props) => {
   const { t, i18n } = useTranslation();
   const tariffTypes = useTranslatedSelect(PROJECT_TARIFF_TYPE, 'tariff');
+  const statuses = useTranslatedSelect(PROJECT_STATUS, 'projectStatus');
 
   // custom fields
   const { data: customSections = [] } = useGetCustomFormSections({ entity: 'project' }, { enabled: !!defaultValues });
@@ -70,8 +71,10 @@ const ProjectForm = ({ defaultValues }: Props) => {
               />
             )}
           />
-          <Input
+          <Select
             label={t('project.status')}
+            defaultValue={defaultValues?.status}
+            options={statuses}
             {...register('status')}
           />
           <Input

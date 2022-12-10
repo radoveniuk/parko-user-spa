@@ -4,15 +4,19 @@ import { Link } from 'react-router-dom';
 
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
+import PrintDocDialog from 'components/complex/PrintDocDialog';
+import { CheckAllIcon, ExcelIcon, PrintIcon, RemoveCheckIcon } from 'components/icons';
 import Checkbox from 'components/shared/Checkbox';
 import { FilterAutocomplete, FiltersBar, FilterSelect, useFilters } from 'components/shared/Filters';
 import { ClearFiLtersButton, FilterDate } from 'components/shared/Filters/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Pagination from 'components/shared/Pagination';
 import Select from 'components/shared/Select';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
+import { useExportData } from 'hooks/useExportData';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IProject } from 'interfaces/project.interface';
@@ -21,7 +25,7 @@ import { IUser } from 'interfaces/users.interface';
 
 import { useGetClientInfo, useSelectedProfiles } from '../ClientInfoContext';
 
-const COLS = ['', 'user.project', 'user.name', 'user.employmentType', 'user.position',
+const COLS = ['', 'user.name', 'user.project', 'user.employmentType', 'user.position',
   'user.cooperationStartDate', 'user.cooperationEndDate', 'user.status'];
 
 export default function Profiles () {
@@ -41,6 +45,7 @@ export default function Profiles () {
     cooperationEndDate: getDateFromIso(user.cooperationEndDate),
     status: t(`selects.userStatus.${user.status}`),
     employmentType: t(`selects.employmentType.${user.employmentType}`),
+    project: (user.project as IProject).name,
   });
 
   const { debouncedFiltersState } = useFilters();
@@ -59,8 +64,37 @@ export default function Profiles () {
   const [rowsPerPage, setRowsPerPage] = useState(20);
   const { pageItems: pageProfiles, paginationConfig } = usePaginatedList(profiles, { rowsPerPage });
 
+  // export
+  const exportData = useExportData({
+    data: selectedItems,
+    colsToExport: COLS.filter((col) => !!col).map((col) => col.replace('user.', '')),
+    cols: COLS.filter((col) => !!col).map((col) => col.replace('user.', '')),
+    entity: 'user',
+  });
+
+  // print
+  const [openPrintDialog, setOpenPrintDialog] = useState(false);
+
   return (
     <>
+      <div className="table-actions">
+        <Menu>
+          <MenuItem onClick={() => void setSelectedItems(profiles)}>
+            <CheckAllIcon size={20} />{t('selectAll')}
+          </MenuItem>
+          <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
+            <RemoveCheckIcon size={20} />{t('removeSelect')}
+          </MenuItem>
+          <Divider />
+          <MenuItem disabled={!selectedItems.length} onClick={() => void setOpenPrintDialog(true)} >
+            <PrintIcon size={20} />{t('docsTemplates.print')}
+          </MenuItem>
+          <Divider />
+          <MenuItem disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
+            <ExcelIcon size={20} />{t('user.export')}
+          </MenuItem>
+        </Menu>
+      </div>
       <FiltersBar>
         <FilterAutocomplete
           multiple
@@ -142,6 +176,9 @@ export default function Profiles () {
         ))}
       </ListTable>
       <Pagination {...paginationConfig} />
+      {openPrintDialog && (
+        <PrintDocDialog users={selectedItems} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
+      )}
     </>
   );
 };

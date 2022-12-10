@@ -1,19 +1,27 @@
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { DateTime } from 'luxon';
 
 import DatePicker from 'components/shared/DatePicker';
 import Input from 'components/shared/Input';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
+import Select from 'components/shared/Select';
+import { CLIENT_STATUS } from 'constants/selectsOptions';
 import { validateEmail } from 'helpers/validateEmail';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';
 
 import { ClientFormWrapper } from './styles';
 
-export default function ClientForm () {
+type Props = {
+  defaultValues?: IClient;
+};
+
+export default function ClientForm ({ defaultValues }: Props) {
   const { t } = useTranslation();
   const { register, control, formState: { errors } } = useFormContext<IClient>();
+
+  const statuses = useTranslatedSelect(CLIENT_STATUS, 'clientStatus');
 
   return (
     <ClientFormWrapper>
@@ -40,11 +48,10 @@ export default function ClientForm () {
           />
         )}
       />
-      <Input label={t('client.status')} {...register('status')} />
+      <Select label={t('client.status')} options={statuses} defaultValue={defaultValues?.status} {...register('status')} />
       <Controller
         control={control}
         name="cooperationStartDate"
-        defaultValue={DateTime.now().toISO()}
         render={({ field }) => (
           <DatePicker
             value={field.value}
@@ -56,7 +63,6 @@ export default function ClientForm () {
       <Controller
         control={control}
         name="cooperationEndDate"
-        defaultValue={DateTime.now().toISO()}
         render={({ field }) => (
           <DatePicker
             value={field.value}

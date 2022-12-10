@@ -38,3 +38,4 @@ export { RiLoginBoxLine as CheckInIcon } from 'react-icons/ri';
 export { RiLogoutBoxLine as CheckOutIcon } from 'react-icons/ri';
 export { RiDeleteBin6Line as DeleteIcon } from 'react-icons/ri';
 export { RiToolsFill as CustomizeIcon } from 'react-icons/ri';
+export { SiMicrosoftexcel as ExcelIcon } from 'react-icons/si';

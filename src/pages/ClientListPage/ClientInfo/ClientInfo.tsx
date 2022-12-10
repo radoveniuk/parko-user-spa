@@ -7,12 +7,11 @@ import { isEmpty } from 'lodash-es';
 
 import { useDeleteClientMutation, useUpdateClientMutation } from 'api/mutations/clientMutation';
 import { useGetCachedClient, useGetClient } from 'api/query/clientQuery';
-import { CheckAllIcon, DeleteIcon, ExportIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
+import { DeleteIcon, SaveIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { FiltersProvider } from 'components/shared/Filters';
-import Menu, { Divider, MenuItem } from 'components/shared/Menu';
-import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
+import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import usePageQueries from 'hooks/usePageQueries';
 import { IClient } from 'interfaces/client.interface';
 
@@ -25,7 +24,6 @@ import { ClientInfoWrapper } from './styles';
 
 const ClientInfoRender = () => {
   const { t } = useTranslation();
-  const [activeTab] = useTabs();
   const pageQueries = usePageQueries();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -74,30 +72,6 @@ const ClientInfoRender = () => {
         <Tab label={t('project.users')} />
         <Tab label={t('project.data')} />
       </Tabs>
-      {[0, 1].includes(activeTab) && (
-        <div className="table-actions">
-          <Menu>
-            <MenuItem>
-              <CheckAllIcon size={20} />{t('selectAll')}
-            </MenuItem>
-            <MenuItem>
-              <RemoveCheckIcon size={20} />{t('removeSelect')}
-            </MenuItem>
-            <Divider />
-            {activeTab === 1 && (
-              <>
-                <MenuItem>
-                  <PrintIcon size={20} />{t('docsTemplates.print')}
-                </MenuItem>
-                <Divider />
-              </>
-            )}
-            <MenuItem>
-              <ExportIcon size={20} />{t('user.export')}
-            </MenuItem>
-          </Menu>
-        </div>
-      )}
       <TabPanel index={0}>
         <FiltersProvider disablePageQueries>
           <Projects />
@@ -110,7 +84,7 @@ const ClientInfoRender = () => {
       </TabPanel>
       <TabPanel index={2}>
         <FormProvider {...methods}>
-          <ClientForm />
+          <ClientForm defaultValues={client} />
         </FormProvider>
         <div className="client-actions">
           <Button

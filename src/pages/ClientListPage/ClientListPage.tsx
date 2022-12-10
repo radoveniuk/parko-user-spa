@@ -93,7 +93,7 @@ const ClientListPage = () => {
         {!!selectedClient && <ClientInfo />}
       </ClientsListWrapper>
       {openCreate && (
-        <Dialog maxWidth={false} title={t('client.new')} open={openCreate} onClose={() => void setOpenCreate(false)}>
+        <Dialog maxWidth={false} title={t('client.new')} open={openCreate} onClose={() => { setOpenCreate(false); methods.reset(); }}>
           <FormProvider {...methods}>
             <ClientForm />
           </FormProvider>

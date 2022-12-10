@@ -64,6 +64,9 @@ const ExportResidencesPage = () => {
         if (userKey === 'project') {
           newItem[userKey] = newItem[userKey]?.name;
         }
+        if (userKey === 'recruiter') {
+          newItem[userKey] = newItem[userKey] ? `${newItem[userKey]?.name} ${newItem[userKey]?.surname}` : '';
+        }
       }
     });
     customFields.forEach((customField) => {

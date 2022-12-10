@@ -3,10 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { isEmpty, isUndefined } from 'lodash-es';
 
+import { CheckAllIcon, ExcelIcon, RemoveCheckIcon } from 'components/icons';
 import Checkbox from 'components/shared/Checkbox';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import Menu, { Divider, MenuItem } from 'components/shared/Menu';
+import { PROJECT_STATUS } from 'constants/selectsOptions';
 import { getDateFromIso } from 'helpers/datetime';
+import { useExportData } from 'hooks/useExportData';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 
 import { useGetClientInfo, useSelectedProjects } from '../ClientInfoContext';
 
@@ -17,15 +22,7 @@ export default function Projects () {
   const [selectedItems, setSelectedItems] = useSelectedProjects();
   const { projects = [] } = useGetClientInfo();
 
-  const statuses = useMemo(() => {
-    const values = new Set();
-    projects.forEach((item) => {
-      if (item.status) {
-        values.add(item.status);
-      }
-    });
-    return Array.from(values) as string[];
-  }, [projects]);
+  const statusesFilter = useTranslatedSelect(PROJECT_STATUS, 'projectStatus');
 
   const { filtersState } = useFilters();
 
@@ -42,11 +39,37 @@ export default function Projects () {
     return filteredProjects;
   }, [filtersState, projects]);
 
+  // export
+  const exportData = useExportData({
+    data: selectedItems.map((project) => ({
+      ...project,
+      status: project.status ? t(`selects.projectStatus.${project.status}`) : '',
+      dateStart: getDateFromIso(project.dateStart),
+    })),
+    colsToExport: COLS.filter((col) => !!col).map((col) => col.replace('project.', '')),
+    cols: COLS.filter((col) => !!col).map((col) => col.replace('project.', '')),
+    entity: 'project',
+  });
+
   return (
     <>
+      <div className="table-actions">
+        <Menu>
+          <MenuItem onClick={() => void setSelectedItems(tableProjects)}>
+            <CheckAllIcon size={20} />{t('selectAll')}
+          </MenuItem>
+          <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
+            <RemoveCheckIcon size={20} />{t('removeSelect')}
+          </MenuItem>
+          <Divider />
+          <MenuItem disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
+            <ExcelIcon size={20} />{t('user.export')}
+          </MenuItem>
+        </Menu>
+      </div>
       <FiltersBar>
         <FilterAutocomplete options={projects} filterKey="projectId" label={t('project.name')} labelKey="name" multiple />
-        <FilterSelect options={statuses} filterKey="projectStatus" label={t('project.status')} />
+        <FilterSelect options={statusesFilter} filterKey="projectStatus" label={t('project.status')} />
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable columns={COLS} className="projects-table">
@@ -72,7 +95,7 @@ export default function Projects () {
               </Link>
             </ListTableCell>
             <ListTableCell>{getDateFromIso(project.dateStart)}</ListTableCell>
-            <ListTableCell>{project.status}</ListTableCell>
+            <ListTableCell>{project.status && t(`selects.projectStatus.${project.status}`)}</ListTableCell>
           </ListTableRow>
         ))}
       </ListTable>

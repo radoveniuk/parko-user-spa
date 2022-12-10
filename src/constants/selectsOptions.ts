@@ -50,3 +50,15 @@ export const USER_SCAN_TYPE = [
   'permitBackScan',
   'other',
 ];
+
+export const CLIENT_STATUS = [
+  'active',
+  'inactive',
+  'development',
+  'rejected',
+];
+
+export const PROJECT_STATUS = [
+  'active',
+  'inactive',
+];

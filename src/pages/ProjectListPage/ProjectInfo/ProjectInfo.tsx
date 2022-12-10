@@ -8,7 +8,7 @@ import { useGetClients } from 'api/query/clientQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
-import { CheckAllIcon, DeleteIcon, ExportIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
+import { CheckAllIcon, DeleteIcon, ExcelIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import Dialog from 'components/shared/Dialog';
@@ -129,7 +129,7 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
               </MenuItem>
               <Divider />
               <MenuItem disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
-                <ExportIcon size={20} />{t('user.export')}
+                <ExcelIcon size={20} />{t('user.export')}
               </MenuItem>
             </Menu>
           </div>
