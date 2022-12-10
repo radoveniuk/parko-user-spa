@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog as DialogMaterial, DialogContent, DialogProps } from '@mui/material';
+import { Dialog as DialogMaterial, DialogActions as DialogActionsMaterial, DialogContent, DialogProps } from '@mui/material';
 
 import { CloseIcon } from 'components/icons';
 
@@ -26,3 +26,5 @@ const Dialog = ({ children, title, onClose, ...rest }: Props) => (
 );
 
 export default Dialog;
+
+export const DialogActions = DialogActionsMaterial;
