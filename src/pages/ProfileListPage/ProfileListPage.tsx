@@ -9,7 +9,7 @@ import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog, { UserData } from 'components/complex/PrintDocDialog';
 import {
-  CheckAllIcon, ExportIcon, PlusIcon, PrintIcon, RemoveCheckIcon,
+  CheckAllIcon, ExcelIcon, PlusIcon, PrintIcon, RemoveCheckIcon,
   SelectMenuIcon, SettingsIcon, UploadIcon,
 } from 'components/icons';
 import Button from 'components/shared/Button';
@@ -132,7 +132,7 @@ const ProfileListPageRender = () => {
             </Link>
             <Link to="/export-profiles">
               <MenuItem>
-                <ExportIcon size={20} />{t('user.export')}
+                <ExcelIcon size={20} />{t('user.export')}
               </MenuItem>
             </Link>
           </Menu>

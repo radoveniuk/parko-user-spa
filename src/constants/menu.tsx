@@ -3,6 +3,7 @@ import { To } from 'react-router-dom';
 
 import {
   AccommodationIcon,
+  BusinessIcon,
   CustomizeIcon, DayoffIcon, HomeIcon, NotificationIcon, PaycheckIcon,
   PrepaymentIcon, ProjectIcon, UserIcon, UsersIcon,
 } from 'components/icons';
@@ -95,6 +96,11 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     icon: <ProjectIcon size={30} />,
     to: '/projects',
     relativeLocations: ['project'],
+  },
+  {
+    title: 'navbar.clients',
+    icon: <BusinessIcon size={30} />,
+    to: '/clients',
   },
   {
     title: 'navbar.accommodation',

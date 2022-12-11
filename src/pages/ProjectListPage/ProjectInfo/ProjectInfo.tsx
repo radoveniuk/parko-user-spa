@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { useDeleteProjectMutation, useUpdateProjectMutation } from 'api/mutations/projectMutation';
+import { useGetClients } from 'api/query/clientQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
-import { CheckAllIcon, DeleteIcon, ExportIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
+import { CheckAllIcon, DeleteIcon, ExcelIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import Dialog from 'components/shared/Dialog';
@@ -17,7 +18,7 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Pagination from 'components/shared/Pagination';
 import Select from 'components/shared/Select';
-import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
+import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
@@ -56,12 +57,14 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
   });
   const updateProjectMutation = useUpdateProjectMutation();
 
-  const [activeTab] = useTabs();
-
   const {
     data: linkedUsers = [],
     refetch: refetchLinkedUsers,
   } = useGetUserList({ project: data._id, ...debouncedFiltersState });
+
+  const {
+    data: clients = [],
+  } = useGetClients();
 
   // filters data
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
@@ -105,32 +108,30 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
       <Tabs>
         <Tab label={t('project.users')} />
         <Tab label={t('project.data')} />
-        {activeTab === 0 && (
-          <div className="table-actions">
-            <Menu>
-              <MenuItem color="secondary" onClick={() => void setOpenOnboard(true)}>
-                <PlusIcon size={20} />{t('project.addProfile')}
-              </MenuItem>
-              <Divider />
-              <MenuItem disabled={!linkedUsers.length} onClick={() => void setSelectedItems(linkedUsers.map(prepareUserToExport))}>
-                <CheckAllIcon size={20} />{t('selectAll')}
-              </MenuItem>
-              <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
-                <RemoveCheckIcon size={20} />{t('removeSelect')}
-              </MenuItem>
-              <Divider />
-              <MenuItem disabled={!selectedItems.length} onClick={() => void setOpenPrintDialog(true)}>
-                <PrintIcon size={20} />{t('docsTemplates.print')}
-              </MenuItem>
-              <Divider />
-              <MenuItem disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
-                <ExportIcon size={20} />{t('user.export')}
-              </MenuItem>
-            </Menu>
-          </div>
-        )}
       </Tabs>
       <TabPanel index={0}>
+        <div className="table-actions">
+          <Menu>
+            <MenuItem color="secondary" onClick={() => void setOpenOnboard(true)}>
+              <PlusIcon size={20} />{t('project.addProfile')}
+            </MenuItem>
+            <Divider />
+            <MenuItem disabled={!linkedUsers.length} onClick={() => void setSelectedItems(linkedUsers.map(prepareUserToExport))}>
+              <CheckAllIcon size={20} />{t('selectAll')}
+            </MenuItem>
+            <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
+              <RemoveCheckIcon size={20} />{t('removeSelect')}
+            </MenuItem>
+            <Divider />
+            <MenuItem disabled={!selectedItems.length} onClick={() => void setOpenPrintDialog(true)}>
+              <PrintIcon size={20} />{t('docsTemplates.print')}
+            </MenuItem>
+            <Divider />
+            <MenuItem disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
+              <ExcelIcon size={20} />{t('user.export')}
+            </MenuItem>
+          </Menu>
+        </div>
         <FiltersBar>
           <FilterAutocomplete
             multiple
@@ -212,28 +213,39 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
               <ProjectForm defaultValues={data} />
             </FormProvider>
           </div>
-          <ProjectActionsWrapper>
-            <Button disabled={!methods.formState.isDirty} onClick={methods.handleSubmit(submitEdit)}>
-              <SaveIcon />{t('project.submit')}
-            </Button>
-            <Button
-              color="error"
-              variant="outlined"
-              onClick={() => void setIsOpenDeleteDialog(true)}
-            >
-              <DeleteIcon />
-              {t('project.delete')}
-            </Button>
-            <Dialog title={t('project.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
-              <DialogContentWrapper>
-                <p className="warning-text">
-                  {t('project.approveRemoving')} <strong>({data.name})</strong>
-                </p>
-                <div className="actions"><Button color="error" onClick={deleteProjectHandler}>{t('project.approve')}</Button></div>
-              </DialogContentWrapper>
-            </Dialog>
-          </ProjectActionsWrapper>
+          <div className="project-client">
+            <Select
+              options={clients}
+              emptyItem={t('noSelected')}
+              label={t('project.client')}
+              labelPath="name"
+              valuePath="_id"
+              defaultValue={data.client || ''}
+              {...methods.register('client')}
+            />
+          </div>
         </ProjectInfoDataWrapper>
+        <ProjectActionsWrapper>
+          <Button disabled={!methods.formState.isDirty} onClick={methods.handleSubmit(submitEdit)}>
+            <SaveIcon />{t('project.submit')}
+          </Button>
+          <Button
+            color="error"
+            variant="outlined"
+            onClick={() => void setIsOpenDeleteDialog(true)}
+          >
+            <DeleteIcon />
+            {t('project.delete')}
+          </Button>
+          <Dialog title={t('project.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
+            <DialogContentWrapper>
+              <p className="warning-text">
+                {t('project.approveRemoving')} <strong>({data.name})</strong>
+              </p>
+              <div className="actions"><Button color="error" onClick={deleteProjectHandler}>{t('project.approve')}</Button></div>
+            </DialogContentWrapper>
+          </Dialog>
+        </ProjectActionsWrapper>
       </TabPanel>
       {openPrintDialog && (
         <PrintDocDialog users={selectedItems} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />

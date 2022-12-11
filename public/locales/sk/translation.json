@@ -10,7 +10,8 @@
     "projects": "Projekty",
     "customization": "Customizácia",
     "accommodation": "Ubytovanie",
-    "docsTemplates": "Šablóny dokumentov"
+    "docsTemplates": "Šablóny dokumentov",
+    "clients": "Clienti"
   },
   "menu": {
     "prepayment": "Objednať zálohu",
@@ -241,6 +242,16 @@
       "number": "Číslo",
       "phone": "Telefón",
       "date": "Dátum"
+    },
+    "clientStatus": {
+      "active": "Aktív",
+      "inactive": "Neaktív",
+      "development": "Vývoj",
+      "rejected": "Zamietnuté"
+    },
+    "projectStatus": {
+      "active": "Aktív",
+      "inactive": "Neaktív"
     }
   },
   "notFoundPage": "Stránka nenájdená",
@@ -292,7 +303,8 @@
     "stages": "Etapy zamestnania",
     "status": "Status",
     "cooperationFrom": "Praca od",
-    "cooperationTo": "Praca do"
+    "cooperationTo": "Praca do",
+    "client": "Klient"
   },
   "notification": {
     "success": "Notifikácie odoslane",
@@ -342,6 +354,22 @@
     "fieldName": "Názov polia",
     "fieldCode": "Kód v šablóne"
   },
+  "client": {
+    "company": "Spoločnosť",
+    "name": "Názov",
+    "ICO": "IČO",
+    "DIC": "DIČ",
+    "ICDPH": "IČDPH",
+    "sidlo": "Sidlo",
+    "websiteUrl": "Web stranka",
+    "contactPerson": "Kontaktná osoba",
+    "contactPersonPosition": "Pozícia Kontaktnej osoba",
+    "phone": "Telefón",
+    "status": "Status",
+    "new": "Vytvoriť novy",
+    "cooperationStartDate": "Nástup",
+    "cooperationEndDate": "Ukončenie"
+  },
   "fastActions": "Akcie",
   "language": "Jazyk",
   "youNotVerified": "Momentálne nie sú k dispozícii hlavné časti systému aplikácií Parko. Najprv je potrebné vyplniť údaje o sebe v sekcii Profil",
@@ -363,5 +391,7 @@
   "download": "Uložiť",
   "noSelected": " Nie je zvolený ",
   "male": "Muž",
-  "female": "Žena"
+  "female": "Žena",
+  "save": "Uložiť",
+  "delete": "Vymazať"
 }

@@ -4,6 +4,7 @@ import { themeConfig } from 'theme';
 
 export const LanguageSelectorWrapper = styled.div`
   button {
+    min-width: 0;
     max-width: 80px;
     path {
       stroke: ${themeConfig.palette.primary.main} !important;

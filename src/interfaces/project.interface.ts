@@ -1,4 +1,5 @@
 import { AnyObject } from './base.types';
+import { IClient } from './client.interface';
 
 export interface IProject {
   _id: string;
@@ -13,5 +14,8 @@ export interface IProject {
   status: string;
   location: string;
   stages: string[];
+  client: string | IClient | null;
   customFields: AnyObject;
+
+  createdAt: Date;
 }
