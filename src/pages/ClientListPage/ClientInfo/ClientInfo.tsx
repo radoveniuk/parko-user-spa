@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
 
 import { useDeleteClientMutation, useUpdateClientMutation } from 'api/mutations/clientMutation';
-import { useGetCachedClient, useGetClient } from 'api/query/clientQuery';
+import { useGetCachedClient } from 'api/query/clientQuery';
 import { DeleteIcon, SaveIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
@@ -29,8 +29,7 @@ const ClientInfoRender = () => {
   const queryClient = useQueryClient();
 
   const cachedClient = useGetCachedClient(pageQueries.id);
-  const { data: client } = useGetClient(pageQueries.id, { enabled: !!cachedClient });
-  const methods = useForm<IClient>({ defaultValues: cachedClient || client });
+  const methods = useForm<IClient>({ defaultValues: cachedClient });
 
   // delete
   const [openDelete, setOpenDelete] = useState(false);
@@ -63,7 +62,7 @@ const ClientInfoRender = () => {
     methods.reset(values);
   };
 
-  if (!cachedClient && !client) return null;
+  if (!cachedClient) return null;
 
   return (
     <ClientInfoWrapper>
@@ -84,7 +83,7 @@ const ClientInfoRender = () => {
       </TabPanel>
       <TabPanel index={2}>
         <FormProvider {...methods}>
-          <ClientForm defaultValues={client} />
+          <ClientForm defaultValues={cachedClient} />
         </FormProvider>
         <div className="client-actions">
           <Button

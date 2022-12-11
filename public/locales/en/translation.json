@@ -243,6 +243,16 @@
       "phone": "Phone number",
       "date": "Date",
       "select": "Dropdown list"
+    },
+    "clientStatus": {
+      "active": "Активный",
+      "inactive": "Неактивный",
+      "development": "Разработка",
+      "rejected": "Отклонено"
+    },
+    "projectStatus": {
+      "active": "Активный",
+      "inactive": "Неактивный"
     }
   },
   "notFoundPage": "Page not found",
@@ -350,6 +360,22 @@
     "name": "Name",
     "addOption": "Add new option"
   },
+  "client": {
+    "company": "Company",
+    "name": "Name",
+    "ICO": "IČO",
+    "DIC": "DIČ",
+    "ICDPH": "IČDPH",
+    "sidlo": "Sidlo",
+    "websiteUrl": "Website",
+    "contactPerson": "Contact person",
+    "contactPersonPosition": "Contact person position",
+    "phone": "Phone",
+    "status": "Status",
+    "new": "New client",
+    "cooperationStartDate": "Cooperation start",
+    "cooperationEndDate": "Cooperation end"
+  },
   "errorTexts": {
     "emptyPassword": "Password is empty",
     "passwordsNotMatched": "Passwords does not match",
@@ -380,5 +406,7 @@
   "male": "Male",
   "female": "Female",
   "dataUpdated": "Data updated",
-  "example": "Example"
+  "example": "Example",
+  "save": "Save",
+  "delete": "Delete"
 }

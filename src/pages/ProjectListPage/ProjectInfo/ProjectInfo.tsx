@@ -18,7 +18,7 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Pagination from 'components/shared/Pagination';
 import Select from 'components/shared/Select';
-import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
+import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
@@ -56,8 +56,6 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
     entity: 'user',
   });
   const updateProjectMutation = useUpdateProjectMutation();
-
-  const [activeTab] = useTabs();
 
   const {
     data: linkedUsers = [],
@@ -110,32 +108,30 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
       <Tabs>
         <Tab label={t('project.users')} />
         <Tab label={t('project.data')} />
-        {activeTab === 0 && (
-          <div className="table-actions">
-            <Menu>
-              <MenuItem color="secondary" onClick={() => void setOpenOnboard(true)}>
-                <PlusIcon size={20} />{t('project.addProfile')}
-              </MenuItem>
-              <Divider />
-              <MenuItem disabled={!linkedUsers.length} onClick={() => void setSelectedItems(linkedUsers.map(prepareUserToExport))}>
-                <CheckAllIcon size={20} />{t('selectAll')}
-              </MenuItem>
-              <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
-                <RemoveCheckIcon size={20} />{t('removeSelect')}
-              </MenuItem>
-              <Divider />
-              <MenuItem disabled={!selectedItems.length} onClick={() => void setOpenPrintDialog(true)}>
-                <PrintIcon size={20} />{t('docsTemplates.print')}
-              </MenuItem>
-              <Divider />
-              <MenuItem disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
-                <ExcelIcon size={20} />{t('user.export')}
-              </MenuItem>
-            </Menu>
-          </div>
-        )}
       </Tabs>
       <TabPanel index={0}>
+        <div className="table-actions">
+          <Menu>
+            <MenuItem color="secondary" onClick={() => void setOpenOnboard(true)}>
+              <PlusIcon size={20} />{t('project.addProfile')}
+            </MenuItem>
+            <Divider />
+            <MenuItem disabled={!linkedUsers.length} onClick={() => void setSelectedItems(linkedUsers.map(prepareUserToExport))}>
+              <CheckAllIcon size={20} />{t('selectAll')}
+            </MenuItem>
+            <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
+              <RemoveCheckIcon size={20} />{t('removeSelect')}
+            </MenuItem>
+            <Divider />
+            <MenuItem disabled={!selectedItems.length} onClick={() => void setOpenPrintDialog(true)}>
+              <PrintIcon size={20} />{t('docsTemplates.print')}
+            </MenuItem>
+            <Divider />
+            <MenuItem disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
+              <ExcelIcon size={20} />{t('user.export')}
+            </MenuItem>
+          </Menu>
+        </div>
         <FiltersBar>
           <FilterAutocomplete
             multiple

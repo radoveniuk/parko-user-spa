@@ -1,13 +1,23 @@
 import styled from 'styled-components';
 
+import { SM } from 'theme/sizeBreakpoints';
+
 export const ProjectInfoWrapper = styled.div`
   flex-grow: 1;
   margin-left: 10px;
+  position: relative;
 
   .table-actions {
     display: flex;
     align-items: center;
     margin-left: auto;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    @media (max-width: ${SM}) {
+      position: static;
+      margin-top: 5px;
+    }
   }
 
   .users-table {

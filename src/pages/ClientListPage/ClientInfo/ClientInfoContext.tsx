@@ -19,7 +19,7 @@ const ClientInfoProvider = ({ children }: PropsWithChildren<{}>) => {
   const pageQueries = usePageQueries();
   const cachedClient = useGetCachedClient(pageQueries.id);
   const { data: client } = useGetClient(pageQueries.id, { enabled: !cachedClient });
-  const { data: projects = [] } = useGetProjects({ client: pageQueries.id });
+  const { data: projects = [] } = useGetProjects({ client: pageQueries.id }, { enabled: !!pageQueries.id });
 
   const selectedProjectsState = useState<IProject[]>([]);
   const selectedProfilesState = useState<IUser[]>([]);

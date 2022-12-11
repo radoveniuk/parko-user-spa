@@ -11,14 +11,18 @@ export const useGetClients = (params: AnyObject = {}) => {
 };
 
 export const useGetClient = (id: string, options?: QueryOptions) => {
-  const request = (): Promise<IClient> => api.get(`/clients/${id}`).then(res => res.data.data);
+  const request = (): Promise<IClient> | undefined => {
+    if (!id) return;
+    return api.get(`/clients/${id}`).then(res => res.data.data);
+  };
   return useQuery(['client', id], request, { enabled: !!id, ...options });
 };
 
 export const useGetCachedClient = (id: string) => {
   const queryClient = useQueryClient();
-  const clients: IClient[] | undefined = queryClient.getQueryData(['clients', '{}']);
-  if (!clients?.length) return null;
+  const cachedClients: IClient[] | undefined = queryClient.getQueryData(['clients', JSON.stringify({})]);
+  const { data: client } = useGetClient(id, { enabled: !cachedClients?.length && !!id });
+  if (!cachedClients?.length) return client;
 
-  return clients.find((client) => client._id === id);
+  return cachedClients.find((client) => client._id === id);
 };

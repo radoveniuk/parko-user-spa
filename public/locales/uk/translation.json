@@ -244,6 +244,16 @@
       "phone": "Телефон",
       "date": "Дата",
       "select": "Випадаючий список"
+    },
+    "clientStatus": {
+      "active": "Активний",
+      "inactive": "Неактивний",
+      "development": "Розробка",
+      "rejected": "Відхилено"
+    },
+    "projectStatus": {
+      "active": "Активний",
+      "inactive": "Неактивний"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -351,6 +361,22 @@
     "name": "Назва",
     "addOption": "Додати варіант"
   },
+  "client": {
+    "company": "Компанія",
+    "name": "Імʼя",
+    "ICO": "IČO",
+    "DIC": "DIČ",
+    "ICDPH": "IČDPH",
+    "sidlo": "Sidlo",
+    "websiteUrl": "Сайт",
+    "contactPerson": "Контакта особа",
+    "contactPersonPosition": "Позиція контактної особи",
+    "phone": "Телефон",
+    "status": "Статус",
+    "new": "Новий клієнт",
+    "cooperationStartDate": "Початок співпраці",
+    "cooperationEndDate": "Кінець співпраці"
+  },
   "errorTexts": {
     "emptyPassword": "Пароль не може бути пустим",
     "passwordsNotMatched": "Паролі не співпадають",
@@ -381,5 +407,7 @@
   "male": "Чоловіча",
   "female": "Жіноча",
   "dataUpdated": "Дані оновлено",
-  "example": "Приклад"
+  "example": "Приклад",
+  "save": "Зберегти",
+  "delete": "Видалити"
 }
