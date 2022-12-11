@@ -34,6 +34,7 @@ export { MdCopyAll as CopyIcon } from 'react-icons/md';
 export { MdRemoveDone as RemoveCheckIcon } from 'react-icons/md';
 export { MdEmail as EmailIcon } from 'react-icons/md';
 export { MdPhone as PhoneIcon } from 'react-icons/md';
+export { RiArrowLeftSLine as ArrowBackIcon } from 'react-icons/ri';
 export { RiLoginBoxLine as CheckInIcon } from 'react-icons/ri';
 export { RiLogoutBoxLine as CheckOutIcon } from 'react-icons/ri';
 export { RiDeleteBin6Line as DeleteIcon } from 'react-icons/ri';

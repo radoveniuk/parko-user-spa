@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
 
 import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
+import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUser } from 'api/query/userQuery';
 import Notifications from 'components/complex/Notifications';
@@ -12,17 +13,22 @@ import Paychecks from 'components/complex/Paychecks';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import ProfileForm from 'components/complex/ProfileForm';
 import ProfileScans from 'components/complex/ProfileScans';
-import { DeleteIcon, EmailIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon } from 'components/icons';
+import { DeleteIcon, EditIcon, EmailIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon, SaveIcon } from 'components/icons';
 import Button from 'components/shared/Button';
+import DatePicker from 'components/shared/DatePicker';
 import Dialog from 'components/shared/Dialog';
+import IconButton from 'components/shared/IconButton';
 import Page from 'components/shared/Page';
 import Select from 'components/shared/Select';
+import Stepper from 'components/shared/Stepper';
 import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
 import { ROLES } from 'constants/userRoles';
 import { STATUSES } from 'constants/userStatuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import useViewportWidth from 'hooks/useViewportWsdth';
+import { IClient } from 'interfaces/client.interface';
+import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 import { SM } from 'theme/sizeBreakpoints';
 
@@ -48,6 +54,9 @@ const ProfileAdminPageRender = () => {
   const translatedEmploymentTypes = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType', true, false);
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
   const { data: projects = [] } = useGetProjects();
+
+  const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
+  const { data: profilePositionDictionary } = useGetDictionary('PROFILE_POSITIONS');
 
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
 
@@ -97,6 +106,7 @@ const ProfileAdminPageRender = () => {
           disabled={!methods.formState.isDirty || !isEmpty(methods.formState.errors)}
           onClick={methods.handleSubmit(onSubmit)}
         >
+          <SaveIcon />
           {t('user.updateData')}
         </Button>
       )}
@@ -134,35 +144,14 @@ const ProfileAdminPageRender = () => {
                     </a>
                     <Button onClick={() => void setOpenPrintDialog(true)}><PrintIcon size={20} /></Button>
                   </div>
-                  <div className="card-profile-settings">
+                  <div className="role-select">
                     <Select
                       options={translatedRoles}
                       defaultValue={profileData.role || ''}
+                      fullWidth
                       label={t('user.role')}
                       {...methods.register('role')}
                     />
-                    <Select
-                      options={translatedStatuses}
-                      defaultValue={profileData.status || ''}
-                      label={t('user.status')}
-                      {...methods.register('status')}
-                    />
-                    <Select
-                      options={translatedEmploymentTypes}
-                      defaultValue={profileData.employmentType || ''}
-                      label={t('user.employmentType')}
-                      {...methods.register('employmentType')}
-                    />
-                    {!!projects.length && (
-                      <Select
-                        options={projects}
-                        defaultValue={projects?.length ? profileData.project || '' : ''}
-                        label={t('user.project')}
-                        valuePath="_id"
-                        labelPath="name"
-                        {...methods.register('project')}
-                      />
-                    )}
                   </div>
                   <div className="profile-contacts">
                     <div>{profileData.phone}</div>
@@ -230,6 +219,83 @@ const ProfileAdminPageRender = () => {
                 </TabPanel>
               </ProfileTabContent>
               {viewportWidth <= smBreakpoint && profileActions}
+              <ProfileCard>
+                <div className="card-title">
+                  {!!projects.length && (
+                    <>
+                      <Select
+                        options={projects}
+                        defaultValue={(profileData.project as IProject)?._id || ''}
+                        label={t('user.project')}
+                        valuePath="_id"
+                        labelPath={(row) => {
+                          const project = row as IProject;
+                          const client = project.client as IClient | null;
+                          return `${project.name} ${client ? `(${t('project.client')} - ${client.name})` : ''}`;
+                        }}
+                        {...methods.register('project')}
+                      />
+                    </>
+                  )}
+                </div>
+                <div className="card-profile-settings">
+                  <Select
+                    options={translatedStatuses}
+                    defaultValue={profileData.status || ''}
+                    label={t('user.status')}
+                    {...methods.register('status')}
+                  />
+                  <Select
+                    options={translatedEmploymentTypes}
+                    defaultValue={profileData.employmentType || ''}
+                    label={t('user.employmentType')}
+                    {...methods.register('employmentType')}
+                  />
+                  <Select
+                    options={cooperationTypeDictionary?.options || []}
+                    defaultValue={profileData.cooperationType || ''}
+                    label={t('user.cooperationType')}
+                    {...methods.register('cooperationType')}
+                  />
+                  <Select
+                    options={profilePositionDictionary?.options || []}
+                    defaultValue={profileData.position || ''}
+                    label={t('user.position')}
+                    {...methods.register('position')}
+                  />
+                  <Controller
+                    control={methods.control}
+                    name="cooperationStartDate"
+                    defaultValue={profileData.cooperationStartDate}
+                    render={({ field }) => (
+                      <DatePicker
+                        value={field.value as string}
+                        onChange={field.onChange}
+                        label={t('user.cooperationStartDate')}
+                      />
+                    )}
+                  />
+                  <Controller
+                    control={methods.control}
+                    name="cooperationEndDate"
+                    defaultValue={profileData.cooperationEndDate}
+                    render={({ field }) => (
+                      <DatePicker
+                        value={field.value as string}
+                        onChange={field.onChange}
+                        label={t('user.cooperationEndDate')}
+                      />
+                    )}
+                  />
+                </div>
+                <div className="card-divider" />
+                <div className="card-title">
+                  {t('project.stages')}<IconButton><EditIcon /></IconButton>
+                </div>
+                <div className="project-stages">
+                  <Stepper orientation="vertical" steps={(profileData.project as IProject)?.stages} activeStep={0}/>
+                </div>
+              </ProfileCard>
             </>
           )}
         </ProfileDataWrapper>

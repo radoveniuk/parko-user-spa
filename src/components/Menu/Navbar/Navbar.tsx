@@ -6,7 +6,7 @@ import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import logoImage from 'components/assets/images/logo.png';
 import LanguageSelector from 'components/complex/LanguageSelector';
 import LogoutButton from 'components/complex/LogoutButton';
-import { MenuIcon } from 'components/icons';
+import { ArrowBackIcon, MenuIcon } from 'components/icons';
 import IconButton from 'components/shared/IconButton';
 import { useAuthData } from 'contexts/AuthContext';
 import { useNavbarActiveLink, useNavbarItems, useToggleNavbar } from 'contexts/NavbarStateContext';
@@ -19,7 +19,10 @@ export const ToggleNavbarButton = () => {
   const { open, close, expanded } = useToggleNavbar();
   return (
     <IconButton className="toggle-menu-icon" onClick={expanded ? close : open}>
-      <MenuIcon size={40} color={themeConfig.palette.primary.main} />
+      {!expanded
+        ? <MenuIcon size={40} color={themeConfig.palette.primary.main} />
+        : <ArrowBackIcon size={40} color={themeConfig.palette.primary.main} />
+      }
     </IconButton>
   );
 };

@@ -16,7 +16,7 @@ import { COUNTRIES } from 'constants/countries';
 import { EMPLOYMENT_TYPE, FAMILY_STATUSES, SIZES, STUDY } from 'constants/selectsOptions';
 import {
   ADRESS_FIELDS, BASE_FIELDS, BIOMETRY_FIELDS, BUSINESS_FIELDS,
-  PERMIT_FIELDS, SYSTEM_FIELDS, UserField, UserFieldsList, WORK_FIELDS,
+  PERMIT_FIELDS, SYSTEM_FIELDS, UserField, UserFieldsList,
 } from 'constants/userFormFields';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -40,8 +40,6 @@ const ProfileForm = ({ defaultValues }: Props) => {
   const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
-  const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
-  const { data: profilePositionDictionary } = useGetDictionary('PROFILE_POSITIONS');
   const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
   const studyOptions = useTranslatedSelect(STUDY, 'study');
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
@@ -77,15 +75,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
       options: permitTypeDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
       labelPath: 'label',
     },
-    cooperationType: {
-      options: cooperationTypeDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
-      labelPath: 'label',
-    },
-    position: {
-      options: profilePositionDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
-      labelPath: 'label',
-    },
-  }), [cooperationTypeDictionary?.options, permitTypeDictionary?.options, profilePositionDictionary?.options, recruiters, sourceDictionary?.options]);
+  }), [permitTypeDictionary?.options, recruiters, sourceDictionary?.options]);
 
   const generateAccordionContent = (fields: UserFieldsList) => {
     const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => (
@@ -259,16 +249,6 @@ const ProfileForm = ({ defaultValues }: Props) => {
           {generateAccordionContent(BIOMETRY_FIELDS)}
         </AccordionFieldsWrapper>
       </Accordion>
-      {['admin', 'recruiter'].includes(role as string) && (
-        <Accordion
-          title={t('user.workFields')}
-          defaultExpanded
-        >
-          <AccordionFieldsWrapper cols={2}>
-            {generateAccordionContent(WORK_FIELDS)}
-          </AccordionFieldsWrapper>
-        </Accordion>
-      )}
       {customSections
         .filter((section) => customFields.some((customField) => customField.section === section._id))
         .map((section) => (

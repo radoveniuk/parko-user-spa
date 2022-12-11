@@ -80,6 +80,17 @@ export const ProfileCard = styled.div`
 
   .card-title {
     font-size: 20px;
+
+    .client-info {
+      text-align: center;
+      font-size: 14px;
+      color: #8f8f8f;
+    }
+  }
+
+  .project-stages {
+    max-height: 45vh;
+    overflow: auto;
   }
 
   .card-fast-actions {
@@ -110,6 +121,14 @@ export const ProfileCard = styled.div`
     }
   }
 
+  .role-select {
+    width: 100%;
+
+    .MuiFormControl-root {
+      width: 100%;
+    }
+  }
+
   .profile-contacts {
     display: flex;
     flex-direction: column;
@@ -126,7 +145,7 @@ export const ProfileCard = styled.div`
   }
   
   .tabs-options {
-    height: 40vh;
+    height: 50vh;
     position: relative;
 
     @media (max-width: ${SM}) {

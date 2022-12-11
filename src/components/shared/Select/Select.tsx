@@ -1,14 +1,14 @@
 import React, { forwardRef, useMemo, useState } from 'react';
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import SelectMaterial, { SelectProps as SelectPropsMaterial } from '@mui/material/Select';
-import _ from 'lodash-es';
+import _, { isFunction } from 'lodash-es';
 
 type Option = {[key: string | number]: any}
 
 export type SelectProps = SelectPropsMaterial & {
   options?: string[] | number[] | Option[];
   valuePath?: string;
-  labelPath?: string | string[];
+  labelPath?: string | string[] | ((item: unknown) => string);
   emptyItem?: string;
 }
 
@@ -26,9 +26,19 @@ const Select = forwardRef(({
         if (['string', 'number'].includes(typeof item)) {
           return { value: item, label: item };
         }
+        let label = '';
+        if (typeof labelPath === 'string') {
+          label = _.get(item, labelPath as string);
+        }
+        if (Array.isArray(labelPath)) {
+          label = labelPath.map((path) => _.get(item, path)).join(' ');
+        }
+        if (isFunction(labelPath)) {
+          label = labelPath(item);
+        }
         return {
           value: Array.isArray(valuePath) ? valuePath.map((path) => _.get(item, path)).join('_') : _.get(item, valuePath as string),
-          label: Array.isArray(labelPath) ? labelPath.map((path) => _.get(item, path)).join(' ') : _.get(item, labelPath as string),
+          label: <>{label}</>,
         };
       });
     }
@@ -54,7 +64,7 @@ const Select = forwardRef(({
           </MenuItem>
         )}
         {menuItems?.map((menuItem) => (
-          <MenuItem key={menuItem.value} value={menuItem.value}>{menuItem.label}</MenuItem>
+          <MenuItem key={menuItem.value} value={menuItem.value}><>{menuItem.label}</></MenuItem>
         ))}
       </SelectMaterial>
     </FormControl>
