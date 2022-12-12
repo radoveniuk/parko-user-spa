@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -16,9 +16,11 @@ import ProfileScans from 'components/complex/ProfileScans';
 import { DeleteIcon, EditIcon, EmailIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon, SaveIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import DatePicker from 'components/shared/DatePicker';
-import Dialog from 'components/shared/Dialog';
+import Dialog, { DialogActions } from 'components/shared/Dialog';
 import IconButton from 'components/shared/IconButton';
+import Input from 'components/shared/Input';
 import Page from 'components/shared/Page';
+import RadioButtonGroup, { RadioButton } from 'components/shared/RadioButtonGroup';
 import Select from 'components/shared/Select';
 import Stepper from 'components/shared/Stepper';
 import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
@@ -27,6 +29,7 @@ import { ROLES } from 'constants/userRoles';
 import { STATUSES } from 'constants/userStatuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import useViewportWidth from 'hooks/useViewportWsdth';
+import { AnyObject } from 'interfaces/base.types';
 import { IClient } from 'interfaces/client.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -76,14 +79,6 @@ const ProfileAdminPageRender = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<IUser> = async (values) => {
-    const updatedUserData = { ...profileData, ...values };
-    if (!updatedUserData.password) {
-      delete updatedUserData.password;
-    }
-    updateUser(updatedUserData);
-  };
-
   const deleteUser = () => {
     deleteUserMutation.mutateAsync(profileData as IUser).then(() => {
       setTimeout(() => {
@@ -98,6 +93,45 @@ const ProfileAdminPageRender = () => {
       tabContentRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [activeTab]);
+
+  // stages
+  const [openStages, setOpenStages] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [stages, setStages] = useState(profileData?.projectStages || null);
+
+  const activeStage = useMemo(() => {
+    if (!stages) return null;
+    const activeKey = Object.keys(stages).find((stageName) => stages[stageName].active);
+    return activeKey || null;
+  }, [stages]);
+
+  useEffect(() => {
+    if (!profileData || !profileData.project) return;
+    const project = profileData.project as unknown as IProject;
+    if (!project.stages?.length) return;
+
+    if (profileData.projectStages) {
+      setStages(profileData.projectStages);
+    } else {
+      const stagesObject: AnyObject = {};
+      project.stages.forEach((stageName) => {
+        stagesObject[stageName] = {
+          active: false,
+          date: '',
+          comment: '',
+        };
+      });
+      setStages(stagesObject);
+    }
+  }, [profileData]);
+
+  const onSubmit: SubmitHandler<IUser> = async (values) => {
+    const updatedUserData = { ...profileData, ...values };
+    if (!updatedUserData.password) {
+      delete updatedUserData.password;
+    }
+    updateUser({ ...updatedUserData, projectStages: stages });
+  };
 
   const profileActions = (
     <div className="profile-actions">
@@ -290,10 +324,14 @@ const ProfileAdminPageRender = () => {
                 </div>
                 <div className="card-divider" />
                 <div className="card-title">
-                  {t('project.stages')}<IconButton><EditIcon /></IconButton>
+                  {t('project.stages')}<IconButton onClick={() => void setOpenStages(true)}><EditIcon /></IconButton>
                 </div>
                 <div className="project-stages">
-                  <Stepper orientation="vertical" steps={(profileData.project as IProject)?.stages} activeStep={0}/>
+                  <Stepper
+                    orientation="vertical"
+                    steps={(profileData.project as IProject)?.stages || []}
+                    activeStep={(profileData.project as IProject)?.stages?.indexOf(activeStage as string)}
+                  />
                 </div>
               </ProfileCard>
             </>
@@ -310,6 +348,62 @@ const ProfileAdminPageRender = () => {
           </p>
           <div className="actions"><Button color="error" onClick={deleteUser}>{t('user.approve')}</Button></div>
         </DeleteDialogContent>
+      </Dialog>
+      <Dialog title={t('project.stages')} open={openStages} onClose={() => void setOpenStages(false)} maxWidth={false}>
+        <RadioButtonGroup
+          value={activeStage}
+          onChange={(e) => {
+            setStages((prev) => {
+              if (!prev) return prev;
+              const stagesObject: AnyObject = {};
+              Object.keys(prev).forEach((stageName) => {
+                stagesObject[stageName] = {
+                  ...prev[stageName],
+                  active: e.target.value === stageName,
+                };
+              });
+              return stagesObject;
+            });
+          }}
+        >
+          {(profileData?.project as IProject)?.stages?.map((stage) => {
+            const stageInfo = stages?.[stage] || null;
+            const updateStage = (name: string, params: AnyObject) => {
+              setStages((prev) => {
+                if (!prev) return prev;
+                return {
+                  ...prev,
+                  [name]: {
+                    ...prev[name],
+                    ...params,
+                  },
+                };
+              });
+            };
+            return (
+              <div key={stage} style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
+                <RadioButton label={stage} value={stage} />
+                {stageInfo?.active && (
+                  <>
+                    <DatePicker
+                      label={t('date')}
+                      value={stageInfo.date || ''}
+                      onChange={(date) => void updateStage(stage, { date })}
+                    />
+                    <Input
+                      label={t('comment')}
+                      value={stageInfo.comment || ''}
+                      onChange={(e) => void updateStage(stage, { comment: e.target.value })}
+                    />
+                  </>
+                )}
+              </div>
+            );
+          })}
+        </RadioButtonGroup>
+        <DialogActions>
+          <Button onClick={() => { setOpenStages(false); methods.setValue('projectStages', stages, { shouldDirty: true }); }}>{t('save')}</Button>
+        </DialogActions>
       </Dialog>
       {openResetPass && (
         <ResetPasswordDialog open={openResetPass} onClose={() => void setOpenResetPass(false)} onUpdate={updateUser} />

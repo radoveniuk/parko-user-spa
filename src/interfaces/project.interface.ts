@@ -13,7 +13,7 @@ export interface IProject {
   tariff: string;
   status: string;
   location: string;
-  stages: string[];
+  stages?: string[];
   client: string | IClient | null;
   customFields: AnyObject;
 

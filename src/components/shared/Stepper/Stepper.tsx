@@ -4,7 +4,7 @@ import { Orientation as StepperOrientation, Step, StepLabel, Stepper as StepperM
 
 type Props = {
   steps: string[];
-  activeStep: number;
+  activeStep?: number;
   orientation?: StepperOrientation;
 }
 
