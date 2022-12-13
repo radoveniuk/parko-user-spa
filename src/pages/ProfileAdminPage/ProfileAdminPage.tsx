@@ -96,8 +96,8 @@ const ProfileAdminPageRender = () => {
 
   // stages
   const [openStages, setOpenStages] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [stages, setStages] = useState(profileData?.projectStages || null);
+  const [projectStages, setProjectStages] = useState((profileData?.project as IProject)?.stages || []);
 
   const activeStage = useMemo(() => {
     if (!stages) return null;
@@ -110,19 +110,20 @@ const ProfileAdminPageRender = () => {
     const project = profileData.project as unknown as IProject;
     if (!project.stages?.length) return;
 
-    if (profileData.projectStages) {
-      setStages(profileData.projectStages);
-    } else {
-      const stagesObject: AnyObject = {};
-      project.stages.forEach((stageName) => {
-        stagesObject[stageName] = {
-          active: false,
-          date: '',
-          comment: '',
-        };
-      });
-      setStages(stagesObject);
-    }
+    setProjectStages(project.stages || []);
+    const stagesObject: AnyObject = {};
+    project.stages.forEach((stageName) => {
+      stagesObject[stageName] = {
+        active: false,
+        date: '',
+        comment: '',
+      };
+    });
+
+    setStages({
+      ...stagesObject,
+      ...profileData.projectStages,
+    });
   }, [profileData]);
 
   const onSubmit: SubmitHandler<IUser> = async (values) => {
@@ -267,7 +268,21 @@ const ProfileAdminPageRender = () => {
                           const client = project.client as IClient | null;
                           return `${project.name} ${client ? `(${t('project.client')} - ${client.name})` : ''}`;
                         }}
-                        {...methods.register('project')}
+                        {...methods.register('project', {
+                          onChange (e) {
+                            const project = projects.find((item) => item._id === e.target.value);
+                            const stagesObject: AnyObject = {};
+                            project?.stages?.forEach((stageName) => {
+                              stagesObject[stageName] = {
+                                active: false,
+                                date: '',
+                                comment: '',
+                              };
+                            });
+                            setStages(stagesObject);
+                            setProjectStages(project?.stages || []);
+                          },
+                        })}
                       />
                     </>
                   )}
@@ -329,8 +344,8 @@ const ProfileAdminPageRender = () => {
                 <div className="project-stages">
                   <Stepper
                     orientation="vertical"
-                    steps={(profileData.project as IProject)?.stages || []}
-                    activeStep={(profileData.project as IProject)?.stages?.indexOf(activeStage as string)}
+                    steps={projectStages}
+                    activeStep={projectStages.indexOf(activeStage as string)}
                   />
                 </div>
               </ProfileCard>
@@ -366,7 +381,7 @@ const ProfileAdminPageRender = () => {
             });
           }}
         >
-          {(profileData?.project as IProject)?.stages?.map((stage) => {
+          {projectStages.map((stage) => {
             const stageInfo = stages?.[stage] || null;
             const updateStage = (name: string, params: AnyObject) => {
               setStages((prev) => {
@@ -402,7 +417,7 @@ const ProfileAdminPageRender = () => {
           })}
         </RadioButtonGroup>
         <DialogActions>
-          <Button onClick={() => { setOpenStages(false); methods.setValue('projectStages', stages, { shouldDirty: true }); }}>{t('save')}</Button>
+          <Button onClick={() => { setOpenStages(false); methods.setValue('projectStages', stages, { shouldDirty: true }); }}>OK</Button>
         </DialogActions>
       </Dialog>
       {openResetPass && (
