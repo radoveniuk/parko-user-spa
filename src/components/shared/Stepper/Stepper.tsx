@@ -6,15 +6,16 @@ type Props = {
   steps: string[];
   activeStep?: number;
   orientation?: StepperOrientation;
+  getStepComponent?(step: string): string | React.ReactNode;
 }
 
-const Stepper = ({ steps, activeStep, ...rest }: Props) => {
+const Stepper = ({ steps, activeStep, getStepComponent, ...rest }: Props) => {
   const { t } = useTranslation();
   return (
     <StepperMaterial activeStep={activeStep} {...rest}>
       {steps.map((label) => (
         <Step key={label}>
-          <StepLabel>{t(label)}</StepLabel>
+          <StepLabel>{getStepComponent?.(label) || t(label)}</StepLabel>
         </Step>
       ))}
     </StepperMaterial>

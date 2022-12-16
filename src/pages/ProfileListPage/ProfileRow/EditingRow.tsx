@@ -15,7 +15,6 @@ import Input from 'components/shared/Input';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import Select from 'components/shared/Select';
-import { COUNTRIES } from 'constants/countries';
 import { EMPLOYMENT_TYPE, SIZES } from 'constants/selectsOptions';
 import { ALL_FORM_FIELDS } from 'constants/userFormFields';
 import { ROLES } from 'constants/userRoles';
@@ -39,6 +38,7 @@ const EditingRow = () => {
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
   const { data: profilePositionDictionary } = useGetDictionary('PROFILE_POSITIONS');
+  const { data: countryDictionary } = useGetDictionary('COUNTRIES');
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
   const sexOptions = useTranslatedSelect(['male', 'female']);
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
@@ -47,7 +47,6 @@ const EditingRow = () => {
   const selectOptions: AnyObject = useMemo(() => ({
     pantsSize: SIZES,
     tshortSize: SIZES,
-    country: COUNTRIES.sort(),
     sex: sexOptions,
     employmentType: employmentTypeOptions,
     status: translatedStatuses,
@@ -79,9 +78,13 @@ const EditingRow = () => {
       options: profilePositionDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
       labelPath: 'label',
     },
+    country: {
+      options: countryDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
+      labelPath: 'label',
+    },
   }), [
-    cooperationTypeDictionary?.options, permitTypeDictionary?.options,
-    profilePositionDictionary?.options, projects, recruiters, sourceDictionary?.options,
+    countryDictionary?.options, cooperationTypeDictionary?.options, permitTypeDictionary?.options, profilePositionDictionary?.options,
+    projects, recruiters, sourceDictionary?.options,
   ]);
 
   const generateField = (fieldName: keyof IUser) => {
@@ -168,6 +171,7 @@ const EditingRow = () => {
             {...register(fieldName, {
               required: fieldData.required,
             })}
+            {...fieldData.selectProps}
           />
         )}
         {(fieldData?.type === 'dynamic-select' && !!dynamicSelectOptions[fieldName]?.options?.length) && (
@@ -182,6 +186,7 @@ const EditingRow = () => {
             {...register(fieldName, {
               required: fieldData.required,
             })}
+            {...fieldData.selectProps}
           />
         )}
       </FormFieldWrapper>

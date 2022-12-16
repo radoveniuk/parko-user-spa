@@ -1,6 +1,7 @@
 import { Validate } from 'react-hook-form';
 
 import { validateEmail } from 'helpers/validateEmail';
+import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
 
 export type UserField = {
@@ -8,6 +9,7 @@ export type UserField = {
   required?: boolean;
   validation?: Record<string, Validate<unknown>>;
   permissionRoles?: string[];
+  selectProps?: AnyObject;
 }
 
 export type UserFieldsList = {
@@ -43,6 +45,9 @@ export const BASE_FIELDS: UserFieldsList = {
   },
   sex: {
     type: 'select',
+    selectProps: {
+      emptyItem: 'noSelected',
+    },
   },
   IBAN: {
     type: 'string',
@@ -68,7 +73,10 @@ export const ADRESS_FIELDS: UserFieldsList = {
     type: 'string',
   },
   country: {
-    type: 'select',
+    type: 'dynamic-select',
+    selectProps: {
+      emptyItem: 'noSelected',
+    },
   },
 };
 
@@ -90,6 +98,9 @@ export const PERMIT_FIELDS: UserFieldsList = {
   },
   permitType: {
     type: 'dynamic-select',
+    selectProps: {
+      emptyItem: 'noSelected',
+    },
   },
   permitStartDate: {
     type: 'date',
@@ -123,9 +134,15 @@ export const BUSINESS_FIELDS: UserFieldsList = {
 export const BIOMETRY_FIELDS: UserFieldsList = {
   tshortSize: {
     type: 'select',
+    selectProps: {
+      emptyItem: 'noSelected',
+    },
   },
   pantsSize: {
     type: 'select',
+    selectProps: {
+      emptyItem: 'noSelected',
+    },
   },
   shoesSize: {
     type: 'number',
@@ -135,9 +152,15 @@ export const BIOMETRY_FIELDS: UserFieldsList = {
 export const WORK_FIELDS: UserFieldsList = {
   cooperationType: {
     type: 'dynamic-select',
+    selectProps: {
+      emptyItem: 'noSelected',
+    },
   },
   position: {
     type: 'dynamic-select',
+    selectProps: {
+      emptyItem: 'noSelected',
+    },
   },
   cooperationStartDate: {
     type: 'date',
@@ -147,12 +170,18 @@ export const WORK_FIELDS: UserFieldsList = {
   },
 };
 
-const SYSTEM_SETTINGS_FIELDS: UserFieldsList = {
+export const SYSTEM_SETTINGS_FIELDS: UserFieldsList = {
   project: {
     type: 'dynamic-select',
+    selectProps: {
+      emptyItem: 'noSelected',
+    },
   },
   status: {
     type: 'select',
+    selectProps: {
+      emptyItem: 'noSelected',
+    },
   },
   role: {
     type: 'select',

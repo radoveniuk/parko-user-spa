@@ -3,6 +3,7 @@ import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-for
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
+import { DateTime } from 'luxon';
 
 import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
@@ -13,7 +14,7 @@ import Paychecks from 'components/complex/Paychecks';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import ProfileForm from 'components/complex/ProfileForm';
 import ProfileScans from 'components/complex/ProfileScans';
-import { DeleteIcon, EditIcon, EmailIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon, SaveIcon } from 'components/icons';
+import { DeleteIcon, EditIcon, EmailIcon, InfoIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon, SaveIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import DatePicker from 'components/shared/DatePicker';
 import Dialog, { DialogActions } from 'components/shared/Dialog';
@@ -25,8 +26,10 @@ import Select from 'components/shared/Select';
 import Stepper from 'components/shared/Stepper';
 import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
+import { SYSTEM_SETTINGS_FIELDS, WORK_FIELDS } from 'constants/userFormFields';
 import { ROLES } from 'constants/userRoles';
 import { STATUSES } from 'constants/userStatuses';
+import { getDateFromIso } from 'helpers/datetime';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import useViewportWidth from 'hooks/useViewportWsdth';
 import { AnyObject } from 'interfaces/base.types';
@@ -293,34 +296,48 @@ const ProfileAdminPageRender = () => {
                     defaultValue={profileData.status || ''}
                     label={t('user.status')}
                     {...methods.register('status')}
+                    {...SYSTEM_SETTINGS_FIELDS.status?.selectProps}
                   />
                   <Select
                     options={translatedEmploymentTypes}
                     defaultValue={profileData.employmentType || ''}
                     label={t('user.employmentType')}
-                    {...methods.register('employmentType')}
+                    {...methods.register('employmentType', {
+                      required: methods.watch('status') === 'hired',
+                    })}
+                    error={!!methods.formState.errors.employmentType}
+                    {...WORK_FIELDS.cooperationType?.selectProps}
                   />
                   <Select
                     options={cooperationTypeDictionary?.options || []}
                     defaultValue={profileData.cooperationType || ''}
                     label={t('user.cooperationType')}
                     {...methods.register('cooperationType')}
+                    {...WORK_FIELDS.cooperationType?.selectProps}
                   />
                   <Select
                     options={profilePositionDictionary?.options || []}
                     defaultValue={profileData.position || ''}
                     label={t('user.position')}
-                    {...methods.register('position')}
+                    {...methods.register('position', {
+                      required: methods.watch('status') === 'hired',
+                    })}
+                    error={!!methods.formState.errors.position}
+                    {...WORK_FIELDS.position?.selectProps}
                   />
                   <Controller
                     control={methods.control}
                     name="cooperationStartDate"
                     defaultValue={profileData.cooperationStartDate}
+                    rules={{
+                      required: methods.watch('status') === 'hired',
+                    }}
                     render={({ field }) => (
                       <DatePicker
                         value={field.value as string}
                         onChange={field.onChange}
                         label={t('user.cooperationStartDate')}
+                        error={!!methods.formState.errors.cooperationStartDate}
                       />
                     )}
                   />
@@ -328,11 +345,15 @@ const ProfileAdminPageRender = () => {
                     control={methods.control}
                     name="cooperationEndDate"
                     defaultValue={profileData.cooperationEndDate}
+                    rules={{
+                      required: methods.watch('status') === 'fired',
+                    }}
                     render={({ field }) => (
                       <DatePicker
                         value={field.value as string}
                         onChange={field.onChange}
                         label={t('user.cooperationEndDate')}
+                        error={!!methods.formState.errors.cooperationEndDate}
                       />
                     )}
                   />
@@ -346,6 +367,15 @@ const ProfileAdminPageRender = () => {
                     orientation="vertical"
                     steps={projectStages}
                     activeStep={projectStages.indexOf(activeStage as string)}
+                    getStepComponent={(step) => (
+                      <div className="stage-step">
+                        <div className="stage-label">
+                          <div>{step}</div>
+                          <div className="date">{getDateFromIso(stages?.[step].date)}</div>
+                        </div>
+                        {!!stages?.[step].comment && <IconButton className="stage-info-icon" title={stages?.[step].comment}><InfoIcon /></IconButton>}
+                      </div>
+                    )}
                   />
                 </div>
               </ProfileCard>
@@ -402,7 +432,7 @@ const ProfileAdminPageRender = () => {
                   <>
                     <DatePicker
                       label={t('date')}
-                      value={stageInfo.date || ''}
+                      value={stageInfo.date || DateTime.now().toISODate()}
                       onChange={(date) => void updateStage(stage, { date })}
                     />
                     <Input

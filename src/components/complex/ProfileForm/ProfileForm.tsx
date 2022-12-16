@@ -40,6 +40,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
   const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
+  const { data: countryDictionary } = useGetDictionary('COUNTRIES');
   const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
   const studyOptions = useTranslatedSelect(STUDY, 'study');
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
@@ -75,7 +76,11 @@ const ProfileForm = ({ defaultValues }: Props) => {
       options: permitTypeDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
       labelPath: 'label',
     },
-  }), [permitTypeDictionary?.options, recruiters, sourceDictionary?.options]);
+    country: {
+      options: countryDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
+      labelPath: 'label',
+    },
+  }), [countryDictionary?.options, permitTypeDictionary?.options, recruiters, sourceDictionary?.options]);
 
   const generateAccordionContent = (fields: UserFieldsList) => {
     const generateField = (fieldName: keyof IUser, fieldData: UserField | undefined) => (
@@ -162,6 +167,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
             {...register(fieldName, {
               required: fieldData.required,
             })}
+            {...fieldData.selectProps}
           />
         )}
         {(fieldData?.type === 'dynamic-select' && !!dynamicSelectOptions[fieldName]?.options?.length) && (
@@ -176,6 +182,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
             {...register(fieldName, {
               required: fieldData.required,
             })}
+            {...fieldData.selectProps}
           />
         )}
       </>

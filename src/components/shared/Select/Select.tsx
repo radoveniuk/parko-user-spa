@@ -1,4 +1,5 @@
 import React, { forwardRef, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import SelectMaterial, { SelectProps as SelectPropsMaterial } from '@mui/material/Select';
 import _, { isFunction } from 'lodash-es';
@@ -16,6 +17,7 @@ const Select = forwardRef(({
   label, options = [], valuePath = 'value',
   labelPath = 'label', emptyItem, defaultValue, onChange, ...rest
 }: SelectProps, ref) => {
+  const { t } = useTranslation();
   const [selectedValue, setSelectedValue] = useState<unknown>(defaultValue || '');
   const menuItems = useMemo(() => {
     if (options) {
@@ -60,7 +62,7 @@ const Select = forwardRef(({
       >
         {emptyItem && (
           <MenuItem value="">
-            <em>{emptyItem}</em>
+            <em>{t(emptyItem)}</em>
           </MenuItem>
         )}
         {menuItems?.map((menuItem) => (

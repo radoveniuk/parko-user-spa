@@ -91,6 +91,16 @@ export const ProfileCard = styled.div`
   .project-stages {
     max-height: 45vh;
     overflow: auto;
+
+    .stage-step {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .date {
+        font-size: 12px;
+      }
+    }
   }
 
   .card-fast-actions {

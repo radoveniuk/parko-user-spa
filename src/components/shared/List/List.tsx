@@ -12,7 +12,7 @@ import { StyledListItem } from './styles';
 type Props<T> = ListProps & {
   data: T[];
   fields: {
-    primary: string | string[];
+    primary: string | string[] | ((row: T) => string | React.ReactNode);
     secondary?: string | string[] | ((row: T) => string | React.ReactNode);
     text?: string;
   };
@@ -48,7 +48,10 @@ export default function List <T extends MongoEntity> ({ data, fields, onSelect, 
         >
           <ListItemButton onClick={() => { setSelected(item._id); onSelect?.(item); }} selected={selected === item._id}>
             <ListItemText
-              primary={getText(item, fields.primary)}
+              primary={(Array.isArray(fields.primary) || typeof fields.primary === 'string')
+                ? getText(item, fields.primary)
+                : fields.primary(item)
+              }
               secondary={fields.secondary && (
                 <Typography
                   sx={{ display: 'inline' }}
@@ -58,7 +61,8 @@ export default function List <T extends MongoEntity> ({ data, fields, onSelect, 
                 >
                   {(Array.isArray(fields.secondary) || typeof fields.secondary === 'string')
                     ? getText(item, fields.secondary)
-                    : fields.secondary(item)}
+                    : fields.secondary(item)
+                  }
                 </Typography>
               )}
             />

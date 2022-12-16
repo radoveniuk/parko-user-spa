@@ -90,7 +90,7 @@ const Dictionaries = () => {
         className="dictionaries-list"
         data={dictionaries}
         fields={{
-          primary: 'name',
+          primary: (row) => row.label ? t(row.label) : row.name,
         }}
         onSelect={(item) => {
           setActiveDictionary(null);
