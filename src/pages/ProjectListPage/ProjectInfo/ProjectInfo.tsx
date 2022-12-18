@@ -25,6 +25,7 @@ import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IClient } from 'interfaces/client.interface';
 import { IProject } from 'interfaces/project.interface';
 import { ROWS_PER_PAGE_OPTIONS } from 'interfaces/table.types';
 import { IUser } from 'interfaces/users.interface';
@@ -80,7 +81,7 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
   const deleteProjectMutation = useDeleteProjectMutation();
 
   const deleteProjectHandler = async () => {
-    deleteProjectMutation.mutateAsync(data._id);
+    await deleteProjectMutation.mutateAsync(data._id);
     setIsOpenDeleteDialog(false);
     onDelete();
   };
@@ -94,7 +95,7 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
   });
 
   const submitEdit: SubmitHandler<IProject> = async (data) => {
-    updateProjectMutation.mutate(data);
+    updateProjectMutation.mutate({ ...data, client: data.client || null });
   };
 
   useEffect(() => {
@@ -220,7 +221,7 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
               label={t('project.client')}
               labelPath="name"
               valuePath="_id"
-              defaultValue={data.client || ''}
+              defaultValue={(data.client as IClient)?._id || ''}
               {...methods.register('client')}
             />
           </div>

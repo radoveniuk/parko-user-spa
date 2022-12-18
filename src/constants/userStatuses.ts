@@ -11,4 +11,6 @@ export const STATUSES_COLORS: AnyObject = {
   candidate: '#e3bb00',
   hired: themeConfig.palette.success.main,
   fired: themeConfig.palette.error.main,
+  active: themeConfig.palette.success.main,
+  inactive: themeConfig.palette.error.main,
 };

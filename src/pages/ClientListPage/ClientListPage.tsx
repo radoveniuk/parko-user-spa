@@ -46,9 +46,9 @@ const ClientListPage = () => {
 
   useEffect(() => {
     if (selectedClient && !clientListData.some((item) => item._id === selectedClient._id)) {
-      setSelectedClient(null);
+      navigate({ search: '' });
     }
-  }, [clientListData, selectedClient]);
+  }, [clientListData, navigate, selectedClient]);
 
   const selectClient = (value: IClient) => {
     navigate({ search: '' });

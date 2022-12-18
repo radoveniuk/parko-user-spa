@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
 import { DateTime } from 'luxon';
@@ -43,7 +44,7 @@ import Prepayments from './Prepayments';
 import ResetPasswordDialog from './ResetPasswordDialog';
 import Residences from './Residences';
 import SalarySettings from './SalarySettings';
-import { DeleteDialogContent, ProfileCard, ProfileDataWrapper, ProfileTabContent } from './styles';
+import { DeleteDialogContent, ProfileCard, ProfileDataWrapper, ProfileTabContent, SideInfoBarWrapper } from './styles';
 
 const smBreakpoint = Number(SM.replace('px', ''));
 
@@ -148,12 +149,10 @@ const ProfileAdminPageRender = () => {
           {t('user.updateData')}
         </Button>
       )}
-      {activeTab === 0 && (
-        <Button variant="outlined" color="error" onClick={() => void setOpenResetPass(true)}>
-          <PasswordIcon />
-          {t('user.resetPassword')}
-        </Button>
-      )}
+      <Button variant="outlined" color="error" onClick={() => void setOpenResetPass(true)}>
+        <PasswordIcon />
+        {t('user.resetPassword')}
+      </Button>
       <Button color="error" onClick={() => void setIsOpenDeleteDialog(true)} className="delete-button">
         <DeleteIcon/>
         {t('project.delete')}
@@ -167,7 +166,7 @@ const ProfileAdminPageRender = () => {
         <ProfileDataWrapper>
           {profileData && (
             <>
-              <div>
+              <SideInfoBarWrapper>
                 <ProfileCard>
                   <div className="card-title">{profileData.name} {profileData.surname}</div>
                   <div className="card-fast-actions">
@@ -208,55 +207,56 @@ const ProfileAdminPageRender = () => {
                   </Tabs>
                 </ProfileCard>
                 {viewportWidth > smBreakpoint && profileActions}
-              </div>
-              <ProfileTabContent ref={tabContentRef}>
-                <TabPanel index={0}>
-                  <ProfileForm defaultValues={profileData as unknown as IUser} />
-                </TabPanel>
-                <TabPanel index={1}>
-                  <div className="section-card">
-                    <div className="section-title">{t('user.salary')}</div>
-                    <SalarySettings data={profileData} />
-                  </div>
-                </TabPanel>
-                <TabPanel index={2}>
-                  <div className="section-card">
-                    <div className="section-title">{t('user.scancopies')}</div>
-                    <ProfileScans id={userId || ''} />
-                  </div>
-                </TabPanel>
-                <TabPanel index={3}>
-                  <div className="section-card">
-                    <div className="section-title">{t('navbar.paychecks')}</div>
-                    <Paychecks filter={{ user: profileData._id }} />
-                  </div>
-                </TabPanel>
-                <TabPanel index={4}>
-                  <div className="section-card">
-                    <div className="section-title">{t('navbar.prepayments')}</div>
-                    <Prepayments />
-                  </div>
-                </TabPanel>
-                <TabPanel index={5}>
-                  <div className="section-card">
-                    <div className="section-title">{t('navbar.daysoff')}</div>
-                    <Daysoff />
-                  </div>
-                </TabPanel>
-                <TabPanel index={6}>
-                  <div className="section-card">
-                    <div className="section-title">{t('navbar.notifications')}</div>
-                    <Notifications options={{ to: userId }} />
-                  </div>
-                </TabPanel>
-                <TabPanel index={7}>
-                  <div className="section-card">
-                    <div className="section-title">{t('accommodation.residences')}</div>
-                    <Residences />
-                  </div>
-                </TabPanel>
-              </ProfileTabContent>
-              {viewportWidth <= smBreakpoint && profileActions}
+              </SideInfoBarWrapper>
+              <PerfectScrollbar style={{ width: '100%' }}>
+                <ProfileTabContent ref={tabContentRef}>
+                  <TabPanel index={0}>
+                    <ProfileForm defaultValues={profileData as unknown as IUser} />
+                  </TabPanel>
+                  <TabPanel index={1}>
+                    <div className="section-card">
+                      <div className="section-title">{t('user.salary')}</div>
+                      <SalarySettings data={profileData} />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={2}>
+                    <div className="section-card">
+                      <div className="section-title">{t('user.scancopies')}</div>
+                      <ProfileScans id={userId || ''} />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={3}>
+                    <div className="section-card">
+                      <div className="section-title">{t('navbar.paychecks')}</div>
+                      <Paychecks filter={{ user: profileData._id }} />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={4}>
+                    <div className="section-card">
+                      <div className="section-title">{t('navbar.prepayments')}</div>
+                      <Prepayments />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={5}>
+                    <div className="section-card">
+                      <div className="section-title">{t('navbar.daysoff')}</div>
+                      <Daysoff />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={6}>
+                    <div className="section-card">
+                      <div className="section-title">{t('navbar.notifications')}</div>
+                      <Notifications options={{ to: userId }} />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={7}>
+                    <div className="section-card">
+                      <div className="section-title">{t('accommodation.residences')}</div>
+                      <Residences />
+                    </div>
+                  </TabPanel>
+                </ProfileTabContent>
+              </PerfectScrollbar>
               <ProfileCard>
                 <div className="card-title">
                   {!!projects.length && (
@@ -266,6 +266,7 @@ const ProfileAdminPageRender = () => {
                         defaultValue={(profileData.project as IProject)?._id || ''}
                         label={t('user.project')}
                         valuePath="_id"
+                        emptyItem="noSelected"
                         labelPath={(row) => {
                           const project = row as IProject;
                           const client = project.client as IClient | null;
@@ -360,25 +361,31 @@ const ProfileAdminPageRender = () => {
                 </div>
                 <div className="card-divider" />
                 <div className="card-title">
-                  {t('project.stages')}<IconButton onClick={() => void setOpenStages(true)}><EditIcon /></IconButton>
+                  {t('project.stages')}
+                  <IconButton onClick={() => void setOpenStages(true)} disabled={!projectStages?.length}><EditIcon /></IconButton>
                 </div>
                 <div className="project-stages">
-                  <Stepper
-                    orientation="vertical"
-                    steps={projectStages}
-                    activeStep={projectStages.indexOf(activeStage as string)}
-                    getStepComponent={(step) => (
-                      <div className="stage-step">
-                        <div className="stage-label">
-                          <div>{step}</div>
-                          <div className="date">{getDateFromIso(stages?.[step].date)}</div>
+                  <PerfectScrollbar>
+                    <Stepper
+                      orientation="vertical"
+                      steps={projectStages}
+                      activeStep={projectStages.indexOf(activeStage as string)}
+                      getStepComponent={(step) => (
+                        <div className="stage-step">
+                          <div className="stage-label">
+                            <div>{step}</div>
+                            <div className="date">{getDateFromIso(stages?.[step].date)}</div>
+                          </div>
+                          {!!stages?.[step].comment && (
+                            <IconButton className="stage-info-icon" title={stages?.[step].comment}><InfoIcon /></IconButton>
+                          )}
                         </div>
-                        {!!stages?.[step].comment && <IconButton className="stage-info-icon" title={stages?.[step].comment}><InfoIcon /></IconButton>}
-                      </div>
-                    )}
-                  />
+                      )}
+                    />
+                  </PerfectScrollbar>
                 </div>
               </ProfileCard>
+              {viewportWidth <= smBreakpoint && profileActions}
             </>
           )}
         </ProfileDataWrapper>

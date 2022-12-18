@@ -32,7 +32,7 @@ const EditingRow = () => {
   const { register, formState: { errors }, control, handleSubmit } = useForm<IUser>();
 
   // options
-  const { data: projects = [] } = useGetProjects({ role: 'recruiter' });
+  const { data: projects = [] } = useGetProjects();
   const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');

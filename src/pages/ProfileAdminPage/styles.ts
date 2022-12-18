@@ -17,13 +17,9 @@ export const ProfileDataWrapper = styled.div`
 
   .profile-actions {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     margin-top: 10px;
     flex-wrap: wrap;
-
-    .delete-button {
-      margin-left: auto;
-    }
   }
 
   @media (max-width: ${SM}) {
@@ -33,7 +29,6 @@ export const ProfileDataWrapper = styled.div`
 
 export const ProfileTabContent = styled.div`
   height: 95vh;
-  overflow-y: auto;
   flex-grow: 1;
 
   @media (max-width: ${SM}) {
@@ -44,7 +39,7 @@ export const ProfileTabContent = styled.div`
   .section-card {
     border: 1px solid #9F9D9D;
     border-radius: 20px;
-    margin-left: 20px;
+    margin: 0 20px;
     padding: 20px;
     
     .section-title {
@@ -61,6 +56,10 @@ export const ProfileTabContent = styled.div`
       };
     }
   }
+`;
+
+export const SideInfoBarWrapper = styled.div`
+  max-height: 95vh;
 `;
 
 export const ProfileCard = styled.div`
@@ -155,7 +154,6 @@ export const ProfileCard = styled.div`
   }
   
   .tabs-options {
-    height: 50vh;
     position: relative;
 
     @media (max-width: ${SM}) {

@@ -40,6 +40,7 @@ export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })<
   padding: 10px;
   transition: background-color 0.3s;
   background-color: #fff;
+  white-space: nowrap;
   ${(props) => props.color && css`
     color: ${props.color};
   `}

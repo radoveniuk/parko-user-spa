@@ -1,6 +1,6 @@
 {
   "name": "parko-user-client",
-  "version": "3.3.0",
+  "version": "4.0.0",
   "private": false,
   "dependencies": {
     "@date-io/luxon": "^2.16.0",
@@ -38,6 +38,7 @@
     "react-icons": "^4.3.1",
     "react-number-format": "^4.9.3",
     "react-papaparse": "^4.0.2",
+    "react-perfect-scrollbar": "^1.5.8",
     "react-query": "^3.38.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",

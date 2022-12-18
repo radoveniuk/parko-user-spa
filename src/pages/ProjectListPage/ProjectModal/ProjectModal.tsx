@@ -25,7 +25,7 @@ const ProjectModal = ({ onClose, ...rest }: DialogProps) => {
   };
 
   return (
-    <Dialog title={t('project.creating')} onClose={onClose} {...rest}>
+    <Dialog title={t('project.creating')} onClose={onClose} maxWidth={false} {...rest}>
       <FormProvider {...methods}>
         <ProjectForm />
       </FormProvider>

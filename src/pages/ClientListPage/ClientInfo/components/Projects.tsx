@@ -9,6 +9,7 @@ import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, useFi
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import { PROJECT_STATUS } from 'constants/selectsOptions';
+import { STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -95,7 +96,7 @@ export default function Projects () {
               </Link>
             </ListTableCell>
             <ListTableCell>{getDateFromIso(project.dateStart)}</ListTableCell>
-            <ListTableCell>{project.status && t(`selects.projectStatus.${project.status}`)}</ListTableCell>
+            <ListTableCell color={STATUSES_COLORS[project.status]}>{project.status && t(`selects.projectStatus.${project.status}`)}</ListTableCell>
           </ListTableRow>
         ))}
       </ListTable>
