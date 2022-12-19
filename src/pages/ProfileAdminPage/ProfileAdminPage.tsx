@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
+import { DateTime } from 'luxon';
 
 import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
+import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUser } from 'api/query/userQuery';
 import Notifications from 'components/complex/Notifications';
@@ -12,17 +15,27 @@ import Paychecks from 'components/complex/Paychecks';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import ProfileForm from 'components/complex/ProfileForm';
 import ProfileScans from 'components/complex/ProfileScans';
-import { DeleteIcon, EmailIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon } from 'components/icons';
+import { DeleteIcon, EditIcon, EmailIcon, InfoIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon, SaveIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import Dialog from 'components/shared/Dialog';
+import DatePicker from 'components/shared/DatePicker';
+import Dialog, { DialogActions } from 'components/shared/Dialog';
+import IconButton from 'components/shared/IconButton';
+import Input from 'components/shared/Input';
 import Page from 'components/shared/Page';
+import RadioButtonGroup, { RadioButton } from 'components/shared/RadioButtonGroup';
 import Select from 'components/shared/Select';
+import Stepper from 'components/shared/Stepper';
 import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
+import { SYSTEM_SETTINGS_FIELDS, WORK_FIELDS } from 'constants/userFormFields';
 import { ROLES } from 'constants/userRoles';
 import { STATUSES } from 'constants/userStatuses';
+import { getDateFromIso } from 'helpers/datetime';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import useViewportWidth from 'hooks/useViewportWsdth';
+import { AnyObject } from 'interfaces/base.types';
+import { IClient } from 'interfaces/client.interface';
+import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 import { SM } from 'theme/sizeBreakpoints';
 
@@ -31,7 +44,7 @@ import Prepayments from './Prepayments';
 import ResetPasswordDialog from './ResetPasswordDialog';
 import Residences from './Residences';
 import SalarySettings from './SalarySettings';
-import { DeleteDialogContent, ProfileCard, ProfileDataWrapper, ProfileTabContent } from './styles';
+import { DeleteDialogContent, ProfileCard, ProfileDataWrapper, ProfileTabContent, SideInfoBarWrapper } from './styles';
 
 const smBreakpoint = Number(SM.replace('px', ''));
 
@@ -48,6 +61,9 @@ const ProfileAdminPageRender = () => {
   const translatedEmploymentTypes = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType', true, false);
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
   const { data: projects = [] } = useGetProjects();
+
+  const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
+  const { data: profilePositionDictionary } = useGetDictionary('PROFILE_POSITIONS');
 
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
 
@@ -67,14 +83,6 @@ const ProfileAdminPageRender = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<IUser> = async (values) => {
-    const updatedUserData = { ...profileData, ...values };
-    if (!updatedUserData.password) {
-      delete updatedUserData.password;
-    }
-    updateUser(updatedUserData);
-  };
-
   const deleteUser = () => {
     deleteUserMutation.mutateAsync(profileData as IUser).then(() => {
       setTimeout(() => {
@@ -90,6 +98,46 @@ const ProfileAdminPageRender = () => {
     }
   }, [activeTab]);
 
+  // stages
+  const [openStages, setOpenStages] = useState(false);
+  const [stages, setStages] = useState(profileData?.projectStages || null);
+  const [projectStages, setProjectStages] = useState((profileData?.project as IProject)?.stages || []);
+
+  const activeStage = useMemo(() => {
+    if (!stages) return null;
+    const activeKey = Object.keys(stages).find((stageName) => stages[stageName].active);
+    return activeKey || null;
+  }, [stages]);
+
+  useEffect(() => {
+    if (!profileData || !profileData.project) return;
+    const project = profileData.project as unknown as IProject;
+    if (!project.stages?.length) return;
+
+    setProjectStages(project.stages || []);
+    const stagesObject: AnyObject = {};
+    project.stages.forEach((stageName) => {
+      stagesObject[stageName] = {
+        active: false,
+        date: '',
+        comment: '',
+      };
+    });
+
+    setStages({
+      ...stagesObject,
+      ...profileData.projectStages,
+    });
+  }, [profileData]);
+
+  const onSubmit: SubmitHandler<IUser> = async (values) => {
+    const updatedUserData = { ...profileData, ...values };
+    if (!updatedUserData.password) {
+      delete updatedUserData.password;
+    }
+    updateUser({ ...updatedUserData, projectStages: stages });
+  };
+
   const profileActions = (
     <div className="profile-actions">
       {[0, 1].includes(activeTab) && (
@@ -97,15 +145,14 @@ const ProfileAdminPageRender = () => {
           disabled={!methods.formState.isDirty || !isEmpty(methods.formState.errors)}
           onClick={methods.handleSubmit(onSubmit)}
         >
+          <SaveIcon />
           {t('user.updateData')}
         </Button>
       )}
-      {activeTab === 0 && (
-        <Button variant="outlined" color="error" onClick={() => void setOpenResetPass(true)}>
-          <PasswordIcon />
-          {t('user.resetPassword')}
-        </Button>
-      )}
+      <Button variant="outlined" color="error" onClick={() => void setOpenResetPass(true)}>
+        <PasswordIcon />
+        {t('user.resetPassword')}
+      </Button>
       <Button color="error" onClick={() => void setIsOpenDeleteDialog(true)} className="delete-button">
         <DeleteIcon/>
         {t('project.delete')}
@@ -119,7 +166,7 @@ const ProfileAdminPageRender = () => {
         <ProfileDataWrapper>
           {profileData && (
             <>
-              <div>
+              <SideInfoBarWrapper>
                 <ProfileCard>
                   <div className="card-title">{profileData.name} {profileData.surname}</div>
                   <div className="card-fast-actions">
@@ -134,35 +181,14 @@ const ProfileAdminPageRender = () => {
                     </a>
                     <Button onClick={() => void setOpenPrintDialog(true)}><PrintIcon size={20} /></Button>
                   </div>
-                  <div className="card-profile-settings">
+                  <div className="role-select">
                     <Select
                       options={translatedRoles}
                       defaultValue={profileData.role || ''}
+                      fullWidth
                       label={t('user.role')}
                       {...methods.register('role')}
                     />
-                    <Select
-                      options={translatedStatuses}
-                      defaultValue={profileData.status || ''}
-                      label={t('user.status')}
-                      {...methods.register('status')}
-                    />
-                    <Select
-                      options={translatedEmploymentTypes}
-                      defaultValue={profileData.employmentType || ''}
-                      label={t('user.employmentType')}
-                      {...methods.register('employmentType')}
-                    />
-                    {!!projects.length && (
-                      <Select
-                        options={projects}
-                        defaultValue={projects?.length ? profileData.project || '' : ''}
-                        label={t('user.project')}
-                        valuePath="_id"
-                        labelPath="name"
-                        {...methods.register('project')}
-                      />
-                    )}
                   </div>
                   <div className="profile-contacts">
                     <div>{profileData.phone}</div>
@@ -181,54 +207,184 @@ const ProfileAdminPageRender = () => {
                   </Tabs>
                 </ProfileCard>
                 {viewportWidth > smBreakpoint && profileActions}
-              </div>
-              <ProfileTabContent ref={tabContentRef}>
-                <TabPanel index={0}>
-                  <ProfileForm defaultValues={profileData as unknown as IUser} />
-                </TabPanel>
-                <TabPanel index={1}>
-                  <div className="section-card">
-                    <div className="section-title">{t('user.salary')}</div>
-                    <SalarySettings data={profileData} />
-                  </div>
-                </TabPanel>
-                <TabPanel index={2}>
-                  <div className="section-card">
-                    <div className="section-title">{t('user.scancopies')}</div>
-                    <ProfileScans id={userId || ''} />
-                  </div>
-                </TabPanel>
-                <TabPanel index={3}>
-                  <div className="section-card">
-                    <div className="section-title">{t('navbar.paychecks')}</div>
-                    <Paychecks filter={{ user: profileData._id }} />
-                  </div>
-                </TabPanel>
-                <TabPanel index={4}>
-                  <div className="section-card">
-                    <div className="section-title">{t('navbar.prepayments')}</div>
-                    <Prepayments />
-                  </div>
-                </TabPanel>
-                <TabPanel index={5}>
-                  <div className="section-card">
-                    <div className="section-title">{t('navbar.daysoff')}</div>
-                    <Daysoff />
-                  </div>
-                </TabPanel>
-                <TabPanel index={6}>
-                  <div className="section-card">
-                    <div className="section-title">{t('navbar.notifications')}</div>
-                    <Notifications options={{ to: userId }} />
-                  </div>
-                </TabPanel>
-                <TabPanel index={7}>
-                  <div className="section-card">
-                    <div className="section-title">{t('accommodation.residences')}</div>
-                    <Residences />
-                  </div>
-                </TabPanel>
-              </ProfileTabContent>
+              </SideInfoBarWrapper>
+              <PerfectScrollbar style={{ width: '100%' }}>
+                <ProfileTabContent ref={tabContentRef}>
+                  <TabPanel index={0}>
+                    <ProfileForm defaultValues={profileData as unknown as IUser} />
+                  </TabPanel>
+                  <TabPanel index={1}>
+                    <div className="section-card">
+                      <div className="section-title">{t('user.salary')}</div>
+                      <SalarySettings data={profileData} />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={2}>
+                    <div className="section-card">
+                      <div className="section-title">{t('user.scancopies')}</div>
+                      <ProfileScans id={userId || ''} />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={3}>
+                    <div className="section-card">
+                      <div className="section-title">{t('navbar.paychecks')}</div>
+                      <Paychecks filter={{ user: profileData._id }} />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={4}>
+                    <div className="section-card">
+                      <div className="section-title">{t('navbar.prepayments')}</div>
+                      <Prepayments />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={5}>
+                    <div className="section-card">
+                      <div className="section-title">{t('navbar.daysoff')}</div>
+                      <Daysoff />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={6}>
+                    <div className="section-card">
+                      <div className="section-title">{t('navbar.notifications')}</div>
+                      <Notifications options={{ to: userId }} />
+                    </div>
+                  </TabPanel>
+                  <TabPanel index={7}>
+                    <div className="section-card">
+                      <div className="section-title">{t('accommodation.residences')}</div>
+                      <Residences />
+                    </div>
+                  </TabPanel>
+                </ProfileTabContent>
+              </PerfectScrollbar>
+              <ProfileCard>
+                <div className="card-title">
+                  {!!projects.length && (
+                    <>
+                      <Select
+                        options={projects}
+                        defaultValue={(profileData.project as IProject)?._id || ''}
+                        label={t('user.project')}
+                        valuePath="_id"
+                        emptyItem="noSelected"
+                        labelPath={(row) => {
+                          const project = row as IProject;
+                          const client = project.client as IClient | null;
+                          return `${project.name} ${client ? `(${t('project.client')} - ${client.name})` : ''}`;
+                        }}
+                        {...methods.register('project', {
+                          onChange (e) {
+                            const project = projects.find((item) => item._id === e.target.value);
+                            const stagesObject: AnyObject = {};
+                            project?.stages?.forEach((stageName) => {
+                              stagesObject[stageName] = {
+                                active: false,
+                                date: '',
+                                comment: '',
+                              };
+                            });
+                            setStages(stagesObject);
+                            setProjectStages(project?.stages || []);
+                          },
+                        })}
+                      />
+                    </>
+                  )}
+                </div>
+                <div className="card-profile-settings">
+                  <Select
+                    options={translatedStatuses}
+                    defaultValue={profileData.status || ''}
+                    label={t('user.status')}
+                    {...methods.register('status')}
+                    {...SYSTEM_SETTINGS_FIELDS.status?.selectProps}
+                  />
+                  <Select
+                    options={translatedEmploymentTypes}
+                    defaultValue={profileData.employmentType || ''}
+                    label={t('user.employmentType')}
+                    {...methods.register('employmentType', {
+                      required: methods.watch('status') === 'hired',
+                    })}
+                    error={!!methods.formState.errors.employmentType}
+                    {...WORK_FIELDS.cooperationType?.selectProps}
+                  />
+                  <Select
+                    options={cooperationTypeDictionary?.options || []}
+                    defaultValue={profileData.cooperationType || ''}
+                    label={t('user.cooperationType')}
+                    {...methods.register('cooperationType')}
+                    {...WORK_FIELDS.cooperationType?.selectProps}
+                  />
+                  <Select
+                    options={profilePositionDictionary?.options || []}
+                    defaultValue={profileData.position || ''}
+                    label={t('user.position')}
+                    {...methods.register('position', {
+                      required: methods.watch('status') === 'hired',
+                    })}
+                    error={!!methods.formState.errors.position}
+                    {...WORK_FIELDS.position?.selectProps}
+                  />
+                  <Controller
+                    control={methods.control}
+                    name="cooperationStartDate"
+                    defaultValue={profileData.cooperationStartDate}
+                    rules={{
+                      required: methods.watch('status') === 'hired',
+                    }}
+                    render={({ field }) => (
+                      <DatePicker
+                        value={field.value as string}
+                        onChange={field.onChange}
+                        label={t('user.cooperationStartDate')}
+                        error={!!methods.formState.errors.cooperationStartDate}
+                      />
+                    )}
+                  />
+                  <Controller
+                    control={methods.control}
+                    name="cooperationEndDate"
+                    defaultValue={profileData.cooperationEndDate}
+                    rules={{
+                      required: methods.watch('status') === 'fired',
+                    }}
+                    render={({ field }) => (
+                      <DatePicker
+                        value={field.value as string}
+                        onChange={field.onChange}
+                        label={t('user.cooperationEndDate')}
+                        error={!!methods.formState.errors.cooperationEndDate}
+                      />
+                    )}
+                  />
+                </div>
+                <div className="card-divider" />
+                <div className="card-title">
+                  {t('project.stages')}
+                  <IconButton onClick={() => void setOpenStages(true)} disabled={!projectStages?.length}><EditIcon /></IconButton>
+                </div>
+                <div className="project-stages">
+                  <PerfectScrollbar>
+                    <Stepper
+                      orientation="vertical"
+                      steps={projectStages}
+                      activeStep={projectStages.indexOf(activeStage as string)}
+                      getStepComponent={(step) => (
+                        <div className="stage-step">
+                          <div className="stage-label">
+                            <div>{step}</div>
+                            <div className="date">{getDateFromIso(stages?.[step].date)}</div>
+                          </div>
+                          {!!stages?.[step].comment && (
+                            <IconButton className="stage-info-icon" title={stages?.[step].comment}><InfoIcon /></IconButton>
+                          )}
+                        </div>
+                      )}
+                    />
+                  </PerfectScrollbar>
+                </div>
+              </ProfileCard>
               {viewportWidth <= smBreakpoint && profileActions}
             </>
           )}
@@ -244,6 +400,62 @@ const ProfileAdminPageRender = () => {
           </p>
           <div className="actions"><Button color="error" onClick={deleteUser}>{t('user.approve')}</Button></div>
         </DeleteDialogContent>
+      </Dialog>
+      <Dialog title={t('project.stages')} open={openStages} onClose={() => void setOpenStages(false)} maxWidth={false}>
+        <RadioButtonGroup
+          value={activeStage}
+          onChange={(e) => {
+            setStages((prev) => {
+              if (!prev) return prev;
+              const stagesObject: AnyObject = {};
+              Object.keys(prev).forEach((stageName) => {
+                stagesObject[stageName] = {
+                  ...prev[stageName],
+                  active: e.target.value === stageName,
+                };
+              });
+              return stagesObject;
+            });
+          }}
+        >
+          {projectStages.map((stage) => {
+            const stageInfo = stages?.[stage] || null;
+            const updateStage = (name: string, params: AnyObject) => {
+              setStages((prev) => {
+                if (!prev) return prev;
+                return {
+                  ...prev,
+                  [name]: {
+                    ...prev[name],
+                    ...params,
+                  },
+                };
+              });
+            };
+            return (
+              <div key={stage} style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
+                <RadioButton label={stage} value={stage} />
+                {stageInfo?.active && (
+                  <>
+                    <DatePicker
+                      label={t('date')}
+                      value={stageInfo.date || DateTime.now().toISODate()}
+                      onChange={(date) => void updateStage(stage, { date })}
+                    />
+                    <Input
+                      label={t('comment')}
+                      value={stageInfo.comment || ''}
+                      onChange={(e) => void updateStage(stage, { comment: e.target.value })}
+                    />
+                  </>
+                )}
+              </div>
+            );
+          })}
+        </RadioButtonGroup>
+        <DialogActions>
+          <Button onClick={() => { setOpenStages(false); methods.setValue('projectStages', stages, { shouldDirty: true }); }}>OK</Button>
+        </DialogActions>
       </Dialog>
       {openResetPass && (
         <ResetPasswordDialog open={openResetPass} onClose={() => void setOpenResetPass(false)} onUpdate={updateUser} />

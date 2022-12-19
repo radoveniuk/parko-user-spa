@@ -10,7 +10,6 @@ import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
-import useDebounce from 'hooks/useDebounce';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';
 
@@ -25,8 +24,7 @@ const OnboardModalRender = ({ onClose, project, ...rest }: Props) => {
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
 
   const { data: usersFilter = [] } = useGetUserListForFilter();
-  const { filtersState } = useFilters();
-  const debouncedFiltersState = useDebounce(filtersState);
+  const { debouncedFiltersState } = useFilters();
   const { data: users, refetch } = useGetUserList(debouncedFiltersState);
   const updateProfile = useUpdateUserMutation();
 

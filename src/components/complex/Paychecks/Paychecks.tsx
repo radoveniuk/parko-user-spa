@@ -86,7 +86,7 @@ const Paychecks = ({ filter }: Props) => {
     <UploadedPaychecksWrapper>
       <ListTable columns={cols} className="file-grid">
         {data.map((paycheckItem) => (
-          <ListTableRow key={paycheckItem._id} className="file-row">
+          <ListTableRow key={paycheckItem._id}>
             <ListTableCell>{getDateFromIso(paycheckItem.date, 'MM.yyyy')}</ListTableCell>
             {!filter?.user && <ListTableCell>{(paycheckItem.user as IUser).name} {(paycheckItem.user as IUser).surname}</ListTableCell>}
             <ListTableCell>{(paycheckItem.linkedFile as IFile).originalname}</ListTableCell>

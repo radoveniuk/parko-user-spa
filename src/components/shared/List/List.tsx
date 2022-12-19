@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import { ListItemButton } from '@mui/material';
 import MaterialList, { ListProps } from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
@@ -12,7 +13,7 @@ import { StyledListItem } from './styles';
 type Props<T> = ListProps & {
   data: T[];
   fields: {
-    primary: string | string[];
+    primary: string | string[] | ((row: T) => string | React.ReactNode);
     secondary?: string | string[] | ((row: T) => string | React.ReactNode);
     text?: string;
   };
@@ -39,32 +40,38 @@ export default function List <T extends MongoEntity> ({ data, fields, onSelect, 
   }, [defaultSelected]);
 
   return (
-    <MaterialList sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} {...rest}>
-      {data.map((item) => (
-        <StyledListItem
-          key={item._id}
-          alignItems="flex-start"
-          className={highlite && _.get(item, highlite[0] || '') === highlite[1] ? 'highlited' : ''}
-        >
-          <ListItemButton onClick={() => { setSelected(item._id); onSelect?.(item); }} selected={selected === item._id}>
-            <ListItemText
-              primary={getText(item, fields.primary)}
-              secondary={fields.secondary && (
-                <Typography
-                  sx={{ display: 'inline' }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  {(Array.isArray(fields.secondary) || typeof fields.secondary === 'string')
-                    ? getText(item, fields.secondary)
-                    : fields.secondary(item)}
-                </Typography>
-              )}
-            />
-          </ListItemButton>
-        </StyledListItem>
-      ))}
-    </MaterialList>
+    <PerfectScrollbar style={{ width: '100%', maxWidth: 360 }}>
+      <MaterialList sx={{ width: '100%', bgcolor: 'background.paper' }} {...rest}>
+        {data.map((item) => (
+          <StyledListItem
+            key={item._id}
+            alignItems="flex-start"
+            className={highlite && _.get(item, highlite[0] || '') === highlite[1] ? 'highlited' : ''}
+          >
+            <ListItemButton onClick={() => { setSelected(item._id); onSelect?.(item); }} selected={selected === item._id}>
+              <ListItemText
+                primary={(Array.isArray(fields.primary) || typeof fields.primary === 'string')
+                  ? getText(item, fields.primary)
+                  : fields.primary(item)
+                }
+                secondary={fields.secondary && (
+                  <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    {(Array.isArray(fields.secondary) || typeof fields.secondary === 'string')
+                      ? getText(item, fields.secondary)
+                      : fields.secondary(item)
+                    }
+                  </Typography>
+                )}
+              />
+            </ListItemButton>
+          </StyledListItem>
+        ))}
+      </MaterialList>
+    </PerfectScrollbar>
   );
 };

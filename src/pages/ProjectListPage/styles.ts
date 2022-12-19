@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 
-export const ProjectsListWrapper = styled.div`
-  display: flex;
+import { SM } from 'theme/sizeBreakpoints';
 
-  .users-table {
-    max-height: calc(100vh - 275px);
+export const ProjectsListWrapper = styled.div`
+  @media (min-width: ${SM}) {
+    display: flex;
+  }
+
+  .projects-list {
+    max-height: calc(100vh - 175px);
+
+    @media (max-width: ${SM}) {
+      display: none;
+    }
   }
 `;
 
@@ -17,37 +25,4 @@ export const EmptyDataWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-export const ProjectInfoWrapper = styled.div`
-  width: 100%;
-`;
-
-export const ProjectInfoDataWrapper = styled.div`
-  .project-props {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin: 20px 10px 10px 10px;
-  }
-  
-  .project-prop {
-    min-width: 300px;
-    max-width: 300px;
-  }
-`;
-
-export const ProjectActionsWrapper = styled.div`
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-`;
-
-export const DialogContentWrapper = styled.div`
-
-  .actions {
-    display: flex;
-    justify-content: flex-end;
-  }
 `;

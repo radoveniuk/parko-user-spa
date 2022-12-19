@@ -1,3 +1,6 @@
+import { AnyObject } from './base.types';
+import { IClient } from './client.interface';
+
 export interface IProject {
   _id: string;
   email: string;
@@ -8,5 +11,11 @@ export interface IProject {
   dateEnd: string | null;
   cost: string;
   tariff: string;
-  customFields: Record<string, unknown>;
+  status: string;
+  location: string;
+  stages?: string[];
+  client: string | IClient | null;
+  customFields: AnyObject;
+
+  createdAt: Date;
 }

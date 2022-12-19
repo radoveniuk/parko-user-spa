@@ -12,7 +12,6 @@ export const FiltersBar = styled.div`
 
 export const FilterWrapper = styled.div`
   min-width: 200px;
-  max-width: 200px;
 `;
 
 export const ClearFiltersWrapper = styled.div`

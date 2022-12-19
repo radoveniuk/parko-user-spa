@@ -9,10 +9,8 @@ export const NotificationWrapper = styled.div`
 
   .notifications-list {
     border-right: 1px solid ${borderColor};
-    min-width: 33%;
     max-height: calc(100vh - 190px);
     min-height: calc(100vh - 190px);
-    overflow-y: auto;
   }
 `;
 

@@ -17,13 +17,9 @@ export const ProfileDataWrapper = styled.div`
 
   .profile-actions {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     margin-top: 10px;
     flex-wrap: wrap;
-
-    .delete-button {
-      margin-left: auto;
-    }
   }
 
   @media (max-width: ${SM}) {
@@ -33,7 +29,6 @@ export const ProfileDataWrapper = styled.div`
 
 export const ProfileTabContent = styled.div`
   height: 95vh;
-  overflow-y: auto;
   flex-grow: 1;
 
   @media (max-width: ${SM}) {
@@ -44,7 +39,7 @@ export const ProfileTabContent = styled.div`
   .section-card {
     border: 1px solid #9F9D9D;
     border-radius: 20px;
-    margin-left: 20px;
+    margin: 0 20px;
     padding: 20px;
     
     .section-title {
@@ -61,6 +56,10 @@ export const ProfileTabContent = styled.div`
       };
     }
   }
+`;
+
+export const SideInfoBarWrapper = styled.div`
+  max-height: 95vh;
 `;
 
 export const ProfileCard = styled.div`
@@ -80,6 +79,27 @@ export const ProfileCard = styled.div`
 
   .card-title {
     font-size: 20px;
+
+    .client-info {
+      text-align: center;
+      font-size: 14px;
+      color: #8f8f8f;
+    }
+  }
+
+  .project-stages {
+    max-height: 45vh;
+    overflow: auto;
+
+    .stage-step {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .date {
+        font-size: 12px;
+      }
+    }
   }
 
   .card-fast-actions {
@@ -110,6 +130,14 @@ export const ProfileCard = styled.div`
     }
   }
 
+  .role-select {
+    width: 100%;
+
+    .MuiFormControl-root {
+      width: 100%;
+    }
+  }
+
   .profile-contacts {
     display: flex;
     flex-direction: column;
@@ -126,7 +154,6 @@ export const ProfileCard = styled.div`
   }
   
   .tabs-options {
-    height: 40vh;
     position: relative;
 
     @media (max-width: ${SM}) {

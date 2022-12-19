@@ -4,6 +4,7 @@ import React, {
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { omit } from 'lodash-es';
 
+import useDebounce from 'hooks/useDebounce';
 import usePageQueries from 'hooks/usePageQueries';
 import { AnyObject } from 'interfaces/base.types';
 
@@ -14,6 +15,7 @@ type Props = {
 
 type contextType = {
   filtersState: {[key: string]: string} | undefined;
+  debouncedFiltersState?: AnyObject;
   addFilter(key: string, value: string): void;
   removeFilter(key: string): void;
   clearFilters(): void;
@@ -25,6 +27,7 @@ FiltersContext.displayName = 'FiltersContext';
 
 const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
   const [filtersState, setFiltersState] = useState<AnyObject | undefined>(undefined);
+  const debouncedFiltersState = useDebounce(filtersState);
   const navigate = useNavigate();
   const pageQueries = usePageQueries();
 
@@ -70,7 +73,7 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
   };
 
   return (
-    <FiltersContext.Provider value={{ filtersState, addFilter, removeFilter, clearFilters, initFilters }}>
+    <FiltersContext.Provider value={{ filtersState, debouncedFiltersState, addFilter, removeFilter, clearFilters, initFilters }}>
       {children}
     </FiltersContext.Provider>
   );

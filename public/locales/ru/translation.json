@@ -2,7 +2,7 @@
   "navbar": {
     "home": "Главная",
     "profile": "Профиль",
-    "profiles": "Профили",
+    "profiles": "Сотрудники",
     "notifications": "Оповещения",
     "prepayments": "Авансы",
     "daysoff": "Отгулы",
@@ -10,7 +10,8 @@
     "projects": "Проекты",
     "customization": "Кастомизация",
     "accommodation": "Жилье",
-    "docsTemplates": "Шаблоны документов"
+    "docsTemplates": "Шаблоны документов",
+    "clients": "Клиенты"
   },
   "menu": {
     "prepayment": "Заказать аванс",
@@ -184,7 +185,7 @@
     "user": "Пользователь",
     "send": "Отправить"
   },
-  "profileList": "Профили",
+  "profileList": "Сотрудники",
   "selects": {
     "permitType": {
       "business": "Бизнес",
@@ -243,6 +244,16 @@
       "phone": "Телефон",
       "date": "Дата",
       "select": "Выпадающий список"
+    },
+    "clientStatus": {
+      "active": "Активный",
+      "inactive": "Неактивный",
+      "development": "Разработка",
+      "rejected": "Отклонено"
+    },
+    "projectStatus": {
+      "active": "Активный",
+      "inactive": "Неактивный"
     }
   },
   "notFoundPage": "Страница не найдена",
@@ -280,7 +291,7 @@
     "comment": "Коментарий",
     "dateStart": "Дата начала",
     "dateEnd": "Дата завершения",
-    "users": "Профили",
+    "users": "Сотрудники",
     "data": "Информация",
     "submit": "Сохранить",
     "approveRemoving": "Вы собираетесь удалить проект! Вы уверенны?" ,
@@ -288,7 +299,13 @@
     "cost": "Стоимость",
     "tariff": "Тариф",
     "addProfile": "Добавление профилей в проект",
-    "mainInfo": "Основная информация"
+    "mainInfo": "Основная информация",
+    "location": "Локация",
+    "stages": "Этапы трудоустройства",
+    "status": "Статус",
+    "cooperationFrom": "Сотрудничесво от",
+    "cooperationTo": "Сотрудничесво до",
+    "client": "Клиент"
   },
   "notification": {
     "success": "Оповещение отправлено",
@@ -344,6 +361,22 @@
     "name": "Название",
     "addOption": "Добавить вариант"
   },
+  "client": {
+    "company": "Компания",
+    "name": "Имя",
+    "ICO": "IČO",
+    "DIC": "DIČ",
+    "ICDPH": "IČDPH",
+    "sidlo": "Sidlo",
+    "websiteUrl": "Сайт",
+    "contactPerson": "Контактное лицо",
+    "contactPersonPosition": "Должность контактного лица",
+    "phone": "Телефон",
+    "status": "Статус",
+    "new": "Новый клиент",
+    "cooperationStartDate": "Начало сотрудничества",
+    "cooperationEndDate": "Окончание сотрудничества"
+  },
   "errorTexts": {
     "emptyPassword": "Пароль не может быть пустым",
     "passwordsNotMatched": "Пароли не совпадают",
@@ -374,5 +407,9 @@
   "male": "Мужской",
   "female": "Женский",
   "dataUpdated": "Данные обновлены",
-  "example": "Пример"
+  "example": "Пример",
+  "save": "Сохранить",
+  "delete": "Удалить",
+  "date": "Дата",
+  "countries": "Страны"
 }

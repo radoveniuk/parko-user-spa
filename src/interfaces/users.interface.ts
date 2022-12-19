@@ -31,7 +31,7 @@ export interface IUser {
   blocked: boolean;
   notes: string;
   // system data
-  recruiter: string;
+  recruiter: string | { name: string; surname: string; } | null;
   source: string;
   project: string | IProject | null;
   // adress
@@ -80,4 +80,12 @@ export interface IUser {
   idCardBackScan: string | IFile;
   permitFaceScan: string | IFile;
   permitBackScan: string | IFile;
+
+  projectStages: {
+    [key: string]: {
+      date: string;
+      comment: string;
+      active: boolean;
+    };
+  } | null;
 }

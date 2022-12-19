@@ -2,7 +2,7 @@ import React, { useId } from 'react';
 import { FormControl, FormControlLabel, FormControlLabelProps, FormLabel, Radio, RadioGroup, RadioGroupProps } from '@mui/material';
 
 type RadioButtonGroupProps = RadioGroupProps & {
-  label: string;
+  label?: string;
 }
 
 export default function RadioButtonGroup ({

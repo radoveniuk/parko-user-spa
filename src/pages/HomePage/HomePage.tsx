@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useGetDashboardData } from 'api/query/dashboardQuery';
-import { AccommodationIcon, CustomizeIcon, DayoffIcon, PrepaymentIcon, ProjectIcon, UsersIcon } from 'components/icons';
+import { AccommodationIcon, BusinessIcon, CustomizeIcon, DayoffIcon, PrepaymentIcon, ProjectIcon, UsersIcon } from 'components/icons';
 import { MainMenuGrid, MainMenuLink } from 'components/Menu/MainMenu';
 import Page, { PageTitle } from 'components/shared/Page';
 import { ADMIN_MENU_ITEMS, INavbarItem, MENU_ITEMS } from 'constants/menu';
@@ -43,6 +43,10 @@ const HomePage = () => {
             <MainMenuLink to="/projects">
               <p>{t('navbar.projects')} ({dashboard.projects})</p>
               <ProjectIcon size={60} />
+            </MainMenuLink>
+            <MainMenuLink to="/clients">
+              <p>{t('navbar.clients')} ({dashboard.clients})</p>
+              <BusinessIcon size={60} />
             </MainMenuLink>
             <MainMenuLink to="/prepayments">
               <p>{t('navbar.prepayments')} ({dashboard.prepayments})</p>

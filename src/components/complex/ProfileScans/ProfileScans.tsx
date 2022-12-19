@@ -135,7 +135,7 @@ const ProfileScans = ({ id }: Props) => {
           {availableScanTypes.map((scanKey) => {
             const fileData = data[scanKey] as IFile;
             return (
-              <ListTableRow key={scanKey} className="file-row">
+              <ListTableRow key={scanKey}>
                 <ListTableCell>{fileData.originalname}</ListTableCell>
                 <ListTableCell>{fileData.ext}</ListTableCell>
                 <ListTableCell>{t(`user.${scanKey}`)}</ListTableCell>
@@ -171,7 +171,7 @@ const ProfileScans = ({ id }: Props) => {
             if (!fileData) return null;
 
             return (
-              <ListTableRow key={fileData._id} className="file-row">
+              <ListTableRow key={fileData._id}>
                 <ListTableCell>{fileData.originalname}</ListTableCell>
                 <ListTableCell>{fileData.ext}</ListTableCell>
                 <ListTableCell>{t('other')}</ListTableCell>

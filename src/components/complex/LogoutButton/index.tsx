@@ -23,14 +23,21 @@ const LogoutButton = ({ fullText = true }: Props) => {
   };
 
   return (
-    <>
-      <Button onClick={() => void setOpen(true)} color="error" variant="outlined"><ExitIcon size={20} />{fullText && t('user.logout')}</Button>
+    <div>
+      <Button
+        onClick={() => void setOpen(true)}
+        color="error"
+        variant="outlined"
+        style={{ minWidth: 0 }}
+      >
+        <ExitIcon size={20} />{fullText && t('user.logout')}
+      </Button>
       <DialogConfirm
         open={open}
         onSubmit={logoutHandler}
         onClose={() => void setOpen(false) }
       />
-    </>
+    </div>
   );
 };
 

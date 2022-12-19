@@ -69,7 +69,7 @@ export const NavbarWrapper = styled(Box)`
 export const NavItem = styled(ListItemButton)`
   background-color: ${themeConfig.palette.secondary.main} !important;
   color: #fff;
-  height: 70px;
+  height: 60px;
   color: #fff !important;
   transition: background-color 0.3s;
   
