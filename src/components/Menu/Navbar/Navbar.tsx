@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Link } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
@@ -82,6 +83,7 @@ const Navbar = () => {
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: DEFAULT_WIDTH },
         }}
       >
+
         {navbarContent}
       </Drawer>
       <Drawer
@@ -97,30 +99,32 @@ const Navbar = () => {
         }}
         open={expanded}
       >
-        <div className="app-logo">
-          {expanded && (
-            <>
-              <img height={20} width={20} src={logoImage} alt="Parko user logo"/>
-              {(!role || role === 'user') && <p>Parko&nbsp;User</p>}
-              {['admin', 'recruiter'].includes(role as string) && <p>Parko&nbsp;Admin</p>}
-            </>
-          )}
-          <ToggleNavbarButton />
-        </div>
-        {navbarContent}
-        <div className="navbar-footer">
-          <div className="actions" style={{ flexDirection: expanded ? 'row' : 'column' }}>
-            <LanguageSelector fullText={expanded} />
-            <LogoutButton fullText={expanded} />
+        <PerfectScrollbar>
+          <div className="app-logo">
+            {expanded && (
+              <>
+                <img height={20} width={20} src={logoImage} alt="Parko user logo"/>
+                {(!role || role === 'user') && <p>Parko&nbsp;User</p>}
+                {['admin', 'recruiter'].includes(role as string) && <p>Parko&nbsp;Admin</p>}
+              </>
+            )}
+            <ToggleNavbarButton />
           </div>
-          {expanded && (
-            <ul className="contactsList">
-              <li><a href ="mailto:support@parko.sk">support@parko.sk</a></li>
-              <li><a href="https://parko-staff.com/">parko-staff.com</a></li>
-              <li><a href="tel:+421950759277">+421950759277</a></li>
-            </ul>
-          )}
-        </div>
+          {navbarContent}
+          <div className="navbar-footer">
+            <div className="actions" style={{ flexDirection: expanded ? 'row' : 'column' }}>
+              <LanguageSelector fullText={expanded} />
+              <LogoutButton fullText={expanded} />
+            </div>
+            {expanded && (
+              <ul className="contactsList">
+                <li><a href ="mailto:support@parko.sk">support@parko.sk</a></li>
+                <li><a href="https://parko-staff.com/">parko-staff.com</a></li>
+                <li><a href="tel:+421950759277">+421950759277</a></li>
+              </ul>
+            )}
+          </div>
+        </PerfectScrollbar>
       </Drawer>
     </NavbarWrapper>
   );
