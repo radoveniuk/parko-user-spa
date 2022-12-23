@@ -2,6 +2,7 @@ export { default as BooleanIcon } from './BooleanIcon';
 export { AiOutlineQuestion as QuestionIcon } from 'react-icons/ai';
 export { AiFillEdit as EditIcon } from 'react-icons/ai';
 export { AiOutlineFileText as FileIcon } from 'react-icons/ai';
+export { AiOutlineArrowUp as ArrowUpIcon } from 'react-icons/ai';
 export { BiImport as ExportIcon } from 'react-icons/bi';
 export { BiPrinter as PrintIcon } from 'react-icons/bi';
 export { BiMenuAltLeft as SelectMenuIcon } from 'react-icons/bi';

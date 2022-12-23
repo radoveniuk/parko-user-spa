@@ -9,6 +9,7 @@ import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog, { UserData } from 'components/complex/PrintDocDialog';
 import {
+  ArrowUpIcon,
   CheckAllIcon, ExcelIcon, PlusIcon, PrintIcon, RemoveCheckIcon,
   SelectMenuIcon, SettingsIcon, UploadIcon,
 } from 'components/icons';
@@ -25,6 +26,7 @@ import { STATUSES } from 'constants/userStatuses';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import useOutsideClick from 'hooks/useOutsideClick';
 import usePaginatedList from 'hooks/usePaginatedList';
+import useSortedList from 'hooks/useSortedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { ROWS_PER_PAGE_OPTIONS } from 'interfaces/table.types';
 import { IUser } from 'interfaces/users.interface';
@@ -50,14 +52,21 @@ const ProfileListPageRender = () => {
   const queryClient = useQueryClient();
   const { debouncedFiltersState } = useFilters();
 
+  // table content
   const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
-  const { data: usersFilter = [] } = useGetUserListForFilter();
+  const {
+    sortedData,
+    setSorting,
+    sorting,
+  } = useSortedList(data);
   const [rowsPerPage, setRowsPerPage] = useState(20);
-  const { pageItems, paginationConfig } = usePaginatedList(data, { rowsPerPage });
+  const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
+
+  // filters
+  const { data: usersFilter = [] } = useGetUserListForFilter();
   const { data: projects = [] } = useGetProjects();
   const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
-  const updateUserMutation = useUpdateUserMutation();
 
   const [selectedItems, setSelectedItems] = useState<UserData[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
@@ -74,8 +83,10 @@ const ProfileListPageRender = () => {
     setOpenColsSettings((prev) => !prev);
   };
 
+  // user update
   const [editingRow, setEditingRow] = useState<null | string>(null);
 
+  const updateUserMutation = useUpdateUserMutation();
   const updateUser = (values: Partial<IUser>) => {
     if (values._id) {
       updateUserMutation.mutate({ ...values, _id: values._id });
@@ -202,7 +213,28 @@ const ProfileListPageRender = () => {
             />
           </div>
         </FiltersBar>
-        <ListTable columns={[...STATIC_COLS, ...activeCols, '']} className="users-table">
+        <ListTable
+          columns={[...STATIC_COLS, ...activeCols, '']}
+          className="users-table"
+          columnComponent={(col) => col && (
+            <>
+              {t(col)}
+              <IconButton
+                onClick={() => {
+                  const userKey = col.replace('user.', '') as keyof IUser;
+                  setSorting((prev) => {
+                    if (prev?.sorting === userKey && prev?.dir === 'asc') return { ...prev, dir: 'desc' };
+                    if (prev?.sorting === userKey && prev?.dir === 'desc') return null;
+                    return { dir: 'asc', sorting: userKey };
+                  });
+                }}
+                className={sorting?.sorting === col.replace('user.', '') as keyof IUser ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
+              >
+                <ArrowUpIcon />
+              </IconButton>
+            </>
+          )}
+        >
           {pageItems.map((user: IUser) => (
             <ProfileRow
               key={user._id}
