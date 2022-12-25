@@ -6,10 +6,12 @@ import { Path } from 'interfaces/base.types';
 
 import usePageQueries from './usePageQueries';
 
-type Sort<T> = {
+export type SortingValue<T> = Path<T> | ((v: T) => unknown);
+
+export type Sort<T> = {
   dir: 'asc' | 'desc';
   key: string;
-  sorting: Path<T> | ((v: T) => unknown);
+  sorting: SortingValue<T>;
 };
 
 export default function useSortedList <T> (data: T[]) {

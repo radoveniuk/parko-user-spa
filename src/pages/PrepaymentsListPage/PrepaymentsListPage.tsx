@@ -6,7 +6,7 @@ import { useDeletePrepaymentMutation, useUpdatePrepaymentMutation } from 'api/mu
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
-import { BooleanIcon, CloseIcon, EditIcon } from 'components/icons';
+import { ArrowUpIcon, BooleanIcon, CloseIcon, EditIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
 import DialogConfirm from 'components/shared/DialogConfirm';
@@ -19,6 +19,7 @@ import Pagination from 'components/shared/Pagination';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import usePaginatedList from 'hooks/usePaginatedList';
+import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IProject } from 'interfaces/project.interface';
@@ -26,7 +27,7 @@ import { IUser } from 'interfaces/users.interface';
 
 import { ApproveDialogWrapper } from './styles';
 
-const columns = [
+const COLS = [
   'prepayment.user',
   'user.project',
   'user.status',
@@ -41,9 +42,29 @@ const columns = [
 const PrepaymentsListPageRender = () => {
   const { debouncedFiltersState } = useFilters();
   const { t } = useTranslation();
-  const { data, refetch } = useGetPrepayments(debouncedFiltersState);
+
+  const { data = [], refetch } = useGetPrepayments(debouncedFiltersState);
+  const { sortedData, sorting, sortingToggler } = useSortedList(data);
+  const toggleSorting = (prepaymentKey: string) => {
+    let sortingValue: SortingValue<IPrepayment> = prepaymentKey as keyof IPrepayment;
+    if (prepaymentKey === 'user') {
+      sortingValue = 'user.name';
+    }
+    if (prepaymentKey === 'project') {
+      sortingValue = 'user.project.name';
+    }
+    if (prepaymentKey === 'comment') {
+      sortingValue = 'userComment';
+    }
+    if (prepaymentKey === 'approved') {
+      sortingValue = 'isApproved';
+    }
+    sortingToggler(prepaymentKey, sortingValue);
+  };
+
+  const { pageItems, paginationConfig } = usePaginatedList(sortedData);
+
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
-  const { pageItems, paginationConfig } = usePaginatedList(data);
   const { data: projects = [] } = useGetProjects();
   const { data: users = [] } = useGetUserListForFilter();
   const updatePrepaymentMutation = useUpdatePrepaymentMutation();
@@ -91,7 +112,23 @@ const PrepaymentsListPageRender = () => {
         <FilterDate filterKey="lastDate" label={t('lastDate')} />
         <ClearFiLtersButton />
       </FiltersBar>
-      <ListTable columns={columns} >
+      <ListTable
+        columns={COLS}
+        columnComponent={(col) => col && (
+          <div
+            role="button"
+            className="col-item"
+            onClick={() => void toggleSorting(col.replace('user.', '').replace('prepayment.', ''))}
+          >
+            {t(col)}
+            <IconButton
+              className={sorting?.key === col.replace('user.', '').replace('prepayment.', '') ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
+            >
+              <ArrowUpIcon />
+            </IconButton>
+          </div>
+        )}
+      >
         {pageItems.map((item) => {
           const user = item.user as IUser;
           const project = user.project as IProject;
