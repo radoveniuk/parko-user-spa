@@ -6,13 +6,14 @@ import { useDeleteFileMutation } from 'api/mutations/fileMutation';
 import { useDeletePaycheckMutation, useUpdatePaycheckMutation } from 'api/mutations/paycheckMutation';
 import downloadFile from 'api/query/downloadFile';
 import { useGetPaycheckList } from 'api/query/paycheckQuery';
-import { CloseIcon, DownloadFileIcon, EditIcon } from 'components/icons';
+import { ArrowUpIcon, CloseIcon, DownloadFileIcon, EditIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import FileInput from 'components/shared/FileInput';
 import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
+import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IFile } from 'interfaces/file.interface';
 import { IPaycheck } from 'interfaces/paycheck.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -41,6 +42,17 @@ type Props = {
 const Paychecks = ({ filter }: Props) => {
   const { t } = useTranslation();
   const { data = [], refetch } = useGetPaycheckList(filter);
+  const { sortedData, sorting, sortingToggler } = useSortedList(data);
+  const toggleSorting = (paycheckKey: string) => {
+    let sortingValue: SortingValue<IPaycheck> = paycheckKey as keyof IPaycheck;
+    if (paycheckKey === 'user') {
+      sortingValue = 'user.name';
+    }
+    if (paycheckKey === 'name') {
+      sortingValue = 'linkedFile.originalname';
+    }
+    sortingToggler(paycheckKey, sortingValue);
+  };
   const updatePaycheckMutation = useUpdatePaycheckMutation();
   const deletePaycheckMutation = useDeletePaycheckMutation();
   const deleteFileMutation = useDeleteFileMutation();
@@ -84,8 +96,24 @@ const Paychecks = ({ filter }: Props) => {
 
   return (
     <UploadedPaychecksWrapper>
-      <ListTable columns={cols} className="file-grid">
-        {data.map((paycheckItem) => (
+      <ListTable
+        columns={cols}
+        className="file-grid"
+        columnComponent={(col) => col && (
+          <div role="button" className="col-item" onClick={() => void toggleSorting(col.replace(/paycheck.|file./gi, ''))}>
+            {t(col)}
+            <IconButton
+              className={sorting?.key === col.replace(/paycheck.|file./gi, '')
+                ? `sort-btn active ${sorting.dir}`
+                : 'sort-btn'
+              }
+            >
+              <ArrowUpIcon />
+            </IconButton>
+          </div>
+        )}
+      >
+        {sortedData.map((paycheckItem) => (
           <ListTableRow key={paycheckItem._id}>
             <ListTableCell>{getDateFromIso(paycheckItem.date, 'MM.yyyy')}</ListTableCell>
             {!filter?.user && <ListTableCell>{(paycheckItem.user as IUser).name} {(paycheckItem.user as IUser).surname}</ListTableCell>}
