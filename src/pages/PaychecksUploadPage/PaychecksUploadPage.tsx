@@ -15,14 +15,14 @@ const PaychecksUploadPage = () => {
       <PageTitle>{t('paychecksUpload')}</PageTitle>
       <TabsContainer>
         <Tabs>
-          <Tab label={t('paycheck.upload')} />
           <Tab label={t('paycheck.uploaded')} />
+          <Tab label={t('paycheck.upload')} />
         </Tabs>
         <TabPanel index={0}>
-          <UploadArea />
+          <UploadedPaychecks />
         </TabPanel>
         <TabPanel index={1}>
-          <UploadedPaychecks />
+          <UploadArea />
         </TabPanel>
       </TabsContainer>
     </Page>
