@@ -1,32 +1,47 @@
 import { useMemo, useState } from 'react';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { orderBy } from 'lodash-es';
 
-export declare type Primitive = null | undefined | string | number | boolean | symbol | bigint;
-type PathImpl<K extends string | number, V> = V extends Primitive ? `${K}` : `${K}` | `${K}.${Path<V>}`;
-type TupleKeys<T extends ReadonlyArray<any>> = Exclude<keyof T, keyof any[]>;
-type IsTuple<T extends ReadonlyArray<any>> = number extends T['length'] ? false : true;
+import { Path } from 'interfaces/base.types';
 
-type Path<T> = T extends ReadonlyArray<infer V> ? IsTuple<T> extends true ? {
-  [K in TupleKeys<T>]-?: PathImpl<K & string, T[K]>;
-}[TupleKeys<T>] : PathImpl<number, V> : {
-  [K in keyof T]-?: PathImpl<K & string, T[K]>;
-}[keyof T];
+import usePageQueries from './usePageQueries';
 
 type Sort<T> = {
   dir: 'asc' | 'desc';
+  key: string;
   sorting: Path<T> | ((v: T) => unknown);
 };
 
 export default function useSortedList <T> (data: T[]) {
+  const navigate = useNavigate();
+  const pageQueries = usePageQueries();
   const [sort, setSort] = useState<null | Sort<T>>(null);
   const sortedData = useMemo(() => {
     if (!sort) return data;
     return orderBy(data, sort.sorting, sort.dir);
   }, [data, sort]);
 
+  const sortingToggler = (key: string, sorting: Path<T> | ((v: T) => unknown)) => {
+    if (pageQueries?.page) {
+      navigate({
+        search: createSearchParams({
+          ...pageQueries,
+          page: '1',
+        }).toString(),
+      });
+    }
+    setSort((prev) => {
+      if (prev?.key === key && prev?.dir === 'asc') return { ...prev, dir: 'desc' };
+      if (prev?.key === key && prev?.dir === 'desc') return null;
+
+      return { dir: 'asc', sorting, key };
+    });
+  };
+
   return {
     sorting: sort,
     setSorting: setSort,
     sortedData,
+    sortingToggler,
   };
 }

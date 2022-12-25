@@ -5,18 +5,22 @@ import { themeConfig } from 'theme';
 export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   .users-table {
     grid-template-columns: 30px 1fr ${(props) => Array(props.cols).fill('1fr').join(' ')};
-  
-    .sort-btn {
-      color: #f0f0f0;
-      transition: transform .2s;
-      &.active {
-        color: ${themeConfig.palette.primary.main};
-      }
-      &.desc {
-        transform: rotate(180deg);
+
+    .col-item {
+      cursor: pointer;
+
+      .sort-btn {
+        color: #f0f0f0;
+        transition: transform .2s;
+        &.active {
+          color: ${themeConfig.palette.primary.main};
+        }
+        &.desc {
+          transform: rotate(180deg);
+        }
       }
     }
-
+  
     .list-table-cell {
       white-space: nowrap;
     }

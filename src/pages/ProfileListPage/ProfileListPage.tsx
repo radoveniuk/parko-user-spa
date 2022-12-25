@@ -28,6 +28,7 @@ import useOutsideClick from 'hooks/useOutsideClick';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList from 'hooks/useSortedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { Path } from 'interfaces/base.types';
 import { ROWS_PER_PAGE_OPTIONS } from 'interfaces/table.types';
 import { IUser } from 'interfaces/users.interface';
 
@@ -54,11 +55,7 @@ const ProfileListPageRender = () => {
 
   // table content
   const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
-  const {
-    sortedData,
-    setSorting,
-    sorting,
-  } = useSortedList(data);
+  const { sortedData, sorting, sortingToggler } = useSortedList(data);
   const [rowsPerPage, setRowsPerPage] = useState(20);
   const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
 
@@ -103,6 +100,23 @@ const ProfileListPageRender = () => {
         }),
       );
     }
+  };
+
+  const toggleSorting = (userKey: keyof IUser) => {
+    let sortingValue: Path<IUser> | ((v: IUser) => unknown) = userKey;
+    if (userKey === 'project') {
+      sortingValue = 'project.name';
+    }
+    if (userKey === 'recruiter') {
+      sortingValue = 'recruiter.name';
+    }
+    if ([
+      'cooperationStartDate', 'birthDate', 'permitStartDate',
+      'permitExpire', 'cooperationEndDate', 'permitType', 'status', 'source',
+    ].includes(userKey)) {
+      sortingValue = (_) => _[userKey] || null;
+    }
+    sortingToggler(userKey, sortingValue);
   };
 
   useEffect(() => {
@@ -214,25 +228,18 @@ const ProfileListPageRender = () => {
           </div>
         </FiltersBar>
         <ListTable
+          renderIf={!!sortedData.length}
           columns={[...STATIC_COLS, ...activeCols, '']}
           className="users-table"
           columnComponent={(col) => col && (
-            <>
+            <div role="button" className="col-item" onClick={() => void toggleSorting(col.replace('user.', '') as keyof IUser) }>
               {t(col)}
               <IconButton
-                onClick={() => {
-                  const userKey = col.replace('user.', '') as keyof IUser;
-                  setSorting((prev) => {
-                    if (prev?.sorting === userKey && prev?.dir === 'asc') return { ...prev, dir: 'desc' };
-                    if (prev?.sorting === userKey && prev?.dir === 'desc') return null;
-                    return { dir: 'asc', sorting: userKey };
-                  });
-                }}
-                className={sorting?.sorting === col.replace('user.', '') as keyof IUser ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
+                className={sorting?.key === col.replace('user.', '') as keyof IUser ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
               >
                 <ArrowUpIcon />
               </IconButton>
-            </>
+            </div>
           )}
         >
           {pageItems.map((user: IUser) => (
