@@ -50,6 +50,9 @@ const PrepaymentsListPageRender = () => {
     if (prepaymentKey === 'user') {
       sortingValue = 'user.name';
     }
+    if (prepaymentKey === 'status') {
+      sortingValue = 'user.status';
+    }
     if (prepaymentKey === 'project') {
       sortingValue = 'user.project.name';
     }
@@ -118,11 +121,11 @@ const PrepaymentsListPageRender = () => {
           <div
             role="button"
             className="col-item"
-            onClick={() => void toggleSorting(col.replace('user.', '').replace('prepayment.', ''))}
+            onClick={() => void toggleSorting(col.replace(/user.|prepayment./gi, ''))}
           >
             {t(col)}
             <IconButton
-              className={sorting?.key === col.replace('user.', '').replace('prepayment.', '') ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
+              className={sorting?.key === col.replace(/user.|prepayment./gi, '') ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
             >
               <ArrowUpIcon />
             </IconButton>

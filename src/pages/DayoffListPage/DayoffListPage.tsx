@@ -6,7 +6,7 @@ import { useDeleteDayoffMutation, useUpdateDayoffMutation } from 'api/mutations/
 import { useGetDaysoff } from 'api/query/dayoffQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
-import { CloseIcon, EditIcon } from 'components/icons';
+import { ArrowUpIcon, CloseIcon, EditIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
 import DialogConfirm from 'components/shared/DialogConfirm';
@@ -20,6 +20,7 @@ import Pagination from 'components/shared/Pagination';
 import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import usePaginatedList from 'hooks/usePaginatedList';
+import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IDayOff } from 'interfaces/dayoff.interface';
 import { IProject } from 'interfaces/project.interface';
@@ -27,7 +28,7 @@ import { IUser } from 'interfaces/users.interface';
 
 import { CommentDialogWrapper } from './styles';
 
-const columns = [
+const COLS = [
   'dayoff.user',
   'user.project',
   'user.status',
@@ -43,8 +44,21 @@ const columns = [
 const DayoffListPageRender = () => {
   const { debouncedFiltersState } = useFilters();
   const { t } = useTranslation();
-  const { data, refetch } = useGetDaysoff(debouncedFiltersState);
-  const { pageItems, paginationConfig } = usePaginatedList(data);
+  // data
+  const { data = [], refetch } = useGetDaysoff(debouncedFiltersState);
+  const { sortedData, sorting, sortingToggler } = useSortedList(data);
+  const toggleSorting = (userKey: string) => {
+    let sortingValue: SortingValue<IDayOff> = userKey as keyof IDayOff;
+    if (userKey === 'project') {
+      sortingValue = 'user.project.name';
+    }
+    if (userKey === 'user') {
+      sortingValue = 'user.name';
+    }
+    sortingToggler(userKey, sortingValue);
+  };
+  const { pageItems, paginationConfig } = usePaginatedList(sortedData);
+
   const { data: projects = [] } = useGetProjects();
   const { data: users = [] } = useGetUserListForFilter();
   const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
@@ -96,7 +110,22 @@ const DayoffListPageRender = () => {
         <FilterDate filterKey="lastDate" label={t('lastDate')} />
         <ClearFiLtersButton />
       </FiltersBar>
-      <ListTable columns={columns} >
+      <ListTable
+        columns={COLS}
+        columnComponent={(col) => col && (
+          <div role="button" className="col-item" onClick={() => void toggleSorting(col.replace(/user.|dayoff./gi, ''))}>
+            {t(col)}
+            <IconButton
+              className={sorting?.key === col.replace(/user.|dayoff./gi, '')
+                ? `sort-btn active ${sorting.dir}`
+                : 'sort-btn'
+              }
+            >
+              <ArrowUpIcon />
+            </IconButton>
+          </div>
+        )}
+      >
         {pageItems.map((item) => {
           const user = item.user as IUser;
           const project = user.project as IProject;

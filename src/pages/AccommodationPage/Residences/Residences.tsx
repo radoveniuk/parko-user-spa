@@ -169,10 +169,10 @@ const Residences = () => {
       <ListTable
         columns={COLUMNS}
         columnComponent={(col) => col && (
-          <div role="button" className="col-item" onClick={() => void toggleSorting(col.replace('user.', '').replace('accommodation.', ''))}>
+          <div role="button" className="col-item" onClick={() => void toggleSorting(col.replace(/user.|accommodation./gi, ''))}>
             {t(col)}
             <IconButton
-              className={sorting?.key === col.replace('user.', '').replace('accommodation.', '')
+              className={sorting?.key === col.replace(/user.|accommodation./gi, '')
                 ? `sort-btn active ${sorting.dir}`
                 : 'sort-btn'
               }
