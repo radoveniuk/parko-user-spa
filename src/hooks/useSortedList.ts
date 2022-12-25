@@ -23,7 +23,7 @@ export default function useSortedList <T> (data: T[]) {
     return orderBy(data, sort.sorting, sort.dir);
   }, [data, sort]);
 
-  const sortingToggler = (key: string, sorting: Path<T> | ((v: T) => unknown)) => {
+  const sortingToggler = (key: string, sorting: SortingValue<T>) => {
     if (pageQueries?.page) {
       navigate({
         search: createSearchParams({
