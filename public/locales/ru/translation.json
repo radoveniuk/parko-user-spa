@@ -114,7 +114,7 @@
     "openForm": "Открыть форму",
     "successfullRegister": "Успешная регистрация! Теперь можете войти",
     "project": "Проект",
-    "status": "Статус",
+    "status": "Статус сотрудника",
     "resetPassword": "Сброс пароля",
     "role": "Роль",
     "admin": "Администрирование пользователя",
@@ -174,7 +174,11 @@
     "user": "Пользователь",
     "approval": "Подтверждение аванса",
     "approve": "Подтвердить",
-    "reject": "Отклонить"
+    "reject": "Отклонить",
+    "status": "Статус аванса",
+    "paymentDate": "Дата оплаты",
+    "prepayment": "Аванс",
+    "new":"Новый аванс"
   },
   "dayoff": {
     "dateStart": "Начало",
@@ -254,6 +258,12 @@
     "projectStatus": {
       "active": "Активный",
       "inactive": "Неактивный"
+    },
+    "prepaymentStatus": {
+      "pending": "В обработке",
+      "approved": "Подтверждено",
+      "rejected": "Отклонено",
+      "paid": "Оплачено"
     }
   },
   "notFoundPage": "Страница не найдена",
@@ -302,7 +312,7 @@
     "mainInfo": "Основная информация",
     "location": "Локация",
     "stages": "Этапы трудоустройства",
-    "status": "Статус",
+    "status": "Статус проекта",
     "cooperationFrom": "Сотрудничесво от",
     "cooperationTo": "Сотрудничесво до",
     "client": "Клиент"
@@ -372,7 +382,7 @@
     "contactPerson": "Контактное лицо",
     "contactPersonPosition": "Должность контактного лица",
     "phone": "Телефон",
-    "status": "Статус",
+    "status": "Статус клиента",
     "new": "Новый клиент",
     "cooperationStartDate": "Начало сотрудничества",
     "cooperationEndDate": "Окончание сотрудничества"

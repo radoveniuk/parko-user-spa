@@ -173,7 +173,11 @@
     "user": "User",
     "approval": "Prepayment approving",
     "approve": "Approve",
-    "reject": "Reject"
+    "reject": "Reject",
+    "status": "Prepayment status",
+    "paymentDate": "Payment date",
+    "prepayment": "Prepayment",
+    "new":"New prepayment"
   },
   "dayoff": {
     "dateStart": "Date start",
@@ -245,14 +249,20 @@
       "select": "Dropdown list"
     },
     "clientStatus": {
-      "active": "Активный",
-      "inactive": "Неактивный",
-      "development": "Разработка",
-      "rejected": "Отклонено"
+      "active": "Active",
+      "inactive": "Inactive",
+      "development": "Development",
+      "rejected": "Rejected"
     },
     "projectStatus": {
-      "active": "Активный",
-      "inactive": "Неактивный"
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "prepaymentStatus": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "paid": "Paid"
     }
   },
   "notFoundPage": "Page not found",

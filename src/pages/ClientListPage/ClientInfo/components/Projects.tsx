@@ -9,7 +9,7 @@ import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, useFi
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import { PROJECT_STATUS } from 'constants/selectsOptions';
-import { STATUSES_COLORS } from 'constants/userStatuses';
+import { STATUSES_COLORS } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';

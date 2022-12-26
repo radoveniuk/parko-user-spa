@@ -6,7 +6,7 @@ import { useGetUserListForFilter } from 'api/query/userQuery';
 import Paychecks from 'components/complex/Paychecks';
 import { FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { ClearFiLtersButton, FilterDate } from 'components/shared/Filters/Filters';
-import { STATUSES } from 'constants/userStatuses';
+import { USER_STATUSES } from 'constants/statuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 
 const UploadedPaychecksRender = () => {
@@ -14,7 +14,7 @@ const UploadedPaychecksRender = () => {
   const { t } = useTranslation();
   const { data: projects = [] } = useGetProjects();
   const { data: users = [] } = useGetUserListForFilter();
-  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
 
   return (
     <>

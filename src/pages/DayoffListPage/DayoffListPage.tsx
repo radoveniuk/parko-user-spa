@@ -17,7 +17,7 @@ import Input from 'components/shared/Input';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Page, { PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
-import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
+import { STATUSES_COLORS, USER_STATUSES } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
@@ -61,7 +61,7 @@ const DayoffListPageRender = () => {
 
   const { data: projects = [] } = useGetProjects();
   const { data: users = [] } = useGetUserListForFilter();
-  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
 
   const updateDayoffMutation = useUpdateDayoffMutation();
   const deleteDayoffMutation = useDeleteDayoffMutation();

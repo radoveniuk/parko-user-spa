@@ -21,8 +21,8 @@ import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Page, { PageActions, PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
 import Select from 'components/shared/Select';
+import { USER_STATUSES } from 'constants/statuses';
 import { DYNAMIC_FIELDS, EXPORT_USER_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
-import { STATUSES } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
 import useLocalStorageState from 'hooks/useLocalStorageState';
@@ -65,7 +65,7 @@ const ProfileListPageRender = () => {
   const { data: usersFilter = [] } = useGetUserListForFilter();
   const { data: projects = [] } = useGetProjects();
   const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
-  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
 
   const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);

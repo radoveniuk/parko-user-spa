@@ -13,8 +13,8 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import Menu, { MenuItem } from 'components/shared/Menu';
 import Page, { PageTitle } from 'components/shared/Page';
 import Select from 'components/shared/Select';
+import { USER_STATUSES } from 'constants/statuses';
 import { DYNAMIC_FIELDS, EXPORT_USER_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
-import { STATUSES } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -27,7 +27,7 @@ const ExportResidencesPage = () => {
   const { t, i18n } = useTranslation();
 
   const { data: projects = [] } = useGetProjects();
-  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
 
   // custom cols
   const { data: customFields = [] } = useGetCustomFormFields({

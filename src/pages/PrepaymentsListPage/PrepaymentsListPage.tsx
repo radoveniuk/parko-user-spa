@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { useDeletePrepaymentMutation, useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
+import { useCreatePrepaymentMutation, useDeletePrepaymentMutation, useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
-import { ArrowUpIcon, BooleanIcon, CloseIcon, EditIcon } from 'components/icons';
+import { ArrowUpIcon, CloseIcon, EditIcon, PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import Dialog from 'components/shared/Dialog';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
-import { FilterDate } from 'components/shared/Filters/Filters';
+import { FilterDate, FilterSelect } from 'components/shared/Filters/Filters';
 import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import Page, { PageTitle } from 'components/shared/Page';
+import Page, { PageActions, PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
-import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
+import { PREPAYMENT_STATUS } from 'constants/selectsOptions';
+import { STATUSES_COLORS, USER_STATUSES } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
@@ -25,7 +25,7 @@ import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { ApproveDialogWrapper } from './styles';
+import PrepaymentDialog from './PrepaymentDialog';
 
 const COLS = [
   'prepayment.user',
@@ -34,7 +34,8 @@ const COLS = [
   'prepayment.date',
   'prepayment.sum',
   'prepayment.comment',
-  'prepayment.approved',
+  'prepayment.status',
+  'prepayment.paymentDate',
   '',
   '',
 ];
@@ -50,35 +51,33 @@ const PrepaymentsListPageRender = () => {
     if (prepaymentKey === 'user') {
       sortingValue = 'user.name';
     }
-    if (prepaymentKey === 'status') {
-      sortingValue = 'user.status';
-    }
-    if (prepaymentKey === 'project') {
+    if (prepaymentKey === 'user.project') {
       sortingValue = 'user.project.name';
     }
     if (prepaymentKey === 'comment') {
       sortingValue = 'userComment';
-    }
-    if (prepaymentKey === 'approved') {
-      sortingValue = 'isApproved';
     }
     sortingToggler(prepaymentKey, sortingValue);
   };
 
   const { pageItems, paginationConfig } = usePaginatedList(sortedData);
 
-  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
+  const translatedPrepaymentStatuses = useTranslatedSelect(PREPAYMENT_STATUS, 'prepaymentStatus');
   const { data: projects = [] } = useGetProjects();
   const { data: users = [] } = useGetUserListForFilter();
+  const createPrepaymentMutation = useCreatePrepaymentMutation();
   const updatePrepaymentMutation = useUpdatePrepaymentMutation();
   const deletePrepaymentMutation = useDeletePrepaymentMutation();
 
-  const [selectedItem, setSelectedItem] = useState<IPrepayment | null>(null);
+  const [activePrepayment, setActivePrepayment] = useState<IPrepayment | boolean>(false);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
 
-  const updatePrepaymentHandler = (isApproved: boolean) => {
-    if (selectedItem !== null) {
-      updatePrepaymentMutation.mutateAsync({ ...selectedItem, isApproved }).then(() => { setSelectedItem(null); refetch(); });
+  const updatePrepaymentHandler = (values: IPrepayment) => {
+    if (typeof activePrepayment === 'object' && activePrepayment?._id) {
+      updatePrepaymentMutation.mutateAsync(values).then(() => { setActivePrepayment(false); refetch(); });
+    } else {
+      createPrepaymentMutation.mutateAsync({ ...values, createdByRole: 'admin' }).then(() => { setActivePrepayment(false); refetch(); });
     }
   };
 
@@ -89,6 +88,7 @@ const PrepaymentsListPageRender = () => {
   return (
     <Page title={t('prepaymentsList')}>
       <PageTitle>{t('prepaymentsList')}</PageTitle>
+      <PageActions><Button onClick={() => void setActivePrepayment(true)}><PlusIcon size={20} />{t('prepayment.new')}</Button></PageActions>
       <FiltersBar>
         <FilterAutocomplete
           multiple
@@ -111,6 +111,12 @@ const PrepaymentsListPageRender = () => {
           options={translatedStatuses}
           labelKey="label"
         />
+        <FilterSelect
+          filterKey="status"
+          label={t('prepayment.status')}
+          options={translatedPrepaymentStatuses}
+          emptyItem="noSelected"
+        />
         <FilterDate filterKey="firstDate" label={t('firstDate')} />
         <FilterDate filterKey="lastDate" label={t('lastDate')} />
         <ClearFiLtersButton />
@@ -121,11 +127,11 @@ const PrepaymentsListPageRender = () => {
           <div
             role="button"
             className="col-item"
-            onClick={() => void toggleSorting(col.replace(/user.|prepayment./gi, ''))}
+            onClick={() => void toggleSorting(col.replace(/prepayment./gi, ''))}
           >
             {t(col)}
             <IconButton
-              className={sorting?.key === col.replace(/user.|prepayment./gi, '') ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
+              className={sorting?.key === col.replace(/prepayment./gi, '') ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
             >
               <ArrowUpIcon />
             </IconButton>
@@ -162,29 +168,22 @@ const PrepaymentsListPageRender = () => {
               <ListTableCell>{item.createdAt && getDateFromIso(item.createdAt)}</ListTableCell>
               <ListTableCell>{`${item.sum}€`}</ListTableCell>
               <ListTableCell>{item.userComment}</ListTableCell>
-              <ListTableCell><BooleanIcon value={item.isApproved} size={20} /></ListTableCell>
-              <ListTableCell><IconButton onClick={() => void setSelectedItem(item)}><EditIcon /></IconButton></ListTableCell>
+              <ListTableCell color={STATUSES_COLORS[item.status]}>{t(`selects.prepaymentStatus.${item.status}`)}</ListTableCell>
+              <ListTableCell>{getDateFromIso(item.paymentDate)}</ListTableCell>
+              <ListTableCell><IconButton onClick={() => void setActivePrepayment(item)}><EditIcon /></IconButton></ListTableCell>
               <ListTableCell><IconButton onClick={() => void setItemToDelete(item._id)}><CloseIcon /></IconButton></ListTableCell>
             </ListTableRow>
           );
         })}
       </ListTable>
       <Pagination {...paginationConfig} />
-      {!!selectedItem && (
-        <Dialog title={t('prepayment.approval')} open={!!selectedItem} onClose={() => void setSelectedItem(null)}>
-          <ApproveDialogWrapper>
-            <strong>
-              {typeof selectedItem.user !== 'string' && `${selectedItem.user.name} ${selectedItem.user.surname}`}
-            </strong>
-            <p>{selectedItem.createdAt && getDateFromIso(selectedItem.createdAt)}</p>
-            <p>{`${selectedItem.sum}€`}</p>
-            <i>{selectedItem.userComment}</i>
-            <div className="actions">
-              <Button color="success" onClick={() => void updatePrepaymentHandler(true)}>{t('prepayment.approve')}</Button>
-              <Button color="error" onClick={() => void updatePrepaymentHandler(false)}>{t('prepayment.reject')}</Button>
-            </div>
-          </ApproveDialogWrapper>
-        </Dialog>
+      {!!activePrepayment && (
+        <PrepaymentDialog
+          open={!!activePrepayment}
+          onClose={() => void setActivePrepayment(false)}
+          submit={updatePrepaymentHandler}
+          {...(typeof activePrepayment === 'object' && { prepayment: activePrepayment })}
+        />
       )}
       <DialogConfirm
         onClose={() => void setItemToDelete(null)}

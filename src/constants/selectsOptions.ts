@@ -62,3 +62,10 @@ export const PROJECT_STATUS = [
   'active',
   'inactive',
 ];
+
+export const PREPAYMENT_STATUS = [
+  'pending',
+  'approved',
+  'rejected',
+  'paid',
+];
