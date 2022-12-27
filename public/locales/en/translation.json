@@ -186,7 +186,9 @@
     "adminComment": "Comment of admin",
     "comment": "Comment",
     "user": "User",
-    "send": "Send"
+    "send": "Send",
+    "dayoff": "Dayoff",
+    "new": "New dayoff"
   },
   "profileList": "Profiles",
   "selects": {

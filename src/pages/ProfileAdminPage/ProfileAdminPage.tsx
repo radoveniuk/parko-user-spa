@@ -75,7 +75,7 @@ const ProfileAdminPageRender = () => {
 
   const updateUser = (values: Partial<IUser>) => {
     if (userId) {
-      updateUserMutation.mutateAsync({ ...values, _id: userId, project: values.project || null })
+      updateUserMutation.mutateAsync({ ...values, _id: userId, project: values.project || (profileData?.project as IProject)?._id || null })
         .then(() => {
           refetch();
           setOpenResetPass(false);

@@ -26,7 +26,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userId, setUserId] = useLocalStorageState('userId');
   const loginMutation = useLoginMutation();
   const logoutMutation = useLogoutMutation();
-  const { data: userData } = useGetUser(userId, { enabled: !!userId && isAuth, refetchOnWindowFocus: false });
+  const { data: userData } = useGetUser(userId, { enabled: !!userId && isAuth });
 
   const isVerified = useMemo(() => !!userData?.project || ['admin', 'recruiter'].includes(userData?.role as string), [userData]);
 

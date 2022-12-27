@@ -2,20 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { useDeleteDayoffMutation, useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
+import { useCreateDayoffMutation, useDeleteDayoffMutation, useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
 import { useGetDaysoff } from 'api/query/dayoffQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
-import { ArrowUpIcon, CloseIcon, EditIcon } from 'components/icons';
+import { ArrowUpIcon, CloseIcon, EditIcon, PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import Dialog from 'components/shared/Dialog';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { FilterDate } from 'components/shared/Filters/Filters';
 import IconButton from 'components/shared/IconButton';
-import Input from 'components/shared/Input';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import Page, { PageTitle } from 'components/shared/Page';
+import Page, { PageActions, PageTitle } from 'components/shared/Page';
 import Pagination from 'components/shared/Pagination';
 import { STATUSES_COLORS, USER_STATUSES } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
@@ -26,7 +24,7 @@ import { IDayOff } from 'interfaces/dayoff.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { CommentDialogWrapper } from './styles';
+import DayoffDialog from './DayoffDialog';
 
 const COLS = [
   'dayoff.user',
@@ -63,18 +61,19 @@ const DayoffListPageRender = () => {
   const { data: users = [] } = useGetUserListForFilter();
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
 
+  const createDayoffMutation = useCreateDayoffMutation();
   const updateDayoffMutation = useUpdateDayoffMutation();
   const deleteDayoffMutation = useDeleteDayoffMutation();
 
-  const [selectedItem, setSelectedItem] = useState<IDayOff | null>(null);
+  const [selectedItem, setSelectedItem] = useState<IDayOff | boolean>(false);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
-  const [adminComment, setAdminComment] = useState('');
 
-  const saveAdminComment = () => {
-    updateDayoffMutation.mutateAsync({ ...selectedItem, adminComment }).then(() => {
-      setSelectedItem(null);
-      refetch();
-    });
+  const saveAdminComment = (values: IDayOff) => {
+    if (typeof selectedItem === 'object' && selectedItem?._id) {
+      updateDayoffMutation.mutateAsync({ ...selectedItem, ...values }).then(() => { setSelectedItem(false); refetch(); });
+    } else {
+      createDayoffMutation.mutateAsync({ ...values }).then(() => { setSelectedItem(false); refetch(); });
+    }
   };
 
   useEffect(() => {
@@ -84,6 +83,9 @@ const DayoffListPageRender = () => {
   return (
     <Page title={t('dayoffList')}>
       <PageTitle>{t('dayoffList')}</PageTitle>
+      <PageActions>
+        <Button onClick={() => void setSelectedItem(true)}><PlusIcon size={20} />{t('dayoff.new')}</Button>
+      </PageActions>
       <FiltersBar>
         <FilterAutocomplete
           multiple
@@ -166,27 +168,12 @@ const DayoffListPageRender = () => {
       </ListTable>
       <Pagination {...paginationConfig} />
       {!!selectedItem && (
-        <Dialog title={t('dayoff.adminComment')} open={!!selectedItem} onClose={() => void setSelectedItem(null)}>
-          <CommentDialogWrapper>
-            <strong>
-              {typeof selectedItem.user !== 'string' && `${selectedItem.user.name} ${selectedItem.user.surname}`}
-            </strong>
-            <div className="dates">
-              <p>{getDateFromIso(selectedItem.dateStart)}</p>
-              &ndash;
-              <p>{getDateFromIso(selectedItem.dateEnd)}</p>
-            </div>
-            <p>{t(`selects.dayoffReason.${selectedItem.reason}`)}</p>
-            <p>{selectedItem.description}</p>
-            <Input
-              defaultValue={selectedItem.adminComment}
-              onChange={({ target: { value } }) => void setAdminComment(value) }
-              autoFocus
-              multiline
-            />
-            <Button onClick={saveAdminComment}>{t('dayoff.send')}</Button>
-          </CommentDialogWrapper>
-        </Dialog>
+        <DayoffDialog
+          open={!!selectedItem}
+          onClose={() => void setSelectedItem(false)}
+          submit={saveAdminComment}
+          {...(typeof selectedItem === 'object' && { dayoff: selectedItem })}
+        />
       )}
       <DialogConfirm
         onClose={() => void setItemToDelete(null)}

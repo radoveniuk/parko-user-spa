@@ -75,7 +75,7 @@ const PrepaymentsListPageRender = () => {
 
   const updatePrepaymentHandler = (values: IPrepayment) => {
     if (typeof activePrepayment === 'object' && activePrepayment?._id) {
-      updatePrepaymentMutation.mutateAsync(values).then(() => { setActivePrepayment(false); refetch(); });
+      updatePrepaymentMutation.mutateAsync({ ...activePrepayment, ...values }).then(() => { setActivePrepayment(false); refetch(); });
     } else {
       createPrepaymentMutation.mutateAsync({ ...values, createdByRole: 'admin' }).then(() => { setActivePrepayment(false); refetch(); });
     }
@@ -152,12 +152,14 @@ const PrepaymentsListPageRender = () => {
                 </Link>
               </ListTableCell>
               <ListTableCell>
-                <Link
-                  to={`/projects?id=${project._id}`}
-                  className="table-link"
-                >
-                  {project.name}
-                </Link>
+                {!!project && (
+                  <Link
+                    to={`/projects?id=${project._id}`}
+                    className="table-link"
+                  >
+                    {project.name}
+                  </Link>
+                )}
               </ListTableCell>
               <ListTableCell>
                 <p

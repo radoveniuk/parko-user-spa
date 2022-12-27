@@ -186,7 +186,9 @@
     "adminComment": "Komentár firmy",
     "comment": "Komentár",
     "user": "Používateľ",
-    "send": "Poslať"
+    "send": "Poslať",
+    "dayoff": "Voľno",
+    "new": "Urobiť voľno"
   },
   "profileList": "Profily",
   "selects": {
