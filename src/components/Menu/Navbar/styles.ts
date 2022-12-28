@@ -56,6 +56,7 @@ export const NavbarWrapper = styled(Box)`
       justify-content: center;
       margin: 0;
       padding: 0;
+      margin-top: 80px;
       li {
         margin-bottom: 15px;
         font-size: 18px;
