@@ -26,6 +26,7 @@ export { IoHome as HomeIcon } from 'react-icons/io5';
 export { IoMenu as MenuIcon } from 'react-icons/io5';
 export { IoClose as CloseIcon } from 'react-icons/io5';
 export { IoCheckmark as AcceptIcon } from 'react-icons/io5';
+export { MdLanguage as InternetIcon } from 'react-icons/md';
 export { MdOutlineBusiness as BusinessIcon } from 'react-icons/md';
 export { MdDoneAll as CheckAllIcon } from 'react-icons/md';
 export { MdWeekend as DayoffIcon } from 'react-icons/md';

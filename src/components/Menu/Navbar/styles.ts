@@ -51,6 +51,11 @@ export const NavbarWrapper = styled(Box)`
 
     .contactsList {
       list-style-type: none;
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
       li {
         margin-bottom: 15px;
         font-size: 18px;

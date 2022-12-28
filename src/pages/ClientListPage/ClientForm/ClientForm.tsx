@@ -25,7 +25,7 @@ export default function ClientForm ({ defaultValues }: Props) {
 
   return (
     <ClientFormWrapper>
-      <Input label={t('client.company')} error={!!errors.name} {...register('name', { required: true })} />
+      <Input label={`${t('client.company')}*`} error={!!errors.name} {...register('name', { required: true })} />
       <Input label={t('client.ICO')} {...register('ICO')} />
       <Input label={t('client.DIC')} {...register('DIC')} />
       <Input label={t('client.ICDPH')} {...register('ICDPH')} />
