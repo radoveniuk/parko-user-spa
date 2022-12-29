@@ -288,7 +288,9 @@
     "upload": "Uploading",
     "uploaded": "Ready documents",
     "date": "Date",
-    "user": "User"
+    "user": "User",
+    "new": "Create new",
+    "paycheck": "Paycheck"
   },
   "projectList": "Projects",
   "project": {

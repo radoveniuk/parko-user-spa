@@ -122,7 +122,7 @@ const Paychecks = ({ filter }: Props) => {
               <IconButton
                 onClick={() => {
                   const file = paycheckItem.linkedFile as IFile;
-                  downloadFile(file._id, file.originalname, 'pdf');
+                  downloadFile(file._id, file.originalname, file.ext || 'pdf');
                 }}
               >
                 <DownloadFileIcon />

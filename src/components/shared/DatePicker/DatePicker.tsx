@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers';
+import { CalendarPickerView, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { DateTime } from 'luxon';
@@ -16,9 +16,10 @@ export type Props = {
   error?: boolean;
   minDate?: string;
   maxDate?: string;
+  openTo?: CalendarPickerView;
 }
 
-const DatePicker = ({ value: defaultValue, onChange, label, className, error, minDate, maxDate }: Props) => {
+const DatePicker = ({ value: defaultValue, onChange, label, className, error, minDate, maxDate, openTo }: Props) => {
   const [value, setValue] = useState<DateTime | null>(null);
   const { i18n } = useTranslation();
 
@@ -50,6 +51,7 @@ const DatePicker = ({ value: defaultValue, onChange, label, className, error, mi
         renderInput={(params) => <TextField {...params} error={error}/>}
         minDate={minDate ? DateTime.fromISO(minDate) : undefined}
         maxDate={maxDate ? DateTime.fromISO(maxDate) : undefined}
+        openTo={openTo}
       />
     </LocalizationProvider>
   );

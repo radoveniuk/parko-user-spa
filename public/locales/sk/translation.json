@@ -287,7 +287,9 @@
     "upload": "Nahrať faktúry",
     "uploaded": "Faktúry v systéme",
     "date": "Dátum",
-    "user": "Používateľ"
+    "user": "Používateľ",
+    "new": "Vytvoriť novu",
+    "paycheck": "Faktúra"
   },
   "projectList": "Projekty",
   "project": {
