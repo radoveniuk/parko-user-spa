@@ -1,11 +1,14 @@
 import { IUser } from './users.interface';
 
+export type PrepaymentStatus = 'pending' | 'rejected' | 'approved' | 'paid';
+
 export interface IPrepayment {
   _id: string;
   user: string | Partial<IUser>;
   sum: string | number;
-  isApproved: boolean | null;
-  createdAt?: string;
+  status: PrepaymentStatus;
+  paymentDate: string | null;
+  createdByRole: 'user' | 'admin';
   userComment?: string;
-  adminComment?: string;
+  createdAt: string;
 }

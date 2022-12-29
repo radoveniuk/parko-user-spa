@@ -46,12 +46,12 @@ const CheckoutDialog = ({ onClose, ...rest }: DialogProps) => {
         <div className="form">
           <Autocomplete
             options={residences}
-            label={t('search')}
+            label={`${t('search')}*`}
             getOptionLabel={(option) => `${option.user.name} ${option.user.surname} (${option.accommodation.adress})`}
             style={{ minWidth: 223 }}
             onChange={setSelectedResidence}
           />
-          <DatePicker value={checkOutDate} onChange={setCheckOutDate} label={t('accommodation.checkOut')} />
+          <DatePicker value={checkOutDate} onChange={setCheckOutDate} label={`${t('accommodation.checkOut')}*`} />
         </div>
         <div className="actions">
           <Checkbox

@@ -16,9 +16,9 @@ import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import Select from 'components/shared/Select';
 import { EMPLOYMENT_TYPE, SIZES } from 'constants/selectsOptions';
+import { USER_STATUSES } from 'constants/statuses';
 import { ALL_FORM_FIELDS } from 'constants/userFormFields';
 import { ROLES } from 'constants/userRoles';
-import { STATUSES } from 'constants/userStatuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
@@ -41,7 +41,7 @@ const EditingRow = () => {
   const { data: countryDictionary } = useGetDictionary('COUNTRIES');
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
   const sexOptions = useTranslatedSelect(['male', 'female']);
-  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
 
   const selectOptions: AnyObject = useMemo(() => ({

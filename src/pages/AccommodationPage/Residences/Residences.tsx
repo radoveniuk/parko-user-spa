@@ -6,7 +6,7 @@ import { DateTime } from 'luxon';
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { useGetResidenceFilterLists, useGetResidences } from 'api/query/residenceQuery';
-import { CloseIcon, EditIcon } from 'components/icons';
+import { ArrowUpIcon, CloseIcon, EditIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { ClearFiLtersButton, FilterAutocomplete, FilterDate, FilterSelect, FilterText } from 'components/shared/Filters/Filters';
@@ -14,6 +14,7 @@ import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import usePrev from 'hooks/usePrev';
+import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IProject } from 'interfaces/project.interface';
@@ -94,6 +95,23 @@ const Residences = () => {
       metadata: item,
     };
   }), [residences]);
+  const { sortedData: sortedTableData, sorting, sortingToggler } = useSortedList(tableData);
+  const toggleSorting = (userKey: string) => {
+    let sortingValue: SortingValue<ResidenceTableRow> = userKey as keyof ResidenceTableRow;
+    if (userKey === 'accommodation') {
+      sortingValue = 'metadata.accommodation.adress';
+    }
+    if (userKey === 'name') {
+      sortingValue = 'user';
+    }
+    if (userKey === 'checkIn') {
+      sortingValue = 'metadata.checkInDate';
+    }
+    if (userKey === 'checkOut') {
+      sortingValue = 'metadata.checkOutDate';
+    }
+    sortingToggler(userKey, sortingValue);
+  };
 
   const [openResidence, setOpenResidence] = useActiveResidence();
   const [openAccomodation, setOpenAccommodation] = useActiveAccommodation();
@@ -148,8 +166,23 @@ const Residences = () => {
         />
         <ClearFiLtersButton />
       </FiltersBar>
-      <ListTable columns={COLUMNS} >
-        {tableData.map((item) => (
+      <ListTable
+        columns={COLUMNS}
+        columnComponent={(col) => col && (
+          <div role="button" className="col-item" onClick={() => void toggleSorting(col.replace(/user.|accommodation./gi, ''))}>
+            {t(col)}
+            <IconButton
+              className={sorting?.key === col.replace(/user.|accommodation./gi, '')
+                ? `sort-btn active ${sorting.dir}`
+                : 'sort-btn'
+              }
+            >
+              <ArrowUpIcon />
+            </IconButton>
+          </div>
+        )}
+      >
+        {sortedTableData.map((item) => (
           <ListTableRow key={item._id}>
             <ListTableCell>
               <Link to={`/profile/${(item.metadata.user as IUser)._id}`} className="table-link">{item.user}</Link>

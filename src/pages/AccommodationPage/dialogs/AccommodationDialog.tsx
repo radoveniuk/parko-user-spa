@@ -40,14 +40,14 @@ const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
       <DialogContentWrapper>
         <div className="form">
           <Input
-            label={t('accommodation.owner')}
+            label={`${t('accommodation.owner')}*`}
             error={!!errors.owner}
             helperText={errors.owner?.message}
             className="form-field"
             {...register('owner', { required: true })}
           />
           <Input
-            label={t('accommodation.adress')}
+            label={`${t('accommodation.adress')}*`}
             error={!!errors.adress}
             helperText={errors.adress?.message}
             className="form-field"

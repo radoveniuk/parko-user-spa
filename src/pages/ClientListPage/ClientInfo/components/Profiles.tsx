@@ -14,7 +14,7 @@ import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Pagination from 'components/shared/Pagination';
 import Select from 'components/shared/Select';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
-import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
+import { STATUSES_COLORS, USER_STATUSES } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
 import usePaginatedList from 'hooks/usePaginatedList';
@@ -36,7 +36,7 @@ export default function Profiles () {
   const { projects = [] } = useGetClientInfo();
   const { data: profilesFilter = [] } = useGetUserListForFilter({ projects: (projects?.map((item) => item._id) || []).join(',') });
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
-  const statusOptions = useTranslatedSelect(STATUSES, 'userStatus');
+  const statusOptions = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const { data: profilePositionDictionary } = useGetDictionary('PROFILE_POSITIONS');
 
   const prepareUserToExport = (user: IUser): IUser => ({

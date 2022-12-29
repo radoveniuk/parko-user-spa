@@ -48,7 +48,7 @@ const ProjectForm = ({ defaultValues }: Props) => {
         >
           <AccordionFieldsWrapper>
             <Input
-              label={t('project.name')}
+              label={`${t('project.name')}*`}
               error={!!errors.name}
               helperText={errors.name?.message}
               {...register('name', { required: true })}

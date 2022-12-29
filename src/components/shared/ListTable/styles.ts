@@ -23,6 +23,11 @@ export const ListTableHeaderRow = styled.div<{ sticky?: boolean }>`
   font-weight: 700;
   white-space: nowrap;
 
+  .list-table-cell {
+    cursor: default;
+    user-select: none; 
+  }
+
   ${props => props.sticky && css`
     .list-table-cell {
       position: sticky;
@@ -55,6 +60,17 @@ export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })<
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  .sort-btn {
+    color: #f0f0f0;
+    transition: transform .2s;
+    &.active {
+      color: ${themeConfig.palette.primary.main};
+    }
+    &.desc {
+      transform: rotate(180deg);
     }
   }
 `;

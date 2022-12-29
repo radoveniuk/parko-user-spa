@@ -8,23 +8,26 @@ import { useGetClients } from 'api/query/clientQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
-import { CheckAllIcon, DeleteIcon, ExcelIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
+import { ArrowUpIcon, CheckAllIcon, DeleteIcon, ExcelIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import Dialog from 'components/shared/Dialog';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { FilterDate } from 'components/shared/Filters/Filters';
+import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Pagination from 'components/shared/Pagination';
 import Select from 'components/shared/Select';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
-import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
+import { STATUSES_COLORS, USER_STATUSES } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
 import usePaginatedList from 'hooks/usePaginatedList';
+import useSortedList from 'hooks/useSortedList';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { Path } from 'interfaces/base.types';
 import { IClient } from 'interfaces/client.interface';
 import { IProject } from 'interfaces/project.interface';
 import { ROWS_PER_PAGE_OPTIONS } from 'interfaces/table.types';
@@ -58,10 +61,28 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
   });
   const updateProjectMutation = useUpdateProjectMutation();
 
+  // profiles data
   const {
     data: linkedUsers = [],
     refetch: refetchLinkedUsers,
   } = useGetUserList({ project: data._id, ...debouncedFiltersState });
+
+  const { sortedData: sortedLinkedUsers, sorting, sortingToggler } = useSortedList(linkedUsers);
+
+  const toggleSorting = (userKey: keyof IUser) => {
+    let sortingValue: Path<IUser> | ((v: IUser) => unknown) = userKey;
+    if ([
+      'cooperationStartDate', 'birthDate', 'permitStartDate',
+      'permitExpire', 'cooperationEndDate', 'permitType', 'status', 'source',
+    ].includes(userKey)) {
+      sortingValue = (_) => _[userKey] || null;
+    }
+    sortingToggler(userKey, sortingValue);
+  };
+
+  // pagination
+  const [rowsPerPage, setRowsPerPage] = useState(20);
+  const { pageItems: pageLinkedUsers, paginationConfig } = usePaginatedList(sortedLinkedUsers, { rowsPerPage });
 
   const {
     data: clients = [],
@@ -69,15 +90,13 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
 
   // filters data
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
-  const statusOptions = useTranslatedSelect(STATUSES, 'userStatus');
+  const statusOptions = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const { data: profilePositionDictionary } = useGetDictionary('PROFILE_POSITIONS');
   const {
     data: linkedUsersFilter = [],
   } = useGetUserListForFilter({ project: data._id });
 
-  // pagination
-  const [rowsPerPage, setRowsPerPage] = useState(20);
-  const { pageItems: pageLinkedUsers, paginationConfig } = usePaginatedList(linkedUsers, { rowsPerPage });
+  // delete
   const deleteProjectMutation = useDeleteProjectMutation();
 
   const deleteProjectHandler = async () => {
@@ -175,7 +194,21 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
             />
           </div>
         </FiltersBar>
-        <ListTable columns={TABLE_COLS} className="users-table" stickyHeader>
+        <ListTable
+          columns={TABLE_COLS}
+          className="users-table"
+          stickyHeader
+          columnComponent={(col) => col && (
+            <div role="button" className="col-item" onClick={() => void toggleSorting(col.replace('user.', '') as keyof IUser) }>
+              {t(col)}
+              <IconButton
+                className={sorting?.key === col.replace('user.', '') as keyof IUser ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
+              >
+                <ArrowUpIcon />
+              </IconButton>
+            </div>
+          )}
+        >
           {pageLinkedUsers.map((user) => (
             <ListTableRow key={user._id}>
               <ListTableCell>

@@ -88,7 +88,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
         {(fieldData?.type === 'string' || fieldData?.type === 'number') && (
           <Input
             type={fieldData.type}
-            label={t(`user.${fieldName}`)}
+            label={`${t(`user.${fieldName}`)}${fieldData.required ? '*' : ''}`}
             defaultValue={defaultValues?.[fieldName] || ''}
             error={!!errors[fieldName]}
             helperText={errors?.[fieldName] && (errors?.[fieldName] as any).message}
@@ -123,7 +123,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
               <PhoneInput
                 value={field.value as string}
                 onChange={field.onChange}
-                label={t('project.phone')}
+                label={`${t('project.phone')}${fieldData.required ? '*' : ''}`}
                 error={!!errors.phone}
               />
             )}

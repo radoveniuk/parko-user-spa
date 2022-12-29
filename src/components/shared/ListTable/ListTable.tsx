@@ -8,14 +8,22 @@ type Props = {
   children?: ReactNode;
   columnComponent?: (col: string, index: number) => ReactNode;
   stickyHeader?: boolean;
+  renderIf?: boolean;
 } & HTMLAttributes<HTMLDivElement>
 
-const ListTable = ({ columns, children, columnComponent, stickyHeader, ...rest }: Props) => {
+const ListTable = ({ columns, children, columnComponent, stickyHeader, renderIf = true, ...rest }: Props) => {
   const { t } = useTranslation();
+  if (!renderIf) return null;
   return (
     <ListTableWrapper cols={columns.length} {...rest}>
       <ListTableHeaderRow sticky={stickyHeader}>
-        {columns.map((column, index) => <ListTableCell key={column + index}>{columnComponent?.(column, index) || t(column)}</ListTableCell>)}
+        {columns.map((column, index) => (
+          <ListTableCell
+            key={column + index}
+          >
+            {columnComponent?.(column, index) || t(column)}
+          </ListTableCell>
+        ))}
       </ListTableHeaderRow>
       {children}
     </ListTableWrapper>

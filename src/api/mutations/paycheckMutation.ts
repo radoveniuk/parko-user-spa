@@ -15,6 +15,15 @@ export const useCreatePaychecksMutation = () => {
   });
 };
 
+export const useCreatePaycheckMutation = () => {
+  const { t } = useTranslation();
+  const { enqueueSnackbar } = useSnackbar();
+  const request = (data: Partial<IPaycheck>) => api.post('/paychecks', data).then((res) => res.data.data);
+  return useMutation(request, {
+    onSuccess: () => void enqueueSnackbar(t('paycheck.successfullUpload'), { variant: 'success' }),
+  });
+};
+
 export const useDeletePaycheckMutation = () => {
   const request = (id: string) => api.delete(`/paychecks/${id}`);
   return useMutation(request);

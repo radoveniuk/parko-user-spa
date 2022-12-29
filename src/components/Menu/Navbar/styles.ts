@@ -30,8 +30,8 @@ export const NavbarWrapper = styled(Box)`
     }
 
     img {
-      width: 30px;
-      height: 30px;
+      width: 50px;
+      height: 50px;
     }
 
     p {
@@ -51,6 +51,12 @@ export const NavbarWrapper = styled(Box)`
 
     .contactsList {
       list-style-type: none;
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      margin-top: 80px;
       li {
         margin-bottom: 15px;
         font-size: 18px;

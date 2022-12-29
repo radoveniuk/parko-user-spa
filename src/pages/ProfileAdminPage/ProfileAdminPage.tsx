@@ -27,9 +27,9 @@ import Select from 'components/shared/Select';
 import Stepper from 'components/shared/Stepper';
 import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
+import { USER_STATUSES } from 'constants/statuses';
 import { SYSTEM_SETTINGS_FIELDS, WORK_FIELDS } from 'constants/userFormFields';
 import { ROLES } from 'constants/userRoles';
-import { STATUSES } from 'constants/userStatuses';
 import { getDateFromIso } from 'helpers/datetime';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import useViewportWidth from 'hooks/useViewportWsdth';
@@ -59,7 +59,7 @@ const ProfileAdminPageRender = () => {
 
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
   const translatedEmploymentTypes = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType', true, false);
-  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const { data: projects = [] } = useGetProjects();
 
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
@@ -75,7 +75,7 @@ const ProfileAdminPageRender = () => {
 
   const updateUser = (values: Partial<IUser>) => {
     if (userId) {
-      updateUserMutation.mutateAsync({ ...values, _id: userId, project: values.project || null })
+      updateUserMutation.mutateAsync({ ...values, _id: userId, project: values.project || (profileData?.project as IProject)?._id || null })
         .then(() => {
           refetch();
           setOpenResetPass(false);

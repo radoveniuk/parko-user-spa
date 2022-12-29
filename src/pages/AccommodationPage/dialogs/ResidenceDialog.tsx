@@ -59,7 +59,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
               render={({ field }) => (
                 <Autocomplete
                   options={users}
-                  label={t('navbar.profiles')}
+                  label={`${t('navbar.profiles')}*`}
                   getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
                   className="form-field"
                   defaultValue={data?.user || null}
@@ -78,7 +78,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
               render={({ field }) => (
                 <Autocomplete
                   options={accommodations}
-                  label={t('navbar.accommodation')}
+                  label={`${t('navbar.accommodation')}*`}
                   getOptionLabel={(option) => `${option.adress} (${option.owner})`}
                   className="form-field"
                   defaultValue={data?.accommodation || null}
@@ -97,7 +97,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
               <DatePicker
                 value={field.value}
                 onChange={field.onChange}
-                label={t('accommodation.checkIn')}
+                label={`${t('accommodation.checkIn')}*`}
                 className="form-field"
                 error={!!errors.checkInDate}
               />

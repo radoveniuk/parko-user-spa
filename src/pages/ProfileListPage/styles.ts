@@ -1,20 +1,9 @@
 import styled from 'styled-components';
 
-import { themeConfig } from 'theme';
-
 export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   .users-table {
     grid-template-columns: 30px 1fr ${(props) => Array(props.cols).fill('1fr').join(' ')};
-    
-    .table-link {
-      color: ${themeConfig.palette.primary.light};
-      cursor: pointer;
   
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
     .list-table-cell {
       white-space: nowrap;
     }

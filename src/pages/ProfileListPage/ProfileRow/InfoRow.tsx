@@ -6,7 +6,7 @@ import { BooleanIcon, EditIcon } from 'components/icons';
 import Checkbox from 'components/shared/Checkbox';
 import IconButton from 'components/shared/IconButton';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { STATUSES_COLORS } from 'constants/userStatuses';
+import { STATUSES_COLORS } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { IUser } from 'interfaces/users.interface';
 

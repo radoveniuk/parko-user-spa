@@ -30,6 +30,6 @@ export const HeaderText = styled.h1`
 `;
 
 export const HeaderLogo = styled.img`
-  width: 45px;
-  height: 45px;
+  width: 60px;
+  height: 60px;
 `;

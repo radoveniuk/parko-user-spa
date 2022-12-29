@@ -1,39 +1,40 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
-import { BooleanIcon } from 'components/icons';
 import Table from 'components/shared/Table';
 import { useAuthData } from 'contexts/AuthContext';
 import { Column } from 'interfaces/table.types';
 
 import { HistoryWrapper } from './styles';
 
-const columns: Column[] = [
-  {
-    field: 'createdAt',
-    headerName: 'prepayment.date',
-    valueGetter: (value: string) => DateTime.fromISO(value).toFormat('dd.MM.yyyy'),
-  },
-  {
-    field: 'sum',
-    headerName: 'prepayment.sum',
-    valueGetter: (value: string) => `${value}€`,
-  },
-  {
-    field: 'isApproved',
-    headerName: 'prepayment.approved',
-    valueGetter: (value: boolean | null) => <BooleanIcon value={value} size={20} />,
-  },
-  {
-    field: 'adminComment',
-    headerName: 'prepayment.comment',
-  },
-];
-
 const PrepaymentsHistoryTable = () => {
+  const { t } = useTranslation();
   const { id } = useAuthData();
   const { data } = useGetPrepayments({ user: id });
+
+  const columns: Column[] = useMemo(() => [
+    {
+      field: 'createdAt',
+      headerName: 'prepayment.date',
+      valueGetter: (value: string) => DateTime.fromISO(value).toFormat('dd.MM.yyyy'),
+    },
+    {
+      field: 'sum',
+      headerName: 'prepayment.sum',
+      valueGetter: (value: string) => `${value}€`,
+    },
+    {
+      field: 'status',
+      headerName: 'prepayment.status',
+      valueGetter: (value: string) => t(`selects.prepaymentStatus.${value}`),
+    },
+    {
+      field: 'adminComment',
+      headerName: 'prepayment.comment',
+    },
+  ], [t]);
 
   return (
     <HistoryWrapper>

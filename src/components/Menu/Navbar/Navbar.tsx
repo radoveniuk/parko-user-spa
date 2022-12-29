@@ -7,7 +7,7 @@ import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import logoImage from 'components/assets/images/logo.png';
 import LanguageSelector from 'components/complex/LanguageSelector';
 import LogoutButton from 'components/complex/LogoutButton';
-import { ArrowBackIcon, MenuIcon } from 'components/icons';
+import { ArrowBackIcon, EmailIcon, InternetIcon, MenuIcon, PhoneIcon } from 'components/icons';
 import IconButton from 'components/shared/IconButton';
 import { useAuthData } from 'contexts/AuthContext';
 import { useNavbarActiveLink, useNavbarItems, useToggleNavbar } from 'contexts/NavbarStateContext';
@@ -118,9 +118,16 @@ const Navbar = () => {
             </div>
             {expanded && (
               <ul className="contactsList">
-                <li><a href ="mailto:support@parko.sk">support@parko.sk</a></li>
-                <li><a href="https://parko-staff.com/">parko-staff.com</a></li>
-                <li><a href="tel:+421950759277">+421950759277</a></li>
+                <li><a href="tel:+421950759277" title="+421950759277"><IconButton><PhoneIcon /></IconButton></a></li>
+                <li><a href ="mailto:support@parko.sk" title="support@parko.sk"><IconButton><EmailIcon /></IconButton></a></li>
+                <li><a
+                  href="https://parko-staff.com/"
+                  target="_blank"
+                  title="parko-staff.com"
+                  rel="noreferrer"
+                >
+                  <IconButton><InternetIcon /></IconButton>
+                </a></li>
               </ul>
             )}
           </div>

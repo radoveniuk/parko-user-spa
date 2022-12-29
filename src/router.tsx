@@ -11,7 +11,6 @@ import CreateNotificationPage from 'pages/CreateNotificationPage';
 import CustomizationPage from 'pages/CustomizationPage';
 import DayoffListPage from 'pages/DayoffListPage';
 import DayoffPage from 'pages/DayoffPage';
-import ExportProfilesPage from 'pages/ExportProfilesPage';
 import ExportResidencesPage from 'pages/ExportResidencesPage';
 import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
@@ -56,7 +55,6 @@ export default function Router () {
                 <Route path="/projects" element={<ProtectedRoute><ProjectListPage /></ProtectedRoute>} />
                 <Route path="/create-notification" element={<ProtectedRoute><CreateNotificationPage /></ProtectedRoute>} />
                 <Route path="/import-profiles" element={<ProtectedRoute><UploadProfilesPage /></ProtectedRoute>} />
-                <Route path="/export-profiles" element={<ProtectedRoute><ExportProfilesPage /></ProtectedRoute>} />
                 <Route path="/create-profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                 <Route path="/customization" element={<ProtectedRoute><CustomizationPage /></ProtectedRoute>} />
                 <Route path="/accommodation" element={<ProtectedRoute><AccommodationPage /></ProtectedRoute>} />

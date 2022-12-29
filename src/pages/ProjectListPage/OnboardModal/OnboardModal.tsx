@@ -9,7 +9,7 @@ import Chip from 'components/shared/Chip';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { STATUSES, STATUSES_COLORS } from 'constants/userStatuses';
+import { USER_STATUSES, STATUSES_COLORS } from 'constants/statuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';
 
@@ -21,7 +21,7 @@ const OnboardModalRender = ({ onClose, project, ...rest }: Props) => {
   const { t } = useTranslation();
   const { data: projects = [] } = useGetProjects();
 
-  const translatedStatuses = useTranslatedSelect(STATUSES, 'userStatus');
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
 
   const { data: usersFilter = [] } = useGetUserListForFilter();
   const { debouncedFiltersState } = useFilters();

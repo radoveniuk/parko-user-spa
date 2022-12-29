@@ -26,9 +26,9 @@ const AccommodationPageRender = () => {
     <Page title={t('navbar.accommodation')}>
       <PageTitle>{t('navbar.accommodation')}</PageTitle>
       <PageActions>
-        <Button color="secondary" onClick={() => void setOpenAccommodation(true)}><PlusIcon size={20}/>{t('accommodation.create')}</Button>
-        <Button onClick={() => void setOpenResidence(true)}><CheckInIcon size={20}/>CheckIn</Button>
-        <Button onClick={() => void setOpenCheckout(true)}><CheckOutIcon size={20}/>CheckOut</Button>
+        <Button color="secondary" onClick={() => void setOpenResidence(true)}><CheckInIcon size={20}/>CheckIn</Button>
+        <Button color="secondary" onClick={() => void setOpenCheckout(true)}><CheckOutIcon size={20}/>CheckOut</Button>
+        <Button onClick={() => void setOpenAccommodation(true)}><PlusIcon size={20}/>{t('accommodation.create')}</Button>
         <Link to="/export-residences">
           <Button color="secondary" variant="outlined"><ExcelIcon size={20}/>{t('user.export')}</Button>
         </Link>

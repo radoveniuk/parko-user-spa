@@ -4,12 +4,13 @@ import { useQueryClient } from 'react-query';
 
 import { useDeleteAccommodation } from 'api/mutations/accommodationMutation';
 import { useGetAccommodations } from 'api/query/accommodationQuery';
-import { CloseIcon, EditIcon } from 'components/icons';
+import { ArrowUpIcon, CloseIcon, EditIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { FiltersBar } from 'components/shared/Filters';
 import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import usePrev from 'hooks/usePrev';
+import useSortedList from 'hooks/useSortedList';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IResidence } from 'interfaces/residence.interface';
 
@@ -33,6 +34,7 @@ const Accommodations = () => {
   const queryClient = useQueryClient();
 
   const { data: accommodations = [], refetch } = useGetAccommodations();
+  const { sortedData: sortedAccommodations, sorting, sortingToggler } = useSortedList(accommodations);
   const deleteAccommodation = useDeleteAccommodation();
 
   const [openAccommodation, setOpenAccommodation] = useActiveAccommodation();
@@ -51,8 +53,23 @@ const Accommodations = () => {
   return (
     <>
       <FiltersBar></FiltersBar>
-      <ListTable columns={COLUMNS} >
-        {accommodations.map((item) => (
+      <ListTable
+        columns={COLUMNS}
+        columnComponent={(col) => col && (
+          <div role="button" className="col-item" onClick={() => {
+            const sortingKey = col.replace('accommodation.', '') as keyof IAccommodation;
+            sortingToggler(sortingKey, sortingKey);
+          }}>
+            {t(col)}
+            <IconButton
+              className={sorting?.key === col.replace('accommodation.', '') as keyof IAccommodation ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
+            >
+              <ArrowUpIcon />
+            </IconButton>
+          </div>
+        )}
+      >
+        {sortedAccommodations.map((item) => (
           <ListTableRow key={item._id}>
             <ListTableCell>{item.owner}</ListTableCell>
             <ListTableCell>{item.adress}</ListTableCell>
