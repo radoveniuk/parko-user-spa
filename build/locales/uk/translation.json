@@ -174,7 +174,11 @@
     "user": "Користувач",
     "approval": "Підтвердження авансу",
     "approve": "Підтвердити",
-    "reject": "Відхилити"
+    "reject": "Відхилити",
+    "status": "Статус аванса",
+    "paymentDate": "Дата оплати",
+    "prepayment": "Аванс",
+    "new":"Новий аванс"
   },
   "dayoff": {
     "dateStart": "Початок",
@@ -254,6 +258,12 @@
     "projectStatus": {
       "active": "Активний",
       "inactive": "Неактивний"
+    },
+    "prepaymentStatus": {
+      "pending": "В обробці",
+      "approved": "Підтверджено",
+      "rejected": "Відхилено",
+      "paid": "Оплачено"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -277,7 +287,9 @@
     "upload": "Завантаження",
     "uploaded": "Фактури в системі",
     "date": "Дата",
-    "user": "Користувач"
+    "user": "Користувач",
+    "new": "Створити нову",
+    "paycheck": "Фактурa"
   },
   "projectList": "Проєкти",
   "project": {
