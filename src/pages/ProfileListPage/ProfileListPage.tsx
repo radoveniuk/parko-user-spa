@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
+import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
@@ -24,6 +25,7 @@ import Select from 'components/shared/Select';
 import { USER_STATUSES } from 'constants/statuses';
 import { DYNAMIC_FIELDS, EXPORT_USER_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
 import { getDateFromIso } from 'helpers/datetime';
+import { isMongoId } from 'helpers/regex';
 import { useExportData } from 'hooks/useExportData';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import useOutsideClick from 'hooks/useOutsideClick';
@@ -51,7 +53,7 @@ const DEFAULT_COLS = [
 ];
 
 const ProfileListPageRender = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const queryClient = useQueryClient();
   const { debouncedFiltersState } = useFilters();
 
@@ -77,6 +79,9 @@ const ProfileListPageRender = () => {
   useOutsideClick(colsSettingsRef, () => {
     setOpenColsSettings(false);
   });
+  // custom cols
+  const { data: customFields = [] } = useGetCustomFormFields({ entity: 'user' });
+  const customColumns = useMemo(() => customFields.map((customField) => customField.names[i18n.language]), [customFields, i18n.language]);
 
   const toggleColumnsSettings = () => {
     setOpenColsSettings((prev) => !prev);
@@ -117,6 +122,9 @@ const ProfileListPageRender = () => {
       'permitExpire', 'cooperationEndDate', 'permitType', 'status', 'source',
     ].includes(userKey)) {
       sortingValue = (_) => _[userKey] || null;
+    }
+    if (isMongoId(userKey)) {
+      sortingValue = `customFields.${userKey}`;
     }
     sortingToggler(userKey, sortingValue);
   };
@@ -178,7 +186,6 @@ const ProfileListPageRender = () => {
     // });
     return newItem as IUser;
   }), [selectedItems, t]);
-  console.log(usersToExport);
 
   const exportData = useExportData({
     data: usersToExport,
@@ -247,10 +254,10 @@ const ProfileListPageRender = () => {
                 <div className="cols-settings">
                   <Checkbox
                     title={t('selectAll')}
-                    checked={activeCols.length === COLS_TO_SETTINGS.length}
+                    checked={activeCols.length === COLS_TO_SETTINGS.length + customColumns.length}
                     onChange={(e) => void setActiveCols(() => {
                       if (e.target.checked) {
-                        return COLS_TO_SETTINGS;
+                        return [...COLS_TO_SETTINGS, ...customFields.map((customField) => customField._id)];
                       } else {
                         return DEFAULT_COLS;
                       }
@@ -266,6 +273,20 @@ const ProfileListPageRender = () => {
                           return [...prev, field];
                         } else {
                           return prev.filter((item) => item !== field);
+                        }
+                      })}
+                    />
+                  ))}
+                  {customFields.map((field) => (
+                    <Checkbox
+                      key={field._id}
+                      title={field.names[i18n.language]}
+                      checked={activeCols.includes(field._id)}
+                      onChange={(e) => void setActiveCols((prev) => {
+                        if (e.target.checked) {
+                          return [...prev, field._id];
+                        } else {
+                          return prev.filter((item) => item !== field._id);
                         }
                       })}
                     />
@@ -288,7 +309,7 @@ const ProfileListPageRender = () => {
           className="users-table"
           columnComponent={(col) => col && (
             <div role="button" className="col-item" onClick={() => void toggleSorting(col.replace('user.', '') as keyof IUser) }>
-              {t(col)}
+              {!isMongoId(col) ? t(col) : customFields.find((customField) => customField._id === col)?.names[i18n.language]}
               <IconButton
                 className={sorting?.key === col.replace('user.', '') as keyof IUser ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
               >
