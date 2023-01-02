@@ -152,7 +152,8 @@
     "notes": "Notes",
     "oldPassword": "Old password",
     "newPassword": "New password",
-    "cooperationType": "Cooperation type"
+    "cooperationType": "Cooperation type",
+    "import": "Import"
   },
   "userUpload": {
     "title": "Upload users",
