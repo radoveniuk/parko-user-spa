@@ -51,7 +51,7 @@ const DatePicker = ({ value: defaultValue, onChange, label, className, error, mi
         renderInput={(params) => <TextField {...params} error={error}/>}
         minDate={minDate ? DateTime.fromISO(minDate) : undefined}
         maxDate={maxDate ? DateTime.fromISO(maxDate) : undefined}
-        openTo={openTo}
+        openTo={openTo || 'day'}
       />
     </LocalizationProvider>
   );

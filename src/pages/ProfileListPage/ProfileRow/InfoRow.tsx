@@ -8,6 +8,7 @@ import IconButton from 'components/shared/IconButton';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { STATUSES_COLORS } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
+import { isMongoId } from 'helpers/regex';
 import { IUser } from 'interfaces/users.interface';
 
 import { useProfileRowContext } from './context';
@@ -54,6 +55,16 @@ const InfoRow = () => {
           return (
             <ListTableCell key={colName}>
               {typeof data.recruiter === 'object' && !!data.recruiter && `${data.recruiter?.name} ${data.recruiter?.surname}` }
+            </ListTableCell>
+          );
+        }
+        if (isMongoId(colName)) {
+          return (
+            <ListTableCell key={colName}>
+              {typeof data.customFields?.[colName] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(data.customFields?.[colName] as string || '')
+                ? getDateFromIso(data.customFields?.[colName] as string)
+                : data.customFields?.[colName] as string || ''
+              }
             </ListTableCell>
           );
         }

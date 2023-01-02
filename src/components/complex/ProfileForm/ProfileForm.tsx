@@ -21,6 +21,7 @@ import {
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
+import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import CustomField from '../CustomField';
@@ -50,7 +51,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
   const { data: customSections = [] } = useGetCustomFormSections({ entity: 'user' });
   const { data: customFields = [] } = useGetCustomFormFields({
     entity: 'user',
-    projects: defaultValues?.project ? [defaultValues.project as string] : 'null',
+    projects: defaultValues?.project ? [(defaultValues.project as IProject)._id] : 'null',
   }, { enabled: !!defaultValues });
 
   const selectOptions: AnyObject = useMemo(() => ({

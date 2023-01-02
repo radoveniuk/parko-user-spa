@@ -3,9 +3,11 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
+import CustomField from 'components/complex/CustomField';
 import { SaveIcon } from 'components/icons';
 import BooleanSelect from 'components/shared/BooleanSelect';
 import Checkbox from 'components/shared/Checkbox';
@@ -19,8 +21,11 @@ import { EMPLOYMENT_TYPE, SIZES } from 'constants/selectsOptions';
 import { USER_STATUSES } from 'constants/statuses';
 import { ALL_FORM_FIELDS } from 'constants/userFormFields';
 import { ROLES } from 'constants/userRoles';
+import { isMongoId } from 'helpers/regex';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
+import { ICustomFormField } from 'interfaces/form.interface';
+import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import { useProfileRowContext } from './context';
@@ -43,6 +48,8 @@ const EditingRow = () => {
   const sexOptions = useTranslatedSelect(['male', 'female']);
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
+
+  const { data: customFields = [] } = useGetCustomFormFields({ entity: 'user' });
 
   const selectOptions: AnyObject = useMemo(() => ({
     pantsSize: SIZES,
@@ -183,10 +190,23 @@ const EditingRow = () => {
             error={!!errors[fieldName]}
             valuePath="_id"
             labelPath={dynamicSelectOptions[fieldName].labelPath}
-            {...register(fieldName, {
-              required: fieldData.required,
-            })}
+            {...register(fieldName, { required: fieldData.required })}
             {...fieldData.selectProps}
+          />
+        )}
+        {isMongoId(fieldName) && customFields.some((customField) => customField._id === fieldName) && (
+          <Controller
+            key={customFields.find((customField) => customField._id === fieldName)?._id}
+            name={`customFields.${customFields.find((customField) => customField._id === fieldName)?._id}`}
+            control={control}
+            defaultValue={data?.customFields?.[customFields.find((customField) => customField._id === fieldName)?._id as string]}
+            render={({ field }) => (
+              <CustomField
+                value={field.value}
+                onChange={field.onChange}
+                metadata={customFields.find((customField) => customField._id === fieldName) as ICustomFormField}
+              />
+            )}
           />
         )}
       </FormFieldWrapper>
@@ -194,7 +214,12 @@ const EditingRow = () => {
   };
 
   const submitHandler: SubmitHandler<IUser> = async (values) => {
-    const updatedUserData = { ...data, ...values, project: values.project?.toString() || null, recruiter: values.recruiter?.toString() || null };
+    const updatedUserData = {
+      ...data,
+      ...values,
+      project: values.project?.toString() || (data.project as IProject)?._id || null,
+      recruiter: values.recruiter?.toString() || null,
+    };
     if (!updatedUserData.password) {
       delete updatedUserData.password;
     }

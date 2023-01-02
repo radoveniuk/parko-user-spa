@@ -9,7 +9,7 @@ import Chip from 'components/shared/Chip';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { USER_STATUSES, STATUSES_COLORS } from 'constants/statuses';
+import { STATUSES_COLORS, USER_STATUSES } from 'constants/statuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';
 

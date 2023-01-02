@@ -3,8 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
+import { pick } from 'lodash-es';
 
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
+import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
@@ -24,6 +26,7 @@ import Select from 'components/shared/Select';
 import { USER_STATUSES } from 'constants/statuses';
 import { DYNAMIC_FIELDS, EXPORT_USER_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
 import { getDateFromIso } from 'helpers/datetime';
+import { isMongoId } from 'helpers/regex';
 import { useExportData } from 'hooks/useExportData';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import useOutsideClick from 'hooks/useOutsideClick';
@@ -51,7 +54,7 @@ const DEFAULT_COLS = [
 ];
 
 const ProfileListPageRender = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const queryClient = useQueryClient();
   const { debouncedFiltersState } = useFilters();
 
@@ -77,6 +80,9 @@ const ProfileListPageRender = () => {
   useOutsideClick(colsSettingsRef, () => {
     setOpenColsSettings(false);
   });
+  // custom cols
+  const { data: customFields = [] } = useGetCustomFormFields({ entity: 'user' });
+  const customColumns = useMemo(() => customFields.map((customField) => customField.names[i18n.language]), [customFields, i18n.language]);
 
   const toggleColumnsSettings = () => {
     setOpenColsSettings((prev) => !prev);
@@ -118,6 +124,9 @@ const ProfileListPageRender = () => {
     ].includes(userKey)) {
       sortingValue = (_) => _[userKey] || null;
     }
+    if (isMongoId(userKey)) {
+      sortingValue = `customFields.${userKey}`;
+    }
     sortingToggler(userKey, sortingValue);
   };
 
@@ -133,9 +142,24 @@ const ProfileListPageRender = () => {
   }, [activeCols, setStoredColsSettings]);
 
   // export data
+
+  const colsToExport = useMemo(() => {
+    const result = activeCols.map((col) => {
+      if (isMongoId(col)) {
+        const customField = customFields.find((item) => item._id === col);
+        return customField?.names[i18n.language] || col;
+      }
+      return col.replace('user.', '');
+    });
+    return ['name', ...result];
+  }, [activeCols, customFields, i18n.language]);
+
   const usersToExport = useMemo(() => selectedItems.map((item) => {
-    const newItem: AnyObject = { ...item };
-    Object.keys(newItem).forEach((userKey) => {
+    let newItem: AnyObject = { ...item };
+    Object.keys(item).forEach((userKey) => {
+      if (userKey === 'name') {
+        newItem = { ...newItem, name: `${item.name} ${item.surname}` };
+      }
       if (typeof newItem[userKey] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(newItem[userKey])) {
         newItem[userKey] = getDateFromIso(newItem[userKey]);
       }
@@ -166,24 +190,23 @@ const ProfileListPageRender = () => {
         }
       }
     });
-    // customFields.forEach((customField) => {
-    //   const customFieldValue = newItem.customFields?.[customField._id];
-    //   newItem[customField.names[i18n.language]] = customFieldValue;
-    //   if (typeof customFieldValue === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(customFieldValue)) {
-    //     newItem[customField.names[i18n.language]] = getDateFromIso(customFieldValue);
-    //   }
-    //   if (typeof customFieldValue === 'boolean') {
-    //     newItem[customField.names[i18n.language]] = t(`${customFieldValue}`);
-    //   }
-    // });
-    return newItem as IUser;
-  }), [selectedItems, t]);
-  console.log(usersToExport);
+    customFields.forEach((customField) => {
+      const customFieldValue = newItem.customFields?.[customField._id];
+      newItem[customField.names[i18n.language]] = customFieldValue;
+      if (typeof customFieldValue === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(customFieldValue)) {
+        newItem[customField.names[i18n.language]] = getDateFromIso(customFieldValue);
+      }
+      if (typeof customFieldValue === 'boolean') {
+        newItem[customField.names[i18n.language]] = t(`${customFieldValue}`);
+      }
+    });
+    return pick(newItem, colsToExport) as Partial<IUser>;
+  }), [colsToExport, customFields, i18n.language, selectedItems, t]);
 
   const exportData = useExportData({
     data: usersToExport,
-    colsToExport: [...STATIC_COLS, ...activeCols].map((col) => col.replace('user.', '')),
-    cols: [...STATIC_COLS, ...activeCols].map((col) => col.replace('user.', '')),
+    colsToExport: colsToExport,
+    cols: colsToExport,
     entity: 'user',
   });
 
@@ -247,10 +270,10 @@ const ProfileListPageRender = () => {
                 <div className="cols-settings">
                   <Checkbox
                     title={t('selectAll')}
-                    checked={activeCols.length === COLS_TO_SETTINGS.length}
+                    checked={activeCols.length === COLS_TO_SETTINGS.length + customColumns.length}
                     onChange={(e) => void setActiveCols(() => {
                       if (e.target.checked) {
-                        return COLS_TO_SETTINGS;
+                        return [...COLS_TO_SETTINGS, ...customFields.map((customField) => customField._id)];
                       } else {
                         return DEFAULT_COLS;
                       }
@@ -266,6 +289,20 @@ const ProfileListPageRender = () => {
                           return [...prev, field];
                         } else {
                           return prev.filter((item) => item !== field);
+                        }
+                      })}
+                    />
+                  ))}
+                  {customFields.map((field) => (
+                    <Checkbox
+                      key={field._id}
+                      title={field.names[i18n.language]}
+                      checked={activeCols.includes(field._id)}
+                      onChange={(e) => void setActiveCols((prev) => {
+                        if (e.target.checked) {
+                          return [...prev, field._id];
+                        } else {
+                          return prev.filter((item) => item !== field._id);
                         }
                       })}
                     />
@@ -288,7 +325,7 @@ const ProfileListPageRender = () => {
           className="users-table"
           columnComponent={(col) => col && (
             <div role="button" className="col-item" onClick={() => void toggleSorting(col.replace('user.', '') as keyof IUser) }>
-              {t(col)}
+              {!isMongoId(col) ? t(col) : customFields.find((customField) => customField._id === col)?.names[i18n.language]}
               <IconButton
                 className={sorting?.key === col.replace('user.', '') as keyof IUser ? `sort-btn active ${sorting.dir}` : 'sort-btn'}
               >
