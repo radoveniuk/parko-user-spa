@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
+import { pick } from 'lodash-es';
 
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
@@ -141,9 +142,24 @@ const ProfileListPageRender = () => {
   }, [activeCols, setStoredColsSettings]);
 
   // export data
+
+  const colsToExport = useMemo(() => {
+    const result = activeCols.map((col) => {
+      if (isMongoId(col)) {
+        const customField = customFields.find((item) => item._id === col);
+        return customField?.names[i18n.language] || col;
+      }
+      return col.replace('user.', '');
+    });
+    return ['name', ...result];
+  }, [activeCols, customFields, i18n.language]);
+
   const usersToExport = useMemo(() => selectedItems.map((item) => {
-    const newItem: AnyObject = { ...item };
-    Object.keys(newItem).forEach((userKey) => {
+    let newItem: AnyObject = { ...item };
+    Object.keys(item).forEach((userKey) => {
+      if (userKey === 'name') {
+        newItem = { ...newItem, name: `${item.name} ${item.surname}` };
+      }
       if (typeof newItem[userKey] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(newItem[userKey])) {
         newItem[userKey] = getDateFromIso(newItem[userKey]);
       }
@@ -174,23 +190,23 @@ const ProfileListPageRender = () => {
         }
       }
     });
-    // customFields.forEach((customField) => {
-    //   const customFieldValue = newItem.customFields?.[customField._id];
-    //   newItem[customField.names[i18n.language]] = customFieldValue;
-    //   if (typeof customFieldValue === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(customFieldValue)) {
-    //     newItem[customField.names[i18n.language]] = getDateFromIso(customFieldValue);
-    //   }
-    //   if (typeof customFieldValue === 'boolean') {
-    //     newItem[customField.names[i18n.language]] = t(`${customFieldValue}`);
-    //   }
-    // });
-    return newItem as IUser;
-  }), [selectedItems, t]);
+    customFields.forEach((customField) => {
+      const customFieldValue = newItem.customFields?.[customField._id];
+      newItem[customField.names[i18n.language]] = customFieldValue;
+      if (typeof customFieldValue === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(customFieldValue)) {
+        newItem[customField.names[i18n.language]] = getDateFromIso(customFieldValue);
+      }
+      if (typeof customFieldValue === 'boolean') {
+        newItem[customField.names[i18n.language]] = t(`${customFieldValue}`);
+      }
+    });
+    return pick(newItem, colsToExport) as Partial<IUser>;
+  }), [colsToExport, customFields, i18n.language, selectedItems, t]);
 
   const exportData = useExportData({
     data: usersToExport,
-    colsToExport: [...STATIC_COLS, ...activeCols].map((col) => col.replace('user.', '')),
-    cols: [...STATIC_COLS, ...activeCols].map((col) => col.replace('user.', '')),
+    colsToExport: colsToExport,
+    cols: colsToExport,
     entity: 'user',
   });
 
