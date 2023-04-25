@@ -1,5 +1,22 @@
 import { AnyObject } from 'interfaces/base.types';
 
+const themeConfigV2: AnyObject = {
+  palette: {
+    primary: {
+      main: process.env.REACT_APP_COLOR_PRIMARY_MAIN || '#e72a33',
+    },
+  },
+  client: {
+    main: {
+      dark: '#6D6D6D',
+    },
+    secondary: {
+      main: '#dadce0',
+      dark: '#5f6368',
+    },
+  },
+};
+
 export const themeConfig: AnyObject = {
   palette: {
     primary: {
@@ -20,7 +37,9 @@ export const themeConfig: AnyObject = {
     error: {
       main: '#ec3c3c',
     },
+    ...themeConfigV2.palette,
   },
+  client: themeConfigV2.client,
   typography: {
     fontFamily: 'Open Sans',
   },

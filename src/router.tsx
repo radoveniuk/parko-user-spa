@@ -1,5 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AuthLayouts from 'v2/layouts/AuthLayouts';
+import LoginPage from 'v2/pages/LoginPage';
+import RegisterPage from 'v2/pages/RegisterPage';
 
 import ProtectedRoute from 'components/shared/ProtectedRoute/ProtectedRoute';
 import { useAuthData } from 'contexts/AuthContext';
@@ -13,7 +16,6 @@ import DayoffListPage from 'pages/DayoffListPage';
 import DayoffPage from 'pages/DayoffPage';
 import ExportResidencesPage from 'pages/ExportResidencesPage';
 import HomePage from 'pages/HomePage';
-import LoginPage from 'pages/LoginPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import NotificationsPage from 'pages/NotificationsPage';
 import PaychecksPage from 'pages/PaychecksPage';
@@ -34,7 +36,10 @@ export default function Router () {
       <NotificationProvider>
         <NavbarStateProvider>
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
+            <Route element={<AuthLayouts />}>
+              <Route path="/login" element={<LoginPage />}/>
+              <Route path="/sign-up" element={<RegisterPage />}/>
+            </Route>
             <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
             <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />

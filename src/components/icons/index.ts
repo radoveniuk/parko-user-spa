@@ -20,6 +20,7 @@ export { GiHouseKeys as AccommodationIcon } from 'react-icons/gi';
 export { GiReceiveMoney as PrepaymentIcon } from 'react-icons/gi';
 export { ImExit as ExitIcon } from 'react-icons/im';
 export { IoMdSettings as SettingsIcon } from 'react-icons/io';
+export { IoMdArrowDropdown as ArrowDownIcon } from 'react-icons/io';
 export { IoLanguageSharp as LanguageIcon } from 'react-icons/io5';
 export { IoNotificationsSharp as NotificationIcon } from 'react-icons/io5';
 export { IoHome as HomeIcon } from 'react-icons/io5';
