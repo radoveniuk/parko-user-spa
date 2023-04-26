@@ -76,7 +76,9 @@ const Notifications = ({
       />
       {selectedNotification !== null && (
         <NotificationContent>
-          {['admin', 'recruiter'].includes(role as string) && <NotificationDeleteButton onClick={() => void setOpenDeleteModal(true)} />}
+          {['admin', 'recruiter', 'super-admin'].includes(role as string) && (
+            <NotificationDeleteButton onClick={() => void setOpenDeleteModal(true)} />
+          )}
           <NotificationTitle>{selectedNotification.title}</NotificationTitle>
           <div dangerouslySetInnerHTML={{ __html: selectedNotification.message }} />
         </NotificationContent>
@@ -92,7 +94,6 @@ const Notifications = ({
         </DeleteModalContent>
       </Dialog>
     </NotificationWrapper>
-
   );
 };
 

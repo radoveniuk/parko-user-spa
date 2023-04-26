@@ -28,7 +28,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logoutMutation = useLogoutMutation();
   const { data: userData } = useGetUser(userId, { enabled: !!userId && isAuth });
 
-  const isVerified = useMemo(() => !!userData?.project || ['admin', 'recruiter'].includes(userData?.role as string), [userData]);
+  const isVerified = useMemo(() => !!userData?.project || ['admin', 'recruiter', 'super-admin'].includes(userData?.role as string), [userData]);
 
   const login = async (data: LoginDto) => {
     const loginResult = await loginMutation.mutateAsync(data);

@@ -216,7 +216,8 @@
     "userRole": {
       "user": "Používateľ",
       "admin": "Administrátor",
-      "recruiter": "Recruiter"
+      "recruiter": "Recruiter",
+      "super-admin": "Super administrator"
     },
     "dayoffReason": {
       "vacation": "Dovolenka",

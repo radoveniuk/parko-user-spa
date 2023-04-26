@@ -26,6 +26,8 @@ import ProfilePage from 'pages/ProfilePage';
 import ProjectListPage from 'pages/ProjectListPage';
 import UploadProfilesPage from 'pages/UploadProfilesPage';
 
+const FULL_PERMISSION_ROLES = ['admin', 'recruiter', 'super-admin'];
+
 export default function Router () {
   const { role } = useAuthData();
 
@@ -45,7 +47,7 @@ export default function Router () {
                 <Route path="/paychecks" element={<ProtectedRoute><PaychecksPage /></ProtectedRoute>} />
               </>
             )}
-            {['admin', 'recruiter'].includes(role as string) && (
+            {FULL_PERMISSION_ROLES.includes(role as string) && (
               <>
                 <Route path="/prepayments" element={<ProtectedRoute><PrepaymentsListPage /></ProtectedRoute>} />
                 <Route path="/daysoff" element={<ProtectedRoute><DayoffListPage /></ProtectedRoute>} />

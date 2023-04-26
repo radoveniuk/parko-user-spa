@@ -217,7 +217,8 @@
     "userRole": {
       "user": "Пользователь",
       "admin": "Админ",
-      "recruiter": "Рекрутер"
+      "recruiter": "Рекрутер",
+      "super-admin": "Супер админ"
     },
     "dayoffReason": {
       "vacation": "Отпуск",

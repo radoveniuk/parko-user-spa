@@ -217,7 +217,8 @@
     "userRole": {
       "user": "User",
       "admin": "Admin",
-      "recruiter": "Recruiter"
+      "recruiter": "Recruiter",
+      "super-admin": "Super admin"
     },
     "dayoffReason": {
       "vacation": "Vacation",

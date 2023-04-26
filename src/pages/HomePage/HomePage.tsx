@@ -10,17 +10,21 @@ import { useAuthData } from 'contexts/AuthContext';
 
 import { NoDataWrapper } from './styles';
 
+const DASHBOARD_ROLES: (string | undefined)[] = ['admin', 'recruiter', 'super-admin'];
+
 const HomePage = () => {
   const { t } = useTranslation();
   const { role, isVerified, username } = useAuthData();
-  const { data: dashboard } = useGetDashboardData({ enabled: ['admin', 'recruiter'].includes(role as string) });
+  const { data: dashboard } = useGetDashboardData({ exclude: role === 'super-admin' ? ['users'] : [] }, {
+    enabled: DASHBOARD_ROLES.includes(role),
+  });
 
   let menuItems: INavbarItem[] = [];
 
   if (role === 'user' && isVerified) {
     menuItems = MENU_ITEMS;
   }
-  if (['admin', 'recruiter'].includes(role as string)) {
+  if (DASHBOARD_ROLES.includes(role)) {
     menuItems = ADMIN_MENU_ITEMS;
   }
 
@@ -34,10 +38,10 @@ const HomePage = () => {
             {item.icon}
           </MainMenuLink>
         ))}
-        {!!dashboard && ['admin', 'recruiter'].includes(role as string) && (
+        {!!dashboard && DASHBOARD_ROLES.includes(role) && (
           <>
             <MainMenuLink to="/profiles">
-              <p>{t('navbar.profiles')} ({dashboard.users})</p>
+              <p>{t('navbar.profiles')} ({dashboard.users || 0})</p>
               <UsersIcon size={60} />
             </MainMenuLink>
             <MainMenuLink to="/projects">
