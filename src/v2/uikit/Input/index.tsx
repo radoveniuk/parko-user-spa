@@ -18,7 +18,7 @@ const Input = ({ showPasswordIcon, type, ...props }: IInput) => {
 
   return (
     <InputWrapper>
-      <TextField {...props}
+      <TextField
         type={showPasswordIcon ? (showPassword ? 'text' : 'password') : type}
         InputProps={showPasswordIcon
           ? {
@@ -34,7 +34,9 @@ const Input = ({ showPasswordIcon, type, ...props }: IInput) => {
               </InputAdornment>
             ),
           }
-          : {}}/>
+          : {}}
+        {...props}
+      />
 
     </InputWrapper>
   );

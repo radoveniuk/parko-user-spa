@@ -11,7 +11,10 @@
     "customization": "Кастомізація",
     "accommodation": "Житло",
     "docsTemplates": "Шаблони документів",
-    "clients": "Клієнти"
+    "clients": "Клієнти",
+    "workspaces": "Робочі простори",
+    "finance": "Фінанси",
+    "feedback": "Зворотній зв'язок"
   },
   "menu": {
     "prepayment": "Замовити аванс",
@@ -423,5 +426,8 @@
   "save": "Зберегти",
   "delete": "Видалити",
   "date": "Дата",
-  "countries": "Країни"
+  "countries": "Країни",
+  "header": {
+    "search": "Пошук користувачів, груп чи налаштувань"
+  }
 }

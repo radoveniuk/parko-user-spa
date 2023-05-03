@@ -13,6 +13,8 @@ const themeConfigV2: AnyObject = {
     secondary: {
       main: '#dadce0',
       dark: '#5f6368',
+      dark10: '#202124',
+      dark20: '#424242',
     },
   },
 };

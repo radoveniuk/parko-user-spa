@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { default as ProtectedRouteV2 } from 'v2/components/ProtectedRoute';
 import AuthLayouts from 'v2/layouts/AuthLayouts';
+import PageLayouts from 'v2/layouts/PageLayouts';
+import HomePage from 'v2/pages/HomePage';
 import LoginPage from 'v2/pages/LoginPage';
 import RegisterPage from 'v2/pages/RegisterPage';
 
@@ -15,7 +18,7 @@ import CustomizationPage from 'pages/CustomizationPage';
 import DayoffListPage from 'pages/DayoffListPage';
 import DayoffPage from 'pages/DayoffPage';
 import ExportResidencesPage from 'pages/ExportResidencesPage';
-import HomePage from 'pages/HomePage';
+/* import HomePage from 'pages/HomePage'; */
 import NotFoundPage from 'pages/NotFoundPage';
 import NotificationsPage from 'pages/NotificationsPage';
 import PaychecksPage from 'pages/PaychecksPage';
@@ -40,7 +43,11 @@ export default function Router () {
               <Route path="/login" element={<LoginPage />}/>
               <Route path="/sign-up" element={<RegisterPage />}/>
             </Route>
-            <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+            <Route element={<ProtectedRouteV2 />}>
+              <Route element={<PageLayouts />}>
+                <Route path="/" element={<HomePage />}/>
+              </Route>
+            </Route>
             <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
             <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
             {role === 'user' && (
