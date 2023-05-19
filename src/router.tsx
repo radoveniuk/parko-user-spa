@@ -5,6 +5,7 @@ import AuthLayouts from 'v2/layouts/AuthLayouts';
 import PageLayouts from 'v2/layouts/PageLayouts';
 import HomePage from 'v2/pages/HomePage';
 import LoginPage from 'v2/pages/LoginPage';
+import ProfileListPage from 'v2/pages/ProfileListPage';
 import RegisterPage from 'v2/pages/RegisterPage';
 
 import ProtectedRoute from 'components/shared/ProtectedRoute/ProtectedRoute';
@@ -26,7 +27,7 @@ import PaychecksUploadPage from 'pages/PaychecksUploadPage';
 import PrepaymentPage from 'pages/PrepaymentPage';
 import PrepaymentsListPage from 'pages/PrepaymentsListPage';
 import ProfileAdminPage from 'pages/ProfileAdminPage';
-import ProfileListPage from 'pages/ProfileListPage';
+/* import ProfileListPage from 'pages/ProfileListPage'; */
 import ProfilePage from 'pages/ProfilePage';
 import ProjectListPage from 'pages/ProjectListPage';
 import UploadProfilesPage from 'pages/UploadProfilesPage';
@@ -46,6 +47,11 @@ export default function Router () {
             <Route element={<ProtectedRouteV2 />}>
               <Route element={<PageLayouts />}>
                 <Route path="/" element={<HomePage />}/>
+                {['admin', 'recruiter'].includes(role as string) && (
+                  <>
+                    <Route path="/profiles" element={<ProfileListPage />} />
+                  </>
+                )}
               </Route>
             </Route>
             <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
@@ -62,7 +68,7 @@ export default function Router () {
                 <Route path="/prepayments" element={<ProtectedRoute><PrepaymentsListPage /></ProtectedRoute>} />
                 <Route path="/daysoff" element={<ProtectedRoute><DayoffListPage /></ProtectedRoute>} />
                 <Route path="/paychecks-upload" element={<ProtectedRoute><PaychecksUploadPage /></ProtectedRoute>} />
-                <Route path="/profiles" element={<ProtectedRoute><ProfileListPage /></ProtectedRoute>} />
+                {/* <Route path="/profiles" element={<ProtectedRoute><ProfileListPage /></ProtectedRoute>} /> */}
                 <Route path="/profile/:id" element={<ProtectedRoute><ProfileAdminPage /></ProtectedRoute>} />
                 <Route path="/projects" element={<ProtectedRoute><ProjectListPage /></ProtectedRoute>} />
                 <Route path="/create-notification" element={<ProtectedRoute><CreateNotificationPage /></ProtectedRoute>} />

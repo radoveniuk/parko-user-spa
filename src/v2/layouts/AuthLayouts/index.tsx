@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, Outlet, useMatch } from 'react-router-dom';
 import LanguageSelector from 'v2/components/LanguageSelector';
 import Logo from 'v2/components/Logo';
-import Stack from 'v2/uikit/Stack';
+import { Stack } from 'v2/uikit';
 
 import { AuthWrapper } from './styles';
 

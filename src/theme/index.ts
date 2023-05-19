@@ -15,6 +15,8 @@ const themeConfigV2: AnyObject = {
       dark: '#5f6368',
       dark10: '#202124',
       dark20: '#424242',
+      dark30: '#0000008a',
+      light10: '#0000001f',
     },
   },
 };

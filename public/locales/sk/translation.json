@@ -415,5 +415,17 @@
   "countries": "Krajíny",
   "header": {
     "search": "Vyhľadajte používateľov, skupiny alebo nastavenia"
+  },
+  "profilesPage": {
+    "status": "Používateľské stavy",
+    "organization": "Organizácie",
+    "all_workers": "Všetky pracovné priestory",
+    "selected_workers": "Vybrané pracovné priestory",
+    "search_workers": "Vyhľadajte pracovné priestory",
+    "choose_few": "Viacero možností",
+    "control_organization": "Riadenie organizačných jednotiek",
+    "users": "Používatelia",
+    "users_all_space": "Používatelia zo všetkých pracovných priestorov",
+    "new_user": "Nový užívateľ"
   }
 }

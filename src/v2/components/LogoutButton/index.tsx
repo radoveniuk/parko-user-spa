@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import Button from 'v2/uikit/Button';
+import { Button } from 'v2/uikit';
 
 import { IoExitOutlineIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';

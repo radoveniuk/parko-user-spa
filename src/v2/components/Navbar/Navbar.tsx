@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Divider } from '@mui/material';
-import Stack from 'v2/uikit/Stack';
+import { Stack } from 'v2/uikit';
 
 import { BiMessageIcon } from 'components/icons';
 import { useToggleNavbar } from 'contexts/NavbarStateContext';

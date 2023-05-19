@@ -1,6 +1,7 @@
 import { LinearProgress } from '@mui/material';
 import styled from 'styled-components';
 
+import { themeConfig } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
 
 export const PageWrapper = styled.section`
@@ -39,6 +40,18 @@ export const PageTitle = styled.h2`
   text-align: center;
   margin: 0;
   color: #30384F;
+  margin-bottom: 15px;
+  margin-top: 10px;
+`;
+
+export const PageTitleV2 = styled.h2`
+  font-weight: 400;
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 1px solid ${themeConfig.client.secondary.light10};
+  padding: 0 0 10px 30px;
+  margin: 0;
+  color: #000;
   margin-bottom: 15px;
   margin-top: 10px;
 `;

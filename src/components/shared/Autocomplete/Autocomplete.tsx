@@ -21,10 +21,11 @@ export type AutocompleteProps = {
   error?: boolean;
   disableCloseOnSelect?: boolean;
   autoComplete?: boolean;
+  prefixIcon?: React.ReactNode
 }
 
 const AutoComplete = ({
-  label, loading, labelKey, onChange, defaultOpen, value, getOptionLabel, error, ...rest
+  label, loading, labelKey, onChange, defaultOpen, value, getOptionLabel, error, prefixIcon, ...rest
 }: AutocompleteProps) => {
   const [open, setOpen] = useState(false);
 
@@ -47,6 +48,12 @@ const AutoComplete = ({
           error={error}
           InputProps={{
             ...params.InputProps,
+            startAdornment: (
+              <>
+                {prefixIcon}
+                {params.InputProps.startAdornment}
+              </>
+            ),
             endAdornment: (
               <>
                 {loading ? <CircularProgress color="inherit" size={20} /> : null}

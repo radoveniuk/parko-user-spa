@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Input from 'v2/uikit/Input';
+import { Input } from 'v2/uikit';
 
 import { AiOutlineSearchIcon } from 'components/icons';
 

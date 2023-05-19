@@ -431,5 +431,17 @@
   "countries": "Countries",
   "header": {
     "search": "Search for users, groups or settings"
+  },
+  "profilesPage": {
+    "status": "User statuses",
+    "organization": "Organizations",
+    "all_workers": "All workspaces",
+    "selected_workers": "Selected Workspaces",
+    "search_workers": "Search for workspaces",
+    "choose_few": "Multiple choice",
+    "control_organization": "Management of organizational units",
+    "users": "Users",
+    "users_all_space": "Users from all workspaces",
+    "new_user": "New user"
   }
 }

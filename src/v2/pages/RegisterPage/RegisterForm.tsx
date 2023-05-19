@@ -3,9 +3,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash-es';
-import Button from 'v2/uikit/Button';
-import Input from 'v2/uikit/Input';
-import Stack from 'v2/uikit/Stack';
+import { Button, Input, Stack } from 'v2/uikit';
 
 import { useRegisterMutation } from 'api/mutations/userMutation';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
