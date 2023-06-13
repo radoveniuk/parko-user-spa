@@ -8,6 +8,7 @@ import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { AiOutlineSearchIcon } from 'components/icons';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { useOpenFilterDrawler } from 'components/shared/Filters/useFilters';
 import { PageTitleV2 } from 'components/shared/Page/styles';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { IUser } from 'interfaces/users.interface';
@@ -34,6 +35,7 @@ const ProfileListPageRender = () => {
   const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
 
   // filters
+  const { openDrawerFilter } = useOpenFilterDrawler();
   const { data: usersFilter = [] } = useGetUserListForFilter();
 
   const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
@@ -59,7 +61,7 @@ const ProfileListPageRender = () => {
   return (
     <ProfileListPageWrapper cols={activeCols.length + 1}>
       <PageTitleV2>{t('profileList')}</PageTitleV2>
-      <Stack direction="row" gap="25px">
+      <Stack direction="row">
         <Filters />
         <div className="container-table">
           <HeaderTable
@@ -92,7 +94,7 @@ const ProfileListPageRender = () => {
           </FilterTableWrapper>
           <Table
             activeCols={activeCols}
-            data={data}
+            data={data.slice(0, 3)}
             customFields={customFields}
             setSelectedItems={setSelectedItems}
             selectedItems={selectedItems}

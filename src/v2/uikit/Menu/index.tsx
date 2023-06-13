@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Menu as MenuUI, MenuItem as MenuItemUI, MenuItemProps, MenuProps } from '@mui/material';
 
@@ -13,10 +13,11 @@ export const MenuItem = memo(({ children, ...rest }: MenuItemProps) => (
 
 type Props = Partial<MenuProps> & {
   title?: any;
+  isCloseOnMenu: boolean
 }
 
 // TEMP
-const Menu = ({ open, title, ...rest }: Props | any) => {
+const Menu = ({ open, title, children, isCloseOnMenu, ...rest }: Props | any) => {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);
@@ -28,6 +29,12 @@ const Menu = ({ open, title, ...rest }: Props | any) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const menuItems = useMemo(() => React.Children.map(children, child => (
+    React.cloneElement(child, {
+      onClick: () => { child.props.onClick(); isCloseOnMenu && handleClose(); },
+    })
+  )), [children, isCloseOnMenu]);
 
   return (
     <>
@@ -45,10 +52,9 @@ const Menu = ({ open, title, ...rest }: Props | any) => {
         open={openMenu}
         onClose={handleClose}
         {...rest}>
-
+        {menuItems}
       </MenuUI>
     </>
-
   );
 };
 

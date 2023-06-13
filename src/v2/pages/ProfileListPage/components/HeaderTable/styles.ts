@@ -6,7 +6,7 @@ export const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 35px;
+  padding: 0 22px 0 35px;
 
   .link {
     color: #e72a33;
@@ -21,5 +21,9 @@ export const HeaderWrapper = styled.div`
   .divider {
     height: 15px;
     background: #aaa;
+  }
+
+  .menu-arrow {
+    margin-left: 5px;
   }
 `;

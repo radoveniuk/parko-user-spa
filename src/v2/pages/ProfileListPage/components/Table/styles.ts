@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const TableWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   .users-table > div > div {
     padding-left: 35px;
   }
@@ -13,5 +17,9 @@ export const TableWrapper = styled.div`
     fill: #212121;
     width: 15px;
     height: 15px;
+  }
+
+  .pagination-bottom {
+    margin-top: auto;
   }
 `;

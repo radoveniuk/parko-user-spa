@@ -1,41 +1,38 @@
-import React, { HTMLAttributes, useState } from 'react';
+import React, { HTMLAttributes } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Menu, MenuItem } from 'v2/uikit';
 
 import { ArrowDownIcon } from 'components/icons';
-import Button from 'components/shared/Button';
-import Dialog from 'components/shared/Dialog';
 import { LANGUAGES } from 'constants/languages';
 
-import { LangButton, LangDialogWrapper, LanguageSelectorWrapper } from './styles';
+import { LanguageSelectorWrapper } from './styles';
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   fullText?: boolean;
-}
+};
 
 const LanguageSelector = ({ fullText = true, ...props }: Props) => {
-  const { i18n, t } = useTranslation();
-  const [open, setOpen] = useState(false);
-
+  const { i18n } = useTranslation();
   const changeLanguageHandler = (lang: string) => {
     i18n.changeLanguage(lang);
-    setOpen(false);
   };
 
   return (
     <LanguageSelectorWrapper {...props}>
-      <Button variant="outlined" onClick={() => void setOpen(true)}>
-        {fullText && i18n.language}
-        <ArrowDownIcon />
-      </Button>
-      <Dialog title={t('language')} open={open} onClose={() => void setOpen(false)}>
-        <LangDialogWrapper>
-          {LANGUAGES.map((item) => (
-            <LangButton key={item.code} onClick={() => void changeLanguageHandler(item.code)}>
-              {item.title}
-            </LangButton>
-          ))}
-        </LangDialogWrapper>
-      </Dialog>
+      <Menu
+        title={
+          <Button>
+            {fullText && i18n.language} <ArrowDownIcon className="menu-arrow" />
+          </Button>
+        }
+        isCloseOnMenu
+      >
+        {LANGUAGES.map(item => (
+          <MenuItem key={item.code} onClick={() => changeLanguageHandler(item.code)}>
+            {item.title}
+          </MenuItem>
+        ))}
+      </Menu>
     </LanguageSelectorWrapper>
   );
 };

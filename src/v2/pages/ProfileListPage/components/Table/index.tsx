@@ -149,7 +149,7 @@ const Table = ({
           />
         ))}
       </ListTable>
-      <div>
+      <div className="pagination-bottom">
         <Pagination {...paginationConfig} setRowsPerPage={setRowsPerPage} rowsPerPage={rowsPerPage} labelRowsPerPage={t('rowsPerPage')}/>
       </div>
     </TableWrapper>

@@ -2,8 +2,9 @@ import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { pick } from 'lodash-es';
-import { Divider, Menu, MenuItem, Stack } from 'v2/uikit';
+import { Button, Divider, Menu, MenuItem, Stack } from 'v2/uikit';
 
+import { ArrowDownIcon } from 'components/icons';
 import { DYNAMIC_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
@@ -95,9 +96,11 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
         </Stack>
         <Stack direction="row" gap="15px">
           <Link to="/create-profile" className="link">
-            {t('profilesPage.new_user')}
+            <Button>
+              {t('profilesPage.new_user')}
+            </Button>
           </Link>
-          <Menu title={<>{t('fastActions')}</>}>
+          <Menu title={<>{t('fastActions')} <ArrowDownIcon className="menu-arrow"/></>}>
             <MenuItem onClick={() => void setSelectedItems(data)}>
               {t('selectAll')}
             </MenuItem>

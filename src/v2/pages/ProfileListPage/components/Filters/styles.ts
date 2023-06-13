@@ -3,7 +3,15 @@ import styled from 'styled-components';
 import { themeConfig } from 'theme';
 
 export const FilterWrapper = styled.div`
-  max-width: 355px;
+  overflow: hidden;
+  transition: 0.4s all;
+  max-width: 0;
+  min-width: 0;
+
+  &.active {
+    margin-right: 25px;
+    min-width: 355px;
+  }
 
   .MuiPaper-root {
     border: 1px solid ${themeConfig.client.secondary.light10};
@@ -51,5 +59,43 @@ export const FilterWrapper = styled.div`
     width: calc(100% + 32px);
     margin-left: -16px;
     margin-top: 10px;
+  }
+`;
+
+export const ContainerWrapper = styled.div`
+  position: relative;
+  min-width: 50px;
+
+  .btn-open {
+    position: absolute;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #BDBDBD;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 25%;
+    transform: translateY(-25%);
+    transition: 0.2s;
+
+    svg {
+      fill: rgba(0, 0, 0, 0.54);
+    }
+
+    &:hover {
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.12);
+    }
+
+    &.active {
+      right: 8px;
+
+      svg {
+        transition: 0.4s;
+        transform: rotate(180deg);
+      }
+    }
   }
 `;

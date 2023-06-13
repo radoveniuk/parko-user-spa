@@ -11,7 +11,7 @@ export const ButtonWrapper = styled.div`
     text-transform: capitalize;
 
     &:hover {
-        background-color: unset;
+      background-color: #f5f5f5;
     }
   }
 `;

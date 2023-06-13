@@ -1,6 +1,7 @@
 export { default as Button } from './Button';
 export { default as Checkbox } from './Checkbox';
 export { default as Divider } from './Divider';
+export { default as Drawer } from './Drawer';
 export { default as FormControlLabel } from './FormControlLabel';
 export { default as Input } from './Input';
 export { default as Menu } from './Menu';

@@ -50,9 +50,11 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   }
 
   .container-table {
-    width: calc(100% - 370px);
     border: 1px solid ${themeConfig.client.secondary.light10};
     border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    flex: auto;
   }
 
   .filter-name {
