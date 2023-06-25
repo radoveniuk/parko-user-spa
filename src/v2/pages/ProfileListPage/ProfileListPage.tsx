@@ -35,7 +35,6 @@ const ProfileListPageRender = () => {
   const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
 
   // filters
-  const { openDrawerFilter } = useOpenFilterDrawler();
   const { data: usersFilter = [] } = useGetUserListForFilter();
 
   const [selectedItems, setSelectedItems] = useState<IUser[]>([]);

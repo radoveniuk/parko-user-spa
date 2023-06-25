@@ -7,8 +7,9 @@ export const MainWrapper = styled.main`
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
+  padding-bottom: 20px;
 
   @media (min-width: 1024px) {
-    padding-right: 25px;
+    padding: 0 25px;
   }
 `;
