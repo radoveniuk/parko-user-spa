@@ -24,7 +24,7 @@ const Filters = () => {
   }, [setOpenDrawerFilter]);
 
   return (
-    <ContainerWrapper>
+    <ContainerWrapper className="filters">
       <button onClick={handleOpen} className={`btn-open ${openDrawerFilter ? 'active' : ''}`}><ArrowBackIcon size={20}/></button>
       <FilterWrapper className={`${openDrawerFilter ? 'active' : ''}`}>
         <Stack gap="10px">

@@ -8,6 +8,7 @@ export const MainWrapper = styled.main`
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
+  padding-right: 25px;
 
   @media (min-width: 1024px) {
     padding: 0 25px;

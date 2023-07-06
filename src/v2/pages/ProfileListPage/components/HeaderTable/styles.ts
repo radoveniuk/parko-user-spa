@@ -26,4 +26,15 @@ export const HeaderWrapper = styled.div`
   .menu-arrow {
     margin-left: 5px;
   }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 10px;
+    gap: 5px;
+
+    .link {
+      margin-left: -7px;
+    }
+  }
 `;

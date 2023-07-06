@@ -25,53 +25,82 @@ const InfoRow = () => {
       </ListTableCell>
       <ListTableCell>
         <LinkWrapper>
-          <Link to={`/profile/${data._id}`} className="table-link" >
-            {data.name} {data.surname}
+          <Link to={`/profile/${data._id}`} className="table-link">
+            <span className="column-name">{t('user.name')}</span>
+            <span className="column-content">{data.name} {data.surname}</span>
           </Link>
         </LinkWrapper>
       </ListTableCell>
       {cols.map((colName) => {
         const userField = colName.replace('user.', '') as keyof IUser;
         if (userField.includes('Date') || userField === 'permitExpire') {
-          return <ListTableCell key={colName}>{getDateFromIso(data[userField])}</ListTableCell>;
+          return <ListTableCell key={colName}>
+            <span className="column-name">{t(colName)}</span>
+            <span className="column-content">{getDateFromIso(data[userField])}</span>
+          </ListTableCell>;
         }
         if (userField === 'project') {
-          return <ListTableCell key={colName}>{typeof data.project === 'object' && data.project?.name}</ListTableCell>;
+          return <ListTableCell key={colName}>
+            <span className="column-name">{t(colName)}</span>
+            <span className="column-content">{typeof data.project === 'object' && data.project?.name}</span>
+          </ListTableCell>;
         }
         if (userField === 'status') {
           return (
             <ListTableCell key={colName} color={STATUSES_COLORS[data.status]}>
-              {data.status && t(`selects.userStatus.${data.status}`)}
+              <span className="column-name">{t(colName)}</span>
+              <span className="column-content">{data.status && t(`selects.userStatus.${data.status}`)}</span>
             </ListTableCell>
           );
         }
         if (typeof data[userField] === 'boolean') {
-          return <ListTableCell key={colName}><BooleanIcon value={data[userField] as boolean} /></ListTableCell>;
+          return <ListTableCell key={colName}>
+            <span className="column-name">{t(colName)}</span>
+            <span className="column-content"><BooleanIcon value={data[userField] as boolean} /></span>
+          </ListTableCell>;
         }
         if (userField === 'sex') {
-          return <ListTableCell key={colName}>{t(data[userField])}</ListTableCell>;
+          return <ListTableCell key={colName}>
+            <span className="column-name">{t(colName)}</span>
+            <span className="column-content">{t(data[userField])}</span>
+          </ListTableCell>;
         }
         if (userField === 'role') {
-          return <ListTableCell key={colName}>{t(`selects.userRole.${data[userField]}`)}</ListTableCell>;
+          return <ListTableCell key={colName}>
+            <span className="column-name">{t(colName)}</span>
+            <span className="column-content">{t(`selects.userRole.${data[userField]}`)}</span>
+          </ListTableCell>;
         }
         if (userField === 'recruiter') {
           return (
             <ListTableCell key={colName}>
-              {typeof data.recruiter === 'object' && !!data.recruiter && `${data.recruiter?.name} ${data.recruiter?.surname}` }
+              <span className="column-name">{t(colName)}</span>
+              <span className="column-content">
+                {typeof data.recruiter === 'object' &&
+                  !!data.recruiter &&
+                  `${data.recruiter?.name} ${data.recruiter?.surname}`}
+              </span>
             </ListTableCell>
           );
         }
         if (isMongoId(colName)) {
           return (
             <ListTableCell key={colName}>
-              {typeof data.customFields?.[colName] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(data.customFields?.[colName] as string || '')
-                ? getDateFromIso(data.customFields?.[colName] as string)
-                : data.customFields?.[colName] as string || ''
-              }
+              <span className="column-name">{t(colName)}</span>
+              <span className="column-content">
+                {typeof data.customFields?.[colName] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(data.customFields?.[colName] as string || '')
+                  ? getDateFromIso(data.customFields?.[colName] as string)
+                  : data.customFields?.[colName] as string || ''
+                }
+              </span>
             </ListTableCell>
           );
         }
-        return <ListTableCell key={colName}>{data[userField]?.toString()}</ListTableCell>;
+
+        return <ListTableCell key={colName}>
+          <span className="column-name">{t(colName)}</span>
+          <span className="column-content">{data[userField]?.toString()}</span>
+        </ListTableCell>;
       })}
       <ListTableCell>
         <IconButton

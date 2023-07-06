@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
+import { PC, TB } from 'theme/sizeBreakpoints';
 
 export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   .users-table {
@@ -8,6 +9,14 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   
     .list-table-cell {
       white-space: nowrap;
+
+      .column-name {
+        display: none;
+
+        @media (max-width: ${TB}) {
+          display: block;
+        }
+      }
     }
 
     .fast-edit-profile {
@@ -24,6 +33,19 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     .list-table-row:hover {
       .fast-edit-profile {
         opacity: 1;
+      }
+    }
+
+    @media (max-width: ${TB}) {
+      display: flex;
+      flex-direction: column;
+
+      & > div:first-child {
+        display: none;
+      }
+
+      .list-table-row {
+        display: initial;
       }
     }
   }
@@ -90,6 +112,28 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
       height: 20px;
     }
   }
+
+  @media (max-width: ${PC}) {
+    .stack-profile .container-table { 
+      display: flex !important;
+      max-width: calc(100% - 30px);
+      /* width: calc(100% - 30px); */
+    }
+
+    .stack-profile.hide .container-table {
+      display: none !important;
+    }
+
+    .stack-profile .filters {
+      max-width: 0;
+    }
+
+    .stack-profile.hide .filters {
+      max-width: 100%;
+    }
+
+  }
+
 `;
 
 export const FilterTableWrapper = styled.div`

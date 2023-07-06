@@ -1,16 +1,24 @@
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
+import { PC } from 'theme/sizeBreakpoints';
 
 export const FilterWrapper = styled.div`
   overflow: hidden;
   transition: 0.4s all;
   max-width: 0;
-  min-width: 0;
 
   &.active {
     margin-right: 25px;
-    min-width: 355px;
+    max-width: 355px;
+
+    @media (max-width: ${PC}) {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: ${PC}) {
+    width: 100%;
   }
 
   .MuiPaper-root {
@@ -66,6 +74,12 @@ export const ContainerWrapper = styled.div`
   position: relative;
   min-width: 50px;
 
+  @media (max-width: ${PC}) {
+    width: 100%;
+    min-width: 20px;
+    max-width: 20px;
+  }
+
   .btn-open {
     position: absolute;
     right: -20px;
@@ -91,6 +105,10 @@ export const ContainerWrapper = styled.div`
 
     &.active {
       right: 8px;
+
+      @media (max-width: ${PC}) {
+        right: -8px;
+      }
 
       svg {
         transition: 0.4s;

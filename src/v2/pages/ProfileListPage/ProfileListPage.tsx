@@ -30,6 +30,7 @@ const ProfileListPageRender = () => {
   useDocumentTitle(t('prepaymentsList'));
 
   const { debouncedFiltersState } = useFilters();
+  const { openDrawerFilter } = useOpenFilterDrawler();
 
   // table content
   const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
@@ -60,7 +61,7 @@ const ProfileListPageRender = () => {
   return (
     <ProfileListPageWrapper cols={activeCols.length + 1}>
       <PageTitleV2>{t('profileList')}</PageTitleV2>
-      <Stack direction="row">
+      <Stack direction="row" className={`stack-profile ${openDrawerFilter ? 'hide' : ''}`}>
         <Filters />
         <div className="container-table">
           <HeaderTable

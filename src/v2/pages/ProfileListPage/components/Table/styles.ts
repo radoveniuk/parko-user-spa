@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { TB } from 'theme/sizeBreakpoints';
+
 export const TableWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -7,6 +9,12 @@ export const TableWrapper = styled.div`
 
   .users-table > div > div {
     padding-left: 35px;
+
+    @media (max-width: ${TB}) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   .users-table div:first-child > div {
