@@ -11,7 +11,7 @@ import PasswordInput from '../components/PasswordInput';
 import { LoginFormWrapper } from './styles';
 
 type FormFields = {
-  email: string;
+  nickname: string;
   password: string;
 }
 
@@ -28,8 +28,8 @@ const LoginForm = () => {
 
   return (
     <LoginFormWrapper onSubmit={handleSubmit(onSubmitLogin)}>
-      <span>{t('user.email')}</span>
-      <input type="text" {...register('email', { required: true })} />
+      <span>{t('user.nickname')}</span>
+      <input type="text" {...register('nickname', { required: true })} />
       <span>{t('user.password')}</span>
       <PasswordInput {...register('password', { required: { message: t('user.wrongPassword'), value: true } })} />
       <button

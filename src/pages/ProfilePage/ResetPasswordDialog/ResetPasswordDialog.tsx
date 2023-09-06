@@ -9,10 +9,10 @@ import PasswordInput from 'components/shared/PasswordInput';
 import { ResetPasswordWrapper } from './styles';
 
 type Props = DialogProps & {
-  email: string;
+  nickname: string;
 }
 
-const ResetPasswordDialog = ({ email, ...props }: Props) => {
+const ResetPasswordDialog = ({ nickname, ...props }: Props) => {
   const { t } = useTranslation();
   const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +28,7 @@ const ResetPasswordDialog = ({ email, ...props }: Props) => {
       setError(t('errorTexts.wrongOldPassword'));
       return null;
     }
-    const userData = await login.mutateAsync({ email, password: oldPassword })
+    const userData = await login.mutateAsync({ nickname, password: oldPassword })
       .catch(() => {
         setError(t('errorTexts.wrongOldPassword'));
       });
