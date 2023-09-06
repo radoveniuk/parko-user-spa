@@ -28,9 +28,8 @@ export const BASE_FIELDS: UserFieldsList = {
   },
   email: {
     type: 'string',
-    required: true,
     validation: {
-      isEmail: (value) => validateEmail(value as string),
+      isEmail: (value) => !value || validateEmail(value as string),
     },
   },
   birthDate: {

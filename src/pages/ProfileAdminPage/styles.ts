@@ -69,7 +69,7 @@ export const ProfileCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px;
+  gap: 18px;
   position: relative;
 
   @media (max-width: ${SM}) {
@@ -77,8 +77,35 @@ export const ProfileCard = styled.div`
     padding: 0;
   }
 
+  .card-embeded {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
   .card-title {
-    font-size: 20px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+
+    .nickname {
+      background: linear-gradient(90deg, #f0f0f0, transparent) #f0f0f0;
+      padding: 10px;
+      border-radius: 10px;
+      transition: background-color 1s;
+
+      &:hover {
+        background-color: #dadada;
+      }
+    }
+
+    .copy-btn {
+      position: absolute;
+      right: -50px;
+    }
 
     .client-info {
       text-align: center;
