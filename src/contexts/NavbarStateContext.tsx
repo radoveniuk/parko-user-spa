@@ -25,7 +25,7 @@ const NavbarStateProvider = ({ children }: { children: ReactNode }) => {
     if (role === 'user' && isVerified) {
       return NAVBAR_ITEMS;
     }
-    if (['admin', 'recruiter'].includes(role as string)) {
+    if (['admin', 'recruiter', 'super-admin'].includes(role as string)) {
       return ADMIN_NAVBAR_ITEMS;
     }
     return LITE_NAVBAR_ITEMS;

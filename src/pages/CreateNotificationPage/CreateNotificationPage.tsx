@@ -55,7 +55,7 @@ const CreateNotificationPage = () => {
     return userList.find((item) => item._id === defaultProfileId);
   }, [location.state, userList]);
 
-  if (!userList.length) return null;
+  // if (!userList.length) return null;
 
   return (
     <Page>
