@@ -58,14 +58,13 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     position: relative;
 
     .cols-settings {
-      position: absolute;
+      position: fixed;
       background: #fff;
       z-index: 10;
       padding: 10px;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      top: 60px;
-      right: 0;
+      right: 60px;
       border-radius: 4px;
       box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
     }
@@ -77,6 +76,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     display: flex;
     flex-direction: column;
     flex: auto;
+    width: 100%;
   }
 
   .filter-name {

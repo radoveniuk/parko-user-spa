@@ -19,6 +19,10 @@ export const HeaderWrapper = styled.header`
     font-size: 16px;
   }
 
+  .toggle-menu-icon {
+    margin-left: 10px;
+  }
+
   @media (max-width: ${PC}) {
     .header-left {
       display: none;

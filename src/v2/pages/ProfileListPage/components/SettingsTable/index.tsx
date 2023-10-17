@@ -17,7 +17,6 @@ const DEFAULT_COLS = [
 
 const SettingsTable = ({ customFields, activeCols, setActiveCols }: any) => {
   const { t, i18n } = useTranslation();
-
   const [openColsSettins, setOpenColsSettings] = useState(false);
   const colsSettingsRef = useRef<HTMLDivElement>(null);
 
@@ -27,21 +26,17 @@ const SettingsTable = ({ customFields, activeCols, setActiveCols }: any) => {
     setOpenColsSettings(false);
   });
 
-  const toggleColumnsSettings = () => {
-    setOpenColsSettings((prev) => !prev);
-  };
-
   return (
-    <div className="cols-settings-wrapper" ref={colsSettingsRef}>
-      <IconButton onClick={toggleColumnsSettings}>
+    <div className="cols-settings-wrapper">
+      <IconButton onClick={() => void setOpenColsSettings((prev) => !prev)}>
         <SettingsIcon />
       </IconButton>
       {openColsSettins && (
-        <div className="cols-settings">
+        <div className="cols-settings" ref={colsSettingsRef}>
           <Checkbox
             title={t('selectAll')}
             checked={activeCols.length === COLS_TO_SETTINGS.length + customColumns.length}
-            onChange={e =>
+            onChange={(e) =>
               void setActiveCols(() => {
                 if (e.target.checked) {
                   return [
@@ -59,14 +54,15 @@ const SettingsTable = ({ customFields, activeCols, setActiveCols }: any) => {
               key={field}
               title={t(field)}
               checked={activeCols.includes(field)}
-              onChange={e =>
-                void setActiveCols((prev: any) => {
+              onChange={e => {
+                setActiveCols((prev: any) => {
                   if (e.target.checked) {
                     return [...prev, field];
                   } else {
                     return prev.filter((item: any) => item !== field);
                   }
-                })
+                });
+              }
               }
             />
           ))}

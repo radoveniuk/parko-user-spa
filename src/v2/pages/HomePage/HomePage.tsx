@@ -13,7 +13,7 @@ import { NoDataWrapper } from './styles';
 const HomePage = () => {
   const { t } = useTranslation();
   const { role, isVerified, username } = useAuthData();
-  const { data: dashboard } = useGetDashboardData({ enabled: ['admin', 'recruiter'].includes(role as string) });
+  const { data: dashboard } = useGetDashboardData({ exclude: role === 'super-admin' ? ['users'] : [] }, { enabled: ['admin', 'recruiter'].includes(role as string) });
 
   let menuItems: INavbarItem[] = [];
 

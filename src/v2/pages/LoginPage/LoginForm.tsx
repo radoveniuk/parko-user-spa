@@ -10,11 +10,11 @@ import { useLogin } from 'contexts/AuthContext';
 import { LoginFormWrapper } from './styles';
 
 type FormFields = {
-  email: string;
+  nickname: string;
   password: string;
 }
 
-const LoginPage = () => {
+const LoginForm = () => {
   const { t } = useTranslation();
   const { handleSubmit, formState: { errors }, control } = useForm<FormFields>();
   const login = useLogin();
@@ -28,14 +28,14 @@ const LoginPage = () => {
   return (
     <LoginFormWrapper onSubmit={handleSubmit(onSubmitLogin)}>
       <Controller
-        name="email"
+        name="nickname"
         control={control}
         rules={{ required: { message: t('errorTexts.requiredField'), value: true } }}
         render={({ field }) => <Input
           label={t('user.email')}
           type="text"
-          helperText={errors.email?.message ?? ''}
-          error={!_.isEmpty(errors.email)}
+          helperText={errors.nickname?.message ?? ''}
+          error={!_.isEmpty(errors.nickname)}
           {...field}
         />}
       />
@@ -59,4 +59,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LoginForm;

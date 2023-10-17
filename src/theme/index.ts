@@ -3,7 +3,7 @@ import { AnyObject } from 'interfaces/base.types';
 const themeConfigV2: AnyObject = {
   palette: {
     primary: {
-      main: process.env.REACT_APP_COLOR_PRIMARY_MAIN || '#e72a33',
+      main: process.env.REACT_APP_COLOR_PRIMARY_MAIN || '#2A6AE7',
     },
   },
   client: {

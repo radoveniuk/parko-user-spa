@@ -5,6 +5,7 @@ import { themeConfig } from 'theme';
 
 export const NavbarWrapper = styled(Box)`
   height: calc(100vh - 70px);
+  margin-left: 5px;
 
   .MuiDrawer-root {
     height: 100%;

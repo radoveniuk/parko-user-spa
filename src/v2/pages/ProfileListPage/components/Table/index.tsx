@@ -17,13 +17,15 @@ import { Path } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
 
 import ProfileRow from '../ProfileRow';
+import SettingsTable from '../SettingsTable';
 
 import { TableWrapper } from './styles';
 
 const STATIC_COLS = ['', 'user.name'];
 
 type TTable = {
-  activeCols: any;
+  activeCols: string[];
+  setActiveCols: (v: string[]) => void;
   data: IUser[];
   customFields: any;
   setSelectedItems: React.Dispatch<React.SetStateAction<IUser[]>>;
@@ -31,6 +33,7 @@ type TTable = {
 };
 const Table = ({
   activeCols,
+  setActiveCols,
   data,
   customFields,
   setSelectedItems,
@@ -101,30 +104,44 @@ const Table = ({
         renderIf={!!sortedData.length}
         columns={[...STATIC_COLS, ...activeCols, '']}
         className="users-table"
-        columnComponent={col =>
-          col && (
-            <div
-              role="button"
-              className="col-item"
-              onClick={() => void toggleSorting(col.replace('user.', '') as keyof IUser)}
-            >
-              {!isMongoId(col)
-                ? t(col)
-                : customFields.find((customField: any) => customField._id === col)?.names[
-                  i18n.language
-                ]}
-              <IconButton
-                className={
-                  sorting?.key === (col.replace('user.', '') as keyof IUser)
-                    ? `sort-btn active ${sorting.dir}`
-                    : 'sort-btn'
-                }
+        columnComponent={(col, index) => {
+          if (col) {
+            return (
+              <div
+                role="button"
+                className="col-item"
+                onClick={() => void toggleSorting(col.replace('user.', '') as keyof IUser)}
               >
-                <ArrowUpIcon />
-              </IconButton>
-            </div>
-          )
-        }
+                {!isMongoId(col)
+                  ? t(col)
+                  : customFields.find((customField: any) => customField._id === col)?.names[
+                    i18n.language
+                  ]}
+                <IconButton
+                  className={
+                    sorting?.key === (col.replace('user.', '') as keyof IUser)
+                      ? `sort-btn active ${sorting.dir}`
+                      : 'sort-btn'
+                  }
+                >
+                  <ArrowUpIcon />
+                </IconButton>
+              </div>
+            );
+          }
+
+          if (!col && index !== 0) {
+            return (
+              <div className="table-settings-wrapper">
+                <SettingsTable
+                  customFields={customFields}
+                  activeCols={activeCols}
+                  setActiveCols={setActiveCols}
+                />
+              </div>
+            );
+          }
+        }}
       >
         {pageItems.map((user: any) => (
           <ProfileRow

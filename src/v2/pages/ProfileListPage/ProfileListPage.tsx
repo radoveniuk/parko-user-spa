@@ -9,20 +9,15 @@ import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { AiOutlineSearchIcon } from 'components/icons';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { useOpenFilterDrawler } from 'components/shared/Filters/useFilters';
-import { PageTitleV2 } from 'components/shared/Page/styles';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { IUser } from 'interfaces/users.interface';
 
-import Filters from './components/Filters';
 import HeaderTable from './components/HeaderTable';
-import SettingsTable from './components/SettingsTable';
 import Table from './components/Table';
 import { FilterTableWrapper, ProfileListPageWrapper } from './styles';
 
 const DEFAULT_COLS = [
-  'user.birthDate',
-  'user.project',
-  'user.status',
+  'user.email',
 ];
 
 const ProfileListPageRender = () => {
@@ -60,9 +55,7 @@ const ProfileListPageRender = () => {
 
   return (
     <ProfileListPageWrapper cols={activeCols.length + 1}>
-      <PageTitleV2>{t('profileList')}</PageTitleV2>
-      <Stack direction="row" className={`stack-profile ${openDrawerFilter ? 'hide' : ''}`}>
-        <Filters />
+      <Stack direction="row" mt={2} className={`stack-profile ${openDrawerFilter ? 'hide' : ''}`}>
         <div className="container-table">
           <HeaderTable
             selectedItems={selectedItems}
@@ -84,17 +77,11 @@ const ProfileListPageRender = () => {
               limitTags={1}
             />
             <ClearFiLtersButton />
-            <div className="table-settings-wrapper">
-              <SettingsTable
-                customFields={customFields}
-                activeCols={activeCols}
-                setActiveCols={setActiveCols}
-              />
-            </div>
           </FilterTableWrapper>
           <Table
             activeCols={activeCols}
-            data={data.slice(0, 3)}
+            setActiveCols={setActiveCols}
+            data={data}
             customFields={customFields}
             setSelectedItems={setSelectedItems}
             selectedItems={selectedItems}

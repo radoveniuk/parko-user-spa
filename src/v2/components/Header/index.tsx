@@ -19,8 +19,8 @@ export const ToggleNavbarButton = () => {
   return (
     <IconButton className="toggle-menu-icon" onClick={expanded ? close : open}>
       {!expanded
-        ? <MenuIcon size={40} color={themeConfig.palette.primary.main} />
-        : <IoCloseIcon size={40} color={themeConfig.palette.primary.main} />
+        ? <MenuIcon size={30} />
+        : <IoCloseIcon size={30} />
       }
     </IconButton>
   );

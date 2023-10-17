@@ -91,8 +91,6 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
       <HeaderWrapper>
         <Stack direction="row" gap="9px" alignContent="center">
           <span className="bold">{t('profilesPage.users')}: {data.length}</span>
-          <Divider orientation="vertical" className="divider"/>
-          <span>{t('profilesPage.users_all_space')}</span>
         </Stack>
         <Stack direction="row" gap="15px">
           <Link to="/create-profile" className="link">

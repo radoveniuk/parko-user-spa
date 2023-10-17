@@ -48,7 +48,7 @@ const STATIC_COLS = [
 const COLS_TO_SETTINGS = EXPORT_USER_FIELDS.filter((item) => !['name', 'surname'].includes(item)).map((col) => `user.${col}`);
 
 const DEFAULT_COLS = [
-  'user.birthDate',
+  'user.email',
   'user.project',
   'user.status',
 ];
