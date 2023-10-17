@@ -16,7 +16,7 @@ import { useAuthData } from 'contexts/AuthContext';
 import { IUser } from 'interfaces/users.interface';
 import { DEFAULT_PASS } from 'pages/UploadProfilesPage/constants';
 
-import ResetPasswordDialog from './ResetPasswordDialog/ResetPasswordDialog';
+import ResetPasswordDialog from './ResetPasswordDialog';
 import { ProfilePageActions, TabContentWrapper } from './styles';
 
 const ProfilePage = () => {
@@ -94,7 +94,7 @@ const ProfilePage = () => {
         </TabPanel>
       </TabsContainer>
       {!!data && openResetPass && (
-        <ResetPasswordDialog open={openResetPass} onClose={() => void setOpenResetPass(false)} email={data.email} />
+        <ResetPasswordDialog open={openResetPass} onClose={() => void setOpenResetPass(false)} nickname={data.nickname} />
       )}
     </Page>
   );

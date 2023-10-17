@@ -2,7 +2,7 @@ import { IFile } from './file.interface';
 import { IProject } from './project.interface';
 
 export type LoginDto = {
-  email: string;
+  nickname: string;
   password: string;
 }
 
@@ -20,6 +20,7 @@ export type UserRole = 'user' | 'admin' | 'recruiter' | 'super-admin';
 export interface IUser {
   _id: string;
   // base fields
+  nickname: string;
   name: string;
   surname: string;
   email: string;

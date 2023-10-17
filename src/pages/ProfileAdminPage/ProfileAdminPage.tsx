@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
@@ -15,7 +15,10 @@ import Paychecks from 'components/complex/Paychecks';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import ProfileForm from 'components/complex/ProfileForm';
 import ProfileScans from 'components/complex/ProfileScans';
-import { DeleteIcon, EditIcon, EmailIcon, InfoIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon, SaveIcon } from 'components/icons';
+import {
+  CopyIcon, DeleteIcon, EditIcon, EmailIcon,
+  InfoIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon, SaveIcon,
+} from 'components/icons';
 import Button from 'components/shared/Button';
 import DatePicker from 'components/shared/DatePicker';
 import Dialog, { DialogActions } from 'components/shared/Dialog';
@@ -168,7 +171,17 @@ const ProfileAdminPageRender = () => {
             <>
               <SideInfoBarWrapper>
                 <ProfileCard>
-                  <div className="card-title">{profileData.name} {profileData.surname}</div>
+                  <div className="card-title">
+                    <div className="nickname">{profileData.nickname}</div>
+                    <IconButton
+                      className="copy-btn"
+                      onClick={() => {
+                        navigator.clipboard.writeText(profileData.nickname || '');
+                      }}
+                    >
+                      <CopyIcon />
+                    </IconButton>
+                  </div>
                   <div className="card-fast-actions">
                     <Link to={{ pathname: '/create-notification' }} state={{ defaultProfileId: profileData._id }}>
                       <Button><NotificationIcon size={20} /></Button>
@@ -194,17 +207,19 @@ const ProfileAdminPageRender = () => {
                     <div>{profileData.phone}</div>
                     <div>{profileData.email}</div>
                   </div>
-                  <div className="card-divider" />
-                  <Tabs className="tabs-options" orientation="vertical" variant="scrollable" scrollButtons>
-                    <Tab label={t('user.baseFields')} />
-                    <Tab label={t('user.salary')} />
-                    <Tab label={t('user.scancopies')} />
-                    <Tab label={t('navbar.paychecks')} />
-                    <Tab label={t('navbar.prepayments')} />
-                    <Tab label={t('navbar.daysoff')} />
-                    <Tab label={t('navbar.notifications')} />
-                    <Tab label={t('accommodation.residences')} />
-                  </Tabs>
+                  <div className="card-embeded">
+                    <div className="card-divider" />
+                    <Tabs className="tabs-options" orientation="vertical" variant="scrollable" scrollButtons>
+                      <Tab label={t('user.baseFields')} />
+                      <Tab label={t('user.salary')} />
+                      <Tab label={t('user.scancopies')} />
+                      <Tab label={t('navbar.paychecks')} />
+                      <Tab label={t('navbar.prepayments')} />
+                      <Tab label={t('navbar.daysoff')} />
+                      <Tab label={t('navbar.notifications')} />
+                      <Tab label={t('accommodation.residences')} />
+                    </Tabs>
+                  </div>
                 </ProfileCard>
                 {viewportWidth > smBreakpoint && profileActions}
               </SideInfoBarWrapper>
@@ -396,7 +411,16 @@ const ProfileAdminPageRender = () => {
       <Dialog title={t('user.delete')} open={isOpenDeleteDialog} onClose={() => void setIsOpenDeleteDialog(false)}>
         <DeleteDialogContent>
           <p className="warning-text">
-            {t('user.approveRemoving')} <strong>({profileData?.name} {profileData?.surname})</strong>
+            <Trans
+              t={t}
+              i18nKey="user.approveRemoving"
+              values={{
+                user: `${profileData?.name} ${profileData?.surname}`,
+              }}
+              components={{
+                b: <strong />,
+              }}
+            />
           </p>
           <div className="actions"><Button color="error" onClick={deleteUser}>{t('user.approve')}</Button></div>
         </DeleteDialogContent>
