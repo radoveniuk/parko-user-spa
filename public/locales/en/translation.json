@@ -413,6 +413,7 @@
   "rowsPerPage": "Rows per page",
   "selectAll": "Select all",
   "removeSelect": "Remove selection",
+  "cols": "Columns",
   "selectAllCols": "Select all columns",
   "add": "Add",
   "comment": "Comment",

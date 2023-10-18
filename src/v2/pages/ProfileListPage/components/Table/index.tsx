@@ -6,7 +6,7 @@ import Pagination from 'v2/uikit/Pagination';
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
-import { ArrowUpIcon } from 'components/icons';
+import { ArrowUpIcon, SettingsIcon } from 'components/icons';
 import { useFilters } from 'components/shared/Filters';
 import IconButton from 'components/shared/IconButton';
 import ListTable from 'components/shared/ListTable';
@@ -14,6 +14,7 @@ import { isMongoId } from 'helpers/regex';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList from 'hooks/useSortedList';
 import { Path } from 'interfaces/base.types';
+import { ICustomFormField } from 'interfaces/form.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import ProfileRow from '../ProfileRow';
@@ -25,9 +26,9 @@ const STATIC_COLS = ['', 'user.name'];
 
 type TTable = {
   activeCols: string[];
-  setActiveCols: (v: string[]) => void;
+  setActiveCols: React.Dispatch<React.SetStateAction<string[]>>;
   data: IUser[];
-  customFields: any;
+  customFields: ICustomFormField[];
   setSelectedItems: React.Dispatch<React.SetStateAction<IUser[]>>;
   selectedItems: IUser[];
 };
@@ -43,7 +44,7 @@ const Table = ({
   const queryClient = useQueryClient();
   const { debouncedFiltersState } = useFilters();
 
-  const [rowsPerPage, setRowsPerPage] = useState(10); // TODO remove
+  const [rowsPerPage, setRowsPerPage] = useState(20); // TODO remove
   const [editingRow, setEditingRow] = useState<null | string>(null);
 
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
@@ -98,6 +99,8 @@ const Table = ({
     }
   };
 
+  const [openColsSettins, setOpenColsSettings] = useState(false);
+
   return (
     <TableWrapper>
       <ListTable
@@ -133,11 +136,9 @@ const Table = ({
           if (!col && index !== 0) {
             return (
               <div className="table-settings-wrapper">
-                <SettingsTable
-                  customFields={customFields}
-                  activeCols={activeCols}
-                  setActiveCols={setActiveCols}
-                />
+                <IconButton onClick={() => void setOpenColsSettings((prev) => !prev)}>
+                  <SettingsIcon />
+                </IconButton>
               </div>
             );
           }
@@ -169,6 +170,13 @@ const Table = ({
       <div className="pagination-bottom">
         <Pagination {...paginationConfig} setRowsPerPage={setRowsPerPage} rowsPerPage={rowsPerPage} labelRowsPerPage={t('rowsPerPage')}/>
       </div>
+      <SettingsTable
+        open={openColsSettins}
+        onClose={() => void setOpenColsSettings(false)}
+        activeCols={activeCols}
+        setActiveCols={setActiveCols}
+        customFields={customFields}
+      />
     </TableWrapper>
   );
 };

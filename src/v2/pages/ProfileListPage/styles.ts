@@ -9,14 +9,6 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   
     .list-table-cell {
       white-space: nowrap;
-
-      .column-name {
-        display: none;
-
-        @media (max-width: ${TB}) {
-          display: block;
-        }
-      }
     }
 
     .fast-edit-profile {
@@ -37,15 +29,17 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     }
 
     @media (max-width: ${TB}) {
-      display: flex;
-      flex-direction: column;
-
-      & > div:first-child {
+      grid-template-columns: 30px 1fr 1fr;
+      .list-table-cell:has(.fast-edit-profile), .list-table-cell:has(.table-settings-wrapper) {
         display: none;
       }
 
-      .list-table-row {
-        display: initial;
+      .list-table-cell .column-content {
+        width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
       }
     }
   }
@@ -57,26 +51,25 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     gap: 10px;
     position: relative;
 
-    .cols-settings {
-      position: fixed;
-      background: #fff;
-      z-index: 10;
-      padding: 10px;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      right: 60px;
-      border-radius: 4px;
-      box-shadow: 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%);
+    @media (max-width: ${TB}) {
+      display: none;
     }
   }
 
   .container-table {
+    margin-top: 18px;
     border: 1px solid ${themeConfig.client.secondary.light10};
     border-radius: 3px;
     display: flex;
     flex-direction: column;
     flex: auto;
     width: 100%;
+  }
+
+  .clear-filter {
+    @media (max-width: ${TB}) {
+      display: none;
+    }
   }
 
   .filter-name {
@@ -91,7 +84,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
 
     .MuiInputBase-input {
       height: 25px;
-      padding: 3px 0 !important;
+      padding: 3px 5px !important;
     }
 
     .MuiAutocomplete-inputRoot {
@@ -111,13 +104,29 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
       width: 20px;
       height: 20px;
     }
+    @media (max-width: ${TB}) {
+      width: 100%;
+
+      .MuiFormLabel-root {
+        display: none;
+      }
+      .MuiOutlinedInput-root {
+        border-radius: 0;
+      }
+      .MuiOutlinedInput-notchedOutline {
+        border-color: transparent !important;
+      }
+      .MuiInputBase-input {
+        height: 25px;
+        padding: 10px !important;
+      }
+    }
   }
 
   @media (max-width: ${PC}) {
     .stack-profile .container-table { 
       display: flex !important;
       max-width: calc(100% - 30px);
-      /* width: calc(100% - 30px); */
     }
 
     .stack-profile.hide .container-table {
@@ -131,9 +140,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     .stack-profile.hide .filters {
       max-width: 100%;
     }
-
   }
-
 `;
 
 export const FilterTableWrapper = styled.div`
@@ -142,5 +149,8 @@ export const FilterTableWrapper = styled.div`
   align-items: center;
   border-bottom: 1px solid #e9e9e9;
   gap: 10px;
-  padding: 10px 0 10px 35px;
+  padding: 14px 30px;
+  @media (max-width: ${TB}) {
+    padding: 0;
+  }
 `;

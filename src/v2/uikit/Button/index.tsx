@@ -1,10 +1,6 @@
-import React, { memo } from 'react';
-import { Button as ButtonMui, ButtonProps } from '@mui/material';
+import { memo } from 'react';
+import { ButtonProps } from '@mui/material';
 
-import { ButtonWrapper } from './styles';
+import { Button } from './styles';
 
-const Button = (props: ButtonProps) => (
-  <ButtonWrapper><ButtonMui {...props} /></ButtonWrapper>
-);
-
-export default memo(Button);
+export default memo<ButtonProps>(Button);

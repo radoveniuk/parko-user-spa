@@ -23,8 +23,18 @@ export const HeaderWrapper = styled.header`
     margin-left: 10px;
   }
 
+  .header-left {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+
+    @media (max-width: ${PC}) {
+      gap: 10px;
+    }
+  }
+
   @media (max-width: ${PC}) {
-    .header-left {
+    .header-right {
       display: none;
     }
   }

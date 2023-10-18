@@ -21,11 +21,12 @@ export type AutocompleteProps = {
   error?: boolean;
   disableCloseOnSelect?: boolean;
   autoComplete?: boolean;
-  prefixIcon?: React.ReactNode
+  prefixIcon?: React.ReactNode;
+  placeholder?: string;
 }
 
 const AutoComplete = ({
-  label, loading, labelKey, onChange, defaultOpen, value, getOptionLabel, error, prefixIcon, ...rest
+  label, loading, labelKey, onChange, defaultOpen, value, getOptionLabel, error, prefixIcon, placeholder, ...rest
 }: AutocompleteProps) => {
   const [open, setOpen] = useState(false);
 
@@ -46,6 +47,7 @@ const AutoComplete = ({
           {...params}
           label={label}
           error={error}
+          placeholder={placeholder}
           InputProps={{
             ...params.InputProps,
             startAdornment: (

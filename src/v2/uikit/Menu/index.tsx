@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Menu as MenuUI, MenuItem as MenuItemUI, MenuItemProps, MenuProps } from '@mui/material';
@@ -10,6 +9,8 @@ import Button from '../Button';
 export const MenuItem = memo(({ children, ...rest }: MenuItemProps) => (
   <MenuItemUI {...rest}>{children}</MenuItemUI>
 ));
+
+MenuItem.displayName = 'MenuItem';
 
 type Props = Partial<MenuProps> & {
   title?: any;
@@ -44,6 +45,7 @@ const Menu = ({ open, title, children, isCloseOnMenu, ...rest }: Props | any) =>
         aria-haspopup="true"
         aria-expanded={openMenu ? 'true' : undefined}
         onClick={handleClick}
+        className="open-menu-btn"
       >
         {title || <><SelectMenuIcon size={20}/>{t('fastActions')}</>}
       </Button>

@@ -10,7 +10,7 @@ type Options = {
 };
 
 const usePaginatedList = <T>(list: T[] = [], options?: Options) => {
-  const rowsPerPage = options?.rowsPerPage || 10; // TODO change to useState and props setRowsPerPage
+  const rowsPerPage = options?.rowsPerPage || 20; // TODO change to useState and props setRowsPerPage
   const defaultPage = options?.defaultPage || 1;
   const [page, setPage] = useState(defaultPage);
   const navigate = useNavigate();

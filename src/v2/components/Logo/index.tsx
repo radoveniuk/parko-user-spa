@@ -9,7 +9,6 @@ const Logo = () => (
     <LogoIcon />
     <h1>ParkoStaff</h1>
   </LogoWrapper>
-
 );
 
 export default Logo;

@@ -52,4 +52,5 @@ export { SiMicrosoftexcel as ExcelIcon } from 'react-icons/si'; ;
 export { AiOutlineUser as UserOutlineIcon } from 'react-icons/ai';
 export { BiMessageAltError as BiMessageIcon } from 'react-icons/bi';
 export { BsFillBuildingFill as FillBuildingIcon } from 'react-icons/bs';
+export { BsThreeDots as ThreeDotsIcon } from 'react-icons/bs';
 export { FaMoneyBill as MoneyBillIcon } from 'react-icons/fa';

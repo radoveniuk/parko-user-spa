@@ -14,7 +14,7 @@ export const FilterWrapper = styled.div`
   min-width: 200px;
 `;
 
-export const ClearFiltersWrapper = styled.div`
+export const ClearFiltersWrapper = styled.div.attrs({ className: 'clear-filter' })`
   min-height: 40px;
   max-height: 40px;
   min-width: 40px;

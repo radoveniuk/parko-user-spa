@@ -55,7 +55,7 @@ export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })<
   }
 
   .table-link {
-    color: ${themeConfig.palette.primary.light};
+    color: ${themeConfig.palette.primary.main};
     cursor: pointer;
 
     &:hover {

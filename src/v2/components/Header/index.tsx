@@ -5,7 +5,6 @@ import { IoCloseIcon, MenuIcon } from 'components/icons';
 import IconButton from 'components/shared/IconButton';
 import { useAuthData } from 'contexts/AuthContext';
 import { useToggleNavbar } from 'contexts/NavbarStateContext';
-import { themeConfig } from 'theme';
 
 import LanguageSelector from '../LanguageSelector';
 import Logo from '../Logo';
@@ -31,13 +30,13 @@ const Header = () => {
 
   return (
     <HeaderWrapper>
-      <Stack direction="row" alignItems="center" gap="25px">
+      <div className="header-left">
         <ToggleNavbarButton />
         <Logo />
         <LanguageSelector />
         <SearchBar />
-      </Stack>
-      <Stack className="header-left">
+      </div>
+      <Stack className="header-right">
         <Stack direction="row" alignItems="center" gap="20px">
           <div className="header-name">
             {username}

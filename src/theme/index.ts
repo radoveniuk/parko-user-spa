@@ -1,11 +1,4 @@
-import { AnyObject } from 'interfaces/base.types';
-
-const themeConfigV2: AnyObject = {
-  palette: {
-    primary: {
-      main: process.env.REACT_APP_COLOR_PRIMARY_MAIN || '#2A6AE7',
-    },
-  },
+const themeConfigV2 = {
   client: {
     main: {
       dark: '#6D6D6D',
@@ -21,12 +14,12 @@ const themeConfigV2: AnyObject = {
   },
 };
 
-export const themeConfig: AnyObject = {
+export const themeConfig = {
   palette: {
     primary: {
-      main: process.env.REACT_APP_COLOR_PRIMARY_MAIN || '#123C69',
-      light: process.env.REACT_APP_COLOR_PRIMARY_LIGHT || '#226BB9',
-      dark: process.env.REACT_APP_COLOR_PRIMARY_DARK || '#051d37',
+      main: process.env.REACT_APP_COLOR_PRIMARY_MAIN || '#2A6AE7',
+      light: process.env.REACT_APP_COLOR_PRIMARY_LIGHT || '#8397bc',
+      dark: process.env.REACT_APP_COLOR_PRIMARY_DARK || '#40547a',
       contrastText: '#fff',
     },
     secondary: {
@@ -41,7 +34,6 @@ export const themeConfig: AnyObject = {
     error: {
       main: '#ec3c3c',
     },
-    ...themeConfigV2.palette,
   },
   client: themeConfigV2.client,
   typography: {

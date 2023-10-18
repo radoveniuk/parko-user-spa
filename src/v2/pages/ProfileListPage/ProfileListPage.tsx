@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
-import { Stack } from 'v2/uikit';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { AiOutlineSearchIcon } from 'components/icons';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
-import { useOpenFilterDrawler } from 'components/shared/Filters/useFilters';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { IUser } from 'interfaces/users.interface';
 
@@ -22,10 +20,9 @@ const DEFAULT_COLS = [
 
 const ProfileListPageRender = () => {
   const { t } = useTranslation();
-  useDocumentTitle(t('prepaymentsList'));
+  useDocumentTitle(t('profileList'));
 
   const { debouncedFiltersState } = useFilters();
-  const { openDrawerFilter } = useOpenFilterDrawler();
 
   // table content
   const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
@@ -55,39 +52,38 @@ const ProfileListPageRender = () => {
 
   return (
     <ProfileListPageWrapper cols={activeCols.length + 1}>
-      <Stack direction="row" mt={2} className={`stack-profile ${openDrawerFilter ? 'hide' : ''}`}>
-        <div className="container-table">
-          <HeaderTable
-            selectedItems={selectedItems}
-            setSelectedItems={setSelectedItems}
-            setOpenPrintDialog={setOpenPrintDialog}
-            data={data}
-            activeCols={activeCols}
-            customFields={customFields}
+      <div className="container-table">
+        <HeaderTable
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+          setOpenPrintDialog={setOpenPrintDialog}
+          data={data}
+          activeCols={activeCols}
+          customFields={customFields}
+        />
+        <FilterTableWrapper>
+          <FilterAutocomplete
+            multiple
+            options={usersFilter}
+            getOptionLabel={user => `${user.name} ${user.surname}`}
+            filterKey="ids"
+            label={t('search')}
+            prefixIcon={<AiOutlineSearchIcon className="search-icon"/>}
+            className="filter-name"
+            limitTags={1}
+            placeholder={t('search')}
           />
-          <FilterTableWrapper>
-            <FilterAutocomplete
-              multiple
-              options={usersFilter}
-              getOptionLabel={user => `${user.name} ${user.surname}`}
-              filterKey="ids"
-              label={t('search')}
-              prefixIcon={<AiOutlineSearchIcon className="search-icon"/>}
-              className="filter-name"
-              limitTags={1}
-            />
-            <ClearFiLtersButton />
-          </FilterTableWrapper>
-          <Table
-            activeCols={activeCols}
-            setActiveCols={setActiveCols}
-            data={data}
-            customFields={customFields}
-            setSelectedItems={setSelectedItems}
-            selectedItems={selectedItems}
-          />
-        </div>
-      </Stack>
+          <ClearFiLtersButton />
+        </FilterTableWrapper>
+        <Table
+          activeCols={activeCols}
+          setActiveCols={setActiveCols}
+          data={data}
+          customFields={customFields}
+          setSelectedItems={setSelectedItems}
+          selectedItems={selectedItems}
+        />
+      </div>
       {openPrintDialog && (
         <PrintDocDialog
           users={selectedItems}

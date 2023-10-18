@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { pick } from 'lodash-es';
 import { Button, Divider, Menu, MenuItem, Stack } from 'v2/uikit';
 
-import { ArrowDownIcon } from 'components/icons';
+import { ArrowDownIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
+import IconButton from 'components/shared/IconButton';
 import { DYNAMIC_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
@@ -94,11 +95,20 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
         </Stack>
         <Stack direction="row" gap="15px">
           <Link to="/create-profile" className="link">
-            <Button>
+            <IconButton className="small-btn primary"><PlusIcon size={25} /></IconButton>
+            <Button className="big-btn">
               {t('profilesPage.new_user')}
             </Button>
           </Link>
-          <Menu title={<>{t('fastActions')} <ArrowDownIcon className="menu-arrow"/></>}>
+          <Menu
+            title={(
+              <>
+                <div className="text">{t('fastActions')}</div>
+                <ArrowDownIcon className="big-icon" />
+                <ThreeDotsIcon size={28} className="small-icon" />
+              </>
+            )}
+          >
             <MenuItem onClick={() => void setSelectedItems(data)}>
               {t('selectAll')}
             </MenuItem>

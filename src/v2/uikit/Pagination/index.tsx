@@ -38,6 +38,7 @@ const Pagination = ({
       <TablePagination
         {...rest}
         component="div"
+        rowsPerPageOptions={[20, 50, 100]}
         count={count * rowsPerPage}
         page={pageCount}
         onPageChange={handleChangePage}

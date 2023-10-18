@@ -26,7 +26,6 @@ const InfoRow = () => {
       <ListTableCell>
         <LinkWrapper>
           <Link to={`/profile/${data._id}`} className="table-link">
-            <span className="column-name">{t('user.name')}</span>
             <span className="column-content">{data.name} {data.surname}</span>
           </Link>
         </LinkWrapper>
@@ -35,46 +34,39 @@ const InfoRow = () => {
         const userField = colName.replace('user.', '') as keyof IUser;
         if (userField.includes('Date') || userField === 'permitExpire') {
           return <ListTableCell key={colName}>
-            <span className="column-name">{t(colName)}</span>
             <span className="column-content">{getDateFromIso(data[userField])}</span>
           </ListTableCell>;
         }
         if (userField === 'project') {
           return <ListTableCell key={colName}>
-            <span className="column-name">{t(colName)}</span>
             <span className="column-content">{typeof data.project === 'object' && data.project?.name}</span>
           </ListTableCell>;
         }
         if (userField === 'status') {
           return (
             <ListTableCell key={colName} color={STATUSES_COLORS[data.status]}>
-              <span className="column-name">{t(colName)}</span>
               <span className="column-content">{data.status && t(`selects.userStatus.${data.status}`)}</span>
             </ListTableCell>
           );
         }
         if (typeof data[userField] === 'boolean') {
           return <ListTableCell key={colName}>
-            <span className="column-name">{t(colName)}</span>
             <span className="column-content"><BooleanIcon value={data[userField] as boolean} /></span>
           </ListTableCell>;
         }
         if (userField === 'sex') {
           return <ListTableCell key={colName}>
-            <span className="column-name">{t(colName)}</span>
             <span className="column-content">{t(data[userField])}</span>
           </ListTableCell>;
         }
         if (userField === 'role') {
           return <ListTableCell key={colName}>
-            <span className="column-name">{t(colName)}</span>
             <span className="column-content">{t(`selects.userRole.${data[userField]}`)}</span>
           </ListTableCell>;
         }
         if (userField === 'recruiter') {
           return (
             <ListTableCell key={colName}>
-              <span className="column-name">{t(colName)}</span>
               <span className="column-content">
                 {typeof data.recruiter === 'object' &&
                   !!data.recruiter &&
@@ -86,7 +78,6 @@ const InfoRow = () => {
         if (isMongoId(colName)) {
           return (
             <ListTableCell key={colName}>
-              <span className="column-name">{t(colName)}</span>
               <span className="column-content">
                 {typeof data.customFields?.[colName] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(data.customFields?.[colName] as string || '')
                   ? getDateFromIso(data.customFields?.[colName] as string)
@@ -98,7 +89,6 @@ const InfoRow = () => {
         }
 
         return <ListTableCell key={colName}>
-          <span className="column-name">{t(colName)}</span>
           <span className="column-content">{data[userField]?.toString()}</span>
         </ListTableCell>;
       })}

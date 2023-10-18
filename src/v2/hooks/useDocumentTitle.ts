@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
-const DEFAULT_TITLE = 'Parko User — Personal Managment System by Parko Staff';
+const DEFAULT_TITLE = 'Parko User | Personal Managment System by Parko Staff';
 
 const useDocumentTitle = (title: string) => {
   const [documentTitle, setDoucmentTitle] = useState(title);
 
   useEffect(() => {
     if (documentTitle) {
-      document.title = `Parko user - ${documentTitle}`;
+      document.title = `Parko User | ${documentTitle}`;
     } else {
       document.title = DEFAULT_TITLE;
     }

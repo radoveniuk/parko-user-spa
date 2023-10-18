@@ -9,17 +9,19 @@ export const TableWrapper = styled.div`
 
   .users-table {
     overflow: scroll;
-    max-height: calc(100vh - 270px);
+    max-height: calc(100vh - 300px);
     position: relative;
+
+    @media (max-width: ${TB}) {
+      max-height: calc(100vh - 255px);
+    }
   }
 
   .users-table > div > div {
     padding-left: 35px;
 
     @media (max-width: ${TB}) {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      padding-left: 5px;
     }
   }
 
