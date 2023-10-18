@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Menu, MenuItem } from 'v2/uikit';
+import { Menu, MenuItem } from 'v2/uikit';
 
 import { ArrowDownIcon } from 'components/icons';
 import { LANGUAGES } from 'constants/languages';
@@ -20,11 +20,7 @@ const LanguageSelector = ({ fullText = true, ...props }: Props) => {
   return (
     <LanguageSelectorWrapper {...props}>
       <Menu
-        title={
-          <Button>
-            {fullText && i18n.language} <ArrowDownIcon className="menu-arrow" />
-          </Button>
-        }
+        title={<>{fullText && i18n.language} <ArrowDownIcon className="menu-arrow" /></>}
         isCloseOnMenu
       >
         {LANGUAGES.map(item => (

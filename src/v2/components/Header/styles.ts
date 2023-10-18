@@ -6,6 +6,7 @@ import { PC } from 'theme/sizeBreakpoints';
 export const HeaderWrapper = styled.header`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px 25px 0 5px;
 
   .header-exit {
@@ -31,6 +32,10 @@ export const HeaderWrapper = styled.header`
     @media (max-width: ${PC}) {
       gap: 10px;
     }
+  }
+
+  .header-right {
+    display: contents;
   }
 
   @media (max-width: ${PC}) {

@@ -28,7 +28,7 @@ export const AuthWrapper = styled.div`
   }
 
   @media screen and (max-width: 480px){
-    height: 100%;
+    height: 75%;
 
     .auth-form {
       border: 0;

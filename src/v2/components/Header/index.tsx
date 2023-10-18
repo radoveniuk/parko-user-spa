@@ -1,5 +1,6 @@
 import React from 'react';
 import { Stack } from '@mui/material';
+import { Avatar, Menu, MenuItem } from 'v2/uikit';
 
 import { IoCloseIcon, MenuIcon } from 'components/icons';
 import IconButton from 'components/shared/IconButton';
@@ -36,13 +37,22 @@ const Header = () => {
         <LanguageSelector />
         <SearchBar />
       </div>
-      <Stack className="header-right">
-        <Stack direction="row" alignItems="center" gap="20px">
+      <Stack direction="row" alignItems="center" gap="20px">
+        <Menu
+          title={
+            <Avatar>{username.split(' ').slice(0, 2).map(item => item[0]).join('').toUpperCase()}</Avatar>
+          }
+          isCloseOnMenu
+        >
+          <MenuItem>{username}</MenuItem>
+          <LogoutButton />
+        </Menu>
+        <div className="header-right">
           <div className="header-name">
             {username}
           </div>
           <LogoutButton />
-        </Stack>
+        </div>
       </Stack>
     </HeaderWrapper>
   );
