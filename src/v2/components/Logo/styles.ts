@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
 import { TB } from 'theme/sizeBreakpoints';
 
-export const LogoWrapper = styled.div`
+export const LogoWrapper = styled(Link).attrs({ to: '/' })`
   display: grid;
   justify-content: center;
   grid-auto-flow: column;

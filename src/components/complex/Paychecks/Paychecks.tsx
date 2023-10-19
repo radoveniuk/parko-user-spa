@@ -116,7 +116,7 @@ const Paychecks = ({ filter }: Props) => {
         {sortedData.map((paycheckItem) => (
           <ListTableRow key={paycheckItem._id}>
             <ListTableCell>{getDateFromIso(paycheckItem.date, 'MM.yyyy')}</ListTableCell>
-            {!filter?.user && <ListTableCell>{(paycheckItem.user as IUser).name} {(paycheckItem.user as IUser).surname}</ListTableCell>}
+            {!filter?.user && <ListTableCell>{(paycheckItem.user as IUser)?.name} {(paycheckItem.user as IUser)?.surname}</ListTableCell>}
             <ListTableCell>{(paycheckItem.linkedFile as IFile).originalname}</ListTableCell>
             <ListTableCell>
               <IconButton

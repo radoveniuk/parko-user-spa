@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
-import Page, { PageTitle } from 'components/shared/Page';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 
 import CustomFields from './CustomFields';
@@ -10,10 +10,10 @@ import DocsTemplates from './DocsTemplates';
 
 const CustomizationPage = () => {
   const { t } = useTranslation();
+  useDocumentTitle(t('navbar.customization'));
 
   return (
-    <Page title={t('navbar.customization')}>
-      <PageTitle>{t('navbar.customization')}</PageTitle>
+    <>
       <TabsContainer>
         <Tabs>
           <Tab label={t('navbar.profiles')} />
@@ -34,7 +34,7 @@ const CustomizationPage = () => {
           <DocsTemplates />
         </TabPanel>
       </TabsContainer>
-    </Page>
+    </>
   );
 };
 

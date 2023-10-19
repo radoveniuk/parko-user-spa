@@ -432,6 +432,7 @@
   "delete": "Delete",
   "date": "Date",
   "countries": "Countries",
+  "addFilter": "Add filter",
   "header": {
     "search": "Search for users, groups or settings"
   },

@@ -1,26 +1,12 @@
 import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import Dialog from '@mui/material/Dialog';
-import Slide from '@mui/material/Slide';
-import { TransitionProps } from '@mui/material/transitions';
-import { Button } from 'v2/uikit';
+import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 
-import { CloseIcon } from 'components/icons';
 import Checkbox from 'components/shared/Checkbox';
-import IconButton from 'components/shared/IconButton';
 import { EXPORT_USER_FIELDS } from 'constants/userCsv';
 import { ICustomFormField } from 'interfaces/form.interface';
 
 import { ColsSettingsWrapper } from './styles';
-
-const Transition = React.forwardRef(function Transition (
-  props: TransitionProps & {
-    children: React.ReactElement;
-  },
-  ref: React.Ref<unknown>,
-) {
-  return <Slide direction="left" ref={ref} {...props} />;
-});
 
 const COLS_TO_SETTINGS = EXPORT_USER_FIELDS.filter((item) => !['name', 'surname'].includes(item)).map((col) => `user.${col}`);
 
@@ -42,29 +28,8 @@ const SettingsTable = ({ customFields, activeCols, setActiveCols, open, onClose 
   const customColumns = useMemo(() => customFields.map((customField) => customField.names[i18n.language]), [customFields, i18n.language]);
 
   return (
-    <Dialog
-      fullScreen
-      style={{ width: 500, marginLeft: 'auto' }}
-      maxWidth="md"
-      open={open}
-      onClose={onClose}
-      TransitionComponent={Transition}
-    >
+    <DialogFullscreen open={open} onClose={onClose} width={500} title={t('cols')}>
       <ColsSettingsWrapper>
-        <div className="toolbar">
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={onClose}
-            aria-label="close"
-          >
-            <CloseIcon />
-          </IconButton>
-          <div className="title">
-            {t('cols')}
-          </div>
-          <Button color="inherit" className="save-btn" autoFocus onClick={onClose}>OK</Button>
-        </div>
         <div className="cols">
           <Checkbox
             title={t('selectAll')}
@@ -118,7 +83,7 @@ const SettingsTable = ({ customFields, activeCols, setActiveCols, open, onClose 
           ))}
         </div>
       </ColsSettingsWrapper>
-    </Dialog>
+    </DialogFullscreen>
   );
 };
 

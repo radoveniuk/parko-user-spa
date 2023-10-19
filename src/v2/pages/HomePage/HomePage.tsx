@@ -1,10 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetDashboardData } from 'api/query/dashboardQuery';
 import { AccommodationIcon, BusinessIcon, CustomizeIcon, DayoffIcon, PrepaymentIcon, ProjectIcon, UsersIcon } from 'components/icons';
 import { MainMenuGrid, MainMenuLink } from 'components/Menu/MainMenu';
-import { PageTitle } from 'components/shared/Page';
+import { PageTitle } from 'components/shared/PageComponents';
 import { ADMIN_MENU_ITEMS, INavbarItem, MENU_ITEMS } from 'constants/menu';
 import { useAuthData } from 'contexts/AuthContext';
 
@@ -13,7 +14,10 @@ import { NoDataWrapper } from './styles';
 const HomePage = () => {
   const { t } = useTranslation();
   const { role, isVerified, username } = useAuthData();
-  const { data: dashboard } = useGetDashboardData({ exclude: role === 'super-admin' ? ['users'] : [] }, { enabled: ['admin', 'recruiter'].includes(role as string) });
+  const { data: dashboard } = useGetDashboardData(
+    { exclude: role === 'super-admin' ? ['users'] : [] },
+    { enabled: ['admin', 'recruiter'].includes(role as string) },
+  );
 
   let menuItems: INavbarItem[] = [];
 
@@ -23,6 +27,7 @@ const HomePage = () => {
   if (['admin', 'recruiter'].includes(role as string)) {
     menuItems = ADMIN_MENU_ITEMS;
   }
+  useDocumentTitle();
 
   return (
     <>

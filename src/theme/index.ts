@@ -23,7 +23,7 @@ export const themeConfig = {
       contrastText: '#fff',
     },
     secondary: {
-      main: process.env.REACT_APP_COLOR_SECONDARY_MAIN || '#da663b',
+      main: process.env.REACT_APP_COLOR_SECONDARY_MAIN || '#dabe3b',
       light: process.env.REACT_APP_COLOR_SECONDARY_LIGHT || '#EDC7B7',
       dark: process.env.REACT_APP_COLOR_SECONDARY_DARK || '#9f4539',
       contrastText: '#fff',

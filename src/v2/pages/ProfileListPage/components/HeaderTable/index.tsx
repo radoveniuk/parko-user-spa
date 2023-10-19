@@ -1,8 +1,9 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { pick } from 'lodash-es';
 import { Button, Divider, Menu, MenuItem, Stack } from 'v2/uikit';
+import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 
 import { ArrowDownIcon, FilterIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
 import IconButton from 'components/shared/IconButton';
@@ -87,6 +88,8 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
     entity: 'user',
   });
 
+  const [openMobileFilters, setOpenMobileFilters] = useState(false);
+
   return (
     <>
       <HeaderWrapper>
@@ -94,7 +97,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
           <span className="bold">{t('profilesPage.users')}: {data.length}</span>
         </Stack>
         <Stack direction="row" gap="15px">
-          <IconButton className="small-btn"><FilterIcon size={25} /></IconButton>
+          <IconButton className="small-btn" onClick={() => void setOpenMobileFilters(true)}><FilterIcon size={25} /></IconButton>
           <Link to="/create-profile" className="link">
             <IconButton className="small-btn primary"><PlusIcon size={25} /></IconButton>
             <Button className="big-btn">
@@ -102,11 +105,13 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
             </Button>
           </Link>
           <Menu
-            title={(
+            buttonComponent={(
               <>
-                <div className="text">{t('fastActions')}</div>
-                <ArrowDownIcon className="big-icon" />
-                <ThreeDotsIcon size={28} className="small-icon" />
+                <Button className="big-btn">
+                  <div className="text">{t('fastActions')}</div>
+                  <ArrowDownIcon className="big-icon" />
+                </Button>
+                <IconButton className="small-btn primary"><ThreeDotsIcon size={25} /></IconButton>
               </>
             )}
           >
@@ -130,6 +135,9 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
             </MenuItem>
           </Menu>
         </Stack>
+        <DialogFullscreen open={openMobileFilters} onClose={() => void setOpenMobileFilters(false)}>
+
+        </DialogFullscreen>
       </HeaderWrapper>
     </>
   );

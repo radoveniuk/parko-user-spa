@@ -19,7 +19,7 @@ import Button from 'components/shared/Button';
 import DatePicker from 'components/shared/DatePicker';
 import Dialog, { DialogActions } from 'components/shared/Dialog';
 import Input from 'components/shared/Input';
-import { PageTitleV2 } from 'components/shared/Page/styles';
+import { PageTitleV2 } from 'components/shared/PageComponents/styles';
 import RadioButtonGroup, { RadioButton } from 'components/shared/RadioButtonGroup';
 import Select from 'components/shared/Select';
 import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';

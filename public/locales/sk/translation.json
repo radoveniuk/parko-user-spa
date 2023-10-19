@@ -416,6 +416,7 @@
   "delete": "Vymazať",
   "date": "Dátum",
   "countries": "Krajíny",
+  "addFilter": "Pridať filter",
   "header": {
     "search": "Vyhľadajte používateľov, skupiny alebo nastavenia"
   },

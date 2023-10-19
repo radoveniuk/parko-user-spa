@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import AddFilterButton from 'v2/components/Filters/AddFilterButton';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
@@ -73,6 +74,7 @@ const ProfileListPageRender = () => {
             limitTags={1}
             placeholder={t('search')}
           />
+          <AddFilterButton />
           <ClearFiLtersButton />
         </FilterTableWrapper>
         <Table

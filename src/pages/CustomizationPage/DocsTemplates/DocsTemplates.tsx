@@ -10,7 +10,7 @@ import Button from 'components/shared/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { PageActions } from 'components/shared/Page';
+import { PageActions } from 'components/shared/PageComponents';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
 import { IFile } from 'interfaces/file.interface';
 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { invert } from 'lodash-es';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useUploadUsersMutation } from 'api/mutations/userMutation';
 import Button from 'components/shared/Button';
-import Page, { PageTitle } from 'components/shared/Page';
 import Stepper from 'components/shared/Stepper';
 import { isMongoId } from 'helpers/regex';
 import { AnyObject } from 'interfaces/base.types';
@@ -51,10 +51,10 @@ const UploadProfilesPageRender = () => {
   };
 
   const disableNextStep = !invert(relativeFields).email;
+  useDocumentTitle(t('userUpload.title'));
 
   return (
-    <Page title={t('userUpload.title')}>
-      <PageTitle>{t('userUpload.title')}</PageTitle>
+    <>
       <StepperWrapper>
         <Stepper activeStep={activeStep} steps={steps} />
         {![0, 2].includes(activeStep) && <Button onClick={handleBack}>{t('back')}</Button>}
@@ -64,7 +64,7 @@ const UploadProfilesPageRender = () => {
       <StepContent display={activeStep === 0}><FileUploading /></StepContent>
       <StepContent display={activeStep === 1}><ResultsPreview /></StepContent>
       <StepContent display={activeStep === 2}><Result /></StepContent>
-    </Page>
+    </>
   );
 };
 

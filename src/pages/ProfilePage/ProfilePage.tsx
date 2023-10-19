@@ -3,6 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import _ from 'lodash-es';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useCreateUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetUser } from 'api/query/userQuery';
@@ -10,7 +11,6 @@ import ProfileForm from 'components/complex/ProfileForm';
 import ProfileScans from 'components/complex/ProfileScans';
 import { PasswordIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import Page, { PageTitle } from 'components/shared/Page';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { useAuthData } from 'contexts/AuthContext';
 import { IUser } from 'interfaces/users.interface';
@@ -50,9 +50,10 @@ const ProfilePage = () => {
     }
   };
 
+  useDocumentTitle(t('profile'));
+
   return (
-    <Page title={t('profile')}>
-      <PageTitle>{t('profile')}</PageTitle>
+    <>
       <TabsContainer>
         <Tabs>
           <Tab label={t('user.baseFields')} />
@@ -96,7 +97,7 @@ const ProfilePage = () => {
       {!!data && openResetPass && (
         <ResetPasswordDialog open={openResetPass} onClose={() => void setOpenResetPass(false)} nickname={data.nickname} />
       )}
-    </Page>
+    </>
   );
 };
 

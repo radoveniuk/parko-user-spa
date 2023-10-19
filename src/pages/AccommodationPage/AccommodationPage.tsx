@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { CheckInIcon, CheckOutIcon, ExcelIcon, PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import Page, { PageActions, PageTitle } from 'components/shared/Page';
+import { PageActions } from 'components/shared/PageComponents';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 
 import AccommodationProvider, { useActiveAccommodation } from './contexts/AccommodationContext';
@@ -21,10 +22,10 @@ const AccommodationPageRender = () => {
   const [openAccommodation, setOpenAccommodation] = useActiveAccommodation();
   const [openResidence, setOpenResidence] = useActiveResidence();
   const [openCheckout, setOpenCheckout] = useState(false);
+  useDocumentTitle(t('navbar.accommodation'));
 
   return (
-    <Page title={t('navbar.accommodation')}>
-      <PageTitle>{t('navbar.accommodation')}</PageTitle>
+    <>
       <PageActions>
         <Button color="secondary" onClick={() => void setOpenResidence(true)}><CheckInIcon size={20}/>CheckIn</Button>
         <Button color="secondary" onClick={() => void setOpenCheckout(true)}><CheckOutIcon size={20}/>CheckOut</Button>
@@ -65,7 +66,7 @@ const AccommodationPageRender = () => {
           onClose={() => void setOpenCheckout(false)}
         />
       )}
-    </Page>
+    </>
   );
 };
 

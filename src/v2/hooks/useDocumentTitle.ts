@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 const DEFAULT_TITLE = 'Parko User | Personal Managment System by Parko Staff';
 
-const useDocumentTitle = (title: string) => {
+const useDocumentTitle = (title?: string) => {
   const [documentTitle, setDoucmentTitle] = useState(title);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (documentTitle) {
       document.title = `Parko User | ${documentTitle}`;
     } else {

@@ -33,10 +33,6 @@ export const HeaderWrapper = styled.div`
     padding: 5px 10px;
     gap: 5px;
 
-    .link {
-      margin-left: -7px;
-    }
-
     .big-btn, .big-icon {
       display: none;
     }
@@ -50,17 +46,7 @@ export const HeaderWrapper = styled.div`
       border: 1px solid;
       &.primary {
         color: ${themeConfig.palette.primary.main};
-        border: 1px solid ${themeConfig.palette.primary.main};
-      }
-    }
-
-    .open-menu-btn {
-      border: 1px solid;
-      border-radius: 50%;
-      min-width: 43px !important;
-      max-width: 43px !important;
-      .text {
-        display: none;
+        border: 1px solid ${themeConfig.palette.primary.main} !important;
       }
     }
   }

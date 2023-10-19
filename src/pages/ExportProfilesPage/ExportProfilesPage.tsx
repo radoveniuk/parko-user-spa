@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { get } from 'lodash-es';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
@@ -11,7 +12,6 @@ import Checkbox from 'components/shared/Checkbox';
 import { FiltersBar } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { MenuItem } from 'components/shared/Menu';
-import Page, { PageTitle } from 'components/shared/Page';
 import Select from 'components/shared/Select';
 import { USER_STATUSES } from 'constants/statuses';
 import { DYNAMIC_FIELDS, EXPORT_USER_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
@@ -113,10 +113,10 @@ const ExportResidencesPage = () => {
   const selectAll = useCallback(() => void setSelectedProfiles(users.map((item) => item._id)), [users]);
 
   const disableExport = !selectedProfiles.length || !colsToExport.length;
+  useDocumentTitle(t('user.export'));
 
   return (
-    <Page title={t('user.export')}>
-      <PageTitle>{t('user.export')}</PageTitle>
+    <>
       <ExportProfilesWrapper>
         <div className="fast-actions">
           <Checkbox
@@ -221,7 +221,7 @@ const ExportResidencesPage = () => {
           ))}
         </ListTable>
       </ExportProfilesWrapper>
-    </Page>
+    </>
   );
 };
 

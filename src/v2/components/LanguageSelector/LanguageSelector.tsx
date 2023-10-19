@@ -20,7 +20,7 @@ const LanguageSelector = ({ fullText = true, ...props }: Props) => {
   return (
     <LanguageSelectorWrapper {...props}>
       <Menu
-        title={<>{fullText && i18n.language} <ArrowDownIcon className="menu-arrow" /></>}
+        menuTitle={<>{fullText && i18n.language} <ArrowDownIcon className="menu-arrow" /></>}
         isCloseOnMenu
       >
         {LANGUAGES.map(item => (

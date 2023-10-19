@@ -1,18 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import Paychecks from 'components/complex/Paychecks';
-import Page, { PageTitle } from 'components/shared/Page';
 import { useAuthData } from 'contexts/AuthContext';
 
 const PaychecksPage = () => {
   const { t } = useTranslation();
   const { id } = useAuthData();
+  useDocumentTitle(t('paychecks'));
   return (
-    <Page title={t('paychecks')}>
-      <PageTitle>{t('paychecks')}</PageTitle>
-      <Paychecks filter={{ user: id }} />
-    </Page>
+    <Paychecks filter={{ user: id }} />
   );
 };
 

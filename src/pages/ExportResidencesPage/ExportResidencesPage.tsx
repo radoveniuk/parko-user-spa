@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetResidences } from 'api/query/residenceQuery';
 import { ExportIcon } from 'components/icons';
 import Checkbox from 'components/shared/Checkbox';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { MenuItem } from 'components/shared/Menu';
-import Page, { PageTitle } from 'components/shared/Page';
 import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
 import { IAccommodation } from 'interfaces/accommodation.interface';
@@ -94,9 +94,10 @@ const ExportProfilesPage = () => {
 
   const disableExport = !selectedItems.length || !colsToExport.length;
 
+  useDocumentTitle(t('user.export'));
+
   return (
-    <Page title={t('user.export')}>
-      <PageTitle>{t('user.export')}</PageTitle>
+    <>
       <ExportProfilesWrapper>
         <div className="fast-actions">
           <Checkbox
@@ -177,7 +178,7 @@ const ExportProfilesPage = () => {
           ))}
         </ListTable>
       </ExportProfilesWrapper>
-    </Page>
+    </>
   );
 };
 

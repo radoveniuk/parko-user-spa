@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useCreateClientMutation } from 'api/mutations/clientMutation';
 import { useGetClients } from 'api/query/clientQuery';
@@ -13,7 +14,6 @@ import Button from 'components/shared/Button';
 import Dialog, { DialogActions } from 'components/shared/Dialog';
 import { FiltersBar } from 'components/shared/Filters';
 import List from 'components/shared/List';
-import Page, { PageTitle } from 'components/shared/Page';
 import Select from 'components/shared/Select';
 import { CLIENT_STATUS } from 'constants/selectsOptions';
 import usePageQueries from 'hooks/usePageQueries';
@@ -82,9 +82,10 @@ const ClientListPage = () => {
     }
   };
 
+  useDocumentTitle(t('navbar.clients'));
+
   return (
-    <Page title={t('navbar.clients')}>
-      <PageTitle>{t('navbar.clients')}</PageTitle>
+    <>
       <FiltersBar>
         <Autocomplete
           options={clientListData}
@@ -134,7 +135,7 @@ const ClientListPage = () => {
           </DialogActions>
         </Dialog>
       )}
-    </Page>
+    </>
   );
 };
 

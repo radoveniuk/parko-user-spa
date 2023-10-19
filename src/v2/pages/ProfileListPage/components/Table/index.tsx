@@ -2,6 +2,7 @@ import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import Pagination from 'v2/uikit/Pagination';
+import Skeleton from 'v2/uikit/Skeleton';
 
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
@@ -9,7 +10,8 @@ import { useGetUserList } from 'api/query/userQuery';
 import { ArrowUpIcon, SettingsIcon } from 'components/icons';
 import { useFilters } from 'components/shared/Filters';
 import IconButton from 'components/shared/IconButton';
-import ListTable from 'components/shared/ListTable';
+import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import { iterateMap } from 'helpers/iterateMap';
 import { isMongoId } from 'helpers/regex';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList from 'hooks/useSortedList';
@@ -101,11 +103,12 @@ const Table = ({
 
   const [openColsSettins, setOpenColsSettings] = useState(false);
 
+  const allCols = [...STATIC_COLS, ...activeCols];
+
   return (
     <TableWrapper>
       <ListTable
-        renderIf={!!sortedData.length}
-        columns={[...STATIC_COLS, ...activeCols, '']}
+        columns={[...allCols, '']}
         className="users-table"
         columnComponent={(col, index) => {
           if (col) {
@@ -144,7 +147,7 @@ const Table = ({
           }
         }}
       >
-        {pageItems.map((user: any) => (
+        {pageItems.map((user: IUser) => (
           <ProfileRow
             key={user._id}
             data={user}
@@ -166,6 +169,15 @@ const Table = ({
             }}
           />
         ))}
+        {!pageItems.length && (
+          iterateMap(20, (index) => (
+            <ListTableRow key={index}>
+              {allCols.map((emptyCol, emptyColIndex) => (
+                <ListTableCell key={emptyCol + emptyColIndex}><Skeleton /></ListTableCell>
+              ))}
+            </ListTableRow>
+          ))
+        )}
       </ListTable>
       <div className="pagination-bottom">
         <Pagination {...paginationConfig} setRowsPerPage={setRowsPerPage} rowsPerPage={rowsPerPage} labelRowsPerPage={t('rowsPerPage')}/>

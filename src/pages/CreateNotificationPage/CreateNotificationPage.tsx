@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
 import { useSnackbar } from 'notistack';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useCreateNotificationMutation } from 'api/mutations/notificationMutation';
 import { useGetUserListForFilter } from 'api/query/userQuery';
@@ -11,7 +12,6 @@ import Editor from 'components/complex/Editor';
 import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Input from 'components/shared/Input';
-import Page, { PageTitle } from 'components/shared/Page';
 import { useAuthData } from 'contexts/AuthContext';
 import { INotification } from 'interfaces/notification.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -56,10 +56,10 @@ const CreateNotificationPage = () => {
   }, [location.state, userList]);
 
   // if (!userList.length) return null;
+  useDocumentTitle(t('notification.new'));
 
   return (
-    <Page>
-      <PageTitle>{t('notification.new')}</PageTitle>
+    <>
       <NotificationForm>
         <div className="controls">
           <div className="notification-users">
@@ -102,7 +102,7 @@ const CreateNotificationPage = () => {
           />
         )}
       />
-    </Page>
+    </>
   );
 };
 

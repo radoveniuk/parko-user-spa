@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import Notifications from 'components/complex/Notifications';
 import { EditIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import Page, { PageTitle } from 'components/shared/Page';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { useAuthData } from 'contexts/AuthContext';
 
@@ -14,10 +14,10 @@ const NotificationsPage = () => {
   const { t } = useTranslation();
   const { id } = useAuthData();
   const { role } = useAuthData();
+  useDocumentTitle(t('notifications'));
 
   return (
-    <Page title={t('notifications')}>
-      <PageTitle>{t('notifications')}</PageTitle>
+    <>
       <TabsContainer>
         <Tabs>
           <Tab label={t('notification.in')} />
@@ -35,7 +35,7 @@ const NotificationsPage = () => {
           <Button><EditIcon size={20} /></Button>
         </CreateMessageLink>
       )}
-    </Page>
+    </>
   );
 };
 

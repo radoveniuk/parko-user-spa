@@ -66,7 +66,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     width: 100%;
   }
 
-  .clear-filter {
+  .clear-filter, .AddFilterButton {
     @media (max-width: ${TB}) {
       display: none;
     }

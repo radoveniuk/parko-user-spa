@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useCreatePrepaymentMutation, useDeletePrepaymentMutation, useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
@@ -13,7 +14,7 @@ import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, us
 import { FilterDate, FilterSelect } from 'components/shared/Filters/Filters';
 import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import Page, { PageActions, PageTitle } from 'components/shared/Page';
+import { PageActions } from 'components/shared/PageComponents';
 import Pagination from 'components/shared/Pagination';
 import { PREPAYMENT_STATUS } from 'constants/selectsOptions';
 import { STATUSES_COLORS, USER_STATUSES } from 'constants/statuses';
@@ -85,9 +86,10 @@ const PrepaymentsListPageRender = () => {
     refetch();
   }, [debouncedFiltersState, refetch]);
 
+  useDocumentTitle(t('prepaymentsList'));
+
   return (
-    <Page title={t('prepaymentsList')}>
-      <PageTitle>{t('prepaymentsList')}</PageTitle>
+    <>
       <PageActions><Button onClick={() => void setActivePrepayment(true)}><PlusIcon size={20} />{t('prepayment.new')}</Button></PageActions>
       <FiltersBar>
         <FilterAutocomplete
@@ -197,7 +199,7 @@ const PrepaymentsListPageRender = () => {
           });
         }}
       />
-    </Page>
+    </>
   );
 };
 

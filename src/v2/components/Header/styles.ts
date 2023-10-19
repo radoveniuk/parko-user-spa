@@ -38,6 +38,10 @@ export const HeaderWrapper = styled.header`
     display: contents;
   }
 
+  .user-avatar {
+    cursor: pointer;
+  }
+
   @media (max-width: ${PC}) {
     .header-right {
       display: none;
