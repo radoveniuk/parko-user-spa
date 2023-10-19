@@ -31,12 +31,13 @@ const MenuItems = () => {
 
   return (
     <div>
-      {menuItems.map((item) => {
+      {menuItems.map((item, index) => {
         if (item.type === 'link' && item.to) {
           return (
-            <Link to={item.to} key={item.title}>
+            <Link to={item.to} key={index}>
               <ListItem className="list-item" title={t(item.title)}>
                 <NavItem
+                  key={item.to}
                   className={`
                     ${(item.to === selectedLink) ? 'active' : ''}
                     ${item.to === '/notifications' && isNewNotification ? ' notifications' : ''}

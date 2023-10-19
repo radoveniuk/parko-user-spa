@@ -97,6 +97,7 @@ const Paychecks = ({ filter }: Props) => {
   return (
     <UploadedPaychecksWrapper>
       <ListTable
+        maxHeight="calc(100vh - 250px)"
         columns={cols}
         className="file-grid"
         columnComponent={(col) => col && (

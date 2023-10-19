@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Divider } from '@mui/material';
 import { Stack } from 'v2/uikit';
 
@@ -39,20 +38,18 @@ const Navbar = () => {
         }}
         className={expanded ? 'open' : 'close'}
       >
-        <PerfectScrollbar>
-          <Stack justifyContent="space-between" height="100%">
-            <MenuItems />
-            <FooterWrapper>
-              <Divider />
-              <div className="container-content-inset">
-                <div className="feedback">
-                  <BiMessageIcon size={24} /> <span>{t('navbar.feedback')}</span>
-                </div>
-                <span className="parko">© Parko Limited s.r.o., {date.getFullYear()}</span>
+        <Stack justifyContent="space-between" height="100%">
+          <MenuItems />
+          <FooterWrapper>
+            <Divider />
+            <div className="container-content-inset">
+              <div className="feedback">
+                <BiMessageIcon size={24} /> <span>{t('navbar.feedback')}</span>
               </div>
-            </FooterWrapper>
-          </Stack>
-        </PerfectScrollbar>
+              <span className="parko">© Parko Limited s.r.o., {date.getFullYear()}</span>
+            </div>
+          </FooterWrapper>
+        </Stack>
       </Drawer>
       <Drawer
         variant="permanent"
@@ -69,22 +66,20 @@ const Navbar = () => {
         className={expanded ? 'open' : 'close'}
 
       >
-        <PerfectScrollbar>
-          <Stack justifyContent="space-between" height="100%">
-            <MenuItems />
-            {expanded && (
-              <FooterWrapper>
-                <Divider />
-                <div className="container-content-inset">
-                  <div className="feedback">
-                    <BiMessageIcon size={24} /> <span>{t('navbar.feedback')}</span>
-                  </div>
-                  <span className="parko">© Parko Limited s.r.o., {date.getFullYear()}</span>
+        <Stack justifyContent="space-between" height="100%">
+          <MenuItems />
+          {expanded && (
+            <FooterWrapper>
+              <Divider />
+              <div className="container-content-inset">
+                <div className="feedback">
+                  <BiMessageIcon size={24} /> <span>{t('navbar.feedback')}</span>
                 </div>
-              </FooterWrapper>
-            )}
-          </Stack>
-        </PerfectScrollbar>
+                <span className="parko">© Parko Limited s.r.o., {date.getFullYear()}</span>
+              </div>
+            </FooterWrapper>
+          )}
+        </Stack>
       </Drawer>
     </NavbarWrapper>
   );

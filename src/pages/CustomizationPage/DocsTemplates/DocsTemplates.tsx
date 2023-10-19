@@ -41,7 +41,7 @@ const DocsTemplates = () => {
         <Button onClick={() => void setOpenTemplate(true)}><PlusIcon size={20} />{t('add')}</Button>
         <Button variant="outlined" color="secondary" onClick={() => void setOpenFieldCodes(true)}><EyeIcon />{t('docsTemplates.codes')}</Button>
       </PageActions>
-      <ListTable columns={COLS}>
+      <ListTable columns={COLS} maxHeight="calc(100vh - 175px)">
         {docsTemplates.map((templateItem) => (
           <ListTableRow key={templateItem._id}>
             <ListTableCell>{templateItem.name}</ListTableCell>

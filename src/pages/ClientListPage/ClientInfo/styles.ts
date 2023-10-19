@@ -6,10 +6,8 @@ export const ClientInfoWrapper = styled.div`
   flex-grow: 1;
   margin-left: 10px;
   position: relative;
-  @media (min-width: ${SM}) {
-    max-width: calc(100% - 360px);
-    min-width: calc(100% - 360px);
-  }
+  max-width: 100%;
+  overflow: auto;
 
   .table-actions {
     display: flex;

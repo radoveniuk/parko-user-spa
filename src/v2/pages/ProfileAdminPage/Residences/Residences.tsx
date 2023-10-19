@@ -78,7 +78,7 @@ const Residences = () => {
   };
 
   return (
-    <ListTable columns={COLUMNS} >
+    <ListTable columns={COLUMNS} maxHeight="calc(100vh - 300px)">
       {tableData.map((item) => (
         <ListTableRow key={item._id}>
           <ListTableCell>{item.owner}</ListTableCell>

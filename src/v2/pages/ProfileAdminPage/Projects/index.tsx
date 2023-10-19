@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useParams } from 'react-router-dom';
 
 import { useGetDictionary } from 'api/query/dictionariesQuery';
@@ -153,29 +152,27 @@ const Projects = ({ setStages, setProjectStages, methods, projectStages, setOpen
         <IconButton onClick={() => void setOpenStages(true)} disabled={!projectStages?.length}><EditIcon /></IconButton>
       </div>
       <div className="project-stages">
-        <PerfectScrollbar>
-          <Stepper
-            orientation="vertical"
-            steps={projectStages}
-            activeStep={projectStages.indexOf(activeStage as string)}
-            getStepComponent={step => (
-              <div className="stage-step">
-                <div className="stage-label">
-                  <div>{step}</div>
-                  <div className="date">{getDateFromIso(stages?.[step].date)}</div>
-                </div>
-                {!!stages?.[step].comment && (
-                  <IconButton
-                    className="stage-info-icon"
-                    title={stages?.[step].comment}
-                  >
-                    <InfoIcon />
-                  </IconButton>
-                )}
+        <Stepper
+          orientation="vertical"
+          steps={projectStages}
+          activeStep={projectStages.indexOf(activeStage as string)}
+          getStepComponent={step => (
+            <div className="stage-step">
+              <div className="stage-label">
+                <div>{step}</div>
+                <div className="date">{getDateFromIso(stages?.[step].date)}</div>
               </div>
-            )}
-          />
-        </PerfectScrollbar>
+              {!!stages?.[step].comment && (
+                <IconButton
+                  className="stage-info-icon"
+                  title={stages?.[step].comment}
+                >
+                  <InfoIcon />
+                </IconButton>
+              )}
+            </div>
+          )}
+        />
       </div>
     </ProjectWrapper>
   );

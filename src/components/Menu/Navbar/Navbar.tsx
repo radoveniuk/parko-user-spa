@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Link } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
@@ -99,39 +98,37 @@ const Navbar = () => {
         }}
         open={expanded}
       >
-        <PerfectScrollbar>
-          <div className="app-logo">
-            {expanded && (
-              <>
-                <img height={20} width={20} src={logoImage} alt="Parko user logo"/>
-                {(!role || role === 'user') && <p>Parko&nbsp;User</p>}
-                {['admin', 'recruiter', 'super-admin'].includes(role as string) && <p>Parko&nbsp;Admin</p>}
-              </>
-            )}
-            <ToggleNavbarButton />
+        <div className="app-logo">
+          {expanded && (
+            <>
+              <img height={20} width={20} src={logoImage} alt="Parko user logo"/>
+              {(!role || role === 'user') && <p>Parko&nbsp;User</p>}
+              {['admin', 'recruiter', 'super-admin'].includes(role as string) && <p>Parko&nbsp;Admin</p>}
+            </>
+          )}
+          <ToggleNavbarButton />
+        </div>
+        {navbarContent}
+        <div className="navbar-footer">
+          <div className="actions" style={{ flexDirection: expanded ? 'row' : 'column' }}>
+            <LanguageSelector fullText={expanded} />
+            <LogoutButton fullText={expanded} />
           </div>
-          {navbarContent}
-          <div className="navbar-footer">
-            <div className="actions" style={{ flexDirection: expanded ? 'row' : 'column' }}>
-              <LanguageSelector fullText={expanded} />
-              <LogoutButton fullText={expanded} />
-            </div>
-            {expanded && (
-              <ul className="contactsList">
-                <li><a href="tel:+421950759277" title="+421950759277"><IconButton><PhoneIcon /></IconButton></a></li>
-                <li><a href ="mailto:support@parko.sk" title="support@parko.sk"><IconButton><EmailIcon /></IconButton></a></li>
-                <li><a
-                  href="https://parko-staff.com/"
-                  target="_blank"
-                  title="parko-staff.com"
-                  rel="noreferrer"
-                >
-                  <IconButton><InternetIcon /></IconButton>
-                </a></li>
-              </ul>
-            )}
-          </div>
-        </PerfectScrollbar>
+          {expanded && (
+            <ul className="contactsList">
+              <li><a href="tel:+421950759277" title="+421950759277"><IconButton><PhoneIcon /></IconButton></a></li>
+              <li><a href ="mailto:support@parko.sk" title="support@parko.sk"><IconButton><EmailIcon /></IconButton></a></li>
+              <li><a
+                href="https://parko-staff.com/"
+                target="_blank"
+                title="parko-staff.com"
+                rel="noreferrer"
+              >
+                <IconButton><InternetIcon /></IconButton>
+              </a></li>
+            </ul>
+          )}
+        </div>
       </Drawer>
     </NavbarWrapper>
   );

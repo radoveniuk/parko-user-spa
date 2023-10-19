@@ -54,6 +54,7 @@ const Accommodations = () => {
     <>
       <FiltersBar></FiltersBar>
       <ListTable
+        maxHeight="calc(100vh - 100px)"
         columns={COLUMNS}
         columnComponent={(col) => col && (
           <div role="button" className="col-item" onClick={() => {

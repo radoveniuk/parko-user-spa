@@ -167,6 +167,7 @@ const Residences = () => {
         <ClearFiLtersButton />
       </FiltersBar>
       <ListTable
+        maxHeight="calc(100vh - 300px)"
         columns={COLUMNS}
         columnComponent={(col) => col && (
           <div role="button" className="col-item" onClick={() => void toggleSorting(col.replace(/user.|accommodation./gi, ''))}>

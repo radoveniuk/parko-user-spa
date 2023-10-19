@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { default as ProtectedRouteV2 } from 'v2/components/ProtectedRoute';
+import ProtectedRoute from 'v2/components/ProtectedRoute';
 import AuthLayouts from 'v2/layouts/AuthLayouts';
 import PageLayouts from 'v2/layouts/PageLayouts';
 import { HomePage, LoginPage, ProfileAdminPage, ProfileListPage, RegisterPage } from 'v2/pages';
@@ -39,8 +39,9 @@ export default function Router () {
               <Route path="/login" element={<LoginPage />}/>
               <Route path="/sign-up" element={<RegisterPage />}/>
             </Route>
-            <Route element={<ProtectedRouteV2 />}>
+            <Route element={<ProtectedRoute />}>
               <Route element={<PageLayouts />}>
+                <Route path="*" element={<NotFoundPage />} />
                 <Route path="/" element={<HomePage />}/>
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/notifications" element={<NotificationsPage />} />
@@ -74,7 +75,6 @@ export default function Router () {
                 )}
               </Route>
             </Route>
-            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </NavbarStateProvider>
       </NotificationProvider>

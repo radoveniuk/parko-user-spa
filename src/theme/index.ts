@@ -23,9 +23,9 @@ export const themeConfig = {
       contrastText: '#fff',
     },
     secondary: {
-      main: process.env.REACT_APP_COLOR_SECONDARY_MAIN || '#dabe3b',
-      light: process.env.REACT_APP_COLOR_SECONDARY_LIGHT || '#EDC7B7',
-      dark: process.env.REACT_APP_COLOR_SECONDARY_DARK || '#9f4539',
+      main: process.env.REACT_APP_COLOR_SECONDARY_MAIN || '#ebb800',
+      light: process.env.REACT_APP_COLOR_SECONDARY_LIGHT || '#ebb800',
+      dark: process.env.REACT_APP_COLOR_SECONDARY_DARK || '#c09c34',
       contrastText: '#fff',
     },
     success: {

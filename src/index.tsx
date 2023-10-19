@@ -7,7 +7,6 @@ import './i18n';
 import App from './App';
 
 import './index.css';
-import 'react-perfect-scrollbar/dist/css/styles.css';
 
 console.log(`Parko User App ${process.env.REACT_APP_VERSION}`);
 

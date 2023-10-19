@@ -2,10 +2,11 @@ import styled, { css } from 'styled-components';
 
 import { themeConfig } from 'theme';
 
-export const ListTableWrapper = styled.div<{ cols: number }>`
+export const ListTableWrapper = styled.div<{ cols: number, maxHeight?: string | number }>`
   display: grid;
   grid-template-columns: repeat(${props => props.cols}, 1fr);
   overflow: auto;
+  max-height: ${props => (typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight) || 'auto'};
 `;
 
 export const ListTableRow = styled.div.attrs({ className: 'list-table-row' })`
