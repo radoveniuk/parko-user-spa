@@ -13,13 +13,15 @@ export const LoaderStyledComponent = styled.div`
   display: block;
   }
   &::after {
+    border-radius: 6px;
     margin: 0 auto 0 auto;
-    border: 4px solid ${themeConfig.palette.primary.main};
+    border: 5px solid ${themeConfig.palette.primary.main};
     animation: anm-SL-52-rotate2 0.5s infinite ease-in-out;
   }
   &::before {
+    border-radius: 6px;
     margin: 30px auto 0 auto;
-    border: 4px solid #000;
+    border: 5px solid #000;
     animation: anm-SL-52-rotate1 0.5s infinite ease-in-out;
   }
   @keyframes anm-SL-52-rotate2 {
