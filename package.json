@@ -1,7 +1,7 @@
 {
   "name": "parko-user-client",
   "author": "Bohdan Radoveniuk",
-  "version": "4.2.1",
+  "version": "5.0.0",
   "private": false,
   "dependencies": {
     "@date-io/luxon": "^2.16.0",
