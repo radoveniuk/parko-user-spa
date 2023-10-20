@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 
 import { FileUploadAreaWrapper } from './styles';
 
-import 'react-dropzone-uploader/dist/styles.css';
+// import 'react-dropzone-uploader/dist/styles.css';
 
-const Dropzone = require('react-dropzone-uploader');
+// const Dropzone = require('react-dropzone-uploader');
 
 type Props = {
   accept?: string;
@@ -32,14 +32,14 @@ const FileUploadArea = ({ accept, fileNameValidator, onUpload }: Props) => {
 
   return (
     <FileUploadAreaWrapper>
-      <Dropzone
+      {/* <Dropzone
         onChangeStatus={handleChangeStatus}
         onSubmit={handleSubmit}
         accept={accept}
         inputContent={t('file.upload')}
         submitButtonContent={t('file.submit')}
         inputWithFilesContent={t('file.add')}
-      />
+      /> */}
     </FileUploadAreaWrapper>
   );
 };
