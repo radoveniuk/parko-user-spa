@@ -5,19 +5,27 @@ import { pick } from 'lodash-es';
 import { Button, Divider, Menu, MenuItem, Stack } from 'v2/uikit';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 
+import { useGetProjects } from 'api/query/projectQuery';
 import { ArrowDownIcon, FilterIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
+import { FilterAutocomplete } from 'components/shared/Filters';
 import IconButton from 'components/shared/IconButton';
+import { USER_STATUSES } from 'constants/statuses';
 import { DYNAMIC_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
 import { useExportData } from 'hooks/useExportData';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
 
-import { HeaderWrapper } from './styles';
+import { FiltersWrapper, HeaderWrapper } from './styles';
 
 const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data, activeCols, customFields }: any) => {
   const { t, i18n } = useTranslation();
+
+  // filters
+  const { data: projects = [] } = useGetProjects();
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
 
   const colsToExport = useMemo(() => {
     const result = activeCols.map((col: any) => {
@@ -135,8 +143,24 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
             </MenuItem>
           </Menu>
         </Stack>
-        <DialogFullscreen open={openMobileFilters} onClose={() => void setOpenMobileFilters(false)}>
-
+        <DialogFullscreen title={t('filters')} open={openMobileFilters} onClose={() => void setOpenMobileFilters(false)}>
+          <FiltersWrapper>
+            <FilterAutocomplete
+              multiple
+              filterKey="projects"
+              label={t('user.project')}
+              options={projects}
+              labelKey="name"
+            />
+            <FilterAutocomplete
+              multiple
+              filterKey="statuses"
+              label={t('user.status')}
+              options={translatedStatuses}
+              labelKey="label"
+            />
+            <Button onClick={() => void setOpenMobileFilters(false)} variant="contained" className="apply-filter-btn">{t('apply')}</Button>
+          </FiltersWrapper>
         </DialogFullscreen>
       </HeaderWrapper>
     </>

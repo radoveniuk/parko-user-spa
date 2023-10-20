@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { themeConfig } from 'theme';
 
 export const Toolbar = styled.div`
-  background-color: ${themeConfig.palette.primary.dark};
+  background-color: ${themeConfig.palette.primary.main};
   color: #fff;
   display: flex;
   padding: 12px 24px;

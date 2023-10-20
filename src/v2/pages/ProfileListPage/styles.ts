@@ -153,4 +153,11 @@ export const FilterTableWrapper = styled.div`
   @media (max-width: ${TB}) {
     padding: 0;
   }
+
+  .filter-chip {
+    height: 41px;
+    @media (max-width: ${TB}) {
+      display: none;;
+    }
+  }
 `;

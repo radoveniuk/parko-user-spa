@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { themeConfig } from 'theme';
+
 export const Button = styled.button.attrs({ className: 'AddFilterButton' })`
   display: flex;
   align-items: center;
@@ -36,4 +38,19 @@ export const MenuWrapper = styled.div`
       background-color: #f3f3f3;
     }
   }
+`;
+
+export const MenuToolbar = styled.div`
+  padding: 12px;
+  color: #fff;
+  background-color: ${themeConfig.palette.primary.main};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const SearchInput = styled.input.attrs({ autoFocus: true })`
+  border: 0;
+  height: 40px;
+  outline: none;
 `;

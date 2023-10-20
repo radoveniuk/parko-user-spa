@@ -433,6 +433,7 @@
   "date": "Date",
   "countries": "Countries",
   "addFilter": "Add filter",
+  "filters": "Filters",
   "header": {
     "search": "Search for users, groups or settings"
   },

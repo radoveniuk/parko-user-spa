@@ -9,11 +9,13 @@ import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { AiOutlineSearchIcon } from 'components/icons';
 import Autocomplete from 'components/shared/Autocomplete';
-import { ClearFiLtersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
+import Chip from 'components/shared/Chip';
+import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 import Select from 'components/shared/Select';
 import { USER_STATUSES } from 'constants/statuses';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import HeaderTable from './components/HeaderTable';
@@ -28,7 +30,7 @@ const ProfileListPageRender = () => {
   const { t } = useTranslation();
   useDocumentTitle(t('profileList'));
 
-  const { debouncedFiltersState } = useFilters();
+  const { debouncedFiltersState, filtersState, removeFilter } = useFilters();
 
   // table content
   const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
@@ -81,6 +83,20 @@ const ProfileListPageRender = () => {
             limitTags={1}
             placeholder={t('search')}
           />
+          {!!filtersState?.project && (
+            <Chip
+              className="filter-chip"
+              label={`${t('user.project')}: ${projects.find(project => project._id === filtersState.project)?.name}`}
+              onDelete={() => void removeFilter('project')}
+            />
+          )}
+          {!!filtersState?.status && (
+            <Chip
+              className="filter-chip"
+              label={`${t('user.status')}: ${translatedStatuses.find(status => status.value === filtersState?.status)?.label}`}
+              onDelete={() => void removeFilter('status')}
+            />
+          )}
           <AddFilterButton
             filterOptions={[
               {
@@ -88,11 +104,10 @@ const ProfileListPageRender = () => {
                 name: t('user.project'),
                 popperComponent: (onSelect) => (
                   <Autocomplete
-                    label={t('user.project')}
                     style={{ minWidth: 300 }}
                     options={projects}
                     getOptionLabel={(option) => option.name}
-                    onChange={onSelect}
+                    onChange={(project: IProject) => void onSelect(project._id)}
                   />
                 ),
               },
@@ -101,7 +116,6 @@ const ProfileListPageRender = () => {
                 name: t('user.status'),
                 popperComponent: (onSelect) => (
                   <Select
-                    label={t('user.status')}
                     style={{ minWidth: 300 }}
                     options={translatedStatuses}
                     onChange={(e) => void onSelect(e.target.value)}
@@ -109,7 +123,6 @@ const ProfileListPageRender = () => {
                 ),
               },
             ]}
-            onAddFilter={console.log}
           />
         </FilterTableWrapper>
         <Table

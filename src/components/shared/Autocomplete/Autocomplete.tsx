@@ -8,7 +8,7 @@ export type AutocompleteProps = {
   defaultOpen?: boolean;
   loading?: boolean;
   options: any[];
-  label: string;
+  label?: string;
   labelKey?: string;
   getOptionLabel?(item: any): string;
   multiple?: boolean;
