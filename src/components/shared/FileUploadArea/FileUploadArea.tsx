@@ -1,10 +1,12 @@
 import React from 'react';
-import Dropzone, { IFileWithMeta, StatusValue } from 'react-dropzone-uploader';
+// import { IFileWithMeta, StatusValue } from 'react-dropzone-uploader';
 import { useTranslation } from 'react-i18next';
 
 import { FileUploadAreaWrapper } from './styles';
 
 import 'react-dropzone-uploader/dist/styles.css';
+
+const Dropzone = require('react-dropzone-uploader');
 
 type Props = {
   accept?: string;
@@ -15,7 +17,7 @@ type Props = {
 const FileUploadArea = ({ accept, fileNameValidator, onUpload }: Props) => {
   const { t } = useTranslation();
 
-  const handleChangeStatus = (file: IFileWithMeta, status: StatusValue) => {
+  const handleChangeStatus = (file: any, status: any) => {
     if (status === 'done') {
       if (fileNameValidator && !fileNameValidator(file.meta.name)) {
         file.remove();
@@ -23,7 +25,7 @@ const FileUploadArea = ({ accept, fileNameValidator, onUpload }: Props) => {
     }
   };
 
-  const handleSubmit = (files: IFileWithMeta[], allFiles: IFileWithMeta[]) => {
+  const handleSubmit = (files: any[], allFiles: any[]) => {
     onUpload?.(files.map(f => f.file));
     allFiles.forEach(f => f.remove());
   };

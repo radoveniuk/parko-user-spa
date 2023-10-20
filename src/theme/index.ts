@@ -17,15 +17,15 @@ const themeConfigV2 = {
 export const themeConfig = {
   palette: {
     primary: {
-      main: process.env.REACT_APP_COLOR_PRIMARY_MAIN || '#2A6AE7',
-      light: process.env.REACT_APP_COLOR_PRIMARY_LIGHT || '#8397bc',
-      dark: process.env.REACT_APP_COLOR_PRIMARY_DARK || '#40547a',
+      main: '#2A6AE7',
+      light: '#8397bc',
+      dark: '#40547a',
       contrastText: '#fff',
     },
     secondary: {
-      main: process.env.REACT_APP_COLOR_SECONDARY_MAIN || '#ebb800',
-      light: process.env.REACT_APP_COLOR_SECONDARY_LIGHT || '#ebb800',
-      dark: process.env.REACT_APP_COLOR_SECONDARY_DARK || '#c09c34',
+      main: '#ebb800',
+      light: '#ebb800',
+      dark: '#c09c34',
       contrastText: '#fff',
     },
     success: {
