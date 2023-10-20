@@ -42,12 +42,12 @@ export default function Router () {
             <Route element={<ProtectedRoute matchedRoles={ALL_ROLES} />}>
               <Route element={<PageLayouts />}>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/notifications" element={<NotificationsPage />} />
               </Route>
             </Route>
             <Route element={<ProtectedRoute matchedRoles={FULL_PERMISSION_ROLES} />}>
               <Route element={<PageLayouts />}>
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/notifications" element={<NotificationsPage />} />
                 <Route path="/projects" element={<ProjectListPage />} />
                 <Route path="/prepayments" element={<PrepaymentsListPage />} />
                 <Route path="/daysoff" element={<DayoffListPage />} />
