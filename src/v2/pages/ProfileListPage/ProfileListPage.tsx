@@ -4,11 +4,16 @@ import AddFilterButton from 'v2/components/Filters/AddFilterButton';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
+import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { AiOutlineSearchIcon } from 'components/icons';
+import Autocomplete from 'components/shared/Autocomplete';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
+import Select from 'components/shared/Select';
+import { USER_STATUSES } from 'constants/statuses';
 import useLocalStorageState from 'hooks/useLocalStorageState';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';
 
 import HeaderTable from './components/HeaderTable';
@@ -30,6 +35,8 @@ const ProfileListPageRender = () => {
 
   // filters
   const { data: usersFilter = [] } = useGetUserListForFilter();
+  const { data: projects = [] } = useGetProjects();
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
 
   const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
@@ -74,8 +81,36 @@ const ProfileListPageRender = () => {
             limitTags={1}
             placeholder={t('search')}
           />
-          <AddFilterButton />
-          <ClearFiLtersButton />
+          <AddFilterButton
+            filterOptions={[
+              {
+                id: 'project',
+                name: t('user.project'),
+                popperComponent: (onSelect) => (
+                  <Autocomplete
+                    label={t('user.project')}
+                    style={{ minWidth: 300 }}
+                    options={projects}
+                    getOptionLabel={(option) => option.name}
+                    onChange={onSelect}
+                  />
+                ),
+              },
+              {
+                id: 'status',
+                name: t('user.status'),
+                popperComponent: (onSelect) => (
+                  <Select
+                    label={t('user.status')}
+                    style={{ minWidth: 300 }}
+                    options={translatedStatuses}
+                    onChange={(e) => void onSelect(e.target.value)}
+                  />
+                ),
+              },
+            ]}
+            onAddFilter={console.log}
+          />
         </FilterTableWrapper>
         <Table
           activeCols={activeCols}

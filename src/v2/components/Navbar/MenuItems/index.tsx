@@ -31,10 +31,10 @@ const MenuItems = () => {
 
   return (
     <div>
-      {menuItems.map((item, index) => {
+      {menuItems.map((item) => {
         if (item.type === 'link' && item.to) {
           return (
-            <Link to={item.to} key={index}>
+            <Link to={item.to} key={item.title}>
               <ListItem className="list-item" title={t(item.title)}>
                 <NavItem
                   key={item.to}
@@ -54,7 +54,7 @@ const MenuItems = () => {
           );
         } else {
           return (
-            <AccordionWrapper onClick={() => onClickAccordion(item.title)} expanded={expandedMenu === item.title}>
+            <AccordionWrapper onClick={() => onClickAccordion(item.title)} expanded={expandedMenu === item.title} key={item.title}>
               <AccordionSummary
                 expandIcon={<ArrowDownIconRi size={23} />}
                 aria-controls="panel1a-content"

@@ -23,3 +23,17 @@ export const Button = styled.button.attrs({ className: 'AddFilterButton' })`
     background-color: transparent;
   }
 `;
+
+export const MenuWrapper = styled.div`
+  width: 300px;
+  padding: 12px;
+
+  .filter-item {
+    padding: 6px;
+    cursor: pointer;
+    transition: .3s;
+    &:hover {
+      background-color: #f3f3f3;
+    }
+  }
+`;
