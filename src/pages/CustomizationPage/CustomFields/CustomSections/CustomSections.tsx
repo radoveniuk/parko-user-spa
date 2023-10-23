@@ -14,7 +14,7 @@ import { DeleteIcon, EditIcon, PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
 import DialogConfirm from 'components/shared/DialogConfirm';
-import IconButton from 'components/shared/IconButton';
+import IconButton from 'v2/uikit/IconButton';
 import Input from 'components/shared/Input';
 import RadioButtonGroup, { RadioButton } from 'components/shared/RadioButtonGroup';
 import { LANGUAGES } from 'constants/languages';

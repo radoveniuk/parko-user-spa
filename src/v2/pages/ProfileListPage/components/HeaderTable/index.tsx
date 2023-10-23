@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import { pick } from 'lodash-es';
 import { Button, Divider, Menu, MenuItem, Stack } from 'v2/uikit';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
+import IconButton from 'v2/uikit/IconButton';
 
 import { useGetProjects } from 'api/query/projectQuery';
 import { ArrowDownIcon, FilterIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
 import { FilterAutocomplete } from 'components/shared/Filters';
-import IconButton from 'components/shared/IconButton';
 import { USER_STATUSES } from 'constants/statuses';
 import { DYNAMIC_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
 import { getDateFromIso } from 'helpers/datetime';

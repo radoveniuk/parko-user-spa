@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { CopyIcon } from 'components/icons';
-import IconButton from 'components/shared/IconButton';
+import IconButton from 'v2/uikit/IconButton';
 import { DEFAULT_PASS } from 'pages/UploadProfilesPage/constants';
 import { DefaultPassWrapper } from 'pages/UploadProfilesPage/styles';
 

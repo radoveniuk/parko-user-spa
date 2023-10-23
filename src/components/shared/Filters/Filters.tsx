@@ -1,10 +1,10 @@
 import React from 'react';
 import { isEmpty } from 'lodash-es';
+import IconButton from 'v2/uikit/IconButton';
 
 import { CloseIcon } from 'components/icons';
 import Autocomplete, { AutocompleteProps } from 'components/shared/Autocomplete';
 import DatePicker, { DatePickerProps } from 'components/shared/DatePicker';
-import IconButton from 'components/shared/IconButton';
 import Input from 'components/shared/Input';
 import Select, { SelectProps } from 'components/shared/Select';
 import usePrev from 'hooks/usePrev';

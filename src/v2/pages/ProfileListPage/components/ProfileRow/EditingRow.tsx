@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import IconButton from 'v2/uikit/IconButton';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
@@ -12,7 +13,6 @@ import { SaveIcon } from 'components/icons';
 import BooleanSelect from 'components/shared/BooleanSelect';
 import Checkbox from 'components/shared/Checkbox';
 import DatePicker from 'components/shared/DatePicker';
-import IconButton from 'components/shared/IconButton';
 import Input from 'components/shared/Input';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';

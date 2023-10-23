@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import IconButton from 'v2/uikit/IconButton';
 
 import { useCreateDictionaryMutation, useDeleteDictionaryMutation, useUpdateDictionaryMutation } from 'api/mutations/dictionaryMutation';
 import { useGetDictionaries } from 'api/query/dictionariesQuery';
@@ -8,7 +9,6 @@ import { PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Chip from 'components/shared/Chip';
 import DialogConfirm from 'components/shared/DialogConfirm';
-import IconButton from 'components/shared/IconButton';
 import Input from 'components/shared/Input';
 import List from 'components/shared/List';
 import { IDictionary } from 'interfaces/dictionary.interface';

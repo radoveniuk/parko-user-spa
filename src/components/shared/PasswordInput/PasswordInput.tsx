@@ -1,8 +1,8 @@
 import React, { ForwardedRef, forwardRef, useState } from 'react';
 import { TextFieldProps } from '@mui/material';
+import IconButton from 'v2/uikit/IconButton';
 
 import { EyeIcon, EyeSlashIcon } from 'components/icons';
-import IconButton from 'components/shared/IconButton';
 import Input from 'components/shared/Input';
 
 const PasswordInput = forwardRef((props: TextFieldProps, ref: ForwardedRef<HTMLInputElement>) => {

@@ -1,4 +1,4 @@
-import React, { ForwardedRef, forwardRef } from 'react';
+import React, { ForwardedRef, forwardRef, memo } from 'react';
 import { IconButton as IconButtonMaterial, IconButtonProps } from '@mui/material';
 
 const IconButton = forwardRef(({ children, ...rest }: IconButtonProps, ref: ForwardedRef<HTMLButtonElement>) => (
@@ -12,4 +12,4 @@ const IconButton = forwardRef(({ children, ...rest }: IconButtonProps, ref: Forw
 
 IconButton.displayName = 'IconButton';
 
-export default IconButton;
+export default memo(IconButton);

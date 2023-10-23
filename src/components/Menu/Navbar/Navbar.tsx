@@ -7,7 +7,7 @@ import logoImage from 'components/assets/images/logo.png';
 import LanguageSelector from 'components/complex/LanguageSelector';
 import LogoutButton from 'components/complex/LogoutButton';
 import { ArrowBackIcon, EmailIcon, InternetIcon, MenuIcon, PhoneIcon } from 'components/icons';
-import IconButton from 'components/shared/IconButton';
+import IconButton from 'v2/uikit/IconButton';
 import { useAuthData } from 'contexts/AuthContext';
 import { useNavbarActiveLink, useNavbarItems, useToggleNavbar } from 'contexts/NavbarStateContext';
 import { useNotifications } from 'contexts/NotificationContext';

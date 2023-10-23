@@ -2,13 +2,13 @@ import React, { memo } from 'react';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import IconButton from 'v2/uikit/IconButton';
 
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUser } from 'api/query/userQuery';
 import { EditIcon, InfoIcon } from 'components/icons';
 import DatePicker from 'components/shared/DatePicker';
-import IconButton from 'components/shared/IconButton';
 import Select from 'components/shared/Select';
 import Stepper from 'components/shared/Stepper';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';

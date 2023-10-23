@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import IconButton from 'v2/uikit/IconButton';
 
 import { uploadFiles } from 'api/common';
 import { useDeleteFileMutation } from 'api/mutations/fileMutation';
@@ -9,7 +10,6 @@ import { useGetPaycheckList } from 'api/query/paycheckQuery';
 import { ArrowUpIcon, CloseIcon, DownloadFileIcon, EditIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import FileInput from 'components/shared/FileInput';
-import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';

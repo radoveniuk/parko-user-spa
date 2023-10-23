@@ -3,7 +3,7 @@ import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautif
 import { useTranslation } from 'react-i18next';
 
 import { CloseIcon, PlusIcon } from 'components/icons';
-import IconButton from 'components/shared/IconButton';
+import IconButton from 'v2/uikit/IconButton';
 import Input from 'components/shared/Input';
 
 import { ProjectStagesSettingsWrapper, ProjectStagesWrapper, StageItem } from './styles';

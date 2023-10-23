@@ -3,9 +3,9 @@ import Dialog from '@mui/material/Dialog';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import Button from 'v2/uikit/Button';
+import IconButton from 'v2/uikit/IconButton';
 
 import { CloseIcon } from 'components/icons';
-import IconButton from 'components/shared/IconButton';
 
 import { Toolbar } from './styles';
 

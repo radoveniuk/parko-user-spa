@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import IconButton from 'v2/uikit/IconButton';
 
 import { BooleanIcon, EditIcon } from 'components/icons';
 import Checkbox from 'components/shared/Checkbox';
-import IconButton from 'components/shared/IconButton';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { STATUSES_COLORS } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';

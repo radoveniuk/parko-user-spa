@@ -6,4 +6,5 @@ export const Button = styled(ButtonMui)`
   text-transform: unset !important;
   gap: 5px;
   border-radius: 2px !important;
+  white-space: nowrap;
 `;

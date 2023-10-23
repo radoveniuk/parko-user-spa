@@ -8,7 +8,7 @@ import downloadFile from 'api/query/downloadFile';
 import { CloseIcon, DownloadFileIcon, EditIcon, EyeIcon, PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
-import IconButton from 'components/shared/IconButton';
+import IconButton from 'v2/uikit/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { PageActions } from 'components/shared/PageComponents';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';

@@ -19,6 +19,12 @@ const meta: Meta<typeof Button> = {
       description: 'Buttons text',
       control: { type: 'text' },
     },
+    color: {
+      name: 'color',
+      description: 'Buttons color',
+      options: ['primary', 'secondary', 'error', 'warning'],
+      control: { type: 'radio' },
+    },
     onClick: { action: 'clicked' },
   },
 };
@@ -31,5 +37,6 @@ export const Example: Story = {
   args: {
     variant: 'text',
     children: <><PlusIcon /> Click</>,
+    color: 'primary',
   },
 };
