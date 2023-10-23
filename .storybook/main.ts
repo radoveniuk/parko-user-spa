@@ -1,6 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import { defineConfig } from 'vite';
-import customViteConfig  from '../vite.config.storybook';
+import omit from "lodash-es/omit";
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.tsx'],
   addons: [
@@ -16,8 +15,9 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-  viteFinal: async () => {
-    return defineConfig(customViteConfig);
+  // viteFinal
+  viteFinal: (inlineConfig) => {
+    return omit(inlineConfig, 'define');
   },
 };
 export default config;
