@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { PlusIcon } from 'components/icons';
 
-import Button from '.';
+import Button from './Button';
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -27,7 +27,7 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-export const PrimaryButton: Story = {
+export const Example: Story = {
   args: {
     variant: 'text',
     children: <><PlusIcon /> Click</>,
