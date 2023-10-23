@@ -1,5 +1,6 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-
+import { defineConfig } from 'vite';
+import customViteConfig  from '../vite.config.storybook';
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.tsx'],
   addons: [
@@ -14,6 +15,9 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: "tag",
+  },
+  viteFinal: async () => {
+    return defineConfig(customViteConfig);
   },
 };
 export default config;

@@ -1,14 +1,17 @@
-import React from 'react';
-import { ButtonProps } from '@mui/material';
+import React, { HTMLAttributes } from 'react';
 
 import { StyledButton } from './styles';
 
-type Props = ButtonProps & {
+export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   component?: string;
   loading?: boolean;
+  variant?: 'text' | 'outlined' | 'contained',
+  color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning',
+  disabled?: boolean;
+  type?: 'submit' | 'reset' | 'button';
 }
 
-const Button = ({ children, variant = 'contained', ...rest }: Props) => (
+const Button = ({ children, variant = 'contained', ...rest }: ButtonProps) => (
   <StyledButton variant={variant} {...rest}>
     {children}
   </StyledButton>

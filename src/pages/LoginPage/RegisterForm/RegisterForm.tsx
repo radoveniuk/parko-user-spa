@@ -39,7 +39,7 @@ const RegisterForm = () => {
         control={control}
         name="phone"
         defaultValue=""
-        rules={{ required: true, validate: checkPhoneNumber }}
+        rules={{ required: true, validate: checkPhoneNumber as any }}
         render={({ field }) => (
           <PhoneInput
             value={field.value}

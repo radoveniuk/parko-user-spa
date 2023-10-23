@@ -7,7 +7,7 @@ import { IUser } from 'interfaces/users.interface';
 export type UserField = {
   type: 'string' | 'number' | 'boolean' | 'date' | 'select' | 'dynamic-select' | 'phone' | 'textarea';
   required?: boolean;
-  validation?: Record<string, Validate<unknown>>;
+  validation?: Record<string, Validate<unknown, unknown>>;
   permissionRoles?: string[];
   selectProps?: AnyObject;
 }

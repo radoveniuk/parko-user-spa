@@ -6,10 +6,6 @@ import viteTsconfigPaths from 'vite-tsconfig-paths'; ;
 
 dns.setDefaultResultOrder('verbatim');
 export default defineConfig({
-  define: {
-    // here is the main update
-    global: 'globalThis',
-  },
   base: '',
   plugins: [react(), viteTsconfigPaths(), vitepluginSVGR()],
   server: {

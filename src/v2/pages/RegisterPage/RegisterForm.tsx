@@ -68,7 +68,7 @@ const RegisterForm = () => {
         control={control}
         name="phone"
         defaultValue=""
-        rules={{ required: { message: t('errorTexts.requiredField'), value: true }, validate: checkPhoneNumber }}
+        rules={{ required: { message: t('errorTexts.requiredField'), value: true }, validate: checkPhoneNumber as any }}
         render={({ field }) => (
           <PhoneInput
             {...field}

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, To } from 'react-router-dom';
-import { ButtonProps, IconButtonProps } from '@mui/material';
+import { IconButtonProps } from '@mui/material';
 
 import { DeleteIcon } from 'components/icons';
-import Button from 'components/shared/Button';
+import Button, { ButtonProps } from 'components/shared/Button';
 
 import { DeleteNotificationIconButton, NotificationContentWrapper, NotificationTextWrapper, NotificationTitleWrapper } from './styles';
 
