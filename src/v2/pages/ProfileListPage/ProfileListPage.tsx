@@ -91,7 +91,6 @@ const ProfileListPageRender = () => {
           )}
           {!!filtersState?.status && (
             <Chip
-              className="filter-chip"
               label={`${t('user.status')}: ${translatedStatuses.find(status => status.value === filtersState?.status)?.label}`}
               onDelete={() => void removeFilter('status')}
             />
