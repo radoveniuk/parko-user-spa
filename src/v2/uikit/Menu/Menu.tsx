@@ -33,7 +33,7 @@ const Menu = ({ open, menuTitle: title, children, isCloseOnMenu, menuComponent, 
 
   const menuItems = useMemo(() => React.Children.map(children, (child: any) => (
     React.cloneElement(child, {
-      onClick: () => { child.props.onClick(); isCloseOnMenu && handleClose(); },
+      onClick: () => { child.props?.onClick?.(); isCloseOnMenu && handleClose(); },
     })
   )), [children, isCloseOnMenu]);
 
