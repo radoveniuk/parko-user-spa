@@ -49,6 +49,7 @@ export { RiDeleteBin6Line as DeleteIcon } from 'react-icons/ri';
 export { RiToolsFill as CustomizeIcon } from 'react-icons/ri';
 export { RiArrowDownSFill as ArrowDownIconRi } from 'react-icons/ri';
 export { SiMicrosoftexcel as ExcelIcon } from 'react-icons/si'; ;
+export * from './CalendarIcon';
 export { AiOutlineUser as UserOutlineIcon } from 'react-icons/ai';
 export { BiMessageAltError as BiMessageIcon } from 'react-icons/bi';
 export { BsFillBuildingFill as FillBuildingIcon } from 'react-icons/bs';

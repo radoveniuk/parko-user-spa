@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
 import { DateTime } from 'luxon';
 import { Paper } from 'v2/uikit';
+import DatePicker from 'v2/uikit/DatePicker';
 
 import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetUser } from 'api/query/userQuery';
@@ -16,7 +17,6 @@ import ProfileScans from 'components/complex/ProfileScans';
 import { DeleteIcon, EmailIcon, NotificationIcon, PasswordIcon, PhoneIcon, PrintIcon, SaveIcon } from 'components/icons';
 import Accordion from 'components/shared/Accordion';
 import Button from 'components/shared/Button';
-import DatePicker from 'components/shared/DatePicker';
 import Dialog, { DialogActions } from 'components/shared/Dialog';
 import Input from 'components/shared/Input';
 import { PageTitleV2 } from 'components/shared/PageComponents/styles';
@@ -348,7 +348,7 @@ const ProfileAdminPageRender = () => {
                   <>
                     <DatePicker
                       label={t('date')}
-                      value={stageInfo.date || DateTime.now().toISODate()}
+                      defaultValue={stageInfo.date || DateTime.now().toISODate()}
                       onChange={date => void updateStage(stage, { date })}
                     />
                     <Input

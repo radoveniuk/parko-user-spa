@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import BooleanSelect from 'components/shared/BooleanSelect';
-import DatePicker from 'components/shared/DatePicker';
+import DatePicker from 'v2/uikit/DatePicker';
 import Input from 'components/shared/Input';
 import PhoneInput from 'components/shared/PhoneInput';
 import Select from 'components/shared/Select';
@@ -35,7 +35,7 @@ const CustomField = ({ value, onChange, metadata }: CustomFieldProps) => {
     );
   }
 
-  if (type === 'date') return <DatePicker value={value as string || ''} onChange={onChange} label={metadata.names[i18n.language]} />;
+  if (type === 'date') return <DatePicker defaultValue={value as string || ''} onChange={onChange} label={metadata.names[i18n.language]} />;
 
   if (type === 'select') {
     return (

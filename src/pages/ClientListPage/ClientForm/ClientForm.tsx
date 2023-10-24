@@ -2,7 +2,7 @@ import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import DatePicker from 'components/shared/DatePicker';
+import DatePicker from 'v2/uikit/DatePicker';
 import Input from 'components/shared/Input';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import Select from 'components/shared/Select';
@@ -54,7 +54,7 @@ export default function ClientForm ({ defaultValues }: Props) {
         name="cooperationStartDate"
         render={({ field }) => (
           <DatePicker
-            value={field.value}
+            defaultValue={field.value}
             onChange={field.onChange}
             label={t('client.cooperationStartDate')}
           />
@@ -65,7 +65,7 @@ export default function ClientForm ({ defaultValues }: Props) {
         name="cooperationEndDate"
         render={({ field }) => (
           <DatePicker
-            value={field.value}
+            defaultValue={field.value}
             onChange={field.onChange}
             label={t('client.cooperationEndDate')}
           />

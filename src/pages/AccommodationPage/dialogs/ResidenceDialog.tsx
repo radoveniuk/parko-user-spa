@@ -9,7 +9,7 @@ import { useGetUserList } from 'api/query/userQuery';
 import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
-import DatePicker from 'components/shared/DatePicker';
+import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IResidence } from 'interfaces/residence.interface';
@@ -95,7 +95,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
             rules={{ required: true }}
             render={({ field }) => (
               <DatePicker
-                value={field.value}
+                defaultValue={field.value}
                 onChange={field.onChange}
                 label={`${t('accommodation.checkIn')}*`}
                 className="form-field"
@@ -110,7 +110,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
               defaultValue={null}
               render={({ field }) => (
                 <DatePicker
-                  value={field.value}
+                  defaultValue={field.value}
                   onChange={field.onChange}
                   label={t('accommodation.checkOut')}
                   className="form-field"

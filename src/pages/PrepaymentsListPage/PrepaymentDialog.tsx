@@ -6,7 +6,7 @@ import { DateTime } from 'luxon';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
-import DatePicker from 'components/shared/DatePicker';
+import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'components/shared/Dialog';
 import Input from 'components/shared/Input';
 import Select from 'components/shared/Select';
@@ -68,7 +68,7 @@ const PrepaymentDialog = ({ prepayment, submit, ...rest }: Props) => {
             rules={{ required: true }}
             render={({ field }) => (
               <DatePicker
-                value={field.value}
+                defaultValue={field.value}
                 onChange={field.onChange}
                 label={t('prepayment.date')}
                 error={!!errors.createdAt}
@@ -90,7 +90,7 @@ const PrepaymentDialog = ({ prepayment, submit, ...rest }: Props) => {
             defaultValue={DateTime.now().toISODate()}
             render={({ field }) => (
               <DatePicker
-                value={field.value}
+                defaultValue={field.value}
                 onChange={field.onChange}
                 label={t('prepayment.paymentDate')}
               />

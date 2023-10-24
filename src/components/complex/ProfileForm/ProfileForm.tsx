@@ -8,7 +8,7 @@ import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import Accordion from 'components/shared/Accordion';
 import BooleanSelect from 'components/shared/BooleanSelect';
-import DatePicker from 'components/shared/DatePicker';
+import DatePicker from 'v2/uikit/DatePicker';
 import Input from 'components/shared/Input';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import Select from 'components/shared/Select';
@@ -151,7 +151,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
             defaultValue={defaultValues?.[fieldName] || ''}
             render={({ field }) => (
               <DatePicker
-                value={field.value as string}
+                defaultValue={field.value as string}
                 onChange={field.onChange}
                 label={t(`user.${fieldName}`)}
               />

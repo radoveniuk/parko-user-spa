@@ -12,7 +12,7 @@ import CustomField from 'components/complex/CustomField';
 import { SaveIcon } from 'components/icons';
 import BooleanSelect from 'components/shared/BooleanSelect';
 import Checkbox from 'components/shared/Checkbox';
-import DatePicker from 'components/shared/DatePicker';
+import DatePicker from 'v2/uikit/DatePicker';
 import Input from 'components/shared/Input';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
@@ -161,7 +161,7 @@ const EditingRow = () => {
             defaultValue={data?.[fieldName] || ''}
             render={({ field }) => (
               <DatePicker
-                value={field.value as string}
+                defaultValue={field.value as string}
                 onChange={field.onChange}
                 label={t(`user.${fieldName}`)}
               />

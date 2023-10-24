@@ -7,7 +7,7 @@ import { useCreateDictionaryMutation, useDeleteDictionaryMutation, useUpdateDict
 import { useGetDictionaries } from 'api/query/dictionariesQuery';
 import { PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import Chip from 'components/shared/Chip';
+import Chip from 'v2/uikit/Chip';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import Input from 'components/shared/Input';
 import List from 'components/shared/List';

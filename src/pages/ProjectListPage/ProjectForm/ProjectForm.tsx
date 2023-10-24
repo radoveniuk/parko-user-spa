@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import CustomField from 'components/complex/CustomField';
 import Accordion, { AccordionContent } from 'components/shared/Accordion';
-import DatePicker from 'components/shared/DatePicker';
+import DatePicker from 'v2/uikit/DatePicker';
 import Input from 'components/shared/Input';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import Select from 'components/shared/Select';
@@ -110,7 +110,7 @@ const ProjectForm = ({ defaultValues }: Props) => {
             defaultValue={null}
             render={({ field }) => (
               <DatePicker
-                value={field.value}
+                defaultValue={field.value}
                 onChange={field.onChange}
                 label={t('project.dateStart')}
               />
@@ -122,7 +122,7 @@ const ProjectForm = ({ defaultValues }: Props) => {
             defaultValue={null}
             render={({ field }) => (
               <DatePicker
-                value={field.value}
+                defaultValue={field.value}
                 onChange={field.onChange}
                 label={t('project.dateEnd')}
               />

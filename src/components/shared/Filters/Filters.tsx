@@ -4,7 +4,7 @@ import IconButton from 'v2/uikit/IconButton';
 
 import { CloseIcon } from 'components/icons';
 import Autocomplete, { AutocompleteProps } from 'components/shared/Autocomplete';
-import DatePicker, { DatePickerProps } from 'components/shared/DatePicker';
+import DatePicker, { DatePickerProps } from 'v2/uikit/DatePicker';
 import Input from 'components/shared/Input';
 import Select, { SelectProps } from 'components/shared/Select';
 import usePrev from 'hooks/usePrev';
@@ -39,7 +39,7 @@ export const FilterDate = ({ filterKey, label, ...rest }: FilterProps & Partial<
       <DatePicker
         {...rest}
         label={label}
-        value={value || ''}
+        defaultValue={value || ''}
         onChange={(v) => {
           if (v !== prevValue) {
             setValue(v);

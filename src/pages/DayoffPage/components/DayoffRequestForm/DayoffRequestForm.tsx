@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 
 import { useCreateDayoffMutation } from 'api/mutations/dayoffMutation';
 import Button from 'components/shared/Button';
-import DatePicker from 'components/shared/DatePicker';
+import DatePicker from 'v2/uikit/DatePicker';
 import Input from 'components/shared/Input';
 import Select from 'components/shared/Select';
 import { REASONS } from 'constants/dayoffReasons';
@@ -58,7 +58,7 @@ const DayoffRequestForm = () => {
           rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
-              value={field.value}
+              defaultValue={field.value}
               onChange={field.onChange}
               label={t('dayoff.dateStart')}
             />
@@ -71,7 +71,7 @@ const DayoffRequestForm = () => {
           rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
-              value={field.value}
+              defaultValue={field.value}
               onChange={field.onChange}
               label={t('dayoff.dateEnd')}
             />

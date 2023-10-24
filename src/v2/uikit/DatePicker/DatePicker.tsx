@@ -1,36 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextField } from '@mui/material';
-import { CalendarPickerView, LocalizationProvider } from '@mui/x-date-pickers';
+import { DateView, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { DateTime } from 'luxon';
 
+import { CalendarIcon } from 'components/icons';
+
+import { FieldWrapper } from './styles';
+
 const dateRegex = /^([0-2][0-9]|(3)[0-1])(\.)(((0)[0-9])|((1)[0-2]))(\.)\d{4}$/;
 
 export type Props = {
-  value?: string | null;
+  defaultValue?: string | null;
   onChange(v: string, isValid?: boolean): void;
   label: string;
   className?:string;
   error?: boolean;
   minDate?: string;
   maxDate?: string;
-  openTo?: CalendarPickerView;
+  openTo?: DateView;
+  views?: DateView[];
 }
 
-const DatePicker = ({ value: defaultValue, onChange, label, className, error, minDate, maxDate, openTo }: Props) => {
-  const [value, setValue] = useState<DateTime | null>(null);
+const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, maxDate, openTo, views }: Props) => {
   const { i18n } = useTranslation();
 
-  useEffect(() => {
+  const datetimeDefaultValue = useMemo(() => {
     if (defaultValue) {
       const isIso = !DateTime.fromISO(defaultValue).invalidReason;
       if (isIso) {
-        setValue(DateTime.fromISO(defaultValue));
+        return DateTime.fromISO(defaultValue);
       }
     } else {
-      setValue(null);
+      return null;
     }
   }, [defaultValue]);
 
@@ -39,19 +43,27 @@ const DatePicker = ({ value: defaultValue, onChange, label, className, error, mi
       <DesktopDatePicker
         className={className}
         label={label}
-        inputFormat="dd.MM.yyyy"
-        value={value}
+        format="dd.MM.yyyy"
+        defaultValue={datetimeDefaultValue}
         onChange={(luxonValue: DateTime | null) => {
-          setValue(luxonValue);
           onChange(
             luxonValue?.isValid ? luxonValue?.toISODate() || '' : '',
             luxonValue?.isValid,
           );
         }}
-        renderInput={(params) => <TextField {...params} error={error}/>}
+        slots={{
+          textField: (params) => (
+            <FieldWrapper>
+              <div className="label">{label}</div>
+              <TextField {...params} label={undefined} error={error}/>
+            </FieldWrapper>
+          ),
+          openPickerIcon: CalendarIcon,
+        }}
         minDate={minDate ? DateTime.fromISO(minDate) : undefined}
         maxDate={maxDate ? DateTime.fromISO(maxDate) : undefined}
         openTo={openTo || 'day'}
+        views={views}
       />
     </LocalizationProvider>
   );

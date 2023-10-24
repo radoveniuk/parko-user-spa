@@ -8,7 +8,7 @@ import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUser } from 'api/query/userQuery';
 import { EditIcon, InfoIcon } from 'components/icons';
-import DatePicker from 'components/shared/DatePicker';
+import DatePicker from 'v2/uikit/DatePicker';
 import Select from 'components/shared/Select';
 import Stepper from 'components/shared/Stepper';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
@@ -123,7 +123,7 @@ const Projects = ({ setStages, setProjectStages, methods, projectStages, setOpen
           }}
           render={({ field }) => (
             <DatePicker
-              value={field.value as string}
+              defaultValue={field.value as string}
               onChange={field.onChange}
               label={t('user.cooperationStartDate')}
               error={!!methods.formState.errors.cooperationStartDate}
@@ -139,7 +139,7 @@ const Projects = ({ setStages, setProjectStages, methods, projectStages, setOpen
           }}
           render={({ field }) => (
             <DatePicker
-              value={field.value as string}
+              defaultValue={field.value as string}
               onChange={field.onChange}
               label={t('user.cooperationEndDate')}
               error={!!methods.formState.errors.cooperationEndDate}

@@ -37,6 +37,6 @@ export const themeConfig = {
   },
   client: themeConfigV2.client,
   typography: {
-    fontFamily: 'Open Sans',
+    fontFamily: 'Roboto',
   },
 };

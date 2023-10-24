@@ -7,7 +7,7 @@ import { useGetResidences } from 'api/query/residenceQuery';
 import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
-import DatePicker from 'components/shared/DatePicker';
+import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -51,7 +51,7 @@ const CheckoutDialog = ({ onClose, ...rest }: DialogProps) => {
             style={{ minWidth: 223 }}
             onChange={setSelectedResidence}
           />
-          <DatePicker value={checkOutDate} onChange={setCheckOutDate} label={`${t('accommodation.checkOut')}*`} />
+          <DatePicker defaultValue={checkOutDate} onChange={setCheckOutDate} label={`${t('accommodation.checkOut')}*`} />
         </div>
         <div className="actions">
           <Checkbox

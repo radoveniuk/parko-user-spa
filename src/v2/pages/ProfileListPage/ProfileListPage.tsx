@@ -9,7 +9,7 @@ import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { AiOutlineSearchIcon } from 'components/icons';
 import Autocomplete from 'components/shared/Autocomplete';
-import Chip from 'components/shared/Chip';
+import Chip from 'v2/uikit/Chip';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 import Select from 'components/shared/Select';
 import { USER_STATUSES } from 'constants/statuses';
