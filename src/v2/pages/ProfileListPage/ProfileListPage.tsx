@@ -85,7 +85,6 @@ const ProfileListPageRender = () => {
           />
           {!!filtersState?.project && (
             <Chip
-              className="filter-chip"
               label={`${t('user.project')}: ${projects.find(project => project._id === filtersState.project)?.name}`}
               onDelete={() => void removeFilter('project')}
             />
