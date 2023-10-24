@@ -52,7 +52,7 @@ const Header = () => {
       </div>
       <Stack direction="row" alignItems="center" gap="20px">
         <Menu
-          buttonComponent={(
+          menuComponent={(
             <Avatar
               className="user-avatar"
               sx={{ bgcolor: themeConfig.palette.primary.light }}

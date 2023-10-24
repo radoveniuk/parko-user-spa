@@ -113,7 +113,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
             </Button>
           </Link>
           <Menu
-            buttonComponent={(
+            menuComponent={(
               <>
                 <Button className="big-btn">
                   <div className="text">{t('fastActions')}</div>
