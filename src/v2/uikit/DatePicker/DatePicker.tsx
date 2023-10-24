@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField } from '@mui/material';
 import { DateView, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -8,7 +7,7 @@ import { DateTime } from 'luxon';
 
 import { CalendarIcon } from 'components/icons';
 
-import { FieldWrapper } from './styles';
+import Input from '../Input';
 
 const dateRegex = /^([0-2][0-9]|(3)[0-1])(\.)(((0)[0-9])|((1)[0-2]))(\.)\d{4}$/;
 
@@ -22,9 +21,10 @@ export type Props = {
   maxDate?: string;
   openTo?: DateView;
   views?: DateView[];
+  disabled?:boolean;
 }
 
-const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, maxDate, openTo, views }: Props) => {
+const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, maxDate, openTo, views, disabled }: Props) => {
   const { i18n } = useTranslation();
 
   const datetimeDefaultValue = useMemo(() => {
@@ -45,6 +45,7 @@ const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, 
         label={label}
         format="dd.MM.yyyy"
         defaultValue={datetimeDefaultValue}
+        disabled={disabled}
         onChange={(luxonValue: DateTime | null) => {
           onChange(
             luxonValue?.isValid ? luxonValue?.toISODate() || '' : '',
@@ -52,12 +53,7 @@ const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, 
           );
         }}
         slots={{
-          textField: (params) => (
-            <FieldWrapper>
-              <div className="label">{label}</div>
-              <TextField {...params} label={undefined} error={error}/>
-            </FieldWrapper>
-          ),
+          textField: (params) => <Input {...params} error={error}/>,
           openPickerIcon: CalendarIcon,
         }}
         minDate={minDate ? DateTime.fromISO(minDate) : undefined}

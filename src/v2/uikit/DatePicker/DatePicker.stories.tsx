@@ -23,5 +23,6 @@ export const Example: Story = {
     maxDate: DateTime.now().minus({ years: 18 }).toISODate(),
     openTo: 'year',
     views: ['year', 'month', 'day'],
+    disabled: false,
   },
 };
