@@ -51,6 +51,6 @@ export const MenuToolbar = styled.div`
 
 export const SearchInput = styled.input.attrs({ autoFocus: true })`
   border: 0;
-  height: 40px;
+  height: 36px;
   outline: none;
 `;

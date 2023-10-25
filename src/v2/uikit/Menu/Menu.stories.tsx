@@ -60,8 +60,8 @@ export const FileInputMenu: Story = {
 };
 
 const SexSelectorMenuWrapper = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   background: #E7E7E7;
   text-transform: uppercase;
   display: flex;

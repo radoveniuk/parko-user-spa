@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
+import { SM } from 'theme/sizeBreakpoints';
 
 export const SelectWrapper = styled.label`
   display: flex;
@@ -17,7 +18,10 @@ export const SelectWrapper = styled.label`
     }
   }
   .MuiInputBase-root {
-    height: 40px;
+    height: 36px;
+    @media (max-width: ${SM}) {
+      height: 48px;
+    }
     background: #fff;
     padding-right: 5px;
 

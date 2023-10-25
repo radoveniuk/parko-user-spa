@@ -1,13 +1,15 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DateView, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTime } from 'luxon';
 
 import { CalendarIcon } from 'components/icons';
 
-import Input from '../Input';
+import Input, { InputProps } from '../Input';
+
+type DateView = 'year' | 'month' | 'day';
 
 const dateRegex = /^([0-2][0-9]|(3)[0-1])(\.)(((0)[0-9])|((1)[0-2]))(\.)\d{4}$/;
 
@@ -21,10 +23,11 @@ export type Props = {
   maxDate?: string;
   openTo?: DateView;
   views?: DateView[];
-  disabled?:boolean;
+  disabled?: boolean;
+  inputProps?: InputProps;
 }
 
-const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, maxDate, openTo, views, disabled }: Props) => {
+const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, maxDate, openTo, views, disabled, inputProps }: Props) => {
   const { i18n } = useTranslation();
 
   const datetimeDefaultValue = useMemo(() => {
@@ -53,7 +56,7 @@ const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, 
           );
         }}
         slots={{
-          textField: (params) => <Input {...params} error={error}/>,
+          textField: (params) => <Input {...inputProps} {...params} error={error}/>,
           openPickerIcon: CalendarIcon,
         }}
         minDate={minDate ? DateTime.fromISO(minDate) : undefined}

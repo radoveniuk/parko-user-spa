@@ -24,5 +24,6 @@ export const Example: Story = {
     openTo: 'year',
     views: ['year', 'month', 'day'],
     disabled: false,
+    inputProps: { maxWidth: 300 },
   },
 };

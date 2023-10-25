@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
+import { SM } from 'theme/sizeBreakpoints';
 
 export const InputWrapper = styled.label`
   display: flex;
@@ -20,12 +21,17 @@ export const InputWrapper = styled.label`
     padding: 0 5px !important;
   }
   .MuiInputBase-root {
-    min-height: 40px;
+    min-height: 36px;
+    @media (max-width: ${SM}) {
+      min-height: 48px;
+    }
     &:not(.MuiAutocomplete-inputRoot) {
-      height: 40px;
+      height: 36px;
+      @media (max-width: ${SM}) {
+        height: 48px;
+      }
     }
     background: #fff;
-    padding-right: 5px;
     &:has(input:disabled) {
       background-color: #D0D0D0;
     }
@@ -34,14 +40,19 @@ export const InputWrapper = styled.label`
     }
 
     input {
-      padding: 5px 10px;
+      padding: 10px 14px;
+      height: -webkit-fill-available;
     }
 
     .MuiInputAdornment-positionStart {
       padding-right: 10px;
       border-right: 1px solid rgba(0, 0, 0, 0.23);
-      max-height: 40px;
-      height: 40px;
+      max-height: 36px;
+      height: 36px;
+      @media (max-width: ${SM}) {
+        max-height: 48px;
+        height: 48px;
+      }
     }
   }
   .MuiAutocomplete-tag {
