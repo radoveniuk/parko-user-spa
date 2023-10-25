@@ -50,16 +50,13 @@ export const Example: Story = {
 };
 
 export const FileInputMenu: Story = {
-  args: {
-    children: (
-      <>
-        <FileInput><MenuItem><BiSolidIdCard style={{ marginRight: 5 }} />Residence permit</MenuItem></FileInput>
-        <FileInput><MenuItem><GiPassport style={{ marginRight: 5 }} />Passport</MenuItem></FileInput>
-        <FileInput><MenuItem><BsFillFileMedicalFill style={{ marginRight: 5 }} />Medical insurace</MenuItem></FileInput>
-      </>
-    ),
-    menuComponent: <Button variant="outlined"><PlusIcon/>Add new doc</Button>,
-  },
+  render: () => (
+    <Menu isCloseOnMenu menuComponent={<Button variant="outlined"><PlusIcon/>Add new doc</Button>}>
+      <FileInput><MenuItem><BiSolidIdCard style={{ marginRight: 5 }} />Residence permit</MenuItem></FileInput>
+      <FileInput><MenuItem><GiPassport style={{ marginRight: 5 }} />Passport</MenuItem></FileInput>
+      <FileInput><MenuItem><BsFillFileMedicalFill style={{ marginRight: 5 }} />Medical insurace</MenuItem></FileInput>
+    </Menu>
+  ),
 };
 
 const SexSelectorMenuWrapper = styled.div`
