@@ -9,7 +9,7 @@ type Props = IconBaseProps & {
   value: boolean | null
 }
 
-const BooleanIcon = ({ value, ...rest }: Props) => {
+export const BooleanIcon = ({ value, ...rest }: Props) => {
   if (value) {
     return <IoCheckmark color={themeConfig.palette.success.main} {...rest} />;
   }
@@ -18,5 +18,3 @@ const BooleanIcon = ({ value, ...rest }: Props) => {
   }
   return <AiOutlineQuestion {...rest} />;
 };
-
-export default BooleanIcon;

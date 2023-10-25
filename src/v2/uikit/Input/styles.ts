@@ -16,8 +16,14 @@ export const InputWrapper = styled.label`
       color: ${themeConfig.palette.primary.main};
     }
   }
+  .MuiAutocomplete-inputRoot {
+    padding: 0 5px !important;
+  }
   .MuiInputBase-root {
-    height: 40px;
+    min-height: 40px;
+    &:not(.MuiAutocomplete-inputRoot) {
+      height: 40px;
+    }
     background: #fff;
     padding-right: 5px;
     &:has(input:disabled) {
@@ -37,5 +43,8 @@ export const InputWrapper = styled.label`
       max-height: 40px;
       height: 40px;
     }
+  }
+  .MuiAutocomplete-tag {
+    border-radius: 5px;
   }
 `;

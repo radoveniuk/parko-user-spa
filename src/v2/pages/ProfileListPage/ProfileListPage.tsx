@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddFilterButton from 'v2/components/Filters/AddFilterButton';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
+import Chip from 'v2/uikit/Chip';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
@@ -9,7 +10,6 @@ import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { AiOutlineSearchIcon } from 'components/icons';
 import Autocomplete from 'components/shared/Autocomplete';
-import Chip from 'v2/uikit/Chip';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 import Select from 'components/shared/Select';
 import { USER_STATUSES } from 'constants/statuses';
