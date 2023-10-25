@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { BiSolidIdCard } from 'react-icons/bi';
+import { BsFillFileMedicalFill } from 'react-icons/bs';
+import { GiPassport } from 'react-icons/gi';
 import type { Meta, StoryObj } from '@storybook/react';
 import styled from 'styled-components';
 
@@ -50,9 +53,9 @@ export const FileInputMenu: Story = {
   args: {
     children: (
       <>
-        <FileInput><MenuItem>Residence permit</MenuItem></FileInput>
-        <FileInput><MenuItem>Passport</MenuItem></FileInput>
-        <FileInput><MenuItem>Medical insurace</MenuItem></FileInput>
+        <FileInput><MenuItem><BiSolidIdCard style={{ marginRight: 5 }} />Residence permit</MenuItem></FileInput>
+        <FileInput><MenuItem><GiPassport style={{ marginRight: 5 }} />Passport</MenuItem></FileInput>
+        <FileInput><MenuItem><BsFillFileMedicalFill style={{ marginRight: 5 }} />Medical insurace</MenuItem></FileInput>
       </>
     ),
     menuComponent: <Button variant="outlined"><PlusIcon/>Add new doc</Button>,
