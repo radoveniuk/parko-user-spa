@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import { themeConfig } from 'theme';
 
 export const InputWrapper = styled.label`
-  display: block;
+  display: flex;
+  flex-direction: column;
   .label {
     color: #717171;
     font-size: 14px;
+    line-height: 14px;
     margin-bottom: 3px;
   }
   &:has(.Mui-focused) {
@@ -23,6 +25,10 @@ export const InputWrapper = styled.label`
     }
     input:disabled {
       -webkit-text-fill-color: rgba(0, 0, 0);
+    }
+
+    input {
+      padding: 5px 10px;
     }
 
     .MuiInputAdornment-positionStart {

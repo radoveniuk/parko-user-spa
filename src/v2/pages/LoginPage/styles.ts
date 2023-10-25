@@ -5,6 +5,7 @@ export const LoginFormWrapper = styled.form`
     flex-direction: column;
     line-height: 40px;
     margin-top: 30px;
+    gap: 20px;
 
     .MuiFormControl-root:first-child {
       margin-bottom: 20px;

@@ -22,6 +22,7 @@ type Story = StoryObj<typeof Input>;
 
 export const Example: Story = {
   args: {
+    maxWidth: 300,
     label: 'Simple input',
     placeholder: 'Type here some text...',
     disabled: false,
@@ -30,6 +31,7 @@ export const Example: Story = {
 
 export const Password: Story = {
   args: {
+    maxWidth: 300,
     label: 'Password',
     disabled: false,
     type: 'password',
@@ -39,6 +41,7 @@ export const Password: Story = {
 
 export const Prefix: Story = {
   args: {
+    maxWidth: 300,
     label: 'Input with prefix',
     disabled: false,
     InputProps: {

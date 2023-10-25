@@ -5,11 +5,12 @@ import { EyeIcon, EyeSlashIcon } from 'components/icons';
 
 import { InputWrapper } from './styles';
 
-type IInput = {
-  showPasswordIcon?: boolean
-} & TextFieldProps
+export type InputProps = {
+  showPasswordIcon?: boolean;
+  maxWidth?: number;
+} & TextFieldProps;
 
-const Input = ({ showPasswordIcon, type, ...props }: IInput) => {
+const Input = ({ showPasswordIcon, type, maxWidth, ...props }: InputProps) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = useCallback(() => {
@@ -17,7 +18,7 @@ const Input = ({ showPasswordIcon, type, ...props }: IInput) => {
   }, []);
 
   return (
-    <InputWrapper>
+    <InputWrapper style={{ maxWidth }}>
       <div className="label">{props.label}</div>
       <TextField
         type={showPasswordIcon ? (showPassword ? 'text' : 'password') : type}
