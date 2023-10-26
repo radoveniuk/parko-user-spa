@@ -6,6 +6,12 @@ const meta: Meta<typeof Autocomplete> = {
   component: Autocomplete,
   argTypes: {
     onChange: { action: 'onChange' },
+    theme: {
+      name: 'theme',
+      description: 'Background color',
+      options: ['white', 'gray'],
+      control: { type: 'radio' },
+    },
   },
 };
 
@@ -21,6 +27,7 @@ export const Single: Story = {
     maxWidth: 300,
     labelKey: 'label',
     options: [{ label: 'Option 1', _id: '1' }, { label: 'Option 2', _id: '2' }, { label: 'Option 3', _id: '3' }],
+    theme: 'gray',
   },
 };
 

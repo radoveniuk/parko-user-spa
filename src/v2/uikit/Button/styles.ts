@@ -7,4 +7,5 @@ export const Button = styled(ButtonMui)`
   gap: 5px;
   border-radius: 2px !important;
   white-space: nowrap;
+  height: 36px;
 `;

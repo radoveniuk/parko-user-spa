@@ -7,7 +7,6 @@ import viteTsconfigPaths from 'vite-tsconfig-paths';
 dns.setDefaultResultOrder('verbatim');
 export default defineConfig({
   define: {
-    // here is the main update
     global: 'globalThis',
   },
   base: '',
@@ -15,5 +14,14 @@ export default defineConfig({
   server: {
     open: true,
     port: 8081,
+    proxy: {
+      '/api': {
+        target: 'https://parko-user.com:3000',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
 });

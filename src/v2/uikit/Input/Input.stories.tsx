@@ -8,6 +8,12 @@ const meta: Meta<typeof Input> = {
   component: Input,
   argTypes: {
     onChange: { action: 'onChange' },
+    theme: {
+      name: 'theme',
+      description: 'Background color',
+      options: ['white', 'gray'],
+      control: { type: 'radio' },
+    },
     InputProps: {
       table: {
         disable: true,
@@ -26,6 +32,7 @@ export const Example: Story = {
     label: 'Simple input',
     placeholder: 'Type here some text...',
     disabled: false,
+    theme: 'gray',
   },
 };
 

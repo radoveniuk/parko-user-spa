@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { themeConfig } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
 
-export const InputWrapper = styled.label`
+export const InputWrapper = styled.label<{ fieldColor?: string }>`
   display: flex;
   flex-direction: column;
   .label {
@@ -22,6 +22,7 @@ export const InputWrapper = styled.label`
   }
   .MuiInputBase-root {
     min-height: 36px;
+    background: ${({ fieldColor }) => fieldColor || '#fff'};
     @media (max-width: ${SM}) {
       min-height: 48px;
     }
@@ -31,9 +32,8 @@ export const InputWrapper = styled.label`
         height: 48px;
       }
     }
-    background: #fff;
     &:has(input:disabled) {
-      background-color: #D0D0D0;
+      background: #F3F3F3;
     }
     input:disabled {
       -webkit-text-fill-color: rgba(0, 0, 0);

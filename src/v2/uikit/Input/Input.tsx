@@ -1,16 +1,27 @@
 import React, { memo, useCallback } from 'react';
-import { IconButton, InputAdornment, TextField, TextFieldProps } from '@mui/material';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 
 import { EyeIcon, EyeSlashIcon } from 'components/icons';
 
+import IconButton from '../IconButton';
+
 import { InputWrapper } from './styles';
+
+type FieldTheme = 'white' | 'gray';
+
+const COLORS_MAP: Record<FieldTheme, string> = {
+  gray: '#FAFAFA',
+  white: '#FFFFFF',
+};
 
 export type InputProps = {
   showPasswordIcon?: boolean;
   maxWidth?: number;
+  theme?: FieldTheme;
 } & TextFieldProps;
 
-const Input = ({ showPasswordIcon, type, maxWidth, ...props }: InputProps) => {
+const Input = ({ showPasswordIcon, type, maxWidth, theme = 'white', ...props }: InputProps) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = useCallback(() => {
@@ -18,7 +29,7 @@ const Input = ({ showPasswordIcon, type, maxWidth, ...props }: InputProps) => {
   }, []);
 
   return (
-    <InputWrapper style={{ maxWidth }}>
+    <InputWrapper style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
       <div className="label">{props.label}</div>
       <TextField
         type={showPasswordIcon ? (showPassword ? 'text' : 'password') : type}

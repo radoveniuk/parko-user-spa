@@ -8,6 +8,13 @@ import { DropdownIcon } from 'components/icons';
 
 import { SelectWrapper } from './styles';
 
+type FieldTheme = 'white' | 'gray';
+
+const COLORS_MAP: Record<FieldTheme, string> = {
+  gray: '#FAFAFA',
+  white: '#FFFFFF',
+};
+
 type Option = {[key: string | number]: any}
 
 export type SelectProps = SelectPropsMaterial & {
@@ -16,11 +23,14 @@ export type SelectProps = SelectPropsMaterial & {
   labelPath?: string | string[] | ((item: unknown) => string);
   emptyItem?: string;
   maxWidth?: number;
+  theme?: FieldTheme;
 }
 
 const Select = forwardRef(({
   label, options = [], valuePath = 'value',
-  labelPath = 'label', emptyItem, defaultValue, onChange, maxWidth, placeholder, ...rest
+  labelPath = 'label', emptyItem, defaultValue,
+  onChange, maxWidth, placeholder, theme = 'white',
+  ...rest
 }: SelectProps, ref) => {
   const { t } = useTranslation();
   const [selectedValue, setSelectedValue] = useState<unknown>(defaultValue || '');
@@ -52,7 +62,7 @@ const Select = forwardRef(({
   }, [labelPath, options, valuePath]);
 
   return (
-    <SelectWrapper style={{ maxWidth }}>
+    <SelectWrapper style={{ maxWidth }} fieldColor={COLORS_MAP[theme]} >
       <div className="label">{label}</div>
       <SelectMaterial
         value={selectedValue}

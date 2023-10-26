@@ -8,6 +8,7 @@ const meta: Meta<typeof ButtonGroup> = {
   argTypes: {
     onChange: { action: 'onChange' },
     options: { control: 'object' },
+    disabled: { control: 'boolean' },
   },
 };
 
@@ -17,7 +18,7 @@ type Story = StoryObj<typeof ButtonGroup>;
 
 const ButtonGroupWithHooks = (args: ButtonGroupProps) => {
   const [value, setValue] = useState('Autofil');
-  return <ButtonGroup {...args} value={value} onChange={(update) => { setValue(update); args.onChange(`New value is ${update}`); }} />;
+  return <ButtonGroup {...args} value={value} onChange={(update) => { setValue(update); args.onChange?.(`New value is ${update}`); }} />;
 };
 
 export const Example: Story = {

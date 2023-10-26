@@ -8,6 +8,8 @@ import Input from '../Input';
 
 import { DropdownIconWrapper } from './styles';
 
+type FieldTheme = 'white' | 'gray';
+
 export type AutocompleteProps = {
   defaultOpen?: boolean;
   loading?: boolean;
@@ -30,12 +32,13 @@ export type AutocompleteProps = {
   placeholder?: string;
   disabled?: boolean;
   maxWidth?: number;
+  theme?: FieldTheme,
 }
 
 const AutoComplete = ({
   label, loading, labelKey, onChange, defaultOpen, value,
   getOptionLabel, error, prefixIcon, placeholder, disabled, maxWidth,
-  valueKey = '_id',
+  valueKey = '_id', theme,
   ...rest
 }: AutocompleteProps) => {
   const [open, setOpen] = useState(false);
@@ -59,6 +62,7 @@ const AutoComplete = ({
         <Input
           {...params}
           label={label}
+          theme={theme}
           error={error}
           placeholder={placeholder}
           InputProps={{

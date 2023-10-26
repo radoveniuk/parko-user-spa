@@ -6,7 +6,7 @@ import { IFile } from 'interfaces/file.interface';
 export const BASE_URL = import.meta.env.VITE_APP_API_URL as string;
 
 const api = axios.create({
-  baseURL: BASE_URL,
+  baseURL: '/api',
   withCredentials: true,
 });
 

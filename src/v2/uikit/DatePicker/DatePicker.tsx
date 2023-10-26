@@ -7,6 +7,7 @@ import { DateTime } from 'luxon';
 
 import { CalendarIcon } from 'components/icons';
 
+import IconButton from '../IconButton';
 import Input, { InputProps } from '../Input';
 
 type DateView = 'year' | 'month' | 'day';
@@ -57,7 +58,8 @@ const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, 
         }}
         slots={{
           textField: (params) => <Input {...inputProps} {...params} error={error}/>,
-          openPickerIcon: CalendarIcon,
+          openPickerIcon: (params) => <CalendarIcon size={16} {...params} />,
+          openPickerButton: (params) => <IconButton {...params} style={{ marginRight: -7 }} />,
         }}
         minDate={minDate ? DateTime.fromISO(minDate) : undefined}
         maxDate={maxDate ? DateTime.fromISO(maxDate) : undefined}
