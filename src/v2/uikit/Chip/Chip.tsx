@@ -4,7 +4,7 @@ import { StyledChip } from './styles';
 
 export type ChipProps = {
   onDelete?:() => void;
-  label: string;
+  label?: string;
 };
 
 const Chip = (props: ChipProps) => <StyledChip {...props} />;

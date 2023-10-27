@@ -28,7 +28,7 @@ export interface IUser {
   phone: string;
   birthDate: string;
   passNumber: string;
-  sex: string;
+  sex: 'male' | 'female';
   blocked: boolean;
   notes: string;
   // system data
@@ -89,4 +89,8 @@ export interface IUser {
       active: boolean;
     };
   } | null;
+
+  tags?: string[];
+  createdAt?: string,
+  updatedAt?: string,
 }

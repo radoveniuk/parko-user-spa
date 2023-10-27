@@ -157,7 +157,10 @@
     "notes": "Примітки",
     "oldPassword": "Попередній пароль",
     "newPassword": "Новий пароль",
-    "cooperationType": "Тип співпраці"
+    "cooperationType": "Тип співпраці",
+    "workHistory": "Історія співпраці",
+    "lastUpdate": "Останні зміни",
+    "createdAt": "Дата створення"
   },
   "userUpload": {
     "title": "Імпорт профілів",

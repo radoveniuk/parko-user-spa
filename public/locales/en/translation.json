@@ -157,7 +157,10 @@
     "oldPassword": "Old password",
     "newPassword": "New password",
     "cooperationType": "Cooperation type",
-    "import": "Import"
+    "import": "Import",
+    "workHistory": "Work history",
+    "lastUpdate": "Last update at",
+    "createdAt": "Created at"
   },
   "userUpload": {
     "title": "Upload users",

@@ -47,3 +47,10 @@ export const LoaderStyledComponent = styled.div`
     }
   }
 `;
+
+export const FullPageLoaderWrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

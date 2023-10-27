@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
+import { SM } from 'theme/sizeBreakpoints';
 
 export const FormCardWrapper = styled.div`
   border-radius: 5px;
@@ -50,4 +51,8 @@ export const FormCardBodyRowWrapper = styled.div`
   grid-gap: 15px 20px;
   align-items: end;
   background-color: #fff;
+
+  @media (max-width: ${SM}) {
+    grid-template-columns: 1fr;
+  }
 `;

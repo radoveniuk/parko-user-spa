@@ -59,7 +59,8 @@
         "arrow-body-style": ["error", "as-needed"],
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "react/react-in-jsx-scope": "off"
     },
     "overrides": [
         {

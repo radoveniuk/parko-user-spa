@@ -155,7 +155,10 @@
     "permitDepartment": "Okresný úrad",
     "permitNumber": "Číslo živnostenského registru",
     "blocked": "Black List",
-    "notes": "Poznámky"
+    "notes": "Poznámky",
+    "workHistory": "Historia prace",
+    "lastUpdate": "Posledné meny",
+    "createdAt": "Datum vytvorenia"
   },
   "userUpload": {
     "title": "Import profilov",

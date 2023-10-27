@@ -157,7 +157,10 @@
     "notes": "Заметки",
     "oldPassword": "Предыдущий пароль",
     "newPassword": "Новый пароль",
-    "cooperationType": "Тип сотрудничества"
+    "cooperationType": "Тип сотрудничества",
+    "workHistory": "История сотрудничества",
+    "lastUpdate": "Последние изменения",
+    "createdAt": "Дата создания"
   },
   "userUpload": {
     "title": "Импорт пользователей",
