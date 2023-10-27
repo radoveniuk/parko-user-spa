@@ -57,7 +57,7 @@ const AutoComplete = ({
       isOptionEqualToValue={(option, value) => option[valueKey] === value[valueKey]}
       disabled={disabled}
       limitTags={1}
-      popupIcon={<DropdownIconWrapper><DropdownIcon size={16} color="rgba(0, 0, 0, 0.54)" /></DropdownIconWrapper>}
+      popupIcon={<DropdownIconWrapper><DropdownIcon size={12} color="#131313" /></DropdownIconWrapper>}
       renderInput={(params) => (
         <Input
           {...params}

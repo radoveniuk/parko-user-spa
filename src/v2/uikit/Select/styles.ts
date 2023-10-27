@@ -23,16 +23,19 @@ export const SelectWrapper = styled.label<{ fieldColor?: string }>`
     @media (max-width: ${SM}) {
       height: 48px;
     }
-    padding-right: 5px;
 
     svg {
-      margin-top: 4px;
-      margin-right: 5px;
+      margin-top: 5px;
+      margin-right: 8px;
     }
 
     div[role=combobox] {
       color: #131313;
       -webkit-text-fill-color: #131313;
+      padding: 10px 14px !important;
+      min-height: 16px !important;
+      height: 16px !important;
+      line-height: 16px !important;
     }
 
     &.Mui-disabled {

@@ -22,8 +22,6 @@ export type ProfileCardProps = {
 const ProfileCard = ({ user, workHistory }: ProfileCardProps) => {
   const { t } = useTranslation();
   const recruiter = user.recruiter as IUser | null;
-  const project = user.project as IProject;
-  const client = project.client as IClient;
   return (
     <ProfileCardWrapper>
       <IconButton className="edit-profile-btn"><EditIcon /></IconButton>
