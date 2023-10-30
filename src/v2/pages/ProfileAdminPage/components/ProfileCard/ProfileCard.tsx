@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import Chip from 'v2/uikit/Chip';
 import IconButton from 'v2/uikit/IconButton';
+import { Tab, Tabs } from 'v2/uikit/Tabs';
 
 import { EditIcon, PlusIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
@@ -26,6 +27,7 @@ const ProfileCard = ({ user, workHistory }: ProfileCardProps) => {
     <ProfileCardWrapper>
       <IconButton className="edit-profile-btn"><EditIcon /></IconButton>
       <div className="tags">
+        <Chip label={t(`selects.userRole.${user.role}`)} />
         <Chip label={user.position} />
         <Chip label={user.cooperationType} />
         {user.tags?.map((tag) => (
@@ -60,10 +62,8 @@ const ProfileCard = ({ user, workHistory }: ProfileCardProps) => {
               const workHistoryItemClient = workHistoryItemProject.client as IClient;
               return (
                 <div key={workHistoryItem.dateFrom} className="work-history-list-item">
-                  {workHistoryItemClient.name}
-                  {' > '}
-                  {workHistoryItemProject.name}
-                  {': '}
+                  {workHistoryItemClient.name}{' > '}
+                  {workHistoryItemProject.name}{': '}
                   {getDateFromIso(workHistoryItem.dateFrom)}
                   {workHistoryItem.dateTo ? ` - ${getDateFromIso(workHistoryItem.dateTo)}` : ''}<br /><i>{workHistoryItem.position}</i>
                 </div>
@@ -75,6 +75,12 @@ const ProfileCard = ({ user, workHistory }: ProfileCardProps) => {
       <div className="system-info section">
         <div className="system-info-item">{t('user.lastUpdate')}: {getDateFromIso(user.updatedAt)}</div>
         <div className="system-info-item">{t('user.createdAt')}: {getDateFromIso(user.createdAt)}</div>
+      </div>
+      <div className="tabs-wrapper">
+        <Tabs orientation="vertical">
+          <Tab label={t('profile')} />
+          <Tab label={t('user.data')} />
+        </Tabs>
       </div>
     </ProfileCardWrapper>
   );
