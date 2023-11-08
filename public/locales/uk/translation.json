@@ -51,7 +51,7 @@
   "paychecks": "Розрахункові листи",
   "profile":  "Профіль",
   "user": {
-    "info": "Інформація",
+    "info": "Відомості",
     "login": "Увійти",
     "register": "Реєстрація",
     "password": "Пароль",
@@ -160,7 +160,9 @@
     "cooperationType": "Тип співпраці",
     "workHistory": "Історія співпраці",
     "lastUpdate": "Останні зміни",
-    "createdAt": "Дата створення"
+    "createdAt": "Дата створення",
+    "cooperation": "Співпраця",
+    "history": "Історія"
   },
   "userUpload": {
     "title": "Імпорт профілів",

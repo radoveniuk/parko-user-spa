@@ -158,7 +158,9 @@
     "notes": "Poznámky",
     "workHistory": "Historia prace",
     "lastUpdate": "Posledné meny",
-    "createdAt": "Datum vytvorenia"
+    "createdAt": "Datum vytvorenia",
+    "cooperation": "Spolupraca",
+    "history": "História"
   },
   "userUpload": {
     "title": "Import profilov",

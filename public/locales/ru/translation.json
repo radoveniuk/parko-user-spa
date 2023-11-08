@@ -51,7 +51,7 @@
   "paychecks": "Рассчетные листы",
   "profile": "Профиль",
   "user": {
-    "info": "Информация",
+    "info": "Сведения",
     "login": "Войти",
     "register": "Регистрация",
     "password": "Пароль",
@@ -160,7 +160,9 @@
     "cooperationType": "Тип сотрудничества",
     "workHistory": "История сотрудничества",
     "lastUpdate": "Последние изменения",
-    "createdAt": "Дата создания"
+    "createdAt": "Дата создания",
+    "cooperation": "Сотрудничество",
+    "history": "История"
   },
   "userUpload": {
     "title": "Импорт пользователей",

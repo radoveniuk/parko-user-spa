@@ -160,7 +160,9 @@
     "import": "Import",
     "workHistory": "Work history",
     "lastUpdate": "Last update at",
-    "createdAt": "Created at"
+    "createdAt": "Created at",
+    "cooperation": "Cooperation",
+    "history": "History"
   },
   "userUpload": {
     "title": "Upload users",

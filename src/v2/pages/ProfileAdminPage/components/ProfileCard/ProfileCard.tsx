@@ -79,7 +79,9 @@ const ProfileCard = ({ user, workHistory }: ProfileCardProps) => {
       <div className="tabs-wrapper">
         <Tabs orientation="vertical">
           <Tab label={t('profile')} />
-          <Tab label={t('user.data')} />
+          <Tab label={t('user.info')} />
+          <Tab label={t('user.cooperation')} />
+          <Tab label={t('user.history')} />
         </Tabs>
       </div>
     </ProfileCardWrapper>

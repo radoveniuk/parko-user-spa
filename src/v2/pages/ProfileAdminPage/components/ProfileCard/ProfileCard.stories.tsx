@@ -2,7 +2,7 @@ import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import type { Meta, StoryObj } from '@storybook/react';
 import i18n from 'i18n';
-import { TabsContainer } from 'v2/uikit/Tabs';
+import { TabPanel, TabsContainer } from 'v2/uikit/Tabs';
 
 import { IClient } from 'interfaces/client.interface';
 import { IWorkHistoryLog } from 'interfaces/history.interface';
@@ -198,7 +198,13 @@ export const Example: Story = {
   render: (args) => (
     <I18nextProvider i18n={i18n}>
       <TabsContainer>
-        <ProfileCard {...args} />
+        <div style={{ display: 'flex' }}>
+          <ProfileCard {...args} />
+          <TabPanel index={0}>Profile</TabPanel>
+          <TabPanel index={1}>Info</TabPanel>
+          <TabPanel index={2}>Cooperation</TabPanel>
+          <TabPanel index={3}>History</TabPanel>
+        </div>
       </TabsContainer>
     </I18nextProvider>
   ),
