@@ -11,7 +11,8 @@ type BaseProps = {
 
 export type FormCardProps = BaseProps & {
   defaultConfig?: FormCardConfig;
-  children?: (props: { formCardConfig: FormCardConfig, updateFormCardConfig: (values: FormCardConfig) => void }) => React.ReactNode;
+  children?: ((props: { formCardConfig: FormCardConfig, updateFormCardConfig: (values: FormCardConfig) => void }) => React.ReactNode)
+  | React.ReactNode;
 };
 
 export const FormCard = memo(({ children, defaultConfig = {}, ...rest }: FormCardProps) => {
@@ -19,7 +20,8 @@ export const FormCard = memo(({ children, defaultConfig = {}, ...rest }: FormCar
   const updateConfig = (values: FormCardConfig) => void setConfig(prev => ({ ...prev, ...values }));
   return (
     <FormCardWrapper {...rest}>
-      {children?.({ formCardConfig: config, updateFormCardConfig: updateConfig })}
+      {typeof children === 'function' && children?.({ formCardConfig: config, updateFormCardConfig: updateConfig })}
+      {typeof children !== 'function' && children}
     </FormCardWrapper>
   );
 });

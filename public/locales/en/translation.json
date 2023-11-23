@@ -198,7 +198,8 @@
     "user": "User",
     "send": "Send",
     "dayoff": "Dayoff",
-    "new": "New dayoff"
+    "new": "New dayoff",
+    "createdAt": "Created at"
   },
   "profileList": "Profiles",
   "selects": {

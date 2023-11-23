@@ -7,16 +7,21 @@ import styled from 'styled-components';
 
 export const Table = TableMUI;
 export const TableBody = TableBodyMUI;
-export const TableHead = TableHeadMUI;
+export const TableHead = styled(TableHeadMUI)`
+  .MuiTableCell-root {
+    border-bottom: 1px solid #D0D0D0 !important;
+  }
+`;
 export const TableRow = styled(TableRowMUI)`
-  &:last-child td, &:last-child th {
-    border-bottom: 0 !important;
+  &:not(.MuiTableRow-head) {
+    &:last-child td, &:last-child th {
+      border-bottom: 0 !important;
+    }
   }
 `;
 export const TableCell = styled(TableCellMUI)`
-  padding: 7px !important;
+  padding: 0 5px !important;
   font-size: 14px !important;
-  line-height: 18px !important;
   border-bottom: 1px solid #E7E7E7 !important;
 
   &.MuiTableCell-head {

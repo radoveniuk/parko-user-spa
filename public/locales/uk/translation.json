@@ -196,7 +196,9 @@
     "adminComment": "Коментар фірми",
     "comment": "Коментар",
     "user": "Користувач",
-    "send": "Надіслати"
+    "send": "Надіслати",
+    "createdAt": "Дата",
+    "dayoff": "Відгул"
   },
   "profileList": "Профілі",
   "selects": {

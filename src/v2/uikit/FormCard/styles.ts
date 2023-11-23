@@ -9,6 +9,7 @@ export const FormCardWrapper = styled.div`
   background: #FFF;
   display: flex;
   flex-direction: column;
+  max-width: 600px;
 `;
 
 export const FormCardHeaderWrapper = styled.div`
@@ -25,9 +26,9 @@ export const FormCardHeaderWrapper = styled.div`
   .left {
     height: 18px;
     .icon {
-      path {
-        fill: ${themeConfig.palette.primary.main};
-      }
+      color: ${themeConfig.palette.primary.main};
+      display: flex;
+      align-items: center;
     }
     .title {
       font-weight: 600;

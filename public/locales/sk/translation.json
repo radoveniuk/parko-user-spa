@@ -197,7 +197,8 @@
     "user": "Používateľ",
     "send": "Poslať",
     "dayoff": "Voľno",
-    "new": "Urobiť voľno"
+    "new": "Urobiť voľno",
+    "createdAt": "Datum"
   },
   "profileList": "Profily",
   "selects": {
