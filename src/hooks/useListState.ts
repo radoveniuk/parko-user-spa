@@ -4,7 +4,7 @@ import isEqual from 'lodash-es/isEqual';
 type Dispatcher<T> = (v: T) => void;
 
 // eslint-disable-next-line max-len
-const useListState = <T>(initialValue?: T[]): [T[], { add: Dispatcher<T>, remove: Dispatcher<T>, toggle: Dispatcher<T> }, Dispatch<SetStateAction<T[]>>] => {
+const useListState = <T>(initialValue?: T[]): [T[], { add: Dispatcher<T>, remove: Dispatcher<T>, toggle: Dispatcher<T>, update: (old: T, v: T) => void }, Dispatch<SetStateAction<T[]>>] => {
   const [value, setValue] = useState<T[]>(initialValue || []);
 
   const addItem = useCallback((v: T) => {
@@ -15,11 +15,20 @@ const useListState = <T>(initialValue?: T[]): [T[], { add: Dispatcher<T>, remove
     setValue((prev) => prev.filter((item) => !isEqual(item, v)));
   };
 
+  const updateItem = (old: T, v: T) => {
+    setValue((prev) => prev.map((item) => {
+      if (isEqual(item, old)) {
+        return v;
+      }
+      return item;
+    }));
+  };
+
   const toggleItem = (v: T) => {
     setValue((prev) => !prev.some((item) => isEqual(item, v)) ? [...prev, v] : prev.filter((item) => !isEqual(item, v)));
   };
 
-  return [value, { add: addItem, remove: removeItem, toggle: toggleItem }, setValue];
+  return [value, { add: addItem, remove: removeItem, toggle: toggleItem, update: updateItem }, setValue];
 };
 
 export default useListState;

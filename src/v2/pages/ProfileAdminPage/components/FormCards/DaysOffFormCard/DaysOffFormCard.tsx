@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button, Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
@@ -11,7 +12,9 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 
 import { DayoffIcon, DeleteIcon, EditIcon, PlusIcon } from 'components/icons';
 import { REASONS } from 'constants/dayoffReasons';
+import createId from 'helpers/createId';
 import { getDateFromIso } from 'helpers/datetime';
+import useListState from 'hooks/useListState';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IDayOff } from 'interfaces/dayoff.interface';
 
@@ -19,18 +22,48 @@ import { ActionsCell, DayOffDialogContent } from './styles';
 
 type Props = {
   data: IDayOff[];
+  onDeleteDayoff?(id: string): void;
+  onUpdateDayoff?(data: Partial<IDayOff>): void;
+  onCreateDayoff?(data: Partial<IDayOff>): void;
 };
 
-const DaysOffFormCard = ({ data }: Props) => {
+const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff }: Props) => {
   const { t } = useTranslation();
+
   const [dayoffDialogData, setDayoffDialogData] = useState<Partial<IDayOff> | null>(null);
   const [deleteDialogData, setDeleteDialogData] = useState<Partial<IDayOff> | null>(null);
   const reasonsList = useTranslatedSelect(REASONS, 'dayoffReason');
+
+  const { register, control, formState: { errors }, getValues, reset } = useForm<IDayOff>();
+
+  const [daysoff, { add, remove, update }] = useListState(data);
+
+  const createDayoffHandler = () => {
+    const values = getValues();
+    onCreateDayoff?.(values);
+    add({ ...values, _id: createId() });
+  };
+
+  const updateDayoffHandler = () => {
+    if (dayoffDialogData?._id) {
+      const values = getValues();
+      onUpdateDayoff?.({ ...dayoffDialogData, ...values });
+      update(dayoffDialogData as IDayOff, values);
+    }
+  };
+
+  const removeDayoffHandler = () => {
+    if (deleteDialogData && deleteDialogData._id) {
+      onDeleteDayoff?.(deleteDialogData._id);
+      remove(deleteDialogData as IDayOff);
+    }
+  };
+
   return (
     <>
       <FormCard>
         <FormCardHeader icon={<DayoffIcon size={24} />} title={t('navbar.daysoff')}>
-          <Button onClick={() => void setDayoffDialogData({})}><PlusIcon />{t('add')}</Button>
+          <Button onClick={() => { setDayoffDialogData({}); reset(); }}><PlusIcon />{t('add')}</Button>
         </FormCardHeader>
         <FormCardBody>
           <TableContainer>
@@ -45,7 +78,7 @@ const DaysOffFormCard = ({ data }: Props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((dayoff) => (
+                {daysoff.map((dayoff) => (
                   <TableRow key={dayoff._id}>
                     <TableCell>{t(`selects.dayoffReason.${dayoff.reason}`)}</TableCell>
                     <TableCell>{getDateFromIso(dayoff.dateStart)}</TableCell>
@@ -53,7 +86,7 @@ const DaysOffFormCard = ({ data }: Props) => {
                     <TableCell>{getDateFromIso(dayoff.createdAt)}</TableCell>
                     <TableCell align="right">
                       <ActionsCell>
-                        <IconButton onClick={() => void setDayoffDialogData(dayoff)}>
+                        <IconButton onClick={() => { setDayoffDialogData(dayoff); reset(dayoff); }}>
                           <EditIcon size={15} />
                         </IconButton>
                         <IconButton onClick={() => void setDeleteDialogData(dayoff)}>
@@ -71,35 +104,73 @@ const DaysOffFormCard = ({ data }: Props) => {
       <Dialog title={t('dayoff.dayoff')} onClose={() => void setDayoffDialogData(null)} open={dayoffDialogData !== null}>
         <DayOffDialogContent>
           <div className="form">
-            <DatePicker
-              onChange={(v: string, isValid?: boolean | undefined) => {
-
-              }}
-              label={`${t('dayoff.dateStart')}*`}
+            <Controller
+              control={control}
+              name="dateStart"
+              defaultValue={dayoffDialogData?.dateStart || ''}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <DatePicker
+                  defaultValue={field.value}
+                  onChange={field.onChange}
+                  label={`${t('dayoff.dateStart')}*`}
+                  error={!!errors.dateStart}
+                />
+              )}
             />
-            <DatePicker
-              onChange={(v: string, isValid?: boolean | undefined) => {
-
-              }}
-              label={`${t('dayoff.dateEnd')}*`}
+            <Controller
+              control={control}
+              name="dateEnd"
+              defaultValue={dayoffDialogData?.dateEnd || ''}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <DatePicker
+                  defaultValue={field.value}
+                  onChange={field.onChange}
+                  label={`${t('dayoff.dateEnd')}*`}
+                  error={!!errors.dateEnd}
+                />
+              )}
             />
             <Select
-              label={`${t('dayoff.reason')}*`}
+              label={t('dayoff.reason')}
+              error={!!errors.reason}
               options={reasonsList}
+              defaultValue={dayoffDialogData?.reason || ''}
+              {...register('reason')}
             />
             <Input
               label={t('dayoff.adminComment')}
+              defaultValue={dayoffDialogData?.adminComment || ''}
               multiline
+              {...register('adminComment')}
             />
           </div>
           <div className="actions">
-            <Button variant="contained">{t('save')}</Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                if (dayoffDialogData) {
+                  if (dayoffDialogData._id) {
+                    updateDayoffHandler();
+                  } else {
+                    createDayoffHandler();
+                  }
+                  setDayoffDialogData(null);
+                }
+              }}
+            >
+              {t('save')}
+            </Button>
           </div>
         </DayOffDialogContent>
       </Dialog>
       <DialogConfirm
         open={deleteDialogData !== null}
-        onSubmit={() => undefined}
+        onSubmit={() => {
+          removeDayoffHandler();
+          setDeleteDialogData(null);
+        }}
         onClose={() => void setDeleteDialogData(null)}
       />
     </>

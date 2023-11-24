@@ -7,6 +7,11 @@ import DaysOffFormCard from './DaysOffFormCard';
 
 const meta: Meta<typeof DaysOffFormCard> = {
   component: DaysOffFormCard,
+  argTypes: {
+    onCreateDayoff: { action: 'onCreateDayoff' },
+    onUpdateDayoff: { action: 'onUpdateDayoff' },
+    onDeleteDayoff: { action: 'onDeleteDayoff' },
+  },
 };
 
 export default meta;
