@@ -5,4 +5,5 @@ export const DialogContent = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  min-width: 220px;
 `;

@@ -9,7 +9,6 @@ export const DialogTitle = styled(DialogTitleMaterial)`
   justify-content: space-between;
   margin: 10px;
   align-items: center;
-  min-width: 300px;
   padding: 6px 12px !important;
   font-size: 16px !important;
   background: ${themeConfig.palette.primary.main};

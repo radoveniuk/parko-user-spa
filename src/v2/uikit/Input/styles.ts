@@ -26,7 +26,7 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
     @media (max-width: ${SM}) {
       min-height: 48px;
     }
-    &:not(.MuiAutocomplete-inputRoot) {
+    &:not(.MuiAutocomplete-inputRoot):not(.MuiInputBase-multiline) {
       height: 36px;
       @media (max-width: ${SM}) {
         height: 48px;
