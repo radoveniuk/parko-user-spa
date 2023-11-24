@@ -1,6 +1,8 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import isEqual from 'lodash-es/isEqual';
+import { DateTime } from 'luxon';
 import { Button, Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog from 'v2/uikit/Dialog';
@@ -14,6 +16,7 @@ import { DayoffIcon, DeleteIcon, EditIcon, PlusIcon } from 'components/icons';
 import { REASONS } from 'constants/dayoffReasons';
 import createId from 'helpers/createId';
 import { getDateFromIso } from 'helpers/datetime';
+import { isMongoId } from 'helpers/regex';
 import useListState from 'hooks/useListState';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IDayOff } from 'interfaces/dayoff.interface';
@@ -36,12 +39,12 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
 
   const { register, control, formState: { errors }, getValues, reset } = useForm<IDayOff>();
 
-  const [daysoff, { add, remove, update }] = useListState(data);
+  const [daysoff, { add, remove, update }, setDaysoff] = useListState(data);
 
   const createDayoffHandler = () => {
     const values = getValues();
     onCreateDayoff?.(values);
-    add({ ...values, _id: createId() });
+    add({ ...values, _id: createId(), createdAt: DateTime.now().toISO() });
   };
 
   const updateDayoffHandler = () => {
@@ -58,6 +61,13 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
       remove(deleteDialogData as IDayOff);
     }
   };
+
+  useEffect(() => {
+    if (!isEqual(data, daysoff)) {
+      setDaysoff(data);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, setDaysoff]);
 
   return (
     <>
@@ -86,10 +96,10 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
                     <TableCell>{getDateFromIso(dayoff.createdAt)}</TableCell>
                     <TableCell align="right">
                       <ActionsCell>
-                        <IconButton onClick={() => { setDayoffDialogData(dayoff); reset(dayoff); }}>
+                        <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => { setDayoffDialogData(dayoff); reset(dayoff); }}>
                           <EditIcon size={15} />
                         </IconButton>
-                        <IconButton onClick={() => void setDeleteDialogData(dayoff)}>
+                        <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => void setDeleteDialogData(dayoff)}>
                           <DeleteIcon size={15} />
                         </IconButton>
                       </ActionsCell>
