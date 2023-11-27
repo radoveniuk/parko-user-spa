@@ -186,7 +186,9 @@
     "status": "Status zálohy",
     "paymentDate": "Data splaty",
     "prepayment": "Záloha",
-    "new":"Nova záloha"
+    "new":"Nova záloha",
+    "createdAt": "Datum",
+    "period": "Period"
   },
   "dayoff": {
     "dateStart": "Začiatok",
@@ -369,7 +371,9 @@
     "residences": "Zápisy o ubytovaní",
     "objects": "Ubytovacie zariadenia",
     "notificate": "Uvedomiť majiteľa",
-    "active": "Aktív"
+    "active": "Aktív",
+    "createdAt": "Datum vytvorenia",
+    "residence": "Zápis o ubytovaní"
   },
   "docsTemplates": {
     "template": "Šablóna",

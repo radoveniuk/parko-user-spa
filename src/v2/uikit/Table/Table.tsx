@@ -25,6 +25,7 @@ export const TableCell = styled(TableCellMUI)`
   padding: 0 5px !important;
   font-size: 14px !important;
   border-bottom: 1px solid #E7E7E7 !important;
+  white-space: nowrap;
 
   &.MuiTableCell-head {
     font-weight: 600;

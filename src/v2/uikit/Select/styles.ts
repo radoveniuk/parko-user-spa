@@ -11,9 +11,13 @@ export const SelectWrapper = styled.label<{ fieldColor?: string }>`
     font-size: 14px;
     line-height: 14px;
     margin-bottom: 3px;
+    
+    &.error {
+      color: ${themeConfig.palette.error.main};
+    }
   }
   &:has(.Mui-focused) {
-    .label {
+    .label:not(.error) {
       color: ${themeConfig.palette.primary.main};
     }
   }

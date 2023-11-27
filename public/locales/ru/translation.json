@@ -187,7 +187,9 @@
     "status": "Статус аванса",
     "paymentDate": "Дата оплаты",
     "prepayment": "Аванс",
-    "new":"Новый аванс"
+    "new":"Новый аванс",
+    "createdAt": "Дата",
+    "period": "Период"
   },
   "dayoff": {
     "dateStart": "Начало",
@@ -371,7 +373,9 @@
     "residences": "Записи о проживании",
     "objects": "Обьекты жилья",
     "notificate": "Оповестить владельца",
-    "active": "Активно"
+    "active": "Активно",
+    "createdAt":"Дата создания",
+    "residence": "Размещение"
   },
   "docsTemplates": {
     "template": "Шаблон",

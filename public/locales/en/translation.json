@@ -187,7 +187,9 @@
     "status": "Prepayment status",
     "paymentDate": "Payment date",
     "prepayment": "Prepayment",
-    "new":"New prepayment"
+    "new":"New prepayment",
+    "createdAt": "Created at",
+    "period": "Period"
   },
   "dayoff": {
     "dateStart": "Date start",
@@ -371,7 +373,9 @@
     "residences": "Residences",
     "objects": "Items",
     "notificate": "Notificate owner",
-    "active": "Active"
+    "active": "Active",
+    "createdAt":"Created at",
+    "residence": "Residence data"
   },
   "docsTemplates": {
     "template": "Template",

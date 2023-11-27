@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import isEmpty from 'lodash-es/isEmpty';
 import isEqual from 'lodash-es/isEqual';
 import { DateTime } from 'luxon';
 import { Button, Input } from 'v2/uikit';
@@ -37,7 +38,7 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
   const [deleteDialogData, setDeleteDialogData] = useState<Partial<IDayOff> | null>(null);
   const reasonsList = useTranslatedSelect(REASONS, 'dayoffReason');
 
-  const { register, control, formState: { errors }, getValues, reset } = useForm<IDayOff>();
+  const { register, control, formState: { errors }, getValues, reset, handleSubmit } = useForm<IDayOff>();
 
   const [daysoff, { add, remove, update }, setDaysoff] = useListState(data);
 
@@ -59,6 +60,17 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
     if (deleteDialogData && deleteDialogData._id) {
       onDeleteDayoff?.(deleteDialogData._id);
       remove(deleteDialogData as IDayOff);
+    }
+  };
+
+  const submitHandler: SubmitHandler<IDayOff> = () => {
+    if (isEmpty(errors) && dayoffDialogData) {
+      if (dayoffDialogData._id) {
+        updateDayoffHandler();
+      } else {
+        createDayoffHandler();
+      }
+      setDayoffDialogData(null);
     }
   };
 
@@ -93,7 +105,7 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
                     <TableCell>{t(`selects.dayoffReason.${dayoff.reason}`)}</TableCell>
                     <TableCell>{getDateFromIso(dayoff.dateStart)}</TableCell>
                     <TableCell>{getDateFromIso(dayoff.dateEnd)}</TableCell>
-                    <TableCell>{getDateFromIso(dayoff.createdAt)}</TableCell>
+                    <TableCell>{getDateFromIso(dayoff.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
                     <TableCell align="right">
                       <ActionsCell>
                         <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => { setDayoffDialogData(dayoff); reset(dayoff); }}>
@@ -143,11 +155,11 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
               )}
             />
             <Select
-              label={t('dayoff.reason')}
+              label={`${t('dayoff.reason')}*`}
               error={!!errors.reason}
               options={reasonsList}
               defaultValue={dayoffDialogData?.reason || ''}
-              {...register('reason')}
+              {...register('reason', { required: true })}
             />
             <Input
               label={t('dayoff.adminComment')}
@@ -159,16 +171,7 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
           <div className="actions">
             <Button
               variant="contained"
-              onClick={() => {
-                if (dayoffDialogData) {
-                  if (dayoffDialogData._id) {
-                    updateDayoffHandler();
-                  } else {
-                    createDayoffHandler();
-                  }
-                  setDayoffDialogData(null);
-                }
-              }}
+              onClick={handleSubmit(submitHandler)}
             >
               {t('save')}
             </Button>

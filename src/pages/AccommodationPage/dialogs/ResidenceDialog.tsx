@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { isEmpty } from 'lodash-es';
+import DatePicker from 'v2/uikit/DatePicker';
 
 import { useCreateResidence, useUpdateResidence } from 'api/mutations/residenceMutation';
 import { useGetAccommodations } from 'api/query/accommodationQuery';
@@ -9,7 +10,6 @@ import { useGetUserList } from 'api/query/userQuery';
 import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
-import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IResidence } from 'interfaces/residence.interface';

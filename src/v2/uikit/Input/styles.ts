@@ -11,9 +11,12 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
     font-size: 14px;
     line-height: 14px;
     margin-bottom: 3px;
+    &.error {
+      color: ${themeConfig.palette.error.main};
+    }
   }
   &:has(.Mui-focused) {
-    .label {
+    .label:not(.error) {
       color: ${themeConfig.palette.primary.main};
     }
   }
@@ -42,6 +45,18 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
     input {
       padding: 10px 14px;
       height: -webkit-fill-available;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
     }
 
     .MuiInputAdornment-positionStart {

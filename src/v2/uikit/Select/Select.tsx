@@ -63,7 +63,7 @@ const Select = forwardRef(({
 
   return (
     <SelectWrapper style={{ maxWidth }} fieldColor={COLORS_MAP[theme]} >
-      <div className="label">{label}</div>
+      <div className={`label${rest.error ? ' error' : ''}`}>{label}</div>
       <SelectMaterial
         value={selectedValue}
         IconComponent={(props) => <DropdownIcon {...props} color="#131313" size={12} />}

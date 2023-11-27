@@ -22,13 +22,18 @@ export type Props = {
   error?: boolean;
   minDate?: string;
   maxDate?: string;
+  format?: string;
   openTo?: DateView;
   views?: DateView[];
   disabled?: boolean;
   inputProps?: InputProps;
 }
 
-const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, maxDate, openTo, views, disabled, inputProps }: Props) => {
+const DatePicker = ({
+  defaultValue, onChange, label, className, error,
+  minDate, maxDate, openTo, views, disabled,
+  inputProps, format = 'dd.MM.yyyy',
+}: Props) => {
   const { i18n } = useTranslation();
 
   const datetimeDefaultValue = useMemo(() => {
@@ -47,7 +52,7 @@ const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, 
       <DesktopDatePicker
         className={className}
         label={label}
-        format="dd.MM.yyyy"
+        format={format}
         defaultValue={datetimeDefaultValue}
         disabled={disabled}
         onChange={(luxonValue: DateTime | null) => {
@@ -57,7 +62,7 @@ const DatePicker = ({ defaultValue, onChange, label, className, error, minDate, 
           );
         }}
         slots={{
-          textField: (params) => <Input {...inputProps} {...params} error={error}/>,
+          textField: (params) => <Input {...inputProps} {...params as any} error={error}/>,
           openPickerIcon: (params) => <CalendarIcon size={16} {...params} />,
           openPickerButton: (params) => <IconButton {...params} style={{ marginRight: -7 }} />,
         }}

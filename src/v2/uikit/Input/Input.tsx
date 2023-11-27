@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { ForwardedRef, forwardRef, memo, useCallback } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 
@@ -21,7 +21,7 @@ export type InputProps = {
   theme?: FieldTheme;
 } & TextFieldProps;
 
-const Input = ({ showPasswordIcon, type, maxWidth, theme = 'white', ...props }: InputProps) => {
+const Input = ({ showPasswordIcon, type, maxWidth, theme = 'white', label, ...props }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = useCallback(() => {
@@ -30,8 +30,9 @@ const Input = ({ showPasswordIcon, type, maxWidth, theme = 'white', ...props }: 
 
   return (
     <InputWrapper style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
-      <div className="label">{props.label}</div>
+      <div className={`label${props.error ? ' error' : ''}`}>{label}</div>
       <TextField
+        ref={ref}
         type={showPasswordIcon ? (showPassword ? 'text' : 'password') : type}
         InputProps={showPasswordIcon
           ? {
@@ -54,4 +55,4 @@ const Input = ({ showPasswordIcon, type, maxWidth, theme = 'white', ...props }: 
     </InputWrapper>
   );
 };
-export default memo(Input);
+export default memo(forwardRef(Input));

@@ -8,4 +8,5 @@ export interface IPaycheck {
   date: string;
   linkedFile: string | IFile;
   createdAt?: string;
+  updatedAt?: string;
 }
