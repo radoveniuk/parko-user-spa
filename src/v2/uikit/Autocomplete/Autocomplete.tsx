@@ -50,10 +50,10 @@ const AutoComplete = ({
           {labelKey ? option[labelKey] : getOptionLabel?.(option)}
         </li>
       )}
-      getOptionLabel={option => labelKey ? option[labelKey] : getOptionLabel?.(option)}
+      getOptionLabel={(option: any) => labelKey ? option[labelKey] : getOptionLabel?.(option)}
       onChange={(e, newValue) => void onChange?.(newValue)}
       value={value}
-      isOptionEqualToValue={(option, value) => option[valueKey] === value[valueKey]}
+      isOptionEqualToValue={(option: any, value: any) => option[valueKey] === value[valueKey]}
       disabled={disabled}
       limitTags={1}
       popupIcon={<DropdownIconWrapper><DropdownIcon size={12} color="#131313" /></DropdownIconWrapper>}
