@@ -28,6 +28,9 @@ import { themeConfig } from 'theme';
 import DateFormat from './components/DateFormat';
 import { ActionsCell, FileInputArea, FinanceDialogContent } from './styles';
 
+const defaultDateRegex = /((0[1-9]|1[0-2])\/[12]\d{3})/;
+const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/;
+
 const DEFAULT_VALUES: Finance = {
   type: 'invoice',
   data: {
@@ -80,16 +83,17 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
   const updatePaycheckHandler = () => {
     if (financeDialogData?.data?._id) {
       const values = getValues();
+      const date = isoDateRegex.test(values.data.date) ? values.data.date : DateTime.fromFormat(values.data.date, 'MM/yyyy').toISODate();
       onUpdatePaycheck?.({
         ...financeDialogData.data,
         ...values.data,
-        date: DateTime.fromFormat(values.data.date, 'MM/yyyy').toISODate(),
+        date,
       });
       update(financeDialogData as Finance, {
         ...values,
         data: {
           ...values.data,
-          date: DateTime.fromFormat(values.data.date, 'MM/yyyy').toISODate(),
+          date,
         },
       });
     }
@@ -195,7 +199,7 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
               defaultValue={getDateFromIso(financeDialogData?.data?.date, 'MM/yyyy') || ''}
               {...register('data.date', {
                 required: true,
-                validate: (value) => /((0[1-9]|1[0-2])\/[12]\d{3})/.test(value) || /^\d{4}-\d{2}-\d{2}$/.test(value),
+                validate: (value) => isoDateRegex.test(value) || defaultDateRegex.test(value),
               })}
             />
             <Controller
