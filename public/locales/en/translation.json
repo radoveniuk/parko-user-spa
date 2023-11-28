@@ -162,7 +162,8 @@
     "lastUpdate": "Last update at",
     "createdAt": "Created at",
     "cooperation": "Cooperation",
-    "history": "History"
+    "history": "History",
+    "finances": "Finances"
   },
   "userUpload": {
     "title": "Upload users",
@@ -175,6 +176,14 @@
     "finish": "Finish",
     "successText": "Users have been imported. This is default users password, you can copy it and send to users"
   },
+  "finance": {
+    "add": "Add",
+    "edit": "Edit",
+    "type": "Type",
+    "period": "Period",
+    "comment": "Comment",
+    "createdAt": "Created At"
+  }, 
   "prepayment": {
     "date": "Date",
     "sum": "Sum",
@@ -279,6 +288,10 @@
       "approved": "Approved",
       "rejected": "Rejected",
       "paid": "Paid"
+    },
+    "financeType": {
+      "invoice": "Invoice",
+      "payroll": "Payroll"
     }
   },
   "notFoundPage": "Page not found",

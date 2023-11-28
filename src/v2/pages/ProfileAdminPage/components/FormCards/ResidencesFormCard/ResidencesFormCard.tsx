@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash-es/isEmpty';
 import isEqual from 'lodash-es/isEqual';
@@ -36,7 +36,7 @@ const FinancesFormCard = ({ data, onCreateResidence, onDeleteResidence, onUpdate
   const [residenceDialogData, setResidenceDialogData] = useState<Partial<IResidence> | null>(null);
   const [deleteDialogData, setDeleteDialogData] = useState<Partial<IResidence> | null>(null);
 
-  const { control, formState: { errors }, getValues, reset, trigger } = useForm<IResidence>();
+  const { control, formState: { errors }, getValues, reset, handleSubmit } = useForm<IResidence>();
 
   const [residences, { add, remove, update }, setResidences] = useListState(data);
 
@@ -58,6 +58,17 @@ const FinancesFormCard = ({ data, onCreateResidence, onDeleteResidence, onUpdate
     if (deleteDialogData && deleteDialogData._id) {
       onDeleteResidence?.(deleteDialogData._id);
       remove(deleteDialogData as IResidence);
+    }
+  };
+
+  const submitHandler: SubmitHandler<IResidence> = () => {
+    if (isEmpty(errors) && residenceDialogData) {
+      if (residenceDialogData._id) {
+        updateResidenceHandler();
+      } else {
+        createResidenceHandler();
+      }
+      setResidenceDialogData(null);
     }
   };
 
@@ -168,17 +179,7 @@ const FinancesFormCard = ({ data, onCreateResidence, onDeleteResidence, onUpdate
             />
             <Button
               variant="contained"
-              onMouseOver={() => void trigger()}
-              onClick={() => {
-                if (isEmpty(errors) && residenceDialogData) {
-                  if (residenceDialogData._id) {
-                    updateResidenceHandler();
-                  } else {
-                    createResidenceHandler();
-                  }
-                  setResidenceDialogData(null);
-                }
-              }}
+              onClick={handleSubmit(submitHandler)}
             >
               {t('save')}
             </Button>

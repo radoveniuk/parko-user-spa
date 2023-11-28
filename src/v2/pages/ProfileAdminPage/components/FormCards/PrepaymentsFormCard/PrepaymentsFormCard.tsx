@@ -1,8 +1,9 @@
 import React, { memo, useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash-es/isEmpty';
 import isEqual from 'lodash-es/isEqual';
+import { DateTime } from 'luxon';
 import { Button, Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog from 'v2/uikit/Dialog';
@@ -37,14 +38,14 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
   const [deleteDialogData, setDeleteDialogData] = useState<Partial<IPrepayment> | null>(null);
   const prepaymentStatusList = useTranslatedSelect(PREPAYMENT_STATUS, 'prepaymentStatus');
 
-  const { register, control, formState: { errors }, getValues, reset, trigger } = useForm<IPrepayment>();
+  const { register, control, formState: { errors }, getValues, reset, handleSubmit } = useForm<IPrepayment>();
 
   const [prepayments, { add, remove, update }, setPrepayments] = useListState(data);
 
   const createPrepaymentHandler = () => {
     const values = getValues();
     onCreatePrepayment?.(values);
-    add({ ...values, _id: createId() });
+    add({ ...values, _id: createId(), createdAt: DateTime.now().toISO() });
   };
 
   const updatePrepaymentHandler = () => {
@@ -62,6 +63,17 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
     }
   };
 
+  const submitHandler: SubmitHandler<IPrepayment> = () => {
+    if (isEmpty(errors) && prepaymentDialogData) {
+      if (prepaymentDialogData._id) {
+        updatePrepaymentHandler();
+      } else {
+        createPrepaymentHandler();
+      }
+      setPrepaymentDialogData(null);
+    }
+  };
+
   useEffect(() => {
     if (!isEqual(data, prepayments)) {
       setPrepayments(data);
@@ -73,7 +85,7 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
     <>
       <FormCard>
         <FormCardHeader icon={<PrepaymentIcon size={24} />} title={t('navbar.prepayments')}>
-          <Button onClick={() => { setPrepaymentDialogData({}); reset(); }}><PlusIcon />{t('add')}</Button>
+          <Button onClick={() => { setPrepaymentDialogData({}); reset({}); }}><PlusIcon />{t('add')}</Button>
         </FormCardHeader>
         <FormCardBody>
           <TableContainer>
@@ -115,66 +127,67 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
           </TableContainer>
         </FormCardBody>
       </FormCard>
-      <Dialog title={t('dayoff.dayoff')} onClose={() => void setPrepaymentDialogData(null)} open={prepaymentDialogData !== null}>
-        <PrepaymentDialogContent>
-          <div className="form">
-            <Controller
-              control={control}
-              name="createdAt"
-              defaultValue={prepaymentDialogData?.paymentDate || ''}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <DatePicker
-                  views={['year', 'month']}
-                  format="MM/yyyy"
-                  openTo="month"
-                  defaultValue={field.value}
-                  onChange={field.onChange}
-                  label={`${t('prepayment.period')}*`}
-                  error={!!errors.paymentDate}
-                />
-              )}
-            />
-            <Input
-              InputProps={{ endAdornment: '€' }}
-              label={`${t('prepayment.sum')}`}
-              defaultValue={prepaymentDialogData?.sum || '0'}
-              type="number"
-              error={!!errors.sum}
-              {...register('sum', {
-                onChange (event) {
-                  console.log(event.target.value);
-                },
-              })}
-            />
-            <Select
-              label={t('prepayment.status')}
-              error={!!errors.status}
-              options={prepaymentStatusList}
-              defaultValue={prepaymentDialogData?.status || 'pending'}
-              {...register('status')}
-            />
-          </div>
-          <div className="actions">
-            <Button
-              variant="contained"
-              onMouseOver={() => void trigger()}
-              onClick={() => {
-                if (isEmpty(errors) && prepaymentDialogData) {
-                  if (prepaymentDialogData._id) {
-                    updatePrepaymentHandler();
-                  } else {
-                    createPrepaymentHandler();
-                  }
-                  setPrepaymentDialogData(null);
-                }
-              }}
-            >
-              {t('save')}
-            </Button>
-          </div>
-        </PrepaymentDialogContent>
-      </Dialog>
+      {prepaymentDialogData !== null && (
+        <Dialog title={t('prepayment.prepayment')} onClose={() => { setPrepaymentDialogData(null); reset(); }} open={prepaymentDialogData !== null}>
+          <PrepaymentDialogContent>
+            <div className="form">
+              <Controller
+                control={control}
+                name="period"
+                defaultValue={prepaymentDialogData?.period || undefined}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <DatePicker
+                    views={['year', 'month']}
+                    format="MM/yyyy"
+                    openTo="month"
+                    defaultValue={field.value}
+                    onChange={field.onChange}
+                    label={`${t('prepayment.period')}*`}
+                    error={!!errors.period}
+                  />
+                )}
+              />
+              <Input
+                InputProps={{ endAdornment: '€' }}
+                label={`${t('prepayment.sum')}*`}
+                defaultValue={prepaymentDialogData?.sum || ''}
+                type="number"
+                error={!!errors.sum}
+                {...register('sum', { required: true })}
+              />
+              <Select
+                label={t('prepayment.status')}
+                error={!!errors.status}
+                options={prepaymentStatusList}
+                defaultValue={prepaymentDialogData?.status || 'pending'}
+                {...register('status')}
+              />
+              <Controller
+                control={control}
+                name="paymentDate"
+                defaultValue={prepaymentDialogData?.paymentDate || null}
+                render={({ field }) => (
+                  <DatePicker
+                    views={['year', 'month']}
+                    defaultValue={field.value}
+                    onChange={field.onChange}
+                    label={t('prepayment.paymentDate')}
+                  />
+                )}
+              />
+            </div>
+            <div className="actions">
+              <Button
+                variant="contained"
+                onClick={handleSubmit(submitHandler)}
+              >
+                {t('save')}
+              </Button>
+            </div>
+          </PrepaymentDialogContent>
+        </Dialog>
+      )}
       <DialogConfirm
         open={deleteDialogData !== null}
         onSubmit={() => {

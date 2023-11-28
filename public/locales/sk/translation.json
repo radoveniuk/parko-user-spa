@@ -160,7 +160,8 @@
     "lastUpdate": "Posledné meny",
     "createdAt": "Datum vytvorenia",
     "cooperation": "Spolupraca",
-    "history": "História"
+    "history": "História",
+    "finances": "Finansy"
   },
   "userUpload": {
     "title": "Import profilov",
@@ -173,6 +174,14 @@
     "finish": "Import",
     "successText": "Používatelia boli importovaní. Toto je predvolené heslo, skopírujte ho a odošlite používateľom",
     "errorText": "Vyskytla chyba"
+  },
+  "finance": {
+    "add": "Pridať",
+    "edit": "Upraviť",
+    "type": "Typ",
+    "period": "Obdobie",
+    "comment": "Komentár",
+    "createdAt": "Vytvorené dňa"
   },
   "prepayment": {
     "date": "Dátum",
@@ -277,6 +286,10 @@
       "approved": "Potvrdený",
       "rejected": "Zamietnuté",
       "paid": "Zaplatené"
+    },
+    "financeType": {
+      "invoice": "Faktúra",
+      "payroll": "Payroll"
     }
   },
   "notFoundPage": "Stránka nenájdená",

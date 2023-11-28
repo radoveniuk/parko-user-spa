@@ -16,6 +16,7 @@ code {
 a {
   text-decoration: none;
   color: #2A6AE7;
+  cursor: pointer;
 }
 
 input:-webkit-autofill,

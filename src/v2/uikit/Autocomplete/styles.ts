@@ -1,4 +1,11 @@
+import AutocompleteMaterial from '@mui/material/Autocomplete';
 import styled from 'styled-components';
+
+export const StyledAutocomplete = styled(AutocompleteMaterial)`
+  .MuiAutocomplete-endAdornment {
+    background-color: #fff;
+  }
+`;
 
 export const DropdownIconWrapper = styled.div`
   height: 20px;

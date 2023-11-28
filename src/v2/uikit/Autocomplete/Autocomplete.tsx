@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import AutocompleteMaterial from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { DropdownIcon } from 'components/icons';
 
 import Input from '../Input';
 
-import { DropdownIconWrapper } from './styles';
+import { DropdownIconWrapper, StyledAutocomplete } from './styles';
 
 type FieldTheme = 'white' | 'gray';
 
@@ -44,9 +43,9 @@ const AutoComplete = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <AutocompleteMaterial
+    <StyledAutocomplete
       style={{ minWidth: 223, maxWidth }}
-      renderOption={(props, option) => (
+      renderOption={(props, option: any) => (
         <li {...props} key={option[valueKey]}>
           {labelKey ? option[labelKey] : getOptionLabel?.(option)}
         </li>
