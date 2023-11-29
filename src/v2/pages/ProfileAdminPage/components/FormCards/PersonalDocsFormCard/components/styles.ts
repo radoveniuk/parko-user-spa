@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { SM } from 'theme/sizeBreakpoints';
+
 export const DocForm = styled.div`
   .title {
     color: #131313;
@@ -11,5 +13,9 @@ export const DocForm = styled.div`
     grid-template-columns: repeat(2, 1fr);
     column-gap: 20px;
     row-gap: 15px;
+
+    @media (max-width: ${SM}) {
+      grid-template-columns: 1fr;
+    }
   }
 `;
