@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTime } from 'luxon';
 
 import { CalendarIcon } from 'components/icons';
 
-import IconButton from '../IconButton';
 import Input, { InputProps } from '../Input';
+
+import { StyledDatePicker } from './styles';
 
 type DateView = 'year' | 'month' | 'day';
 
@@ -50,13 +50,13 @@ const DatePicker = ({
 
   return (
     <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale={i18n.language}>
-      <DesktopDatePicker
-        sx={{ position: 'relative' }}
+      <StyledDatePicker
         className={className}
         label={label}
         format={format}
         defaultValue={datetimeDefaultValue}
         disabled={disabled}
+        slotProps={{ textField: { error } }}
         onChange={(luxonValue: DateTime | null) => {
           onChange(
             luxonValue?.isValid ? luxonValue?.toISODate() || '' : '',
@@ -64,9 +64,8 @@ const DatePicker = ({
           );
         }}
         slots={{
-          textField: (params) => <Input {...inputProps} {...params as any} error={error} onBlur={onBlur} />,
-          openPickerIcon: (params) => <CalendarIcon size={16} {...params} onBlur={onBlur} />,
-          openPickerButton: (params) => <IconButton {...params} style={{ marginRight: -7 }} onBlur={onBlur} />,
+          textField: Input as any,
+          openPickerIcon: (params) => <CalendarIcon size={16} {...params} />,
         }}
         minDate={minDate ? DateTime.fromISO(minDate) : undefined}
         maxDate={maxDate ? DateTime.fromISO(maxDate) : undefined}
