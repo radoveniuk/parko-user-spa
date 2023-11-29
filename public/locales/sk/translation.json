@@ -161,7 +161,15 @@
     "createdAt": "Datum vytvorenia",
     "cooperation": "Spolupraca",
     "history": "História",
-    "finances": "Finansy"
+    "finances": "Finansy",
+    "addDoc": "Nový doklad",
+    "visa": "Viza"
+  },
+  "doc": {
+    "dateFrom": "Dátum od",
+    "dateTo": "Dátum do",
+    "issuerCountry": "Krajina vydania",
+    "issuedBy": "Vydal"
   },
   "userUpload": {
     "title": "Import profilov",
@@ -435,6 +443,7 @@
   "noSelected": " Nie je zvolený ",
   "male": "Muž",
   "female": "Žena",
+  "edit": "Upraviť",
   "save": "Uložiť",
   "delete": "Vymazať",
   "date": "Dátum",

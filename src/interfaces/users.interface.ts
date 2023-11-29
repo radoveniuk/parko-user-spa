@@ -81,6 +81,8 @@ export interface IUser {
   idCardBackScan: string | IFile;
   permitFaceScan: string | IFile;
   permitBackScan: string | IFile;
+  // docs info
+  docs?: Record<string, string>[];
 
   projectStages: {
     [key: string]: {

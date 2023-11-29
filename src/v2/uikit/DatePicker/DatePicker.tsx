@@ -27,12 +27,13 @@ export type Props = {
   views?: DateView[];
   disabled?: boolean;
   inputProps?: InputProps;
+  onBlur?(e: any): void;
 }
 
 const DatePicker = ({
   defaultValue, onChange, label, className, error,
   minDate, maxDate, openTo, views, disabled,
-  inputProps, format = 'dd.MM.yyyy',
+  inputProps, format = 'dd.MM.yyyy', onBlur,
 }: Props) => {
   const { i18n } = useTranslation();
 
@@ -50,6 +51,7 @@ const DatePicker = ({
   return (
     <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale={i18n.language}>
       <DesktopDatePicker
+        sx={{ position: 'relative' }}
         className={className}
         label={label}
         format={format}
@@ -62,9 +64,9 @@ const DatePicker = ({
           );
         }}
         slots={{
-          textField: (params) => <Input {...inputProps} {...params as any} error={error}/>,
-          openPickerIcon: (params) => <CalendarIcon size={16} {...params} />,
-          openPickerButton: (params) => <IconButton {...params} style={{ marginRight: -7 }} />,
+          textField: (params) => <Input {...inputProps} {...params as any} error={error} onBlur={onBlur} />,
+          openPickerIcon: (params) => <CalendarIcon size={16} {...params} onBlur={onBlur} />,
+          openPickerButton: (params) => <IconButton {...params} style={{ marginRight: -7 }} onBlur={onBlur} />,
         }}
         minDate={minDate ? DateTime.fromISO(minDate) : undefined}
         maxDate={maxDate ? DateTime.fromISO(maxDate) : undefined}

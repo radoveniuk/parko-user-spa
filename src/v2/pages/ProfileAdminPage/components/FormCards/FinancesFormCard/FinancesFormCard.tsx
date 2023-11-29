@@ -21,9 +21,11 @@ import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
 import useListState from 'hooks/useListState';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import useViewportWidth from 'hooks/useViewportWsdth';
 import { IFile } from 'interfaces/file.interface';
 import { IPaycheck } from 'interfaces/paycheck.interface';
 import { themeConfig } from 'theme';
+import { SM } from 'theme/sizeBreakpoints';
 
 import DateFormat from './components/DateFormat';
 import { ActionsCell, FileInputArea, FinanceDialogContent } from './styles';
@@ -126,6 +128,8 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
 
   const [fileUploading, setFileUploading] = useState(false);
 
+  const viewportWidth = useViewportWidth();
+
   return (
     <>
       <FormCard>
@@ -158,7 +162,7 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
                       </a>
                     </TableCell>
                     <TableCell>{getDateFromIso(finance.data.date, 'MM/yyyy')}</TableCell>
-                    <TableCell>{finance.data.project}</TableCell>
+                    <TableCell>{finance.data.comment}</TableCell>
                     <TableCell>{getDateFromIso(finance.data.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
                     <TableCell align="right">
                       <ActionsCell>
@@ -178,6 +182,7 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
         </FormCardBody>
       </FormCard>
       <Dialog
+        fullScreen={viewportWidth <= Number(SM.replace('px', ''))}
         title={financeDialogData?.data?._id ? t('finance.edit') : t('finance.add')}
         onClose={() => void setFinanceDialogData(null)}
         open={financeDialogData !== null}
@@ -254,6 +259,13 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
                   )}
                 </FileInputArea>
               )}
+            />
+            <Input
+              label={t('finance.comment')}
+              defaultValue={financeDialogData?.data?.comment || ''}
+              multiline
+              className="comment"
+              {...register('data.comment')}
             />
           </div>
           <div className="actions">

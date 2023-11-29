@@ -1,7 +1,7 @@
 import { IFile } from './file.interface';
 import { IUser } from './users.interface';
 
-export interface IPaycheck {
+export interface IPayroll {
   _id: string;
   user: string | IUser;
   project: string;

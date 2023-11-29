@@ -163,7 +163,15 @@
     "createdAt": "Дата створення",
     "cooperation": "Співпраця",
     "history": "Історія",
-    "finances": "Фінанси"
+    "finances": "Фінанси",
+    "addDoc": "Додати документ",
+    "visa": "Віза"
+  },
+  "doc": {
+    "dateFrom": "Дійсний від",
+    "dateTo": "Дійсний до",
+    "issuerCountry": "Країна випуску",
+    "issuedBy": "Видав"
   },
   "userUpload": {
     "title": "Імпорт профілів",
@@ -450,6 +458,7 @@
   "female": "Жіноча",
   "dataUpdated": "Дані оновлено",
   "example": "Приклад",
+  "edit": "Редагувати",
   "save": "Зберегти",
   "delete": "Видалити",
   "date": "Дата",

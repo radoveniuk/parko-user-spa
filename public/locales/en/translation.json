@@ -163,7 +163,15 @@
     "createdAt": "Created at",
     "cooperation": "Cooperation",
     "history": "History",
-    "finances": "Finances"
+    "finances": "Finances",
+    "addDoc": "Add document",
+    "visa": "Visa"
+  },
+  "doc": {
+    "dateFrom": "Active from",
+    "dateTo": "Active to",
+    "issuerCountry": "Issuer country",
+    "issuedBy": "Issued by"
   },
   "userUpload": {
     "title": "Upload users",
@@ -451,6 +459,7 @@
   "female": "Female",
   "dataUpdated": "Data updated",
   "example": "Example",
+  "edit": "Edit",
   "save": "Save",
   "delete": "Delete",
   "date": "Date",

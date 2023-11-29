@@ -17,9 +17,17 @@ export const FinanceDialogContent = styled.div`
     row-gap: 12px;
     margin-bottom: 49px;
 
+    *:last-child {
+      grid-column: 1 / 3;
+    }
+
     @media (max-width: ${SM}) {
       grid-template-columns: 1fr;
+      *:last-child {
+        grid-column: 1;
+      }
     }
+
   }
   .actions {
     align-items: baseline;
