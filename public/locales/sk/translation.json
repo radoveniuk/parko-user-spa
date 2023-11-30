@@ -170,7 +170,10 @@
     "visaNumber": "Číslo",
     "bankInfo": "Bankové údaje",
     "bankName": "Banka",
-    "employmentInfo": "Informácie pre zamestnanie"
+    "employmentInfo": "Informácie pre zamestnanie",
+     "insurance": "Poistenie",
+     "birthSurname": "Priezvisko pri narodení",
+     "childrenCount": "Počet detí"
   },
   "doc": {
     "dateFrom": "Dátum od",

@@ -69,3 +69,9 @@ export const PREPAYMENT_STATUS = [
   'rejected',
   'paid',
 ];
+
+export const INSURANCE = [
+  'Union',
+  'VŠZP',
+  'Dôvera',
+];

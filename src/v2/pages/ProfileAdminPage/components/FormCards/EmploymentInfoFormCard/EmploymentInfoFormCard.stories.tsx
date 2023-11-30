@@ -7,6 +7,9 @@ import EmploymentInfoFormCard from './EmploymentInfoFormCard';
 
 const meta: Meta<typeof EmploymentInfoFormCard> = {
   component: EmploymentInfoFormCard,
+  argTypes: {
+    onUpdateEmploymentInfo: { action: 'onUpdateEmploymentInfo' },
+  },
 };
 
 export default meta;
@@ -16,9 +19,14 @@ type Story = StoryObj<typeof EmploymentInfoFormCard>;
 export const Example: Story = {
   args: {
     data: {
-      IBAN: 'SK45 0545 0000 0024 5456 4585',
-      bankName: 'Tatra banka a.s.',
-      SWIFT: 'TRTSCXFS',
+      passNumber: 'FD134568',
+      rodneCislo: '000117/9134',
+      medicalInsurance: 'Union',
+      country: 'Ukrajina',
+      birthPlace: 'Baku, Azerbajdžan',
+      familyStatus: 'single',
+      birthSurname: 'Linenkova',
+      childrenCount: 11,
     },
   },
   render: (args) => (

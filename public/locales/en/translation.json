@@ -172,7 +172,10 @@
     "visaNumber": "Number",
     "bankInfo": "Bank info",
     "bankName": "Bank",
-    "employmentInfo": "Information for employment"
+    "employmentInfo": "Information for employment",
+    "insurance": "Insurance",
+    "birthSurname": "Surname at birth",
+    "childrenCount": "Number of children"
   },
   "doc": {
     "dateFrom": "Active from",

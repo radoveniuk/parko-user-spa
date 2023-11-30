@@ -99,7 +99,7 @@ export interface IUser {
   birthPlace: string;
   familyStatus: string;
   birthSurname: string;
-  childrenCount: string;
+  childrenCount: number;
 
   tags?: string[];
   createdAt?: string,

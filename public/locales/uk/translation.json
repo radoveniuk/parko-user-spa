@@ -172,7 +172,10 @@
     "visaNumber": "Номер візи",
     "bankInfo": "Банківські дані",
     "bankName": "Банк",
-    "employmentInfo": "Інформація для працевлаштування"
+    "employmentInfo": "Інформація для працевлаштування",
+    "insurance": "Страховка",
+    "birthSurname": "Прізвище при народження",
+    "childrenCount": "Кількість дітей"
   },
   "doc": {
     "dateFrom": "Дійсний від",
