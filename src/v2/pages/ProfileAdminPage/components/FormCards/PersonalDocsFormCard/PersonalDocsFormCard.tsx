@@ -24,6 +24,17 @@ const DEFAULT_PASS: PassInfo = {
   issuedBy: '',
 };
 
+const DEFAULT_PERMIT: PermitInfo = {
+  type: 'permit',
+  number: '',
+  dateFrom: '',
+  dateTo: '',
+  id: '',
+  goal: '',
+  address: '',
+  isMedicalCheck: true,
+};
+
 type Doc = (Record<string, string | boolean> & { type: DocType });
 
 type Props = {
@@ -49,7 +60,7 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
 
   const missingDocs = useMemo(() => [
     { type: 'pass', label: 'user.internationalPassScan', defaultValues: DEFAULT_PASS },
-    { type: 'permit', label: 'user.permitFields' },
+    { type: 'permit', label: 'user.permit', defaultValues: DEFAULT_PERMIT },
     { type: 'visa', label: 'user.visa' },
   ].filter((item) => !docs.some((docItem) => docItem.type === item.type)), [docs]);
 
@@ -110,7 +121,14 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
                         triggerAllFields={formCardConfig.triggerAll}
                       />
                     )}
-                    {docItem.type === 'permit' && <Permit data={docItem as PermitInfo} />}
+                    {docItem.type === 'permit' && (
+                      <Permit
+                        data={docItem as PermitInfo}
+                        disabled={formCardConfig.disabled}
+                        onUpdate={(values) => void update(docItem, values)}
+                        triggerAllFields={formCardConfig.triggerAll}
+                      />
+                    )}
                     {docItem.type === 'visa' && <Visa data={docItem as VisaInfo} />}
                   </DocItem>
                 ))}

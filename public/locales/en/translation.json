@@ -165,7 +165,10 @@
     "history": "History",
     "finances": "Finances",
     "addDoc": "Add document",
-    "visa": "Visa"
+    "visa": "Visa",
+    "permit": "Residence permit",
+    "permitCardId": "ID",
+    "goal": "Goal of residence permit"
   },
   "doc": {
     "dateFrom": "Active from",

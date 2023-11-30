@@ -125,7 +125,12 @@ const FinancesFormCard = ({ data, onCreateResidence, onDeleteResidence, onUpdate
           </TableContainer>
         </FormCardBody>
       </FormCard>
-      <Dialog title={t('accommodation.residence')} onClose={() => void setResidenceDialogData(null)} open={residenceDialogData !== null}>
+      <Dialog
+        mobileFullscreen
+        title={t('accommodation.residence')}
+        onClose={() => void setResidenceDialogData(null)}
+        open={residenceDialogData !== null}
+      >
         <FinanceDialogContent>
           <div className="form">
             <Controller

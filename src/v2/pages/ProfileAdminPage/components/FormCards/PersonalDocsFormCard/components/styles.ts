@@ -19,3 +19,9 @@ export const DocForm = styled.div`
     }
   }
 `;
+
+export const CountrySelectOption = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;

@@ -2,13 +2,13 @@ import React, { useMemo } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash-es';
+import DatePicker from 'v2/uikit/DatePicker';
 
 import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import Accordion from 'components/shared/Accordion';
 import BooleanSelect from 'components/shared/BooleanSelect';
-import DatePicker from 'v2/uikit/DatePicker';
 import Input from 'components/shared/Input';
 import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import Select from 'components/shared/Select';

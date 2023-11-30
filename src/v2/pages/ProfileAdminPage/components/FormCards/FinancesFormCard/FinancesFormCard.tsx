@@ -21,11 +21,9 @@ import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
 import useListState from 'hooks/useListState';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import useViewportWidth from 'hooks/useViewportWsdth';
 import { IFile } from 'interfaces/file.interface';
 import { IPaycheck } from 'interfaces/paycheck.interface';
 import { themeConfig } from 'theme';
-import { SM } from 'theme/sizeBreakpoints';
 
 import DateFormat from './components/DateFormat';
 import { ActionsCell, FileInputArea, FinanceDialogContent } from './styles';
@@ -128,8 +126,6 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
 
   const [fileUploading, setFileUploading] = useState(false);
 
-  const viewportWidth = useViewportWidth();
-
   return (
     <>
       <FormCard>
@@ -182,7 +178,7 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
         </FormCardBody>
       </FormCard>
       <Dialog
-        fullScreen={viewportWidth <= Number(SM.replace('px', ''))}
+        mobileFullscreen
         title={financeDialogData?.data?._id ? t('finance.edit') : t('finance.add')}
         onClose={() => void setFinanceDialogData(null)}
         open={financeDialogData !== null}

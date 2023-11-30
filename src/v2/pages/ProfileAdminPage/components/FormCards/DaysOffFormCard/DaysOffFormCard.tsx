@@ -123,7 +123,7 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
           </TableContainer>
         </FormCardBody>
       </FormCard>
-      <Dialog title={t('dayoff.dayoff')} onClose={() => void setDayoffDialogData(null)} open={dayoffDialogData !== null}>
+      <Dialog mobileFullscreen title={t('dayoff.dayoff')} onClose={() => void setDayoffDialogData(null)} open={dayoffDialogData !== null}>
         <DayOffDialogContent>
           <div className="form">
             <Controller

@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { COUNTRIES } from 'v2/constants/countries';
 import { Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
+import Select from 'v2/uikit/Select';
 
 import { DocType, PassInfo } from '../types';
 
-import { DocForm } from './styles';
+import { CountrySelectOption, DocForm } from './styles';
 
 type Props = {
   data: PassInfo;
   disabled?: boolean;
-  onUpdate?(values: Partial<PassInfo> & {type: DocType}): void;
+  onUpdate?(values: Partial<PassInfo> & { type: DocType }): void;
   triggerAllFields?: boolean;
 };
 
@@ -46,18 +48,22 @@ const Pass = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
             },
           })}
         />
-        <Input
-          label={t('doc.issuerCountry')}
+        <Select
           disabled={disabled}
+          options={COUNTRIES}
+          labelPath={(data) => (
+            <CountrySelectOption><img src={`https://flagcdn.com/w20/${data.code}.png`} className="mr-12" />{data.value}</CountrySelectOption>
+          )}
+          label={t('doc.issuerCountry')}
+          defaultValue={data.country}
           error={!!errors.country}
           {...register('country', {
             required: true,
-            onBlur () {
-              trigger('country');
-            },
             onChange (e) {
-              trigger('country');
               onUpdate?.({ ...values, country: e.target.value });
+              setTimeout(() => {
+                trigger('country');
+              }, 100);
             },
           })}
         />

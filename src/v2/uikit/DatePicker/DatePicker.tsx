@@ -56,7 +56,7 @@ const DatePicker = ({
         format={format}
         defaultValue={datetimeDefaultValue}
         disabled={disabled}
-        slotProps={{ textField: { error } }}
+        slotProps={{ textField: { error, onBlur } }}
         onChange={(luxonValue: DateTime | null) => {
           onChange(
             luxonValue?.isValid ? luxonValue?.toISODate() || '' : '',

@@ -1,10 +1,12 @@
-import React, { forwardRef, memo, useMemo, useState } from 'react';
+import React, { ForwardedRef, forwardRef, memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MenuItem from '@mui/material/MenuItem';
 import SelectMaterial, { SelectProps as SelectPropsMaterial } from '@mui/material/Select';
-import _, { isFunction } from 'lodash-es';
+import get from 'lodash-es/get';
+import isFunction from 'lodash-es/isFunction';
 
 import { DropdownIcon } from 'components/icons';
+import { Path } from 'interfaces/base.types';
 
 import { SelectWrapper } from './styles';
 
@@ -15,46 +17,40 @@ const COLORS_MAP: Record<FieldTheme, string> = {
   white: '#FFFFFF',
 };
 
-type Option = {[key: string | number]: any}
-
-export type SelectProps = SelectPropsMaterial & {
-  options?: string[] | number[] | Option[];
-  valuePath?: string;
-  labelPath?: string | string[] | ((item: unknown) => string);
+export type SelectProps<T> = SelectPropsMaterial & {
+  options?: T[];
+  valuePath?: Path<T>;
+  labelPath?: string | string[] | ((item: T) => string | React.ReactNode);
   emptyItem?: string;
   maxWidth?: number;
   theme?: FieldTheme;
 }
 
-const Select = forwardRef(({
-  label, options = [], valuePath = 'value',
+function Select<T> ({
+  label, options = [], valuePath,
   labelPath = 'label', emptyItem, defaultValue,
-  onChange, maxWidth, placeholder, theme = 'white',
-  ...rest
-}: SelectProps, ref) => {
+  onChange, maxWidth, placeholder, theme = 'white', ...rest
+}: SelectProps<T>, ref: ForwardedRef<HTMLSelectElement>) {
   const { t } = useTranslation();
-  const [selectedValue, setSelectedValue] = useState<unknown>(defaultValue || '');
+  const [selectedValue, setSelectedValue] = useState<Path<T>>((defaultValue || '') as Path<T>);
   const menuItems = useMemo(() => {
     if (options) {
       return options.map((item) => {
-        if (typeof item === 'object' && (!valuePath || !labelPath)) {
-          throw new Error('Object path not specified!');
-        }
         if (['string', 'number'].includes(typeof item)) {
-          return { value: item, label: item };
+          return { value: item as string, label: item as string };
         }
-        let label = '';
+        let label: string | React.ReactNode = '';
         if (typeof labelPath === 'string') {
-          label = _.get(item, labelPath as string);
+          label = get(item, labelPath as string);
         }
         if (Array.isArray(labelPath)) {
-          label = labelPath.map((path) => _.get(item, path)).join(' ');
+          label = labelPath.map((path) => get(item, path)).join(' ');
         }
         if (isFunction(labelPath)) {
           label = labelPath(item);
         }
         return {
-          value: Array.isArray(valuePath) ? valuePath.map((path) => _.get(item, path)).join('_') : _.get(item, valuePath as string),
+          value: (Array.isArray(valuePath) ? valuePath.map((path) => get(item, path)).join('_') : get(item, valuePath || 'value')) as string,
           label: <>{label}</>,
         };
       });
@@ -70,7 +66,7 @@ const Select = forwardRef(({
         ref={ref}
         style={{ minWidth: 200 }}
         onChange={(e, child) => {
-          setSelectedValue(e.target.value);
+          setSelectedValue(e.target.value as Path<T>);
           onChange?.(e, child);
         }}
         {...rest}
@@ -86,8 +82,8 @@ const Select = forwardRef(({
       </SelectMaterial>
     </SelectWrapper>
   );
-});
+};
 
 Select.displayName = 'Select';
 
-export default memo(Select);
+export default memo(forwardRef(Select)) as typeof Select;

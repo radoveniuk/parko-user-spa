@@ -163,7 +163,10 @@
     "history": "História",
     "finances": "Finansy",
     "addDoc": "Nový doklad",
-    "visa": "Viza"
+    "visa": "Viza",
+    "povolenie": "Prechodný / trvalý pobyt",
+    "permitCardId": "Identifikačné číslo",
+    "goal": "Cieľ"
   },
   "doc": {
     "dateFrom": "Dátum od",
