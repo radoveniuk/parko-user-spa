@@ -35,6 +35,14 @@ const DEFAULT_PERMIT: PermitInfo = {
   isMedicalCheck: true,
 };
 
+const DEFAULT_VISA: VisaInfo = {
+  type: 'visa',
+  number: '',
+  dateFrom: '',
+  dateTo: '',
+  comment: '',
+};
+
 type Doc = (Record<string, string | boolean> & { type: DocType });
 
 type Props = {
@@ -52,16 +60,13 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
   const removeDocHandler = () => {
     if (deleteDialogData !== null) {
       remove(deleteDialogData);
-      setTimeout(() => {
-        onUpdateDocs?.(docs);
-      }, 100);
     }
   };
 
   const missingDocs = useMemo(() => [
     { type: 'pass', label: 'user.internationalPassScan', defaultValues: DEFAULT_PASS },
     { type: 'permit', label: 'user.permit', defaultValues: DEFAULT_PERMIT },
-    { type: 'visa', label: 'user.visa' },
+    { type: 'visa', label: 'user.visa', defaultValues: DEFAULT_VISA },
   ].filter((item) => !docs.some((docItem) => docItem.type === item.type)), [docs]);
 
   useEffect(() => {
@@ -76,90 +81,95 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
   console.log(docs);
 
   return (
-    <>
-      <FormCard defaultConfig={{ triggerAll: false, disabled: true }}>
-        {({ formCardConfig, updateFormCardConfig }) => (
-          <>
-            <FormCardHeader icon={<PersonalDocIcon size={24} />} title={t('user.docsFields')}>
-              {formCardConfig.disabled && <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>}
-              {!formCardConfig.disabled && (
-                <Button
-                  color="error"
-                  onClick={() => {
-                    updateFormCardConfig({ triggerAll: true });
-                    setTimeout(() => {
-                      const formCardEl = formCardRef.current;
-                      if (formCardEl) {
-                        const errorFields = formCardEl.querySelectorAll('.error');
-                        if (!errorFields.length) {
-                          updateFormCardConfig({ disabled: true });
-                        }
+    <FormCard defaultConfig={{ triggerAll: false, disabled: true }}>
+      {({ formCardConfig, updateFormCardConfig }) => (
+        <>
+          <FormCardHeader icon={<PersonalDocIcon size={24} />} title={t('user.docsFields')}>
+            {formCardConfig.disabled && <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>}
+            {!formCardConfig.disabled && (
+              <Button
+                color="error"
+                onClick={() => {
+                  updateFormCardConfig({ triggerAll: true });
+                  setTimeout(() => {
+                    const formCardEl = formCardRef.current;
+                    if (formCardEl) {
+                      const errorFields = formCardEl.querySelectorAll('.error');
+                      if (!errorFields.length) {
+                        onUpdateDocs?.(docs);
+                        updateFormCardConfig({ disabled: true });
                       }
-                      updateFormCardConfig({ triggerAll: false });
-                    }, 100);
-                  }}
-                >
-                  {t('save')}
-                </Button>)}
-            </FormCardHeader>
-            <FormCardBody ref={formCardRef}>
-              <DocList>
-                {docs.map((docItem) => (
-                  <DocItem key={docItem.type}>
-                    <IconButton
-                      disabled={formCardConfig.disabled}
-                      className="delete-btn"
-                      onClick={() => void setDeleteDialogData(docItem)}
-                    >
-                      <CloseIcon size={24} />
-                    </IconButton>
-                    {docItem.type === 'pass' && (
-                      <Pass
-                        data={docItem as PassInfo}
-                        disabled={formCardConfig.disabled}
-                        onUpdate={(values) => void update(docItem, values)}
-                        triggerAllFields={formCardConfig.triggerAll}
-                      />
-                    )}
-                    {docItem.type === 'permit' && (
-                      <Permit
-                        data={docItem as PermitInfo}
-                        disabled={formCardConfig.disabled}
-                        onUpdate={(values) => void update(docItem, values)}
-                        triggerAllFields={formCardConfig.triggerAll}
-                      />
-                    )}
-                    {docItem.type === 'visa' && <Visa data={docItem as VisaInfo} />}
-                  </DocItem>
-                ))}
-              </DocList>
-              <Menu
-                isCloseOnMenu
-                disabled={formCardConfig.disabled}
-                menuComponent={<Button variant="outlined" disabled={formCardConfig.disabled}><PlusIcon />{t('user.addDoc')}</Button>}
+                    }
+                    updateFormCardConfig({ triggerAll: false });
+                  }, 100);
+                }}
               >
-                {missingDocs.map((missingDoc) => (
-                  <MenuItem
-                    key={missingDoc.type}
-                    onClick={() => missingDoc.defaultValues ? add(missingDoc.defaultValues) : undefined}
+                {t('save')}
+              </Button>)}
+          </FormCardHeader>
+          <FormCardBody ref={formCardRef}>
+            <DocList>
+              {docs.map((docItem) => (
+                <DocItem key={docItem.type}>
+                  <IconButton
+                    disabled={formCardConfig.disabled}
+                    className="delete-btn"
+                    onClick={() => void setDeleteDialogData(docItem)}
                   >
-                    {t(missingDoc.label)}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </FormCardBody>
-            <DialogConfirm
-              open={deleteDialogData !== null}
-              onSubmit={() => {
-                removeDocHandler();
-                setDeleteDialogData(null);
-              }}
-              onClose={() => void setDeleteDialogData(null)}
-            />
-          </>
-        )}
-      </FormCard>
-    </>
+                    <CloseIcon size={24} />
+                  </IconButton>
+                  {docItem.type === 'pass' && (
+                    <Pass
+                      data={docItem as PassInfo}
+                      disabled={formCardConfig.disabled}
+                      onUpdate={(values) => void update(docItem, values)}
+                      triggerAllFields={formCardConfig.triggerAll}
+                    />
+                  )}
+                  {docItem.type === 'permit' && (
+                    <Permit
+                      data={docItem as PermitInfo}
+                      disabled={formCardConfig.disabled}
+                      onUpdate={(values) => void update(docItem, values)}
+                      triggerAllFields={formCardConfig.triggerAll}
+                    />
+                  )}
+                  {docItem.type === 'visa' && (
+                    <Visa
+                      data={docItem as VisaInfo}
+                      disabled={formCardConfig.disabled}
+                      onUpdate={(values) => void update(docItem, values)}
+                      triggerAllFields={formCardConfig.triggerAll}
+                    />)}
+                </DocItem>
+              ))}
+            </DocList>
+            <Menu
+              isCloseOnMenu
+              disabled={formCardConfig.disabled}
+              menuComponent={<Button variant="outlined" disabled={formCardConfig.disabled}><PlusIcon />{t('user.addDoc')}</Button>}
+            >
+              {missingDocs.map((missingDoc) => (
+                <MenuItem
+                  key={missingDoc.type}
+                  onClick={() => missingDoc.defaultValues ? add(missingDoc.defaultValues) : undefined}
+                >
+                  {t(missingDoc.label)}
+                </MenuItem>
+              ))}
+            </Menu>
+          </FormCardBody>
+          <DialogConfirm
+            open={deleteDialogData !== null}
+            onSubmit={() => {
+              removeDocHandler();
+              setDeleteDialogData(null);
+            }}
+            onClose={() => void setDeleteDialogData(null)}
+          />
+        </>
+      )}
+    </FormCard>
   );
 };
 

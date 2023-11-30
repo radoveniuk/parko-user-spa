@@ -35,7 +35,7 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
         height: 48px;
       }
     }
-    &:has(input:disabled) {
+    &:has(input:disabled), &:has(textarea:disabled) {
       background: #F3F3F3;
     }
     input:disabled {

@@ -21,7 +21,9 @@ export type InputProps = {
   theme?: FieldTheme;
 } & TextFieldProps;
 
-const Input = ({ showPasswordIcon, type, maxWidth, theme = 'white', label, ...props }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
+const Input = ({
+  showPasswordIcon, type, maxWidth, theme = 'white', label, className, ...props
+}: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = useCallback(() => {
@@ -29,7 +31,7 @@ const Input = ({ showPasswordIcon, type, maxWidth, theme = 'white', label, ...pr
   }, []);
 
   return (
-    <InputWrapper style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
+    <InputWrapper className={className} style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
       <div className={`label${props.error ? ' error' : ''}`}>{label}</div>
       <TextField
         ref={ref}

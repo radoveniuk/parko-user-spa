@@ -166,7 +166,8 @@
     "visa": "Viza",
     "povolenie": "Prechodný / trvalý pobyt",
     "permitCardId": "Identifikačné číslo",
-    "goal": "Cieľ"
+    "permitGoal": "Cieľ",
+    "visaNumber": "Číslo"
   },
   "doc": {
     "dateFrom": "Dátum od",

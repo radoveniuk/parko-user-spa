@@ -54,7 +54,7 @@ const Permit = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
         <Select
           disabled={disabled}
           options={translatedPermitTypeList}
-          label={t('user.permitType')}
+          label={t('user.permitGoal')}
           defaultValue={data.goal}
           error={!!errors.goal}
           {...register('goal', {

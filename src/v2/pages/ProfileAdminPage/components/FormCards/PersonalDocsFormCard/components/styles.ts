@@ -13,10 +13,17 @@ export const DocForm = styled.div`
     grid-template-columns: repeat(2, 1fr);
     column-gap: 20px;
     row-gap: 15px;
+    .big-field {
+      grid-column: 1 / 3;
+    }
 
     @media (max-width: ${SM}) {
       grid-template-columns: 1fr;
+      .big-field {
+        grid-column: 1 / 1;
+      }
     }
+
   }
 `;
 

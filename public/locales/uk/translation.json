@@ -168,7 +168,8 @@
     "visa": "Віза",
     "permit": "ВНЖ / ПМЖ",
     "permitCardId": "Ідентифікаційний номер",
-    "goal": "Ціль"
+    "permitGoal": "Ціль",
+    "visaNumber": "Номер візи"
   },
   "doc": {
     "dateFrom": "Дійсний від",

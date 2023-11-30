@@ -168,7 +168,8 @@
     "visa": "Visa",
     "permit": "Residence permit",
     "permitCardId": "ID",
-    "goal": "Goal of residence permit"
+    "permitGoal": "Goal of residence permit",
+    "visaNumber": "Number"
   },
   "doc": {
     "dateFrom": "Active from",
