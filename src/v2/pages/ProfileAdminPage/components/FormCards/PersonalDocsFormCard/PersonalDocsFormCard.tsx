@@ -6,7 +6,7 @@ import DialogConfirm from 'v2/uikit/DialogConfirm';
 import { FormCard, FormCardBody, FormCardHeader } from 'v2/uikit/FormCard';
 import IconButton from 'v2/uikit/IconButton';
 
-import { CloseIcon, FileIcon, PlusIcon } from 'components/icons';
+import { CloseIcon, PersonalDocIcon, PlusIcon } from 'components/icons';
 import useListState from 'hooks/useListState';
 
 import Pass from './components/Pass';
@@ -80,7 +80,7 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
       <FormCard defaultConfig={{ triggerAll: false, disabled: true }}>
         {({ formCardConfig, updateFormCardConfig }) => (
           <>
-            <FormCardHeader icon={<FileIcon size={24} />} title={t('user.docsFields')}>
+            <FormCardHeader icon={<PersonalDocIcon size={24} />} title={t('user.docsFields')}>
               {formCardConfig.disabled && <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>}
               {!formCardConfig.disabled && (
                 <Button
