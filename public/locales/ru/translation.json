@@ -169,7 +169,10 @@
     "permit": "Вид на жительство / ПМЖ",
     "permitCardId": "Идентификационный номер",
     "permitGoal": "Цель",
-    "visaNumber": "Номер визы"
+    "visaNumber": "Номер визы",
+    "bankInfo": "Банковские данные",
+    "bankName": "Банк",
+    "employmentInfo": "Сведения для трудоустройства"
   },
   "doc": {
     "dateFrom": "Действует от",

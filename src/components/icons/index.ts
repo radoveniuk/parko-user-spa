@@ -55,6 +55,8 @@ export { AiOutlineUser as UserOutlineIcon } from 'react-icons/ai';
 export { BiMessageAltError as BiMessageIcon } from 'react-icons/bi';
 export { BsFillBuildingFill as FillBuildingIcon } from 'react-icons/bs';
 export { BsThreeDots as ThreeDotsIcon } from 'react-icons/bs';
+export { BsBank2 as BankIcon } from 'react-icons/bs';
 export { FaMoneyBill as MoneyBillIcon } from 'react-icons/fa';
 export { FaIdCard as PersonalDocIcon } from 'react-icons/fa';
 export { FiFilter as FilterIcon } from 'react-icons/fi';
+export { MdFactory as FactoryIcon } from 'react-icons/md';

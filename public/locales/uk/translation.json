@@ -169,7 +169,10 @@
     "permit": "ВНЖ / ПМЖ",
     "permitCardId": "Ідентифікаційний номер",
     "permitGoal": "Ціль",
-    "visaNumber": "Номер візи"
+    "visaNumber": "Номер візи",
+    "bankInfo": "Банківські дані",
+    "bankName": "Банк",
+    "employmentInfo": "Інформація для працевлаштування"
   },
   "doc": {
     "dateFrom": "Дійсний від",

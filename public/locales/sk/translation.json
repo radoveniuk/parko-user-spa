@@ -167,7 +167,10 @@
     "povolenie": "Prechodný / trvalý pobyt",
     "permitCardId": "Identifikačné číslo",
     "permitGoal": "Cieľ",
-    "visaNumber": "Číslo"
+    "visaNumber": "Číslo",
+    "bankInfo": "Bankové údaje",
+    "bankName": "Banka",
+    "employmentInfo": "Informácie pre zamestnanie"
   },
   "doc": {
     "dateFrom": "Dátum od",

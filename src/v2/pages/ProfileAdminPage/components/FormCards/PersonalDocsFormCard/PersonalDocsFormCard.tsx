@@ -78,8 +78,6 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
 
   const formCardRef = useRef<HTMLDivElement>(null);
 
-  console.log(docs);
-
   return (
     <FormCard defaultConfig={{ triggerAll: false, disabled: true }}>
       {({ formCardConfig, updateFormCardConfig }) => (

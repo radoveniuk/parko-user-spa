@@ -49,6 +49,8 @@ export interface IUser {
   hasMedicalExamination: boolean;
   // business docs
   IBAN: string;
+  bankName: string;
+  SWIFT: string;
   ICO: string;
   DIC: string;
   permitAdress: string;
@@ -91,6 +93,13 @@ export interface IUser {
       active: boolean;
     };
   } | null;
+
+  // NEW
+  medicalInsurance: string;
+  birthPlace: string;
+  familyStatus: string;
+  birthSurname: string;
+  childrenCount: string;
 
   tags?: string[];
   createdAt?: string,

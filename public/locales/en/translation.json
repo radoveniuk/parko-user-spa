@@ -169,7 +169,10 @@
     "permit": "Residence permit",
     "permitCardId": "ID",
     "permitGoal": "Goal of residence permit",
-    "visaNumber": "Number"
+    "visaNumber": "Number",
+    "bankInfo": "Bank info",
+    "bankName": "Bank",
+    "employmentInfo": "Information for employment"
   },
   "doc": {
     "dateFrom": "Active from",

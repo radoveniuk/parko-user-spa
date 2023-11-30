@@ -23,7 +23,6 @@ export const DocForm = styled.div`
         grid-column: 1 / 1;
       }
     }
-
   }
 `;
 
