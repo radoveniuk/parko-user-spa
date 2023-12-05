@@ -88,7 +88,7 @@ export const DocItems = styled.div`
   display: flex;
   flex-direction: row;
   gap: 6px;
-  margin-bottom: 6px;
+  margin-top: 6px;
 
   @media (max-width: ${SM}) {
     flex-wrap: wrap;
@@ -99,9 +99,10 @@ export const DocItem = styled.div`
   padding: 6px;
   font-size: 11px;
   border-radius: 5px;
-  max-width: min-content;
   border: 1px solid #D0D0D0;
   background: #fafafa;
+  width: 140px;
+  max-width: 140px;
   &.old {
     border-top: 3px solid #935555;
   }
