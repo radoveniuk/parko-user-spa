@@ -22,7 +22,7 @@ export const TableRow = styled(TableRowMUI)`
   }
 `;
 export const TableCell = styled(TableCellMUI)`
-  padding: 0 5px !important;
+  padding: 3px 15px !important;
   font-size: 14px !important;
   border-bottom: 1px solid #E7E7E7 !important;
   white-space: nowrap;
