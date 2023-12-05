@@ -55,10 +55,9 @@ const Header = () => {
           menuComponent={(
             <Avatar
               className="user-avatar"
+              username={username}
               sx={{ bgcolor: themeConfig.palette.primary.light }}
-            >
-              {username.split(' ').slice(0, 2).map(item => item[0]).join('').toUpperCase()}
-            </Avatar>
+            />
           )}
           isCloseOnMenu
         >

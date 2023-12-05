@@ -44,6 +44,7 @@ const AutoComplete = ({
 
   return (
     <StyledAutocomplete
+      theme={theme}
       style={{ minWidth: 223, maxWidth }}
       renderOption={(props, option: any) => (
         <li {...props} key={option[valueKey]}>

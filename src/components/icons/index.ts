@@ -60,3 +60,4 @@ export { FaMoneyBill as MoneyBillIcon } from 'react-icons/fa';
 export { FaIdCard as PersonalDocIcon } from 'react-icons/fa';
 export { FiFilter as FilterIcon } from 'react-icons/fi';
 export { MdFactory as FactoryIcon } from 'react-icons/md';
+export { RiRobot2Fill as BotIcon } from 'react-icons/ri';

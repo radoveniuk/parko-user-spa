@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const StyledAutocomplete = styled(AutocompleteMaterial)`
   .MuiAutocomplete-endAdornment {
-    background-color: #fff;
+    background-color: ${({ theme }) => theme === 'white' ? '#fff' : '#FAFAFA'};
   }
 `;
 

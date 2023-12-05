@@ -173,15 +173,21 @@
     "bankInfo": "Банковские данные",
     "bankName": "Банк",
     "employmentInfo": "Сведения для трудоустройства",
-     "insurance": "Страховка",
-     "birthSurname": "Фамилия при рождении",
-     "childrenCount": "Количество детей"
+    "insurance": "Страховка",
+    "birthSurname": "Фамилия при рождении",
+    "childrenCount": "Количество детей"
+  },
+  "userHistory": {
+    "updatedBy": "Кем изменено",
+    "updatedAt": "Когда изменено",
+    "updates": "Обновления"
   },
   "doc": {
     "dateFrom": "Действует от",
     "dateTo": "Действует до",
     "issuerCountry": "Страна выдачи",
-    "issuedBy": "Выдал"
+    "issuedBy": "Выдал",
+    "number": "Номер"
   },
   "userUpload": {
     "title": "Импорт пользователей",

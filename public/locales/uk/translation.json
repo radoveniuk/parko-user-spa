@@ -177,11 +177,17 @@
     "birthSurname": "Прізвище при народження",
     "childrenCount": "Кількість дітей"
   },
+  "userHistory": {
+    "updatedBy": "Ким оновлено",
+    "updatedAt": "Коли оновлено",
+    "updates": "Оновлення"
+  },
   "doc": {
     "dateFrom": "Дійсний від",
     "dateTo": "Дійсний до",
     "issuerCountry": "Країна випуску",
-    "issuedBy": "Видав"
+    "issuedBy": "Видав",
+    "number": "Номер"
   },
   "userUpload": {
     "title": "Імпорт профілів",

@@ -177,11 +177,17 @@
     "birthSurname": "Surname at birth",
     "childrenCount": "Number of children"
   },
+  "userHistory": {
+    "updatedBy": "Updated by",
+    "updatedAt": "Updated at",
+    "updates": "Updates"
+  },
   "doc": {
     "dateFrom": "Active from",
     "dateTo": "Active to",
     "issuerCountry": "Issuer country",
-    "issuedBy": "Issued by"
+    "issuedBy": "Issued by",
+    "number": "Number"
   },
   "userUpload": {
     "title": "Upload users",

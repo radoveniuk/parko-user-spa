@@ -17,6 +17,15 @@ export type RegisterUserDto = {
 
 export type UserRole = 'user' | 'admin' | 'recruiter' | 'super-admin';
 
+export type UserHistory = {
+  updatedBy: {
+    _id: string,
+    name?: string,
+    surname?: string,
+  };
+  changes: Partial<Record<keyof IUser, { oldValue: any, newValue: any }>>;
+}
+
 export interface IUser {
   _id: string;
   // base fields
@@ -100,6 +109,9 @@ export interface IUser {
   familyStatus: string;
   birthSurname: string;
   childrenCount: number;
+  history?: UserHistory[];
+  createdBy: string | null;
+  updatedBy: string | null;
 
   tags?: string[];
   createdAt?: string,

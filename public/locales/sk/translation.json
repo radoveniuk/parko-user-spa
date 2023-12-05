@@ -167,7 +167,7 @@
     "povolenie": "Prechodný / trvalý pobyt",
     "permitCardId": "Identifikačné číslo",
     "permitGoal": "Cieľ",
-    "visaNumber": "Číslo",
+    "visaNumber": "Číslo visy",
     "bankInfo": "Bankové údaje",
     "bankName": "Banka",
     "employmentInfo": "Informácie pre zamestnanie",
@@ -175,11 +175,17 @@
      "birthSurname": "Priezvisko pri narodení",
      "childrenCount": "Počet detí"
   },
+  "userHistory": {
+    "updatedBy": "Aktualizoval",
+    "updatedAt": "Datum aktualizácii",
+    "updates": "Aktualizácie"
+  },
   "doc": {
     "dateFrom": "Dátum od",
     "dateTo": "Dátum do",
     "issuerCountry": "Krajina vydania",
-    "issuedBy": "Vydal"
+    "issuedBy": "Vydal",
+    "number": "Číslo"
   },
   "userUpload": {
     "title": "Import profilov",
