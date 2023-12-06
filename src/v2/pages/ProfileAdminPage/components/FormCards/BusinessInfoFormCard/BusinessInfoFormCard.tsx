@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button, Input } from 'v2/uikit';
 import ButtonGroup from 'v2/uikit/ButtonGroup';
@@ -25,13 +25,14 @@ type Data = Pick<IUser, 'ICO' | 'businessName' | 'DIC' | 'adress' |
 
 type Props = {
   data?: Data;
+  onChange?(values: Data): void;
 };
 
-const BusinessInfoFormCard = ({ data }: Props) => {
+const BusinessInfoFormCard = ({ data, onChange }: Props) => {
   const { t } = useTranslation();
   const corporateBodyStatusOption = useTranslatedSelect(CORPORATE_BODY_STATUS, 'corporateBodyStatus');
 
-  const { register, reset, control } = useForm<Data>({ defaultValues: data });
+  const { register, reset, control, handleSubmit } = useForm<Data>({ defaultValues: data });
 
   const [searchConfig, setSearchConfig] = useState({
     phrase: !data?.businessName ? `${data?.name || ''} ${data?.surname || ''}`.trim() : data.businessName,
@@ -77,6 +78,10 @@ const BusinessInfoFormCard = ({ data }: Props) => {
     });
   };
 
+  const submitHandler: SubmitHandler<Data> = (values) => {
+    onChange?.(values);
+  };
+
   return (
     <FormCard defaultConfig={{ disabled: true, loading: false }}>
       {({ formCardConfig, updateFormCardConfig }) => (
@@ -90,6 +95,7 @@ const BusinessInfoFormCard = ({ data }: Props) => {
               <Button
                 color="error"
                 onClick={() => {
+                  handleSubmit(submitHandler)();
                   updateFormCardConfig({ disabled: true });
                 }}
               >

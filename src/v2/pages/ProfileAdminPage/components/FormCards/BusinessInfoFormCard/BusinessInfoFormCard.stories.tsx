@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -8,6 +9,9 @@ import BusinessInfoFormCard from './BusinessInfoFormCard';
 
 const meta: Meta<typeof BusinessInfoFormCard> = {
   component: BusinessInfoFormCard,
+  argTypes: {
+    onChange: { action: 'onChange' },
+  },
 };
 
 export default meta;
