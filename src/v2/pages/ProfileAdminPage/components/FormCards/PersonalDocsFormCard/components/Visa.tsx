@@ -4,14 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
 
-import { DocType, VisaInfo } from '../types';
+import { UserPersonalDocType } from 'interfaces/users.interface';
+
+import { VisaInfo } from '../types';
 
 import { DocForm } from './styles';
 
 type Props = {
   data: VisaInfo;
   disabled?: boolean;
-  onUpdate?(values: Partial<VisaInfo> & { type: DocType }): void;
+  onUpdate?(values: Partial<VisaInfo> & { type: UserPersonalDocType }): void;
   triggerAllFields?: boolean;
 };
 

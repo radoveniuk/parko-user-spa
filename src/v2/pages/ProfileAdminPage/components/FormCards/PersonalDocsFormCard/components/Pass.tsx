@@ -6,14 +6,16 @@ import { Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
 import Select from 'v2/uikit/Select';
 
-import { DocType, PassInfo } from '../types';
+import { UserPersonalDocType } from 'interfaces/users.interface';
+
+import { PassInfo } from '../types';
 
 import { CountrySelectOption, DocForm } from './styles';
 
 type Props = {
   data: PassInfo;
   disabled?: boolean;
-  onUpdate?(values: Partial<PassInfo> & { type: DocType }): void;
+  onUpdate?(values: Partial<PassInfo> & { type: UserPersonalDocType }): void;
   triggerAllFields?: boolean;
 };
 

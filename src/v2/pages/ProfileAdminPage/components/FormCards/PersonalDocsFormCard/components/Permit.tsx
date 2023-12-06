@@ -7,15 +7,16 @@ import Select from 'v2/uikit/Select';
 
 import { PERMIT_TYPES } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { UserPersonalDocType } from 'interfaces/users.interface';
 
-import { DocType, PermitInfo } from '../types';
+import { PermitInfo } from '../types';
 
 import { DocForm } from './styles';
 
 type Props = {
   data: PermitInfo;
   disabled?: boolean;
-  onUpdate?(values: Partial<PermitInfo> & { type: DocType }): void;
+  onUpdate?(values: Partial<PermitInfo> & { type: UserPersonalDocType }): void;
   triggerAllFields?: boolean;
 };
 
