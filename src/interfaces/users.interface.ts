@@ -26,6 +26,8 @@ export type UserHistory = {
   changes: Partial<Record<keyof IUser, { oldValue: any, newValue: any }>>;
 }
 
+export type UserPersonalDocType = 'pass' | 'permit' | 'visa';
+
 export interface IUser {
   _id: string;
   // base fields
@@ -93,7 +95,7 @@ export interface IUser {
   permitFaceScan: string | IFile;
   permitBackScan: string | IFile;
   // docs info
-  docs?: Record<string, string>[];
+  docs?: (Record<string, string | boolean> & { type: UserPersonalDocType })[];
 
   projectStages: {
     [key: string]: {
@@ -112,6 +114,8 @@ export interface IUser {
   history?: UserHistory[];
   createdBy: string | null;
   updatedBy: string | null;
+  businessName?: string;
+  businessStatus?: 'active' | 'stopped' | 'closed';
 
   tags?: string[];
   createdAt?: string,

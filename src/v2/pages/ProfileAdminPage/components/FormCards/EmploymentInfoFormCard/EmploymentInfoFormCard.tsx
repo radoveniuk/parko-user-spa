@@ -11,7 +11,7 @@ import { FAMILY_STATUSES, INSURANCE } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';
 
-import { CountrySelectOption } from './styles';
+import { CountrySelectOption, StyledFormCardBodyRow } from './styles';
 
 type EmploymentInfo = Partial<Pick<IUser, 'passNumber' | 'rodneCislo' | 'medicalInsurance' |
  'country' | 'birthDate' | 'birthPlace' | 'familyStatus' | 'birthSurname' | 'childrenCount'>>;
@@ -49,7 +49,7 @@ const EmploymentInfoFormCard = ({ data, onUpdateEmploymentInfo }: Props) => {
               </Button>)}
           </FormCardHeader>
           <FormCardBody>
-            <FormCardBodyRow>
+            <StyledFormCardBodyRow>
               <Input
                 theme="gray"
                 label={t('user.passNumber')}
@@ -108,7 +108,7 @@ const EmploymentInfoFormCard = ({ data, onUpdateEmploymentInfo }: Props) => {
                 type="number"
                 {...register('childrenCount')}
               />
-            </FormCardBodyRow>
+            </StyledFormCardBodyRow>
           </FormCardBody>
         </>
       )}

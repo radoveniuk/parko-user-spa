@@ -88,39 +88,41 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
           <Button onClick={() => { setDayoffDialogData({}); reset(); }}><PlusIcon />{t('add')}</Button>
         </FormCardHeader>
         <FormCardBody>
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>{t('dayoff.reason')}</TableCell>
-                  <TableCell>{t('dayoff.dateStart')}</TableCell>
-                  <TableCell>{t('dayoff.dateEnd')}</TableCell>
-                  <TableCell>{t('dayoff.createdAt')}</TableCell>
-                  <TableCell align="right" />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {daysoff.map((dayoff) => (
-                  <TableRow key={dayoff._id}>
-                    <TableCell>{t(`selects.dayoffReason.${dayoff.reason}`)}</TableCell>
-                    <TableCell>{getDateFromIso(dayoff.dateStart)}</TableCell>
-                    <TableCell>{getDateFromIso(dayoff.dateEnd)}</TableCell>
-                    <TableCell>{getDateFromIso(dayoff.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
-                    <TableCell align="right">
-                      <ActionsCell>
-                        <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => { setDayoffDialogData(dayoff); reset(dayoff); }}>
-                          <EditIcon size={15} />
-                        </IconButton>
-                        <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => void setDeleteDialogData(dayoff)}>
-                          <DeleteIcon size={15} />
-                        </IconButton>
-                      </ActionsCell>
-                    </TableCell>
+          {!!daysoff.length && (
+            <TableContainer>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>{t('dayoff.reason')}</TableCell>
+                    <TableCell>{t('dayoff.dateStart')}</TableCell>
+                    <TableCell>{t('dayoff.dateEnd')}</TableCell>
+                    <TableCell>{t('dayoff.createdAt')}</TableCell>
+                    <TableCell align="right" />
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {daysoff.map((dayoff) => (
+                    <TableRow key={dayoff._id}>
+                      <TableCell>{t(`selects.dayoffReason.${dayoff.reason}`)}</TableCell>
+                      <TableCell>{getDateFromIso(dayoff.dateStart)}</TableCell>
+                      <TableCell>{getDateFromIso(dayoff.dateEnd)}</TableCell>
+                      <TableCell>{getDateFromIso(dayoff.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
+                      <TableCell align="right">
+                        <ActionsCell>
+                          <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => { setDayoffDialogData(dayoff); reset(dayoff); }}>
+                            <EditIcon size={15} />
+                          </IconButton>
+                          <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => void setDeleteDialogData(dayoff)}>
+                            <DeleteIcon size={15} />
+                          </IconButton>
+                        </ActionsCell>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </FormCardBody>
       </FormCard>
       <Dialog mobileFullscreen title={t('dayoff.dayoff')} onClose={() => void setDayoffDialogData(null)} open={dayoffDialogData !== null}>

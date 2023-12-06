@@ -1,4 +1,4 @@
-import React, { ForwardedRef, forwardRef, memo, useMemo, useState } from 'react';
+import React, { ForwardedRef, forwardRef, memo, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MenuItem from '@mui/material/MenuItem';
 import SelectMaterial, { SelectProps as SelectPropsMaterial } from '@mui/material/Select';
@@ -29,7 +29,7 @@ export type SelectProps<T> = SelectPropsMaterial & {
 function Select<T> ({
   label, options = [], valuePath,
   labelPath = 'label', emptyItem, defaultValue,
-  onChange, maxWidth, placeholder, theme = 'white', ...rest
+  onChange, maxWidth, placeholder, theme = 'white', value, ...rest
 }: SelectProps<T>, ref: ForwardedRef<HTMLSelectElement>) {
   const { t } = useTranslation();
   const [selectedValue, setSelectedValue] = useState<Path<T>>((defaultValue || '') as Path<T>);
@@ -56,6 +56,12 @@ function Select<T> ({
       });
     }
   }, [labelPath, options, valuePath]);
+
+  useEffect(() => {
+    if (value) {
+      setSelectedValue(value as Path<T>);
+    }
+  }, [value]);
 
   return (
     <SelectWrapper style={{ maxWidth }} fieldColor={COLORS_MAP[theme]} >

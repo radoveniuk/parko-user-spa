@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { SM } from 'theme/sizeBreakpoints';
+
 export const ProfileCardWrapper = styled.div`
   max-width: 360px;
   border-radius: 5px;
@@ -12,6 +14,10 @@ export const ProfileCardWrapper = styled.div`
   flex-direction: column;
   color: #131313;
   /* overflow: auto; */
+  @media (max-width: ${SM}) {
+    border: none;
+    box-shadow: none;
+  }
 
   .edit-profile-btn {
     position: absolute;

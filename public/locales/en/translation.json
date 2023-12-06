@@ -175,7 +175,8 @@
     "employmentInfo": "Information for employment",
     "insurance": "Insurance",
     "birthSurname": "Surname at birth",
-    "childrenCount": "Number of children"
+    "childrenCount": "Number of children",
+    "businessStatus": "Status"
   },
   "userHistory": {
     "updatedBy": "Updated by",
@@ -316,6 +317,11 @@
     "financeType": {
       "invoice": "Invoice",
       "payroll": "Payroll"
+    },
+    "corporateBodyStatus": {
+      "active": "Active",
+      "stopped": "Stopped",
+      "closed": "Liquidated"
     }
   },
   "notFoundPage": "Page not found",

@@ -10,6 +10,7 @@ export const FormCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 600px;
+  position: relative;
 `;
 
 export const FormCardHeaderWrapper = styled.div`

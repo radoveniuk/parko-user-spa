@@ -60,10 +60,6 @@ export const Example: Story = {
             oldValue: 'New comment',
             newValue: '',
           },
-          passNumber: {
-            oldValue: 'FR555555',
-            newValue: 'GB777777',
-          },
           docs: {
             oldValue: [
               {
@@ -102,6 +98,10 @@ export const Example: Story = {
                 isMedicalCheck: true,
               },
             ],
+          },
+          passNumber: {
+            oldValue: 'FR555555',
+            newValue: 'GB777777',
           },
         },
         updatedBy: {

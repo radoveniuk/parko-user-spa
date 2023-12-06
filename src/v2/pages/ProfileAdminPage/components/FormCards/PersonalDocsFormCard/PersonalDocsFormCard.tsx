@@ -8,12 +8,13 @@ import IconButton from 'v2/uikit/IconButton';
 
 import { CloseIcon, PersonalDocIcon, PlusIcon } from 'components/icons';
 import useListState from 'hooks/useListState';
+import { UserPersonalDocType } from 'interfaces/users.interface';
 
 import Pass from './components/Pass';
 import Permit from './components/Permit';
 import Visa from './components/Visa';
 import { DocItem, DocList } from './styles';
-import { DocType, PassInfo, PermitInfo, VisaInfo } from './types';
+import { PassInfo, PermitInfo, VisaInfo } from './types';
 
 const DEFAULT_PASS: PassInfo = {
   type: 'pass',
@@ -43,7 +44,7 @@ const DEFAULT_VISA: VisaInfo = {
   comment: '',
 };
 
-type Doc = (Record<string, string | boolean> & { type: DocType });
+type Doc = (Record<string, string | boolean> & { type: UserPersonalDocType });
 
 type Props = {
   data: Doc[];

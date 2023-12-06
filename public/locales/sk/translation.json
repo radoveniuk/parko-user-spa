@@ -141,7 +141,7 @@
     "sex": "Pohlavie",
     "systemFields": "Systémové udaje",
     "permitFields": "Údaje o povolení na prechodný/trvalý pobyt",
-    "businessFields": "Údaje o živnosti",
+    "businessFields": "Obchodné informácie",
     "workFields": "Údaje o prace",
     "recruiter": "Recruiter",
     "source": "Zdroj",
@@ -173,7 +173,8 @@
     "employmentInfo": "Informácie pre zamestnanie",
      "insurance": "Poistenie",
      "birthSurname": "Priezvisko pri narodení",
-     "childrenCount": "Počet detí"
+     "childrenCount": "Počet detí",
+     "businessStatus": "Stav"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",
@@ -314,6 +315,11 @@
     "financeType": {
       "invoice": "Faktúra",
       "payroll": "Payroll"
+    },
+    "corporateBodyStatus": {
+      "active": "Aktívne",
+      "stopped": "Pozastavené",
+      "closed": "Zrušené"
     }
   },
   "notFoundPage": "Stránka nenájdená",

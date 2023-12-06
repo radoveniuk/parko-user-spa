@@ -3,14 +3,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #ffffff;
+  color: #2b2b2b;
 }
 
 * {
   font-family: 'Roboto';
-}
-
-div, p, span, h1, h2, h3, h4, h5, b, i, s, td, tr, input, textarea {
-  color: #2b2b2b;
 }
 
 code {
@@ -55,4 +52,8 @@ select:-webkit-autofill:focus {
 
 *::-webkit-scrollbar-track {
   background-color: #E7E7E7!important;
+}
+
+.flex {
+  display: flex;
 }

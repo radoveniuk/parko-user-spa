@@ -75,3 +75,9 @@ export const INSURANCE = [
   'VŠZP',
   'Dôvera',
 ];
+
+export const CORPORATE_BODY_STATUS = [
+  'active',
+  'stopped',
+  'closed',
+];

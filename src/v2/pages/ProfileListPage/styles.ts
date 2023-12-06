@@ -40,6 +40,10 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
+        color: inherit !important;
+      }
+      .column-content {
+        color: inherit !important;
       }
     }
   }

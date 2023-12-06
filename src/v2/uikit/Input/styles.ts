@@ -11,6 +11,10 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
     font-size: 14px;
     line-height: 14px;
     margin-bottom: 3px;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
     &.error {
       color: ${themeConfig.palette.error.main};
     }
@@ -25,6 +29,7 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
   }
   .MuiInputBase-root {
     min-height: 36px;
+    padding-right: 3px;
     background: ${({ fieldColor }) => fieldColor || '#fff'};
     @media (max-width: ${SM}) {
       min-height: 48px;

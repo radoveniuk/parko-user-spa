@@ -28,6 +28,7 @@ export const Tab = ({ ...rest }: TabProps) => (
 
 interface TabPanelProps {
   children?: React.ReactNode;
+  className?: string;
   index: number;
 }
 

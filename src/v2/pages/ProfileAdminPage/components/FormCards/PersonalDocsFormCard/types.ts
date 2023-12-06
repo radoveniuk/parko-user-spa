@@ -1,7 +1,7 @@
-export type DocType = 'pass' | 'permit' | 'visa';
+import { UserPersonalDocType } from 'interfaces/users.interface';
 
 type BaseDoc = {
-  type: DocType;
+  type: UserPersonalDocType;
   number: string;
   dateFrom: string;
   dateTo: string;

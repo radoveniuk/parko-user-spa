@@ -88,41 +88,43 @@ const FinancesFormCard = ({ data, onCreateResidence, onDeleteResidence, onUpdate
           <Button onClick={() => { setResidenceDialogData({}); reset(); }}><PlusIcon />{t('add')}</Button>
         </FormCardHeader>
         <FormCardBody>
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>{t('accommodation.owner')}</TableCell>
-                  <TableCell>{t('accommodation.adress')}</TableCell>
-                  <TableCell>{t('accommodation.checkIn')}</TableCell>
-                  <TableCell>{t('accommodation.checkOut')}</TableCell>
-                  <TableCell>{t('accommodation.createdAt')}</TableCell>
-                  <TableCell align="right" />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {residences.map((residence) => (
-                  <TableRow key={residence._id}>
-                    <TableCell>{(residence.accommodation as IAccommodation).owner}</TableCell>
-                    <TableCell>{(residence.accommodation as IAccommodation).adress}</TableCell>
-                    <TableCell>{getDateFromIso(residence.checkInDate)}</TableCell>
-                    <TableCell>{getDateFromIso(residence.checkOutDate)}</TableCell>
-                    <TableCell>{getDateFromIso(residence.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
-                    <TableCell>
-                      <ActionsCell>
-                        <IconButton disabled={!isMongoId(residence._id)} onClick={() => { setResidenceDialogData(residence); reset(residence); }}>
-                          <EditIcon size={15} />
-                        </IconButton>
-                        <IconButton disabled={!isMongoId(residence._id)} onClick={() => void setDeleteDialogData(residence)}>
-                          <DeleteIcon size={15} />
-                        </IconButton>
-                      </ActionsCell>
-                    </TableCell>
+          {!!residences.length && (
+            <TableContainer>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>{t('accommodation.owner')}</TableCell>
+                    <TableCell>{t('accommodation.adress')}</TableCell>
+                    <TableCell>{t('accommodation.checkIn')}</TableCell>
+                    <TableCell>{t('accommodation.checkOut')}</TableCell>
+                    <TableCell>{t('accommodation.createdAt')}</TableCell>
+                    <TableCell align="right" />
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {residences.map((residence) => (
+                    <TableRow key={residence._id}>
+                      <TableCell>{(residence.accommodation as IAccommodation).owner}</TableCell>
+                      <TableCell>{(residence.accommodation as IAccommodation).adress}</TableCell>
+                      <TableCell>{getDateFromIso(residence.checkInDate)}</TableCell>
+                      <TableCell>{getDateFromIso(residence.checkOutDate)}</TableCell>
+                      <TableCell>{getDateFromIso(residence.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
+                      <TableCell>
+                        <ActionsCell>
+                          <IconButton disabled={!isMongoId(residence._id)} onClick={() => { setResidenceDialogData(residence); reset(residence); }}>
+                            <EditIcon size={15} />
+                          </IconButton>
+                          <IconButton disabled={!isMongoId(residence._id)} onClick={() => void setDeleteDialogData(residence)}>
+                            <DeleteIcon size={15} />
+                          </IconButton>
+                        </ActionsCell>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </FormCardBody>
       </FormCard>
       <Dialog

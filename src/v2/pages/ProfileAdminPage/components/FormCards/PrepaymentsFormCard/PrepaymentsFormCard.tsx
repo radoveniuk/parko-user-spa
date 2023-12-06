@@ -88,43 +88,48 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
           <Button onClick={() => { setPrepaymentDialogData({}); reset({}); }}><PlusIcon />{t('add')}</Button>
         </FormCardHeader>
         <FormCardBody>
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>{t('prepayment.period')}</TableCell>
-                  <TableCell>{t('prepayment.sum')}</TableCell>
-                  <TableCell>{t('prepayment.comment')}</TableCell>
-                  <TableCell>{t('prepayment.status')}</TableCell>
-                  <TableCell>{t('prepayment.paymentDate')}</TableCell>
-                  <TableCell>{t('prepayment.createdAt')}</TableCell>
-                  <TableCell align="right" />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {prepayments.map((prepayment) => (
-                  <TableRow key={prepayment._id}>
-                    <TableCell>{getDateFromIso(prepayment.period, 'MM/yyyy')}</TableCell>
-                    <TableCell>{prepayment.sum}€</TableCell>
-                    <TableCell>{prepayment.userComment}</TableCell>
-                    <TableCell>{t(`selects.prepaymentStatus.${prepayment.status}`)}</TableCell>
-                    <TableCell>{getDateFromIso(prepayment.paymentDate)}</TableCell>
-                    <TableCell>{getDateFromIso(prepayment.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
-                    <TableCell align="right">
-                      <ActionsCell>
-                        <IconButton disabled={!isMongoId(prepayment._id)} onClick={() => { setPrepaymentDialogData(prepayment); reset(prepayment); }}>
-                          <EditIcon size={15} />
-                        </IconButton>
-                        <IconButton disabled={!isMongoId(prepayment._id)} onClick={() => void setDeleteDialogData(prepayment)}>
-                          <DeleteIcon size={15} />
-                        </IconButton>
-                      </ActionsCell>
-                    </TableCell>
+          {!!prepayments.length && (
+            <TableContainer>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>{t('prepayment.period')}</TableCell>
+                    <TableCell>{t('prepayment.sum')}</TableCell>
+                    <TableCell>{t('prepayment.comment')}</TableCell>
+                    <TableCell>{t('prepayment.status')}</TableCell>
+                    <TableCell>{t('prepayment.paymentDate')}</TableCell>
+                    <TableCell>{t('prepayment.createdAt')}</TableCell>
+                    <TableCell align="right" />
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {prepayments.map((prepayment) => (
+                    <TableRow key={prepayment._id}>
+                      <TableCell>{getDateFromIso(prepayment.period, 'MM/yyyy')}</TableCell>
+                      <TableCell>{prepayment.sum}€</TableCell>
+                      <TableCell>{prepayment.userComment}</TableCell>
+                      <TableCell>{t(`selects.prepaymentStatus.${prepayment.status}`)}</TableCell>
+                      <TableCell>{getDateFromIso(prepayment.paymentDate)}</TableCell>
+                      <TableCell>{getDateFromIso(prepayment.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
+                      <TableCell align="right">
+                        <ActionsCell>
+                          <IconButton
+                            disabled={!isMongoId(prepayment._id)}
+                            onClick={() => { setPrepaymentDialogData(prepayment); reset(prepayment); }}
+                          >
+                            <EditIcon size={15} />
+                          </IconButton>
+                          <IconButton disabled={!isMongoId(prepayment._id)} onClick={() => void setDeleteDialogData(prepayment)}>
+                            <DeleteIcon size={15} />
+                          </IconButton>
+                        </ActionsCell>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </FormCardBody>
       </FormCard>
       <Dialog

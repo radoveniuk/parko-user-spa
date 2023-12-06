@@ -31,4 +31,8 @@ export const StyledMenuButton = styled.button`
     justify-content: space-around;
     height: 120px;
   }
+
+  & > p {
+    color: #fff;
+  }
 `;

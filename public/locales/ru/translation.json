@@ -175,7 +175,8 @@
     "employmentInfo": "Сведения для трудоустройства",
     "insurance": "Страховка",
     "birthSurname": "Фамилия при рождении",
-    "childrenCount": "Количество детей"
+    "childrenCount": "Количество детей",
+    "businessStatus": "Статус"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",
@@ -316,6 +317,11 @@
     "financeType": {
       "invoice": "Инвойс",
       "payroll": "Заработная плата"
+    },
+    "corporateBodyStatus": {
+      "active":"Активно",
+      "stopped": "Приостановлено",
+      "closed": "Устранено"
     }
   },
   "notFoundPage": "Страница не найдена",

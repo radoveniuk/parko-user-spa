@@ -161,11 +161,6 @@ export const Example: Story = {
       updatedAt: '2022-12-21T13:43:17.164Z',
     }].map((data) => ({ type: 'invoice', data })),
   },
-  render: (args) => (
-    <I18nextProvider i18n={i18n}>
-      <FinancesFormCard {...args} />
-    </I18nextProvider>
-  ),
   parameters: {
     mockData: [
       {
@@ -193,4 +188,9 @@ export const Example: Story = {
       },
     ],
   },
+  render: (args) => (
+    <I18nextProvider i18n={i18n}>
+      <FinancesFormCard {...args} />
+    </I18nextProvider>
+  ),
 };

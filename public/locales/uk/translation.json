@@ -140,7 +140,7 @@
     "sex": "Стать",
     "systemFields": "Системні дані",
     "permitFields": "Дані про ВНЖ/ПМЖ",
-    "businessFields": "Дані про ІП",
+    "businessFields": "Дані про бізнес",
     "workFields": "Дані про роботу",
     "recruiter": "Рекрутер",
     "source": "Джерело",
@@ -175,7 +175,8 @@
     "employmentInfo": "Інформація для працевлаштування",
     "insurance": "Страховка",
     "birthSurname": "Прізвище при народження",
-    "childrenCount": "Кількість дітей"
+    "childrenCount": "Кількість дітей",
+    "businessStatus": "Статус підприємця"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",
@@ -315,6 +316,11 @@
     "financeType": {
       "invoice": "Інвойс",
       "payroll": "Зарплатня"
+    },
+    "corporateBodyStatus": {
+      "active":"Активно",
+      "stopped": "Призупинено",
+      "closed": "Ліквідовано"
     }
   },
   "notFoundPage": "Сторінку не знайдено",

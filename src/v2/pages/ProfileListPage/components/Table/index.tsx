@@ -50,7 +50,7 @@ const Table = ({
   const [editingRow, setEditingRow] = useState<null | string>(null);
 
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
-  const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
+  const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage, defaultPage: 0 });
   const updateUserMutation = useUpdateUserMutation();
   const { data: projects = [] } = useGetProjects();
   const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });

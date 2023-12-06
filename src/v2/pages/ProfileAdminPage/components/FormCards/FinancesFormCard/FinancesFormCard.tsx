@@ -133,48 +133,50 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
           <Button onClick={() => { setFinanceDialogData({}); reset(DEFAULT_VALUES); }}><PlusIcon />{t('add')}</Button>
         </FormCardHeader>
         <FormCardBody>
-          <TableContainer>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>{t('finance.type')}</TableCell>
-                  <TableCell>{t('finance.period')}</TableCell>
-                  <TableCell>{t('finance.comment')}</TableCell>
-                  <TableCell>{t('finance.createdAt')}</TableCell>
-                  <TableCell align="right" />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {finances.map((finance) => (
-                  <TableRow key={finance.data._id}>
-                    <TableCell>
-                      <a
-                        onClick={() => {
-                          const file = finance.data.linkedFile as IFile;
-                          downloadFile(file._id, file.originalname, file.ext || 'pdf');
-                        }}
-                      >
-                        {t(`selects.financeType.${finance.type}`)}
-                      </a>
-                    </TableCell>
-                    <TableCell>{getDateFromIso(finance.data.date, 'MM/yyyy')}</TableCell>
-                    <TableCell>{finance.data.comment}</TableCell>
-                    <TableCell>{getDateFromIso(finance.data.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
-                    <TableCell align="right">
-                      <ActionsCell>
-                        <IconButton disabled={!isMongoId(finance.data._id)} onClick={() => { setFinanceDialogData(finance); reset(finance); }}>
-                          <EditIcon size={15} />
-                        </IconButton>
-                        <IconButton disabled={!isMongoId(finance.data._id)} onClick={() => void setDeleteDialogData(finance)}>
-                          <DeleteIcon size={15} />
-                        </IconButton>
-                      </ActionsCell>
-                    </TableCell>
+          {!!finances.length && (
+            <TableContainer>
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>{t('finance.type')}</TableCell>
+                    <TableCell>{t('finance.period')}</TableCell>
+                    <TableCell>{t('finance.comment')}</TableCell>
+                    <TableCell>{t('finance.createdAt')}</TableCell>
+                    <TableCell align="right" />
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {finances.map((finance) => (
+                    <TableRow key={finance.data._id}>
+                      <TableCell>
+                        <a
+                          onClick={() => {
+                            const file = finance.data.linkedFile as IFile;
+                            downloadFile(file._id, file.originalname, file.ext || 'pdf');
+                          }}
+                        >
+                          {t(`selects.financeType.${finance.type}`)}
+                        </a>
+                      </TableCell>
+                      <TableCell>{getDateFromIso(finance.data.date, 'MM/yyyy')}</TableCell>
+                      <TableCell>{finance.data.comment}</TableCell>
+                      <TableCell>{getDateFromIso(finance.data.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
+                      <TableCell align="right">
+                        <ActionsCell>
+                          <IconButton disabled={!isMongoId(finance.data._id)} onClick={() => { setFinanceDialogData(finance); reset(finance); }}>
+                            <EditIcon size={15} />
+                          </IconButton>
+                          <IconButton disabled={!isMongoId(finance.data._id)} onClick={() => void setDeleteDialogData(finance)}>
+                            <DeleteIcon size={15} />
+                          </IconButton>
+                        </ActionsCell>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </FormCardBody>
       </FormCard>
       <Dialog

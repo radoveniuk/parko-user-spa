@@ -1,4 +1,5 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 import Tooltip from 'v2/uikit/Tooltip';
 
 import { getDateFromIso } from 'helpers/datetime';
@@ -82,6 +83,10 @@ export const getFieldSectionLabelMap = (t: (v: string) => string) => {
 export const renderValue = (key: keyof IUser, value: string | boolean | number, t: (v: string) => string) => {
   if (typeof value === 'boolean') {
     return t(value.toString());
+  }
+  const isIso = !DateTime.fromISO(value?.toString()).invalidReason;
+  if (isIso) {
+    return getDateFromIso(value);
   }
   const selectKeys: (keyof IUser)[] = ['permitType', 'employmentType'];
   if (selectKeys.includes(key)) {
