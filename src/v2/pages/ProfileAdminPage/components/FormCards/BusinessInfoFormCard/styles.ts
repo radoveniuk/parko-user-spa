@@ -31,7 +31,7 @@ export const CorporateBodiesSearchField = styled.div`
       height: 48px;
       font-size: 0px;
       min-width: 40px;
-      width: 40px;
+      width: 48px;
       padding: 0;
       gap: 0;
     }

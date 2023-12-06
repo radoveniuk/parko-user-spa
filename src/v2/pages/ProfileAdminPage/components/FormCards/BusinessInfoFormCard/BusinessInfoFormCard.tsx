@@ -107,12 +107,13 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
                   ref={searchInputRef}
                   label="Obchodné meno / IČO"
                   theme="gray"
-                  disabled={!formCardConfig.disabled || formCardConfig.loading}
+                  disabled={formCardConfig.disabled || formCardConfig.loading}
                   value={searchConfig.phrase}
                   onChange={(e) => void setSearchConfig((prev) => ({ ...prev, phrase: e.target.value, needToFetch: true }))}
                   onClick={() => void setOpenSearchMenu(!!corporateBodiesResult.length && !isFetchingCorporateBodies)}
                 />
                 <Button
+                  disabled={formCardConfig.disabled}
                   loading={isFetchingCorporateBodies}
                   variant="outlined"
                   className="search-btn"
