@@ -341,7 +341,7 @@ export const Example: Story = {
   render: (args) => (
     <QueryClientProvider client={new QueryClient()}>
       <I18nextProvider i18n={i18n}>
-        <BusinessInfoFormCard />
+        <BusinessInfoFormCard {...args} />
       </I18nextProvider>
     </QueryClientProvider>
   ),
