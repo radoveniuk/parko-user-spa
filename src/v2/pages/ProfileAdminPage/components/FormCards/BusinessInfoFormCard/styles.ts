@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { themeConfig } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
 
 export const CorporateBodiesSearchField = styled.div`
@@ -15,7 +16,19 @@ export const CorporateBodiesSearchField = styled.div`
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       border-right: 0;
+
+      fieldset {
+        border-right: none;
+      }
+
+      &.Mui-focused {
+        border-right: 2px;
+        fieldset {
+          border-right: 2px solid ${themeConfig.palette.primary.main};
+        }
+      }
     }
+
   }
 
   .search-btn {

@@ -8,4 +8,8 @@ export const Button = styled(ButtonMui)`
   border-radius: 2px !important;
   white-space: nowrap;
   height: 36px;
+
+  &:disabled {
+    border: 1px solid #b4b4b4 !important;
+  }
 `;
