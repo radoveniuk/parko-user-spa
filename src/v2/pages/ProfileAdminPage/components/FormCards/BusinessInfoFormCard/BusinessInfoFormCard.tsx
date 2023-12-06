@@ -2,11 +2,8 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button, Input } from 'v2/uikit';
-import ButtonGroup from 'v2/uikit/ButtonGroup';
 import { FormCard, FormCardBody, FormCardBodyRow, FormCardHeader } from 'v2/uikit/FormCard';
-import IconButton from 'v2/uikit/IconButton';
 import Loader from 'v2/uikit/Loader';
-import LoaderCircular from 'v2/uikit/LoaderCircular';
 import Select from 'v2/uikit/Select';
 
 import api from 'api/common';
@@ -18,7 +15,7 @@ import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { ICorporateBody } from 'interfaces/corporateBody.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { CorporateBodiesDropdown, CorporateBodiesSearchField, InputLoaderWrapper, LoaderWrapper } from './styles';
+import { CorporateBodiesDropdown, CorporateBodiesSearchField, LoaderWrapper } from './styles';
 
 type Data = Pick<IUser, 'ICO' | 'businessName' | 'DIC' | 'adress' |
  'permitAdress' | 'businessStatus' | 'permitDepartment' | 'permitNumber' | 'name' | 'surname'>
@@ -106,6 +103,7 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
             <FormCardBodyRow>
               <CorporateBodiesSearchField ref={searchFieldRef}>
                 <Input
+                  className="search-input"
                   ref={searchInputRef}
                   label="Obchodné meno / IČO"
                   theme="gray"
@@ -113,12 +111,15 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
                   value={searchConfig.phrase}
                   onChange={(e) => void setSearchConfig((prev) => ({ ...prev, phrase: e.target.value, needToFetch: true }))}
                   onClick={() => void setOpenSearchMenu(!!corporateBodiesResult.length && !isFetchingCorporateBodies)}
-                  InputProps={{
-                    endAdornment: isFetchingCorporateBodies
-                      ? <InputLoaderWrapper><LoaderCircular size={20} /></InputLoaderWrapper>
-                      : <IconButton onClick={fetchResults}><SearchIcon size={18} /></IconButton>,
-                  }}
                 />
+                <Button
+                  loading={isFetchingCorporateBodies}
+                  variant="outlined"
+                  className="search-btn"
+                  onClick={fetchResults}
+                >
+                  <SearchIcon size={18} />{t('search')}
+                </Button>
                 {openSearchMenu && (
                   <CorporateBodiesDropdown>
                     {corporateBodiesResult.map((corporateBodyItem) => (
@@ -143,11 +144,6 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
                   </CorporateBodiesDropdown>
                 )}
               </CorporateBodiesSearchField>
-              <ButtonGroup
-                value="autofill"
-                disabled={!formCardConfig.disabled || formCardConfig.loading}
-                options={[{ value: 'autofill', label: 'Autofill' }, { value: 'save', label: 'Save' }]}
-              />
               <Input
                 label="Obchodné meno"
                 theme="gray"

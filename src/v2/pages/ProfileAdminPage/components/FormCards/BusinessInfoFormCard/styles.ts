@@ -1,14 +1,48 @@
 import styled from 'styled-components';
 
+import { SM } from 'theme/sizeBreakpoints';
+
 export const CorporateBodiesSearchField = styled.div`
   position: relative;
+  display: flex;
+  grid-column: 1 / 3;
+  align-items: flex-end;
+  
+  .search-input {
+    flex-grow: 1;
+
+    .MuiInputBase-root {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: 0;
+    }
+  }
+
+  .search-btn {
+    display: flex;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    width: 120px;
+  }
+
+  @media (max-width: ${SM}) {
+    grid-column: 1 / 1;
+    .search-btn {
+      height: 48px;
+      font-size: 0px;
+      min-width: 40px;
+      width: 40px;
+      padding: 0;
+      gap: 0;
+    }
+  }
 `;
 
 export const CorporateBodiesDropdown = styled.ul`
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
+  width: calc(100% - 120px);
   background: #fff;
   z-index: 1;
   list-style: none;
@@ -43,11 +77,10 @@ export const CorporateBodiesDropdown = styled.ul`
       color: #717171;
     }
   }
-`;
 
-export const InputLoaderWrapper = styled.div`
-  display: flex;
-  margin-right: 6px;
+  @media (max-width: ${SM}) {
+    width: 100%;
+  }
 `;
 
 export const LoaderWrapper = styled.div`

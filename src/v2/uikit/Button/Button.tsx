@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { ButtonProps } from '@mui/material';
+import { LoadingButtonProps } from '@mui/lab/LoadingButton';
 
 import { Button } from './styles';
 
-export default memo<ButtonProps>(Button);
+export default memo<LoadingButtonProps>(Button);

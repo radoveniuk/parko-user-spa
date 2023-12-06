@@ -1,4 +1,4 @@
-import { Button as ButtonMui } from '@mui/material';
+import ButtonMui from '@mui/lab/LoadingButton';
 import styled from 'styled-components';
 
 export const Button = styled(ButtonMui)`
