@@ -38,10 +38,10 @@ export const getFieldSectionLabelMap = (t: (v: string) => string) => {
     IBAN: `${t('user.info')} > ${t('user.bankInfo')} > IBAN`,
     bankName: `${t('user.info')} > ${t('user.bankInfo')} > ${t('user.bankName')}`,
     SWIFT: `${t('user.info')} > ${t('user.bankInfo')} > SWIFT`,
-    ICO: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.ICO')}`,
-    DIC: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.DIC')}`,
-    permitAdress: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    permitDepartment: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
+    ICO: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.ICO')}`,
+    DIC: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.DIC')}`,
+    permitAdress: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.permitAdress')}`,
+    permitDepartment: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.permitAdress')}`,
     permitNumber: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
     tshortSize: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
     pantsSize: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
@@ -76,6 +76,8 @@ export const getFieldSectionLabelMap = (t: (v: string) => string) => {
     tags: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
     createdAt: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
     updatedAt: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
+    businessName: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.businessName')}`,
+    businessStatus: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.businessStatus')}`,
   };
   return UPDATE_SECTION_MAP;
 };
