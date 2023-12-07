@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://parko-user.com:3000/:path*"
+    },
+    { 
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
