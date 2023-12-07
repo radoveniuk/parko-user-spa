@@ -28,7 +28,6 @@ export const CorporateBodiesSearchField = styled.div`
         }
       }
     }
-
   }
 
   .search-btn {
