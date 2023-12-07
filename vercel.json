@@ -1,9 +1,13 @@
 {
-  "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }],
   "rewrites": [
     {
         "source": "/api/:path*",
         "destination": "https://parko-user.com:3000/:path*"
+    },
+    {
+      "source": "/[^.]+",
+      "destination": "/",
+      "status": 200
     }
   ]
 }
