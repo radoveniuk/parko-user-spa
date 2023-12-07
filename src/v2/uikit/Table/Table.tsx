@@ -9,11 +9,13 @@ import styled from 'styled-components';
 export const TableContainer = TableContainerMUI;
 export const Table = TableMUI;
 export const TableBody = TableBodyMUI;
+
 export const TableHead = styled(TableHeadMUI)`
   .MuiTableCell-root {
     border-bottom: 1px solid #D0D0D0 !important;
   }
 `;
+
 export const TableRow = styled(TableRowMUI)`
   &:not(.MuiTableRow-head) {
     &:last-child td, &:last-child th {
@@ -21,6 +23,7 @@ export const TableRow = styled(TableRowMUI)`
     }
   }
 `;
+
 export const TableCell = styled(TableCellMUI)`
   padding: 6px 15px !important;
   font-size: 14px !important;
