@@ -25,7 +25,7 @@ export const Example: Story = {
   parameters: {
     mockData: [
       {
-        url: 'https://parko-user.com:3000/api/corporate-bodies?search=:search',
+        url: '/api/api/corporate-bodies?search=:search',
         method: 'GET',
         status: 200,
         delay: 2000,
@@ -147,7 +147,7 @@ export const Example: Story = {
         },
       },
       {
-        url: 'https://parko-user.com:3000/api/corporate-bodies/:portalId',
+        url: '/api/api/corporate-bodies/:portalId',
         method: 'GET',
         status: 200,
         delay: 2000,

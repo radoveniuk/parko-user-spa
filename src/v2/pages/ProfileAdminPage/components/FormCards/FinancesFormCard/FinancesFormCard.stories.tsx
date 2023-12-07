@@ -164,7 +164,7 @@ export const Example: Story = {
   parameters: {
     mockData: [
       {
-        url: 'https://parko-user.com:3000/files',
+        url: '/api/files',
         method: 'POST',
         status: 201,
         delay: 2000,
@@ -179,7 +179,7 @@ export const Example: Story = {
         },
       },
       {
-        url: 'https://parko-user.com:3000/files/download/:id',
+        url: '/api/files/download/:id',
         method: 'GET',
         status: 200,
         response: {

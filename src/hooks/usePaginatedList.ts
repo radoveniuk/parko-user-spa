@@ -10,13 +10,13 @@ type Options = {
 };
 
 const usePaginatedList = <T>(list: T[] = [], options?: Options) => {
-  const rowsPerPage = options?.rowsPerPage || 20; // TODO change to useState and props setRowsPerPage
-  const defaultPage = options?.defaultPage || 1;
+  const rowsPerPage = options?.rowsPerPage || 20;
+  const defaultPage = options?.defaultPage || 0;
   const [page, setPage] = useState(defaultPage);
   const navigate = useNavigate();
   const pageQueries = usePageQueries();
 
-  const pageItems = useMemo(() => list.slice(rowsPerPage * (page - 1), rowsPerPage * page), [list, page, rowsPerPage]);
+  const pageItems = useMemo(() => list.slice(rowsPerPage * page, rowsPerPage * (page + 1)), [list, page, rowsPerPage]);
   const pagesCount = useMemo(() => Math.ceil(list.length / rowsPerPage), [list, rowsPerPage]);
 
   const onChange = useCallback((_e: any, value: number) => {
