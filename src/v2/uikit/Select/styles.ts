@@ -16,11 +16,13 @@ export const SelectWrapper = styled.label<{ fieldColor?: string }>`
       color: ${themeConfig.palette.error.main};
     }
   }
+
   &:has(.Mui-focused) {
     .label:not(.error) {
       color: ${themeConfig.palette.primary.main};
     }
   }
+  
   .MuiInputBase-root {
     height: 36px;
     background: ${({ fieldColor }) => fieldColor || '#fff'};
