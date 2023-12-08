@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { COUNTRIES } from 'v2/constants/countries';
 import { Button, Input } from 'v2/uikit';
-import { FormCard, FormCardBody, FormCardBodyRow, FormCardHeader } from 'v2/uikit/FormCard';
+import { FormCard, FormCardBody, FormCardHeader } from 'v2/uikit/FormCard';
 import Select from 'v2/uikit/Select';
 
 import { FactoryIcon } from 'components/icons';

@@ -34,7 +34,7 @@ const ProfileAdminPage = () => {
   return (
     <TabsContainer>
       <ProfileAdminPageWrapper>
-        <ProfileCard user={profileData} workHistory={[]} />
+        <ProfileCard data={profileData} workHistory={[]} />
         <ContentWrapper>
           <TabPanel className="cards" index={0}>
             <div className="col">

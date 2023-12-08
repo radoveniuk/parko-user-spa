@@ -1,15 +1,19 @@
 import React, { memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 import { pick } from 'lodash-es';
+import ProfileFormDialog from 'v2/components/ProfileFormDialog/ProfileFormDialog';
 import { Button, Divider, Menu, MenuItem, Stack } from 'v2/uikit';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 import IconButton from 'v2/uikit/IconButton';
 
+import { useCreateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
 import { ArrowDownIcon, FilterIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
-import { FilterAutocomplete } from 'components/shared/Filters';
+import { FilterAutocomplete, useFilters } from 'components/shared/Filters';
 import { USER_STATUSES } from 'constants/statuses';
+import { DEFAULT_PASS } from 'constants/user';
 import { DYNAMIC_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
@@ -98,6 +102,23 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
 
   const [openMobileFilters, setOpenMobileFilters] = useState(false);
 
+  const [openNewProfile, setOpenNewProfile] = useState(false);
+  const createUserMutation = useCreateUserMutation();
+  const queryClient = useQueryClient();
+  const { filtersState } = useFilters();
+
+  const createNewProfileHndler = (data: Partial<IUser>) => {
+    setOpenNewProfile(false);
+    const recruiter = data.recruiter as IUser | null;
+    const values = { ...data, recruiter: recruiter?._id || null, password: DEFAULT_PASS };
+    const queryKey = ['users', JSON.stringify(filtersState)];
+    queryClient.setQueryData(queryKey, [values, ...(queryClient.getQueryData(queryKey) as IUser[])]);
+    createUserMutation.mutateAsync(values).then((res) => {
+      const [, ...oldItems] = queryClient.getQueryData(queryKey) as IUser[];
+      queryClient.setQueryData(queryKey, [res, ...oldItems]);
+    });
+  };
+
   return (
     <>
       <HeaderWrapper>
@@ -106,12 +127,12 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
         </Stack>
         <Stack direction="row" gap="15px">
           <IconButton className="small-btn" onClick={() => void setOpenMobileFilters(true)}><FilterIcon size={25} /></IconButton>
-          <Link to="/create-profile" className="link">
-            <IconButton className="small-btn primary"><PlusIcon size={25} /></IconButton>
-            <Button className="big-btn">
+          <div className="link">
+            <IconButton className="small-btn primary" onClick={() => void setOpenNewProfile(true)}><PlusIcon size={25} /></IconButton>
+            <Button className="big-btn" onClick={() => void setOpenNewProfile(true)}>
               {t('profilesPage.new_user')}
             </Button>
-          </Link>
+          </div>
           <Menu
             menuComponent={(
               <>
@@ -163,6 +184,11 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
           </FiltersWrapper>
         </DialogFullscreen>
       </HeaderWrapper>
+      <ProfileFormDialog
+        open={openNewProfile}
+        onClose={() => void setOpenNewProfile(false)}
+        onSave={createNewProfileHndler}
+      />
     </>
   );
 };

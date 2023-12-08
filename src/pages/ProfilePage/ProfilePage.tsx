@@ -12,9 +12,9 @@ import ProfileScans from 'components/complex/ProfileScans';
 import { PasswordIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
+import { DEFAULT_PASS } from 'constants/user';
 import { useAuthData } from 'contexts/AuthContext';
 import { IUser } from 'interfaces/users.interface';
-import { DEFAULT_PASS } from 'pages/UploadProfilesPage/constants';
 
 import ResetPasswordDialog from './ResetPasswordDialog';
 import { ProfilePageActions, TabContentWrapper } from './styles';

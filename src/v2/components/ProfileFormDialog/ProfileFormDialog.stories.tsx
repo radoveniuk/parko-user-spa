@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import type { Meta, StoryObj } from '@storybook/react';
 import i18n from 'i18n';
 import { SnackbarProvider } from 'notistack';
-import { TabPanel, TabsContainer } from 'v2/uikit/Tabs';
+import { Button } from 'v2/uikit';
 
 import AuthProvider from 'contexts/AuthContext';
-import { IClient } from 'interfaces/client.interface';
-import { IWorkHistoryLog } from 'interfaces/history.interface';
-import { IProject } from 'interfaces/project.interface';
-import { IUser } from 'interfaces/users.interface';
 
-import ProfileCard from './ProfileCard';
+import ProfileFormDialog, { ProfileFormDialogProps } from './ProfileFormDialog';
+
+const meta: Meta<typeof ProfileFormDialog> = {
+  component: ProfileFormDialog,
+  argTypes: {
+    onSave: { action: 'onSave' },
+  },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof ProfileFormDialog>;
 
 const mockData = [
   {
@@ -251,18 +258,16 @@ const mockData = [
   },
 ];
 
-const MOCK_USER: IUser = {
+const MOCK_USER = {
   _id: '64184af1ddf0117fd7551a12',
   email: 'shirinov.mahmud@gmail.com',
   name: 'Shirinov',
   surname: 'Mahmud',
-  password: '$2b$10$WH9XhFEM8rS6yWcYkkbJpO2xB.5GI2OgO/58VEPxxUWuA0yynyDIK',
   phone: '+998972886100',
   birthDate: '1986-11-13',
   country: 'Kazachstan',
   city: 'Samarkand',
   adress: 'Obi-rakhmat ave. 3 house 1',
-  zip: '',
   passNumber: 'FA3313710',
   hasPermit: false,
   permitType: 'zamestnanie',
@@ -274,24 +279,10 @@ const MOCK_USER: IUser = {
   pantsSize: '',
   shoesSize: '',
   role: 'user',
-  project: {
-    _id: '62d93122dfabe1cfa48057de',
-    name: 'Hyza',
-    client: {
-      _id: '63a176f8206ee9a3f8bdd90a',
-      name: 'HYZA a.s.',
-    } as IClient,
-    stages: [],
-  } as unknown as IProject,
-  otherScans: [],
-  sex: 'male',
+  sex: 'male' as 'male',
   blocked: false,
   notes: '',
-  recruiter: {
-    _id: '6377a624bbb34cf2b779fdf7',
-    name: 'Hanna',
-    surname: 'Terentieva',
-  },
+  recruiter: '6377a624bbb34cf2b779fdf7',
   source: 'Google ADS',
   permitStartDate: '',
   DIC: '',
@@ -327,100 +318,51 @@ const MOCK_USER: IUser = {
     },
   },
   nickname: 'Shirinov_Mahmud',
-  hasMedicalExamination: false,
-  bankName: '',
-  SWIFT: '',
-  cooperationEndDate: '',
-  customFields: {},
-  salary: '',
-  salaryType: '',
-  salaryComment: '',
-  internationalPassScan: '',
-  idCardFaceScan: '',
-  idCardBackScan: '',
-  permitBackScan: '',
-  medicalInsurance: '',
-  birthPlace: '',
-  familyStatus: '',
-  birthSurname: '',
-  childrenCount: 0,
-  createdBy: null,
-  updatedBy: null,
 };
 
-const MOCK_WORK_HISTORY: IWorkHistoryLog[] = [
-  {
-    dateFrom: '2021-10-10',
-    dateTo: '2022-10-10',
-    user: '64184af1ddf0117fd7551a12',
-    project: {
-      _id: '1hghdfaasyuk',
-      name: 'Sample sro',
-      client: {
-        name: 'Client 1',
-      },
-    },
-    position: 'Employee',
-  },
-  {
-    dateFrom: '2022-10-10',
-    dateTo: '2023-07-08',
-    user: '64184af1ddf0117fd7551a12',
-    project: {
-      _id: '1hghdfaasyuefsck',
-      name: 'Parko sro',
-      client: {
-        name: 'Client 2',
-      },
-    },
-    position: 'Employee',
-  },
-  {
-    dateFrom: '2023-07-08',
-    user: '64184af1ddf0117fd7551a12',
-    project: {
-      _id: '62d93122dfabe1cfa48057de',
-      name: 'Hyza',
-      client: {
-        _id: '63a176f8206ee9a3f8bdd90a',
-        name: 'HYZA a.s.',
-      },
-    },
-    position: 'Employee',
-  },
-];
-const meta: Meta<typeof ProfileCard> = {
-  component: ProfileCard,
-  argTypes: {
-    onChange: { action: 'onChange' },
-  },
+const NewProfileWithHooks = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => void setOpen(true)}>Open</Button>
+      <ProfileFormDialog open={open} onClose={() => void setOpen(false)}/>
+    </>
+  );
 };
 
-export default meta;
+const ExistingProfileWithHooks = (args: ProfileFormDialogProps) => {
+  const [open, setOpen] = useState(false);
 
-type Story = StoryObj<typeof ProfileCard>;
+  return (
+    <>
+      <Button onClick={() => void setOpen(true)}>Open</Button>
+      <ProfileFormDialog {...args} title={`${args.data?.name} ${args.data?.surname}`} open={open} onClose={() => void setOpen(false)} />
+    </>
+  );
+};
 
-export const Example: Story = {
-  args: {
-    data: MOCK_USER,
-    workHistory: MOCK_WORK_HISTORY,
-  },
+export const NewProfile: Story = {
   parameters: { mockData },
   render: (args) => (
     <SnackbarProvider maxSnack={1}>
       <QueryClientProvider client={new QueryClient()}>
         <AuthProvider>
-          <I18nextProvider i18n={i18n}>
-            <TabsContainer>
-              <div style={{ display: 'flex' }}>
-                <ProfileCard {...args} />
-                <TabPanel index={0}>Profile</TabPanel>
-                <TabPanel index={1}>Info</TabPanel>
-                <TabPanel index={2}>Cooperation</TabPanel>
-                <TabPanel index={3}>History</TabPanel>
-              </div>
-            </TabsContainer>
-          </I18nextProvider>
+          <I18nextProvider i18n={i18n}><NewProfileWithHooks {...args} /></I18nextProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </SnackbarProvider>
+  ),
+};
+
+export const Profile: Story = {
+  args: { data: MOCK_USER },
+  parameters: { mockData },
+  render: (args) => (
+    <SnackbarProvider maxSnack={1}>
+      <QueryClientProvider client={new QueryClient()}>
+        <AuthProvider>
+          <I18nextProvider i18n={i18n}><ExistingProfileWithHooks {...args} /></I18nextProvider>
         </AuthProvider>
       </QueryClientProvider>
     </SnackbarProvider>

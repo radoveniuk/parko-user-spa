@@ -33,7 +33,7 @@ export type Props = {
 const DatePicker = ({
   defaultValue, onChange, label, className, error,
   minDate, maxDate, openTo, views, disabled,
-  inputProps, format = 'dd.MM.yyyy', onBlur,
+  format = 'dd.MM.yyyy', onBlur, inputProps,
 }: Props) => {
   const { i18n } = useTranslation();
 
@@ -56,7 +56,7 @@ const DatePicker = ({
         format={format}
         defaultValue={datetimeDefaultValue}
         disabled={disabled}
-        slotProps={{ textField: { error, onBlur } }}
+        slotProps={{ textField: { error, onBlur, ...inputProps } }}
         onChange={(luxonValue: DateTime | null) => {
           onChange(
             luxonValue?.isValid ? luxonValue?.toISODate() || '' : '',
