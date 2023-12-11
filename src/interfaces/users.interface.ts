@@ -28,6 +28,12 @@ export type UserHistory = {
 
 export type UserPersonalDocType = 'pass' | 'permit' | 'visa';
 
+export type UserBusinessActivity = {
+  description: string;
+  dateFrom: string;
+  dateTo?: string;
+};
+
 export interface IUser {
   _id: string;
   // base fields
@@ -116,6 +122,7 @@ export interface IUser {
   updatedBy: string | null;
   businessName?: string;
   businessStatus?: 'active' | 'stopped' | 'closed';
+  businessActivities?: UserBusinessActivity[];
 
   tags?: string[];
   createdAt?: string,

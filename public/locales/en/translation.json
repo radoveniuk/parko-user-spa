@@ -123,12 +123,12 @@
     "role": "Role",
     "admin": "User administration",
     "delete": "Delete account",
-    "approveRemoving":"You are about delete user <b>{{user}}</b>! Are you sure?",
+    "approveRemoving": "You are about delete user <b>{{user}}</b>! Are you sure?",
     "approve": "Approve",
     "removedSuccess": "User has been removed",
     "logout": "Logout",
     "create": "Create",
-    "edit":"Edit",
+    "edit": "Edit",
     "salary": "Salary",
     "salaryType": "Salary type",
     "salaryComment": "Comment",
@@ -150,7 +150,7 @@
     "cooperationEndDate": "Cooperation end",
     "DIC": "DIČ",
     "permitAdress": "Permit register adress",
-    "permitDepartment":"Permit department",
+    "permitDepartment": "Permit department",
     "permitNumber": "Permit document number",
     "blocked": "Black list",
     "notes": "Notes",
@@ -176,12 +176,18 @@
     "insurance": "Insurance",
     "birthSurname": "Surname at birth",
     "childrenCount": "Number of children",
-    "businessStatus": "Status"
+    "businessStatus": "Status",
+    "businessActivities": "Activities"
   },
   "userHistory": {
     "updatedBy": "Updated by",
     "updatedAt": "Updated at",
     "updates": "Updates"
+  },
+  "businessActivity": {
+    "description": "Description",
+    "dateFrom": "Date from",
+    "dateTo": "Date to"
   },
   "doc": {
     "dateFrom": "Active from",
@@ -208,7 +214,7 @@
     "period": "Period",
     "comment": "Comment",
     "createdAt": "Created At"
-  }, 
+  },
   "prepayment": {
     "date": "Date",
     "sum": "Sum",
@@ -221,7 +227,7 @@
     "status": "Prepayment status",
     "paymentDate": "Payment date",
     "prepayment": "Prepayment",
-    "new":"New prepayment",
+    "new": "New prepayment",
     "createdAt": "Created at",
     "period": "Period"
   },
@@ -395,7 +401,7 @@
     "required": "Required",
     "section": "Form's section",
     "save": "Save",
-    "delete":"Delete",
+    "delete": "Delete",
     "order": "Order",
     "source": "Source"
   },
@@ -417,7 +423,7 @@
     "objects": "Items",
     "notificate": "Notificate owner",
     "active": "Active",
-    "createdAt":"Created at",
+    "createdAt": "Created at",
     "residence": "Residence data"
   },
   "docsTemplates": {
@@ -488,6 +494,8 @@
   "countries": "Countries",
   "addFilter": "Add filter",
   "filters": "Filters",
+  "showAll": "Show All",
+  "rollup": "Roll up",
   "header": {
     "search": "Search for users, groups or settings"
   },

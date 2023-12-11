@@ -171,15 +171,21 @@
     "bankInfo": "Bankové údaje",
     "bankName": "Banka",
     "employmentInfo": "Informácie pre zamestnanie",
-     "insurance": "Poistenie",
-     "birthSurname": "Priezvisko pri narodení",
-     "childrenCount": "Počet detí",
-     "businessStatus": "Stav"
+    "insurance": "Poistenie",
+    "birthSurname": "Priezvisko pri narodení",
+    "childrenCount": "Počet detí",
+    "businessStatus": "Stav",
+    "businessActivities": "Predmety podnikania"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",
     "updatedAt": "Datum aktualizácii",
     "updates": "Aktualizácie"
+  },
+  "businessActivity": {
+    "description": "Popis",
+    "dateFrom": "Dátum od",
+    "dateTo": "Dátum do"
   },
   "doc": {
     "dateFrom": "Dátum od",
@@ -472,6 +478,8 @@
   "countries": "Krajíny",
   "addFilter": "Pridať filter",
   "filters": "Filtry",
+  "showAll": "Zobraziť všetko",
+  "rollup": "Zrolovať",
   "header": {
     "search": "Vyhľadajte používateľov, skupiny alebo nastavenia"
   },

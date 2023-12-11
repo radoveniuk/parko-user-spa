@@ -123,7 +123,7 @@
     "role": "Роль",
     "admin": "Администрирование пользователя",
     "delete": "Удалить аккаунт",
-    "approveRemoving":"Вы собираетесь удалить профиль пользователя <b>{{user}}</b>! Вы уверенны?",
+    "approveRemoving": "Вы собираетесь удалить профиль пользователя <b>{{user}}</b>! Вы уверенны?",
     "approve": "Подтвердить",
     "removedSuccess": "Пользователь удален",
     "logout": "Выйти",
@@ -176,12 +176,18 @@
     "insurance": "Страховка",
     "birthSurname": "Фамилия при рождении",
     "childrenCount": "Количество детей",
-    "businessStatus": "Статус"
+    "businessStatus": "Статус",
+    "businessActivities": "КВЭДЫ"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",
     "updatedAt": "Когда изменено",
     "updates": "Обновления"
+  },
+  "businessActivity": {
+    "description": "Описание",
+    "dateFrom": "Дата от",
+    "dateTo": "Дата до"
   },
   "doc": {
     "dateFrom": "Действует от",
@@ -221,7 +227,7 @@
     "status": "Статус аванса",
     "paymentDate": "Дата оплаты",
     "prepayment": "Аванс",
-    "new":"Новый аванс",
+    "new": "Новый аванс",
     "createdAt": "Дата",
     "period": "Период"
   },
@@ -319,7 +325,7 @@
       "payroll": "Заработная плата"
     },
     "corporateBodyStatus": {
-      "active":"Активно",
+      "active": "Активно",
       "stopped": "Приостановлено",
       "closed": "Устранено"
     }
@@ -364,7 +370,7 @@
     "users": "Сотрудники",
     "data": "Информация",
     "submit": "Сохранить",
-    "approveRemoving": "Вы собираетесь удалить проект! Вы уверенны?" ,
+    "approveRemoving": "Вы собираетесь удалить проект! Вы уверенны?",
     "approve": "Подтвердить",
     "cost": "Стоимость",
     "tariff": "Тариф",
@@ -395,9 +401,9 @@
     "required": "Обязательное",
     "section": "Секция на форме",
     "save": "Сохранить",
-    "delete":"Удалить",
+    "delete": "Удалить",
     "order": "Порядок",
-    "source":"Источник"
+    "source": "Источник"
   },
   "accommodation": {
     "owner": "Владелец",
@@ -417,7 +423,7 @@
     "objects": "Обьекты жилья",
     "notificate": "Оповестить владельца",
     "active": "Активно",
-    "createdAt":"Дата создания",
+    "createdAt": "Дата создания",
     "residence": "Размещение"
   },
   "docsTemplates": {
@@ -488,6 +494,8 @@
   "countries": "Страны",
   "addFilter": "Добавить фильтр",
   "filters": "Фильтры",
+  "showAll": "Показать все",
+  "rollup": "Свернуть",
   "header": {
     "search": "Поиск пользователей, групп или настроек"
   },

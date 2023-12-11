@@ -176,12 +176,18 @@
     "insurance": "Страховка",
     "birthSurname": "Прізвище при народження",
     "childrenCount": "Кількість дітей",
-    "businessStatus": "Статус підприємця"
+    "businessStatus": "Статус підприємця",
+    "businessActivities": "КВЕДИ"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",
     "updatedAt": "Коли оновлено",
     "updates": "Оновлення"
+  },
+  "businessActivity": {
+    "description": "Опис",
+    "dateFrom": "Дата від",
+    "dateTo": "Дата до"
   },
   "doc": {
     "dateFrom": "Дійсний від",
@@ -487,6 +493,8 @@
   "countries": "Країни",
   "addFilter": "Додати фільтр",
   "filters": "Фільтри",
+  "showAll": "Показати все",
+  "rollup": "Згорнути",
   "header": {
     "search": "Пошук користувачів, груп чи налаштувань"
   },
