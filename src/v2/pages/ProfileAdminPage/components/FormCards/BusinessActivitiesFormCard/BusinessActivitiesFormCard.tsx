@@ -124,7 +124,7 @@ const DaysOffFormCard = ({ data, onUpdateActivities }: Props) => {
       </FormCard>
       <Dialog
         mobileFullscreen
-        title={t('businessActivity.activity')}
+        title={isEmpty(activityDialogData) ? t('add') : t('edit')}
         onClose={() => void setActivityDialogData(null)}
         open={activityDialogData !== null}>
         <ActivityDialogContent>
