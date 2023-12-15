@@ -10,6 +10,7 @@ import { useGetResidences } from 'api/query/residenceQuery';
 import { useGetUser } from 'api/query/userQuery';
 
 import BankDataFormCard from './components/FormCards/BankDataFormCard';
+import BusinessActivitiesFormCard from './components/FormCards/BusinessActivitiesFormCard';
 import BusinessInfoFormCard from './components/FormCards/BusinessInfoFormCard';
 import DaysOffFormCard from './components/FormCards/DaysOffFormCard';
 import EmploymentInfoFormCard from './components/FormCards/EmploymentInfoFormCard';
@@ -54,6 +55,7 @@ const ProfileAdminPage = () => {
             <div className="col">
               <EmploymentInfoFormCard data={profileData} />
               <BusinessInfoFormCard data={profileData} />
+              <BusinessActivitiesFormCard data={profileData.businessActivities || []} />
             </div>
           </TabPanel>
           <TabPanel index={3}>

@@ -9,12 +9,14 @@ export const ProfileCardWrapper = styled.div`
   background: #FFF;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.20), 0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
   position: relative;
-  /* height: calc(100vh - 100px); */
+  height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
   color: #131313;
-  /* overflow: auto; */
+  overflow: auto;
   @media (max-width: ${SM}) {
+    overflow: hidden;
+    height: 100%;
     border: none;
     box-shadow: none;
   }
