@@ -123,6 +123,7 @@ export interface IUser {
   businessName?: string;
   businessStatus?: 'active' | 'stopped' | 'closed';
   businessActivities?: UserBusinessActivity[];
+  isDeleted?: boolean;
 
   tags?: string[];
   createdAt?: string,

@@ -110,10 +110,10 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
                       <TableCell align="right">
                         <ActionsCell>
                           <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => { setDayoffDialogData(dayoff); reset(dayoff); }}>
-                            <EditIcon size={15} />
+                            <EditIcon />
                           </IconButton>
                           <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => void setDeleteDialogData(dayoff)}>
-                            <DeleteIcon size={15} />
+                            <DeleteIcon />
                           </IconButton>
                         </ActionsCell>
                       </TableCell>

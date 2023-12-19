@@ -19,7 +19,7 @@ const InfoRow = () => {
   const { data, selected, onChangeSelect, cols, startEdit } = useProfileRowContext();
 
   return (
-    <ListTableRow>
+    <ListTableRow error={data.isDeleted}>
       <ListTableCell>
         <Checkbox checked={selected} onChange={(e) => void onChangeSelect(e.target.checked)} />
       </ListTableCell>

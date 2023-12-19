@@ -164,10 +164,10 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
                       <TableCell align="right">
                         <ActionsCell>
                           <IconButton disabled={!isMongoId(finance.data._id)} onClick={() => { setFinanceDialogData(finance); reset(finance); }}>
-                            <EditIcon size={15} />
+                            <EditIcon />
                           </IconButton>
                           <IconButton disabled={!isMongoId(finance.data._id)} onClick={() => void setDeleteDialogData(finance)}>
-                            <DeleteIcon size={15} />
+                            <DeleteIcon />
                           </IconButton>
                         </ActionsCell>
                       </TableCell>

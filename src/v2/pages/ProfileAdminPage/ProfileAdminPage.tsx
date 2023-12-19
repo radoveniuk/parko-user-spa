@@ -18,6 +18,7 @@ import FinancesFormCard from './components/FormCards/FinancesFormCard';
 import PersonalDocsFormCard from './components/FormCards/PersonalDocsFormCard';
 import PrepaymentsFormCard from './components/FormCards/PrepaymentsFormCard';
 import ResidencesFormCard from './components/FormCards/ResidencesFormCard';
+import ScansFormCard from './components/FormCards/ScansFormCard';
 import ProfileCard from './components/ProfileCard';
 import UpdateHistory from './components/UpdateHistory';
 import { ContentWrapper, ProfileAdminPageWrapper } from './styles';
@@ -39,6 +40,7 @@ const ProfileAdminPage = () => {
         <ContentWrapper>
           <TabPanel className="cards" index={0}>
             <div className="col">
+              <ScansFormCard data={profileData} onUpdate={() => {}} />
               <FinancesFormCard data={invoices.map((data) => ({ type: 'invoice', data }))} />
               <PrepaymentsFormCard data={prepayments} />
             </div>

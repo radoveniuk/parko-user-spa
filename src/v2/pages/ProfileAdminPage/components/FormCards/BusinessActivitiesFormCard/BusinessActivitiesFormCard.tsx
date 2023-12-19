@@ -95,10 +95,10 @@ const DaysOffFormCard = ({ data, onUpdateActivities }: Props) => {
                             <TableCell align="right">
                               <ActionsCell>
                                 <IconButton onClick={() => { setActivityDialogData(activity); reset(activity); }}>
-                                  <EditIcon size={15} />
+                                  <EditIcon />
                                 </IconButton>
                                 <IconButton onClick={() => void setDeleteDialogData(activity)}>
-                                  <DeleteIcon size={15} />
+                                  <DeleteIcon />
                                 </IconButton>
                               </ActionsCell>
                             </TableCell>

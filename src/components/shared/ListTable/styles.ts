@@ -9,7 +9,7 @@ export const ListTableWrapper = styled.div<{ cols: number, maxHeight?: string | 
   max-height: ${props => (typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight) || 'auto'};
 `;
 
-export const ListTableRow = styled.div.attrs({ className: 'list-table-row' })`
+export const ListTableRow = styled.div.attrs({ className: 'list-table-row' })<{ error?: boolean }>`
   display: contents;
   grid-gap: 20px;
   &:hover {
@@ -17,6 +17,11 @@ export const ListTableRow = styled.div.attrs({ className: 'list-table-row' })`
       background-color: #e9e9e9;
     }
   }
+  ${props => props.error && css`
+    .list-table-cell {
+      background-color: #f2e5e5 !important;
+    }
+  `}
 `;
 
 export const ListTableHeaderRow = styled.div<{ sticky?: boolean }>`

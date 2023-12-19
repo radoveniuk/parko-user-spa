@@ -78,6 +78,8 @@ export const getFieldSectionLabelMap = (t: (v: string) => string) => {
     updatedAt: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
     businessName: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.businessName')}`,
     businessStatus: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.businessStatus')}`,
+    businessActivities: '',
+    isDeleted: '',
   };
   return UPDATE_SECTION_MAP;
 };

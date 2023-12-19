@@ -112,10 +112,10 @@ const FinancesFormCard = ({ data, onCreateResidence, onDeleteResidence, onUpdate
                       <TableCell>
                         <ActionsCell>
                           <IconButton disabled={!isMongoId(residence._id)} onClick={() => { setResidenceDialogData(residence); reset(residence); }}>
-                            <EditIcon size={15} />
+                            <EditIcon />
                           </IconButton>
                           <IconButton disabled={!isMongoId(residence._id)} onClick={() => void setDeleteDialogData(residence)}>
-                            <DeleteIcon size={15} />
+                            <DeleteIcon />
                           </IconButton>
                         </ActionsCell>
                       </TableCell>

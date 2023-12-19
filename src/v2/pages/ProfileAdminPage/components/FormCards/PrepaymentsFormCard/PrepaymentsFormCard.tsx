@@ -117,10 +117,10 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
                             disabled={!isMongoId(prepayment._id)}
                             onClick={() => { setPrepaymentDialogData(prepayment); reset(prepayment); }}
                           >
-                            <EditIcon size={15} />
+                            <EditIcon />
                           </IconButton>
                           <IconButton disabled={!isMongoId(prepayment._id)} onClick={() => void setDeleteDialogData(prepayment)}>
-                            <DeleteIcon size={15} />
+                            <DeleteIcon />
                           </IconButton>
                         </ActionsCell>
                       </TableCell>

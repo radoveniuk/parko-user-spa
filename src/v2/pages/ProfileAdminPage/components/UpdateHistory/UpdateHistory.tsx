@@ -28,7 +28,7 @@ const UpdateHistory = ({ data }: Props) => {
     const UPDATE_SECTION_MAP = getFieldSectionLabelMap(t);
 
     return (Object.keys(omit(historyItem.changes, ['updatedAt'])) as (keyof IUser)[])
-      .filter((key) => !!historyItem.changes[key]?.oldValue && !!historyItem.changes[key]?.newValue)
+      .filter((key) => !!historyItem.changes[key]?.newValue)
       .map((key, index) => {
         const keyLabel = viewportWidth > Number(SM.replace('px', '')) ? UPDATE_SECTION_MAP[key] : UPDATE_SECTION_MAP[key].split(' > ').pop();
         if (key === 'docs') {

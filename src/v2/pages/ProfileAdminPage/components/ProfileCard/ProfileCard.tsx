@@ -96,7 +96,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
         </div>
       </ProfileCardWrapper>
       <ProfileFormDialog
-        data={{ ...user, recruiter: recruiter?._id || null }}
+        data={{ ...user, recruiter: recruiter || null }}
         title={`${user.name} ${user.surname}`}
         open={isOpenForm}
         onClose={closeForm}
