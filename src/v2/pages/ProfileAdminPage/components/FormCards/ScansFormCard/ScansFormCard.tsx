@@ -83,11 +83,17 @@ const DaysOffFormCard = ({ data, onUpdate }: Props) => {
     const oldOtherScans = (scans.otherScans || []) as IFile[];
 
     if (fileKey !== 'other') {
-      setScans((prev) => ({
-        ...prev,
-        [fileKey]: uploadedFileData,
-        otherScans: [...oldOtherScans.filter((item) => item._id !== scanDialogData?._id).map((item) => item._id)],
-      }));
+      setScans((prev) => {
+        let newScans = {...prev};
+        if (scanDialogData.metadata.type !== fileKey) {
+          newScans = omit(newScans, scanDialogData.metadata.type);
+        }
+        return {
+          ...newScans,
+          [fileKey]: uploadedFileData,
+          otherScans: oldOtherScans.filter((item) => item._id !== scanDialogData?._id),
+        };
+      });
       onUpdate({ [fileKey]: uploadedFileData._id });
     } else {
       setScans((prev) => ({
