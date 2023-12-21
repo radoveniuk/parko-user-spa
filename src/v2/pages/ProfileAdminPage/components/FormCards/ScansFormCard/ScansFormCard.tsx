@@ -85,7 +85,7 @@ const DaysOffFormCard = ({ data, onUpdate }: Props) => {
     if (fileKey !== 'other') {
       setScans((prev) => {
         let newScans = { ...prev };
-        if (scanDialogData?.metadata?.type !== fileKey) {
+        if (scanDialogData?.metadata?.type && scanDialogData.metadata.type !== fileKey) {
           newScans = omit(newScans, scanDialogData.metadata.type);
         }
         return {
