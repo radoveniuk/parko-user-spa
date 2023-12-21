@@ -2,12 +2,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import IconButton from 'v2/uikit/IconButton';
 
 import logoImage from 'components/assets/images/logo.png';
 import LanguageSelector from 'components/complex/LanguageSelector';
 import LogoutButton from 'components/complex/LogoutButton';
 import { ArrowBackIcon, EmailIcon, InternetIcon, MenuIcon, PhoneIcon } from 'components/icons';
-import IconButton from 'v2/uikit/IconButton';
 import { useAuthData } from 'contexts/AuthContext';
 import { useNavbarActiveLink, useNavbarItems, useToggleNavbar } from 'contexts/NavbarStateContext';
 import { useNotifications } from 'contexts/NotificationContext';
@@ -82,7 +82,6 @@ const Navbar = () => {
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: DEFAULT_WIDTH },
         }}
       >
-
         {navbarContent}
       </Drawer>
       <Drawer

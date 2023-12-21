@@ -64,7 +64,6 @@ const Navbar = () => {
         }}
         open={expanded}
         className={expanded ? 'open' : 'close'}
-
       >
         <Stack justifyContent="space-between" height="100%">
           <MenuItems />
