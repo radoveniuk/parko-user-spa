@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import Input from 'v2/uikit/Input';
 
 import { useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
 import { useGetDaysoff } from 'api/query/dayoffQuery';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
-import Input from 'components/shared/Input';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { IDayOff } from 'interfaces/dayoff.interface';

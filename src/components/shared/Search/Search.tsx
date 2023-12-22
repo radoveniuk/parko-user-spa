@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
+import Input from 'v2/uikit/Input';
 
 import api from 'api/common';
-import Input from 'components/shared/Input';
 import useDebounce from 'hooks/useDebounce';
 import useOutsideClick from 'hooks/useOutsideClick';
 import { MongoEntity } from 'interfaces/base.types';

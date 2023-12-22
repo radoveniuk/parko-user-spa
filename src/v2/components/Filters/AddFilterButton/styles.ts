@@ -12,7 +12,7 @@ export const Button = styled.button.attrs({ className: 'AddFilterButton' })`
   cursor: pointer;
   color: #717171;
   font-weight: 400;
-  height: 41px;
+  height: 36px;
   width: 180px;
   justify-content: center;
   transition: .3s;

@@ -150,7 +150,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
 export const FilterTableWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: end;
   border-bottom: 1px solid #e9e9e9;
   gap: 10px;
   padding: 14px 30px;
@@ -159,7 +159,7 @@ export const FilterTableWrapper = styled.div`
   }
 
   .filter-chip {
-    height: 41px;
+    height: 36px;
     @media (max-width: ${TB}) {
       display: none;;
     }

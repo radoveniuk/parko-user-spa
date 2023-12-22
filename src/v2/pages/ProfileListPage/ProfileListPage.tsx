@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddFilterButton from 'v2/components/Filters/AddFilterButton';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
+import Autocomplete from 'v2/uikit/Autocomplete';
 import Chip from 'v2/uikit/Chip';
+import Select from 'v2/uikit/Select';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { AiOutlineSearchIcon } from 'components/icons';
-import Autocomplete from 'components/shared/Autocomplete';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
-import Select from 'components/shared/Select';
 import { USER_STATUSES } from 'constants/statuses';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -77,7 +77,6 @@ const ProfileListPageRender = () => {
             options={usersFilter}
             getOptionLabel={user => `${user.name} ${user.surname}`}
             filterKey="ids"
-            label={t('search')}
             prefixIcon={<AiOutlineSearchIcon className="search-icon"/>}
             className="filter-name"
             limitTags={1}

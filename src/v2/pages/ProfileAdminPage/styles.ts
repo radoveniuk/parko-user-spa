@@ -20,9 +20,13 @@ export const ProfileAdminPageWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   padding: 0 30px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  overflow-x: hidden;
 
   @media (max-width: ${SM}) {
     padding: 10px;
+    max-height: 100%;
   }
 
   .cards {

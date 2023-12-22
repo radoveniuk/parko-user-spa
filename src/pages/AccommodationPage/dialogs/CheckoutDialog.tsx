@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import Autocomplete from 'v2/uikit/Autocomplete';
+import DatePicker from 'v2/uikit/DatePicker';
 
 import { useUpdateResidence } from 'api/mutations/residenceMutation';
 import { useGetResidences } from 'api/query/residenceQuery';
-import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
-import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';

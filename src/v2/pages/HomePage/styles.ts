@@ -26,9 +26,9 @@ overflow: auto;
   gap: 24px;
   position: relative;
 
-  @media (max-width: 1350px) {
+  @media (max-width: 1150px) {
     flex-direction: column;
-    width: calc(100vw - 508px);
+    width: calc(100vw - 200px);
     gap: 20px;
   }
 
@@ -45,15 +45,22 @@ overflow: auto;
     @media (min-width: 1800px) {
       width: 600px;
     }
-    @media (max-width: 1600px) {
-      width: 50%;
-    }
     @media (max-width: 1350px) {
-      width: 600px;
+      width: 500px;
     }
     @media (max-width: 1150px) {
       width: 100%;
     }
   }
+}
+
+@media (min-width: 1800px) {
+  .cards, .col {
+    display: contents !important;
+  }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 550px);
+  grid-auto-rows: minmax(100px, auto);
+  gap: 20px;
 }
 `;

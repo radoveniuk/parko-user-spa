@@ -8,11 +8,11 @@ import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { CheckAllIcon, ExcelIcon, PrintIcon, RemoveCheckIcon } from 'components/icons';
 import Checkbox from 'components/shared/Checkbox';
 import { FilterAutocomplete, FiltersBar, FilterSelect, useFilters } from 'components/shared/Filters';
-import { ClearFiLtersButton, FilterDate } from 'components/shared/Filters/Filters';
+import { ClearFiltersButton, FilterDate } from 'components/shared/Filters/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
 import Pagination from 'components/shared/Pagination';
-import Select from 'components/shared/Select';
+import Select from 'v2/uikit/Select';
 import { EMPLOYMENT_TYPE } from 'constants/selectsOptions';
 import { STATUSES_COLORS, USER_STATUSES } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
@@ -127,7 +127,7 @@ export default function Profiles () {
           filterKey="cooperationTo"
           label={t('project.cooperationTo')}
         />
-        <ClearFiLtersButton />
+        <ClearFiltersButton />
         <div className="table-settings">
           <Select
             label={t('rowsPerPage')}

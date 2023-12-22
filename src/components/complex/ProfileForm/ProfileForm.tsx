@@ -3,15 +3,15 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash-es';
 import DatePicker from 'v2/uikit/DatePicker';
+import Input from 'v2/uikit/Input';
+import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
+import Select from 'v2/uikit/Select';
 
 import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import Accordion from 'components/shared/Accordion';
 import BooleanSelect from 'components/shared/BooleanSelect';
-import Input from 'components/shared/Input';
-import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
-import Select from 'components/shared/Select';
 import { COUNTRIES } from 'constants/countries';
 import { EMPLOYMENT_TYPE, FAMILY_STATUSES, SIZES, STUDY } from 'constants/selectsOptions';
 import {

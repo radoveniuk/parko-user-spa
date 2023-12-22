@@ -1,11 +1,11 @@
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-
 import DatePicker from 'v2/uikit/DatePicker';
-import Input from 'components/shared/Input';
-import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
-import Select from 'components/shared/Select';
+import Input from 'v2/uikit/Input';
+import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
+import Select from 'v2/uikit/Select';
+
 import { CLIENT_STATUS } from 'constants/selectsOptions';
 import { validateEmail } from 'helpers/validateEmail';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';

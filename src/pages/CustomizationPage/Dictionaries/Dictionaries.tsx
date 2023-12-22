@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import Chip from 'v2/uikit/Chip';
 import IconButton from 'v2/uikit/IconButton';
+import Input from 'v2/uikit/Input';
 
 import { useCreateDictionaryMutation, useDeleteDictionaryMutation, useUpdateDictionaryMutation } from 'api/mutations/dictionaryMutation';
 import { useGetDictionaries } from 'api/query/dictionariesQuery';
 import { PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
-import Chip from 'v2/uikit/Chip';
 import DialogConfirm from 'components/shared/DialogConfirm';
-import Input from 'components/shared/Input';
 import List from 'components/shared/List';
 import { IDictionary } from 'interfaces/dictionary.interface';
 

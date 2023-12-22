@@ -6,6 +6,8 @@ import { isEmpty } from 'lodash-es';
 import { DateTime } from 'luxon';
 import { Paper } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
+import Input from 'v2/uikit/Input';
+import Select from 'v2/uikit/Select';
 
 import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetUser } from 'api/query/userQuery';
@@ -18,10 +20,8 @@ import { DeleteIcon, EmailIcon, NotificationIcon, PasswordIcon, PhoneIcon, Print
 import Accordion from 'components/shared/Accordion';
 import Button from 'components/shared/Button';
 import Dialog, { DialogActions } from 'components/shared/Dialog';
-import Input from 'components/shared/Input';
 import { PageTitleV2 } from 'components/shared/PageComponents/styles';
 import RadioButtonGroup, { RadioButton } from 'components/shared/RadioButtonGroup';
-import Select from 'components/shared/Select';
 import { Tab, TabPanel, Tabs, TabsContainer, useTabs } from 'components/shared/Tabs';
 import { ROLES } from 'constants/userRoles';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';

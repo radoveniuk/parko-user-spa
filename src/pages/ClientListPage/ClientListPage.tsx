@@ -5,16 +5,16 @@ import { useQueryClient } from 'react-query';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { isEmpty } from 'lodash-es';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
+import Autocomplete from 'v2/uikit/Autocomplete';
 
 import { useCreateClientMutation } from 'api/mutations/clientMutation';
 import { useGetClients } from 'api/query/clientQuery';
 import { PlusIcon, SaveIcon } from 'components/icons';
-import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Dialog, { DialogActions } from 'components/shared/Dialog';
 import { FiltersBar } from 'components/shared/Filters';
 import List from 'components/shared/List';
-import Select from 'components/shared/Select';
+import Select from 'v2/uikit/Select';
 import { CLIENT_STATUS } from 'constants/selectsOptions';
 import usePageQueries from 'hooks/usePageQueries';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';

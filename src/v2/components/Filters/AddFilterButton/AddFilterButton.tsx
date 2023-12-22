@@ -5,6 +5,7 @@ import IconButton from 'v2/uikit/IconButton';
 
 import { CloseIcon, PlusIcon } from 'components/icons';
 import { useFilters } from 'components/shared/Filters';
+import useOutsideClick from 'hooks/useOutsideClick';
 
 import { Button, MenuToolbar, MenuWrapper, SearchInput } from './styles';
 
@@ -23,6 +24,7 @@ const AddFilterButton = ({ filterOptions }: Props) => {
   const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null);
   const [openPopper, setOpenPopper] = useState(false);
   const anchorEl = useRef<HTMLDivElement>(null);
+  const popperRef = useRef<HTMLDivElement>(null);
   const { addFilter } = useFilters();
   const [searchValue, setSearchValue] = useState('');
 
@@ -35,6 +37,12 @@ const AddFilterButton = ({ filterOptions }: Props) => {
     () => filterOptions.filter((filterItem) => filterItem.name.toLowerCase().includes(searchValue.toLowerCase())),
     [filterOptions, searchValue],
   );
+
+  useOutsideClick([anchorEl, popperRef], () => {
+    if (!selectedFilter) {
+      closeFilterMenu();
+    }
+  });
 
   return (
     <>
@@ -53,7 +61,7 @@ const AddFilterButton = ({ filterOptions }: Props) => {
           <SearchInput onChange={(e) => void setSearchValue(e.target.value)} value={searchValue} />
         )}
       </div>
-      <Popper style={{ zIndex: 2 }} open={openPopper} anchorEl={anchorEl.current} placement="bottom-start" transition>
+      <Popper ref={popperRef} style={{ zIndex: 2 }} open={openPopper} anchorEl={anchorEl.current} placement="bottom-start" transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper>

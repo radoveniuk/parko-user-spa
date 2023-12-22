@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash-es';
 import { Button, Input, Stack } from 'v2/uikit';
+import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 
 import { useRegisterMutation } from 'api/mutations/userMutation';
-import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import { validateEmail } from 'helpers/validateEmail';
 import { RegisterUserDto } from 'interfaces/users.interface';
 

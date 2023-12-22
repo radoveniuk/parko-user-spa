@@ -1,9 +1,9 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import Input from 'v2/uikit/Input';
+import Select from 'v2/uikit/Select';
 
-import Input from 'components/shared/Input';
-import Select from 'components/shared/Select';
 import { SALARY_TYPE } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';

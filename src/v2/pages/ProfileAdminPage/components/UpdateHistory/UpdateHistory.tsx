@@ -30,13 +30,23 @@ const UpdateHistory = ({ data }: Props) => {
     return (Object.keys(omit(historyItem.changes, ['updatedAt'])) as (keyof IUser)[])
       .filter((key) => !!historyItem.changes[key]?.newValue)
       .map((key, index) => {
-        const keyLabel = viewportWidth > Number(SM.replace('px', '')) ? UPDATE_SECTION_MAP[key] : UPDATE_SECTION_MAP[key].split(' > ').pop();
+        if (!UPDATE_SECTION_MAP[key]) return '';
+        const keyLabel = viewportWidth > Number(SM.replace('px', '')) ? UPDATE_SECTION_MAP[key] : UPDATE_SECTION_MAP?.[key]?.split(' > ').pop();
         if (key === 'docs') {
           return (
             <div key={index}>
               <UpdateRow>{keyLabel}:</UpdateRow>{' '}
               {renderDocs(historyItem.changes[key]?.oldValue, false, t)}
               {renderDocs(historyItem.changes[key]?.newValue, true, t)}
+            </div>
+          );
+        }
+        if (key === 'project') {
+          return (
+            <div key={index}>
+              <UpdateRow>{keyLabel}:</UpdateRow>{' '}
+              <OldValue>{renderValue(key, historyItem.changes[key]?.oldValue, t)}</OldValue>{' '}
+              <NewValue>{renderValue(key, historyItem.changes[key]?.newValue, t)}</NewValue>
             </div>
           );
         }

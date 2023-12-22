@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { isEmpty } from 'lodash-es';
+import Autocomplete from 'v2/uikit/Autocomplete';
 import DatePicker from 'v2/uikit/DatePicker';
 
 import { useCreateResidence, useUpdateResidence } from 'api/mutations/residenceMutation';
 import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { useGetUserList } from 'api/query/userQuery';
-import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import Dialog, { DialogProps } from 'components/shared/Dialog';

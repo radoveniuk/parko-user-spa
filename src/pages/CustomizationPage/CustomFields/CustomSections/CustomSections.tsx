@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import IconButton from 'v2/uikit/IconButton';
+import Input from 'v2/uikit/Input';
 
 import {
   useCreateCustomFormSectionMutation,
@@ -14,8 +16,6 @@ import { DeleteIcon, EditIcon, PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog from 'components/shared/Dialog';
 import DialogConfirm from 'components/shared/DialogConfirm';
-import IconButton from 'v2/uikit/IconButton';
-import Input from 'components/shared/Input';
 import RadioButtonGroup, { RadioButton } from 'components/shared/RadioButtonGroup';
 import { LANGUAGES } from 'constants/languages';
 import useDebounce from 'hooks/useDebounce';

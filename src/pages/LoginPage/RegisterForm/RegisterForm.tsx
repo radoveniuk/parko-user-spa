@@ -2,9 +2,9 @@ import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash-es';
+import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 
 import { useRegisterMutation } from 'api/mutations/userMutation';
-import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
 import { validateEmail } from 'helpers/validateEmail';
 import { RegisterUserDto } from 'interfaces/users.interface';
 

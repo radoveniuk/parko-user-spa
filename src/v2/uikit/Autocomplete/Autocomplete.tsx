@@ -37,7 +37,7 @@ export type AutocompleteProps = {
 const AutoComplete = ({
   label, loading, labelKey, onChange, defaultOpen, value,
   getOptionLabel, error, prefixIcon, placeholder, disabled, maxWidth,
-  valueKey = '_id', theme,
+  valueKey = '_id', theme = 'white',
   ...rest
 }: AutocompleteProps) => {
   const [open, setOpen] = useState(false);

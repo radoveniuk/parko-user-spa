@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
+import IconButton from 'v2/uikit/IconButton';
+import Input from 'v2/uikit/Input';
 
 import { CloseIcon, PlusIcon } from 'components/icons';
-import IconButton from 'v2/uikit/IconButton';
-import Input from 'components/shared/Input';
 
 import { ProjectStagesSettingsWrapper, ProjectStagesWrapper, StageItem } from './styles';
 

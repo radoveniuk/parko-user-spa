@@ -497,7 +497,7 @@
   "showAll": "Show All",
   "rollup": "Roll up",
   "header": {
-    "search": "Search for users, groups or settings"
+    "search": "Search for users, projects or clients"
   },
   "profilesPage": {
     "status": "User statuses",

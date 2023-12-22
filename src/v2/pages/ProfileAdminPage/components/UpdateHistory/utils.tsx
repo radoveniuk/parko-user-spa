@@ -8,16 +8,14 @@ import { IUser } from 'interfaces/users.interface';
 import { DocItem, DocItems } from './styles';
 
 export const getFieldSectionLabelMap = (t: (v: string) => string) => {
-  const UPDATE_SECTION_MAP: Record<keyof IUser, string> = {
+  const UPDATE_SECTION_MAP: Partial<Record<keyof IUser, string>> = {
     notes: `${t('user.baseFields')} > ${t('user.notes')}`,
     source: `${t('user.baseFields')} > ${t('user.source')}`,
     role: `${t('user.baseFields')} > ${t('user.role')}`,
     name: `${t('user.baseFields')} > ${t('user.name')}`,
-    _id: '',
     nickname: `${t('user.baseFields')} > ${t('user.nickname')}`,
     surname: `${t('user.baseFields')} > ${t('user.surname')}`,
     email: `${t('user.baseFields')} > ${t('user.email')}`,
-    password: `${t('user.baseFields')} > ${t('user.password')}`,
     phone: `${t('user.baseFields')} > ${t('user.phone')}`,
     birthDate: `${t('user.baseFields')} > ${t('user.birthDate')}`,
     passNumber: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.passNumber')}`,
@@ -41,45 +39,42 @@ export const getFieldSectionLabelMap = (t: (v: string) => string) => {
     ICO: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.ICO')}`,
     DIC: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.DIC')}`,
     permitAdress: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.permitAdress')}`,
-    permitDepartment: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.permitAdress')}`,
-    permitNumber: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
+    permitDepartment: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.permitDepartment')}`,
+    permitNumber: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitNumber')}`,
     tshortSize: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.tshortSize')}`,
     pantsSize: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.pantsSize')}`,
     shoesSize: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.shoesSize')}`,
     employmentType: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.employmentType')}`,
-    cooperationType: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    position: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    cooperationStartDate: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    cooperationEndDate: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    status: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    customFields: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    otherScans: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    salary: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    salaryType: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    salaryComment: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    internationalPassScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    passScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    idCardFaceScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    idCardBackScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    permitFaceScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    permitBackScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
+    cooperationType: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.cooperationType')}`,
+    position: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.position')}`,
+    cooperationStartDate: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.cooperationStartDate')}`,
+    cooperationEndDate: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.cooperationEndDate')}`,
+    status: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.status')}`,
+    customFields: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.customFields')}`,
+    otherScans: `${t('user.info')} > ${t('user.scancopies')}`,
+    salary: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.salary')}`,
+    salaryType: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.salaryType')}`,
+    salaryComment: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.salaryComment')}`,
+    internationalPassScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.internationalPassScan')}`,
+    passScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.passScan')}`,
+    idCardFaceScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.idCardFaceScan')}`,
+    idCardBackScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.idCardBackScan')}`,
+    permitFaceScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitFaceScan')}`,
+    permitBackScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitBackScan')}`,
     docs: `${t('user.info')} > ${t('user.docsFields')}`,
-    projectStages: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    medicalInsurance: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    birthPlace: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    familyStatus: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    birthSurname: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    childrenCount: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    history: '',
-    createdBy: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    updatedBy: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    tags: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    createdAt: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
-    updatedAt: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitAdress')}`,
+    projectStages: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.projectStages')}`,
+    medicalInsurance: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.medicalInsurance')}`,
+    birthPlace: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.birthPlace')}`,
+    familyStatus: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.familyStatus')}`,
+    birthSurname: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.birthSurname')}`,
+    childrenCount: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.childrenCount')}`,
+    tags: `${t('user.info')} > ${t('user.tags')}`,
+    createdAt: `${t('user.info')} > ${t('user.createdAt')}`,
+    updatedAt: `${t('user.info')} > ${t('user.updatedAt')}`,
     businessName: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.businessName')}`,
     businessStatus: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.businessStatus')}`,
-    businessActivities: '',
-    isDeleted: '',
+    businessActivities: `${t('user.info')} > ${t('user.businessActivities')}`,
+    isDeleted: `${t('user.info')} > ${t('user.isDeleted')}`,
   };
   return UPDATE_SECTION_MAP;
 };
@@ -92,9 +87,12 @@ export const renderValue = (key: keyof IUser, value: string | boolean | number, 
   if (isIso) {
     return getDateFromIso(value);
   }
-  const selectKeys: (keyof IUser)[] = ['permitType', 'employmentType'];
+  const selectKeys: (keyof IUser)[] = ['employmentType'];
   if (selectKeys.includes(key)) {
     return value ? t(`selects.${key}.${value}`) : '';
+  }
+  if (key === 'status') {
+    return value ? t(`selects.userStatus.${value}`) : '';
   }
   return value;
 };

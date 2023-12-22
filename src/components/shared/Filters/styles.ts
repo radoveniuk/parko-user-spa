@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const FiltersBar = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: end;
   border-bottom: 1px solid #e9e9e9;
   gap: 10px;
   padding-top: 10px;
