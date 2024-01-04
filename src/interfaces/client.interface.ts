@@ -13,4 +13,5 @@ export interface IClient {
   cooperationStartDate: string;
   cooperationEndDate: string;
   status: string;
+  manager?: string | { name: string; surname: string; _id: string } | null;
 }
