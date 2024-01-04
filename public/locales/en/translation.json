@@ -453,7 +453,8 @@
     "status": "Status",
     "new": "New client",
     "cooperationStartDate": "Cooperation start",
-    "cooperationEndDate": "Cooperation end"
+    "cooperationEndDate": "Cooperation end",
+    "email": "Email"
   },
   "errorTexts": {
     "emptyPassword": "Password is empty",

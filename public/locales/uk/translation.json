@@ -452,7 +452,8 @@
     "status": "Статус",
     "new": "Новий клієнт",
     "cooperationStartDate": "Початок співпраці",
-    "cooperationEndDate": "Кінець співпраці"
+    "cooperationEndDate": "Кінець співпраці",
+    "email": "Email"
   },
   "errorTexts": {
     "emptyPassword": "Пароль не може бути пустим",

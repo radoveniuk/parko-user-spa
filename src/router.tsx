@@ -3,13 +3,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from 'v2/components/ProtectedRoute';
 import AuthLayouts from 'v2/layouts/AuthLayouts';
 import PageLayouts from 'v2/layouts/PageLayouts';
-import { HomePage, LoginPage, ProfileAdminPage, ProfileListPage, RegisterPage } from 'v2/pages';
+import { ClientListPage, HomePage, LoginPage, ProfileAdminPage, ProfileListPage, RegisterPage } from 'v2/pages';
 
 import NavbarStateProvider from 'contexts/NavbarStateContext';
 import NotificationProvider from 'contexts/NotificationContext';
 import { UserRole } from 'interfaces/users.interface';
 import AccommodationPage from 'pages/AccommodationPage';
-import ClientListPage from 'pages/ClientListPage';
 import CreateNotificationPage from 'pages/CreateNotificationPage';
 import CustomizationPage from 'pages/CustomizationPage';
 import DayoffListPage from 'pages/DayoffListPage';

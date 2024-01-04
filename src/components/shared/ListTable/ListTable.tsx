@@ -15,6 +15,7 @@ type Props = {
 const ListTable = ({ columns, children, columnComponent, stickyHeader, renderIf = true, maxHeight, ...rest }: Props) => {
   const { t } = useTranslation();
   if (!renderIf) return null;
+
   return (
     <ListTableWrapper cols={columns.length} maxHeight={maxHeight} {...rest}>
       <ListTableHeaderRow sticky={stickyHeader}>

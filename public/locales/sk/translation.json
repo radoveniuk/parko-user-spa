@@ -446,7 +446,8 @@
     "status": "Status",
     "new": "Vytvoriť novy",
     "cooperationStartDate": "Nástup",
-    "cooperationEndDate": "Ukončenie"
+    "cooperationEndDate": "Ukončenie",
+    "email": "Email"
   },
   "fastActions": "Akcie",
   "language": "Jazyk",

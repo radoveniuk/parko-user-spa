@@ -453,7 +453,8 @@
     "status": "Статус клиента",
     "new": "Новый клиент",
     "cooperationStartDate": "Начало сотрудничества",
-    "cooperationEndDate": "Окончание сотрудничества"
+    "cooperationEndDate": "Окончание сотрудничества",
+    "email": "Email"
   },
   "errorTexts": {
     "emptyPassword": "Пароль не может быть пустым",
