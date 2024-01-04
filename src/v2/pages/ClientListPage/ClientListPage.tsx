@@ -25,7 +25,7 @@ const ClientListPageRender = () => {
   // table content
   const { data = [], refetch, remove } = useGetClients(debouncedFiltersState);
 
-  const [storedColsSettings, setStoredColsSettings] = useLocalStorageState('profilesTableCols');
+  const [storedColsSettings, setStoredColsSettings] = useLocalStorageState('clientTableCols');
   const [activeCols, setActiveCols] = useState<string[]>(storedColsSettings ? JSON.parse(storedColsSettings).cols : DEFAULT_COLS);
 
   useEffect(() => {
