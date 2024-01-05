@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from 'v2/components/ProtectedRoute';
 import AuthLayouts from 'v2/layouts/AuthLayouts';
 import PageLayouts from 'v2/layouts/PageLayouts';
-import { ClientListPage, HomePage, LoginPage, ProfileAdminPage, ProfileListPage, RegisterPage } from 'v2/pages';
+import { ClientListPage, ClientPage, HomePage, LoginPage, ProfileAdminPage, ProfileListPage, RegisterPage } from 'v2/pages';
 
 import NavbarStateProvider from 'contexts/NavbarStateContext';
 import NotificationProvider from 'contexts/NotificationContext';
@@ -58,6 +58,7 @@ export default function Router () {
                 <Route path="/accommodation" element={<AccommodationPage />} />
                 <Route path="/export-residences" element={<ExportResidencesPage />} />
                 <Route path="/clients" element={<ClientListPage />} />
+                <Route path="/client/:id" element={<ClientPage />} />
               </Route>
             </Route>
             <Route element={<ProtectedRoute matchedRoles={['admin', 'recruiter']} />}>

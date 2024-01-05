@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import ProfileFormDialog from 'v2/components/ProfileFormDialog/ProfileFormDialog';
+import ProfileFormDialog from 'v2/components/ProfileFormDialog';
 import Chip from 'v2/uikit/Chip';
 import IconButton from 'v2/uikit/IconButton';
 import { Tab, Tabs } from 'v2/uikit/Tabs';

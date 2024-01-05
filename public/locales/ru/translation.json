@@ -454,7 +454,11 @@
     "new": "Новый клиент",
     "cooperationStartDate": "Начало сотрудничества",
     "cooperationEndDate": "Окончание сотрудничества",
-    "email": "Email"
+    "email": "Email",
+    "managers": "Менеджеры",
+    "profile": "Профиль",
+    "projects": "Проекты",
+    "profiles": "Работники"
   },
   "errorTexts": {
     "emptyPassword": "Пароль не может быть пустым",

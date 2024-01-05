@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { SM } from 'theme/sizeBreakpoints';
 
-export const ProfileAdminPageWrapper = styled.div`
+export const ClientPageWrapper = styled.div`
   display: grid;
   grid-template-columns: 360px 1fr;
   padding-left: 1px;

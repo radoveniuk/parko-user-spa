@@ -447,7 +447,11 @@
     "new": "Vytvoriť novy",
     "cooperationStartDate": "Nástup",
     "cooperationEndDate": "Ukončenie",
-    "email": "Email"
+    "email": "Email",
+    "managers": "Manažéri",
+    "profile": "Profil",
+    "projects": "Projekty",
+    "profiles": "Pracovníci"
   },
   "fastActions": "Akcie",
   "language": "Jazyk",

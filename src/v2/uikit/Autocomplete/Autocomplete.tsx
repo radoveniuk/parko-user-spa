@@ -31,7 +31,7 @@ export type AutocompleteProps = {
   placeholder?: string;
   disabled?: boolean;
   maxWidth?: number;
-  theme?: FieldTheme,
+  theme?: FieldTheme;
 }
 
 const AutoComplete = ({

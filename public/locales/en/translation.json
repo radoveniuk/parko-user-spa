@@ -454,7 +454,11 @@
     "new": "New client",
     "cooperationStartDate": "Cooperation start",
     "cooperationEndDate": "Cooperation end",
-    "email": "Email"
+    "email": "Email",
+    "managers": "Managers",
+    "profile": "Profile",
+    "projects": "Projects",
+    "profiles": "Employees"
   },
   "errorTexts": {
     "emptyPassword": "Password is empty",

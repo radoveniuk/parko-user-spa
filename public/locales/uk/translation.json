@@ -453,7 +453,11 @@
     "new": "Новий клієнт",
     "cooperationStartDate": "Початок співпраці",
     "cooperationEndDate": "Кінець співпраці",
-    "email": "Email"
+    "email": "Email",
+    "managers": "Менеджери",
+    "profile": "Профіль",
+    "projects": "Проєкти",
+    "profiles": "Працівники"
   },
   "errorTexts": {
     "emptyPassword": "Пароль не може бути пустим",

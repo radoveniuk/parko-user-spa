@@ -1,0 +1,81 @@
+import React, { memo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import ClientFormDialog from 'v2/components/ClientFormDialog';
+import IconButton from 'v2/uikit/IconButton';
+import { Tab, Tabs } from 'v2/uikit/Tabs';
+
+import { EditIcon } from 'components/icons';
+import { getDateFromIso } from 'helpers/datetime';
+import { IClient } from 'interfaces/client.interface';
+import { IUser } from 'interfaces/users.interface';
+
+import { ProfileCardWrapper } from './styles';
+
+export type ClientCardProps = {
+  data: IClient;
+  onChange?(values: Partial<IClient>): void;
+};
+
+const ClientCard = ({ data, onChange }: ClientCardProps) => {
+  const { t } = useTranslation();
+
+  const [isOpenForm, setIsOpenForm] = useState(false);
+
+  const closeForm = () => void setIsOpenForm(false);
+
+  const [client, setClient] = useState(data);
+  const managers = client.managers as IUser[] | null;
+
+  return (
+    <>
+      <ProfileCardWrapper>
+        <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
+        <div className="contacts-info section">
+          <div className="name-and-sex">
+            <div className="name">{client.name}</div>
+          </div>
+          <div className="contacts">
+            <a href={`mailto:${client.email}`} className="contact-text-link">{client.email}</a>
+            <a href={`tel:${client.phone}`} className="contact-text-link">{client.phone}</a>
+            <a href={client.websiteUrl} className="contact-text-link">{client.websiteUrl}</a>
+          </div>
+        </div>
+        <div className="common section">
+          <div className="common-item">{t('client.status')}: {t(`selects.clientStatus.${client.status}`)}</div>
+          <div className="common-item">IČO: {client.ICO}</div>
+          <div className="common-item">DIČ: {client.DIC}</div>
+          <div className="common-item">IČ DPH: {client.ICDPH}</div>
+          <div className="common-item">Sídlo: {client.sidlo}</div>
+          <div className="common-item">{t('client.contactPerson')}: {client.contactPerson}</div>
+          <div className="common-item">{t('client.contactPersonPosition')}: {client.contactPersonPosition}</div>
+          <div className="common-item">{t('client.cooperationStartDate')}: {getDateFromIso(client.cooperationStartDate)}</div>
+          <div className="common-item">{t('client.cooperationEndDate')}: {getDateFromIso(client.cooperationEndDate)}</div>
+          <div className="common-item">{t('client.managers')}: {managers?.map(item => `${item.name} ${item.surname}`).join(' / ')}</div>
+        </div>
+        <div className="system-info section">
+          <div className="system-info-item">{t('user.lastUpdate')}: {getDateFromIso(client.updatedAt)}</div>
+          <div className="system-info-item">{t('user.createdAt')}: {getDateFromIso(client.createdAt)}</div>
+        </div>
+        <div className="tabs-wrapper">
+          <Tabs orientation="vertical">
+            <Tab label={t('client.projects')} />
+            <Tab label={t('client.profiles')} />
+          </Tabs>
+        </div>
+      </ProfileCardWrapper>
+      <ClientFormDialog
+        data={client}
+        title={client.name}
+        open={isOpenForm}
+        onClose={closeForm}
+        onSave={(values) => {
+          closeForm();
+          setClient(prev => ({ ...prev, ...values }));
+          onChange?.(values);
+        }}
+      />
+    </>
+  );
+};
+
+export default memo(ClientCard);
