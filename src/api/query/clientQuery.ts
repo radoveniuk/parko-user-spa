@@ -5,7 +5,7 @@ import { AnyObject } from 'interfaces/base.types';
 import { IClient } from 'interfaces/client.interface';
 import { QueryOptions } from 'interfaces/query.types';
 
-export const useGetClients = (params: AnyObject = {}, options: any) => {
+export const useGetClients = (params: AnyObject = {}, options: AnyObject = {}) => {
   const request = (): Promise<IClient[]> => api.get('/clients', { params }).then(res => res.data.data);
   return useQuery(['clients', JSON.stringify(params)], request, { initialData: [], refetchOnWindowFocus: false, ...options });
 };

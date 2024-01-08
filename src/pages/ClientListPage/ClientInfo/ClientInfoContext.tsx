@@ -25,7 +25,7 @@ const ClientInfoProvider = ({ children }: PropsWithChildren<{}>) => {
   const selectedProfilesState = useState<IUser[]>([]);
 
   return (
-    <ClientInfoContext.Provider value={{ client: cachedClient || client, projects, selectedProfilesState, selectedProjectsState }}>
+    <ClientInfoContext.Provider value={{ client: (cachedClient || client as IClient), projects, selectedProfilesState, selectedProjectsState }}>
       {children}
     </ClientInfoContext.Provider>
   );
