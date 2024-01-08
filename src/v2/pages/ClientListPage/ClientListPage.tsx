@@ -12,8 +12,8 @@ import Table from './components/Table';
 import { FilterTableWrapper, ProfileListPageWrapper } from './styles';
 
 const DEFAULT_COLS = [
-  'client.email',
   'client.sidlo',
+  'client.status',
 ];
 
 const ClientListPageRender = () => {
@@ -23,7 +23,7 @@ const ClientListPageRender = () => {
   const { debouncedFiltersState } = useFilters();
 
   // table content
-  const { data = [], refetch, remove } = useGetClients(debouncedFiltersState);
+  const { data = [], refetch, remove } = useGetClients(debouncedFiltersState, { enabled: false });
 
   const [storedColsSettings, setStoredColsSettings] = useLocalStorageState('clientTableCols');
   const [activeCols, setActiveCols] = useState<string[]>(storedColsSettings ? JSON.parse(storedColsSettings).cols : DEFAULT_COLS);

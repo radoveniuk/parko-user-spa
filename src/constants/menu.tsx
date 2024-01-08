@@ -101,6 +101,7 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     title: 'navbar.clients',
     icon: <BusinessIcon size={30} />,
     to: '/clients',
+    relativeLocations: ['client'],
   },
   {
     title: 'navbar.accommodation',

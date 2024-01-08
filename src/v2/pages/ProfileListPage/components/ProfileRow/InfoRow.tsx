@@ -16,10 +16,10 @@ import { LinkWrapper } from './styles';
 
 const InfoRow = () => {
   const { t } = useTranslation();
-  const { data, selected, onChangeSelect, cols, startEdit } = useProfileRowContext();
+  const { data, selected, onChangeSelect, cols, startEdit, style } = useProfileRowContext();
 
   return (
-    <ListTableRow error={data.isDeleted}>
+    <ListTableRow error={data.isDeleted} style={style}>
       <ListTableCell>
         <Checkbox checked={selected} onChange={(e) => void onChangeSelect(e.target.checked)} />
       </ListTableCell>

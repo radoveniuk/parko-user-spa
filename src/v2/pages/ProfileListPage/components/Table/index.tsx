@@ -1,6 +1,10 @@
+/* eslint-disable react/prop-types */
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { FixedSizeList } from 'react-window';
+import MobileUserCard from 'v2/components/MobileUserCard/MobileUserCard';
 import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
 import Skeleton from 'v2/uikit/Skeleton';
@@ -107,6 +111,29 @@ const Table = ({
 
   return (
     <TableWrapper>
+      <FixedSizeList
+        className="mobile-list"
+        height={window.innerHeight - 190}
+        itemCount={sortedData.length}
+        itemSize={150}
+        width="100%"
+      >
+        {(props) => (
+          <MobileUserCard
+            {...props}
+            user={sortedData[props.index]}
+            selected={selectedItems.some(item => item._id === sortedData[props.index]._id)}
+            onSelect={checked => {
+              setSelectedItems(prev => {
+                if (checked) {
+                  return [...prev, sortedData[props.index]];
+                }
+                return prev.filter(item => item._id !== sortedData[props.index]._id);
+              });
+            }}
+          />
+        )}
+      </FixedSizeList>
       <ListTable
         columns={[...allCols, '']}
         className="users-table"

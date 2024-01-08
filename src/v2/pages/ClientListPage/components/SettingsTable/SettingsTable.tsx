@@ -10,8 +10,8 @@ import { ColsSettingsWrapper } from './styles';
 const COLS_TO_SETTINGS = EXPORT_USER_FIELDS.filter((item) => !['name', 'email'].includes(item)).map((col) => `client.${col}`);
 
 const DEFAULT_COLS = [
-  'client.email',
   'client.sidlo',
+  'client.status',
 ];
 
 type Props = {

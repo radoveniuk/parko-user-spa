@@ -31,9 +31,7 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
       <ProfileCardWrapper>
         <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
         <div className="contacts-info section">
-          <div className="name-and-sex">
-            <div className="name">{client.name}</div>
-          </div>
+          <div className="name">{client.name}</div>
           <div className="contacts">
             <a href={`mailto:${client.email}`} className="contact-text-link">{client.email}</a>
             <a href={`tel:${client.phone}`} className="contact-text-link">{client.phone}</a>

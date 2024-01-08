@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 import { IUser } from 'interfaces/users.interface';
 
 export type ProfileRowProps = {
@@ -8,4 +10,5 @@ export type ProfileRowProps = {
   onChangeSelect(val: boolean): void;
   startEdit(): void;
   saveEdit(values: IUser): void;
+  style?: CSSProperties;
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { TB } from 'theme/sizeBreakpoints';
+import { SM, TB } from 'theme/sizeBreakpoints';
 
 export const TableWrapper = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ export const TableWrapper = styled.div`
 
   .users-table {
     overflow: scroll;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 371px);
     position: relative;
 
     @media (max-width: ${TB}) {
@@ -40,5 +40,12 @@ export const TableWrapper = styled.div`
 
   .pagination-bottom {
     margin-top: auto;
+  }
+
+  .mobile-list {
+    display: none;
+    @media (max-width: ${SM}) {
+      display: initial;
+    }
   }
 `;

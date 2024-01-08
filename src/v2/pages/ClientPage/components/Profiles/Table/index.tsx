@@ -1,15 +1,14 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react/prop-types */
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient } from 'react-query';
+import { FixedSizeList } from 'react-window';
+import MobileUserCard from 'v2/components/MobileUserCard/MobileUserCard';
 import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
 import Skeleton from 'v2/uikit/Skeleton';
 
-import { useUpdateUserMutation } from 'api/mutations/userMutation';
-import { useGetProjects } from 'api/query/projectQuery';
-import { useGetUserList } from 'api/query/userQuery';
 import { ArrowUpIcon, SettingsIcon } from 'components/icons';
-import { useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { iterateMap } from 'helpers/iterateMap';
 import { isMongoId } from 'helpers/regex';
@@ -43,17 +42,11 @@ const Table = ({
   selectedItems,
 }: TTable) => {
   const { t, i18n } = useTranslation();
-  const queryClient = useQueryClient();
-  const { debouncedFiltersState } = useFilters();
 
-  const [rowsPerPage, setRowsPerPage] = useState(20); // TODO remove
-  const [editingRow, setEditingRow] = useState<null | string>(null);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
 
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
   const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
-  const updateUserMutation = useUpdateUserMutation();
-  const { data: projects = [] } = useGetProjects();
-  const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
 
   const toggleSorting = (userKey: keyof IUser) => {
     let sortingValue: Path<IUser> | ((v: IUser) => any) = userKey;
@@ -83,30 +76,31 @@ const Table = ({
     sortingToggler(userKey, sortingValue);
   };
 
-  const updateUser = (values: Partial<IUser>) => {
-    if (values._id) {
-      updateUserMutation.mutate({ ...values, _id: values._id });
-      const project = projects.find(item => item._id === values.project) || null;
-      const recruiter = recruiters.find(item => item._id === values.recruiter) || null;
-
-      queryClient.setQueryData(
-        ['users', JSON.stringify(debouncedFiltersState)],
-        data.map(userItem => {
-          if (userItem._id === values._id) {
-            return { ...userItem, ...values, project, recruiter };
-          }
-          return userItem;
-        }),
-      );
-    }
-  };
-
   const [openColsSettins, setOpenColsSettings] = useState(false);
 
   const allCols = [...STATIC_COLS, ...activeCols];
 
   return (
     <TableWrapper>
+      <div
+        className="mobile-list"
+      >
+        {sortedData.map((user) => (
+          <MobileUserCard
+            key={user._id}
+            user={user}
+            selected={selectedItems.some(item => item._id === user._id)}
+            onSelect={checked => {
+              setSelectedItems(prev => {
+                if (checked) {
+                  return [...prev, user];
+                }
+                return prev.filter(item => item._id !== user._id);
+              });
+            }}
+          />
+        ))}
+      </div>
       <ListTable
         columns={[...allCols, '']}
         className="users-table"
@@ -151,12 +145,6 @@ const Table = ({
           <ProfileRow
             key={user._id}
             data={user}
-            editingMode={editingRow === user._id}
-            startEdit={() => void setEditingRow(user._id)}
-            saveEdit={values => {
-              setEditingRow(null);
-              updateUser(values);
-            }}
             cols={activeCols}
             selected={selectedItems.some(item => item._id === user._id)}
             onChangeSelect={checked => {

@@ -1,9 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import IconButton from 'v2/uikit/IconButton';
 
-import { BooleanIcon, EditIcon } from 'components/icons';
+import { BooleanIcon } from 'components/icons';
 import Checkbox from 'components/shared/Checkbox';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { STATUSES_COLORS } from 'constants/statuses';
@@ -16,7 +15,7 @@ import { LinkWrapper } from './styles';
 
 const InfoRow = () => {
   const { t } = useTranslation();
-  const { data, selected, onChangeSelect, cols, startEdit } = useProfileRowContext();
+  const { data, selected, onChangeSelect, cols } = useProfileRowContext();
 
   return (
     <ListTableRow error={data.isDeleted}>
@@ -93,39 +92,9 @@ const InfoRow = () => {
         </ListTableCell>;
       })}
       <ListTableCell>
-        <IconButton
-          className="fast-edit-profile"
-          onClick={startEdit}
-        >
-          <EditIcon />
-        </IconButton>
       </ListTableCell>
     </ListTableRow>
   );
-  // : (
-  //   <ListTableRow>
-  //     <ListTableCell>
-  //       <Checkbox checked={selected} onChange={(e) => void onChangeSelect(e.target.checked)} />
-  //     </ListTableCell>
-  //     <ListTableCell>
-  //       <Link to={`/profile/${data._id}`} className="table-link">
-  //         {data.name} {data.surname}
-  //       </Link>
-  //     </ListTableCell>
-  //     {cols.map((colName) => {
-  //       const userField = colName.replace('user.', '') as keyof IUser;
-  //       return <ListTableCell key={colName}>{data[userField]?.toString()}</ListTableCell>;
-  //     })}
-  //     <ListTableCell>
-  //       <IconButton
-  //         className="fast-edit-profile active"
-  //         onClick={saveEdit}
-  //       >
-  //         <SaveIcon />
-  //       </IconButton>
-  //     </ListTableCell>
-  //   </ListTableRow>
-  // );
 };
 
 export default InfoRow;

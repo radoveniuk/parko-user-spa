@@ -15,15 +15,16 @@ import { FULL_PERMISSION_ROLES } from 'constants/userRoles';
 import { useAuthData } from 'contexts/AuthContext';
 
 interface INavbarItem {
-  type: 'link' | 'collapse',
-  title: string,
-  icon: React.ReactNode,
-  to?: string
+  type: 'link' | 'collapse';
+  title: string;
+  icon: React.ReactNode;
+  to?: string;
   children?: {
-      type: 'link',
-      title: string,
-      to: string
-    }[]
+    type: 'link';
+    title: string;
+    to: string;
+  }[];
+  relativeLocations?: string[];
 }
 
 const NAVBAR_ITEMS: INavbarItem[] = [
@@ -73,21 +74,11 @@ const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     to: '/profiles',
   },
   {
-    type: 'collapse',
-    title: 'navbar.workspaces',
+    type: 'link',
+    title: 'navbar.clients',
     icon: <FillBuildingIcon />,
-    children: [
-      {
-        type: 'link',
-        title: 'navbar.projects',
-        to: '/projects',
-      },
-      {
-        type: 'link',
-        title: 'navbar.clients',
-        to: '/clients',
-      },
-    ],
+    to: '/clients',
+    relativeLocations: ['client'],
   },
   {
     type: 'collapse',

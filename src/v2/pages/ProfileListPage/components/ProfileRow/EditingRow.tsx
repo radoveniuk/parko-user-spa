@@ -33,7 +33,7 @@ import { FormFieldWrapper, LinkWrapper } from './styles';
 
 const EditingRow = () => {
   const { t } = useTranslation();
-  const { data, selected, onChangeSelect, cols, saveEdit } = useProfileRowContext();
+  const { data, selected, onChangeSelect, cols, saveEdit, style } = useProfileRowContext();
   const { register, formState: { errors }, control, handleSubmit } = useForm<IUser>();
 
   // options
@@ -97,7 +97,7 @@ const EditingRow = () => {
   const generateField = (fieldName: keyof IUser) => {
     const fieldData = ALL_FORM_FIELDS[fieldName];
     return (
-      <FormFieldWrapper>
+      <FormFieldWrapper style={style}>
         {(fieldData?.type === 'string' || fieldData?.type === 'number') && (
           <Input
             type={fieldData.type}

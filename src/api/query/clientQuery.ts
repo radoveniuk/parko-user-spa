@@ -5,9 +5,9 @@ import { AnyObject } from 'interfaces/base.types';
 import { IClient } from 'interfaces/client.interface';
 import { QueryOptions } from 'interfaces/query.types';
 
-export const useGetClients = (params: AnyObject = {}) => {
-  const request = (): Promise<IClient[]> => api.get('/clients', params).then(res => res.data.data);
-  return useQuery(['clients', JSON.stringify(params)], request, { initialData: [], refetchOnWindowFocus: false });
+export const useGetClients = (params: AnyObject = {}, options: any) => {
+  const request = (): Promise<IClient[]> => api.get('/clients', { params }).then(res => res.data.data);
+  return useQuery(['clients', JSON.stringify(params)], request, { initialData: [], refetchOnWindowFocus: false, ...options });
 };
 
 export const useGetClient = (id: string, options?: QueryOptions) => {
@@ -15,7 +15,7 @@ export const useGetClient = (id: string, options?: QueryOptions) => {
     if (!id) return;
     return api.get(`/clients/${id}`).then(res => res.data.data);
   };
-  return useQuery(['client', id], request, { enabled: !!id, ...options });
+  return useQuery<IClient | undefined>(['client', id], request, { enabled: !!id, ...options });
 };
 
 export const useGetCachedClient = (id: string) => {

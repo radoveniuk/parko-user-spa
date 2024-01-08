@@ -45,7 +45,6 @@ const HomePage = () => {
         <>
           <MainMenuGrid>
             {menuItems.map((item) => (
-
               <MainMenuLink key={item.title} to={item.to}>
                 <p>{t(item.title)}</p>
                 {item.icon}
@@ -134,7 +133,7 @@ const HomePage = () => {
                         <TableBody>
                           {dashboard.clients.map((client: IClient) => (
                             <TableRow key={client._id}>
-                              <TableCell><Link to={`/clients?id=${client._id}`}>{client.name}</Link></TableCell>
+                              <TableCell><Link to={`/client/${client._id}`}>{client.name}</Link></TableCell>
                               <TableCell>{client.sidlo}</TableCell>
                               <TableCell>{t(`selects.projectStatus.${client.status}`)}</TableCell>
                             </TableRow>

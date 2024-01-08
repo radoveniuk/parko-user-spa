@@ -12,7 +12,7 @@ import { Button, MenuToolbar, MenuWrapper, SearchInput } from './styles';
 type Filter = {
   id: string;
   name: string;
-  popperComponent: (onSelect: (value: any) => void) => ReactNode;
+  popperComponent: (onSelect: (value?: any) => void) => ReactNode;
 };
 
 type Props = {
@@ -79,7 +79,7 @@ const AddFilterButton = ({ filterOptions }: Props) => {
                     <IconButton color="inherit" onClick={() => void setSelectedFilter(null)}><CloseIcon /></IconButton>
                   </MenuToolbar>
                   <MenuWrapper>
-                    {selectedFilter.popperComponent((value) => { closeFilterMenu(); addFilter(selectedFilter.id, value); })}
+                    {selectedFilter.popperComponent((value) => { closeFilterMenu(); value && addFilter(selectedFilter.id, value); })}
                   </MenuWrapper>
                 </>
               )}

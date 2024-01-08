@@ -23,9 +23,9 @@ export const themeConfig = {
       contrastText: '#fff',
     },
     secondary: {
-      main: '#ebb800',
-      light: '#ebb800',
-      dark: '#c09c34',
+      main: '#7232b9',
+      light: '#7232b9',
+      dark: '#471b77',
       contrastText: '#fff',
     },
     success: {

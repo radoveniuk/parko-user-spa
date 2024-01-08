@@ -19,6 +19,7 @@ export const ProfileCardWrapper = styled.div`
     height: 100%;
     border: none;
     box-shadow: none;
+    max-width: none;
   }
 
   .edit-profile-btn {

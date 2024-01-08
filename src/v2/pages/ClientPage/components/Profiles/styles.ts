@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import { TB } from 'theme/sizeBreakpoints';
+import { SM, TB } from 'theme/sizeBreakpoints';
 
-export const ProfilesWrapper = styled.div`
+export const ProfilesWrapper = styled.div<{cols: number }>`
   border-radius: 5px;
   border: 1px solid #D0D0D0;
 
@@ -54,6 +54,53 @@ export const ProfilesWrapper = styled.div`
         height: 25px;
         padding: 10px !important;
       }
+    }
+  }
+
+  .users-table {
+    grid-template-columns: 30px 1fr ${(props) => Array(props.cols).fill('1fr').join(' ')};
+
+    .table-settings-wrapper {
+      margin-left: auto;
+    }
+
+    .list-table-cell {
+      white-space: nowrap;
+    }
+
+    @media (max-width: ${TB}) {
+      grid-template-columns: 30px 1fr 1fr;
+      .list-table-cell:has(.fast-edit-profile), .list-table-cell:has(.table-settings-wrapper) {
+        display: none;
+      }
+
+      .list-table-cell .column-content {
+        width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        color: inherit !important;
+      }
+      .column-content {
+        color: inherit !important;
+      }
+    }
+  }
+
+  @media (max-width: ${SM}) {
+    border: none;
+    .pagination-bottom, .users-table {
+      display: none;
+    }
+  }
+
+  .mobile-list {
+    display: none;
+    @media (max-width: ${SM}) {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
   }
 `;

@@ -21,7 +21,7 @@ const Pagination = ({
   const [pageCount, setPage] = React.useState(page);
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-    onChange(event, newPage + 1);
+    onChange(event, newPage);
     setPage(newPage);
   };
 

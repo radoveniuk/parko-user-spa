@@ -47,7 +47,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
     <>
       <HeaderWrapper>
         <Stack direction="row" gap="9px" alignContent="center">
-          <span className="bold">{t('profilesPage.users')}: {data.length}</span>
+          <span className="bold">{t('client.profiles')}: {data.length}</span>
         </Stack>
         <Stack direction="row" gap="15px">
           <IconButton className="small-btn" onClick={() => void setOpenMobileFilters(true)}><FilterIcon size={25} /></IconButton>

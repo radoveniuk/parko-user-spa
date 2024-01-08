@@ -2,10 +2,15 @@ import { Accordion, Box, Drawer as DrawerMaterial, ListItemButton } from '@mui/m
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
+import { SM } from 'theme/sizeBreakpoints';
 
 export const NavbarWrapper = styled(Box)`
   height: calc(100vh - 70px);
   margin-left: 5px;
+
+  @media (max-width: ${SM}) {
+    margin-left: 0;
+  }
 
   .MuiDrawer-root {
     height: 100%;
@@ -56,8 +61,9 @@ export const FooterWrapper = styled.div`
 export const NavItem = styled(ListItemButton)`
   height: 45px;
   gap: 15px;
-  color: #000 !important;
+  color: #000;
   transition: background-color 0.3s;
+  color: #000 !important;
 
   .nav-icon {
     max-width: 20px !important;
@@ -72,6 +78,15 @@ export const NavItem = styled(ListItemButton)`
 
   span {
     font-size: 14px !important;
+  }
+
+  border-radius: 0px 20px 20px 0px !important;
+  &.active {
+    background: rgba(42, 106, 231, 0.10);
+    color: ${themeConfig.palette.primary.main} !important;
+    .MuiListItemIcon-root {
+      color: ${themeConfig.palette.primary.main} !important;
+    }
   }
 
   &.notifications {

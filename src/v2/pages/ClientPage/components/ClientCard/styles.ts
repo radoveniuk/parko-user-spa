@@ -9,7 +9,7 @@ export const ProfileCardWrapper = styled.div`
   background: #FFF;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.20), 0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
   position: relative;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 175px);
   display: flex;
   flex-direction: column;
   color: #131313;
@@ -19,6 +19,7 @@ export const ProfileCardWrapper = styled.div`
     height: 100%;
     border: none;
     box-shadow: none;
+    max-width: none;
   }
 
   .edit-profile-btn {
@@ -42,14 +43,13 @@ export const ProfileCardWrapper = styled.div`
     flex-direction: column;
     gap: 10px;
 
-    .name-and-sex {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      .name {
-        font-size: 24px;
-        font-weight: 400;
-      }
+    .name {
+      font-size: 24px;
+      font-weight: 400;
+      white-space: nowrap;
+      max-width: calc(100% - 30px);
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .contacts {
