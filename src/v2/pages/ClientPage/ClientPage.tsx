@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
+import { Button } from 'v2/uikit';
 import BreadCrumbs from 'v2/uikit/BreadCrumbs';
 import Loader, { FullPageLoaderWrapper } from 'v2/uikit/Loader';
 import { TabPanel, TabsContainer, useTabs } from 'v2/uikit/Tabs';
@@ -8,6 +9,7 @@ import { TabPanel, TabsContainer, useTabs } from 'v2/uikit/Tabs';
 import { useGetClient } from 'api/query/clientQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
+import { PlusIcon } from 'components/icons';
 
 import ClientCard from './components/ClientCard';
 import Profiles from './components/Profiles';
@@ -30,7 +32,13 @@ const ClientPageRender = () => {
 
   return (
     <ClientPageWrapper>
-      <BreadCrumbs>
+      <BreadCrumbs
+        actions={(
+          <>
+            {tab === 0 && <Button><PlusIcon />{t('project.creating')}</Button>}
+          </>
+        )}
+      >
         <Link to="/clients">{t('navbar.clients')}</Link>
         <Link to={`/client/${clientId}`}>{clientData.name}</Link>
         <div>{t(`client.${TABS[tab]}`)}</div>

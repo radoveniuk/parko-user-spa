@@ -1,11 +1,8 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button } from 'v2/uikit';
-import { FormCard, FormCardBody, FormCardHeader } from 'v2/uikit/FormCard';
 
-import { ProjectIcon } from 'components/icons';
 import { IProject } from 'interfaces/project.interface';
 
+import ProjectFormCard from './ProjectFormCard';
 import { ProjectsWrapper } from './styles';
 
 type Props = {
@@ -13,18 +10,9 @@ type Props = {
 };
 
 const Projects = ({ data }: Props) => {
-  const { t } = useTranslation();
-
   const renderProjects = (list: typeof data) => (
     <>
-      {list.map((project) => (
-        <FormCard key={project._id} className="project-card">
-          <FormCardHeader icon={<ProjectIcon />} title={project.name}>
-            <Button>{t('edit')}</Button>
-          </FormCardHeader>
-          <FormCardBody></FormCardBody>
-        </FormCard>
-      ))}
+      {list.map((project) => <ProjectFormCard key={project._id} data={project} />)}
     </>
   );
 

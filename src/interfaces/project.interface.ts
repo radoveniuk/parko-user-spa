@@ -1,12 +1,12 @@
 import { AnyObject } from './base.types';
 import { IClient } from './client.interface';
 
-type ProjectPosition = {
+export type ProjectPosition = {
   internalName: string;
   ISCO: string;
   name: string;
   address: string;
-  emplymentType: string;
+  employmentType: string;
   variability: number;
   salary: number;
   salaryType: string;
@@ -14,6 +14,7 @@ type ProjectPosition = {
   workFundD: number;
   workFundHW: number;
   docs: string[];
+  id: string;
 };
 
 export interface IProject {
@@ -32,6 +33,11 @@ export interface IProject {
   client: string | Partial<IClient> | null;
   customFields: AnyObject;
   positions?: ProjectPosition[];
+  type?: string;
+  zamestnavatel?: string;
+  uzivatelskyZamestnavatel?: string;
+  businessName?: string;
 
-  createdAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }

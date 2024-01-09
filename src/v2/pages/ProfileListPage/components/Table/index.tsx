@@ -113,7 +113,7 @@ const Table = ({
     <TableWrapper>
       <FixedSizeList
         className="mobile-list"
-        height={window.innerHeight - 190}
+        height={window.innerHeight - 200}
         itemCount={sortedData.length}
         itemSize={150}
         width="100%"

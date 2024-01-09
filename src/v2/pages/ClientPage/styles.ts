@@ -21,7 +21,7 @@ export const ClientPageWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   padding-left: 30px;
-  max-height: calc(100vh - 100px);
+  max-height: calc(100vh - 173px);
   overflow-y: auto;
   overflow-x: hidden;
 

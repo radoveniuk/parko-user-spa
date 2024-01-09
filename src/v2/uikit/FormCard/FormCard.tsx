@@ -28,7 +28,7 @@ export const FormCard = memo(Card) as typeof Card;
 
 export type FormCardHeaderProps = BaseProps & {
   icon: React.JSX.Element;
-  title: string;
+  title: string | React.JSX.Element;
   children: ReactNode;
 };
 

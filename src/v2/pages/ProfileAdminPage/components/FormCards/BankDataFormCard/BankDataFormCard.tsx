@@ -32,7 +32,8 @@ const BankDataFormCard = ({ data }: Props) => {
                 }}
               >
                 {t('save')}
-              </Button>)}
+              </Button>
+            )}
           </FormCardHeader>
           <FormCardBody>
             <FormCardBodyRow>

@@ -1,8 +1,5 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/prop-types */
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FixedSizeList } from 'react-window';
 import MobileUserCard from 'v2/components/MobileUserCard/MobileUserCard';
 import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
@@ -82,9 +79,7 @@ const Table = ({
 
   return (
     <TableWrapper>
-      <div
-        className="mobile-list"
-      >
+      <div className="mobile-list">
         {sortedData.map((user) => (
           <MobileUserCard
             key={user._id}

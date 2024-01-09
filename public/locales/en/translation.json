@@ -501,6 +501,7 @@
   "filters": "Filters",
   "showAll": "Show All",
   "rollup": "Roll up",
+  "docs": "Docs",
   "header": {
     "search": "Search for users, projects or clients"
   },

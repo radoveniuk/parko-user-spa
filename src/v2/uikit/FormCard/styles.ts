@@ -34,6 +34,13 @@ export const FormCardHeaderWrapper = styled.div`
     .title {
       font-weight: 600;
       font-size: 16px;
+      overflow: hidden;
+      max-width: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      @media (max-width: ${SM}) {
+        max-width: 150px;
+      }
     }
   }
   .right {
