@@ -6,6 +6,7 @@ import BreadCrumbs from 'v2/uikit/BreadCrumbs';
 import Loader, { FullPageLoaderWrapper } from 'v2/uikit/Loader';
 import { TabPanel, TabsContainer, useTabs } from 'v2/uikit/Tabs';
 
+import { useCreateProjectMutation } from 'api/mutations/projectMutation';
 import { useGetClient } from 'api/query/clientQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
@@ -23,8 +24,9 @@ const ClientPageRender = () => {
   const { id: clientId } = useParams();
 
   const { data: clientData } = useGetClient(clientId as string);
-  const { data: projects = [] } = useGetProjects({ client: clientId });
+  const { data: projects = [], refetch: refetchProjects } = useGetProjects({ client: clientId });
   const { data: users = [] } = useGetUserList({ client: clientId });
+  const createProjectMutation = useCreateProjectMutation();
 
   const [tab] = useTabs();
 
@@ -35,7 +37,29 @@ const ClientPageRender = () => {
       <BreadCrumbs
         actions={(
           <>
-            {tab === 0 && <Button><PlusIcon />{t('project.creating')}</Button>}
+            {tab === 0 && (
+              <Button
+                onClick={async () => {
+                  await createProjectMutation.mutateAsync({
+                    email: '',
+                    phone: '',
+                    name: '',
+                    comment: '',
+                    dateStart: null,
+                    dateEnd: null,
+                    cost: '',
+                    tariff: '',
+                    status: '',
+                    location: '',
+                    client: clientId,
+                    stages: [],
+                  });
+                  refetchProjects();
+                }}
+              >
+                <PlusIcon />{t('project.creating')}
+              </Button>
+            )}
           </>
         )}
       >

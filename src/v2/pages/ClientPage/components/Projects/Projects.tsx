@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useUpdateProjectMutation } from 'api/mutations/projectMutation';
 import { IProject } from 'interfaces/project.interface';
 
 import ProjectFormCard from './ProjectFormCard';
@@ -10,11 +11,17 @@ type Props = {
 };
 
 const Projects = ({ data }: Props) => {
-  const renderProjects = (list: typeof data) => (
-    <>
-      {list.map((project) => <ProjectFormCard key={project._id} data={project} />)}
-    </>
-  );
+  const updateProjectMutation = useUpdateProjectMutation();
+
+  const renderProjects = (list: typeof data) => list.map((project) => (
+    <ProjectFormCard
+      key={project._id}
+      data={project}
+      onChange={(values) => {
+        updateProjectMutation.mutate({ ...project, ...values });
+      }}
+    />
+  ));
 
   return (
     <ProjectsWrapper>
@@ -22,10 +29,10 @@ const Projects = ({ data }: Props) => {
         ? (
           <>
             <div className="col">
-              {renderProjects(data.toSpliced(0, Math.round(data.length / 2)))}
+              {renderProjects(data.toSpliced(Math.round(data.length / 2), data.length))}
             </div>
             <div className="col">
-              {renderProjects(data.toSpliced(Math.round(data.length / 2), data.length))}
+              {renderProjects(data.toSpliced(0, Math.round(data.length / 2)))}
             </div>
           </>
         )

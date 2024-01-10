@@ -2,15 +2,18 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button, FormControlLabel, Input, Radio } from 'v2/uikit';
+import FileInput from 'v2/uikit/FileInput';
 import { FormCard, FormCardBody, FormCardBodyRow, FormCardHeader } from 'v2/uikit/FormCard';
 import IconButton from 'v2/uikit/IconButton';
 import Select from 'v2/uikit/Select';
 
+import { uploadFiles } from 'api/common';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
-import { EditIcon, PlusIcon, ProjectIcon, SaveIcon, UploadIcon } from 'components/icons';
+import { EditIcon, EyeIcon, EyeSlashIcon, PlusIcon, ProjectIcon, SaveIcon, UploadIcon } from 'components/icons';
 import createId from 'helpers/createId';
 import useListState from 'hooks/useListState';
 import { IProject, ProjectPosition } from 'interfaces/project.interface';
+import { themeConfig } from 'theme';
 
 import { PositionsWrapper, PositionWrapper, ProjectTitleWrapper, TypeRadioButtons } from './styles';
 
@@ -27,28 +30,26 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
 
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
 
-  const createEmptyPosition = () => {
-    addPosition({
-      internalName: '',
-      ISCO: '',
-      name: '',
-      address: '',
-      employmentType: '',
-      variability: 1,
-      salary: 0,
-      salaryType: '',
-      workFundH: 8,
-      workFundD: 5,
-      workFundHW: 40,
-      docs: [],
-      id: createId(),
-    });
-  };
+  const createEmptyPosition = () => ({
+    internalName: '',
+    ISCO: '',
+    name: '',
+    address: '',
+    employmentType: '',
+    variability: 1,
+    salary: 0,
+    salaryType: '',
+    workFundH: 8,
+    workFundD: 5,
+    workFundHW: 40,
+    docs: [],
+    id: createId(),
+  });
 
   const isOutsorce = watch('type') === 'Outsourcing';
 
   return (
-    <FormCard defaultConfig={{ disabled: true, isEditingTitle: false }} className="project-card">
+    <FormCard defaultConfig={{ disabled: true, isEditingTitle: false, viewPositions: [] as string[] }} className="project-card">
       {({ formCardConfig, updateFormCardConfig }) => (
         <>
           <FormCardHeader
@@ -84,10 +85,13 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
                 color="error"
                 onClick={() => {
                   updateFormCardConfig({ disabled: true });
+                  const values = getValues();
+                  onChange?.(values);
                 }}
               >
                 {t('save')}
-              </Button>)}
+              </Button>
+            )}
           </FormCardHeader>
           <FormCardBody>
             <Controller
@@ -149,8 +153,20 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
             <PositionsWrapper>
               {positions.map((position, index) => (
                 <PositionWrapper key={position.id}>
+                  <IconButton
+                    className="toggle-view"
+                    onClick={() => {
+                      updateFormCardConfig({
+                        viewPositions: formCardConfig.viewPositions.includes(position.id)
+                          ? formCardConfig.viewPositions.filter(item => item !== position.id)
+                          : [...formCardConfig.viewPositions, position.id],
+                      });
+                    }}
+                  >
+                    {formCardConfig.viewPositions.includes(position.id) ? <EyeIcon /> : <EyeSlashIcon color={themeConfig.palette.primary.main} />}
+                  </IconButton>
                   <div className="title"><b>Pracovná pozicia:</b> {watch(`positions.${index}.internalName`)}</div>
-                  <div className="fields">
+                  <div className={`fields ${!formCardConfig.viewPositions.includes(position.id) ? 'hide' : ''}`}>
                     <Input
                       label="Interný názov"
                       className="fullwidth"
@@ -192,6 +208,7 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
                         label="Typ pracovného pomeru"
                         options={cooperationTypeDictionary?.options}
                         disabled={formCardConfig.disabled}
+                        defaultValue={position.employmentType}
                         {...register(`positions.${index}.employmentType`)}
                       />
                     )}
@@ -212,6 +229,7 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
                         <Select
                           options={['mes.', 'hod.']}
                           disabled={formCardConfig.disabled}
+                          defaultValue={position.salaryType}
                           {...register(`positions.${index}.salaryType`)}
                         />
                       </div>
@@ -241,14 +259,37 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
                         </div>
                       </div>
                     )}
-                    {!isOutsorce && (
-                      <Button
-                        variant="outlined"
-                      >
-                        <UploadIcon />
-                        {t('docs')}
-                      </Button>
-                    )}
+                    {/* {!isOutsorce && (
+                      <Controller
+                        control={control}
+                        name={`positions.${index}.docs`}
+                        render={({ field }) => (
+                          <>
+                            <FileInput
+                              disabled={formCardConfig.disabled}
+                              multiple
+                              className="FileInput"
+                              onChange={async (e) => {
+                                if (e.target.files?.length) {
+                                  const formData = new window.FormData();
+                                  formData.append('files', e.target.files[0]);
+                                  const [uploadedFileData] = await uploadFiles(formData);
+                                  field.onChange(uploadedFileData);
+                                }
+                              }}
+                            >
+                              <Button
+                                variant="outlined"
+                                disabled={formCardConfig.disabled}
+                              >
+                                <UploadIcon />
+                                {t('docs')}
+                              </Button>
+                            </FileInput>
+                          </>
+                        )}
+                      />
+                    )} */}
                   </div>
                 </PositionWrapper>
               ))}
@@ -256,7 +297,13 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
             <Button
               variant="outlined"
               disabled={formCardConfig.disabled || !watch('type')}
-              onClick={createEmptyPosition}
+              onClick={() => {
+                const position = createEmptyPosition();
+                addPosition(position);
+                updateFormCardConfig({
+                  viewPositions: [...formCardConfig.viewPositions, position.id],
+                });
+              }}
             >
               <PlusIcon /> Pracovná pozicia
             </Button>

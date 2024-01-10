@@ -43,6 +43,13 @@ export const PositionWrapper = styled.div`
   flex-direction: column;
   gap: 15px;
   padding: 15px 20px;
+  position: relative;
+
+  .toggle-view {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
 
   .fields {
     display: grid;
@@ -52,6 +59,10 @@ export const PositionWrapper = styled.div`
 
     @media (max-width: ${SM}) {
       grid-template-columns: 1fr;
+    }
+
+    &.hide {
+      display: none;
     }
 
     .fullwidth {

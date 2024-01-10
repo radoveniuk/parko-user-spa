@@ -4,7 +4,7 @@ import api from 'api/common';
 import { IProject } from 'interfaces/project.interface';
 
 export const useCreateProjectMutation = () => {
-  const request = (data: IProject) => api.post('/projects', data).then(res => res.data.data);
+  const request = (data: Partial<IProject>) => api.post('/projects', data).then(res => res.data.data);
   return useMutation(request);
 };
 
