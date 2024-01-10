@@ -4,6 +4,7 @@ import ClientFormDialog from 'v2/components/ClientFormDialog';
 import IconButton from 'v2/uikit/IconButton';
 import { Tab, Tabs } from 'v2/uikit/Tabs';
 
+import { useUpdateClientMutation } from 'api/mutations/clientMutation';
 import { EditIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
@@ -25,6 +26,8 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
 
   const [client, setClient] = useState(data);
   const managers = client.managers as IUser[] | null;
+
+  const updateClientMutation = useUpdateClientMutation();
 
   return (
     <>
@@ -70,6 +73,7 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
           closeForm();
           setClient(prev => ({ ...prev, ...values }));
           onChange?.(values);
+          updateClientMutation.mutate({ ...client, ...values });
         }}
       />
     </>
