@@ -36,9 +36,6 @@ const BpCheckedIcon = styled(BpIcon)({
     backgroundRepeat: 'no-repeat',
     content: '""',
   },
-  'input:hover ~ &': {
-    backgroundColor: '#FAFAFA',
-  },
 });
 
 export type CheckboxProps = CheckboxPropsMUI & {

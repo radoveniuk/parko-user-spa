@@ -177,7 +177,17 @@
     "birthSurname": "Прізвище при народження",
     "childrenCount": "Кількість дітей",
     "businessStatus": "Статус підприємця",
-    "businessActivities": "КВЕДИ"
+    "businessActivities": "КВЕДИ",
+    "employment": "Працевлаштування",
+    "individualCooperation": "Співпраця — ФОП",
+    "hireDate": "Дата працевлаштування",
+    "fireDate": "Дата звільнення",
+    "fireReason": "Причина звільнення",
+    "hire": "Працевлаштувати",
+    "cancel": "Скасувати",
+    "change": "Змінити",
+    "fire": "Звільнити",
+    "updateEmploymentInfo": "Змінити інформацію про працевлаштування"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",
@@ -327,6 +337,11 @@
       "active":"Активно",
       "stopped": "Призупинено",
       "closed": "Ліквідовано"
+    },
+    "userPositionEmploymentStatus": {
+      "hired": "Найнятий",
+      "fired": "Звільнений",
+      "canceled": "Скасований"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -501,6 +516,8 @@
   "showAll": "Показати все",
   "rollup": "Згорнути",
   "docs": "Документи",
+  "employer": "Роботодавець",
+  "employee": "Співробітник",
   "header": {
     "search": "Пошук користувачів, проектів, клієнтів"
   },

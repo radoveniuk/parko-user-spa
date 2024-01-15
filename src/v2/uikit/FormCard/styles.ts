@@ -61,7 +61,14 @@ export const FormCardBodyRowWrapper = styled.div`
   align-items: end;
   background-color: #fff;
 
+  .fullwidth {
+    grid-column: 1 / 3;
+  }
   @media (max-width: ${SM}) {
     grid-template-columns: 1fr;
+
+    .fullwidth {
+      grid-column: 1;
+    }
   }
 `;

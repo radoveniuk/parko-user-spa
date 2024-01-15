@@ -59,7 +59,7 @@ const DatePicker = ({
         slotProps={{ textField: { error, onBlur, ...inputProps } }}
         onChange={(luxonValue: DateTime | null) => {
           onChange(
-            luxonValue?.isValid ? luxonValue?.toISODate() || '' : '',
+            luxonValue?.isValid ? luxonValue?.toISO() || '' : '',
             luxonValue?.isValid,
           );
         }}

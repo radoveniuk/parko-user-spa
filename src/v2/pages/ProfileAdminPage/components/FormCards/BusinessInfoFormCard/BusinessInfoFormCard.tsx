@@ -97,7 +97,8 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
                 }}
               >
                 {t('save')}
-              </Button>)}
+              </Button>
+            )}
           </FormCardHeader>
           <FormCardBody>
             <FormCardBodyRow>

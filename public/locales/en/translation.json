@@ -177,7 +177,17 @@
     "birthSurname": "Surname at birth",
     "childrenCount": "Number of children",
     "businessStatus": "Status",
-    "businessActivities": "Activities"
+    "businessActivities": "Activities",
+    "employment": "Employment",
+    "individualCooperation": "Cooperation — PE",
+    "hireDate": "Hire date",
+    "fireDate": "Fire date",
+    "fireReason": "Fire reason",
+    "hire": "Hire",
+    "cancel": "Cancel",
+    "change": "Change",
+    "fire": "Fire",
+    "updateEmploymentInfo": "Update employment info"
   },
   "userHistory": {
     "updatedBy": "Updated by",
@@ -328,6 +338,11 @@
       "active": "Active",
       "stopped": "Stopped",
       "closed": "Liquidated"
+    },
+    "userPositionEmploymentStatus": {
+      "hired": "Hired",
+      "fired": "Fired",
+      "canceled": "Canceled"
     }
   },
   "notFoundPage": "Page not found",
@@ -502,6 +517,8 @@
   "showAll": "Show All",
   "rollup": "Roll up",
   "docs": "Docs",
+  "employer": "Employer",
+  "employee": "Employee",
   "header": {
     "search": "Search for users, projects or clients"
   },

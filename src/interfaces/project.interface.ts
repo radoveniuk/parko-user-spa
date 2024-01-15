@@ -14,7 +14,7 @@ export type ProjectPosition = {
   workFundD: number;
   workFundHW: number;
   docs: string[];
-  id: string;
+  matterId: string;
 };
 
 export interface IProject {

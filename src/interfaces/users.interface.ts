@@ -1,3 +1,4 @@
+import { MongoHistory } from './base.types';
 import { IFile } from './file.interface';
 import { IProject } from './project.interface';
 
@@ -16,15 +17,6 @@ export type RegisterUserDto = {
 }
 
 export type UserRole = 'user' | 'admin' | 'recruiter' | 'super-admin';
-
-export type UserHistory = {
-  updatedBy: {
-    _id: string,
-    name?: string,
-    surname?: string,
-  };
-  changes: Partial<Record<keyof IUser, { oldValue: any, newValue: any }>>;
-}
 
 export type UserPersonalDocType = 'pass' | 'permit' | 'visa';
 
@@ -117,7 +109,7 @@ export interface IUser {
   familyStatus: string;
   birthSurname: string;
   childrenCount: number;
-  history?: UserHistory[];
+  history?: MongoHistory<IUser>[];
   createdBy: string | null;
   updatedBy: string | null;
   businessName?: string;

@@ -175,7 +175,17 @@
     "birthSurname": "Priezvisko pri narodení",
     "childrenCount": "Počet detí",
     "businessStatus": "Stav",
-    "businessActivities": "Predmety podnikania"
+    "businessActivities": "Predmety podnikania",
+    "employment": "Zamestnanie",
+    "individualCooperation": "Spolupraca — Živnosť",
+    "hireDate": "Dátum náboru",
+    "fireDate": "FireDate",
+    "fireReason": "Dôvod požiaru",
+    "prenájom": "Prenájom",
+    "cancel": "Storno",
+    "change": "Zmeniť",
+    "fire": "Ukončiť",
+    "updateEmploymentInfo": "Zmeňte informácie o zamestnaní"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",
@@ -326,6 +336,11 @@
       "active": "Aktívne",
       "stopped": "Pozastavené",
       "closed": "Zrušené"
+    },
+    "userPositionEmploymentStatus": {
+      "hired": "Zamestnaný",
+      "fired": "Ukončený",
+      "canceled": "Storno"
     }
   },
   "notFoundPage": "Stránka nenájdená",
@@ -486,6 +501,8 @@
   "showAll": "Zobraziť všetko",
   "rollup": "Zrolovať",
   "docs": "Doklady",
+  "employer": "Zamestnávateľ",
+  "employee": "Zamestnanec",
   "header": {
     "search": "Vyhľadajte používateľov, projektov alebo klientov"
   },

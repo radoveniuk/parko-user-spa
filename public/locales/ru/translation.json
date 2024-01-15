@@ -177,7 +177,17 @@
     "birthSurname": "Фамилия при рождении",
     "childrenCount": "Количество детей",
     "businessStatus": "Статус",
-    "businessActivities": "КВЭДЫ"
+    "businessActivities": "КВЭДЫ",
+    "employment": "Трудоустройство",
+    "individualCooperation": "Сотрудничество — ИП",
+    "hireDate": "Дата трудоустройства",
+    "fireDate": "Дата увольнения",
+    "fireReason": "Причина увольнения",
+    "hire": "Трудоустроить",
+    "cancel": "Отменить",
+    "change": "Изменить",
+    "fire": "Уволить",
+    "updateEmploymentInfo": "Изменить информацию о трудоустройстве"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",
@@ -328,6 +338,11 @@
       "active": "Активно",
       "stopped": "Приостановлено",
       "closed": "Устранено"
+    },
+    "userPositionEmploymentStatus": {
+      "hired": "Нанят",
+      "fired": "Уволен",
+      "canceled": "Отмена"
     }
   },
   "notFoundPage": "Страница не найдена",
@@ -502,6 +517,8 @@
   "showAll": "Показать все",
   "rollup": "Свернуть",
   "docs": "Документы",
+  "employer": "Работодатель",
+  "employee": "Сотрудник",
   "header": {
     "search": "Поиск пользователей, проектов или клиентов"
   },

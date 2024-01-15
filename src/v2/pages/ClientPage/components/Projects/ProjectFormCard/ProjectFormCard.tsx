@@ -43,7 +43,7 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
     workFundD: 5,
     workFundHW: 40,
     docs: [],
-    id: createId(),
+    matterId: createId(),
   });
 
   const isOutsorce = watch('type') === 'Outsourcing';
@@ -152,21 +152,24 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
             )}
             <PositionsWrapper>
               {positions.map((position, index) => (
-                <PositionWrapper key={position.id}>
+                <PositionWrapper key={position.matterId}>
                   <IconButton
                     className="toggle-view"
                     onClick={() => {
                       updateFormCardConfig({
-                        viewPositions: formCardConfig.viewPositions.includes(position.id)
-                          ? formCardConfig.viewPositions.filter(item => item !== position.id)
-                          : [...formCardConfig.viewPositions, position.id],
+                        viewPositions: formCardConfig.viewPositions.includes(position.matterId)
+                          ? formCardConfig.viewPositions.filter(item => item !== position.matterId)
+                          : [...formCardConfig.viewPositions, position.matterId],
                       });
                     }}
                   >
-                    {formCardConfig.viewPositions.includes(position.id) ? <EyeIcon /> : <EyeSlashIcon color={themeConfig.palette.primary.main} />}
+                    {formCardConfig.viewPositions.includes(position.matterId)
+                      ? <EyeIcon />
+                      : <EyeSlashIcon color={themeConfig.palette.primary.main} />
+                    }
                   </IconButton>
                   <div className="title"><b>Pracovná pozicia:</b> {watch(`positions.${index}.internalName`)}</div>
-                  <div className={`fields ${!formCardConfig.viewPositions.includes(position.id) ? 'hide' : ''}`}>
+                  <div className={`fields ${!formCardConfig.viewPositions.includes(position.matterId) ? 'hide' : ''}`}>
                     <Input
                       label="Interný názov"
                       className="fullwidth"
@@ -301,7 +304,7 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
                 const position = createEmptyPosition();
                 addPosition(position);
                 updateFormCardConfig({
-                  viewPositions: [...formCardConfig.viewPositions, position.id],
+                  viewPositions: [...formCardConfig.viewPositions, position.matterId],
                 });
               }}
             >

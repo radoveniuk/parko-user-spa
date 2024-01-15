@@ -12,3 +12,12 @@ export type Path<T> = T extends ReadonlyArray<infer V> ? IsTuple<T> extends true
 }[TupleKeys<T>] : PathImpl<number, V> : {
   [K in keyof T]-?: PathImpl<K & string, T[K]>;
 }[keyof T];
+
+export type MongoHistory<T> = {
+  updatedBy: {
+    _id: string,
+    name?: string,
+    surname?: string,
+  };
+  changes: Partial<Record<keyof T, { oldValue: any, newValue: any }>>;
+}
