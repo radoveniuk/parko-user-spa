@@ -1,4 +1,5 @@
 import { MongoHistory } from './base.types';
+import { ProjectPosition } from './project.interface';
 import { IUser } from './users.interface';
 
 export interface IEmployment {
@@ -14,7 +15,7 @@ export interface IEmployment {
   isNonTaxablePart: boolean;
   isChildTaxBonus: boolean;
   status: 'hired' | 'fired' | 'canceled';
-  changes: Record<string, any>;
+  changes: Partial<ProjectPosition>;
   history?: MongoHistory<IEmployment>[];
   createdBy: string | Partial<IUser> | null;
   updatedBy: string | Partial<IUser> | null;

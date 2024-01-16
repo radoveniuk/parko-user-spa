@@ -12,7 +12,6 @@ const meta: Meta<typeof EmploymentCard> = {
   component: EmploymentCard,
   argTypes: {
     onChange: { action: 'Change employment data' },
-    onChangeStatus: { action: 'Change status' },
   },
 };
 
@@ -38,7 +37,9 @@ export const Example: Story = {
       isNonTaxablePart: true,
       isChildTaxBonus: false,
       status: 'hired',
-      changes: {},
+      changes: {
+        employmentType: 'partTime',
+      },
       createdBy: {
         _id: '6548ee1529af3e28b09d03f8',
         name: 'Bohdan',

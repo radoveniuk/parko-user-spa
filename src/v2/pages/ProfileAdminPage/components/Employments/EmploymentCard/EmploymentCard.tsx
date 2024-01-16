@@ -27,10 +27,9 @@ type Props = {
   projects: Partial<IProject>[];
   clients: Partial<IClient>[];
   onChange(values: Partial<IEmployment>): void;
-  onChangeStatus(status: string): void;
 };
 
-const EmploymentCard = ({ data, projects, clients, onChange, onChangeStatus }: Props) => {
+const EmploymentCard = ({ data, projects, clients, onChange }: Props) => {
   const { t } = useTranslation();
   const { register, handleSubmit, watch, control, setValue } = useForm<IEmployment>({ defaultValues: data as any });
   const queryClient = useQueryClient();
@@ -289,15 +288,17 @@ const EmploymentCard = ({ data, projects, clients, onChange, onChangeStatus }: P
           setDialogStatus(null);
           if (dialogStatus !== null) {
             setValue('status', dialogStatus);
-            onChangeStatus(dialogStatus);
+            onChange({ status: dialogStatus });
           }
         }}
       />
       <CustomProjectSettingsDialog
         open={openCustomSettings}
         onClose={() => void setOpenCustomSettings(false)}
-        onSubmit={(values) => {
-          console.log(values);
+        defaultValues={data.changes}
+        onSubmit={(changes) => {
+          setOpenCustomSettings(false);
+          onChange({ changes });
         }}
       />
     </>
