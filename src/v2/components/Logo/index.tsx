@@ -15,7 +15,7 @@ const Logo = () => (
         </clipPath>
       </defs>
     </svg>
-    <h1>ParkoStaff</h1>
+    <h1>ParkoUser</h1>
   </LogoWrapper>
 );
 
