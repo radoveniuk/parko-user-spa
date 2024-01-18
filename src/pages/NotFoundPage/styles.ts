@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const NotFoundPageWrapper = styled.div`
-  @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700');
-  @import url('https://fonts.googleapis.com/css?family=Catamaran:400,800');
   margin-top: 20vh;
   .error-container {
     text-align: center;
@@ -108,20 +106,6 @@ export const NotFoundPageWrapper = styled.div`
     }
   }
 
-  /* demo stuff */
-  * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  body {
-    background-color: #81a1c1;
-    margin-bottom: 50px;
-  }
-  html, input, select, textarea {
-    font-family: 'Montserrat', Helvetica, sans-serif;
-    color: #bbb;
-  }
   h1 {
     text-align: center;
     margin: 30px 15px;
