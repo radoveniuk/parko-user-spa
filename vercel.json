@@ -1,12 +1,10 @@
 {
-  "rewrites": [
-    { 
-      "source": "/(.*)",
-      "destination": "/" 
-    },
+  "routes": [
+    { "src": "/[^.]+", "dest": "/", "status": 200 },
     {
-      "source": "/api/:path*",
-      "destination": "https://parko-user.com:3000/:path*"
+      "src": "/api/(.*)",
+      "dest": "https://parko-user.com:3000/$1",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
     }
   ]
 }
