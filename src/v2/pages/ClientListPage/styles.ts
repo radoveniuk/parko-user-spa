@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import { themeConfig } from 'theme';
 import { PC, TB } from 'theme/sizeBreakpoints';
 
 export const ProfileListPageWrapper = styled.div<{ cols: number }>`
@@ -60,7 +59,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
 
   .container-table {
     margin-top: 18px;
-    border: 1px solid ${themeConfig.client.secondary.light10};
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.20), 0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
     border-radius: 3px;
     display: flex;
     flex-direction: column;

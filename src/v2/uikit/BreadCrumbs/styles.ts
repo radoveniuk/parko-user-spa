@@ -7,10 +7,10 @@ export const BreadCrumbsWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   border-radius: 5px;
-  border: 1px solid #D0D0D0;
   background: #FAFAFA;
   padding: 0 30px;
   height: 58px;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.20), 0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
 
   @media (max-width: ${SM}) {
     display: none;

@@ -10,12 +10,17 @@ export const ClientPageWrapper = styled.div`
     display: grid;
     grid-template-columns: 360px 1fr;
     padding-left: 1px;
-  
+    
     @media (max-width: ${SM}) {
+      margin-top: 0;
       grid-template-columns: 1fr;
       max-height: none;
       height: 100%;
     }
+  }
+
+  @media (max-width: ${SM}) {
+    margin-top: 0;
   }
 `;
 
@@ -31,6 +36,7 @@ export const ContentWrapper = styled.div`
   }
 
   .cards {
+    padding-top: 1px;
     display: flex;
     gap: 24px;
     position: relative;

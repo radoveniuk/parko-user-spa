@@ -5,12 +5,17 @@ import { SM } from 'theme/sizeBreakpoints';
 
 export const FormCardWrapper = styled.div`
   border-radius: 5px;
-  border: 1px solid #D0D0D0;
+  /* border: 1px solid #D0D0D0; */
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px;
   background: #FFF;
   display: flex;
   flex-direction: column;
   max-width: 600px;
   position: relative;
+
+  @media (max-width: ${SM}) {
+    margin: 0 12px;
+  }
 `;
 
 export const FormCardHeaderWrapper = styled.div`

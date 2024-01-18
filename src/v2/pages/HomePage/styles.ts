@@ -22,6 +22,7 @@ overflow: auto;
 }
 
 .cards {
+  padding: 1px;
   display: flex;
   gap: 24px;
   position: relative;

@@ -135,7 +135,7 @@ const HomePage = () => {
                           {dashboard.prepayments.map((prepayment: IPrepayment & { user: IUser }) => (
                             <TableRow key={prepayment._id}>
                               <TableCell>
-                                <Link to={`/profiles/${prepayment.user._id}`}>{prepayment.user.name} {prepayment.user.surname}</Link>
+                                <Link to={`/profile/${prepayment.user._id}`}>{prepayment.user.name} {prepayment.user.surname}</Link>
                               </TableCell>
                               <TableCell>{Number(prepayment.sum).toFixed(2)}€</TableCell>
                               <TableCell>{t(`selects.prepaymentStatus.${prepayment.status}`)}</TableCell>
@@ -166,7 +166,7 @@ const HomePage = () => {
                           {dashboard.daysoff.map((dayoff: IDayOff & { user: IUser }) => (
                             <TableRow key={dayoff._id}>
                               <TableCell>
-                                <Link to={`/profiles/${dayoff.user._id}`}>{dayoff.user.name} {dayoff.user.surname}</Link>
+                                <Link to={`/profile/${dayoff.user._id}`}>{dayoff.user.name} {dayoff.user.surname}</Link>
                               </TableCell>
                               <TableCell>{getDateFromIso(dayoff.dateStart)}</TableCell>
                               <TableCell>{getDateFromIso(dayoff.dateEnd)}</TableCell>

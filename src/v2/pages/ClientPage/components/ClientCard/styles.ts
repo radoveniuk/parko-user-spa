@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { SM } from 'theme/sizeBreakpoints';
 
 export const ProfileCardWrapper = styled.div`
+  padding-top: 1px;
   max-width: 360px;
   border-radius: 5px;
-  border-top: 1px solid #D0D0D0;
   background: #FFF;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.20), 0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
   position: relative;

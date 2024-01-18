@@ -15,15 +15,15 @@ export const UpdateHistoryWrapper = styled.div`
     }
 
     tr {
-      padding: 0 6px;
+      padding: 12px 6px;
       border-radius: 5px;
       display: flex;
       flex-direction: column;
-      padding-top: 12px;
-      padding-bottom: 12px;
       position: relative;
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       background-color: #fff;
+      width: calc(100% - 30px);
+      margin: 0 auto;
     }
 
     td {
