@@ -63,5 +63,6 @@ overflow: auto;
   grid-template-columns: repeat(auto-fill, 550px);
   grid-auto-rows: minmax(100px, auto);
   gap: 20px;
+  padding: 1px;
 }
 `;
