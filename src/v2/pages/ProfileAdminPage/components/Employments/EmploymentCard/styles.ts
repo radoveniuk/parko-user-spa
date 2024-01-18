@@ -70,3 +70,13 @@ export const EmploymentCardTitleWrapper = styled.div`
     margin-top: 2px;
   }
 `;
+
+export const FormCardContent = styled.div`
+  position: relative;
+
+  .delete-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+`;

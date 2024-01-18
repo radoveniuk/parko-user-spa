@@ -9,7 +9,8 @@ import { Table, TableBody, TableCell, TableHead, TableRow } from 'v2/uikit/Table
 import { BotIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import useViewportWidth from 'hooks/useViewportWsdth';
-import { IUser, UserHistory } from 'interfaces/users.interface';
+import { MongoHistory } from 'interfaces/base.types';
+import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 import { SM } from 'theme/sizeBreakpoints';
 
@@ -17,14 +18,14 @@ import { AccountLink, NewValue, OldValue, UpdateHistoryWrapper, UpdateRow } from
 import { getFieldSectionLabelMap, renderDocs, renderValue } from './utils';
 
 type Props = {
-  data: UserHistory[]
+  data: MongoHistory<IUser>[]
 };
 
 const UpdateHistory = ({ data }: Props) => {
   const { t } = useTranslation();
   const viewportWidth = useViewportWidth();
 
-  const renderUpdates = (historyItem: UserHistory) => {
+  const renderUpdates = (historyItem: MongoHistory<IUser>) => {
     const UPDATE_SECTION_MAP = getFieldSectionLabelMap(t);
 
     return (Object.keys(omit(historyItem.changes, ['updatedAt'])) as (keyof IUser)[])

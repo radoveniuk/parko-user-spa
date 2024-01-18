@@ -71,7 +71,7 @@ const ProfileAdminPageRender = () => {
   };
 
   const deleteUser = () => {
-    deleteUserMutation.mutateAsync(profileData as IUser).then(() => {
+    deleteUserMutation.mutateAsync(profileData?._id as string).then(() => {
       setTimeout(() => {
         navigate('/profiles');
       }, 1000);

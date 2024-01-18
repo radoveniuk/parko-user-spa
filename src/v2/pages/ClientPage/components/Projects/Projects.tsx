@@ -1,6 +1,8 @@
 import React from 'react';
+import { useQueryClient } from 'react-query';
+import { useParams } from 'react-router-dom';
 
-import { useUpdateProjectMutation } from 'api/mutations/projectMutation';
+import { useDeleteProjectMutation, useUpdateProjectMutation } from 'api/mutations/projectMutation';
 import { IProject } from 'interfaces/project.interface';
 
 import ProjectFormCard from './ProjectFormCard';
@@ -11,7 +13,10 @@ type Props = {
 };
 
 const Projects = ({ data }: Props) => {
+  const { id: clientId } = useParams();
   const updateProjectMutation = useUpdateProjectMutation();
+  const deleteProjectMutation = useDeleteProjectMutation();
+  const queryClient = useQueryClient();
 
   const renderProjects = (list: typeof data) => list.map((project) => (
     <ProjectFormCard
@@ -19,6 +24,13 @@ const Projects = ({ data }: Props) => {
       data={project}
       onChange={(values) => {
         updateProjectMutation.mutate({ ...project, ...values });
+      }}
+      onDelete={() => {
+        deleteProjectMutation.mutate(project._id);
+        queryClient.setQueryData(
+          ['projects', JSON.stringify({ client: clientId })],
+          data.filter((projectToDelete) => projectToDelete._id !== project._id),
+        );
       }}
     />
   ));

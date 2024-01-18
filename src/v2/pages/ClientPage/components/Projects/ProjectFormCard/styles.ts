@@ -3,9 +3,26 @@ import { RadioGroup } from 'v2/uikit';
 
 import { SM } from 'theme/sizeBreakpoints';
 
+export const FormCardContent = styled.div`
+  position: relative;
+
+  .delete-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+`;
+
 export const ProjectTitleWrapper = styled.div`
   display: flex;
   align-items: center;
+
+  .name-field {
+    input {
+      padding: 4px 0 5px;
+      font-weight: 600;
+    }
+  }
 `;
 
 export const TypeRadioButtons = styled(RadioGroup)`

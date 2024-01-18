@@ -22,7 +22,7 @@ export type SelectProps<T> = SelectPropsMaterial & {
   valuePath?: Path<T>;
   labelPath?: string | string[] | ((item: T) => string | React.ReactNode);
   emptyItem?: string;
-  maxWidth?: number;
+  maxWidth?: number | string;
   theme?: FieldTheme;
 }
 

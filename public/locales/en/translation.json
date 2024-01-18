@@ -187,7 +187,8 @@
     "cancel": "Cancel",
     "change": "Change",
     "fire": "Fire",
-    "updateEmploymentInfo": "Update employment info"
+    "updateEmploymentInfo": "Update employment info",
+    "addEmployment": "Add employment"
   },
   "userHistory": {
     "updatedBy": "Updated by",

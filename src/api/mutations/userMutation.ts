@@ -51,7 +51,7 @@ export const useUpdateUserMutation = () => {
 export const useDeleteUserMutation = () => {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
-  const request = (data: Partial<IUser> & { _id: string }) => api.delete(`/users/${data._id}`).then(res => res.data.data);
+  const request = (id: string) => api.delete(`/users/${id}`).then(res => res.data.data);
   return useMutation(request, {
     onSuccess: () => void enqueueSnackbar(t('user.removedSuccess'), { variant: 'success' }),
   });

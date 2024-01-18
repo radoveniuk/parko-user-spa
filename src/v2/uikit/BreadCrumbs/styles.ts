@@ -16,7 +16,7 @@ export const BreadCrumbsWrapper = styled.div`
     display: none;
   }
 
-  .breadcrumbs, .breadcrumb {
+  .breadcrumbs, .breadcrumb, .actions {
     display: flex;
     gap: 6px;
     align-items: center;

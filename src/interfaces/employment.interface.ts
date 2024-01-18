@@ -5,8 +5,8 @@ import { IUser } from './users.interface';
 export interface IEmployment {
   _id: string;
   user: string;
-  client: string;
-  project: string;
+  client: string | null;
+  project: string | null;
   positionId: string;
   hireDate: string;
   fireDate: string;
@@ -14,7 +14,7 @@ export interface IEmployment {
   comment: string;
   isNonTaxablePart: boolean;
   isChildTaxBonus: boolean;
-  status: 'hired' | 'fired' | 'canceled';
+  status?: 'hired' | 'fired' | 'canceled';
   changes: Partial<ProjectPosition>;
   history?: MongoHistory<IEmployment>[];
   createdBy: string | Partial<IUser> | null;

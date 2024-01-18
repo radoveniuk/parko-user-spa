@@ -187,7 +187,8 @@
     "cancel": "Скасувати",
     "change": "Змінити",
     "fire": "Звільнити",
-    "updateEmploymentInfo": "Змінити інформацію про працевлаштування"
+    "updateEmploymentInfo": "Змінити інформацію про працевлаштування",
+    "addEmployment": "Додати співпрацю"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",

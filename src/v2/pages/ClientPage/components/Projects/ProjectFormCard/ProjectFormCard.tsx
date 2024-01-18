@@ -1,30 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button, FormControlLabel, Input, Radio } from 'v2/uikit';
-import FileInput from 'v2/uikit/FileInput';
+import DialogConfirm from 'v2/uikit/DialogConfirm';
 import { FormCard, FormCardBody, FormCardBodyRow, FormCardHeader } from 'v2/uikit/FormCard';
 import IconButton from 'v2/uikit/IconButton';
 import Select from 'v2/uikit/Select';
 
-import { uploadFiles } from 'api/common';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
-import { EditIcon, EyeIcon, EyeSlashIcon, PlusIcon, ProjectIcon, SaveIcon, UploadIcon } from 'components/icons';
+import { DeleteIcon, EditIcon, EyeIcon, EyeSlashIcon, PlusIcon, ProjectIcon, SaveIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
 import useListState from 'hooks/useListState';
 import { IProject, ProjectPosition } from 'interfaces/project.interface';
 import { themeConfig } from 'theme';
 
-import { PositionsWrapper, PositionWrapper, ProjectTitleWrapper, TypeRadioButtons } from './styles';
+import { FormCardContent, PositionsWrapper, PositionWrapper, ProjectTitleWrapper, TypeRadioButtons } from './styles';
 
 type Props = {
   data: IProject;
-  onChange?(values: Partial<IProject>): void;
+  onChange(values: Partial<IProject>): void;
+  onDelete(): void;
 };
 
-const ProjectFormCard = ({ data, onChange }: Props) => {
+const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
   const { t } = useTranslation();
-  const { register, control, watch, getValues } = useForm<IProject>({ defaultValues: data });
+  const { register, control, watch, getValues, setValue } = useForm<IProject>({ defaultValues: data });
+  const { role } = useAuthData();
+
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   const [positions, { add: addPosition }] = useListState<ProjectPosition>(data.positions);
 
@@ -51,14 +55,14 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
   return (
     <FormCard defaultConfig={{ disabled: true, isEditingTitle: false, viewPositions: [] as string[] }} className="project-card">
       {({ formCardConfig, updateFormCardConfig }) => (
-        <>
+        <FormCardContent>
           <FormCardHeader
             icon={<ProjectIcon />}
             title={(
               <ProjectTitleWrapper>
                 {formCardConfig.isEditingTitle && (
                   <>
-                    <Input autoFocus {...register('name')} />
+                    <Input className="name-field" variant="standard" autoFocus {...register('name')} />
                     <IconButton
                       onClick={() => {
                         const { name } = getValues();
@@ -303,6 +307,8 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
               onClick={() => {
                 const position = createEmptyPosition();
                 addPosition(position);
+                const currectPositions = getValues('positions') || [];
+                setValue('positions', [...currectPositions, position]);
                 updateFormCardConfig({
                   viewPositions: [...formCardConfig.viewPositions, position.matterId],
                 });
@@ -310,8 +316,14 @@ const ProjectFormCard = ({ data, onChange }: Props) => {
             >
               <PlusIcon /> Pracovná pozicia
             </Button>
+            {role === 'admin' && <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>}
+            <DialogConfirm
+              open={openDeleteDialog}
+              onClose={() => void setOpenDeleteDialog(false)}
+              onSubmit={onDelete}
+            />
           </FormCardBody>
-        </>
+        </FormCardContent>
       )}
     </FormCard>
   );

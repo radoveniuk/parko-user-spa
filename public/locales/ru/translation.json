@@ -187,7 +187,8 @@
     "cancel": "Отменить",
     "change": "Изменить",
     "fire": "Уволить",
-    "updateEmploymentInfo": "Изменить информацию о трудоустройстве"
+    "updateEmploymentInfo": "Изменить информацию о трудоустройстве",
+    "addEmployment": "Новое сотрудничество"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",

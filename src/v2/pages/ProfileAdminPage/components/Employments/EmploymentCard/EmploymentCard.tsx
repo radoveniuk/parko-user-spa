@@ -11,7 +11,8 @@ import { FormCard, FormCardBody, FormCardBodyRow, FormCardHeader } from 'v2/uiki
 import IconButton from 'v2/uikit/IconButton';
 import Select from 'v2/uikit/Select';
 
-import { EyeIcon, EyeSlashIcon, ProjectIcon } from 'components/icons';
+import { DeleteIcon, EyeIcon, EyeSlashIcon, ProjectIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IEmployment } from 'interfaces/employment.interface';
@@ -20,20 +21,22 @@ import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 
 import CustomProjectSettingsDialog from './CustomProjectSettingsDialog';
-import { EmploymentCardTitleWrapper, EmploymentCardWrapper } from './styles';
+import { EmploymentCardTitleWrapper, EmploymentCardWrapper, FormCardContent } from './styles';
 
 type Props = {
   data: IEmployment;
   projects: Partial<IProject>[];
   clients: Partial<IClient>[];
   onChange(values: Partial<IEmployment>): void;
+  onDelete(): void;
 };
 
-const EmploymentCard = ({ data, projects, clients, onChange }: Props) => {
+const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) => {
   const { t } = useTranslation();
   const { register, handleSubmit, watch, control, setValue } = useForm<IEmployment>({ defaultValues: data as any });
   const queryClient = useQueryClient();
   const { id: userId } = useParams();
+  const { role } = useAuthData();
 
   const submitHandler: SubmitHandler<IEmployment> = (values) => {
     onChange(values);
@@ -50,9 +53,10 @@ const EmploymentCard = ({ data, projects, clients, onChange }: Props) => {
 
   const [dialogStatus, setDialogStatus] = useState<null | 'canceled' | 'hired' | 'fired'>(null);
   const [openCustomSettings, setOpenCustomSettings] = useState<boolean>(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   return (
-    <>
+    <FormCardContent>
       <FormCard defaultConfig={{ disabled: true, viewEmployer: false, viewEmployee: false }}>
         {({ formCardConfig, updateFormCardConfig }) => (
           <>
@@ -91,6 +95,7 @@ const EmploymentCard = ({ data, projects, clients, onChange }: Props) => {
                     options={clients}
                     disabled={formCardConfig.disabled}
                     defaultValue={data?.client}
+                    maxWidth="100%"
                     {...register('client')}
                   />
                   <Select
@@ -98,9 +103,10 @@ const EmploymentCard = ({ data, projects, clients, onChange }: Props) => {
                     theme="gray"
                     labelPath="name"
                     valuePath="_id"
-                    options={projects.filter((projectItem) => (projectItem.client as IClient)._id === watch('client'))}
+                    options={projects.filter((projectItem) => (projectItem.client as IClient)?._id === watch('client'))}
                     disabled={formCardConfig.disabled}
                     defaultValue={data?.project}
+                    maxWidth="100%"
                     {...register('project')}
                   />
                   <div className="fullwidth">
@@ -145,7 +151,7 @@ const EmploymentCard = ({ data, projects, clients, onChange }: Props) => {
                         Zmennosť: {position?.variability}
                       </div>
                       <div className="row">
-                        Mzda: {position?.salary.toFixed(2).replace('.', ',')} €/{position?.salaryType}
+                        Mzda: {Number(position?.salary).toFixed(2).replace('.', ',')} €/{position?.salaryType}
                       </div>
                       <div className="row">
                         Pracovný fond:
@@ -277,6 +283,12 @@ const EmploymentCard = ({ data, projects, clients, onChange }: Props) => {
                   </Button>
                 </div>
               </EmploymentCardWrapper>
+              {role === 'admin' && <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>}
+              <DialogConfirm
+                open={openDeleteDialog}
+                onClose={() => void setOpenDeleteDialog(false)}
+                onSubmit={onDelete}
+              />
             </FormCardBody>
           </>
         )}
@@ -301,7 +313,7 @@ const EmploymentCard = ({ data, projects, clients, onChange }: Props) => {
           onChange({ changes });
         }}
       />
-    </>
+    </FormCardContent>
   );
 };
 

@@ -7,7 +7,7 @@ import { FormCard, FormCardBody, FormCardHeader } from 'v2/uikit/FormCard';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from 'v2/uikit/Table';
 
 import { useGetDashboardData } from 'api/query/dashboardQuery';
-import { AccommodationIcon, BusinessIcon, DayoffIcon, PrepaymentIcon, ProjectIcon, UserIcon } from 'components/icons';
+import { AccommodationIcon, BusinessIcon, DayoffIcon, PrepaymentIcon, UserIcon } from 'components/icons';
 import { MainMenuGrid, MainMenuLink } from 'components/Menu/MainMenu';
 import { ADMIN_MENU_ITEMS, INavbarItem, MENU_ITEMS } from 'constants/menu';
 import { useAuthData } from 'contexts/AuthContext';
@@ -16,7 +16,6 @@ import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IClient } from 'interfaces/client.interface';
 import { IDayOff } from 'interfaces/dayoff.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
-import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import { DashboardWrapper, NoDataWrapper } from './styles';
@@ -78,35 +77,6 @@ const HomePage = () => {
                               <TableCell><Link to={`/profile/${user._id}`}>{user.name} {user.surname}</Link></TableCell>
                               <TableCell>{user.email}</TableCell>
                               <TableCell>{t(`selects.userStatus.${user.status}`)}</TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                  )}
-                </FormCardBody>
-              </FormCard>
-              <FormCard>
-                <FormCardHeader icon={<ProjectIcon size={24} />} title={t('navbar.projects')}>
-                  <Link to="/projects"><Button>{t('showAll')}</Button></Link>
-                </FormCardHeader>
-                <FormCardBody>
-                  {!!dashboard.projects.length && (
-                    <TableContainer>
-                      <Table size="small">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell>{t('project.name')}</TableCell>
-                            <TableCell>{t('project.location')}</TableCell>
-                            <TableCell>{t('project.status')}</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {dashboard.projects.map((project: IProject) => (
-                            <TableRow key={project._id}>
-                              <TableCell><Link to={`/projects?id=${project._id}`}>{project.name}</Link></TableCell>
-                              <TableCell>{project.location}</TableCell>
-                              <TableCell>{t(`selects.projectStatus.${project.status}`)}</TableCell>
                             </TableRow>
                           ))}
                         </TableBody>

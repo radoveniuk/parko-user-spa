@@ -36,6 +36,7 @@ const meta: Meta<typeof ProjectFormCard> = {
   component: ProjectFormCard,
   argTypes: {
     onChange: { action: 'onChange' },
+    onDelete: { action: 'onDelete' },
   },
 };
 

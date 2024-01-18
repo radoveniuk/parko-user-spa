@@ -103,7 +103,6 @@
     "fatherSurname": "Priezvisko otca",
     "fatherBirthdate": "Dátum narodenia otca",
     "wrongCredentials": "Nesprávne prihlasovacie meno alebo heslo",
-    "dataUpdated": "Údaje aktualizované",
     "scancopies": "Skeny",
     "internationalPassScan": "Cestovný pas",
     "passScan": "Pas",
@@ -178,14 +177,15 @@
     "businessActivities": "Predmety podnikania",
     "employment": "Zamestnanie",
     "individualCooperation": "Spolupraca — Živnosť",
-    "hireDate": "Dátum náboru",
-    "fireDate": "FireDate",
-    "fireReason": "Dôvod požiaru",
-    "prenájom": "Prenájom",
+    "hireDate": "Dátum začiatku",
+    "fireDate": "Dátum ukončenia",
+    "fireReason": "Dôvod ukončenia",
+    "hire": "Najať",
     "cancel": "Storno",
     "change": "Zmeniť",
     "fire": "Ukončiť",
-    "updateEmploymentInfo": "Zmeňte informácie o zamestnaní"
+    "updateEmploymentInfo": "Zmeňte informácie o zamestnaní",
+    "addEmployment": "Pridať spolupracu"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",
@@ -503,6 +503,7 @@
   "docs": "Doklady",
   "employer": "Zamestnávateľ",
   "employee": "Zamestnanec",
+  "dataUpdated": "Údaje aktualizované",
   "header": {
     "search": "Vyhľadajte používateľov, projektov alebo klientov"
   },
