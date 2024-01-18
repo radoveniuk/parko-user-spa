@@ -38,8 +38,8 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
         <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
         <div className="tags">
           <Chip label={t(`selects.userRole.${user.role}`)} />
-          <Chip label={user.position} />
-          <Chip label={user.cooperationType} />
+          {user.position && <Chip label={user.position} />}
+          {user.cooperationType && <Chip label={user.cooperationType} />}
           {user.tags?.map((tag) => (
             <Chip key={tag} label={t(tag)} />
           ))}
