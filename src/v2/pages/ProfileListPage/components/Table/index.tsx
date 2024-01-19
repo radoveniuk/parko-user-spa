@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { FixedSizeList } from 'react-window';
-import MobileUserCard from 'v2/components/MobileUserCard/MobileUserCard';
+import MobileUserCard from 'v2/components/MobileUserCard';
 import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
 import Skeleton from 'v2/uikit/Skeleton';
@@ -50,7 +50,7 @@ const Table = ({
   const queryClient = useQueryClient();
   const { debouncedFiltersState } = useFilters();
 
-  const [rowsPerPage, setRowsPerPage] = useState(20); // TODO remove
+  const [rowsPerPage, setRowsPerPage] = useState(20);
   const [editingRow, setEditingRow] = useState<null | string>(null);
 
   const { sortedData, sorting, sortingToggler } = useSortedList(data);

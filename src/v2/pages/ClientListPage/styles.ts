@@ -65,6 +65,10 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     flex-direction: column;
     flex: auto;
     width: 100%;
+
+    @media (max-width: ${TB}) {
+      box-shadow: none;
+    }
   }
 
   .clear-filter, .AddFilterButton {
@@ -140,6 +144,21 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
 
     .stack-profile.hide .filters {
       max-width: 100%;
+    }
+  }
+
+  @media (max-width: ${TB}) {
+    .pagination-bottom, .users-table {
+      display: none;
+    }
+  }
+
+  .mobile-list {
+    display: none;
+    @media (max-width: ${TB}) {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
   }
 `;

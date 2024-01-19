@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import Notifications from 'components/complex/Notifications';
-import { EditIcon } from 'components/icons';
+import { NotificationIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { useAuthData } from 'contexts/AuthContext';
@@ -32,7 +32,7 @@ const NotificationsPage = () => {
       </TabsContainer>
       {['admin', 'recruiter', 'super-admin'].includes(role as string) && (
         <CreateMessageLink to="/create-notification">
-          <Button><EditIcon size={20} /></Button>
+          <Button><NotificationIcon size={20} /></Button>
         </CreateMessageLink>
       )}
     </>

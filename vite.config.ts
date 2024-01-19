@@ -23,6 +23,13 @@ export default defineConfig({
         ws: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
+      '/favicon-api': {
+        target: 'https://t2.gstatic.com/faviconV2',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/favicon-api/, ''),
+      },
     },
   },
 });

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { PC, SM, TB } from 'theme/sizeBreakpoints';
+import { PC, TB } from 'theme/sizeBreakpoints';
 
 export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   .users-table {
@@ -47,7 +47,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     }
   }
   
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     .pagination-bottom, .users-table {
       display: none;
     }
@@ -55,7 +55,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
 
   .mobile-list {
     display: none;
-    @media (max-width: ${SM}) {
+    @media (max-width: ${TB}) {
       display: initial;
     }
   }
@@ -82,7 +82,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     width: 100%;
 
     @media (max-width: ${TB}) {
-      border: none;
+      box-shadow: none;
     }
   }
 

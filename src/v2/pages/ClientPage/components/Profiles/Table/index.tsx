@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MobileUserCard from 'v2/components/MobileUserCard/MobileUserCard';
+import MobileUserCard from 'v2/components/MobileUserCard';
 import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
 import Skeleton from 'v2/uikit/Skeleton';

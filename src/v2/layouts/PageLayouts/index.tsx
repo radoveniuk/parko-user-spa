@@ -16,7 +16,6 @@ const PageContainer = () => (
       </MainWrapper>
     </Stack>
   </>
-
 );
 
 export default PageContainer;

@@ -17,8 +17,9 @@ max-height: calc(100vh - 120px);
 overflow: auto;
 
 @media (max-width: ${SM}) {
-  margin: 10px 0;
-  max-height: calc(100vh - 80px);
+  margin: 0;
+  max-height: calc(100vh - 60px);
+  overflow-x: hidden;
 }
 
 .cards {

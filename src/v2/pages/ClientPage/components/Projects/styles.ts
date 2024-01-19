@@ -4,6 +4,7 @@ export const ProjectsWrapper = styled.div`
   display: flex;
   gap: 24px;
   position: relative;
+  padding: 1px 0;
 
   @media (max-width: 1350px) {
     flex-direction: column;
