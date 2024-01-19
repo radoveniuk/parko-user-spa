@@ -1,5 +1,6 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import ClientFormDialog from 'v2/components/ClientFormDialog';
 import IconButton from 'v2/uikit/IconButton';
 import { Tab, Tabs } from 'v2/uikit/Tabs';
@@ -29,6 +30,19 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
 
   const updateClientMutation = useUpdateClientMutation();
 
+  const queryClient = useQueryClient();
+
+  const renderManagers = () => managers
+    ?.map((item) => {
+      if (typeof item === 'string') {
+        const managerUsers = queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) as IUser[];
+        const manager = managerUsers.find((user) => user._id === item);
+        return `${manager?.name} ${manager?.surname}`;
+      }
+      return `${item.name} ${item.surname}`;
+    })
+    .join(' / ');
+
   return (
     <>
       <ProfileCardWrapper>
@@ -51,7 +65,7 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
           <div className="common-item">{t('client.contactPersonPosition')}: {client.contactPersonPosition}</div>
           <div className="common-item">{t('client.cooperationStartDate')}: {getDateFromIso(client.cooperationStartDate)}</div>
           <div className="common-item">{t('client.cooperationEndDate')}: {getDateFromIso(client.cooperationEndDate)}</div>
-          <div className="common-item">{t('client.managers')}: {managers?.map(item => `${item.name} ${item.surname}`).join(' / ')}</div>
+          <div className="common-item">{t('client.managers')}: {renderManagers()}</div>
         </div>
         <div className="system-info section">
           <div className="system-info-item">{t('user.lastUpdate')}: {getDateFromIso(client.updatedAt)}</div>
