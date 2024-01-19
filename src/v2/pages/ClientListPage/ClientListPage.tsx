@@ -21,7 +21,7 @@ const DEFAULT_COLS = [
 
 const ClientListPageRender = () => {
   const { t } = useTranslation();
-  useDocumentTitle(t('clientList'));
+  useDocumentTitle(t('navbar.clients'));
   const { data: projects } = useGetProjects();
 
   const { debouncedFiltersState } = useFilters();

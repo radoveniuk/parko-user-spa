@@ -84,7 +84,7 @@ export const renderValue = (key: keyof IUser, value: string | boolean | number, 
     return t(value.toString());
   }
   const isIso = !DateTime.fromISO(value?.toString()).invalidReason;
-  if (isIso) {
+  if (isIso && value.toString().length > 4) {
     return getDateFromIso(value);
   }
   const selectKeys: (keyof IUser)[] = ['employmentType'];

@@ -42,7 +42,7 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
           </div>
         </div>
         <div className="common section">
-          <div className="common-item">{t('client.status')}: {t(`selects.clientStatus.${client.status}`)}</div>
+          {!!client.status && <div className="common-item">{t('client.status')}: {t(`selects.clientStatus.${client.status}`)}</div>}
           <div className="common-item">IČO: {client.ICO}</div>
           <div className="common-item">DIČ: {client.DIC}</div>
           <div className="common-item">IČ DPH: {client.ICDPH}</div>
