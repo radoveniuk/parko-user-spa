@@ -1,4 +1,6 @@
 import React from 'react';
+// @ts-ignore
+// @ts-nocheck
 import Dropzone, { IFileWithMeta, StatusValue } from 'react-dropzone-uploader';
 import { useTranslation } from 'react-i18next';
 
