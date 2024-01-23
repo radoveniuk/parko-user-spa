@@ -35,7 +35,7 @@ export const ContentWrapper = styled.div`
   }
 
   .cards {
-    padding-top: 1px;
+    padding: 1px 0;
     display: flex;
     gap: 24px;
     position: relative;

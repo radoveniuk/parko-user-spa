@@ -45,7 +45,7 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
   const createPrepaymentHandler = () => {
     const values = getValues();
     onCreatePrepayment?.(values);
-    add({ ...values, _id: createId(), createdAt: DateTime.now().toISO() });
+    add({ ...values, _id: createId(), createdAt: DateTime.now().toISO() }, 'start');
   };
 
   const updatePrepaymentHandler = () => {
@@ -158,7 +158,7 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
               )}
             />
             <Input
-              InputProps={{ endAdornment: '€' }}
+              InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
               label={`${t('prepayment.sum')}*`}
               defaultValue={prepaymentDialogData?.sum || ''}
               type="number"

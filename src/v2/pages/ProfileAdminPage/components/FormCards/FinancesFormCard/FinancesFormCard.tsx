@@ -32,9 +32,8 @@ const defaultDateRegex = /((0[1-9]|1[0-2])\/[12]\d{3})/;
 const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
 const DEFAULT_VALUES: Finance = {
-  type: 'invoice',
+  type: 'paycheck',
   data: {
-    _id: '',
     user: '',
     project: '',
     date: '',
@@ -43,21 +42,21 @@ const DEFAULT_VALUES: Finance = {
 };
 
 type Finance = {
-  type: 'invoice' | 'paytoll';
-  data: IPaycheck;
+  type: 'paycheck' | 'payroll';
+  data: Omit<IPaycheck, '_id'> & { _id?: string };
 };
 
 type Props = {
   data: Finance[];
-  onDeletePaycheck?(id: string): void;
-  onUpdatePaycheck?(data: Partial<IPaycheck>): void;
-  onCreatePaycheck?(data: Partial<IPaycheck>): void;
+  onDeleteFinance?(data: Partial<Finance>): void;
+  onUpdateFinance?(data: Partial<Finance>): void;
+  onCreateFinance?(data: Partial<Finance>): void;
 };
 
-const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePaycheck }: Props) => {
+const FinancesFormCard = ({ data, onCreateFinance, onDeleteFinance, onUpdateFinance }: Props) => {
   const { t } = useTranslation();
 
-  const financeTypeList = useTranslatedSelect(['invoice', 'payroll'], 'financeType');
+  const financeTypeList = useTranslatedSelect(['paycheck', 'payroll'], 'financeType');
 
   const [financeDialogData, setFinanceDialogData] = useState<Partial<Finance> | null>(null);
   const [deleteDialogData, setDeleteDialogData] = useState<Partial<Finance> | null>(null);
@@ -66,9 +65,19 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
 
   const [finances, { add, remove, update }, setFinances] = useListState(data);
 
-  const createPaycheckHandler = () => {
+  const createFinanceHandler = () => {
     const values = getValues();
-    onCreatePaycheck?.(values.data);
+
+    onCreateFinance?.({
+      ...values,
+      data: {
+        ...values.data,
+        createdAt: DateTime.now().toISO(),
+        date: DateTime.fromFormat(values.data.date, 'MM/yyyy').toISODate(),
+        linkedFile: (values?.data.linkedFile as IFile)?._id,
+      },
+    });
+
     add({
       ...values,
       data: {
@@ -77,17 +86,21 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
         createdAt: DateTime.now().toISO(),
         date: DateTime.fromFormat(values.data.date, 'MM/yyyy').toISODate(),
       },
-    });
+    }, 'start');
   };
 
-  const updatePaycheckHandler = () => {
+  const updateFinanceHandler = () => {
     if (financeDialogData?.data?._id) {
       const values = getValues();
       const date = isoDateRegex.test(values.data.date) ? values.data.date : DateTime.fromFormat(values.data.date, 'MM/yyyy').toISODate();
-      onUpdatePaycheck?.({
-        ...financeDialogData.data,
-        ...values.data,
-        date,
+      onUpdateFinance?.({
+        ...financeDialogData,
+        ...values,
+        data: {
+          ...financeDialogData.data,
+          ...values.data,
+          date,
+        },
       });
       update(financeDialogData as Finance, {
         ...values,
@@ -99,9 +112,9 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
     }
   };
 
-  const removePaycheckHandler = () => {
+  const removeFinanceHandler = () => {
     if (deleteDialogData && deleteDialogData?.data?._id) {
-      onDeletePaycheck?.(deleteDialogData.data._id);
+      onDeleteFinance?.(deleteDialogData);
       remove(deleteDialogData as Finance);
     }
   };
@@ -109,9 +122,9 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
   const submitHandler: SubmitHandler<Finance> = () => {
     if (financeDialogData) {
       if (financeDialogData?.data?._id) {
-        updatePaycheckHandler();
+        updateFinanceHandler();
       } else {
-        createPaycheckHandler();
+        createFinanceHandler();
       }
       setFinanceDialogData(null);
     }
@@ -163,10 +176,16 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
                       <TableCell>{getDateFromIso(finance.data.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
                       <TableCell align="right">
                         <ActionsCell>
-                          <IconButton disabled={!isMongoId(finance.data._id)} onClick={() => { setFinanceDialogData(finance); reset(finance); }}>
+                          <IconButton
+                            disabled={!finance.data?._id || !isMongoId(finance.data._id)}
+                            onClick={() => { setFinanceDialogData(finance); reset(finance); }}
+                          >
                             <EditIcon />
                           </IconButton>
-                          <IconButton disabled={!isMongoId(finance.data._id)} onClick={() => void setDeleteDialogData(finance)}>
+                          <IconButton
+                            disabled={!finance.data?._id || !isMongoId(finance.data._id)}
+                            onClick={() => void setDeleteDialogData(finance)}
+                          >
                             <DeleteIcon />
                           </IconButton>
                         </ActionsCell>
@@ -191,7 +210,7 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
               label={`${t('finance.type')}*`}
               error={!!errors.type}
               options={financeTypeList}
-              defaultValue={financeDialogData?.type || 'invoice'}
+              defaultValue={financeDialogData?.type || 'paycheck'}
               {...register('type', { required: true })}
             />
             <Input
@@ -279,7 +298,7 @@ const FinancesFormCard = ({ data, onCreatePaycheck, onDeletePaycheck, onUpdatePa
       <DialogConfirm
         open={deleteDialogData !== null}
         onSubmit={() => {
-          removePaycheckHandler();
+          removeFinanceHandler();
           setDeleteDialogData(null);
         }}
         onClose={() => void setDeleteDialogData(null)}

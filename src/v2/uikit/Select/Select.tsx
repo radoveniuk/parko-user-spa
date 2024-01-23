@@ -70,7 +70,7 @@ function Select<T> ({
         value={selectedValue}
         IconComponent={(props) => <DropdownIcon {...props} color="#131313" size={12} />}
         ref={ref}
-        style={{ minWidth: 200 }}
+        // style={{ minWidth: 200 }}
         onChange={(e, child) => {
           setSelectedValue(e.target.value as Path<T>);
           onChange?.(e, child);

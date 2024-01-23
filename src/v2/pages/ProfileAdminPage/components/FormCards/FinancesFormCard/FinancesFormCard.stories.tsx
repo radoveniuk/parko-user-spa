@@ -11,9 +11,9 @@ import FinancesFormCard from './FinancesFormCard';
 const meta: Meta<typeof FinancesFormCard> = {
   component: FinancesFormCard,
   argTypes: {
-    onCreatePaycheck: { action: 'onCreatePaycheck' },
-    onUpdatePaycheck: { action: 'onUpdatePaycheck' },
-    onDeletePaycheck: { action: 'onDeletePaycheck' },
+    onCreateFinance: { action: 'onCreatePaycheck' },
+    onUpdateFinance: { action: 'onUpdatePaycheck' },
+    onDeleteFinance: { action: 'onDeletePaycheck' },
   },
 };
 
@@ -159,7 +159,7 @@ export const Example: Story = {
       },
       createdAt: '2022-12-21T13:43:17.164Z',
       updatedAt: '2022-12-21T13:43:17.164Z',
-    }].map((data) => ({ type: 'invoice', data })),
+    }].map((data) => ({ type: 'paycheck', data })),
   },
   parameters: {
     mockData: [

@@ -23,7 +23,6 @@ export const UpdateHistoryWrapper = styled.div`
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       background-color: #fff;
       width: calc(100% - 30px);
-      margin: 0 auto;
     }
 
     td {

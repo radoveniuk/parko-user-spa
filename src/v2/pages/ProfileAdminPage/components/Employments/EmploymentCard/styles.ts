@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const EmploymentCardWrapper = styled.div`
+  display: contents;
   .static-info {
     border-radius: 5px;
     border: 1px solid #D0D0D0;
@@ -62,6 +63,9 @@ export const EmploymentCardTitleWrapper = styled.div`
     }
     &.fired {
       background-color: #E72A2A;
+    }
+    &.undefined {
+      display: none;
     }
     color: #fff;
     font-size: 0.7rem;

@@ -6,15 +6,22 @@ import Chip from 'v2/uikit/Chip';
 import IconButton from 'v2/uikit/IconButton';
 import { Tab, Tabs } from 'v2/uikit/Tabs';
 
-import { EditIcon, PlusIcon } from 'components/icons';
+import { AcceptIcon, EditIcon, PlusIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
-import { IWorkHistoryLog } from 'interfaces/history.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import SexSelectorMenu from './components/SexSelectorMenu';
-import { AddTagMenuButton, ProfileCardWrapper } from './styles';
+import { AddTagMenuButton, ProfileCardWrapper, TagField, TagFieldWrapper } from './styles';
+
+export interface IWorkHistoryLog {
+  _id?: string,
+  dateFrom: string;
+  dateTo?: string;
+  project: Pick<IProject, '_id' | 'name' | 'client'>
+  position: string;
+};
 
 export type ProfileCardProps = {
   data: IUser;
@@ -32,6 +39,19 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
   const [user, setUser] = useState(data);
   const recruiter = user.recruiter as IUser | null;
 
+  const [showNewTagField, setShowNewTagField] = useState(false);
+  const [newTagLabel, setNewTagLabel] = useState('');
+
+  const saveTag = () => {
+    setShowNewTagField(false);
+    setUser((prev) => ({
+      ...prev,
+      tags: [...(prev.tags || []), newTagLabel],
+    }));
+    onChange?.({ tags: [...(data.tags || []), newTagLabel] });
+    setNewTagLabel('');
+  };
+
   return (
     <>
       <ProfileCardWrapper>
@@ -43,12 +63,20 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
           {user.tags?.map((tag) => (
             <Chip key={tag} label={t(tag)} />
           ))}
-          <AddTagMenuButton disabled><PlusIcon size={20} /></AddTagMenuButton>
+          {!showNewTagField && (
+            <AddTagMenuButton onClick={() => void setShowNewTagField(true)}><PlusIcon size={20} /></AddTagMenuButton>
+          )}
+          {showNewTagField && (
+            <TagFieldWrapper>
+              <TagField onChange={(e) => void setNewTagLabel(e.target.value)} value={newTagLabel} />
+              <AddTagMenuButton onClick={saveTag}><AcceptIcon size={20} /></AddTagMenuButton>
+            </TagFieldWrapper>
+          )}
         </div>
         <div className="contacts-info section">
           <div className="name-and-sex">
             <div className="name">{user.name} {user.surname}</div>
-            <SexSelectorMenu value={user.sex} />
+            <SexSelectorMenu value={user.sex} onChange={(sex) => { onChange?.({ sex }); setUser(prev => ({ ...prev, sex })); }} />
           </div>
           <div className="contacts">
             <a href={`mailto:${user.email}`} className="contact-text-link">{user.email}</a>
@@ -65,6 +93,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
           <div className="subtitle">{t('user.workHistory')}</div>
           <div className="work-history-list">
             {workHistory
+              .filter((workHistoryItem) => !!workHistoryItem.project?.client)
               .sort((workHistoryItemA, workHistoryItemB) =>
                 DateTime.fromISO(workHistoryItemB.dateFrom).toMillis() - DateTime.fromISO(workHistoryItemA.dateFrom).toMillis())
               .map((workHistoryItem) => {

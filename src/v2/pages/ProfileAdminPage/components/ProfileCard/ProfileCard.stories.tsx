@@ -8,9 +8,8 @@ import { TabPanel, TabsContainer } from 'v2/uikit/Tabs';
 
 import { SB_MOCK_USER } from 'constants/storybookData';
 import AuthProvider from 'contexts/AuthContext';
-import { IWorkHistoryLog } from 'interfaces/history.interface';
 
-import ProfileCard from './ProfileCard';
+import ProfileCard, { IWorkHistoryLog } from './ProfileCard';
 
 const mockData = [
   {
@@ -253,7 +252,6 @@ const MOCK_WORK_HISTORY: IWorkHistoryLog[] = [
   {
     dateFrom: '2021-10-10',
     dateTo: '2022-10-10',
-    user: '64184af1ddf0117fd7551a12',
     project: {
       _id: '1hghdfaasyuk',
       name: 'Sample sro',
@@ -266,7 +264,6 @@ const MOCK_WORK_HISTORY: IWorkHistoryLog[] = [
   {
     dateFrom: '2022-10-10',
     dateTo: '2023-07-08',
-    user: '64184af1ddf0117fd7551a12',
     project: {
       _id: '1hghdfaasyuefsck',
       name: 'Parko sro',
@@ -278,7 +275,6 @@ const MOCK_WORK_HISTORY: IWorkHistoryLog[] = [
   },
   {
     dateFrom: '2023-07-08',
-    user: '64184af1ddf0117fd7551a12',
     project: {
       _id: '62d93122dfabe1cfa48057de',
       name: 'Hyza',

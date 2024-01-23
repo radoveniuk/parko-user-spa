@@ -331,7 +331,7 @@
       "paid": "Оплачено"
     },
     "financeType": {
-      "invoice": "Інвойс",
+      "paycheck": "Інвойс",
       "payroll": "Зарплатня"
     },
     "corporateBodyStatus": {

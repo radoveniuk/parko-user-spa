@@ -11,8 +11,14 @@ type SexSelectorMenuProps = {
 
 const SexSelectorMenu = ({ value, onChange }: SexSelectorMenuProps) => {
   const { t } = useTranslation();
+  const labelValue = value || 'male';
   return (
-    <Menu isCloseOnMenu menuComponent={<SexSelectorMenuWrapper>{(value || 'male')[0]}</SexSelectorMenuWrapper>}>
+    <Menu isCloseOnMenu menuComponent={(
+      <SexSelectorMenuWrapper>
+        <span>{labelValue[0]}</span>
+        <span>{labelValue.substring(1)}</span>
+      </SexSelectorMenuWrapper>
+    )}>
       <MenuItem onClick={() => onChange?.('male')}>{t('male')}</MenuItem>
       <MenuItem onClick={() => onChange?.('female')}>{t('female')}</MenuItem>
     </Menu>

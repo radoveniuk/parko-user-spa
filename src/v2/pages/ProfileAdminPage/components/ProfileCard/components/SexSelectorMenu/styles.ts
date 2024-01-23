@@ -11,7 +11,16 @@ export const SexSelectorMenuWrapper = styled.div`
   cursor: pointer;
   border-radius: 5px;
   transition: .3s;
-  &:hover {
+  
+  span:last-child {
+    display: none;
+  }
+  
+  &:hover, .active {
     background: #d3d3d3;
+    width: 100px;
+    span:last-child {
+      display: initial;
+    }
   }
 `;

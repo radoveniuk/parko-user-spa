@@ -25,12 +25,13 @@ import { ActionsCell, FinanceDialogContent } from './styles';
 
 type Props = {
   data: IResidence[];
+  accommodations: IAccommodation[];
   onDeleteResidence?(id: string): void;
-  onUpdateResidence?(data: Partial<IResidence>): void;
-  onCreateResidence?(data: Partial<IResidence>): void;
+  onUpdateResidence?(data: Partial<IResidence>, notificateOwner?: boolean): void;
+  onCreateResidence?(data: Partial<IResidence>, notificateOwner?: boolean): void;
 };
 
-const FinancesFormCard = ({ data, onCreateResidence, onDeleteResidence, onUpdateResidence }: Props) => {
+const FinancesFormCard = ({ data, accommodations, onCreateResidence, onDeleteResidence, onUpdateResidence }: Props) => {
   const { t } = useTranslation();
 
   const [residenceDialogData, setResidenceDialogData] = useState<Partial<IResidence> | null>(null);
@@ -40,16 +41,23 @@ const FinancesFormCard = ({ data, onCreateResidence, onDeleteResidence, onUpdate
 
   const [residences, { add, remove, update }, setResidences] = useListState(data);
 
+  const [notificateOwner, setNotificateOwner] = useState<boolean>(false);
+
   const createResidenceHandler = () => {
     const values = getValues();
-    onCreateResidence?.(values);
-    add({ ...values, _id: createId(), createdAt: DateTime.now().toISO() });
+    onCreateResidence?.(values, notificateOwner);
+    add({
+      ...values,
+      _id: createId(),
+      createdAt: DateTime.now().toISO(),
+      accommodation: accommodations.find((item) => item._id === values.accommodation) as IAccommodation,
+    }, 'start');
   };
 
   const updateResidenceHandler = () => {
     if (residenceDialogData?._id) {
       const values = getValues();
-      onUpdateResidence?.({ ...residenceDialogData, ...values });
+      onUpdateResidence?.({ ...residenceDialogData, ...values }, notificateOwner);
       update(residenceDialogData as IResidence, values);
     }
   };
@@ -78,8 +86,6 @@ const FinancesFormCard = ({ data, onCreateResidence, onDeleteResidence, onUpdate
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, setResidences]);
-
-  const [notificateOwner, setNotificateOwner] = useState<boolean>(false);
 
   return (
     <>
@@ -142,7 +148,7 @@ const FinancesFormCard = ({ data, onCreateResidence, onDeleteResidence, onUpdate
               rules={{ required: true }}
               render={({ field }) => (
                 <Autocomplete
-                  options={[]}
+                  options={accommodations}
                   label={`${t('navbar.accommodation')}*`}
                   getOptionLabel={(option) => `${option.adress} (${option.owner})`}
                   defaultValue={residenceDialogData?.accommodation || null}

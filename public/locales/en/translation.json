@@ -332,7 +332,7 @@
       "paid": "Paid"
     },
     "financeType": {
-      "invoice": "Invoice",
+      "paycheck": "Invoice",
       "payroll": "Payroll"
     },
     "corporateBodyStatus": {

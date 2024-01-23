@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 
 import { useDeleteEmployment, useUpdateEmployment } from 'api/mutations/employmentMutation';
 import { useGetClients } from 'api/query/clientQuery';
-import { useGetProjects } from 'api/query/projectQuery';
 import { IEmployment } from 'interfaces/employment.interface';
+import { IProject } from 'interfaces/project.interface';
 
 import EmploymentCard from './EmploymentCard';
 
@@ -17,9 +17,9 @@ const Employments = ({ data }: Props) => {
   const { id: userId } = useParams();
   const updateEmployment = useUpdateEmployment();
   const deleteEmployment = useDeleteEmployment();
-  const { data: clients = [] } = useGetClients();
-  const { data: projects = [] } = useGetProjects();
   const queryClient = useQueryClient();
+  const projects = queryClient.getQueryData(['projects', JSON.stringify({})]) as IProject[];
+  const { data: clients = [] } = useGetClients();
 
   const renderEmployments = (list: typeof data) => list.map((item) => (
     <EmploymentCard

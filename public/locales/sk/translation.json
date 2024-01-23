@@ -329,7 +329,7 @@
       "paid": "Zaplatené"
     },
     "financeType": {
-      "invoice": "Faktúra",
+      "paycheck": "Faktúra",
       "payroll": "Payroll"
     },
     "corporateBodyStatus": {

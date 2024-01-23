@@ -332,7 +332,7 @@
       "paid": "Оплачено"
     },
     "financeType": {
-      "invoice": "Инвойс",
+      "paycheck": "Инвойс",
       "payroll": "Заработная плата"
     },
     "corporateBodyStatus": {

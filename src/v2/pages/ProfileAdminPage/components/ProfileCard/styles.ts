@@ -150,3 +150,14 @@ export const AddTagMenuButton = styled.button`
     pointer-events: none;
   }
 `;
+
+export const TagFieldWrapper = styled.div.attrs({ autoFocus: true })`
+  display: flex;
+`;
+
+export const TagField = styled.input.attrs({ autoFocus: true })`
+  border: 0;
+  height: 36px;
+  outline: none;
+  width: auto;
+`;

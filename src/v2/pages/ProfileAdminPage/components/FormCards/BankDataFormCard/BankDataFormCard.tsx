@@ -13,11 +13,12 @@ type BankInfo = Pick<IUser, 'IBAN' | 'bankName' | 'SWIFT'>;
 
 type Props = {
   data: BankInfo;
+  onUpdate(v: Partial<BankInfo>): void;
 };
 
-const BankDataFormCard = ({ data }: Props) => {
+const BankDataFormCard = ({ data, onUpdate }: Props) => {
   const { t } = useTranslation();
-  const { register } = useForm<BankInfo>({ defaultValues: data });
+  const { register, getValues } = useForm<BankInfo>({ defaultValues: data });
   return (
     <FormCard defaultConfig={{ disabled: true }}>
       {({ formCardConfig, updateFormCardConfig }) => (
@@ -28,6 +29,7 @@ const BankDataFormCard = ({ data }: Props) => {
               <Button
                 color="error"
                 onClick={() => {
+                  onUpdate(getValues());
                   updateFormCardConfig({ disabled: true });
                 }}
               >
