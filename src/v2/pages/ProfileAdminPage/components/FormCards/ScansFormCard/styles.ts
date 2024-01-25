@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const ActionsCell = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ export const ScanDialogContent = styled.div`
       grid-column: 1 / 3;
     }
 
-    @media (max-width: ${SM}) {
+    @media (max-width: ${TB}) {
       grid-template-columns: 1fr;
       *:last-child {
         grid-column: 1;
@@ -56,7 +56,7 @@ export const FileInputArea = styled.div`
     color: #8b8b8b !important;
   }
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     grid-column: 1;
     height: 48px;
   }
@@ -74,7 +74,7 @@ export const FileInputArea = styled.div`
     background-color: #fff;
     border-color: #8397bc63;
     color: ${themeConfig.palette.primary.light};
-    @media (min-width: ${SM}) {
+    @media (min-width: ${TB}) {
       width: calc(50% - 16px);
     }
   }

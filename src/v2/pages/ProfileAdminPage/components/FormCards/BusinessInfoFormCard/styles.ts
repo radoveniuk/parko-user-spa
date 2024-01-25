@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const CorporateBodiesSearchField = styled.div`
   position: relative;
@@ -37,7 +37,7 @@ export const CorporateBodiesSearchField = styled.div`
     width: 120px;
   }
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     grid-column: 1 / 1;
     .search-btn {
       height: 48px;
@@ -90,7 +90,7 @@ export const CorporateBodiesDropdown = styled.ul`
     }
   }
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     width: 100%;
   }
 `;

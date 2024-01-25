@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const ProfileCardWrapper = styled.div`
   padding-top: 1px;
@@ -14,7 +14,7 @@ export const ProfileCardWrapper = styled.div`
   flex-direction: column;
   color: #131313;
   overflow: auto;
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     overflow: hidden;
     height: 100%;
     border: none;

@@ -29,7 +29,7 @@ import useViewportWidth from 'hooks/useViewportWsdth';
 import { AnyObject } from 'interfaces/base.types';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 import Daysoff from './Daysoff';
 import Prepayments from './Prepayments';
@@ -39,7 +39,7 @@ import Residences from './Residences';
 import SalarySettings from './SalarySettings';
 import { DeleteDialogContent, ProfileCard, ProfileDataWrapper, ProfileTabContent, SideInfoBarWrapper } from './styles';
 
-const smBreakpoint = Number(SM.replace('px', ''));
+const smBreakpoint = Number(TB.replace('px', ''));
 
 const ProfileAdminPageRender = () => {
   const { t } = useTranslation();

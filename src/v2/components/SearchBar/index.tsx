@@ -73,7 +73,7 @@ const SearchBar = () => {
             <>
               <div className="subtitle">{t('navbar.clients')}:</div>
               {data.clients.map((client) => (
-                <Link key={client._id} to={`/clients?id=${client._id}`}>
+                <Link key={client._id} to={`/client/${client._id}`}>
                   {client.name} ({client.sidlo})
                 </Link>
               ))}

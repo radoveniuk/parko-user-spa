@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { RadioGroup } from 'v2/uikit';
 
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const FormCardContent = styled.div`
   position: relative;
@@ -31,7 +31,7 @@ export const TypeRadioButtons = styled(RadioGroup)`
   gap: 10px;
   margin-bottom: 15px;
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     grid-template-columns: 1fr;
   }
 
@@ -74,7 +74,7 @@ export const PositionWrapper = styled.div`
     row-gap: 15px;
     column-gap: 20px;
 
-    @media (max-width: ${SM}) {
+    @media (max-width: ${TB}) {
       grid-template-columns: 1fr;
     }
 
@@ -85,7 +85,7 @@ export const PositionWrapper = styled.div`
     .fullwidth {
       grid-column: 1 / 3;
 
-      @media (max-width: ${SM}) {
+      @media (max-width: ${TB}) {
         grid-column: 1 / 1;
       }
     }

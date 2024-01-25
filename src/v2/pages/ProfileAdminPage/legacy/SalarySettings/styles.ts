@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const SalaryFormWrapper = styled.form`
   .inputs {
@@ -13,7 +13,7 @@ export const SalaryFormWrapper = styled.form`
       grid-column-end: 3;
     }
 
-    @media (max-width: ${SM}) {
+    @media (max-width: ${TB}) {
       grid-template-columns: 1fr;
       div:last-child {
         grid-column-start: 1;

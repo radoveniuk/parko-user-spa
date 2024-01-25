@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { SM, TB } from 'theme/sizeBreakpoints';
+import { TB, TB } from 'theme/sizeBreakpoints';
 
 export const ProfilesWrapper = styled.div<{cols: number }>`
   border-radius: 5px;
@@ -88,7 +88,7 @@ export const ProfilesWrapper = styled.div<{cols: number }>`
     }
   }
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     border: none;
     .pagination-bottom, .users-table {
       display: none;
@@ -97,7 +97,7 @@ export const ProfilesWrapper = styled.div<{cols: number }>`
 
   .mobile-list {
     display: none;
-    @media (max-width: ${SM}) {
+    @media (max-width: ${TB}) {
       display: flex;
       flex-direction: column;
       gap: 6px;

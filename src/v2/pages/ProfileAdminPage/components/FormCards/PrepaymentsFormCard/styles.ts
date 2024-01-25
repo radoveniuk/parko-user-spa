@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const ActionsCell = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ export const PrepaymentDialogContent = styled.div`
     row-gap: 12px;
     margin-bottom: 48px;
 
-    @media (max-width: ${SM}) {
+    @media (max-width: ${TB}) {
       grid-template-columns: 1fr;
       *:last-child {
         grid-column: 1;

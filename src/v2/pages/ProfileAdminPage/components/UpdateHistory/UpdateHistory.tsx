@@ -12,7 +12,7 @@ import useViewportWidth from 'hooks/useViewportWsdth';
 import { MongoHistory } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 import { AccountLink, NewValue, OldValue, UpdateHistoryWrapper, UpdateRow } from './styles';
 import { getFieldSectionLabelMap, renderDocs, renderValue } from './utils';
@@ -32,7 +32,7 @@ const UpdateHistory = ({ data }: Props) => {
       .filter((key) => !!historyItem.changes[key]?.newValue)
       .map((key, index) => {
         if (!UPDATE_SECTION_MAP[key]) return '';
-        const keyLabel = viewportWidth > Number(SM.replace('px', '')) ? UPDATE_SECTION_MAP[key] : UPDATE_SECTION_MAP?.[key]?.split(' > ').pop();
+        const keyLabel = viewportWidth > Number(TB.replace('px', '')) ? UPDATE_SECTION_MAP[key] : UPDATE_SECTION_MAP?.[key]?.split(' > ').pop();
         if (key === 'docs') {
           return (
             <div key={index}>

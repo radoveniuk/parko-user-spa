@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const FormCardWrapper = styled.div`
   border-radius: 5px;
@@ -13,7 +13,7 @@ export const FormCardWrapper = styled.div`
   max-width: 600px;
   position: relative;
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     margin: 0 12px;
   }
 `;
@@ -43,7 +43,7 @@ export const FormCardHeaderWrapper = styled.div`
       max-width: 100%;
       text-overflow: ellipsis;
       white-space: nowrap;
-      @media (max-width: ${SM}) {
+      @media (max-width: ${TB}) {
         max-width: 150px;
       }
     }
@@ -69,7 +69,7 @@ export const FormCardBodyRowWrapper = styled.div`
   .fullwidth {
     grid-column: 1 / 3;
   }
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     grid-template-columns: 1fr;
 
     .fullwidth {

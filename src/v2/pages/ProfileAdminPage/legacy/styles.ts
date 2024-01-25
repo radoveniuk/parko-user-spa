@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const DeleteDialogContent = styled.div`
   .actions {
@@ -23,7 +23,7 @@ export const ProfileDataWrapper = styled.div`
     flex-wrap: wrap;
   }
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     flex-direction: column;
   }
 `;
@@ -31,7 +31,7 @@ export const ProfileDataWrapper = styled.div`
 export const ProfileTabContent = styled.div`
   flex-grow: 1;
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     height: auto;
   }
 
@@ -48,7 +48,7 @@ export const ProfileTabContent = styled.div`
       font-size: 20px;
       margin-bottom: 20px;
     };
-    @media (max-width: ${SM}) {
+    @media (max-width: ${TB}) {
       border: none;
       margin-left: 0;
       padding: 20px 0;
@@ -71,7 +71,7 @@ export const ProfileCard = styled.div`
   gap: 25px;
   position: relative;
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     border: none;
     padding: 0;
   }
@@ -158,7 +158,7 @@ export const ProfileCard = styled.div`
       }
     }
 
-    @media (max-width: ${SM}) {
+    @media (max-width: ${TB}) {
       height: auto;
     }
   }

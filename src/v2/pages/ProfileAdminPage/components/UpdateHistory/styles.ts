@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const UpdateHistoryWrapper = styled.div`
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     thead {
       display: none;
     }
@@ -68,7 +68,7 @@ export const OldValue = styled.s`
   color: #935555;
   font-weight: 600;
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     font-weight: 500;
     font-size: 12px;
   }
@@ -78,7 +78,7 @@ export const NewValue = styled.span`
   color: #4c9153;
   font-weight: 600;
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     font-weight: 500;
     font-size: 12px;
   }
@@ -89,7 +89,7 @@ export const DocItems = styled.div`
   gap: 6px;
   margin-top: 6px;
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     flex-wrap: wrap;
   }
 `;

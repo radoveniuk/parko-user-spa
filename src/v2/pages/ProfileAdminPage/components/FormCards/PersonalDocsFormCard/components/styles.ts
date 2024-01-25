@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const DocForm = styled.div`
   .title {
@@ -17,7 +17,7 @@ export const DocForm = styled.div`
       grid-column: 1 / 3;
     }
 
-    @media (max-width: ${SM}) {
+    @media (max-width: ${TB}) {
       grid-template-columns: 1fr;
       .big-field {
         grid-column: 1 / 1;

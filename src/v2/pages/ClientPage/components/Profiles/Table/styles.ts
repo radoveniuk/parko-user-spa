@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { SM, TB } from 'theme/sizeBreakpoints';
+import { TB, TB } from 'theme/sizeBreakpoints';
 
 export const TableWrapper = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ export const TableWrapper = styled.div`
 
   .mobile-list {
     display: none;
-    @media (max-width: ${SM}) {
+    @media (max-width: ${TB}) {
       display: initial;
     }
   }

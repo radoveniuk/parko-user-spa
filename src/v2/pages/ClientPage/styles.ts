@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { SM } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const ClientPageWrapper = styled.div`
   margin-top: 18px;
@@ -11,7 +11,7 @@ export const ClientPageWrapper = styled.div`
     grid-template-columns: 360px 1fr;
     padding-left: 1px;
     
-    @media (max-width: ${SM}) {
+    @media (max-width: ${TB}) {
       margin-top: 0;
       grid-template-columns: 1fr;
       max-height: none;
@@ -19,7 +19,7 @@ export const ClientPageWrapper = styled.div`
     }
   }
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     margin-top: 0;
   }
 `;
@@ -30,7 +30,7 @@ export const ContentWrapper = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
 
-  @media (max-width: ${SM}) {
+  @media (max-width: ${TB}) {
     padding: 10px;
     max-height: 100%;
   }
