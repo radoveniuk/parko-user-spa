@@ -22,7 +22,7 @@ export const UpdateHistoryWrapper = styled.div`
       position: relative;
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       background-color: #fff;
-      width: calc(100% - 100px);
+      width: calc(100% - 30px);
     }
 
     td {
@@ -41,10 +41,6 @@ export const UpdateHistoryWrapper = styled.div`
         overflow: auto;
       }
     }
-  }
-
-  @media (max-width: ${TB}) {
-    width: calc(100% - 30px);
   }
 `;
 
