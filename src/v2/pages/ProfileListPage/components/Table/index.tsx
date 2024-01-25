@@ -37,6 +37,7 @@ type TTable = {
   customFields: ICustomFormField[];
   setSelectedItems: React.Dispatch<React.SetStateAction<IUser[]>>;
   selectedItems: IUser[];
+  isFetching?: boolean;
 };
 const Table = ({
   activeCols,
@@ -45,6 +46,7 @@ const Table = ({
   customFields,
   setSelectedItems,
   selectedItems,
+  isFetching,
 }: TTable) => {
   const { t, i18n } = useTranslation();
   const queryClient = useQueryClient();
@@ -196,7 +198,7 @@ const Table = ({
             }}
           />
         ))}
-        {!pageItems.length && (
+        {!pageItems.length && isFetching && (
           iterateMap(20, (index) => (
             <ListTableRow key={index}>
               {allCols.map((emptyCol, emptyColIndex) => (

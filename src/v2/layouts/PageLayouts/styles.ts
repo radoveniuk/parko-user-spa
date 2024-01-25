@@ -5,7 +5,7 @@ import { PC, SM } from 'theme/sizeBreakpoints';
 export const MainWrapper = styled.main`
   position: relative;
   width: 100%;
-  /* overflow-x: hidden; */
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   padding-right: 12px;

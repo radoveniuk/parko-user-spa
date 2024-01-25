@@ -31,26 +31,32 @@ const LoginForm = () => {
         name="nickname"
         control={control}
         rules={{ required: { message: t('errorTexts.requiredField'), value: true } }}
-        render={({ field }) => <Input
-          label={t('user.email')}
-          type="text"
-          helperText={errors.nickname?.message ?? ''}
-          error={!_.isEmpty(errors.nickname)}
-          {...field}
-        />}
+        render={({ field }) => (
+          <Input
+            label={t('user.email')}
+            type="text"
+            helperText={errors.nickname?.message ?? ''}
+            error={!_.isEmpty(errors.nickname)}
+            theme="gray"
+            {...field}
+          />
+        )}
       />
       <Controller
         name="password"
         control={control}
         rules={{ required: { message: t('errorTexts.requiredField'), value: true } }}
-        render={({ field }) => <Input
-          label={t('user.password')}
-          type="password"
-          showPasswordIcon
-          helperText={errors.password?.message ?? ''}
-          error={!_.isEmpty(errors.password)}
-          {...field}
-        />}
+        render={({ field }) => (
+          <Input
+            label={t('user.password')}
+            type="password"
+            showPasswordIcon
+            helperText={errors.password?.message ?? ''}
+            error={!_.isEmpty(errors.password)}
+            theme="gray"
+            {...field}
+          />
+        )}
       />
       <Stack direction="row" justifyContent="end" alignItems="center" mt={'14px'}>
         <Button type="submit" variant="contained" disabled={!_.isEmpty(errors)}>{t('user.login')}</Button>

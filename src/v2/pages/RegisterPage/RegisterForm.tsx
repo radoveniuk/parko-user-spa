@@ -32,13 +32,16 @@ const RegisterForm = () => {
         name="name"
         control={control}
         rules={{ required: { message: t('errorTexts.requiredField'), value: true } }}
-        render={({ field }) => <Input
-          label={t('user.name')}
-          type="text"
-          helperText={errors.name?.message ?? ''}
-          error={!_.isEmpty(errors.name)}
-          {...field}
-        />}
+        render={({ field }) => (
+          <Input
+            label={t('user.name')}
+            type="text"
+            helperText={errors.name?.message ?? ''}
+            error={!_.isEmpty(errors.name)}
+            theme="gray"
+            {...field}
+          />
+        )}
       />
       <Controller
         name="surname"
@@ -49,6 +52,7 @@ const RegisterForm = () => {
           type="text"
           helperText={errors.surname?.message ?? ''}
           error={!_.isEmpty(errors.surname)}
+          theme="gray"
           {...field}
         />}
       />
@@ -61,6 +65,7 @@ const RegisterForm = () => {
           type="text"
           helperText={errors.email?.message ?? ''}
           error={!_.isEmpty(errors.email)}
+          theme="gray"
           {...field}
         />}
       />
@@ -74,6 +79,7 @@ const RegisterForm = () => {
             {...field}
             error={!_.isEmpty(errors.phone)}
             helperText={errors.phone?.message ?? ''}
+            theme="gray"
           />
         )}
       />
@@ -87,6 +93,7 @@ const RegisterForm = () => {
           showPasswordIcon
           helperText={errors.password?.message ?? ''}
           error={!_.isEmpty(errors.password)}
+          theme="gray"
           {...field}
         />}
       />

@@ -183,7 +183,7 @@ const HomePage = () => {
                   <Link to="/accommodation"><Button>{t('showAll')}</Button></Link>
                 </FormCardHeader>
                 <FormCardBody>
-                  {!!dashboard.daysoff.length && (
+                  {!!dashboard.accommodations.length && (
                     <TableContainer>
                       <Table size="small">
                         <TableHead>

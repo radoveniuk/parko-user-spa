@@ -14,6 +14,8 @@ const useFilters = () => {
   useEffect(() => {
     if (isEmpty(omit(pageQueries, 'page'))) {
       context.initFilters();
+    } else {
+      context.setFiltersState(omit(pageQueries, 'page'));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

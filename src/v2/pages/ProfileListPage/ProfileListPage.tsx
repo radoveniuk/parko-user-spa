@@ -30,10 +30,10 @@ const ProfileListPageRender = () => {
   const { t } = useTranslation();
   useDocumentTitle(t('profileList'));
 
-  const { debouncedFiltersState, filtersState, removeFilter } = useFilters();
+  const { debouncedFiltersState, filtersState, removeFilter, addFilter } = useFilters();
 
   // table content
-  const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
+  const { data = [], refetch, remove, isFetching } = useGetUserList(debouncedFiltersState, { enabled: false });
 
   // filters
   const { data: usersFilter = [] } = useGetUserListForFilter();
@@ -60,6 +60,8 @@ const ProfileListPageRender = () => {
     setStoredColsSettings(JSON.stringify({ cols: activeCols }));
   }, [activeCols, setStoredColsSettings]);
 
+  const projectsFilter = filtersState?.projects?.split(',');
+
   return (
     <ProfileListPageWrapper cols={activeCols.length + 1}>
       <div className="container-table">
@@ -82,12 +84,15 @@ const ProfileListPageRender = () => {
             limitTags={1}
             placeholder={t('search')}
           />
-          {!!filtersState?.project && (
+          {projectsFilter?.map(projectId => (
             <Chip
-              label={`${t('user.project')}: ${projects.find(project => project._id === filtersState.project)?.name}`}
-              onDelete={() => void removeFilter('project')}
+              key={projectId}
+              label={`${t('user.project')}: ${projects.find(project => project._id === projectId)?.name}`}
+              onDelete={() => projectsFilter.length > 1
+                ? addFilter('projects', projectsFilter.filter(id => id !== projectId).toString())
+                : removeFilter('projects')}
             />
-          )}
+          ))}
           {!!filtersState?.status && (
             <Chip
               label={`${t('user.status')}: ${translatedStatuses.find(status => status.value === filtersState?.status)?.label}`}
@@ -97,14 +102,14 @@ const ProfileListPageRender = () => {
           <AddFilterButton
             filterOptions={[
               {
-                id: 'project',
+                id: 'projects',
                 name: t('user.project'),
                 popperComponent: (onSelect) => (
                   <Autocomplete
                     style={{ minWidth: 300 }}
                     options={projects}
-                    getOptionLabel={(option) => option.name}
-                    onChange={(project: IProject) => void onSelect(project._id)}
+                    getOptionLabel={(option) => `${option.client?.name ? `${option.client?.name} > ` : ''}${option.name}`}
+                    onChange={(project: IProject) => void onSelect(filtersState?.projects ? `${filtersState?.projects},${project._id}` : project._id)}
                   />
                 ),
               },
@@ -129,6 +134,7 @@ const ProfileListPageRender = () => {
           customFields={customFields}
           setSelectedItems={setSelectedItems}
           selectedItems={selectedItems}
+          isFetching={isFetching}
         />
       </div>
       {openPrintDialog && (

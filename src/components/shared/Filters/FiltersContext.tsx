@@ -19,7 +19,8 @@ type contextType = {
   clearFilters(): void;
   initFilters(): void;
   openDrawerFilter: boolean;
-  setOpenDrawerFilter: React.Dispatch<React.SetStateAction<boolean>>
+  setOpenDrawerFilter: React.Dispatch<React.SetStateAction<boolean>>;
+  setFiltersState: React.Dispatch<React.SetStateAction<AnyObject | undefined>>;
 };
 
 export const FiltersContext = createContext<contextType | undefined>(undefined);
@@ -41,7 +42,7 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
       navigate({
         search: createSearchParams({
           ...pageQueries,
-          page: '1',
+          page: '0',
           [key]: value,
         }).toString(),
       });
@@ -54,7 +55,7 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
       navigate({
         search: createSearchParams({
           ...omit(pageQueries, key),
-          page: '1',
+          page: '0',
         }).toString(),
       });
     }
@@ -84,6 +85,7 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
         initFilters,
         openDrawerFilter,
         setOpenDrawerFilter,
+        setFiltersState,
       }}
     >
       {children}

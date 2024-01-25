@@ -49,7 +49,7 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
 
     input {
       padding: 10px 14px;
-      height: -webkit-fill-available;
+      /* height: -webkit-fill-available; */
     }
 
     /* Chrome, Safari, Edge, Opera */

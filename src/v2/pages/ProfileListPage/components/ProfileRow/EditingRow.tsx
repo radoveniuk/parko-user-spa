@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import DatePicker from 'v2/uikit/DatePicker';
 import IconButton from 'v2/uikit/IconButton';
@@ -32,7 +31,6 @@ import { useProfileRowContext } from './context';
 import { FormFieldWrapper, LinkWrapper } from './styles';
 
 const EditingRow = () => {
-  const { t } = useTranslation();
   const { data, selected, onChangeSelect, cols, saveEdit, style } = useProfileRowContext();
   const { register, formState: { errors }, control, handleSubmit } = useForm<IUser>();
 
@@ -100,8 +98,9 @@ const EditingRow = () => {
       <FormFieldWrapper style={style}>
         {(fieldData?.type === 'string' || fieldData?.type === 'number') && (
           <Input
+            variant="standard"
             type={fieldData.type}
-            label={t(`user.${fieldName}`)}
+            // label={t(`user.${fieldName}`)}
             defaultValue={data?.[fieldName] || ''}
             error={!!errors[fieldName]}
             helperText={errors?.[fieldName] && (errors?.[fieldName] as any).message}
@@ -113,8 +112,9 @@ const EditingRow = () => {
         )}
         {(fieldData?.type === 'textarea') && (
           <Input
+            variant="standard"
             type={fieldData.type}
-            label={t(`user.${fieldName}`)}
+            // label={t(`user.${fieldName}`)}
             defaultValue={data?.[fieldName] || ''}
             error={!!errors[fieldName]}
             helperText={errors?.[fieldName] && (errors?.[fieldName] as any).message}
@@ -132,9 +132,10 @@ const EditingRow = () => {
             rules={{ validate: (value) => !value || checkPhoneNumber(value as string), required: fieldData.required }}
             render={({ field }) => (
               <PhoneInput
+                variant="standard"
                 value={field.value as string}
                 onChange={field.onChange}
-                label={t('project.phone')}
+                // label={t('project.phone')}
                 error={!!errors.phone}
               />
             )}
@@ -149,7 +150,7 @@ const EditingRow = () => {
               <BooleanSelect
                 defaultValue={field.value as boolean}
                 onChange={field.onChange}
-                label={t(`user.${fieldName}`)}
+                // label={t(`user.${fieldName}`)}
               />
             )}
           />
@@ -161,9 +162,10 @@ const EditingRow = () => {
             defaultValue={data?.[fieldName] || ''}
             render={({ field }) => (
               <DatePicker
+                inputProps={{ variant: 'standard' }}
                 defaultValue={field.value as string}
                 onChange={field.onChange}
-                label={t(`user.${fieldName}`)}
+                // label={t(`user.${fieldName}`)}
               />
             )}
           />
@@ -172,7 +174,7 @@ const EditingRow = () => {
           <Select
             options={selectOptions[fieldName] || []}
             defaultValue={data?.[fieldName] || ''}
-            label={t(`user.${fieldName}`)}
+            // label={t(`user.${fieldName}`)}
             style={{ minWidth: 200 }}
             error={!!errors[fieldName]}
             {...register(fieldName, {
@@ -185,7 +187,7 @@ const EditingRow = () => {
           <Select
             options={dynamicSelectOptions[fieldName].options || []}
             defaultValue={typeof data?.[fieldName] === 'object' ? (data?.[fieldName] as AnyObject)?._id || '' : data?.[fieldName]}
-            label={t(`user.${fieldName}`)}
+            // label={t(`user.${fieldName}`)}
             style={{ minWidth: 200 }}
             error={!!errors[fieldName]}
             valuePath="_id"
