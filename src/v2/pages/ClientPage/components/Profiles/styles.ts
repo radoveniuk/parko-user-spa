@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { TB, TB } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const ProfilesWrapper = styled.div<{cols: number }>`
   border-radius: 5px;

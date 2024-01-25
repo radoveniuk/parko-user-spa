@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { TB, TB } from 'theme/sizeBreakpoints';
+import { TB } from 'theme/sizeBreakpoints';
 
 export const TableWrapper = styled.div`
   display: flex;
