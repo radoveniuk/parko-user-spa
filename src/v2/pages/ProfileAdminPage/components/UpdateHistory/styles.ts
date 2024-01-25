@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { TB } from 'theme/sizeBreakpoints';
 
 export const UpdateHistoryWrapper = styled.div`
-  @media (max-width: ${TB}) {
+  @media (max-width: 1040px) {
     thead {
       display: none;
     }
@@ -22,7 +22,7 @@ export const UpdateHistoryWrapper = styled.div`
       position: relative;
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       background-color: #fff;
-      width: calc(100% - 30px);
+      width: calc(100% - 100px);
     }
 
     td {
@@ -41,6 +41,10 @@ export const UpdateHistoryWrapper = styled.div`
         overflow: auto;
       }
     }
+  }
+
+  @media (max-width: ${TB}) {
+    width: calc(100% - 30px);
   }
 `;
 

@@ -76,7 +76,7 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
                 )}
                 {!formCardConfig.isEditingTitle && (
                   <>
-                    {watch('name')}
+                    <div className="project-name">{watch('name')}</div>
                     <IconButton onClick={() => void updateFormCardConfig({ isEditingTitle: true })}><EditIcon /></IconButton>
                   </>
                 )}

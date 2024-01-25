@@ -23,7 +23,10 @@ export const FormCardHeaderWrapper = styled.div`
   justify-content: space-between;
   padding: 13px 20px;
   align-items: center;
-  border-bottom: 1px solid #D0D0D0;;
+  border-bottom: 1px solid #D0D0D0;
+  gap: 12px;
+  flex-wrap: wrap;
+  
   .left, .right {
     display: flex;
     align-items: center;
@@ -43,12 +46,10 @@ export const FormCardHeaderWrapper = styled.div`
       max-width: 100%;
       text-overflow: ellipsis;
       white-space: nowrap;
-      @media (max-width: ${TB}) {
-        max-width: 150px;
-      }
     }
   }
   .right {
+    margin-left: auto;
     button {
       max-height: 20px;
     }

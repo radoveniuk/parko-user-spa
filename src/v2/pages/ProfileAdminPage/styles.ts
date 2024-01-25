@@ -46,7 +46,7 @@ export const ContentWrapper = styled.div`
       gap: 20px;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: ${TB}) {
       width: 100%;
     }
 

@@ -23,6 +23,12 @@ export const ProjectTitleWrapper = styled.div`
       font-weight: 600;
     }
   }
+
+  .project-name {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 export const TypeRadioButtons = styled(RadioGroup)`
@@ -31,7 +37,7 @@ export const TypeRadioButtons = styled(RadioGroup)`
   gap: 10px;
   margin-bottom: 15px;
 
-  @media (max-width: ${TB}) {
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
 

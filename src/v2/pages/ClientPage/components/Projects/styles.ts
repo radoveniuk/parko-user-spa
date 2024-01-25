@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { TB } from 'theme/sizeBreakpoints';
+
 export const ProjectsWrapper = styled.div`
   display: flex;
   gap: 24px;
@@ -12,7 +14,7 @@ export const ProjectsWrapper = styled.div`
     gap: 20px;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: ${TB}) {
     width: 100%;
   }
 

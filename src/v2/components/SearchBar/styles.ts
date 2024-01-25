@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-import { PC } from 'theme/sizeBreakpoints';
-
 export const SearchWrapper = styled.div`
   width: 648px;
   position: relative;
 
-  @media (max-width: ${PC}) {
+  @media (max-width: 1040px) {
     display: none;
   }
 
