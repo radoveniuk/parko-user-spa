@@ -1,1 +1,1 @@
-export { default } from './FileUploadArea.jsx';
+export { default } from './FileUploadArea';
