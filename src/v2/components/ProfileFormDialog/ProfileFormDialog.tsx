@@ -10,6 +10,7 @@ import Select from 'v2/uikit/Select';
 
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList } from 'api/query/userQuery';
+import { USER_STATUSES } from 'constants/statuses';
 import { ROLES } from 'constants/userRoles';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -17,7 +18,8 @@ import { IUser } from 'interfaces/users.interface';
 
 import { CountrySelectOption, FormWrapper } from './styles';
 
-type Data = Pick<IUser, 'name' | 'surname' | 'email' | 'birthDate' | 'country' | 'sex' | 'adress' | 'source' | 'recruiter' | 'phone' | 'role'>
+type Data = Pick<IUser, 'name' | 'surname' | 'email' | 'birthDate' | 'country' | 'sex' |
+'adress' | 'source' | 'recruiter' | 'phone' | 'role' | 'status'>
 
 export type ProfileFormDialogProps = DialogProps & {
   data?: Data;
@@ -29,6 +31,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const { t } = useTranslation();
   const sexOptions = useTranslatedSelect(['male', 'female']);
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
 
@@ -144,6 +147,14 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             {...register('role')}
           />
         )}
+        <Select
+          theme="gray"
+          options={translatedStatuses}
+          defaultValue={data?.status || ''}
+          label={t('user.status')}
+          {...register('status')}
+          emptyItem="noSelected"
+        />
       </FormWrapper>
       <DialogActions>
         <Button onClick={handleSubmit(submitHamdler)} variant="contained">{t('save')}</Button>

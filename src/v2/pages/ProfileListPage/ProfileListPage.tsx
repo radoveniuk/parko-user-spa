@@ -22,9 +22,7 @@ import HeaderTable from './components/HeaderTable';
 import Table from './components/Table';
 import { FilterTableWrapper, ProfileListPageWrapper } from './styles';
 
-const DEFAULT_COLS = [
-  'user.email',
-];
+const DEFAULT_COLS = ['user.email'];
 
 const ProfileListPageRender = () => {
   const { t } = useTranslation();
@@ -60,7 +58,8 @@ const ProfileListPageRender = () => {
     setStoredColsSettings(JSON.stringify({ cols: activeCols }));
   }, [activeCols, setStoredColsSettings]);
 
-  const projectsFilter = filtersState?.projects?.split(',');
+  const projectsFilter = filtersState?.projects?.split(',') || [];
+  const statusesFilter = filtersState?.statuses?.split(',') || [];
 
   return (
     <ProfileListPageWrapper cols={activeCols.length + 1}>
@@ -84,21 +83,26 @@ const ProfileListPageRender = () => {
             limitTags={1}
             placeholder={t('search')}
           />
-          {projectsFilter?.map(projectId => (
+          {projectsFilter?.map((projectId) => (
             <Chip
               key={projectId}
               label={`${t('user.project')}: ${projects.find(project => project._id === projectId)?.name}`}
               onDelete={() => projectsFilter.length > 1
-                ? addFilter('projects', projectsFilter.filter(id => id !== projectId).toString())
+                ? addFilter('projects', projectsFilter.filter((id) => id !== projectId).toString())
                 : removeFilter('projects')}
+              className="filter-chip"
             />
           ))}
-          {!!filtersState?.status && (
+          {statusesFilter?.map((statusName) => (
             <Chip
-              label={`${t('user.status')}: ${translatedStatuses.find(status => status.value === filtersState?.status)?.label}`}
-              onDelete={() => void removeFilter('status')}
+              key={statusName}
+              label={`${t('user.status')}: ${translatedStatuses.find(status => status.value === statusName)?.label}`}
+              onDelete={() => statusesFilter.length > 1
+                ? addFilter('statuses', statusesFilter.filter((name) => name !== statusName).toString())
+                : removeFilter('statuses')}
+              className="filter-chip"
             />
-          )}
+          ))}
           <AddFilterButton
             filterOptions={[
               {
@@ -109,18 +113,22 @@ const ProfileListPageRender = () => {
                     style={{ minWidth: 300 }}
                     options={projects}
                     getOptionLabel={(option) => `${option.client?.name ? `${option.client?.name} > ` : ''}${option.name}`}
-                    onChange={(project: IProject) => void onSelect(filtersState?.projects ? `${filtersState?.projects},${project._id}` : project._id)}
+                    onChange={(project: IProject) => {
+                      onSelect(projectsFilter.length ? [...(new Set([...projectsFilter, project._id]))].toString() : project._id);
+                    }}
                   />
                 ),
               },
               {
-                id: 'status',
+                id: 'statuses',
                 name: t('user.status'),
                 popperComponent: (onSelect) => (
                   <Select
                     style={{ minWidth: 300 }}
                     options={translatedStatuses}
-                    onChange={(e) => void onSelect(e.target.value)}
+                    onChange={(e) => {
+                      onSelect(statusesFilter.length ? [...(new Set([...statusesFilter, e.target.value]))].toString() : e.target.value);
+                    }}
                   />
                 ),
               },
