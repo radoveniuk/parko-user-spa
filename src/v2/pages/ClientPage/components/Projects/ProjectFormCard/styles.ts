@@ -56,6 +56,7 @@ export const PositionsWrapper = styled.div`
   gap: 15px;
   margin-top: 15px;
   margin-bottom: 10px;
+  position: relative;
 `;
 
 export const PositionWrapper = styled.div`

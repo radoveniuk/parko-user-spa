@@ -29,8 +29,11 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
   const { role } = useAuthData();
 
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [positionToDelete, setPositionToDelete] = useState<ProjectPosition | null>(null);
 
-  const [positions, { add: addPosition }] = useListState<ProjectPosition>(data.positions);
+  const [positions, { add: addPosition, remove: removePosition }] = useListState<ProjectPosition>(data.positions);
+
+  const [projectName, setProjectName] = useState(data.name);
 
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
 
@@ -50,6 +53,13 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
     matterId: createId(),
   });
 
+  const onDeletePosition = () => {
+    if (positionToDelete) {
+      onChange({ positions: removePosition(positionToDelete) });
+      setPositionToDelete(null);
+    }
+  };
+
   const isOutsorce = watch('type') === 'Outsourcing';
 
   return (
@@ -62,11 +72,16 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
               <ProjectTitleWrapper>
                 {formCardConfig.isEditingTitle && (
                   <>
-                    <Input className="name-field" variant="standard" autoFocus {...register('name')} />
+                    <Input
+                      className="name-field"
+                      variant="standard"
+                      autoFocus
+                      value={projectName}
+                      onChange={(e) => void setProjectName(e.target.value)}
+                    />
                     <IconButton
                       onClick={() => {
-                        const { name } = getValues();
-                        onChange?.({ name });
+                        setValue('name', projectName);
                         updateFormCardConfig({ isEditingTitle: false });
                       }}
                     >
@@ -77,7 +92,9 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
                 {!formCardConfig.isEditingTitle && (
                   <>
                     <div className="project-name">{watch('name')}</div>
-                    <IconButton onClick={() => void updateFormCardConfig({ isEditingTitle: true })}><EditIcon /></IconButton>
+                    {!formCardConfig.disabled && (
+                      <IconButton onClick={() => void updateFormCardConfig({ isEditingTitle: true })}><EditIcon /></IconButton>
+                    )}
                   </>
                 )}
               </ProjectTitleWrapper>
@@ -297,6 +314,14 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
                         )}
                       />
                     )} */}
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      className="delete-position fullwidth"
+                      onClick={() => void setPositionToDelete(position)}
+                    >
+                      <DeleteIcon color={themeConfig.palette.error.main} />{t('delete')}
+                    </Button>
                   </div>
                 </PositionWrapper>
               ))}
@@ -321,6 +346,11 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
               open={openDeleteDialog}
               onClose={() => void setOpenDeleteDialog(false)}
               onSubmit={onDelete}
+            />
+            <DialogConfirm
+              open={!!positionToDelete}
+              onClose={() => void setPositionToDelete(null)}
+              onSubmit={onDeletePosition}
             />
           </FormCardBody>
         </FormCardContent>
