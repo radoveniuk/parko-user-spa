@@ -19,3 +19,9 @@ export const StyledTab = styled(Tab)`
     background: rgb(224, 224, 224);
   }
 `;
+
+export const TabPanelWrapper = styled.div`
+  &.hidden {
+    display: none !important;
+  }
+`;

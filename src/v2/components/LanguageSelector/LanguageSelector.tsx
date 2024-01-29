@@ -15,6 +15,7 @@ const LanguageSelector = ({ fullText = true, ...props }: Props) => {
   const { i18n } = useTranslation();
   const changeLanguageHandler = (lang: string) => {
     i18n.changeLanguage(lang);
+    window.location.reload();
   };
 
   return (

@@ -85,7 +85,9 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
         onClose={closeForm}
         onSave={(values) => {
           closeForm();
-          setClient(prev => ({ ...prev, ...values }));
+          const allManagers = (queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) || []) as IUser[];
+
+          setClient((prev) => ({ ...prev, ...values, managers: allManagers?.filter((item) => (values.managers as string[])?.includes(item._id)) }));
           onChange?.(values);
           updateClientMutation.mutate({ ...client, ...values });
         }}

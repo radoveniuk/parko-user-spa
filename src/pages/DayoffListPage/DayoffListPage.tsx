@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import IconButton from 'v2/uikit/IconButton';
 
 import { useCreateDayoffMutation, useDeleteDayoffMutation, useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
 import { useGetDaysoff } from 'api/query/dayoffQuery';
@@ -11,7 +12,6 @@ import Button from 'components/shared/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { FilterDate } from 'components/shared/Filters/Filters';
-import IconButton from 'v2/uikit/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { PageActions } from 'components/shared/PageComponents';
 import Pagination from 'components/shared/Pagination';
@@ -141,12 +141,14 @@ const DayoffListPageRender = () => {
                 </Link>
               </ListTableCell>
               <ListTableCell>
-                <Link
-                  to={`/projects?id=${project._id}`}
-                  className="table-link"
-                >
-                  {project.name}
-                </Link>
+                {!!project && (
+                  <Link
+                    to={`/projects?id=${project._id}`}
+                    className="table-link"
+                  >
+                    {project.name}
+                  </Link>
+                )}
               </ListTableCell>
               <ListTableCell>
                 <p

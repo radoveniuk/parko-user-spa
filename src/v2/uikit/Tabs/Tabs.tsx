@@ -2,7 +2,7 @@ import React from 'react';
 import { TabProps } from '@mui/material/Tab';
 import { TabsProps } from '@mui/material/Tabs';
 
-import { StyledTab, StyledTabs } from './styles';
+import { StyledTab, StyledTabs, TabPanelWrapper } from './styles';
 import TabsProvider, { useTabs } from './TabsContext';
 
 type BaseProps = {
@@ -32,17 +32,17 @@ interface TabPanelProps {
   index: number;
 }
 
-export const TabPanel = ({ children, index, ...rest }: TabPanelProps) => {
+export const TabPanel = ({ children, index, className }: TabPanelProps) => {
   const [value] = useTabs();
   return (
-    <div
+    <TabPanelWrapper
       role="tabpanel"
       hidden={value !== index}
+      className={`${className} ${value !== index ? 'hidden' : ''}`}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...rest}
     >
-      {value === index && children}
-    </div>
+      {children}
+    </TabPanelWrapper>
   );
 };

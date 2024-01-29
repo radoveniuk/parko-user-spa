@@ -153,6 +153,7 @@
     "permitAdress": "Реєстраційна адреса",
     "permitDepartment": "Районний відділ",
     "permitNumber": "Номер запису в реєстрі",
+    "permitCardNumber": "Номер карти",
     "blocked": "Чорний список",
     "notes": "Примітки",
     "oldPassword": "Попередній пароль",
@@ -188,7 +189,8 @@
     "change": "Змінити",
     "fire": "Звільнити",
     "updateEmploymentInfo": "Змінити інформацію про працевлаштування",
-    "addEmployment": "Додати співпрацю"
+    "addEmployment": "Додати співпрацю",
+    "alreadyExistsError": "Користувач з таким імейлом вже зареєстрований"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",

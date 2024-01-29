@@ -9,7 +9,7 @@ export const useCreateEmployment = () => {
 };
 
 export const useUpdateEmployment = () => {
-  const request = (data: IEmployment) => api.put(`/employments/${data._id}`, data).then(res => res.data.data);
+  const request = (data: Partial<IEmployment>) => api.put(`/employments/${data._id}`, data).then(res => res.data.data);
   return useMutation(request);
 };
 

@@ -107,16 +107,20 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
   const queryClient = useQueryClient();
   const { filtersState } = useFilters();
 
-  const createNewProfileHndler = (data: Partial<IUser>) => {
+  const createNewProfileHandler = (data: Partial<IUser>) => {
     setOpenNewProfile(false);
     const recruiter = data.recruiter as IUser | null;
     const values = { ...data, recruiter: recruiter?._id || null, password: DEFAULT_PASS };
     const queryKey = ['users', JSON.stringify(filtersState)];
     queryClient.setQueryData(queryKey, [values, ...(queryClient.getQueryData(queryKey) as IUser[])]);
-    createUserMutation.mutateAsync(values).then((res) => {
-      const [, ...oldItems] = queryClient.getQueryData(queryKey) as IUser[];
-      queryClient.setQueryData(queryKey, [res, ...oldItems]);
-    });
+    const [, ...oldItems] = queryClient.getQueryData(queryKey) as IUser[];
+    createUserMutation.mutateAsync(values)
+      .then((res) => {
+        queryClient.setQueryData(queryKey, [res, ...oldItems]);
+      })
+      .catch(() => {
+        queryClient.setQueryData(queryKey, oldItems);
+      });
   };
 
   return (
@@ -189,7 +193,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
       <ProfileFormDialog
         open={openNewProfile}
         onClose={() => void setOpenNewProfile(false)}
-        onSave={createNewProfileHndler}
+        onSave={createNewProfileHandler}
       />
     </>
   );

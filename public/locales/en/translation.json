@@ -152,6 +152,7 @@
     "permitAdress": "Permit register adress",
     "permitDepartment": "Permit department",
     "permitNumber": "Permit document number",
+    "permitCardNumber": "Card number",
     "blocked": "Black list",
     "notes": "Notes",
     "oldPassword": "Old password",
@@ -188,7 +189,8 @@
     "change": "Change",
     "fire": "Fire",
     "updateEmploymentInfo": "Update employment info",
-    "addEmployment": "Add employment"
+    "addEmployment": "Add employment",
+    "alreadyExistsError": "A user with this email already exists"
   },
   "userHistory": {
     "updatedBy": "Updated by",

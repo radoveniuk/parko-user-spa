@@ -60,18 +60,19 @@ const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProp
               onChange={field.onChange}
               disableCloseOnSelect
               limitTags={2}
+              theme="gray"
             />
           )}
         />
-        <Input label={`${t('client.company')}*`} error={!!errors.name} {...register('name', { required: true })} />
-        <Input label={t('client.ICO')} {...register('ICO')} />
-        <Input label={t('client.DIC')} {...register('DIC')} />
-        <Input label={t('client.ICDPH')} {...register('ICDPH')} />
-        <Input label={t('client.sidlo')} {...register('sidlo')} />
-        <Input label={t('client.websiteUrl')} {...register('websiteUrl')} />
-        <Input label={t('client.contactPerson')} {...register('contactPerson')} />
-        <Input label={t('client.contactPersonPosition')} {...register('contactPersonPosition')} />
-        <Input label={t('Email')} {...register('email', { validate: (v) => !v || validateEmail(v) })} />
+        <Input label={`${t('client.company')}*`} error={!!errors.name} theme="gray" {...register('name', { required: true })} />
+        <Input label={t('client.ICO')} theme="gray" {...register('ICO')} />
+        <Input label={t('client.DIC')} theme="gray" {...register('DIC')} />
+        <Input label={t('client.ICDPH')} theme="gray" {...register('ICDPH')} />
+        <Input label={t('client.sidlo')} theme="gray" {...register('sidlo')} />
+        <Input label={t('client.websiteUrl')} theme="gray" {...register('websiteUrl')} />
+        <Input label={t('client.contactPerson')} theme="gray" {...register('contactPerson')} />
+        <Input label={t('client.contactPersonPosition')} theme="gray" {...register('contactPersonPosition')} />
+        <Input label={t('Email')} theme="gray" {...register('email', { validate: (v) => !v || validateEmail(v) })} />
         <Controller
           control={control}
           name="phone"
@@ -83,10 +84,11 @@ const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProp
               onChange={field.onChange}
               label={t('client.phone')}
               error={!!errors.phone}
+              theme="gray"
             />
           )}
         />
-        <Select label={t('client.status')} options={statuses} defaultValue={data?.status} {...register('status')} />
+        <Select label={t('client.status')} options={statuses} defaultValue={data?.status} theme="gray" {...register('status')} />
         <Controller
           control={control}
           name="cooperationStartDate"
@@ -95,6 +97,7 @@ const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProp
               defaultValue={field.value}
               onChange={field.onChange}
               label={t('client.cooperationStartDate')}
+              inputProps={{ theme: 'gray' }}
             />
           )}
         />
@@ -106,6 +109,7 @@ const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProp
               defaultValue={field.value}
               onChange={field.onChange}
               label={t('client.cooperationEndDate')}
+              inputProps={{ theme: 'gray' }}
             />
           )}
         />

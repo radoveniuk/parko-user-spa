@@ -37,6 +37,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
   const closeForm = () => void setIsOpenForm(false);
 
   const [user, setUser] = useState(data);
+
   const recruiter = user.recruiter as IUser | null;
 
   const [showNewTagField, setShowNewTagField] = useState(false);
@@ -125,7 +126,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
         </div>
       </ProfileCardWrapper>
       <ProfileFormDialog
-        data={{ ...user, recruiter: recruiter || null }}
+        data={{ ...user, recruiter: recruiter?._id || null }}
         title={`${user.name} ${user.surname}`}
         open={isOpenForm}
         onClose={closeForm}

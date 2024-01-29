@@ -26,7 +26,7 @@ const Employments = ({ data }: Props) => {
       key={item._id}
       data={item}
       onChange={(values) => {
-        updateEmployment.mutate({ ...item, ...values });
+        updateEmployment.mutate({ _id: item._id, ...values });
       }}
       onDelete={() => {
         deleteEmployment.mutate(item._id);

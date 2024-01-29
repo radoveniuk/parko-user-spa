@@ -153,6 +153,7 @@
     "permitAdress": "Miesto podnikania",
     "permitDepartment": "Okresný úrad",
     "permitNumber": "Číslo živnostenského registru",
+    "permitCardNumber": "Číslo",
     "blocked": "Black List",
     "notes": "Poznámky",
     "workHistory": "Historia prace",
@@ -185,7 +186,8 @@
     "change": "Zmeniť",
     "fire": "Ukončiť",
     "updateEmploymentInfo": "Zmeňte informácie o zamestnaní",
-    "addEmployment": "Pridať spolupracu"
+    "addEmployment": "Pridať spolupracu",
+    "alreadyExistsError": "Používateľ s týmto e-mailom už existuje"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",

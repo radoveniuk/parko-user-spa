@@ -132,7 +132,7 @@ const Permit = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
           })}
         />
         <Input
-          label={t('user.permitNumber')}
+          label={t('user.permitCardNumber')}
           disabled={disabled}
           error={!!errors.number}
           {...register('number', {

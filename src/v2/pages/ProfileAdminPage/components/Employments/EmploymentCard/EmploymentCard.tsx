@@ -42,7 +42,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
     onChange(values);
   };
 
-  const project = projects.find((projectItem) => projectItem._id === watch('project'));
+  const project = projects?.find((projectItem) => projectItem._id === watch('project'));
   const position = project?.positions?.find((positionItem) => positionItem.matterId === watch('positionId'));
   const user = queryClient.getQueryData(['user-data', userId]) as IUser;
 
@@ -103,7 +103,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                     theme="gray"
                     labelPath="name"
                     valuePath="_id"
-                    options={projects.filter((projectItem) => (projectItem.client as IClient)?._id === watch('client'))}
+                    options={projects?.filter((projectItem) => (projectItem.client as IClient)?._id === watch('client'))}
                     disabled={formCardConfig.disabled}
                     defaultValue={data?.project}
                     maxWidth="100%"
@@ -185,8 +185,8 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                       <div className="row">Zdravotna poistovna: {user.medicalInsurance}</div>
                       <div className="row">Národnosť: {user.country}</div>
                       <div className="row">Statna prislusnost: {user.country}</div>
-                      <div className="row">Pohlavie: {user.sex}</div>
-                      <div className="row">Rodiny stav: {user.familyStatus}</div>
+                      <div className="row">Pohlavie: {t(user.sex)}</div>
+                      <div className="row">Rodiny stav: {t(`selects.familyStatus.${user.familyStatus}`)}</div>
                       <div className="row">IBAN: {user.IBAN}</div>
                       <div className="row">Adresa: {user.adress}</div>
                       <div className="row">PSČ: {user.zip}</div>

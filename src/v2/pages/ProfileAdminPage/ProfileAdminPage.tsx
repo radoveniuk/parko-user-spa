@@ -138,7 +138,7 @@ const ProfileAdminPageRender = () => {
           </>
         )}
       >
-        <Link to="/profiles">{t('navbar.clients')}</Link>
+        <Link to="/profiles">{t('profileList')}</Link>
         <Link to={`/profile/${userId}`}>{profileData.name} {profileData.surname}</Link>
         <div>{t(TABS[tab])}</div>
       </BreadCrumbs>

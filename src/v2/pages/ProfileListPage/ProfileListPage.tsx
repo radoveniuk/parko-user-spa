@@ -15,6 +15,7 @@ import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shar
 import { USER_STATUSES } from 'constants/statuses';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IClient } from 'interfaces/client.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
@@ -83,16 +84,20 @@ const ProfileListPageRender = () => {
             limitTags={1}
             placeholder={t('search')}
           />
-          {projectsFilter?.map((projectId) => (
-            <Chip
-              key={projectId}
-              label={`${t('user.project')}: ${projects.find(project => project._id === projectId)?.name}`}
-              onDelete={() => projectsFilter.length > 1
-                ? addFilter('projects', projectsFilter.filter((id) => id !== projectId).toString())
-                : removeFilter('projects')}
-              className="filter-chip"
-            />
-          ))}
+          {projectsFilter?.map((projectId) => {
+            const project = projects.find(project => project._id === projectId) as IProject;
+            const client = project?.client as IClient | null;
+            return (
+              <Chip
+                key={projectId}
+                label={`${t('user.project')}: ${client ? `${client.name} > ` : ''}${project?.name}`}
+                onDelete={() => projectsFilter.length > 1
+                  ? addFilter('projects', projectsFilter.filter((id) => id !== projectId).toString())
+                  : removeFilter('projects')}
+                className="filter-chip"
+              />
+            );
+          })}
           {statusesFilter?.map((statusName) => (
             <Chip
               key={statusName}
@@ -111,8 +116,9 @@ const ProfileListPageRender = () => {
                 popperComponent: (onSelect) => (
                   <Autocomplete
                     style={{ minWidth: 300 }}
-                    options={projects}
+                    options={projects.filter((projectItem) => !projectsFilter.includes(projectItem._id))}
                     getOptionLabel={(option) => `${option.client?.name ? `${option.client?.name} > ` : ''}${option.name}`}
+                    value={null}
                     onChange={(project: IProject) => {
                       onSelect(projectsFilter.length ? [...(new Set([...projectsFilter, project._id]))].toString() : project._id);
                     }}
@@ -125,7 +131,7 @@ const ProfileListPageRender = () => {
                 popperComponent: (onSelect) => (
                   <Select
                     style={{ minWidth: 300 }}
-                    options={translatedStatuses}
+                    options={translatedStatuses.filter((statusItem) => !statusesFilter.includes(statusItem.value))}
                     onChange={(e) => {
                       onSelect(statusesFilter.length ? [...(new Set([...statusesFilter, e.target.value]))].toString() : e.target.value);
                     }}

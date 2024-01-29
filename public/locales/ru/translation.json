@@ -153,6 +153,7 @@
     "permitAdress": "Регистрационный адрес",
     "permitDepartment": "Районное управление",
     "permitNumber": "Номер записи в реестре",
+    "permitCardNumber": "Номер карты",
     "blocked": "Черный список",
     "notes": "Заметки",
     "oldPassword": "Предыдущий пароль",
@@ -188,7 +189,8 @@
     "change": "Изменить",
     "fire": "Уволить",
     "updateEmploymentInfo": "Изменить информацию о трудоустройстве",
-    "addEmployment": "Новое сотрудничество"
+    "addEmployment": "Новое сотрудничество",
+    "alreadyExistsError": "Пользователь с таким имейлом уже существует"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",

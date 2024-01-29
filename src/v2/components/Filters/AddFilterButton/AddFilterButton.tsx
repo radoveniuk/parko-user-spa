@@ -33,6 +33,13 @@ const AddFilterButton = ({ filterOptions }: Props) => {
     setSelectedFilter(null);
   };
 
+  const closeAndOpenFilterMenu = () => {
+    closeFilterMenu();
+    setTimeout(() => {
+      setOpenPopper(true);
+    }, 100);
+  };
+
   const filteredFilterOptions = useMemo(
     () => filterOptions.filter((filterItem) => filterItem.name.toLowerCase().includes(searchValue.toLowerCase())),
     [filterOptions, searchValue],
@@ -76,10 +83,10 @@ const AddFilterButton = ({ filterOptions }: Props) => {
                 <>
                   <MenuToolbar>
                     <span>{selectedFilter.name}</span>
-                    <IconButton color="inherit" onClick={() => void setSelectedFilter(null)}><CloseIcon /></IconButton>
+                    <IconButton color="inherit" onClick={closeFilterMenu}><CloseIcon /></IconButton>
                   </MenuToolbar>
                   <MenuWrapper>
-                    {selectedFilter.popperComponent((value) => { closeFilterMenu(); value && addFilter(selectedFilter.id, value); })}
+                    {selectedFilter.popperComponent((value) => { value && addFilter(selectedFilter.id, value); closeAndOpenFilterMenu(); })}
                   </MenuWrapper>
                 </>
               )}
