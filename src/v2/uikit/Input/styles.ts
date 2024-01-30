@@ -79,7 +79,5 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
     border-radius: 5px;
   }
 
-  fieldset {
-    pointer-events: initial !important;
-  }
+  
 `;
