@@ -12,13 +12,14 @@ import { DialogContent, DialogTitle } from './styles';
 export type Props = DialogProps & {
   onClose(): void;
   mobileFullscreen?: boolean;
+  color?: string;
 }
 
-const Dialog = ({ children, title, onClose, mobileFullscreen = false, ...rest }: Props) => {
+const Dialog = ({ children, title, onClose, mobileFullscreen = false, color, ...rest }: Props) => {
   const viewportWidth = useViewportWidth();
   return (
     <DialogMaterial {...rest} onClose={onClose} fullScreen={rest.fullScreen || (mobileFullscreen && viewportWidth <= Number(SM.replace('px', '')))}>
-      <DialogTitle>
+      <DialogTitle background={color}>
         {title}
         <IconButton onClick={onClose}>
           <CloseIcon size={20} color="#fff" />

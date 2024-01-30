@@ -61,7 +61,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
           <Chip label={t(`selects.userRole.${user.role}`)} />
           {user.position && <Chip label={user.position} />}
           {user.cooperationType && <Chip label={user.cooperationType} />}
-          {user.tags?.map((tag) => (
+          {user.tags?.filter(tag => !!tag).map((tag) => (
             <Chip key={tag} label={t(tag)} />
           ))}
           {!showNewTagField && (

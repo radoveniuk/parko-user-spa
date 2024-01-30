@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import isEmpty from 'lodash-es/isEmpty';
@@ -22,7 +22,7 @@ const SearchBar = () => {
   const [openSearchMenu, setOpenSearchMenu] = useState(false);
   const searchFieldRef = useRef<HTMLDivElement>(null);
 
-  useOutsideClick(searchFieldRef, () => { setOpenSearchMenu(false); });
+  useOutsideClick(searchFieldRef, useCallback(() => { setOpenSearchMenu(false); }, []));
 
   const location = useLocation();
 

@@ -80,7 +80,12 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
   const formCardRef = useRef<HTMLDivElement>(null);
 
   return (
-    <FormCard defaultConfig={{ triggerAll: false, disabled: true }}>
+    <FormCard
+      defaultConfig={{ triggerAll: false, disabled: true }}
+      onOutsideClick={({ warn }) => {
+        warn();
+      }}
+    >
       {({ formCardConfig, updateFormCardConfig }) => (
         <>
           <FormCardHeader icon={<PersonalDocIcon size={24} />} title={t('user.docsFields')}>

@@ -12,6 +12,10 @@ export const FormCardWrapper = styled.div`
   flex-direction: column;
   max-width: 600px;
   position: relative;
+  
+  &.warn {
+    box-shadow: rgb(184 103 0 / 52%) 0px 1px 3px 0px, rgb(255 0 0 / 12%) 0px 2px 1px -1px, rgb(255 0 0 / 14%) 0px 1px 1px 0px;
+  }
 
   @media (max-width: ${TB}) {
     margin: 0 12px;

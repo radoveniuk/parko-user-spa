@@ -1,4 +1,4 @@
-import React, { memo, ReactNode, useMemo, useRef, useState } from 'react';
+import React, { memo, ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Fade, Paper, Popper } from '@mui/material';
 import IconButton from 'v2/uikit/IconButton';
@@ -45,11 +45,11 @@ const AddFilterButton = ({ filterOptions }: Props) => {
     [filterOptions, searchValue],
   );
 
-  useOutsideClick([anchorEl, popperRef], () => {
+  useOutsideClick([anchorEl, popperRef], useCallback(() => {
     if (!selectedFilter) {
       closeFilterMenu();
     }
-  });
+  }, [selectedFilter]));
 
   return (
     <>

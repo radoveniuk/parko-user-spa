@@ -1,4 +1,11 @@
-import React, { CSSProperties, ForwardedRef, forwardRef, memo, PropsWithChildren, ReactNode, useState } from 'react';
+import React, { CSSProperties, ForwardedRef, forwardRef, memo, PropsWithChildren, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import useOutsideClick from 'hooks/useOutsideClick';
+import { AnyObject } from 'interfaces/base.types';
+
+import Button from '../Button';
+import Dialog, { DialogActions } from '../Dialog';
 
 import { FormCardBodyRowWrapper, FormCardBodyWrapper, FormCardHeaderWrapper, FormCardWrapper } from './styles';
 
@@ -7,19 +14,62 @@ type BaseProps = {
   style?: CSSProperties;
 };
 
+type FormCardOutsideClickAction = {
+  warn(text?: string): void;
+};
+
 export type FormCardProps<T> = BaseProps & {
   defaultConfig?: T;
   children?: ((props: { formCardConfig: T, updateFormCardConfig: (values: Partial<T>) => void }) => React.ReactNode)
   | React.ReactNode;
+  onOutsideClick?(actions: FormCardOutsideClickAction): void;
 };
 
-function Card<T> ({ children, defaultConfig, ...rest }: FormCardProps<T>) {
+function Card<T extends AnyObject> ({ children, defaultConfig, onOutsideClick, className, ...rest }: FormCardProps<T>) {
+  const { t } = useTranslation();
   const [config, setConfig] = useState<T>(defaultConfig || {} as T);
   const updateConfig = (values: Partial<T>) => void setConfig(prev => ({ ...prev, ...values }));
+
+  // outside click
+  const formCardRef = useRef(null);
+  const [openWarnDialog, setOpenWarnDialog] = useState<boolean | string>(false);
+  const [warnHighlight, setWarnHighlight] = useState(false);
+
+  const warn = useCallback((text: string) => {
+    if (!warnHighlight && !config.disabled) {
+      setOpenWarnDialog(text || true);
+      setWarnHighlight(true);
+    }
+  }, [config.disabled, warnHighlight]);
+
+  const outsideClickHandler = useCallback(() => {
+    onOutsideClick?.({ warn });
+  }, [onOutsideClick, warn]);
+
+  useOutsideClick(formCardRef, outsideClickHandler);
+
+  useEffect(() => {
+    if (config.disabled) {
+      setWarnHighlight(false);
+    }
+  }, [config.disabled]);
+
   return (
-    <FormCardWrapper {...rest}>
+    <FormCardWrapper ref={formCardRef} className={`${className || ''} ${warnHighlight ? 'warn' : ''}`} {...rest}>
       {typeof children === 'function' && children?.({ formCardConfig: config, updateFormCardConfig: updateConfig })}
       {typeof children !== 'function' && children}
+      {!!openWarnDialog && (
+        <Dialog
+          title={t('unsavedChanges')}
+          open={!!openWarnDialog}
+          onClose={() => void setOpenWarnDialog(false)}
+          onSubmit={() => void setOpenWarnDialog(false)}
+          color="#ed6c02"
+        >
+          <div>{t('unsavedChangesWarn')}</div>
+          <DialogActions><Button variant="contained" color="warning" onClick={() => void setOpenWarnDialog(false)}>OK</Button></DialogActions>
+        </Dialog>
+      )}
     </FormCardWrapper>
   );
 };

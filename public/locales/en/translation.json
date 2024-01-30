@@ -525,6 +525,8 @@
   "header": {
     "search": "Search for users, projects or clients"
   },
+  "unsavedChanges": "Unsaved changes",
+  "unsavedChangesWarn": "You have unsaved changes. If you do not save them, they may be lost.",
   "profilesPage": {
     "status": "User statuses",
     "organization": "Organizations",

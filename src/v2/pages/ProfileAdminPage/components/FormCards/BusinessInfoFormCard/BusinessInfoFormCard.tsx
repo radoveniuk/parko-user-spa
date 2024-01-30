@@ -52,7 +52,7 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
   const searchFieldRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  useOutsideClick(searchFieldRef, () => { setOpenSearchMenu(false); });
+  useOutsideClick(searchFieldRef, useCallback(() => { setOpenSearchMenu(false); }, []));
 
   useEffect(() => {
     if (corporateBodiesResult.length && !isFetchingCorporateBodies) {
@@ -80,7 +80,12 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
   };
 
   return (
-    <FormCard defaultConfig={{ disabled: true, loading: false }}>
+    <FormCard
+      defaultConfig={{ disabled: true, loading: false }}
+      onOutsideClick={({ warn }) => {
+        warn();
+      }}
+    >
       {({ formCardConfig, updateFormCardConfig }) => (
         <>
           {formCardConfig.loading && <LoaderWrapper><Loader /></LoaderWrapper>}

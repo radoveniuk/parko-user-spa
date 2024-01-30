@@ -509,6 +509,8 @@
   "header": {
     "search": "Vyhľadajte používateľov, projektov alebo klientov"
   },
+  "unsavedChanges": "Neuložené zmeny",
+  "unsavedChangesWarn": "Máte neuložené zmeny. Ak ich neuložíte, môžu byť stratené.",
   "profilesPage": {
     "status": "Používateľské stavy",
     "organization": "Organizácie",

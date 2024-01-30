@@ -32,7 +32,12 @@ const EmploymentInfoFormCard = ({ data, onUpdateEmploymentInfo }: Props) => {
   };
 
   return (
-    <FormCard defaultConfig={{ disabled: true }}>
+    <FormCard
+      defaultConfig={{ disabled: true }}
+      onOutsideClick={({ warn }) => {
+        warn();
+      }}
+    >
       {({ formCardConfig, updateFormCardConfig }) => (
         <>
           <FormCardHeader icon={<FactoryIcon size={24} />} title={t('user.employmentInfo')}>

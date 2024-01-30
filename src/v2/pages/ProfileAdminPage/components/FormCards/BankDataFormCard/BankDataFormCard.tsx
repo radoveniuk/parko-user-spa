@@ -20,7 +20,12 @@ const BankDataFormCard = ({ data, onUpdate }: Props) => {
   const { t } = useTranslation();
   const { register, getValues } = useForm<BankInfo>({ defaultValues: data });
   return (
-    <FormCard defaultConfig={{ disabled: true }}>
+    <FormCard
+      defaultConfig={{ disabled: true }}
+      onOutsideClick={({ warn }) => {
+        warn();
+      }}
+    >
       {({ formCardConfig, updateFormCardConfig }) => (
         <>
           <FormCardHeader icon={<BankIcon size={24} />} title={t('user.bankInfo')}>

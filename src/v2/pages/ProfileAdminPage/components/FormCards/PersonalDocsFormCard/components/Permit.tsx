@@ -151,6 +151,7 @@ const Permit = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
           name="isMedicalCheck"
           render={({ field }) => (
             <Checkbox
+              disabled={disabled}
               label={t('user.hasMedicalExamination')}
               onChange={(e) => { field.onChange(e.target.checked); onUpdate?.({ ...values, isMedicalCheck: e.target.checked }); }}
               checked={field.value}
