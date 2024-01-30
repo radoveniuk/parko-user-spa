@@ -46,7 +46,7 @@ const ClientPageRender = () => {
       <BreadCrumbs
         actions={(
           <>
-            {tab === 0 && (
+            {role === 'admin' && tab === 0 && (
               <Button
                 onClick={async () => {
                   await createProjectMutation.mutateAsync({

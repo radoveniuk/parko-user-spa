@@ -46,7 +46,7 @@ const Profiles = ({ users: data, projects }: Props) => {
       filteredData = filteredData.filter((user) => usersFilter.includes(user._id));
     }
     if (projectsFilter.length) {
-      filteredData = filteredData.filter((user) => projectsFilter.some(project => project._id === (user.project as IProject)._id));
+      filteredData = filteredData.filter((user) => projectsFilter.some(project => project?._id === (user.project as IProject)?._id));
     }
     if (statusFilter.length) {
       filteredData = filteredData.filter((user) => statusFilter.includes(user.status));
@@ -79,8 +79,8 @@ const Profiles = ({ users: data, projects }: Props) => {
           />
           {projectsFilter.map((project) => (
             <Chip
-              key={project._id}
-              label={`${t('user.project')}: ${project.name}`}
+              key={project?._id}
+              label={`${t('user.project')}: ${project?.name}`}
               onDelete={() => void removeProjectFromFilter(project)}
             />
           ))}

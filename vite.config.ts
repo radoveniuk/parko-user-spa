@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react';
 import dns from 'dns';
 import { defineConfig } from 'vite';
+import version from 'vite-plugin-package-version';
 import vitepluginSVGR from 'vite-plugin-svgr';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 
@@ -10,7 +11,7 @@ export default defineConfig({
     global: 'globalThis',
   },
   base: '',
-  plugins: [react(), viteTsconfigPaths(), vitepluginSVGR()],
+  plugins: [react(), viteTsconfigPaths(), vitepluginSVGR(), version()],
   server: {
     open: true,
     port: 8081,

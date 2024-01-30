@@ -8,6 +8,7 @@ import IconButton from 'v2/uikit/IconButton';
 import { useCreateClientMutation } from 'api/mutations/clientMutation';
 import { PlusIcon } from 'components/icons';
 import { useFilters } from 'components/shared/Filters';
+import { useAuthData } from 'contexts/AuthContext';
 import { IClient } from 'interfaces/client.interface';
 import { IUser } from 'interfaces/users.interface';
 
@@ -15,6 +16,7 @@ import { HeaderWrapper } from './styles';
 
 const HeaderTable = ({ data }: any) => {
   const { t } = useTranslation();
+  const { role } = useAuthData();
 
   const [openNewClient, setOpenNewClient] = useState(false);
   const createClientMutation = useCreateClientMutation();
@@ -40,9 +42,11 @@ const HeaderTable = ({ data }: any) => {
         <Stack direction="row" gap="15px">
           <div className="link">
             <IconButton className="small-btn primary" onClick={() => void setOpenNewClient(true)}><PlusIcon size={25} /></IconButton>
-            <Button className="big-btn" onClick={() => void setOpenNewClient(true)}>
-              {t('client.new')}
-            </Button>
+            {role === 'admin' && (
+              <Button className="big-btn" onClick={() => void setOpenNewClient(true)}>
+                {t('client.new')}
+              </Button>
+            )}
           </div>
         </Stack>
       </HeaderWrapper>

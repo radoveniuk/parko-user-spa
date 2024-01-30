@@ -80,7 +80,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   .filter-name {
     max-width: 400px;
     .MuiOutlinedInput-root {
-      border-radius: 40px;
+      /* border-radius: 40px; */
     }
 
     .MuiAutocomplete-popupIndicator {

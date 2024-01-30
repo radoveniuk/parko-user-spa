@@ -78,4 +78,8 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
   .MuiAutocomplete-tag {
     border-radius: 5px;
   }
+
+  fieldset {
+    pointer-events: initial !important;
+  }
 `;

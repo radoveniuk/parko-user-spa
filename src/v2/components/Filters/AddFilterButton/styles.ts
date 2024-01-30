@@ -8,7 +8,7 @@ export const Button = styled.button.attrs({ className: 'AddFilterButton' })`
   gap: 5px;
   background: transparent;
   border: 1px dashed #A1A1A1;
-  border-radius: 32px;
+  border-radius: 4px;
   cursor: pointer;
   color: #717171;
   font-weight: 400;

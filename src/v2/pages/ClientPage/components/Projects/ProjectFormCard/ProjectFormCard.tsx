@@ -100,7 +100,8 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
               </ProjectTitleWrapper>
             )}
           >
-            {formCardConfig.disabled && <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>}
+            {formCardConfig.disabled && role === 'admin' &&
+            <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>}
             {!formCardConfig.disabled && (
               <Button
                 color="error"
@@ -314,14 +315,16 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
                         )}
                       />
                     )} */}
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      className="delete-position fullwidth"
-                      onClick={() => void setPositionToDelete(position)}
-                    >
-                      <DeleteIcon color={themeConfig.palette.error.main} />{t('delete')}
-                    </Button>
+                    {role === 'admin' && (
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        className="delete-position fullwidth"
+                        onClick={() => void setPositionToDelete(position)}
+                      >
+                        <DeleteIcon color={themeConfig.palette.error.main} />{t('delete')}
+                      </Button>
+                    )}
                   </div>
                 </PositionWrapper>
               ))}

@@ -80,7 +80,7 @@ const UpdateHistory = ({ data }: Props) => {
             .map((historyItem, index) => (
               <TableRow key={index}>
                 <TableCell>
-                  {historyItem.updatedBy._id !== 'bot' && (
+                  {!!historyItem?.updatedBy && historyItem.updatedBy._id !== 'bot' && (
                     <Link to={`/profile/${historyItem.updatedBy._id}`}>
                       <AccountLink>
                         <Avatar
@@ -91,7 +91,7 @@ const UpdateHistory = ({ data }: Props) => {
                       </AccountLink>
                     </Link>
                   )}
-                  {historyItem.updatedBy._id === 'bot' && (
+                  {!!historyItem?.updatedBy && historyItem.updatedBy._id === 'bot' && (
                     <AccountLink>
                       <Avatar sx={{ bgcolor: themeConfig.palette.secondary.main }}><BotIcon color="#2b2b2b" /></Avatar>
                       Parko bot

@@ -7,6 +7,7 @@ import { Tab, Tabs } from 'v2/uikit/Tabs';
 
 import { useUpdateClientMutation } from 'api/mutations/clientMutation';
 import { EditIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -20,6 +21,7 @@ export type ClientCardProps = {
 
 const ClientCard = ({ data, onChange }: ClientCardProps) => {
   const { t } = useTranslation();
+  const { role } = useAuthData();
 
   const [isOpenForm, setIsOpenForm] = useState(false);
 
@@ -46,7 +48,7 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
   return (
     <>
       <ProfileCardWrapper>
-        <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
+        {role === 'admin' && <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>}
         <div className="contacts-info section">
           <div className="name">{client.name}</div>
           <div className="contacts">

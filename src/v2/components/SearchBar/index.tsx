@@ -8,7 +8,6 @@ import { useGetSearchResults } from 'api/query/searchQueary';
 import { AiOutlineSearchIcon } from 'components/icons';
 import useDebounce from 'hooks/useDebounce';
 import useOutsideClick from 'hooks/useOutsideClick';
-import { IClient } from 'interfaces/client.interface';
 
 import { SearchWrapper } from './styles';
 
@@ -49,6 +48,9 @@ const SearchBar = () => {
       />
       {!!data && openSearchMenu && (
         <div className="results">
+          {isEmpty(data.users) && isEmpty(data.clients) && (
+            <div className="subtitle">{t('noData')}</div>
+          )}
           {!isEmpty(data.users) && (
             <>
               <div className="subtitle">{t('navbar.profiles')}:</div>
@@ -59,7 +61,7 @@ const SearchBar = () => {
               ))}
             </>
           )}
-          {!isEmpty(data.projects) && (
+          {/* {!isEmpty(data.projects) && (
             <>
               <div className="subtitle">{t('navbar.projects')}:</div>
               {data.projects.map((project) => (
@@ -68,7 +70,7 @@ const SearchBar = () => {
                 </Link>
               ))}
             </>
-          )}
+          )} */}
           {!isEmpty(data.clients) && (
             <>
               <div className="subtitle">{t('navbar.clients')}:</div>

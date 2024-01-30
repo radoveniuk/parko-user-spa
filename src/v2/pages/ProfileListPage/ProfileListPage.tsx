@@ -62,6 +62,8 @@ const ProfileListPageRender = () => {
   const projectsFilter = filtersState?.projects?.split(',') || [];
   const statusesFilter = filtersState?.statuses?.split(',') || [];
 
+  // console.log(projects.filter((projectItem) => !filtersState?.projects?.includes(projectItem._id)));
+
   return (
     <ProfileListPageWrapper cols={activeCols.length + 1}>
       <div className="container-table">
@@ -113,14 +115,15 @@ const ProfileListPageRender = () => {
               {
                 id: 'projects',
                 name: t('user.project'),
-                popperComponent: (onSelect) => (
+                popperComponent: (onSelect, currentValue) => (
                   <Autocomplete
+                    theme="gray"
                     style={{ minWidth: 300 }}
-                    options={projects.filter((projectItem) => !projectsFilter.includes(projectItem._id))}
+                    options={projects.filter((projectItem) => !currentValue?.includes(projectItem._id))}
                     getOptionLabel={(option) => `${option.client?.name ? `${option.client?.name} > ` : ''}${option.name}`}
                     value={null}
                     onChange={(project: IProject) => {
-                      onSelect(projectsFilter.length ? [...(new Set([...projectsFilter, project._id]))].toString() : project._id);
+                      onSelect(project._id);
                     }}
                   />
                 ),
@@ -128,12 +131,13 @@ const ProfileListPageRender = () => {
               {
                 id: 'statuses',
                 name: t('user.status'),
-                popperComponent: (onSelect) => (
+                popperComponent: (onSelect, currentValue) => (
                   <Select
+                    theme="gray"
                     style={{ minWidth: 300 }}
-                    options={translatedStatuses.filter((statusItem) => !statusesFilter.includes(statusItem.value))}
+                    options={translatedStatuses.filter((statusItem) => !currentValue?.includes(statusItem.value))}
                     onChange={(e) => {
-                      onSelect(statusesFilter.length ? [...(new Set([...statusesFilter, e.target.value]))].toString() : e.target.value);
+                      onSelect(e.target.value);
                     }}
                   />
                 ),

@@ -33,7 +33,9 @@ type Props = {
 
 const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) => {
   const { t } = useTranslation();
-  const { register, handleSubmit, watch, control, setValue } = useForm<IEmployment>({ defaultValues: data as any });
+  const {
+    handleSubmit, watch, control, setValue, clearErrors,
+  } = useForm<IEmployment>({ defaultValues: data as any });
   const queryClient = useQueryClient();
   const { id: userId } = useParams();
   const { role } = useAuthData();
@@ -57,7 +59,12 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
 
   return (
     <FormCardContent>
-      <FormCard defaultConfig={{ disabled: true, viewEmployer: false, viewEmployee: false }}>
+      <FormCard
+        defaultConfig={{ disabled: true, viewEmployer: false, viewEmployee: false }}
+        onOutsideClick={({ warn }) => {
+          warn();
+        }}
+      >
         {({ formCardConfig, updateFormCardConfig }) => (
           <>
             <FormCardHeader
@@ -76,8 +83,10 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                 <Button
                   color="error"
                   onClick={() => {
-                    handleSubmit(submitHandler)();
-                    updateFormCardConfig({ disabled: true });
+                    handleSubmit((values) => {
+                      submitHandler(values);
+                      updateFormCardConfig({ disabled: true });
+                    })();
                   }}
                 >
                   {t('save')}
@@ -87,38 +96,74 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
             <FormCardBody>
               <EmploymentCardWrapper>
                 <FormCardBodyRow>
-                  <Select
-                    label={t('project.client')}
-                    theme="gray"
-                    labelPath="name"
-                    valuePath="_id"
-                    options={clients}
-                    disabled={formCardConfig.disabled}
-                    defaultValue={data?.client}
-                    maxWidth="100%"
-                    {...register('client')}
+                  <Controller
+                    control={control}
+                    name="client"
+                    rules={{ required: true }}
+                    render={({ field, fieldState }) => (
+                      <Select
+                        label={t('project.client')}
+                        theme="gray"
+                        labelPath="name"
+                        valuePath="_id"
+                        options={clients}
+                        disabled={formCardConfig.disabled}
+                        defaultValue={data?.client}
+                        maxWidth="100%"
+                        error={!!fieldState.error}
+                        value={field.value}
+                        onChange={(e) => {
+                          clearErrors('client');
+                          field.onChange(e.target.value);
+                        }}
+                      />
+                    )}
                   />
-                  <Select
-                    label={t('user.project')}
-                    theme="gray"
-                    labelPath="name"
-                    valuePath="_id"
-                    options={projects?.filter((projectItem) => (projectItem.client as IClient)?._id === watch('client'))}
-                    disabled={formCardConfig.disabled}
-                    defaultValue={data?.project}
-                    maxWidth="100%"
-                    {...register('project')}
+                  <Controller
+                    control={control}
+                    name="project"
+                    rules={{ required: true }}
+                    render={({ field, fieldState }) => (
+                      <Select
+                        label={t('user.project')}
+                        theme="gray"
+                        labelPath="name"
+                        valuePath="_id"
+                        options={projects?.filter((projectItem) => (projectItem.client as IClient)?._id === watch('client'))}
+                        disabled={formCardConfig.disabled || !watch('client')}
+                        defaultValue={data?.project}
+                        maxWidth="100%"
+                        error={!!fieldState.error}
+                        value={field.value}
+                        onChange={(e) => {
+                          clearErrors('project');
+                          field.onChange(e.target.value);
+                        }}
+                      />
+                    )}
                   />
                   <div className="fullwidth">
-                    <Select
-                      label="Pracovná pozicia"
-                      theme="gray"
-                      labelPath="internalName"
-                      valuePath="matterId"
-                      options={project?.positions}
-                      disabled={formCardConfig.disabled}
-                      defaultValue={data?.positionId}
-                      {...register('positionId')}
+                    <Controller
+                      control={control}
+                      name="positionId"
+                      rules={{ required: true }}
+                      render={({ field, fieldState }) => (
+                        <Select
+                          label="Pracovná pozicia"
+                          theme="gray"
+                          labelPath="internalName"
+                          valuePath="matterId"
+                          options={project?.positions}
+                          disabled={formCardConfig.disabled || !watch('project')}
+                          defaultValue={data?.positionId}
+                          error={!!fieldState.error}
+                          value={field.value}
+                          onChange={(e) => {
+                            clearErrors('positionId');
+                            field.onChange(e.target.value);
+                          }}
+                        />
+                      )}
                     />
                   </div>
                   <div className="fullwidth static-info">
@@ -200,7 +245,8 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                   <Controller
                     control={control}
                     name="hireDate"
-                    render={({ field }) => (
+                    rules={{ required: true }}
+                    render={({ field, fieldState }) => (
                       <DatePicker
                         inputProps={{ theme: 'gray' }}
                         defaultValue={field.value}
@@ -209,6 +255,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                         onBlur={field.onBlur}
                         format="dd.MM.yyyy HH:mm"
                         disabled={formCardConfig.disabled}
+                        error={!!fieldState.error}
                       />
                     )}
                   />

@@ -1,6 +1,7 @@
-import React, { memo, ReactNode, useCallback, useMemo, useRef, useState } from 'react';
+import React, { Fragment, memo, ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Fade, Paper, Popper } from '@mui/material';
+import { cloneDeep } from 'lodash-es';
 import IconButton from 'v2/uikit/IconButton';
 
 import { CloseIcon, PlusIcon } from 'components/icons';
@@ -12,7 +13,7 @@ import { Button, MenuToolbar, MenuWrapper, SearchInput } from './styles';
 type Filter = {
   id: string;
   name: string;
-  popperComponent: (onSelect: (value?: any) => void) => ReactNode;
+  popperComponent: (onSelect: (value?: any) => void, currentValue?: string) => ReactNode;
 };
 
 type Props = {
@@ -25,7 +26,7 @@ const AddFilterButton = ({ filterOptions }: Props) => {
   const [openPopper, setOpenPopper] = useState(false);
   const anchorEl = useRef<HTMLDivElement>(null);
   const popperRef = useRef<HTMLDivElement>(null);
-  const { addFilter } = useFilters();
+  const { addFilter, filtersState } = useFilters();
   const [searchValue, setSearchValue] = useState('');
 
   const closeFilterMenu = () => {
@@ -33,12 +34,14 @@ const AddFilterButton = ({ filterOptions }: Props) => {
     setSelectedFilter(null);
   };
 
-  const closeAndOpenFilterMenu = () => {
+  const closeAndOpenFilterMenu = useCallback(() => {
+    const oldFilter = cloneDeep(selectedFilter);
     closeFilterMenu();
     setTimeout(() => {
       setOpenPopper(true);
+      setSelectedFilter(oldFilter);
     }, 100);
-  };
+  }, [selectedFilter]);
 
   const filteredFilterOptions = useMemo(
     () => filterOptions.filter((filterItem) => filterItem.name.toLowerCase().includes(searchValue.toLowerCase())),
@@ -46,13 +49,20 @@ const AddFilterButton = ({ filterOptions }: Props) => {
   );
 
   useOutsideClick([anchorEl, popperRef], useCallback(() => {
-    if (!selectedFilter) {
-      closeFilterMenu();
+    closeFilterMenu();
+  }, []));
+
+  const onSelectFilter = useCallback((value: string) => {
+    if (value && selectedFilter) {
+      const oldFilterValue = filtersState?.[selectedFilter.id] || '';
+      const newFilterValue = oldFilterValue.length ? [...(new Set([...oldFilterValue.split(','), value]))].toString() : value;
+      addFilter(selectedFilter.id, newFilterValue);
     }
-  }, [selectedFilter]));
+    closeAndOpenFilterMenu();
+  }, [addFilter, closeAndOpenFilterMenu, filtersState, selectedFilter]);
 
   return (
-    <>
+    <Fragment>
       <div ref={anchorEl}>
         {!openPopper && (
           <Button
@@ -86,7 +96,7 @@ const AddFilterButton = ({ filterOptions }: Props) => {
                     <IconButton color="inherit" onClick={closeFilterMenu}><CloseIcon /></IconButton>
                   </MenuToolbar>
                   <MenuWrapper>
-                    {selectedFilter.popperComponent((value) => { value && addFilter(selectedFilter.id, value); closeAndOpenFilterMenu(); })}
+                    {selectedFilter.popperComponent(onSelectFilter, filtersState?.[selectedFilter.id])}
                   </MenuWrapper>
                 </>
               )}
@@ -94,7 +104,7 @@ const AddFilterButton = ({ filterOptions }: Props) => {
           </Fade>
         )}
       </Popper>
-    </>
+    </Fragment>
   );
 };
 
