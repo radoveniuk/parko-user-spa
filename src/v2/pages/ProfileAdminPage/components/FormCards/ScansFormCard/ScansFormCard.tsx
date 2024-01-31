@@ -154,8 +154,8 @@ const DaysOffFormCard = ({ data, onUpdate }: Props) => {
                   <TableRow>
                     <TableCell>{t('file.name')}</TableCell>
                     <TableCell>{t('file.type')}</TableCell>
-                    <TableCell>{t('comment')}</TableCell>
                     <TableCell>{t('date')}</TableCell>
+                    <TableCell>{t('comment')}</TableCell>
                     <TableCell align="right" />
                   </TableRow>
                 </TableHead>
@@ -171,8 +171,8 @@ const DaysOffFormCard = ({ data, onUpdate }: Props) => {
                           </a>
                         </TableCell>
                         <TableCell>{t(`user.${scanKey}`)}</TableCell>
-                        <TableCell>{fileData.metadata?.comment}</TableCell>
                         <TableCell>{getDateFromIso(fileData.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
+                        <TableCell>{fileData.metadata?.comment}</TableCell>
                         <TableCell>
                           <ActionsCell>
                             <IconButton

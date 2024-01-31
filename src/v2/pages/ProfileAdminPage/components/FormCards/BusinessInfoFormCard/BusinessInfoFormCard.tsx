@@ -66,7 +66,7 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
     reset({
       ICO: result.cin,
       businessName: result.companyName,
-      // DIC: '',
+      DIC: result.DIC,
       adress: result.address,
       permitAdress: result.businessAddress,
       businessStatus: result.status,

@@ -51,7 +51,6 @@ export const getFieldSectionLabelMap = (t: (v: string) => string) => {
     cooperationEndDate: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.cooperationEndDate')}`,
     status: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.status')}`,
     customFields: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.customFields')}`,
-    otherScans: `${t('user.info')} > ${t('user.scancopies')}`,
     salary: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.salary')}`,
     salaryType: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.salaryType')}`,
     salaryComment: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.salaryComment')}`,
@@ -62,16 +61,15 @@ export const getFieldSectionLabelMap = (t: (v: string) => string) => {
     permitFaceScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitFaceScan')}`,
     permitBackScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitBackScan')}`,
     docs: `${t('user.info')} > ${t('user.docsFields')}`,
-    projectStages: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.projectStages')}`,
     medicalInsurance: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.medicalInsurance')}`,
     birthPlace: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.birthPlace')}`,
     familyStatus: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.familyStatus')}`,
     birthSurname: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.birthSurname')}`,
     childrenCount: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.childrenCount')}`,
-    tags: `${t('user.info')} > ${t('user.tags')}`,
+    tags: `${t('user.info')} > Tags`,
     createdAt: `${t('user.info')} > ${t('user.createdAt')}`,
     updatedAt: `${t('user.info')} > ${t('user.updatedAt')}`,
-    businessName: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.businessName')}`,
+    businessName: `${t('user.info')} > ${t('user.businessFields')} > Obchodné meno`,
     businessStatus: `${t('user.info')} > ${t('user.businessFields')} > ${t('user.businessStatus')}`,
     businessActivities: `${t('user.info')} > ${t('user.businessActivities')}`,
     isDeleted: `${t('user.info')} > ${t('user.isDeleted')}`,
@@ -79,9 +77,12 @@ export const getFieldSectionLabelMap = (t: (v: string) => string) => {
   return UPDATE_SECTION_MAP;
 };
 
-export const renderValue = (key: keyof IUser, value: string | boolean | number, t: (v: string) => string) => {
-  if (typeof value === 'boolean') {
-    return t(value.toString());
+export const renderValue = (key: keyof IUser, value: string | boolean | number | string[], t: (v: string) => string) => {
+  if (typeof value === 'boolean' || key === 'sex') {
+    return t(value?.toString());
+  }
+  if (key === 'tags' && Array.isArray(value)) {
+    return t(value.join(', ').toUpperCase());
   }
   const isIso = !DateTime.fromISO(value?.toString()).invalidReason;
   if (isIso && value.toString().length > 4) {
@@ -93,6 +94,9 @@ export const renderValue = (key: keyof IUser, value: string | boolean | number, 
   }
   if (key === 'status') {
     return value ? t(`selects.userStatus.${value}`) : '';
+  }
+  if (key === 'businessStatus') {
+    return value ? t(`selects.corporateBodyStatus.${value}`) : '';
   }
   return value;
 };

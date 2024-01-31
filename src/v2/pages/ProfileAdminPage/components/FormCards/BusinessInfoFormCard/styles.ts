@@ -35,6 +35,7 @@ export const CorporateBodiesSearchField = styled.div`
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     width: 120px;
+    max-height: 36px;
   }
 
   @media (max-width: ${TB}) {

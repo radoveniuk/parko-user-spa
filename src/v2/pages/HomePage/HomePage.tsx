@@ -76,7 +76,7 @@ const HomePage = () => {
                             <TableRow key={user._id}>
                               <TableCell><Link to={`/profile/${user._id}`}>{user.name} {user.surname}</Link></TableCell>
                               <TableCell>{user.email}</TableCell>
-                              <TableCell>{t(`selects.userStatus.${user.status}`)}</TableCell>
+                              <TableCell>{user.status ? t(`selects.userStatus.${user.status}`) : ''}</TableCell>
                             </TableRow>
                           ))}
                         </TableBody>

@@ -19,4 +19,5 @@ export interface ICorporateBody {
   type?: 'individual',
   register?: string
   registerNumber?: string
+  DIC?: string
 };

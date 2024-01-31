@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
+import { isEmpty } from 'lodash-es';
 import omit from 'lodash-es/omit';
 import { DateTime } from 'luxon';
 import Avatar from 'v2/uikit/Avatar';
@@ -10,6 +12,7 @@ import { BotIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import useViewportWidth from 'hooks/useViewportWsdth';
 import { MongoHistory } from 'interfaces/base.types';
+import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 import { TB } from 'theme/sizeBreakpoints';
@@ -24,12 +27,13 @@ type Props = {
 const UpdateHistory = ({ data }: Props) => {
   const { t } = useTranslation();
   const viewportWidth = useViewportWidth();
+  const queryClient = useQueryClient();
 
   const renderUpdates = (historyItem: MongoHistory<IUser>) => {
     const UPDATE_SECTION_MAP = getFieldSectionLabelMap(t);
 
     return (Object.keys(omit(historyItem.changes, ['updatedAt'])) as (keyof IUser)[])
-      .filter((key) => !!historyItem.changes[key]?.newValue)
+      // .filter((key) => !!historyItem.changes[key]?.newValue)
       .map((key, index) => {
         if (!UPDATE_SECTION_MAP[key]) return '';
         const keyLabel = viewportWidth > Number(TB.replace('px', '')) ? UPDATE_SECTION_MAP[key] : UPDATE_SECTION_MAP?.[key]?.split(' > ').pop();
@@ -43,11 +47,30 @@ const UpdateHistory = ({ data }: Props) => {
           );
         }
         if (key === 'project') {
+          const projects: IProject[] | undefined = queryClient.getQueryData(['projects', JSON.stringify({})]);
+          const oldProject = projects?.find(projItem => projItem._id === historyItem.changes[key]?.oldValue);
+          const newProject = projects?.find(projItem => projItem._id === historyItem.changes[key]?.newValue);
+
           return (
             <div key={index}>
               <UpdateRow>{keyLabel}:</UpdateRow>{' '}
-              <OldValue>{renderValue(key, historyItem.changes[key]?.oldValue, t)}</OldValue>{' '}
-              <NewValue>{renderValue(key, historyItem.changes[key]?.newValue, t)}</NewValue>
+              <OldValue>{renderValue(key, oldProject?.name || '', t)}</OldValue>{' '}
+              <NewValue>{renderValue(key, newProject?.name || '', t)}</NewValue>
+            </div>
+          );
+        }
+        if (key === 'recruiter') {
+          const recruiters: IUser[] | undefined = queryClient.getQueryData(['users', JSON.stringify({ role: 'recruiter' })]);
+          console.log(recruiters);
+
+          const oldRecruiter = recruiters?.find(userItem => userItem._id === historyItem.changes[key]?.oldValue);
+          const newRecruiter = recruiters?.find(userItem => userItem._id === historyItem.changes[key]?.newValue);
+
+          return (
+            <div key={index}>
+              <UpdateRow>{keyLabel}:</UpdateRow>{' '}
+              <OldValue>{renderValue(key, `${oldRecruiter?.name || ''} ${oldRecruiter?.surname || ''}`, t)}</OldValue>{' '}
+              <NewValue>{renderValue(key, `${newRecruiter?.name || ''} ${newRecruiter?.surname || ''}`, t)}</NewValue>
             </div>
           );
         }
@@ -73,9 +96,10 @@ const UpdateHistory = ({ data }: Props) => {
         </TableHead>
         <TableBody>
           {data
+            .filter(historyItem => !isEmpty(omit(historyItem.changes, ['updatedAt', 'password', 'projectStages', 'otherScans'])))
             .sort((a, b) =>
               DateTime.fromISO(b.changes.updatedAt?.newValue as string).toMillis() -
-            DateTime.fromISO(a.changes.updatedAt?.newValue as string).toMillis(),
+              DateTime.fromISO(a.changes.updatedAt?.newValue as string).toMillis(),
             )
             .map((historyItem, index) => (
               <TableRow key={index}>
