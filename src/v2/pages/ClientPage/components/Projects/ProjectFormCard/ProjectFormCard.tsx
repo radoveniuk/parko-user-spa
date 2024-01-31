@@ -33,8 +33,6 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
 
   const [positions, { add: addPosition, remove: removePosition }] = useListState<ProjectPosition>(data.positions);
 
-  const [projectName, setProjectName] = useState(data.name);
-
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
 
   const createEmptyPosition = () => ({
@@ -76,12 +74,10 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
                       className="name-field"
                       variant="standard"
                       autoFocus
-                      value={projectName}
-                      onChange={(e) => void setProjectName(e.target.value)}
+                      {...register('name')}
                     />
                     <IconButton
                       onClick={() => {
-                        setValue('name', projectName);
                         updateFormCardConfig({ isEditingTitle: false });
                       }}
                     >
@@ -106,7 +102,7 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
               <Button
                 color="error"
                 onClick={() => {
-                  updateFormCardConfig({ disabled: true });
+                  updateFormCardConfig({ disabled: true, isEditingTitle: false });
                   const values = getValues();
                   onChange?.(values);
                 }}
@@ -321,8 +317,9 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
                         color="error"
                         className="delete-position fullwidth"
                         onClick={() => void setPositionToDelete(position)}
+                        disabled={formCardConfig.disabled}
                       >
-                        <DeleteIcon color={themeConfig.palette.error.main} />{t('delete')}
+                        <DeleteIcon color={formCardConfig.disabled ? '#717171' : themeConfig.palette.error.main} />{t('delete')}
                       </Button>
                     )}
                   </div>

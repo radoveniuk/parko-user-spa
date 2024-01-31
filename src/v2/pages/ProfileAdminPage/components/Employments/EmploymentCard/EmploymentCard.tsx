@@ -34,7 +34,7 @@ type Props = {
 const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) => {
   const { t } = useTranslation();
   const {
-    handleSubmit, watch, control, setValue, clearErrors,
+    handleSubmit, watch, control, setValue, clearErrors, register,
   } = useForm<IEmployment>({ defaultValues: data as any });
   const queryClient = useQueryClient();
   const { id: userId } = useParams();
@@ -178,7 +178,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                         : <EyeSlashIcon color={themeConfig.palette.primary.main} />
                       }
                     </IconButton>
-                    <b className="title">{t('employer')}</b>
+                    <b className="title">{project?.type === 'Outsourcing' ? 'Odoberateľ' : t('employer')}</b>
                     <div className={`info${formCardConfig.viewEmployer ? '' : ' hide'}`}>
                       <div className="row">
                         Zamestnavateľ: {project?.zamestnavatel}
@@ -220,7 +220,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                         : <EyeSlashIcon color={themeConfig.palette.primary.main} />
                       }
                     </IconButton>
-                    <b className="title">{t('employee')}</b>
+                    <b className="title">{project?.type === 'Outsourcing' ? 'SubDodávateľ' : t('employee')}</b>
                     <div className={`info${formCardConfig.viewEmployee ? '' : ' hide'}`}>
                       <div className="row">Meno: {user.name}</div>
                       <div className="row">Priezvisko: {user.surname}</div>
@@ -278,38 +278,42 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                     label={t('user.fireReason')}
                     theme="gray"
                     disabled={formCardConfig.disabled}
+                    {...register('fireReason')}
                   />
                   <Input
                     label={t('comment')}
                     theme="gray"
                     disabled={formCardConfig.disabled}
+                    {...register('comment')}
                   />
-                  <div className="fullwidth">
-                    <Controller
-                      control={control}
-                      name="isNonTaxablePart"
-                      render={({ field }) => (
-                        <Checkbox
-                          label="Uplatnenie nezdaniteľej časti zakladu dane"
-                          checked={field.value}
-                          onChange={field.onChange}
-                          disabled={formCardConfig.disabled}
-                        />
-                      )}
-                    />
-                    <Controller
-                      control={control}
-                      name="isChildTaxBonus"
-                      render={({ field }) => (
-                        <Checkbox
-                          label="Uplatnenie daňového bonusu na dieťa"
-                          checked={field.value}
-                          onChange={field.onChange}
-                          disabled={formCardConfig.disabled}
-                        />
-                      )}
-                    />
-                  </div>
+                  {project?.type !== 'Outsourcing' && (
+                    <div className="fullwidth">
+                      <Controller
+                        control={control}
+                        name="isNonTaxablePart"
+                        render={({ field }) => (
+                          <Checkbox
+                            label="Uplatnenie nezdaniteľej časti zakladu dane"
+                            checked={field.value}
+                            onChange={field.onChange}
+                            disabled={formCardConfig.disabled}
+                          />
+                        )}
+                      />
+                      <Controller
+                        control={control}
+                        name="isChildTaxBonus"
+                        render={({ field }) => (
+                          <Checkbox
+                            label="Uplatnenie daňového bonusu na dieťa"
+                            checked={field.value}
+                            onChange={field.onChange}
+                            disabled={formCardConfig.disabled}
+                          />
+                        )}
+                      />
+                    </div>
+                  )}
                 </FormCardBodyRow>
                 <div className="buttons">
                   <Button variant="outlined" disabled={!!status} onClick={() => void setDialogStatus('hired')}>{t('user.hire')}</Button>
