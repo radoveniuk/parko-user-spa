@@ -132,7 +132,7 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
                   <FormControlLabel
                     value="HR Service"
                     control={<Radio />}
-                    label="HR Service"
+                    label="Leasing"
                     disabled={formCardConfig.disabled}
                   />
                 </TypeRadioButtons>

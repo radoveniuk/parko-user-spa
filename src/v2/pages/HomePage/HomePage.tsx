@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 import { Button } from 'v2/uikit';
 import { FormCard, FormCardBody, FormCardHeader } from 'v2/uikit/FormCard';
+import StatusLabel from 'v2/uikit/StatusLabel';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from 'v2/uikit/Table';
 
 import { useGetDashboardData } from 'api/query/dashboardQuery';
@@ -76,7 +77,9 @@ const HomePage = () => {
                             <TableRow key={user._id}>
                               <TableCell><Link to={`/profile/${user._id}`}>{user.name} {user.surname}</Link></TableCell>
                               <TableCell>{user.email}</TableCell>
-                              <TableCell>{user.status ? t(`selects.userStatus.${user.status}`) : ''}</TableCell>
+                              <TableCell>
+                                <StatusLabel className={user.status}>{user.status ? t(`selects.userStatus.${user.status}`) : ''}</StatusLabel>
+                              </TableCell>
                             </TableRow>
                           ))}
                         </TableBody>
