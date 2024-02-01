@@ -4,12 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
+import { useSnackbar } from 'notistack';
 import { Button, Checkbox, Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import { FormCard, FormCardBody, FormCardBodyRow, FormCardHeader } from 'v2/uikit/FormCard';
 import IconButton from 'v2/uikit/IconButton';
 import Select from 'v2/uikit/Select';
+import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { DeleteIcon, EyeIcon, EyeSlashIcon, ProjectIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
@@ -33,6 +35,7 @@ type Props = {
 
 const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) => {
   const { t } = useTranslation();
+  const { enqueueSnackbar } = useSnackbar();
   const {
     handleSubmit, watch, control, setValue, clearErrors, register,
   } = useForm<IEmployment>({ defaultValues: data as any });
@@ -49,13 +52,24 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
   const user = queryClient.getQueryData(['user-data', userId]) as IUser;
 
   const hireDate = watch('hireDate');
+  const fireDate = watch('fireDate');
   const status = watch('status');
+  const fireReason = watch('fireReason');
 
   const daysCount = hireDate ? DateTime.now().diff(DateTime.fromISO(hireDate)).milliseconds / 86_400_000 : 0;
 
   const [dialogStatus, setDialogStatus] = useState<null | 'canceled' | 'hired' | 'fired'>(null);
   const [openCustomSettings, setOpenCustomSettings] = useState<boolean>(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
+  const saveDataNotification = () => {
+    enqueueSnackbar('Najprv uložte zmeny', { variant: 'warning' });
+  };
+
+  const disableHire = !!status || !hireDate || !project || !position;
+  const disableCancel = status !== 'hired' || daysCount > 2;
+  const disableChanges = status === 'canceled';
+  const disableFire = status !== 'hired' || !fireDate || !fireReason;
 
   return (
     <FormCardContent>
@@ -72,7 +86,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
               title={(
                 <EmploymentCardTitleWrapper>
                   {project?.type === 'Outsourcing' ? t('user.individualCooperation') : t('user.employment')}
-                  <div className={`status ${status}`}>{t(`selects.userPositionEmploymentStatus.${status}`)}</div>
+                  <StatusLabel className={`status ${status}`}>{t(`selects.userPositionEmploymentStatus.${status}`)}</StatusLabel>
                 </EmploymentCardTitleWrapper>
               )}
             >
@@ -316,19 +330,43 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                   )}
                 </FormCardBodyRow>
                 <div className="buttons">
-                  <Button variant="outlined" disabled={!!status} onClick={() => void setDialogStatus('hired')}>{t('user.hire')}</Button>
-                  <Button variant="outlined" onClick={() => void setOpenCustomSettings(true)}>{t('user.change')}</Button>
                   <Button
                     variant="outlined"
-                    disabled={status !== 'hired' || daysCount > 2}
-                    onClick={() => void setDialogStatus('canceled')}
+                    disabled={disableHire}
+                    onClick={() => {
+                      if (!formCardConfig.disabled) return saveDataNotification();
+                      setDialogStatus('hired');
+                    }}
+                  >
+                    {t('user.hire')}
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    disabled={disableChanges}
+                    onClick={() => {
+                      if (!formCardConfig.disabled) return saveDataNotification();
+                      setOpenCustomSettings(true);
+                    }}
+                  >
+                    {t('user.change')}
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    disabled={disableCancel}
+                    onClick={() => {
+                      if (!formCardConfig.disabled) return saveDataNotification();
+                      setDialogStatus('canceled');
+                    }}
                   >
                     {t('user.cancel')}
                   </Button>
                   <Button
                     variant="outlined"
-                    disabled={status !== 'hired'}
-                    onClick={() => void setDialogStatus('fired')}
+                    disabled={disableFire}
+                    onClick={() => {
+                      if (!formCardConfig.disabled) return saveDataNotification();
+                      setDialogStatus('fired');
+                    }}
                   >
                     {t('user.fire')}
                   </Button>

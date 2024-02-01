@@ -55,22 +55,6 @@ export const EmploymentCardTitleWrapper = styled.div`
   align-items: center;
   gap: 5px;
   .status {
-    &.hired {
-      background-color: #2A6AE7;
-    }
-    &.canceled {
-      background-color: #717171;
-    }
-    &.fired {
-      background-color: #E72A2A;
-    }
-    &.undefined {
-      display: none;
-    }
-    color: #fff;
-    font-size: 0.7rem;
-    padding: 1px 4px;
-    border-radius: 2px;
     margin-top: 2px;
   }
 `;

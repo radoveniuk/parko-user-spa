@@ -527,6 +527,7 @@
   },
   "unsavedChanges": "Unsaved changes",
   "unsavedChangesWarn": "You have unsaved changes. If you do not save them, they may be lost.",
+  "searchHistory": "Search history",
   "profilesPage": {
     "status": "User statuses",
     "organization": "Organizations",

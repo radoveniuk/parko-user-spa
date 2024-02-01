@@ -4,7 +4,7 @@ import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetClients } from 'api/query/clientQuery';
 import { useGetProjects } from 'api/query/projectQuery';
-import { AiOutlineSearchIcon } from 'components/icons';
+import { SearchIcon } from 'components/icons';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { IClient } from 'interfaces/client.interface';
@@ -56,7 +56,7 @@ const ClientListPageRender = () => {
             options={data}
             getOptionLabel={client => `${client.name}`}
             filterKey="ids"
-            prefixIcon={<AiOutlineSearchIcon className="search-icon"/>}
+            prefixIcon={<SearchIcon className="search-icon"/>}
             className="filter-name"
             limitTags={1}
             placeholder={t('search')}

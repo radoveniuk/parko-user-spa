@@ -340,7 +340,7 @@
       "closed": "Zrušené"
     },
     "userPositionEmploymentStatus": {
-      "hired": "Zamestnaný",
+      "hired": "Najatý",
       "fired": "Ukončený",
       "canceled": "Storno"
     }
@@ -511,6 +511,7 @@
   },
   "unsavedChanges": "Neuložené zmeny",
   "unsavedChangesWarn": "Máte neuložené zmeny. Ak ich neuložíte, môžu byť stratené.",
+  "searchHistory": "História",
   "profilesPage": {
     "status": "Používateľské stavy",
     "organization": "Organizácie",

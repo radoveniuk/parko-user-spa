@@ -206,8 +206,8 @@ const DaysOffFormCard = ({ data, onUpdate }: Props) => {
                           </a>
                         </TableCell>
                         <TableCell>{t('other')}</TableCell>
-                        <TableCell>{comment}</TableCell>
                         <TableCell>{getDateFromIso(fileData.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
+                        <TableCell>{comment}</TableCell>
                         <TableCell>
                           <ActionsCell>
                             <IconButton

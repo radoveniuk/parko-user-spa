@@ -9,6 +9,6 @@ export const StyledChip = styled(Chip)`
   border-radius: 5px !important;
   background: #E7E7E7 !important;
   @media (max-width: ${SM}) {
-    height: 48px !important;
+    /* height: 48px !important; */
   }
 `;

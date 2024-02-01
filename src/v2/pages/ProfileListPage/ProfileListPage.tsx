@@ -10,7 +10,7 @@ import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
-import { AiOutlineSearchIcon } from 'components/icons';
+import { SearchIcon } from 'components/icons';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { USER_STATUSES } from 'constants/statuses';
 import useLocalStorageState from 'hooks/useLocalStorageState';
@@ -81,7 +81,7 @@ const ProfileListPageRender = () => {
             options={usersFilter}
             getOptionLabel={user => `${user.name} ${user.surname}`}
             filterKey="ids"
-            prefixIcon={<AiOutlineSearchIcon className="search-icon"/>}
+            prefixIcon={<SearchIcon className="search-icon"/>}
             className="filter-name"
             limitTags={1}
             placeholder={t('search')}

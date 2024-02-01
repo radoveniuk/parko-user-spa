@@ -29,7 +29,7 @@ export const themeConfig = {
       contrastText: '#fff',
     },
     success: {
-      main: '#49d257',
+      main: '#43a047',
     },
     error: {
       main: '#ec3c3c',

@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import ProfileFormDialog from 'v2/components/ProfileFormDialog';
 import Chip from 'v2/uikit/Chip';
 import IconButton from 'v2/uikit/IconButton';
+import StatusLabel from 'v2/uikit/StatusLabel';
 import { Tab, Tabs } from 'v2/uikit/Tabs';
 
 import { AcceptIcon, EditIcon, PlusIcon } from 'components/icons';
@@ -62,7 +63,17 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
           {user.position && <Chip label={user.position} />}
           {user.cooperationType && <Chip label={user.cooperationType} />}
           {user.tags?.filter(tag => !!tag).map((tag) => (
-            <Chip key={tag} label={t(tag)} />
+            <Chip
+              key={tag}
+              label={t(tag)}
+              onDelete={() => {
+                setUser((prev) => ({
+                  ...prev,
+                  tags: prev.tags?.filter(tagToDelete => tagToDelete !== tag),
+                }));
+                onChange?.({ tags: data.tags?.filter(tagToDelete => tagToDelete !== tag) });
+              }}
+            />
           ))}
           {!showNewTagField && (
             <AddTagMenuButton onClick={() => void setShowNewTagField(true)}><PlusIcon size={20} /></AddTagMenuButton>
@@ -82,6 +93,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
           <div className="contacts">
             <a href={`mailto:${user.email}`} className="contact-text-link">{user.email}</a>
             <a href={`tel:${user.phone}`} className="contact-text-link">{user.phone}</a>
+            <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel>
           </div>
         </div>
         <div className="common section">
@@ -101,7 +113,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
                 const workHistoryItemProject = workHistoryItem.project as IProject;
                 const workHistoryItemClient = workHistoryItemProject.client as IClient;
                 return (
-                  <div key={workHistoryItem.dateFrom} className="work-history-list-item">
+                  <div key={workHistoryItem._id} className="work-history-list-item">
                     {workHistoryItemClient.name}{' > '}
                     {workHistoryItemProject.name}{': '}
                     {getDateFromIso(workHistoryItem.dateFrom)}

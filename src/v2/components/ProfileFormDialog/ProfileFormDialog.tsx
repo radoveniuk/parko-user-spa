@@ -19,7 +19,7 @@ import { IUser } from 'interfaces/users.interface';
 import { CountrySelectOption, FormWrapper } from './styles';
 
 type Data = Pick<IUser, 'name' | 'surname' | 'email' | 'birthDate' | 'country' | 'sex' |
-'adress' | 'source' | 'recruiter' | 'phone' | 'role' | 'status'>
+'adress' | 'source' | 'recruiter' | 'phone' | 'role' | 'status' | 'notes'>
 
 export type ProfileFormDialogProps = DialogProps & {
   data?: Data;
@@ -152,8 +152,14 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
           options={translatedStatuses}
           defaultValue={data?.status || ''}
           label={t('user.status')}
-          {...register('status')}
           emptyItem="noSelected"
+          {...register('status')}
+        />
+        <Input
+          className="fullwidth"
+          label={t('user.notes')}
+          theme="gray"
+          {...register('notes')}
         />
       </FormWrapper>
       <DialogActions>

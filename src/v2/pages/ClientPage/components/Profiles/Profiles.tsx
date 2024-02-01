@@ -7,7 +7,7 @@ import Select from 'v2/uikit/Select';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
-import { AiOutlineSearchIcon } from 'components/icons';
+import { SearchIcon } from 'components/icons';
 import { FiltersProvider } from 'components/shared/Filters';
 import { USER_STATUSES } from 'constants/statuses';
 import useListState from 'hooks/useListState';
@@ -68,7 +68,7 @@ const Profiles = ({ users: data, projects }: Props) => {
             multiple
             options={data}
             getOptionLabel={user => `${user.name} ${user.surname}`}
-            prefixIcon={<AiOutlineSearchIcon className="search-icon"/>}
+            prefixIcon={<SearchIcon className="search-icon"/>}
             className="filter-name"
             limitTags={1}
             placeholder={t('search')}

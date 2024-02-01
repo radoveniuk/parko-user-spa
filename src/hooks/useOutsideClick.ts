@@ -5,7 +5,7 @@ function hasPresentationParent (element: HTMLElement | null): boolean {
     return false;
   }
 
-  if (element.role === 'presentation') {
+  if (element.role === 'presentation' || element.role === 'dialog') {
     return true;
   }
   return hasPresentationParent(element.parentElement);

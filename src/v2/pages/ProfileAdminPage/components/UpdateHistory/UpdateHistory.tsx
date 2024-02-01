@@ -61,7 +61,6 @@ const UpdateHistory = ({ data }: Props) => {
         }
         if (key === 'recruiter') {
           const recruiters: IUser[] | undefined = queryClient.getQueryData(['users', JSON.stringify({ role: 'recruiter' })]);
-          console.log(recruiters);
 
           const oldRecruiter = recruiters?.find(userItem => userItem._id === historyItem.changes[key]?.oldValue);
           const newRecruiter = recruiters?.find(userItem => userItem._id === historyItem.changes[key]?.newValue);

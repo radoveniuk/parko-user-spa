@@ -9,8 +9,16 @@ export const FormWrapper = styled.div`
   row-gap: 12px;
   margin-bottom: 25px;
 
+  .fullwidth {
+    grid-column: 1 / 3;
+  }
+
   @media (max-width: ${SM}) {
     grid-template-columns: 1fr;
+
+    .fullwidth {
+      grid-column: 1;
+    }
   }
 `;
 

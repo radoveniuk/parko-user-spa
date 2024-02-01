@@ -150,6 +150,7 @@ const ProfileAdminPageRender = () => {
             const position = project?.positions?.find((positionItem) => positionItem.matterId === employmentItem.positionId)?.internalName as string;
 
             return {
+              _id: employmentItem._id,
               dateFrom: employmentItem.hireDate,
               project: project,
               position: position,

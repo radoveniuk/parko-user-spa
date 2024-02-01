@@ -46,6 +46,9 @@ export const SearchWrapper = styled.div`
       color: #9f9f9f;
       padding: 2px 12px;
       font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
     }
 
     a {
