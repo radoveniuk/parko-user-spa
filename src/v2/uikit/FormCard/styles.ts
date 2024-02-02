@@ -71,6 +71,11 @@ export const FormCardBodyRowWrapper = styled.div`
   align-items: end;
   background-color: #fff;
 
+  .Select {
+    max-width: min-content;
+    min-width: 100%;
+  }
+
   .fullwidth {
     grid-column: 1 / 3;
   }

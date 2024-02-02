@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import In from 'v2/components/In';
+import { BROKERS } from 'v2/constants/brokers';
+import { PROJECT_TYPES } from 'v2/constants/projectType';
 import { Button, FormControlLabel, Input, Radio } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import { FormCard, FormCardBody, FormCardBodyRow, FormCardHeader } from 'v2/uikit/FormCard';
@@ -58,7 +61,9 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
     }
   };
 
-  const isOutsorce = watch('type') === 'Outsourcing';
+  const isOutsorce = watch('type') === PROJECT_TYPES.Outsourcing.value;
+  const isPodKmen = watch('type') === PROJECT_TYPES.PodKmen.value;
+  const isLeasing = watch('type') === PROJECT_TYPES.Leasing.value;
 
   return (
     <FormCard defaultConfig={{ disabled: true, isEditingTitle: false, viewPositions: [] as string[] }} className="project-card">
@@ -117,30 +122,43 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
               name="type"
               render={({ field }) => (
                 <TypeRadioButtons value={field.value} onChange={field.onChange}>
-                  <FormControlLabel
-                    value="Pod kmeň"
-                    control={<Radio />}
-                    label="Pod kmeň"
-                    disabled={formCardConfig.disabled}
-                  />
-                  <FormControlLabel
-                    value="Outsourcing"
-                    control={<Radio />}
-                    label="Outsourcing"
-                    disabled={formCardConfig.disabled}
-                  />
-                  <FormControlLabel
-                    value="HR Service"
-                    control={<Radio />}
-                    label="Leasing"
-                    disabled={formCardConfig.disabled}
+                  <In
+                    data={PROJECT_TYPES}
+                    render={(_key, item) => (
+                      <FormControlLabel
+                        value={item.value}
+                        control={<Radio />}
+                        label={item.label}
+                        disabled={formCardConfig.disabled}
+                      />
+                    )}
                   />
                 </TypeRadioButtons>
               )}
             />
             {!!watch('type') && (
               <>
-                {!isOutsorce && (
+                {isPodKmen && (
+                  <FormCardBodyRow>
+                    <Input
+                      theme="gray"
+                      label="Zamestnavateľ"
+                      disabled={formCardConfig.disabled}
+                      {...register('zamestnavatel')}
+                    />
+                    <Select
+                      theme="gray"
+                      label="Sprostredkovateľ"
+                      disabled={formCardConfig.disabled}
+                      options={BROKERS}
+                      labelPath="name"
+                      valuePath="ico"
+                      defaultValue={data.uzivatelskyZamestnavatel}
+                      {...register('uzivatelskyZamestnavatel')}
+                    />
+                  </FormCardBodyRow>
+                )}
+                {isLeasing && (
                   <FormCardBodyRow>
                     <Input
                       theme="gray"
@@ -160,9 +178,19 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
                   <FormCardBodyRow>
                     <Input
                       theme="gray"
-                      label="Obchodné meno"
+                      label="Odoberateľ"
                       disabled={formCardConfig.disabled}
                       {...register('businessName')}
+                    />
+                    <Select
+                      theme="gray"
+                      label="Dodávateľ"
+                      disabled={formCardConfig.disabled}
+                      options={BROKERS}
+                      labelPath="name"
+                      valuePath="ico"
+                      defaultValue={data.uzivatelskyZamestnavatel}
+                      {...register('uzivatelskyZamestnavatel')}
                     />
                   </FormCardBodyRow>
                 )}

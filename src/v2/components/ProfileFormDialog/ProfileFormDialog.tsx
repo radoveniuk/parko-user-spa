@@ -33,7 +33,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
-  const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
+  const { data: recruiters = [] } = useGetUserList({ roles: 'recruiter,admin' });
 
   const { register, control, handleSubmit, formState: { errors }, reset } = useForm<Data>({ defaultValues: data });
 
@@ -132,9 +132,9 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
           theme="gray"
           label={t('user.recruiter')}
           defaultValue={data?.recruiter}
-          options={recruiters}
+          options={recruiters.toSorted((a, b) => b.role.length - a.role.length)}
           valuePath="_id"
-          labelPath={['name', 'surname']}
+          labelPath={(item) => `${item.name} ${item.surname}, ${t(`selects.userRole.${item.role}`)}`}
           {...register('recruiter')}
         />
         {role === 'admin' && (

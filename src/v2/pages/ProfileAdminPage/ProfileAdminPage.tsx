@@ -130,8 +130,8 @@ const ProfileAdminPageRender = () => {
               </Button>
             )}
             {role === 'admin' && (
-              <Button color="error" onClick={() => void setOpenDeleteDialog(true)}>
-                <DeleteIcon size={16} color={themeConfig.palette.error.main} />
+              <Button color="error" disabled={profileData.isDeleted} onClick={() => void setOpenDeleteDialog(true)}>
+                <DeleteIcon size={16} color={!profileData.isDeleted ? themeConfig.palette.error.main : '#717171'} />
                 {t('delete')}
               </Button>
             )}

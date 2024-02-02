@@ -5,6 +5,7 @@ import { useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import { useSnackbar } from 'notistack';
+import { getProjectType } from 'v2/constants/projectType';
 import { Button, Checkbox, Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
@@ -74,6 +75,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
   return (
     <FormCardContent>
       <FormCard
+        className="EmploymentCard"
         defaultConfig={{ disabled: true, viewEmployer: false, viewEmployee: false }}
         onOutsideClick={({ warn }) => {
           warn();
@@ -123,13 +125,13 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                         options={clients}
                         disabled={formCardConfig.disabled}
                         defaultValue={data?.client}
-                        maxWidth="100%"
                         error={!!fieldState.error}
                         value={field.value}
                         onChange={(e) => {
                           clearErrors('client');
                           field.onChange(e.target.value);
                         }}
+                        className="select-field"
                       />
                     )}
                   />
@@ -141,12 +143,11 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                       <Select
                         label={t('user.project')}
                         theme="gray"
-                        labelPath="name"
+                        labelPath={item => `${item.name}${item.type ? `, ${getProjectType(item.type)?.label}` : ''}`}
                         valuePath="_id"
                         options={projects?.filter((projectItem) => (projectItem.client as IClient)?._id === watch('client'))}
                         disabled={formCardConfig.disabled || !watch('client')}
                         defaultValue={data?.project}
-                        maxWidth="100%"
                         error={!!fieldState.error}
                         value={field.value}
                         onChange={(e) => {

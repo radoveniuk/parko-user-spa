@@ -2,13 +2,15 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import IconButton from 'v2/uikit/IconButton';
+import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { BooleanIcon, EditIcon } from 'components/icons';
 import Checkbox from 'components/shared/Checkbox';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { STATUSES_COLORS } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
+import { IClient } from 'interfaces/client.interface';
+import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import { useProfileRowContext } from './context';
@@ -38,14 +40,18 @@ const InfoRow = () => {
           </ListTableCell>;
         }
         if (userField === 'project') {
-          return <ListTableCell key={colName}>
-            <span className="column-content">{typeof data.project === 'object' && data.project?.name}</span>
-          </ListTableCell>;
+          const project = data.project as IProject | undefined;
+          const client = project?.client as IClient | undefined;
+          return (
+            <ListTableCell key={colName}>
+              <span className="column-content">{client?.name ? `${client.name} > ` : ''}{project?.name}</span>
+            </ListTableCell>
+          );
         }
         if (userField === 'status') {
           return (
-            <ListTableCell key={colName} color={STATUSES_COLORS[data.status]}>
-              <span className="column-content">{data.status && t(`selects.userStatus.${data.status}`)}</span>
+            <ListTableCell key={colName}>
+              <StatusLabel className={`${data.status} column-content`}>{data.status && t(`selects.userStatus.${data.status}`)}</StatusLabel>
             </ListTableCell>
           );
         }

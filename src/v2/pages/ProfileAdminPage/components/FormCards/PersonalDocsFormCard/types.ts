@@ -9,12 +9,14 @@ type BaseDoc = {
 
 export type PassInfo = BaseDoc & {
   country: string;
+};
+
+export type IntPassInfo = PassInfo & {
   issuedBy: string;
 };
 
 export type PermitInfo = BaseDoc & {
   goal: string;
-  id: string;
   address: string;
   isMedicalCheck: boolean;
 };

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { BooleanIcon } from 'components/icons';
 import Checkbox from 'components/shared/Checkbox';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { STATUSES_COLORS } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
 import { IUser } from 'interfaces/users.interface';
@@ -43,8 +43,8 @@ const InfoRow = () => {
         }
         if (userField === 'status') {
           return (
-            <ListTableCell key={colName} color={STATUSES_COLORS[data.status]}>
-              <span className="column-content">{data.status && t(`selects.userStatus.${data.status}`)}</span>
+            <ListTableCell key={colName}>
+              <StatusLabel className={`${data.status} column-content`}>{data.status && t(`selects.userStatus.${data.status}`)}</StatusLabel>
             </ListTableCell>
           );
         }

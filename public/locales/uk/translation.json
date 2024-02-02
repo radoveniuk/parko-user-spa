@@ -190,7 +190,8 @@
     "fire": "Звільнити",
     "updateEmploymentInfo": "Змінити інформацію про працевлаштування",
     "addEmployment": "Додати співпрацю",
-    "alreadyExistsError": "Користувач з таким імейлом вже зареєстрований"
+    "alreadyExistsError": "Користувач з таким імейлом вже зареєстрований",
+    "pass": "Паспорт"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",

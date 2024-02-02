@@ -190,7 +190,8 @@
     "fire": "Fire",
     "updateEmploymentInfo": "Update employment info",
     "addEmployment": "Add employment",
-    "alreadyExistsError": "A user with this email already exists"
+    "alreadyExistsError": "A user with this email already exists",
+    "pass": "Passport"
   },
   "userHistory": {
     "updatedBy": "Updated by",

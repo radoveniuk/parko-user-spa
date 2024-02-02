@@ -4,7 +4,7 @@ import { AnyObject } from 'interfaces/base.types';
 
 type Props<T> = {
   data: T;
-  render(key: keyof T, value: unknown): ReactNode;
+  render(key: keyof T, value: any): ReactNode;
 };
 
 function In<T> ({ data, render }: Props<T>) {

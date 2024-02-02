@@ -187,7 +187,8 @@
     "fire": "Ukončiť",
     "updateEmploymentInfo": "Zmeňte informácie o zamestnaní",
     "addEmployment": "Pridať spolupracu",
-    "alreadyExistsError": "Používateľ s týmto e-mailom už existuje"
+    "alreadyExistsError": "Používateľ s týmto e-mailom už existuje",
+    "pass": "Občiansky preukaz"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",

@@ -33,10 +33,10 @@ const Pass = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
 
   return (
     <DocForm>
-      <div className="title">{t('user.internationalPassScan')}</div>
+      <div className="title">{t('user.passScan')}</div>
       <div className="fields">
         <Input
-          label={t('user.internationalPassNumber')}
+          label={t('user.passNumber')}
           disabled={disabled}
           error={!!errors.number}
           {...register('number', {
@@ -116,21 +116,6 @@ const Pass = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
               onBlur={field.onBlur}
             />
           )}
-        />
-        <Input
-          label={t('doc.issuedBy')}
-          disabled={disabled}
-          error={!!errors.issuedBy}
-          {...register('issuedBy', {
-            required: true,
-            onBlur () {
-              trigger('issuedBy');
-            },
-            onChange (e) {
-              trigger('issuedBy');
-              onUpdate?.({ ...values, issuedBy: e.target.value });
-            },
-          })}
         />
       </div>
     </DocForm>

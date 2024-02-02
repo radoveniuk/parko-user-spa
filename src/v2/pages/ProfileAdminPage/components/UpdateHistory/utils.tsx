@@ -61,9 +61,9 @@ export const getFieldSectionLabelMap = (t: (v: string) => string) => {
     permitFaceScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitFaceScan')}`,
     permitBackScan: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.permitBackScan')}`,
     docs: `${t('user.info')} > ${t('user.docsFields')}`,
-    medicalInsurance: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.medicalInsurance')}`,
+    medicalInsurance: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.insurance')}`,
     birthPlace: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.birthPlace')}`,
-    familyStatus: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.familyStatus')}`,
+    familyStatus: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.familyState')}`,
     birthSurname: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.birthSurname')}`,
     childrenCount: `${t('user.info')} > ${t('user.employmentInfo')} > ${t('user.childrenCount')}`,
     tags: `${t('user.info')} > Tags`,
@@ -98,6 +98,12 @@ export const renderValue = (key: keyof IUser, value: string | boolean | number |
   if (key === 'businessStatus') {
     return value ? t(`selects.corporateBodyStatus.${value}`) : '';
   }
+  if (key === 'familyStatus') {
+    return value ? t(`selects.familyStatus.${value}`) : '';
+  }
+  if (key === 'role') {
+    return value ? t(`selects.userRole.${value}`) : '';
+  }
   return value;
 };
 
@@ -125,6 +131,17 @@ export const renderDocs = (
               <DocField label={t('doc.dateFrom')} value={getDateFromIso(docItem.dateFrom)} />
               <DocField label={t('doc.dateTo')} value={getDateFromIso(docItem.dateTo)} />
               <DocField label={t('doc.issuedBy')} value={docItem.issuedBy} />
+            </div>
+          </>
+        )}
+        {docItem.type === 'idcard' && (
+          <>
+            <div className="title">{t('user.pass')}</div>
+            <div className="fields">
+              <DocField label={t('doc.number')} value={docItem.number} />
+              <DocField label={t('doc.issuerCountry')} value={docItem.country} />
+              <DocField label={t('doc.dateFrom')} value={getDateFromIso(docItem.dateFrom)} />
+              <DocField label={t('doc.dateTo')} value={getDateFromIso(docItem.dateTo)} />
             </div>
           </>
         )}

@@ -108,7 +108,9 @@ const HomePage = () => {
                             <TableRow key={client._id}>
                               <TableCell><Link to={`/client/${client._id}`}>{client.name}</Link></TableCell>
                               <TableCell>{client.sidlo}</TableCell>
-                              <TableCell>{t(`selects.projectStatus.${client.status}`)}</TableCell>
+                              <TableCell>
+                                <StatusLabel className={client.status}>{t(`selects.clientStatus.${client.status}`)}</StatusLabel>
+                              </TableCell>
                             </TableRow>
                           ))}
                         </TableBody>

@@ -18,7 +18,7 @@ export type RegisterUserDto = {
 
 export type UserRole = 'user' | 'admin' | 'recruiter' | 'super-admin';
 
-export type UserPersonalDocType = 'pass' | 'permit' | 'visa';
+export type UserPersonalDocType = 'idcard' | 'pass' | 'permit' | 'visa';
 
 export type UserBusinessActivity = {
   description: string;

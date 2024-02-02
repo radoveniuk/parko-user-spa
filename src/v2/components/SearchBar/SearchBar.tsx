@@ -7,6 +7,7 @@ import { Input } from 'v2/uikit';
 
 import { useGetSearchResults } from 'api/query/searchQueary';
 import { HistoryIcon, SearchIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import useDebounce from 'hooks/useDebounce';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import useOutsideClick from 'hooks/useOutsideClick';
@@ -15,6 +16,7 @@ import { SearchWrapper } from './styles';
 
 const SearchBar = () => {
   const { t } = useTranslation();
+  const { role } = useAuthData();
 
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearch = useDebounce(searchValue);
@@ -37,19 +39,21 @@ const SearchBar = () => {
 
   return (
     <SearchWrapper ref={searchFieldRef}>
-      <Input
-        value={searchValue}
-        onClick={() => void setOpenSearchMenu(true)}
-        onChange={(e) => void setSearchValue(e.target.value)}
-        placeholder={t('header.search')}
-        InputProps={{
-          startAdornment: (
-            <div className="search-icon">
-              <SearchIcon />
-            </div>
-          ),
-        }}
-      />
+      {!['user', 'super-admin'].includes(role as string) && (
+        <Input
+          value={searchValue}
+          onClick={() => void setOpenSearchMenu(true)}
+          onChange={(e) => void setSearchValue(e.target.value)}
+          placeholder={t('header.search')}
+          InputProps={{
+            startAdornment: (
+              <div className="search-icon">
+                <SearchIcon />
+              </div>
+            ),
+          }}
+        />
+      )}
       {!data && openSearchMenu && !isEmpty(searchbarHistoryState) && (
         <div className="results">
           <div className="subtitle"><HistoryIcon />{t('searchHistory')}:</div>

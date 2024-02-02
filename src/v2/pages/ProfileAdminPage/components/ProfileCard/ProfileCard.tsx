@@ -57,7 +57,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
   return (
     <>
       <ProfileCardWrapper>
-        <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
+        <IconButton className="edit-profile-btn" disabled={data.isDeleted} onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
         <div className="tags">
           <Chip label={t(`selects.userRole.${user.role}`)} />
           {user.position && <Chip label={user.position} />}

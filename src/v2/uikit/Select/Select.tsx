@@ -64,13 +64,12 @@ function Select<T> ({
   }, [value]);
 
   return (
-    <SelectWrapper style={{ maxWidth }} fieldColor={COLORS_MAP[theme]} >
-      <div className={`label${rest.error ? ' error' : ''}`}>{label}</div>
+    <SelectWrapper className="Select" style={{ maxWidth }} fieldColor={COLORS_MAP[theme]} >
+      <label className={`label${rest.error ? ' error' : ''}`}>{label}</label>
       <SelectMaterial
         value={selectedValue}
         IconComponent={(props) => <DropdownIcon {...props} color="#131313" size={12} />}
         ref={ref}
-        // style={{ minWidth: 200 }}
         onChange={(e, child) => {
           setSelectedValue(e.target.value as Path<T>);
           onChange?.(e, child);

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { STATUSES_COLORS } from 'constants/statuses';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 
@@ -24,22 +24,26 @@ const InfoRow = () => {
         </LinkWrapper>
       </ListTableCell>
       {cols.map((colName) => {
-        const userField = colName.replace('client.', '') as keyof IClient;
-        if (userField.includes('Date')) {
-          return <ListTableCell key={colName}>
-            <span className="column-content">{getDateFromIso(data[userField])}</span>
-          </ListTableCell>;
-        }
-        if (userField === 'status') {
+        const clientField = colName.replace('client.', '') as keyof IClient;
+        if (clientField.includes('Date')) {
           return (
-            <ListTableCell key={colName} color={STATUSES_COLORS[data.status]}>
-              <span className="column-content">{data.status && t(`selects.clientStatus.${data.status}`)}</span>
+            <ListTableCell key={colName}>
+              <span className="column-content">{getDateFromIso(data[clientField])}</span>
             </ListTableCell>
           );
         }
-        return <ListTableCell key={colName}>
-          <span className="column-content">{data[userField]?.toString()}</span>
-        </ListTableCell>;
+        if (clientField === 'status') {
+          return (
+            <ListTableCell key={colName}>
+              <StatusLabel className={`${data.status} column-content`}>{data.status && t(`selects.clientStatus.${data.status}`)}</StatusLabel>
+            </ListTableCell>
+          );
+        }
+        return (
+          <ListTableCell key={colName}>
+            <span className="column-content">{data[clientField]?.toString()}</span>
+          </ListTableCell>
+        );
       })}
     </ListTableRow>
   );

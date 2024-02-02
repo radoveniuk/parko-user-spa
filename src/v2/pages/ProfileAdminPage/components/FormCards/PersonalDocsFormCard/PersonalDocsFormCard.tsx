@@ -10,13 +10,14 @@ import { CloseIcon, PersonalDocIcon, PlusIcon } from 'components/icons';
 import useListState from 'hooks/useListState';
 import { UserPersonalDocType } from 'interfaces/users.interface';
 
+import InternationalPass from './components/InternationalPass';
 import Pass from './components/Pass';
 import Permit from './components/Permit';
 import Visa from './components/Visa';
 import { DocItem, DocList } from './styles';
-import { PassInfo, PermitInfo, VisaInfo } from './types';
+import { IntPassInfo, PassInfo, PermitInfo, VisaInfo } from './types';
 
-const DEFAULT_PASS: PassInfo = {
+const DEFAULT_INT_PASS: IntPassInfo = {
   type: 'pass',
   number: '',
   dateFrom: '',
@@ -25,12 +26,19 @@ const DEFAULT_PASS: PassInfo = {
   issuedBy: '',
 };
 
+const DEFAULT_PASS: PassInfo = {
+  type: 'idcard',
+  number: '',
+  dateFrom: '',
+  dateTo: '',
+  country: '',
+};
+
 const DEFAULT_PERMIT: PermitInfo = {
   type: 'permit',
   number: '',
   dateFrom: '',
   dateTo: '',
-  id: '',
   goal: '',
   address: '',
   isMedicalCheck: true,
@@ -65,9 +73,10 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
   };
 
   const missingDocs = useMemo(() => [
-    { type: 'pass', label: 'user.internationalPassScan', defaultValues: DEFAULT_PASS },
+    { type: 'pass', label: 'user.internationalPassScan', defaultValues: DEFAULT_INT_PASS },
     { type: 'permit', label: 'user.permit', defaultValues: DEFAULT_PERMIT },
     { type: 'visa', label: 'user.visa', defaultValues: DEFAULT_VISA },
+    { type: 'idcard', label: 'user.pass', defaultValues: DEFAULT_PASS },
   ].filter((item) => !docs.some((docItem) => docItem.type === item.type)), [docs]);
 
   useEffect(() => {
@@ -122,9 +131,17 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
                   >
                     <CloseIcon size={24} />
                   </IconButton>
-                  {docItem.type === 'pass' && (
+                  {docItem.type === 'idcard' && (
                     <Pass
                       data={docItem as PassInfo}
+                      disabled={formCardConfig.disabled}
+                      onUpdate={(values) => void update(docItem, values)}
+                      triggerAllFields={formCardConfig.triggerAll}
+                    />
+                  )}
+                  {docItem.type === 'pass' && (
+                    <InternationalPass
+                      data={docItem as IntPassInfo}
                       disabled={formCardConfig.disabled}
                       onUpdate={(values) => void update(docItem, values)}
                       triggerAllFields={formCardConfig.triggerAll}

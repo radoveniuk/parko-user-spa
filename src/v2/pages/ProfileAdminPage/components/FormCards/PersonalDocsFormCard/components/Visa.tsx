@@ -100,7 +100,7 @@ const Visa = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
           label={t('comment')}
           disabled={disabled}
           multiline
-          className="big-field"
+          className="fullwidth"
           {...register('comment')}
         />
       </div>

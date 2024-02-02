@@ -3,17 +3,17 @@ import styled from 'styled-components';
 import { themeConfig } from 'theme';
 
 const StatusLabel = styled.div`
-  &.candidate {
+  &.candidate, &.development {
     background-color: #f0c844;
     color: #2b2b2b;
   }
-  &.hired {
+  &.hired, &.active {
     background-color: ${themeConfig.palette.success.main};
   }
-  &.canceled {
+  &.canceled, &.inactive {
     background-color: #717171;
   }
-  &.fired {
+  &.fired, &.rejected {
     background-color: #E72A2A;
   }
   &.undefined {

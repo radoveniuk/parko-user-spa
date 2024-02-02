@@ -190,7 +190,8 @@
     "fire": "Уволить",
     "updateEmploymentInfo": "Изменить информацию о трудоустройстве",
     "addEmployment": "Новое сотрудничество",
-    "alreadyExistsError": "Пользователь с таким имейлом уже существует"
+    "alreadyExistsError": "Пользователь с таким имейлом уже существует",
+    "pass": "Паспорт"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",

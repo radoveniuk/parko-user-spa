@@ -1,29 +1,27 @@
-import React, { memo, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Checkbox, Input } from 'v2/uikit';
+import { COUNTRIES } from 'v2/constants/countries';
+import { Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
 import Select from 'v2/uikit/Select';
 
-import { PERMIT_TYPES } from 'constants/selectsOptions';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { UserPersonalDocType } from 'interfaces/users.interface';
 
-import { PermitInfo } from '../types';
+import { IntPassInfo } from '../types';
 
-import { DocForm } from './styles';
+import { CountrySelectOption, DocForm } from './styles';
 
 type Props = {
-  data: PermitInfo;
+  data: IntPassInfo;
   disabled?: boolean;
-  onUpdate?(values: Partial<PermitInfo> & { type: UserPersonalDocType }): void;
+  onUpdate?(values: Partial<IntPassInfo> & { type: UserPersonalDocType }): void;
   triggerAllFields?: boolean;
 };
 
-const Permit = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
+const InternationalPass = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
   const { t } = useTranslation();
-  const translatedPermitTypeList = useTranslatedSelect(PERMIT_TYPES, 'permitType');
-  const { control, formState: { errors }, register, trigger, watch } = useForm<PermitInfo>({ defaultValues: data });
+  const { control, formState: { errors }, register, trigger, watch } = useForm<IntPassInfo>({ defaultValues: data });
 
   const values = watch();
 
@@ -35,10 +33,10 @@ const Permit = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
 
   return (
     <DocForm>
-      <div className="title">{t('user.permit')}</div>
+      <div className="title">{t('user.internationalPassScan')}</div>
       <div className="fields">
         <Input
-          label={t('user.permitCardNumber')}
+          label={t('user.internationalPassNumber')}
           disabled={disabled}
           error={!!errors.number}
           {...register('number', {
@@ -54,16 +52,19 @@ const Permit = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
         />
         <Select
           disabled={disabled}
-          options={translatedPermitTypeList}
-          label={t('user.permitGoal')}
-          defaultValue={data.goal}
-          error={!!errors.goal}
-          {...register('goal', {
+          options={COUNTRIES}
+          labelPath={(data) => (
+            <CountrySelectOption><img src={`https://flagcdn.com/w20/${data.code}.png`} className="mr-12" />{data.value}</CountrySelectOption>
+          )}
+          label={t('doc.issuerCountry')}
+          defaultValue={data.country}
+          error={!!errors.country}
+          {...register('country', {
             required: true,
             onChange (e) {
-              onUpdate?.({ ...values, goal: e.target.value });
+              onUpdate?.({ ...values, country: e.target.value });
               setTimeout(() => {
-                trigger('goal');
+                trigger('country');
               }, 100);
             },
           })}
@@ -117,36 +118,23 @@ const Permit = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
           )}
         />
         <Input
-          className="fullwidth"
-          label={t('user.adress')}
+          label={t('doc.issuedBy')}
           disabled={disabled}
-          error={!!errors.address}
-          {...register('address', {
+          error={!!errors.issuedBy}
+          {...register('issuedBy', {
             required: true,
             onBlur () {
-              trigger('address');
+              trigger('issuedBy');
             },
             onChange (e) {
-              trigger('address');
-              onUpdate?.({ ...values, address: e.target.value });
+              trigger('issuedBy');
+              onUpdate?.({ ...values, issuedBy: e.target.value });
             },
           })}
-        />
-        <Controller
-          control={control}
-          name="isMedicalCheck"
-          render={({ field }) => (
-            <Checkbox
-              disabled={disabled}
-              label={t('user.hasMedicalExamination')}
-              onChange={(e) => { field.onChange(e.target.checked); onUpdate?.({ ...values, isMedicalCheck: e.target.checked }); }}
-              checked={field.value}
-            />
-          )}
         />
       </div>
     </DocForm>
   );
 };
 
-export default memo(Permit);
+export default InternationalPass;
