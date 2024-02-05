@@ -77,9 +77,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
       <FormCard
         className="EmploymentCard"
         defaultConfig={{ disabled: true, viewEmployer: false, viewEmployee: false }}
-        onOutsideClick={({ warn }) => {
-          warn();
-        }}
+        onOutsideClick={({ warn }) => { warn(); }}
       >
         {({ formCardConfig, updateFormCardConfig }) => (
           <>

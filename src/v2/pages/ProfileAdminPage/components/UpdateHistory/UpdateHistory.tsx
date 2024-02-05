@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
-import { isEmpty } from 'lodash-es';
+import isEmpty from 'lodash-es/isEmpty';
 import omit from 'lodash-es/omit';
 import { DateTime } from 'luxon';
 import Avatar from 'v2/uikit/Avatar';

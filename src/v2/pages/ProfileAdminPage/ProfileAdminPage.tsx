@@ -44,6 +44,7 @@ import ResidencesFormCard from './components/FormCards/ResidencesFormCard';
 import ScansFormCard from './components/FormCards/ScansFormCard';
 import ProfileCard from './components/ProfileCard';
 import UpdateHistory from './components/UpdateHistory';
+import useUpdateCachedUserData from './hooks/useUpdateCachedUserData';
 import { ContentWrapper, ProfileAdminPageWrapper } from './styles';
 
 const TABS = ['profile', 'user.info', 'user.cooperation', 'user.history'];
@@ -56,6 +57,7 @@ const ProfileAdminPageRender = () => {
   const [tab] = useTabs();
   const queryClient = useQueryClient();
   const userQueryKey = JSON.stringify({ user: userId });
+  const updateCachedUserData = useUpdateCachedUserData();
 
   const { data: profileData } = useGetUser(userId as string);
   const { data: residences = [] } = useGetResidences({ user: userId });
@@ -109,7 +111,7 @@ const ProfileAdminPageRender = () => {
     const updatedData = { ...profileData, ...data };
     delete updatedData.password;
     updateUserMutation.mutate({ _id: userId as string, ...updatedData });
-    queryClient.setQueryData(['user-data', userId], { ...updatedData });
+    updateCachedUserData(updatedData);
   };
 
   const finances = useMemo(() => [

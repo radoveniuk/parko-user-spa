@@ -2,7 +2,7 @@ import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import _ from 'lodash-es';
+import isEmpty from 'lodash-es/isEmpty';
 import { Button, Input, Stack } from 'v2/uikit';
 import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 
@@ -37,7 +37,7 @@ const RegisterForm = () => {
             label={t('user.name')}
             type="text"
             helperText={errors.name?.message ?? ''}
-            error={!_.isEmpty(errors.name)}
+            error={!isEmpty(errors.name)}
             theme="gray"
             {...field}
           />
@@ -51,7 +51,7 @@ const RegisterForm = () => {
           label={t('user.surname')}
           type="text"
           helperText={errors.surname?.message ?? ''}
-          error={!_.isEmpty(errors.surname)}
+          error={!isEmpty(errors.surname)}
           theme="gray"
           {...field}
         />}
@@ -64,7 +64,7 @@ const RegisterForm = () => {
           label={t('user.email')}
           type="text"
           helperText={errors.email?.message ?? ''}
-          error={!_.isEmpty(errors.email)}
+          error={!isEmpty(errors.email)}
           theme="gray"
           {...field}
         />}
@@ -77,7 +77,7 @@ const RegisterForm = () => {
         render={({ field }) => (
           <PhoneInput
             {...field}
-            error={!_.isEmpty(errors.phone)}
+            error={!isEmpty(errors.phone)}
             helperText={errors.phone?.message ?? ''}
             theme="gray"
           />
@@ -92,7 +92,7 @@ const RegisterForm = () => {
           type="password"
           showPasswordIcon
           helperText={errors.password?.message ?? ''}
-          error={!_.isEmpty(errors.password)}
+          error={!isEmpty(errors.password)}
           theme="gray"
           {...field}
         />}
@@ -102,7 +102,7 @@ const RegisterForm = () => {
           type="submit"
           variant="contained"
           onClick={handleSubmit(onSubmitLogin)}
-          disabled={!_.isEmpty(errors)}
+          disabled={!isEmpty(errors)}
         >
           {t('user.register')}
         </Button>

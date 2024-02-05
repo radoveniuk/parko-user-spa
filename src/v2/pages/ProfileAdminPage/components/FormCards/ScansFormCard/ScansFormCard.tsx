@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { isEmpty } from 'lodash-es';
+import isEmpty from 'lodash-es/isEmpty';
 import omit from 'lodash-es/omit';
 import { Button, Input } from 'v2/uikit';
 import Dialog, { DialogActions } from 'v2/uikit/Dialog';

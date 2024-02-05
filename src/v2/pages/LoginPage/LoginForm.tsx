@@ -2,7 +2,7 @@ import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import _ from 'lodash-es';
+import isEmpty from 'lodash-es/isEmpty';
 import { Button, Input, Stack } from 'v2/uikit';
 
 import { useLogin } from 'contexts/AuthContext';
@@ -36,7 +36,7 @@ const LoginForm = () => {
             label={t('user.email')}
             type="text"
             helperText={errors.nickname?.message ?? ''}
-            error={!_.isEmpty(errors.nickname)}
+            error={!isEmpty(errors.nickname)}
             theme="gray"
             {...field}
           />
@@ -52,14 +52,14 @@ const LoginForm = () => {
             type="password"
             showPasswordIcon
             helperText={errors.password?.message ?? ''}
-            error={!_.isEmpty(errors.password)}
+            error={!isEmpty(errors.password)}
             theme="gray"
             {...field}
           />
         )}
       />
       <Stack direction="row" justifyContent="end" alignItems="center" mt={'14px'}>
-        <Button type="submit" variant="contained" disabled={!_.isEmpty(errors)}>{t('user.login')}</Button>
+        <Button type="submit" variant="contained" disabled={!isEmpty(errors)}>{t('user.login')}</Button>
       </Stack>
     </LoginFormWrapper>
   );

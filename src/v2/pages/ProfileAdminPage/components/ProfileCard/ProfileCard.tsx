@@ -1,5 +1,6 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import isEqual from 'lodash-es/isEqual';
 import { DateTime } from 'luxon';
 import ProfileFormDialog from 'v2/components/ProfileFormDialog';
 import Chip from 'v2/uikit/Chip';
@@ -54,6 +55,13 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
     setNewTagLabel('');
   };
 
+  useEffect(() => {
+    if (!isEqual(data, user)) {
+      setUser(data);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   return (
     <>
       <ProfileCardWrapper>
@@ -101,6 +109,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
           <div className="common-item">{t('user.country')}: {user.country}</div>
           <div className="common-item">{t('user.adress')}: {user.adress} {user.city} {user.zip}</div>
           <div className="common-item">{t('user.source')}: {user.source} / {recruiter?.name} {recruiter?.surname}</div>
+          <div className="common-item">{t('user.notes')}: {user.notes}</div>
         </div>
         <div className="work-history section">
           <div className="subtitle">{t('user.workHistory')}</div>

@@ -10,7 +10,6 @@ import Select from 'v2/uikit/Select';
 
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList } from 'api/query/userQuery';
-import { USER_STATUSES } from 'constants/statuses';
 import { ROLES } from 'constants/userRoles';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -31,7 +30,6 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const { t } = useTranslation();
   const sexOptions = useTranslatedSelect(['male', 'female']);
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
-  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: recruiters = [] } = useGetUserList({ roles: 'recruiter,admin' });
 
@@ -147,16 +145,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             {...register('role')}
           />
         )}
-        <Select
-          theme="gray"
-          options={translatedStatuses}
-          defaultValue={data?.status || ''}
-          label={t('user.status')}
-          emptyItem="noSelected"
-          {...register('status')}
-        />
         <Input
-          className="fullwidth"
           label={t('user.notes')}
           theme="gray"
           {...register('notes')}

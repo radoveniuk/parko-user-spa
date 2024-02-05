@@ -1,7 +1,7 @@
 import React, { Fragment, memo, ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Fade, Paper, Popper } from '@mui/material';
-import { cloneDeep } from 'lodash-es';
+import cloneDeep from 'lodash-es/cloneDeep';
 import IconButton from 'v2/uikit/IconButton';
 
 import { CloseIcon, PlusIcon } from 'components/icons';
