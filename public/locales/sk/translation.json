@@ -91,7 +91,7 @@
     "shoesSize": "Veľkosť topánok",
     "study": "Vzdelanie",
     "speciality": "Odbor",
-    "familyStatus": "Rodinný stav",
+    "familyState": "Rodinný stav",
     "prevSurname": "Rodné priezvisko",
     "hasChildren": "Mate deti?",
     "hasSiblings": "Mate súrodencov?",
@@ -153,7 +153,7 @@
     "permitAdress": "Miesto podnikania",
     "permitDepartment": "Okresný úrad",
     "permitNumber": "Číslo živnostenského registru",
-    "permitCardNumber": "Číslo",
+    "permitCardNumber": "Číslo pobytovéj karty",
     "blocked": "Black List",
     "notes": "Poznámky",
     "workHistory": "Historia prace",
@@ -161,20 +161,19 @@
     "createdAt": "Datum vytvorenia",
     "cooperation": "Spolupraca",
     "history": "História",
-    "finances": "Finansy",
+    "finances": "Financie",
     "addDoc": "Nový doklad",
     "povolenie": "Prechodný / trvalý pobyt",
-    "permitCardId": "Identifikačné číslo",
+    "permitCardId": "Číslo pobytovéj karty",
     "permitGoal": "Cieľ",
     "visaNumber": "Číslo visy",
     "bankInfo": "Bankové údaje",
     "bankName": "Banka",
-    "SWIFT": "SWIFT",
     "employmentInfo": "Informácie pre zamestnanie",
     "medicalInsurance": "Poistenie",
     "birthSurname": "Priezvisko pri narodení",
     "childrenCount": "Počet detí",
-    "businessStatus": "Stav podnikania",
+    "businessStatus": "Stav živnosti",
     "businessActivities": "Predmety podnikania",
     "employment": "Zamestnanie",
     "individualCooperation": "Spolupraca — Živnosť",
@@ -270,7 +269,7 @@
     "paymentDate": "Data splaty",
     "prepayment": "Záloha",
     "new":"Nova záloha",
-    "createdAt": "Datum",
+    "createdAt": "Datum vytvorenia",
     "period": "Period"
   },
   "dayoff": {
@@ -283,12 +282,12 @@
     "send": "Poslať",
     "dayoff": "Voľno",
     "new": "Urobiť voľno",
-    "createdAt": "Datum"
+    "createdAt": "Datum vytvorenia"
   },
   "profileList": "Profily",
   "selects": {
     "permitType": {
-      "business": "Biznis",
+      "business": "Podnikanie",
       "study": "Vzdelanie",
       "work": "Práca"
     },
@@ -299,8 +298,8 @@
       "high": "Vysokoškolské"
     },
     "familyStatus": {
-      "married": "Ženatý",
-      "single": "Slobodný"
+      "married": "Ženatý/Vydatá",
+      "single": "Slobodný/Slobodná"
     },
     "userStatus": {
       "candidate": "Kandidát",
@@ -324,7 +323,7 @@
     "tariff": {
       "candidate": "Za kandidáta",
       "hour": "Za odprac. hod.",
-      "month": "Za odprac. mes."
+      "month": " Za odprac. mes."
     },
     "accommodationTariff": {
       "night": "Noc",
@@ -346,24 +345,24 @@
       "date": "Dátum"
     },
     "clientStatus": {
-      "active": "Aktív",
-      "inactive": "Neaktív",
-      "development": "Vývoj",
-      "rejected": "Zamietnuté"
+      "active": "Aktívný",
+      "inactive": "Pozastavený",
+      "development": "Vo vývoji",
+      "rejected": "Zrušený"
     },
     "projectStatus": {
       "active": "Aktív",
       "inactive": "Neaktív"
     },
     "prepaymentStatus": {
-      "pending": "V procese",
+      "pending": "Spracovava sá",
       "approved": "Potvrdený",
       "rejected": "Zamietnuté",
       "paid": "Zaplatené"
     },
     "financeType": {
       "paycheck": "Faktúra",
-      "payroll": "Payroll"
+      "payroll": "Mzda"
     },
     "corporateBodyStatus": {
       "active": "Aktívne",
@@ -371,9 +370,9 @@
       "closed": "Zrušené"
     },
     "userPositionEmploymentStatus": {
-      "hired": "Najatý",
+      "hired": "Zamestnaný",
       "fired": "Ukončený",
-      "canceled": "Storno"
+      "canceled": "Stornovaný"
     }
   },
   "notFoundPage": "Stránka nenájdená",
@@ -394,8 +393,8 @@
   "paycheck": {
     "successfullUpload": "Nahranie bolo úspešne",
     "message": "Pozor! Akceptované sú iba tieto formáty názvy súborov: «mm.rrrr - Projekt - Meno Priezvisko» alebo «mm.rrrr_-_Projekt_-_Meno Priezvisko»",
-    "upload": "Nahrať faktúry",
-    "uploaded": "Faktúry v systéme",
+    "upload": "Nahravanie",
+    "uploaded": "Nahraté faktúry",
     "date": "Dátum",
     "user": "Používateľ",
     "new": "Vytvoriť novu",
@@ -492,9 +491,9 @@
     "contactPersonPosition": "Pozícia Kontaktnej osoba",
     "phone": "Telefón",
     "status": "Status",
-    "new": "Vytvoriť novy",
-    "cooperationStartDate": "Nástup",
-    "cooperationEndDate": "Ukončenie",
+    "new": "Nový klient",
+    "cooperationStartDate": "Začiatok spoluprace",
+    "cooperationEndDate": "Koniec spoluprace",
     "email": "Email",
     "managers": "Manažéri",
     "profile": "Profil",
@@ -520,7 +519,7 @@
   "firstDate": "Dátum od",
   "lastDate": "Dátum do",
   "welcomeText": " Vitajte v systéme Parko User, ",
-  "download": "Uložiť",
+  "download": "Stiahnuť",
   "noSelected": " Nie je zvolený ",
   "male": "Muž",
   "female": "Žena",
@@ -538,7 +537,7 @@
   "employee": "Zamestnanec",
   "dataUpdated": "Údaje aktualizované",
   "header": {
-    "search": "Vyhľadajte používateľov, projektov alebo klientov"
+    "search": "Vyhľadajte používateľov, projekty alebo klientov"
   },
   "unsavedChanges": "Neuložené zmeny",
   "unsavedChangesWarn": "Máte neuložené zmeny. Ak ich neuložíte, môžu byť stratené.",

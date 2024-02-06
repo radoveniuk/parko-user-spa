@@ -43,11 +43,11 @@
     "title": "Информирование об отсутствии на работе",
     "form": {
       "explainReason": "Укажите причину",
-      "successCreate": "Информацию об отгуле отправлено"
+      "successCreate": "Информацию об отсутствии отправлено"
     }
   },
   "notifications": "Оповещения",
-  "noData": "Ничего не найдено",
+  "noData": "Данных не найдено",
   "paychecks": "Рассчетные листы",
   "profile": "Профиль",
   "user": {
@@ -74,7 +74,7 @@
     "internationalPassAuthority": "Орган, который выдал",
     "hasIdCard": "ID картка?",
     "passNumber": "Номер паспорта",
-    "hasPermit": "ВНЖ/ПМЖ",
+    "hasPermit": "Имеете ли вы ВНЖ/ПМЖ",
     "permitType": "Тип ВНЖ",
     "permitExpire": "Срок до (ВНЖ)",
     "hasPrevPermit": "Имели ли ВНЖ раньше?",
@@ -91,7 +91,7 @@
     "shoesSize": "Размер обуви",
     "study": "Образование",
     "speciality": "Специальность",
-    "familyStatus": "Семейное положение",
+    "familyState": "Семейное положение",
     "prevSurname": "Девичья фамилия",
     "hasChildren": "Есть ли у вас дети?",
     "hasSiblings": "Есть ли брат/сестра?",
@@ -102,7 +102,7 @@
     "fatherName": "Имя отца",
     "fatherSurname": "Фамилия отца",
     "fatherBirthdate": "Дата рождения отца",
-    "wrongCredentials": "Неправильный логин или пароль",
+    "wrongCredentials": "Неверный логин или пароль",
     "scancopies": "Скан-копии",
     "internationalPassScan": "Загранпаспорт",
     "passScan": "Паспорт",
@@ -121,7 +121,7 @@
     "status": "Статус сотрудника",
     "resetPassword": "Сброс пароля",
     "role": "Роль",
-    "admin": "Администрирование пользователя",
+    "admin": "Администрирование пользователей",
     "delete": "Удалить аккаунт",
     "approveRemoving": "Вы собираетесь удалить профиль пользователя <b>{{user}}</b>! Вы уверенны?",
     "approve": "Подтвердить",
@@ -136,7 +136,7 @@
     "employmentType": "Тип найма",
     "mailError": "Невалидный email",
     "export": "Экспорт",
-    "other": "Другое",
+    "other": "Прочее",
     "sex": "Пол",
     "systemFields": "Системные данные",
     "permitFields": "Данные о ВНЖ/ПМЖ",
@@ -153,7 +153,7 @@
     "permitAdress": "Регистрационный адрес",
     "permitDepartment": "Районное управление",
     "permitNumber": "Номер записи в реестре",
-    "permitCardNumber": "Номер карты",
+    "permitCardNumber": "Номер карты ВЖН/ПМЖ",
     "blocked": "Черный список",
     "notes": "Заметки",
     "oldPassword": "Предыдущий пароль",
@@ -166,17 +166,16 @@
     "history": "История",
     "finances": "Финансы",
     "addDoc": "Добавить документ",
-    "permitCardId": "Идентификационный номер",
+    "permitCardId": "Номер карты ВЖН/ПМЖ",
     "permitGoal": "Цель",
     "visaNumber": "Номер визы",
     "bankInfo": "Банковские данные",
     "bankName": "Банк",
     "employmentInfo": "Сведения для трудоустройства",
-    "SWIFT": "SWIFT",
     "medicalInsurance": "Страховка",
     "birthSurname": "Фамилия при рождении",
     "childrenCount": "Количество детей",
-    "businessStatus": "Статус",
+    "businessStatus": "Статус ИП",
     "businessActivities": "КВЭДЫ",
     "employment": "Трудоустройство",
     "individualCooperation": "Сотрудничество — ИП",
@@ -271,7 +270,7 @@
     "paymentDate": "Дата оплаты",
     "prepayment": "Аванс",
     "new": "Новый аванс",
-    "createdAt": "Дата",
+    "createdAt": "Дата создания",
     "period": "Период"
   },
   "dayoff": {
@@ -284,7 +283,7 @@
     "send": "Отправить",
     "dayoff": "Отгул",
     "new": "Новый отгул",
-    "createdAt": "Дата"
+    "createdAt": "Дата создания"
   },
   "profileList": "Сотрудники",
   "selects": {
@@ -300,8 +299,8 @@
       "high": "Высшее"
     },
     "familyStatus": {
-      "married": "Женат",
-      "single": "Не женат"
+      "married": "Женат/Замужем",
+      "single": "Не женат/ Не замужем"
     },
     "userStatus": {
       "candidate": "Кандидат",
@@ -349,9 +348,9 @@
     },
     "clientStatus": {
       "active": "Активный",
-      "inactive": "Неактивный",
-      "development": "Разработка",
-      "rejected": "Отклонено"
+      "inactive": "Приостановлен",
+      "development": "В разработке",
+      "rejected": "Отменен"
     },
     "projectStatus": {
       "active": "Активный",
@@ -370,12 +369,12 @@
     "corporateBodyStatus": {
       "active": "Активно",
       "stopped": "Приостановлено",
-      "closed": "Устранено"
+      "closed": "Ликвидировано"
     },
     "userPositionEmploymentStatus": {
       "hired": "Нанят",
       "fired": "Уволен",
-      "canceled": "Отмена"
+      "canceled": "Отозван"
     }
   },
   "notFoundPage": "Страница не найдена",
@@ -384,7 +383,7 @@
   "false": "Нет",
   "prepaymentsList": "Список авансов",
   "dayoffList": "Список отгулов",
-  "paychecksUpload": "Загрузка рассчетных листов",
+  "paychecksUpload": "Загрузка рассчетных листов и фактур",
   "file": {
     "upload": "Перетяните файлы или нажмите",
     "submit": "Отправить",
@@ -396,8 +395,8 @@
   "paycheck": {
     "successfullUpload": "Загрузка прошла успешно",
     "message": "Обратите внимание! Принимаются только такие форматы названий файлов: «ММ.ГГГГ - Проект - Имя Фамилия» или «ММ.ГГГГ_-_Проект_-_Имя_Фамилия»",
-    "upload": "Загрузка фактур",
-    "uploaded": "Фактуры в системе",
+    "upload": "Загрузка",
+    "uploaded": "Загруженные фактуры",
     "date": "Дата",
     "user": "Пользователь",
     "new": "Создать новую",
@@ -426,7 +425,7 @@
     "mainInfo": "Основная информация",
     "location": "Локация",
     "stages": "Этапы трудоустройства",
-    "status": "Статус проекта",
+    "status": "Статус",
     "cooperationFrom": "Сотрудничесво от",
     "cooperationTo": "Сотрудничесво до",
     "client": "Клиент"
@@ -439,7 +438,7 @@
     "users": "Пользователи",
     "delete": "Удалить сообщение",
     "in": "Входящие",
-    "out": "Исходящие"
+    "out": "Отправленные"
   },
   "customForms": {
     "names": "Название",
@@ -468,16 +467,16 @@
     "costMonth": "Стоимость месяц",
     "sum": "Сумма",
     "residences": "Записи о проживании",
-    "objects": "Обьекты жилья",
+    "objects": "Жилые объекты",
     "notificate": "Оповестить владельца",
     "active": "Активно",
     "createdAt": "Дата создания",
-    "residence": "Размещение"
+    "residence": "Запись о проживании"
   },
   "docsTemplates": {
     "template": "Шаблон",
     "codes": "Коды",
-    "file": "Файл docx",
+    "file": "Файл .docx",
     "print": "Генерация документа",
     "fieldName": "Название поля",
     "fieldCode": "Код в шаблоне"
