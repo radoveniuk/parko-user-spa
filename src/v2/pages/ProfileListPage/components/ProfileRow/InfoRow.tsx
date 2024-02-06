@@ -125,7 +125,7 @@ const InfoRow = () => {
           if (docValueKey === 'goal') {
             return (
               <ListTableCell key={colName}>
-                <span className="column-content">{t(`selects.permitType.${value}`)}</span>
+                <span className="column-content">{value && t(`selects.permitType.${value}`)}</span>
               </ListTableCell>
             );
           }
