@@ -187,6 +187,7 @@
     "updateEmploymentInfo": "Zmeňte informácie o zamestnaní",
     "addEmployment": "Pridať spolupracu",
     "alreadyExistsError": "Používateľ s týmto e-mailom už existuje",
+    "SWIFT": "SWIFT",
     "pass": {
       "pass": "Medzinárodný pas",
       "number": "Medzinárodný pas > Číslo",

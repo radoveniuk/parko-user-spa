@@ -190,6 +190,7 @@
     "addEmployment": "Add employment",
     "alreadyExistsError": "A user with this email already exists",
     "businessName": "Business name",
+    "SWIFT": "SWIFT",
     "pass": {
       "pass": "Int. Passport",
       "number": "Int. Passport > Number",

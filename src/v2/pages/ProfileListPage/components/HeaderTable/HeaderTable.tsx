@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 import pick from 'lodash-es/pick';
+import set from 'lodash-es/set';
 import ProfileFormDialog from 'v2/components/ProfileFormDialog';
 import { Button, Divider, Menu, MenuItem, Stack } from 'v2/uikit';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
@@ -78,6 +79,11 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
         }
       }
     });
+
+    set(item, 'visa', item.docs.find((doc: any) => doc.type === 'visa'));
+    set(item, 'permit', item.docs.find((doc: any) => doc.type === 'permit'));
+    set(item, 'idcard', item.docs.find((doc: any) => doc.type === 'visa'));
+    set(item, 'pass', item.docs.find((doc: any) => doc.type === 'pass'));
 
     customFields.forEach((customField: any) => {
       const customFieldValue = newItem.customFields?.[customField._id];
