@@ -73,9 +73,9 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
   };
 
   const missingDocs = useMemo(() => [
-    { type: 'pass', label: 'user.internationalPassScan', defaultValues: DEFAULT_INT_PASS },
-    { type: 'permit', label: 'user.permit', defaultValues: DEFAULT_PERMIT },
-    { type: 'visa', label: 'user.visa', defaultValues: DEFAULT_VISA },
+    { type: 'pass', label: 'user.pass.pass', defaultValues: DEFAULT_INT_PASS },
+    { type: 'permit', label: 'user.permit.permit', defaultValues: DEFAULT_PERMIT },
+    { type: 'visa', label: 'user.visa.visa', defaultValues: DEFAULT_VISA },
     { type: 'idcard', label: 'user.pass', defaultValues: DEFAULT_PASS },
   ].filter((item) => !docs.some((docItem) => docItem.type === item.type)), [docs]);
 

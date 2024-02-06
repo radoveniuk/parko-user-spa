@@ -1,14 +1,16 @@
+import { Path } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
 
-export const EXPORT_USER_FIELDS: (keyof IUser)[] = [
+export const EXPORT_USER_FIELDS: (Path<IUser>)[] = [
   'email', 'name', 'surname', 'phone', 'birthDate', 'sex',
-  'project', 'country', 'city', 'adress', 'zip',
+  'country', 'city', 'adress', 'zip',
   'passNumber', 'IBAN', 'ICO', 'DIC', 'rodneCislo',
-  'hasPermit', 'permitType', 'permitNumber', 'permitStartDate', 'permitExpire', 'permitDepartment', 'permitAdress', 'hasMedicalExamination',
-  'role', 'status', 'blocked', 'notes',
-  'cooperationStartDate', 'cooperationEndDate', 'position',
-  'recruiter', 'source',
-  'pantsSize', 'tshortSize', 'shoesSize',
+  'permitNumber', 'permitDepartment', 'permitAdress',
+  'role', 'status', 'notes', 'position',
+  'recruiter', 'source', 'bankName', 'SWIFT',
+  'medicalInsurance', 'birthPlace', 'familyStatus',
+  'birthSurname', 'childrenCount', 'businessName', 'businessStatus',
+  'project', 'salary', 'salaryType',
 ];
 
 export const IMPORT_USER_FIELDS: (keyof IUser)[] = [

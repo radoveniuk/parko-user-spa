@@ -33,7 +33,7 @@ const Pass = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
 
   return (
     <DocForm>
-      <div className="title">{t('user.passScan')}</div>
+      <div className="title">{t('user.idcard.idcard')}</div>
       <div className="fields">
         <Input
           label={t('user.passNumber')}

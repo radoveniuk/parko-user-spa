@@ -91,7 +91,7 @@
     "shoesSize": "Shoes size",
     "study": "Study",
     "speciality": "Speciality",
-    "familyState": "Marital status",
+    "familyStatus": "Marital status",
     "prevSurname": "Previus surname",
     "hasChildren": "Do you have children?",
     "hasSiblings": "Do you have siblings?",
@@ -166,15 +166,12 @@
     "history": "History",
     "finances": "Finances",
     "addDoc": "Add document",
-    "visa": "Visa",
-    "permit": "Residence permit",
-    "permitCardId": "ID",
     "permitGoal": "Goal of residence permit",
     "visaNumber": "Number",
     "bankInfo": "Bank info",
     "bankName": "Bank",
     "employmentInfo": "Information for employment",
-    "insurance": "Insurance",
+    "medicalInsurance": "Insurance",
     "birthSurname": "Surname at birth",
     "childrenCount": "Number of children",
     "businessStatus": "Status",
@@ -190,8 +187,40 @@
     "fire": "Fire",
     "updateEmploymentInfo": "Update employment info",
     "addEmployment": "Add employment",
+    "SWIFT": "SWIFT",
     "alreadyExistsError": "A user with this email already exists",
-    "pass": "Passport"
+    "businessName": "Business name",
+    "pass": {
+      "pass": "Int. Passport",
+      "number": "Int. Passport > Number",
+      "country": "Int. Passport > Country",
+      "dateFrom": "Int. Passport > Date from", 
+      "dateTo": "Int. Passport > Date to", 
+      "issuedBy": "Int. Passport > Issued by"
+    },
+    "visa": {
+      "visa": "Visa",
+      "number": "Visa > Number",
+      "dateFrom": "Visa > Date from", 
+      "dateTo": "Visa > Date to",
+      "comment": "Visa > Comment"
+    },
+    "permit": {
+      "permit": "Residence permit",
+      "number": "Residence permit > Number",
+      "dateFrom": "Residence permit > Date from", 
+      "dateTo": "Residence permit > Date to",
+      "address": "Residence permit > Address",
+      "isMedicalCheck": "Residence permit > Medical checkup?",
+      "goal": "Residence permit > Goal"
+    },
+    "idcard": {
+      "idcard": "ID card",
+      "number": "ID card > Number",
+      "dateFrom": "ID card > Date from", 
+      "dateTo": "ID card > Date to",
+      "country": "ID card > Country"
+    }
   },
   "userHistory": {
     "updatedBy": "Updated by",

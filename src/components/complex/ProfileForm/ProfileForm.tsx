@@ -42,7 +42,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
   const { data: countryDictionary } = useGetDictionary('COUNTRIES');
-  const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
+  const familyStatusOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
   const studyOptions = useTranslatedSelect(STUDY, 'study');
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
   const sexOptions = useTranslatedSelect(['male', 'female']);
@@ -58,11 +58,11 @@ const ProfileForm = ({ defaultValues }: Props) => {
     pantsSize: SIZES,
     tshortSize: SIZES,
     country: COUNTRIES.sort(),
-    familyState: familyStateOptions,
+    familyStatus: familyStatusOptions,
     study: studyOptions,
     sex: sexOptions,
     employmentType: employmentTypeOptions,
-  }), [employmentTypeOptions, familyStateOptions, sexOptions, studyOptions]);
+  }), [employmentTypeOptions, familyStatusOptions, sexOptions, studyOptions]);
 
   const dynamicSelectOptions: AnyObject = useMemo(() => ({
     recruiter: {

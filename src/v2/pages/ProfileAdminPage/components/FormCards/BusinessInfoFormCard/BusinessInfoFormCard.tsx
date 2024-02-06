@@ -27,7 +27,7 @@ type Props = {
 
 const BusinessInfoFormCard = ({ data, onChange }: Props) => {
   const { t } = useTranslation();
-  const corporateBodyStatusOption = useTranslatedSelect(CORPORATE_BODY_STATUS, 'corporateBodyStatus');
+  const corporateBodyStatusOptions = useTranslatedSelect(CORPORATE_BODY_STATUS, 'corporateBodyStatus');
 
   const { register, reset, control, handleSubmit } = useForm<Data>({ defaultValues: data });
 
@@ -165,7 +165,7 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
                     label={t('user.businessStatus')}
                     theme="gray"
                     disabled={formCardConfig.disabled || formCardConfig.loading}
-                    options={corporateBodyStatusOption}
+                    options={corporateBodyStatusOptions}
                     value={field.value}
                     onChange={(e) => void field.onChange(e.target.value)}
                   />

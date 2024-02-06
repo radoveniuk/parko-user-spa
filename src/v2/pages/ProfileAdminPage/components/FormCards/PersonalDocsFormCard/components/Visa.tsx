@@ -31,7 +31,7 @@ const Visa = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
 
   return (
     <DocForm>
-      <div className="title">{t('user.visa')}</div>
+      <div className="title">{t('user.visa.visa')}</div>
       <div className="fields">
         <Input
           label={t('user.visaNumber')}
@@ -101,7 +101,11 @@ const Visa = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
           disabled={disabled}
           multiline
           className="fullwidth"
-          {...register('comment')}
+          {...register('comment', {
+            onChange (e) {
+              onUpdate?.({ ...values, comment: e.target.value });
+            },
+          })}
         />
       </div>
     </DocForm>

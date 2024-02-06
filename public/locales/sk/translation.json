@@ -91,7 +91,7 @@
     "shoesSize": "Veľkosť topánok",
     "study": "Vzdelanie",
     "speciality": "Odbor",
-    "familyState": "Rodinný stav",
+    "familyStatus": "Rodinný stav",
     "prevSurname": "Rodné priezvisko",
     "hasChildren": "Mate deti?",
     "hasSiblings": "Mate súrodencov?",
@@ -163,18 +163,18 @@
     "history": "História",
     "finances": "Finansy",
     "addDoc": "Nový doklad",
-    "visa": "Viza",
     "povolenie": "Prechodný / trvalý pobyt",
     "permitCardId": "Identifikačné číslo",
     "permitGoal": "Cieľ",
     "visaNumber": "Číslo visy",
     "bankInfo": "Bankové údaje",
     "bankName": "Banka",
+    "SWIFT": "SWIFT",
     "employmentInfo": "Informácie pre zamestnanie",
-    "insurance": "Poistenie",
+    "medicalInsurance": "Poistenie",
     "birthSurname": "Priezvisko pri narodení",
     "childrenCount": "Počet detí",
-    "businessStatus": "Stav",
+    "businessStatus": "Stav podnikania",
     "businessActivities": "Predmety podnikania",
     "employment": "Zamestnanie",
     "individualCooperation": "Spolupraca — Živnosť",
@@ -188,7 +188,37 @@
     "updateEmploymentInfo": "Zmeňte informácie o zamestnaní",
     "addEmployment": "Pridať spolupracu",
     "alreadyExistsError": "Používateľ s týmto e-mailom už existuje",
-    "pass": "Občiansky preukaz"
+    "pass": {
+      "pass": "Medzinárodný pas",
+      "number": "Medzinárodný pas > Číslo",
+      "country": "Medzinárodný pas > Krajina",
+      "dateFrom": "Medzinárodný pas > Dátum od", 
+      "dateTo": "Medzinárodný pas > Dátum do", 
+      "issuedBy": "Medzinárodný pas > Vydal"
+    },
+    "visa": {
+      "visa": "Víza",
+      "number": "Víza > Číslo",
+      "dateFrom": "Víza > Dátum od", 
+      "dateTo": "Víza > Dátum do",
+      "comment": "Víza > Komentár"
+    },
+    "permit": {
+      "permit": "Povolenie na pobyt",
+      "number": "Povolenie na pobyt > Číslo",
+      "dateFrom": "Povolenie na pobyt > Dátum od", 
+      "dateTo": "Povolenie na pobyt > Dátum do",
+      "address": "Povolenie na pobyt > Adresa",
+      "isMedicalCheck": "Povolenie na pobyt > Lekársky prehliadka?",
+      "goal": "Povolenie na pobyt > Cieľ"
+    },
+    "idcard": {
+      "idcard": "Občiansky preukaz",
+      "number": "Občiansky preukaz > Číslo",
+      "dateFrom": "Občiansky preukaz > Dátum od", 
+      "dateTo": "Občiansky preukaz > Dátum do",
+      "country": "Občiansky preukaz > Krajina"
+    }
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",
@@ -294,7 +324,7 @@
     "tariff": {
       "candidate": "Za kandidáta",
       "hour": "Za odprac. hod.",
-      "month": " Za odprac. mes."
+      "month": "Za odprac. mes."
     },
     "accommodationTariff": {
       "night": "Noc",

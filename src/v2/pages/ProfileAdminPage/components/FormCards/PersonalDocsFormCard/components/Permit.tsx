@@ -35,7 +35,7 @@ const Permit = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
 
   return (
     <DocForm>
-      <div className="title">{t('user.permit')}</div>
+      <div className="title">{t('user.permit.permit')}</div>
       <div className="fields">
         <Input
           label={t('user.permitCardNumber')}

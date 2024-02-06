@@ -25,7 +25,7 @@ const EmploymentInfoFormCard = ({ data, onUpdateEmploymentInfo }: Props) => {
   const { t } = useTranslation();
   const { register, handleSubmit } = useForm<EmploymentInfo>({ defaultValues: data });
 
-  const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
+  const familyStatusOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
 
   const submitHandler: SubmitHandler<EmploymentInfo> = (values) => {
     onUpdateEmploymentInfo?.(values);
@@ -69,7 +69,7 @@ const EmploymentInfoFormCard = ({ data, onUpdateEmploymentInfo }: Props) => {
               />
               <Select
                 theme="gray"
-                label={t('user.insurance')}
+                label={t('user.medicalInsurance')}
                 disabled={formCardConfig.disabled}
                 options={INSURANCE}
                 defaultValue={data.medicalInsurance}
@@ -94,9 +94,9 @@ const EmploymentInfoFormCard = ({ data, onUpdateEmploymentInfo }: Props) => {
               />
               <Select
                 theme="gray"
-                label={t('user.familyState')}
+                label={t('user.familyStatus')}
                 disabled={formCardConfig.disabled}
-                options={familyStateOptions}
+                options={familyStatusOptions}
                 defaultValue={data.familyStatus}
                 {...register('familyStatus')}
               />

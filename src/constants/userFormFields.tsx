@@ -1,21 +1,21 @@
+import React, { ReactNode } from 'react';
 import { Validate } from 'react-hook-form';
+import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { validateEmail } from 'helpers/validateEmail';
 import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
 
 export type UserField = {
-  type: 'string' | 'number' | 'boolean' | 'date' | 'select' | 'dynamic-select' | 'phone' | 'textarea';
+  type: 'string' | 'number' | 'boolean' | 'date' | 'select' | 'dynamic-select' | 'phone' | 'textarea' | 'readonly';
   required?: boolean;
   validation?: Record<string, Validate<unknown, unknown>>;
   permissionRoles?: string[];
   selectProps?: AnyObject;
+  render?: (data: any, t?: any) => ReactNode;
 }
 
-export type UserFieldsList = {
-  // eslint-disable-next-line no-unused-vars
-  [key in keyof Partial<IUser>]: UserField;
-};
+export type UserFieldsList = Record<(keyof Partial<IUser>)| string, UserField>;
 
 export const BASE_FIELDS: UserFieldsList = {
   name: {
@@ -167,22 +167,122 @@ export const WORK_FIELDS: UserFieldsList = {
   cooperationEndDate: {
     type: 'date',
   },
-};
-
-export const SYSTEM_SETTINGS_FIELDS: UserFieldsList = {
-  project: {
-    type: 'dynamic-select',
-    selectProps: {
-      emptyItem: 'noSelected',
-    },
+  bankName: {
+    type: 'string',
   },
-  status: {
+  SWIFT: {
+    type: 'string',
+  },
+  medicalInsurance: {
     type: 'select',
     selectProps: {
       emptyItem: 'noSelected',
     },
   },
+  birthPlace: {
+    type: 'string',
+  },
+  familyStatus: {
+    type: 'select',
+    selectProps: {
+      emptyItem: 'noSelected',
+    },
+  },
+  birthSurname: {
+    type: 'string',
+  },
+  childrenCount: {
+    type: 'number',
+  },
+  businessName: {
+    type: 'string',
+  },
+  businessStatus: {
+    type: 'select',
+    selectProps: {
+      emptyItem: 'noSelected',
+    },
+  },
+  salary: {
+    type: 'readonly',
+    render: (data) => data ? `${Number(data).toFixed(2).toString().replace('.', ',')} €` : '',
+  },
+  salaryType: {
+    type: 'readonly',
+    render: (data) => data,
+  },
+};
+
+export const SYSTEM_SETTINGS_FIELDS: UserFieldsList = {
+  project: {
+    type: 'readonly',
+    render: (data) => `${data?.client?.name ? `${data?.client?.name} > ` : ''}${data?.name || ''}`,
+  },
+  status: {
+    type: 'readonly',
+    render: (data, t) => <StatusLabel className={`${data} column-content`}>{data && t(`selects.userStatus.${data}`)}</StatusLabel>,
+  },
   role: {
+    type: 'select',
+  },
+};
+
+export const DOCS_FIELDS: UserFieldsList = {
+  'pass.number': {
+    type: 'string',
+  },
+  'pass.country': {
+    type: 'dynamic-select',
+  },
+  'pass.dateFrom': {
+    type: 'date',
+  },
+  'pass.dateTo': {
+    type: 'date',
+  },
+  'pass.issuedBy': {
+    type: 'string',
+  },
+  'visa.number': {
+    type: 'string',
+  },
+  'visa.dateFrom': {
+    type: 'date',
+  },
+  'visa.dateTo': {
+    type: 'date',
+  },
+  'visa.comment': {
+    type: 'string',
+  },
+  'idcard.number': {
+    type: 'string',
+  },
+  'idcard.dateFrom': {
+    type: 'date',
+  },
+  'idcard.dateTo': {
+    type: 'date',
+  },
+  'idcard.country': {
+    type: 'dynamic-select',
+  },
+  'permit.number': {
+    type: 'string',
+  },
+  'permit.address': {
+    type: 'string',
+  },
+  'permit.isMedicalCheck': {
+    type: 'boolean',
+  },
+  'permit.dateFrom': {
+    type: 'date',
+  },
+  'permit.dateTo': {
+    type: 'date',
+  },
+  'permit.goal': {
     type: 'select',
   },
 };
@@ -196,6 +296,7 @@ export const ALL_FORM_FIELDS = {
   ...BIOMETRY_FIELDS,
   ...WORK_FIELDS,
   ...SYSTEM_SETTINGS_FIELDS,
+  ...DOCS_FIELDS,
 };
 
 export type FieldSection = 'baseFields' |
