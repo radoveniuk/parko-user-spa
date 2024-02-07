@@ -8,6 +8,8 @@ import Checkbox from 'components/shared/Checkbox';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
+import { IClient } from 'interfaces/client.interface';
+import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import { useProfileRowContext } from './context';
@@ -32,14 +34,20 @@ const InfoRow = () => {
       {cols.map((colName) => {
         const userField = colName.replace('user.', '') as keyof IUser;
         if (userField.includes('Date') || userField === 'permitExpire') {
-          return <ListTableCell key={colName}>
-            <span className="column-content">{getDateFromIso(data[userField])}</span>
-          </ListTableCell>;
+          return (
+            <ListTableCell key={colName}>
+              <span className="column-content">{getDateFromIso(data[userField])}</span>
+            </ListTableCell>
+          );
         }
         if (userField === 'project') {
-          return <ListTableCell key={colName}>
-            <span className="column-content">{typeof data.project === 'object' && data.project?.name}</span>
-          </ListTableCell>;
+          const project = data.project as IProject | undefined;
+          const client = project?.client as IClient | undefined;
+          return (
+            <ListTableCell key={colName}>
+              <span className="column-content">{client?.name ? `${client.name} > ` : ''}{project?.name}</span>
+            </ListTableCell>
+          );
         }
         if (userField === 'status') {
           return (
@@ -48,10 +56,19 @@ const InfoRow = () => {
             </ListTableCell>
           );
         }
+        if (userField === 'salary') {
+          return (
+            <ListTableCell key={colName}>
+              <span className={'column-content'}>{data.salary ? `${Number(data.salary).toFixed(2).toString().replace('.', ',')} €` : ''}</span>
+            </ListTableCell>
+          );
+        }
         if (typeof data[userField] === 'boolean') {
-          return <ListTableCell key={colName}>
-            <span className="column-content"><BooleanIcon value={data[userField] as boolean} /></span>
-          </ListTableCell>;
+          return (
+            <ListTableCell key={colName}>
+              <span className="column-content"><BooleanIcon value={data[userField] as boolean} /></span>
+            </ListTableCell>
+          );
         }
         if (userField === 'sex') {
           return <ListTableCell key={colName}>
@@ -59,9 +76,25 @@ const InfoRow = () => {
           </ListTableCell>;
         }
         if (userField === 'role') {
-          return <ListTableCell key={colName}>
-            <span className="column-content">{t(`selects.userRole.${data[userField]}`)}</span>
-          </ListTableCell>;
+          return (
+            <ListTableCell key={colName}>
+              <span className="column-content">{data[userField] && t(`selects.userRole.${data[userField]}`)}</span>
+            </ListTableCell>
+          );
+        }
+        if (userField === 'familyStatus') {
+          return (
+            <ListTableCell key={colName}>
+              <span className="column-content">{data[userField] && t(`selects.familyStatus.${data[userField]}`)}</span>
+            </ListTableCell>
+          );
+        }
+        if (userField === 'businessStatus') {
+          return (
+            <ListTableCell key={colName}>
+              <span className="column-content">{data[userField] && t(`selects.corporateBodyStatus.${data[userField]}`)}</span>
+            </ListTableCell>
+          );
         }
         if (userField === 'recruiter') {
           return (
@@ -70,6 +103,36 @@ const InfoRow = () => {
                 {typeof data.recruiter === 'object' &&
                   !!data.recruiter &&
                   `${data.recruiter?.name} ${data.recruiter?.surname}`}
+              </span>
+            </ListTableCell>
+          );
+        }
+        if (/\b(?:idcard.|visa.|permit.|pass.)\b/i.test(userField)) {
+          const docType = userField.split('.')[0];
+          const docValueKey = userField.split('.')[1];
+          const doc = data.docs?.find(doc => doc.type === docType);
+          const value = doc?.[docValueKey];
+
+          if (typeof value === 'boolean') {
+            return (
+              <ListTableCell key={colName}>
+                <span className="column-content"><BooleanIcon value={value as boolean} /></span>
+              </ListTableCell>
+            );
+          }
+
+          if (docValueKey === 'goal') {
+            return (
+              <ListTableCell key={colName}>
+                <span className="column-content">{value && t(`selects.permitType.${value}`)}</span>
+              </ListTableCell>
+            );
+          }
+
+          return (
+            <ListTableCell key={colName}>
+              <span className="column-content">
+                {!docValueKey.includes('date') ? value : getDateFromIso(value)}
               </span>
             </ListTableCell>
           );
@@ -87,12 +150,13 @@ const InfoRow = () => {
           );
         }
 
-        return <ListTableCell key={colName}>
-          <span className="column-content">{data[userField]?.toString()}</span>
-        </ListTableCell>;
+        return (
+          <ListTableCell key={colName}>
+            <span className="column-content">{data[userField]?.toString()}</span>
+          </ListTableCell>
+        );
       })}
-      <ListTableCell>
-      </ListTableCell>
+      <ListTableCell />
     </ListTableRow>
   );
 };

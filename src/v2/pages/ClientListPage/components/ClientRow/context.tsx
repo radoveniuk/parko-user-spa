@@ -5,15 +5,15 @@ import { ClientRowProps } from './types';
 const RowContext = createContext<ClientRowProps | undefined>(undefined);
 RowContext.displayName = 'RowContext';
 
-const ProfileRowProvider = ({ children, ...props }: PropsWithChildren<ClientRowProps>) => (
+const ClientRowProvider = ({ children, ...props }: PropsWithChildren<ClientRowProps>) => (
   <RowContext.Provider value={props}>
     {children}
   </RowContext.Provider>
 );
 
-export default ProfileRowProvider;
+export default ClientRowProvider;
 
-export const useProfileRowContext = () => {
+export const useClientRowContext = () => {
   const values = useContext(RowContext);
   if (!values) throw new Error();
   return values;

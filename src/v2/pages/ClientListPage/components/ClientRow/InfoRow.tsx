@@ -7,12 +7,12 @@ import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 
-import { useProfileRowContext } from './context';
+import { useClientRowContext } from './context';
 import { LinkWrapper } from './styles';
 
 const InfoRow = () => {
   const { t } = useTranslation();
-  const { data, cols } = useProfileRowContext();
+  const { data, cols } = useClientRowContext();
 
   return (
     <ListTableRow>

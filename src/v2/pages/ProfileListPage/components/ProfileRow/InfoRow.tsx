@@ -167,30 +167,6 @@ const InfoRow = () => {
       </ListTableCell>
     </ListTableRow>
   );
-  // : (
-  //   <ListTableRow>
-  //     <ListTableCell>
-  //       <Checkbox checked={selected} onChange={(e) => void onChangeSelect(e.target.checked)} />
-  //     </ListTableCell>
-  //     <ListTableCell>
-  //       <Link to={`/profile/${data._id}`} className="table-link">
-  //         {data.name} {data.surname}
-  //       </Link>
-  //     </ListTableCell>
-  //     {cols.map((colName) => {
-  //       const userField = colName.replace('user.', '') as keyof IUser;
-  //       return <ListTableCell key={colName}>{data[userField]?.toString()}</ListTableCell>;
-  //     })}
-  //     <ListTableCell>
-  //       <IconButton
-  //         className="fast-edit-profile active"
-  //         onClick={saveEdit}
-  //       >
-  //         <SaveIcon />
-  //       </IconButton>
-  //     </ListTableCell>
-  //   </ListTableRow>
-  // );
 };
 
 export default InfoRow;

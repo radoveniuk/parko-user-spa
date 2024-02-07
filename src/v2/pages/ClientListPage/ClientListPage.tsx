@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
@@ -6,7 +6,6 @@ import { useGetClients } from 'api/query/clientQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { SearchIcon } from 'components/icons';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
-import useLocalStorageState from 'hooks/useLocalStorageState';
 import { IClient } from 'interfaces/client.interface';
 
 import HeaderTable from './components/HeaderTable';
@@ -29,9 +28,6 @@ const ClientListPageRender = () => {
   // table content
   const { data = [], refetch, remove } = useGetClients(debouncedFiltersState, { enabled: false });
 
-  const [storedColsSettings, setStoredColsSettings] = useLocalStorageState('clientTableCols');
-  const [activeCols, setActiveCols] = useState<string[]>(storedColsSettings ? JSON.parse(storedColsSettings).cols : DEFAULT_COLS);
-
   useEffect(() => {
     if (debouncedFiltersState) {
       refetch();
@@ -39,16 +35,12 @@ const ClientListPageRender = () => {
     return () => { remove(); };
   }, [debouncedFiltersState, refetch, remove]);
 
-  useEffect(() => {
-    setStoredColsSettings(JSON.stringify({ cols: activeCols }));
-  }, [activeCols, setStoredColsSettings]);
-
   return (
-    <ProfileListPageWrapper cols={activeCols.length + 1}>
+    <ProfileListPageWrapper cols={3}>
       <div className="container-table">
         <HeaderTable
           data={data}
-          activeCols={activeCols}
+          activeCols={DEFAULT_COLS}
         />
         <FilterTableWrapper>
           <FilterAutocomplete
@@ -72,8 +64,7 @@ const ClientListPageRender = () => {
           ))}
         </div>
         <Table
-          activeCols={activeCols}
-          setActiveCols={setActiveCols}
+          activeCols={DEFAULT_COLS}
           data={data}
         />
       </div>

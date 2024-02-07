@@ -3,19 +3,14 @@ import { useTranslation } from 'react-i18next';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 
 import Checkbox from 'components/shared/Checkbox';
-import { EXPORT_USER_FIELDS } from 'constants/userCsv';
+import { EXPORT_USER_DOC_FIELDS, EXPORT_USER_FIELDS } from 'constants/userCsv';
 import { ICustomFormField } from 'interfaces/form.interface';
 
 import { ColsSettingsWrapper } from './styles';
 
-const DOCS_COLS = [
-  'pass.number', 'pass.country', 'pass.dateFrom', 'pass.dateTo', 'pass.issuedBy',
-  'visa.number', 'visa.dateFrom', 'visa.dateTo', 'visa.comment',
-  'permit.number', 'permit.goal', 'permit.isMedicalCheck', 'permit.address',
-  'idcard.number', 'idcard.country', 'idcard.dateFrom', 'idcard.dateTo',
-];
-
-const COLS_TO_SETTINGS = [...EXPORT_USER_FIELDS, ...DOCS_COLS].filter((item) => !['name', 'surname'].includes(item)).map((col) => `user.${col}`);
+const COLS_TO_SETTINGS = [
+  ...EXPORT_USER_FIELDS, ...EXPORT_USER_DOC_FIELDS,
+].filter((item) => !['name', 'surname'].includes(item)).map((col) => `user.${col}`);
 
 const DEFAULT_COLS = [
   'user.email',

@@ -2,6 +2,7 @@ import React, { CSSProperties, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Avatar, Button, Checkbox } from 'v2/uikit';
+import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { AdminIcon, ProjectIcon, RecruiterIcon, UserIcon, VerifiedIcon } from 'components/icons';
 import { IProject } from 'interfaces/project.interface';
@@ -59,10 +60,10 @@ const MobileUserCard = ({ style, user, selected, onSelect }: Props) => {
           </div>
         </div>
         <div className="right">
-          {user.position && (
-            <div className="positionTag">
-              {user.position}
-            </div>
+          {user.status && (
+            <StatusLabel className={user.status}>
+              {t(`selects.userStatus.${user.status}`)}
+            </StatusLabel>
           )}
           <div className="name">
             <b>{user.name} {user.surname}</b>

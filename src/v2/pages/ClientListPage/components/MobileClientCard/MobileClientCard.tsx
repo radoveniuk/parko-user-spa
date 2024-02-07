@@ -2,6 +2,7 @@ import React, { CSSProperties, memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Avatar, Button } from 'v2/uikit';
+import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { BusinessIcon, ProjectIcon } from 'components/icons';
 import { IClient } from 'interfaces/client.interface';
@@ -50,9 +51,9 @@ const MobileClientCard = ({ style, client, projectsCount }: Props) => {
         </div>
         <div className="right">
           {client.status && (
-            <div className="positionTag">
+            <StatusLabel className={client.status}>
               {t(`selects.clientStatus.${client.status}`)}
-            </div>
+            </StatusLabel>
           )}
           <div className="name">
             <b>{client.name}</b>

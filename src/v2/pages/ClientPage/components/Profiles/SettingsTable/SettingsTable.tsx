@@ -3,12 +3,14 @@ import { useTranslation } from 'react-i18next';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 
 import Checkbox from 'components/shared/Checkbox';
-import { EXPORT_USER_FIELDS } from 'constants/userCsv';
+import { EXPORT_USER_DOC_FIELDS, EXPORT_USER_FIELDS } from 'constants/userCsv';
 import { ICustomFormField } from 'interfaces/form.interface';
 
 import { ColsSettingsWrapper } from './styles';
 
-const COLS_TO_SETTINGS = EXPORT_USER_FIELDS.filter((item) => !['name', 'surname'].includes(item)).map((col) => `user.${col}`);
+const COLS_TO_SETTINGS = [
+  ...EXPORT_USER_FIELDS, ...EXPORT_USER_DOC_FIELDS,
+].filter((item) => !['name', 'surname'].includes(item)).map((col) => `user.${col}`);
 
 const DEFAULT_COLS = [
   'user.email',

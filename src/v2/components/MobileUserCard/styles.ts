@@ -46,15 +46,6 @@ export const MobileProfileCard = styled.div`
       flex-direction: column;
       gap: 12px;
 
-      .positionTag {
-        background-color: rgb(230 238 254);
-        padding: 3px 5px;
-        border-radius: 5px;
-        font-size: 0.8rem;
-        max-width: min-content;
-        white-space: nowrap;
-      }
-
       .name, .project {
         display: flex;
         gap: 6px;
