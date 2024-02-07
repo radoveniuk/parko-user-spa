@@ -32,7 +32,7 @@ const ProfileListPageRender = () => {
   const { debouncedFiltersState, filtersState, removeFilter, addFilter } = useFilters();
 
   // table content
-  const { data: startData = [], isFetching: isFetchingStartData } = useGetUserList({ take: 20, skip: 0 }, { enabled: true });
+  const { data: startData = [], isFetching: isFetchingStartData, remove: removeStartData } = useGetUserList({ take: 20, skip: 0 }, { enabled: true });
   const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
 
   // filters
@@ -53,8 +53,8 @@ const ProfileListPageRender = () => {
     if (debouncedFiltersState) {
       refetch();
     }
-    return () => { remove(); };
-  }, [debouncedFiltersState, refetch, remove]);
+    return () => { remove(); removeStartData(); };
+  }, [debouncedFiltersState, refetch, remove, removeStartData]);
 
   useEffect(() => {
     setStoredColsSettings(JSON.stringify({ cols: activeCols }));
