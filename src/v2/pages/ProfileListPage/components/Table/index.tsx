@@ -11,7 +11,6 @@ import Skeleton from 'v2/uikit/Skeleton';
 
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
-import { useGetUserList } from 'api/query/userQuery';
 import { ArrowUpIcon, SettingsIcon } from 'components/icons';
 import { useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
@@ -59,7 +58,6 @@ const Table = ({
   const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
   const updateUserMutation = useUpdateUserMutation();
   const { data: projects = [] } = useGetProjects();
-  const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
 
   const toggleSorting = (userKey: keyof IUser) => {
     let sortingValue: Path<IUser> | ((v: IUser) => any) = userKey;
@@ -91,6 +89,7 @@ const Table = ({
 
   const updateUser = (values: Partial<IUser>) => {
     if (values._id) {
+      const recruiters = queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) as IUser[];
       updateUserMutation.mutate({ ...values, _id: values._id });
       const project = projects.find(item => item._id === values.project) || null;
       const recruiter = recruiters.find(item => item._id === values.recruiter) || null;

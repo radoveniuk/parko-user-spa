@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 import cloneDeep from 'lodash-es/cloneDeep';
 import get from 'lodash-es/get';
@@ -15,7 +16,6 @@ import Select from 'v2/uikit/Select';
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetProjects } from 'api/query/projectQuery';
-import { useGetUserList } from 'api/query/userQuery';
 import CustomField from 'components/complex/CustomField';
 import { SaveIcon } from 'components/icons';
 import BooleanSelect from 'components/shared/BooleanSelect';
@@ -39,10 +39,10 @@ const EditingRow = () => {
   const { t } = useTranslation();
   const { data, selected, onChangeSelect, cols, saveEdit, style } = useProfileRowContext();
   const { register, formState: { errors }, control, handleSubmit } = useForm<IUser>();
-
+  const queryClient = useQueryClient();
   // options
   const { data: projects = [] } = useGetProjects();
-  const { data: recruiters = [] } = useGetUserList({ role: 'recruiter' });
+  const recruiters = queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) as IUser[];
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
