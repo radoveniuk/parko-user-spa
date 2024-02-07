@@ -8,28 +8,8 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
       white-space: nowrap;
     }
 
-    .fast-edit-profile {
-      opacity: 0;
-      transition: .3s;
-      margin-left: auto;
-      margin-right: 10px;
-
-      &.active {
-        opacity: 1;
-      }
-    }
-    
-    .list-table-row:hover {
-      .fast-edit-profile {
-        opacity: 1;
-      }
-    }
-
     @media (max-width: ${TB}) {
       grid-template-columns: 30px 1fr 1fr;
-      .list-table-cell:has(.fast-edit-profile), .list-table-cell:has(.table-settings-wrapper) {
-        display: none;
-      }
 
       .list-table-cell .column-content {
         width: 160px;

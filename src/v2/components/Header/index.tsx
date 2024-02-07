@@ -20,7 +20,7 @@ import { HeaderWrapper } from './styles';
 export const ToggleNavbarButton = () => {
   const { open, close, expanded } = useToggleNavbar();
   return (
-    <IconButton className="toggle-menu-icon" onClick={expanded ? close : open}>
+    <IconButton className="toggle-menu-icon" onClick={expanded ? close : open} aria-label="toggle navbar">
       {!expanded
         ? <MenuIcon size={30} />
         : <IoCloseIcon size={30} />
@@ -56,7 +56,7 @@ const Header = () => {
             <Avatar
               className="user-avatar"
               username={username}
-              sx={{ bgcolor: themeConfig.palette.primary.light }}
+              sx={{ bgcolor: themeConfig.palette.primary.main }}
             />
           )}
           isCloseOnMenu

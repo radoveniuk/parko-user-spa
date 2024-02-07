@@ -12,14 +12,24 @@ export const ListTableWrapper = styled.div<{ cols: number, maxHeight?: string | 
 export const ListTableRow = styled.div.attrs({ className: 'list-table-row' })<{ error?: boolean }>`
   display: contents;
   grid-gap: 20px;
-  &:hover {
-    .list-table-cell {
-      background-color: #e9e9e9;
+  ${props => !props.error && css`
+    &:hover {
+      .list-table-cell {
+        background-color: #e9e9e9;
+        .table-link {
+          color: rgb(0 86 255);
+        }
+      }
     }
-  }
+  `}
+
   ${props => props.error && css`
     .list-table-cell {
       background-color: #f2e5e5 !important;
+
+      .table-link {
+        color: #720000;
+      }
     }
   `}
 `;

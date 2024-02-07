@@ -157,6 +157,7 @@ const Table = ({
                       ? `sort-btn active ${sorting.dir}`
                       : 'sort-btn'
                   }
+                  aria-label={`sort ${col.replace('user.', '')}`}
                 >
                   <ArrowUpIcon />
                 </IconButton>
@@ -167,7 +168,7 @@ const Table = ({
           if (!col && index !== 0) {
             return (
               <div className="table-settings-wrapper">
-                <IconButton onClick={() => void setOpenColsSettings((prev) => !prev)}>
+                <IconButton onClick={() => void setOpenColsSettings((prev) => !prev)} aria-label="toggle table columns">
                   <SettingsIcon />
                 </IconButton>
               </div>

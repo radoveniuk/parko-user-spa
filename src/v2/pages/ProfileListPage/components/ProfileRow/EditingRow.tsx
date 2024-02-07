@@ -279,6 +279,7 @@ const EditingRow = () => {
       <ListTableCell>
         <IconButton
           className="fast-edit-profile active"
+          aria-label="fast edit profile"
           onClick={handleSubmit(submitHandler)}
         >
           <SaveIcon />

@@ -70,9 +70,6 @@ export const ProfilesWrapper = styled.div<{cols: number }>`
 
     @media (max-width: ${TB}) {
       grid-template-columns: 30px 1fr 1fr;
-      .list-table-cell:has(.fast-edit-profile), .list-table-cell:has(.table-settings-wrapper) {
-        display: none;
-      }
 
       .list-table-cell .column-content {
         width: 160px;

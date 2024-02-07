@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import Checkbox from 'v2/uikit/Checkbox';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { BooleanIcon, EditIcon } from 'components/icons';
-import Checkbox from 'components/shared/Checkbox';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
@@ -23,7 +23,7 @@ const InfoRow = () => {
   return (
     <ListTableRow error={data.isDeleted} style={style}>
       <ListTableCell>
-        <Checkbox checked={selected} onChange={(e) => void onChangeSelect(e.target.checked)} />
+        <Checkbox checked={selected} onChange={(e) => void onChangeSelect(e.target.checked)} aria-label={`select profile ${data.nickname}`} />
       </ListTableCell>
       <ListTableCell>
         <LinkWrapper>
@@ -161,6 +161,7 @@ const InfoRow = () => {
         <IconButton
           className="fast-edit-profile"
           onClick={startEdit}
+          aria-label="fast edit profile"
         >
           <EditIcon />
         </IconButton>
