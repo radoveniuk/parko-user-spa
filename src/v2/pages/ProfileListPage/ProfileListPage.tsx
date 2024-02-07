@@ -53,8 +53,10 @@ const ProfileListPageRender = () => {
     if (debouncedFiltersState) {
       refetch();
     }
-    return () => { remove(); removeStartData(); };
-  }, [debouncedFiltersState, refetch, remove, removeStartData]);
+  }, [debouncedFiltersState, refetch]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => () => { remove(); removeStartData(); }, []);
 
   useEffect(() => {
     setStoredColsSettings(JSON.stringify({ cols: activeCols }));

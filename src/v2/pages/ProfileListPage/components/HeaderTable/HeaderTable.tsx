@@ -38,6 +38,7 @@ type Props = {
 
 const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data, activeCols, customFields, loading }: Props) => {
   const { t, i18n } = useTranslation();
+  console.log(data);
 
   // filters
   const { data: projects = [] } = useGetProjects();
