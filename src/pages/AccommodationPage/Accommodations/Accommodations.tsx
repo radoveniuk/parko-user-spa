@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import IconButton from 'v2/uikit/IconButton';
 
 import { useDeleteAccommodation } from 'api/mutations/accommodationMutation';
 import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { ArrowUpIcon, CloseIcon, EditIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { FiltersBar } from 'components/shared/Filters';
-import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import usePrev from 'hooks/usePrev';
 import useSortedList from 'hooks/useSortedList';
@@ -54,6 +54,7 @@ const Accommodations = () => {
     <>
       <FiltersBar></FiltersBar>
       <ListTable
+        maxHeight="calc(100vh - 100px)"
         columns={COLUMNS}
         columnComponent={(col) => col && (
           <div role="button" className="col-item" onClick={() => {

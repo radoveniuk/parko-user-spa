@@ -3,7 +3,7 @@ import { Dialog as DialogMaterial, DialogActions as DialogActionsMaterial, Dialo
 
 import { CloseIcon } from 'components/icons';
 
-import IconButton from '../IconButton';
+import IconButton from '../../../v2/uikit/IconButton';
 
 import { DialogTitle } from './styles';
 

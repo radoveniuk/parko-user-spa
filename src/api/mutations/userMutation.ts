@@ -40,7 +40,20 @@ export const useRegisterMutation = () => {
 
 export const useCreateUserMutation = () => {
   const request = (data: Partial<IUser>) => api.post('/users', data).then(res => res.data.data);
-  return useMutation(request);
+
+  const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation();
+  return useMutation(request, {
+    onError (error: {response: {status: number, data: any}}) {
+      console.log(error.response);
+      if (error.response.status === 409) {
+        enqueueSnackbar(
+          `${t('user.alreadyExistsError')}: ${error.response.data.data?.name} ${error.response.data.data?.surname}`,
+          { variant: 'error' },
+        );
+      }
+    },
+  });
 };
 
 export const useUpdateUserMutation = () => {
@@ -51,7 +64,7 @@ export const useUpdateUserMutation = () => {
 export const useDeleteUserMutation = () => {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
-  const request = (data: Partial<IUser> & { _id: string }) => api.delete(`/users/${data._id}`).then(res => res.data.data);
+  const request = (id: string) => api.delete(`/users/${id}`).then(res => res.data.data);
   return useMutation(request, {
     onSuccess: () => void enqueueSnackbar(t('user.removedSuccess'), { variant: 'success' }),
   });

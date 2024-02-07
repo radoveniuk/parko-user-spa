@@ -8,6 +8,7 @@ export interface IDayOff {
   reason: string;
   description?: string;
   adminComment?: string;
-  isApproved: boolean | null;
-  createdAt?: Date;
+  isApproved?: boolean | null;
+  createdAt?: string;
+  updatedAt?: string;
 }

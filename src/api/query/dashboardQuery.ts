@@ -5,6 +5,6 @@ import api from 'api/common';
 import { QueryOptions } from 'interfaces/query.types';
 
 export const useGetDashboardData = ({ exclude }: { exclude: string[] }, options: QueryOptions = {}) => {
-  const request = (): Promise<Record<string, number>> => api.get('/dashboard').then(res => omit(res.data.data, exclude));
+  const request = (): Promise<Record<string, number>> => api.get('/dashboard-v2').then(res => omit(res.data.data, exclude));
   return useQuery('dashboardData', request, options);
 };

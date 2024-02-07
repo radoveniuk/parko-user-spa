@@ -5,7 +5,7 @@ import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import Button from 'components/shared/Button';
-import Chip from 'components/shared/Chip';
+import Chip from 'v2/uikit/Chip';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';

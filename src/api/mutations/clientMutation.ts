@@ -4,7 +4,7 @@ import api from 'api/common';
 import { IClient } from 'interfaces/client.interface';
 
 export const useCreateClientMutation = () => {
-  const request = (data: IClient) => api.post('/clients', data).then(res => res.data.data);
+  const request = (data: Partial<IClient>) => api.post('/clients', data).then(res => res.data.data);
   return useMutation(request);
 };
 

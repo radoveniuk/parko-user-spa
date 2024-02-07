@@ -8,9 +8,9 @@ import downloadFile from 'api/query/downloadFile';
 import { CloseIcon, DownloadFileIcon, EditIcon, EyeIcon, PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
-import IconButton from 'components/shared/IconButton';
+import IconButton from 'v2/uikit/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { PageActions } from 'components/shared/Page';
+import { PageActions } from 'components/shared/PageComponents';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
 import { IFile } from 'interfaces/file.interface';
 
@@ -41,7 +41,7 @@ const DocsTemplates = () => {
         <Button onClick={() => void setOpenTemplate(true)}><PlusIcon size={20} />{t('add')}</Button>
         <Button variant="outlined" color="secondary" onClick={() => void setOpenFieldCodes(true)}><EyeIcon />{t('docsTemplates.codes')}</Button>
       </PageActions>
-      <ListTable columns={COLS}>
+      <ListTable columns={COLS} maxHeight="calc(100vh - 175px)">
         {docsTemplates.map((templateItem) => (
           <ListTableRow key={templateItem._id}>
             <ListTableCell>{templateItem.name}</ListTableCell>

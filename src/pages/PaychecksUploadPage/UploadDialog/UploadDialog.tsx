@@ -5,15 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { PatternFormat, PatternFormatProps } from 'react-number-format';
 import { isEmpty } from 'lodash-es';
 import { DateTime } from 'luxon';
+import Autocomplete from 'v2/uikit/Autocomplete';
+import Input from 'v2/uikit/Input';
 
 import { uploadFiles } from 'api/common';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import { FileIcon } from 'components/icons';
-import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
 import Dialog, { DialogActions, DialogProps } from 'components/shared/Dialog';
 import FileInput from 'components/shared/FileInput';
-import Input from 'components/shared/Input';
 import { getDateFromIso } from 'helpers/datetime';
 import { IPaycheck } from 'interfaces/paycheck.interface';
 import { IProject } from 'interfaces/project.interface';

@@ -1,19 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import Page, { PageTitle } from 'components/shared/Page';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import PrepaymentForm from './components/PrepaymentForm';
 import PrepaymentsHistoryTable from './components/PrepaymentsHistoryTable';
 
 const PrepaymentPage = () => {
   const { t } = useTranslation();
+  useDocumentTitle(t('prepaymentPage.title'));
   return (
-    <Page title={t('prepaymentPage.title')}>
-      <PageTitle>{t('prepaymentPage.title')}</PageTitle>
+    <>
       <PrepaymentForm />
       <PrepaymentsHistoryTable />
-    </Page>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Input from 'v2/uikit/Input';
 
 import { uploadFiles } from 'api/common';
 import { useCreateDocsTemplate, useUpdateDocsTemplate } from 'api/mutations/docsTemplateMutation';
@@ -7,7 +8,6 @@ import { FileIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import FileInput from 'components/shared/FileInput';
-import Input from 'components/shared/Input';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
 import { IFile } from 'interfaces/file.interface';
 

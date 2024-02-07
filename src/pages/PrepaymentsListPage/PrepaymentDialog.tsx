@@ -2,14 +2,14 @@ import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
+import Autocomplete from 'v2/uikit/Autocomplete';
+import DatePicker from 'v2/uikit/DatePicker';
+import Input from 'v2/uikit/Input';
+import Select from 'v2/uikit/Select';
 
 import { useGetUserListForFilter } from 'api/query/userQuery';
-import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
-import DatePicker from 'components/shared/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'components/shared/Dialog';
-import Input from 'components/shared/Input';
-import Select from 'components/shared/Select';
 import { PREPAYMENT_STATUS } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IPrepayment } from 'interfaces/prepayment.interface';
@@ -68,7 +68,7 @@ const PrepaymentDialog = ({ prepayment, submit, ...rest }: Props) => {
             rules={{ required: true }}
             render={({ field }) => (
               <DatePicker
-                value={field.value}
+                defaultValue={field.value}
                 onChange={field.onChange}
                 label={t('prepayment.date')}
                 error={!!errors.createdAt}
@@ -90,7 +90,7 @@ const PrepaymentDialog = ({ prepayment, submit, ...rest }: Props) => {
             defaultValue={DateTime.now().toISODate()}
             render={({ field }) => (
               <DatePicker
-                value={field.value}
+                defaultValue={field.value}
                 onChange={field.onChange}
                 label={t('prepayment.paymentDate')}
               />

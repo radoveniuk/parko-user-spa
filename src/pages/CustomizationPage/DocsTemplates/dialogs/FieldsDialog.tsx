@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import IconButton from 'v2/uikit/IconButton';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { CopyIcon } from 'components/icons';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
-import IconButton from 'components/shared/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { EXPORT_USER_FIELDS } from 'constants/userCsv';
 

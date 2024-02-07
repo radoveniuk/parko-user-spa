@@ -9,4 +9,5 @@ export interface IAccommodation {
   adress: string;
   managerPhone: string;
   receptionPhone: string;
+  createdAt?: string;
 }

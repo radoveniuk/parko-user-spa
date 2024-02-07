@@ -10,5 +10,6 @@ export interface IPrepayment {
   paymentDate: string | null;
   createdByRole: 'user' | 'admin';
   userComment?: string;
-  createdAt: string;
+  period: string;
+  createdAt?: string;
 }

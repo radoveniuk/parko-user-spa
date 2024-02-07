@@ -9,8 +9,8 @@ import Paychecks from 'components/complex/Paychecks';
 import { PlusIcon } from 'components/icons';
 import Button from 'components/shared/Button';
 import { FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
-import { ClearFiLtersButton, FilterDate } from 'components/shared/Filters/Filters';
-import { PageActions } from 'components/shared/Page';
+import { ClearFiltersButton, FilterDate } from 'components/shared/Filters/Filters';
+import { PageActions } from 'components/shared/PageComponents';
 import { USER_STATUSES } from 'constants/statuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IPaycheck } from 'interfaces/paycheck.interface';
@@ -64,7 +64,7 @@ const UploadedPaychecksRender = () => {
         />
         <FilterDate filterKey="firstDate" label={t('firstDate')} />
         <FilterDate filterKey="lastDate" label={t('lastDate')} />
-        <ClearFiLtersButton />
+        <ClearFiltersButton />
       </FiltersBar>
       <Paychecks filter={filtersState} />
       {!!openUpload && (

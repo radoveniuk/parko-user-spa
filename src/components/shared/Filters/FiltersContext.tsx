@@ -1,6 +1,4 @@
-import React, {
-  createContext, ReactNode, useState,
-} from 'react';
+import React, { createContext, ReactNode, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { omit } from 'lodash-es';
 
@@ -11,15 +9,18 @@ import { AnyObject } from 'interfaces/base.types';
 type Props = {
   children: ReactNode;
   disablePageQueries?: boolean;
-}
+};
 
 type contextType = {
-  filtersState: {[key: string]: string} | undefined;
+  filtersState: { [key: string]: string } | undefined;
   debouncedFiltersState?: AnyObject;
   addFilter(key: string, value: string): void;
   removeFilter(key: string): void;
   clearFilters(): void;
   initFilters(): void;
+  openDrawerFilter: boolean;
+  setOpenDrawerFilter: React.Dispatch<React.SetStateAction<boolean>>;
+  setFiltersState: React.Dispatch<React.SetStateAction<AnyObject | undefined>>;
 };
 
 export const FiltersContext = createContext<contextType | undefined>(undefined);
@@ -27,12 +28,13 @@ FiltersContext.displayName = 'FiltersContext';
 
 const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
   const [filtersState, setFiltersState] = useState<AnyObject | undefined>(undefined);
+  const [openDrawerFilter, setOpenDrawerFilter] = useState(true);
   const debouncedFiltersState = useDebounce(filtersState);
   const navigate = useNavigate();
   const pageQueries = usePageQueries();
 
   const addFilter = (key: string, value: string) => {
-    setFiltersState((prevState) => ({
+    setFiltersState(prevState => ({
       ...prevState,
       [key]: value,
     }));
@@ -40,7 +42,7 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
       navigate({
         search: createSearchParams({
           ...pageQueries,
-          page: '1',
+          page: '0',
           [key]: value,
         }).toString(),
       });
@@ -48,12 +50,12 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
   };
 
   const removeFilter = (key: string) => {
-    setFiltersState((prevState) => omit(prevState, [key]));
+    setFiltersState(prevState => omit(prevState, [key]));
     if (!disablePageQueries) {
       navigate({
         search: createSearchParams({
           ...omit(pageQueries, key),
-          page: '1',
+          page: '0',
         }).toString(),
       });
     }
@@ -73,7 +75,19 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
   };
 
   return (
-    <FiltersContext.Provider value={{ filtersState, debouncedFiltersState, addFilter, removeFilter, clearFilters, initFilters }}>
+    <FiltersContext.Provider
+      value={{
+        filtersState,
+        debouncedFiltersState,
+        addFilter,
+        removeFilter,
+        clearFilters,
+        initFilters,
+        openDrawerFilter,
+        setOpenDrawerFilter,
+        setFiltersState,
+      }}
+    >
       {children}
     </FiltersContext.Provider>
   );

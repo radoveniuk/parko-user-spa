@@ -14,6 +14,8 @@ const useFilters = () => {
   useEffect(() => {
     if (isEmpty(omit(pageQueries, 'page'))) {
       context.initFilters();
+    } else {
+      context.setFiltersState(omit(pageQueries, 'page'));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -42,6 +44,17 @@ export const useFilterState = (filterKey: string): [string, (value: string) => v
   }, [addFilter, filterKey, filtersState, pageQueries]);
 
   return [filtersState?.[filterKey] || '', update];
+};
+
+export const useOpenFilterDrawler = () => {
+  const context = useContext(FiltersContext);
+  if (!context) {
+    throw new Error('Filters context not available');
+  }
+
+  const { openDrawerFilter, setOpenDrawerFilter } = context;
+
+  return { openDrawerFilter, setOpenDrawerFilter };
 };
 
 export default useFilters;

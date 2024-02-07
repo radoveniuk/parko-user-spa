@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash-es';
 import { DateTime } from 'luxon';
+import DatePicker from 'v2/uikit/DatePicker';
+import Input from 'v2/uikit/Input';
+import Select from 'v2/uikit/Select';
 
 import { useCreateDayoffMutation } from 'api/mutations/dayoffMutation';
 import Button from 'components/shared/Button';
-import DatePicker from 'components/shared/DatePicker';
-import Input from 'components/shared/Input';
-import Select from 'components/shared/Select';
 import { REASONS } from 'constants/dayoffReasons';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -58,7 +58,7 @@ const DayoffRequestForm = () => {
           rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
-              value={field.value}
+              defaultValue={field.value}
               onChange={field.onChange}
               label={t('dayoff.dateStart')}
             />
@@ -71,7 +71,7 @@ const DayoffRequestForm = () => {
           rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
-              value={field.value}
+              defaultValue={field.value}
               onChange={field.onChange}
               label={t('dayoff.dateEnd')}
             />

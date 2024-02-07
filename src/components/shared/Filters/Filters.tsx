@@ -1,12 +1,12 @@
 import React from 'react';
 import { isEmpty } from 'lodash-es';
+import Autocomplete, { AutocompleteProps } from 'v2/uikit/Autocomplete';
+import DatePicker, { DatePickerProps } from 'v2/uikit/DatePicker';
+import IconButton from 'v2/uikit/IconButton';
+import Input from 'v2/uikit/Input';
+import Select, { SelectProps } from 'v2/uikit/Select';
 
 import { CloseIcon } from 'components/icons';
-import Autocomplete, { AutocompleteProps } from 'components/shared/Autocomplete';
-import DatePicker, { DatePickerProps } from 'components/shared/DatePicker';
-import IconButton from 'components/shared/IconButton';
-import Input from 'components/shared/Input';
-import Select, { SelectProps } from 'components/shared/Select';
 import usePrev from 'hooks/usePrev';
 import { MongoEntity } from 'interfaces/base.types';
 
@@ -15,7 +15,7 @@ import useFilters, { useFilterState } from './useFilters';
 
 type FilterProps = {
   filterKey: string;
-  label: string;
+  label?: string;
 }
 
 export const FilterText = ({ filterKey, label }: FilterProps) => {
@@ -31,7 +31,7 @@ export const FilterText = ({ filterKey, label }: FilterProps) => {
   );
 };
 
-export const FilterDate = ({ filterKey, label, ...rest }: FilterProps & Partial<DatePickerProps>) => {
+export const FilterDate = ({ filterKey, label, ...rest }: Required<FilterProps> & Partial<DatePickerProps>) => {
   const [value, setValue] = useFilterState(filterKey);
   const prevValue = usePrev(value);
   return (
@@ -39,7 +39,7 @@ export const FilterDate = ({ filterKey, label, ...rest }: FilterProps & Partial<
       <DatePicker
         {...rest}
         label={label}
-        value={value || ''}
+        defaultValue={value || ''}
         onChange={(v) => {
           if (v !== prevValue) {
             setValue(v);
@@ -69,7 +69,7 @@ export const FilterAutocomplete = ({ filterKey, options = [], ...rest }: FilterA
   );
 };
 
-export const FilterSelect = ({ filterKey, label, ...rest }: FilterProps & SelectProps) => {
+export const FilterSelect = ({ filterKey, label, ...rest }: FilterProps & SelectProps<any>) => {
   const [value, setValue] = useFilterState(filterKey);
   return (
     <FilterWrapper>
@@ -84,7 +84,7 @@ export const FilterSelect = ({ filterKey, label, ...rest }: FilterProps & Select
   );
 };
 
-export const ClearFiLtersButton = () => {
+export const ClearFiltersButton = () => {
   const { clearFilters, filtersState } = useFilters();
   return (
     <ClearFiltersWrapper>

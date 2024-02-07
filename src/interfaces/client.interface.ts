@@ -11,6 +11,9 @@ export interface IClient {
   email: string;
   phone: string;
   cooperationStartDate: string;
-  cooperationEndDate: string;
+  cooperationEndDate?: string;
   status: string;
+  managers?: string[] | { name: string; surname: string; _id: string }[] | null;
+  createdAt?: string,
+  updatedAt?: string,
 }

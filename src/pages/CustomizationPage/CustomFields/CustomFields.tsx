@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import Input from 'v2/uikit/Input';
+import Select from 'v2/uikit/Select';
 
 import {
   useCreateCustomFormFieldMutation,
@@ -15,9 +17,7 @@ import { fetchTranslation } from 'api/query/translationQuery';
 import Button from 'components/shared/Button';
 import Checkbox from 'components/shared/Checkbox';
 import DialogConfirm from 'components/shared/DialogConfirm';
-import Input from 'components/shared/Input';
 import List from 'components/shared/List';
-import Select from 'components/shared/Select';
 import { LANGUAGES } from 'constants/languages';
 import useDebounce from 'hooks/useDebounce';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';

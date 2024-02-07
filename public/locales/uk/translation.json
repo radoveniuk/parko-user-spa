@@ -11,7 +11,10 @@
     "customization": "Кастомізація",
     "accommodation": "Житло",
     "docsTemplates": "Шаблони документів",
-    "clients": "Клієнти"
+    "clients": "Клієнти",
+    "workspaces": "Робочі простори",
+    "finance": "Фінанси",
+    "feedback": "Зворотній зв'язок"
   },
   "menu": {
     "prepayment": "Замовити аванс",
@@ -48,7 +51,7 @@
   "paychecks": "Розрахункові листи",
   "profile":  "Профіль",
   "user": {
-    "info": "Інформація",
+    "info": "Відомості",
     "login": "Увійти",
     "register": "Реєстрація",
     "password": "Пароль",
@@ -71,7 +74,7 @@
     "internationalPassAuthority": "Орган що видав",
     "hasIdCard": "ID картка?",
     "passNumber": "Номер паспорту",
-    "hasPermit": "ВНЖ/ПМЖ",
+    "hasPermit": "Чи маєте ви ВНЖ/ПМЖ",
     "permitType": "Тип ВНЖ",
     "permitExpire": "Дійсний до (ВНЖ)",
     "hasPrevPermit": "Чи ви мали ВНЖ раніше?",
@@ -88,7 +91,7 @@
     "shoesSize": "Розмір взуття",
     "study": "Освіта",
     "speciality": "Спеціальність",
-    "familyState": "Сімейне положення",
+    "familyStatus": "Сімейне положення",
     "prevSurname": "Дівоче прізвище",
     "hasChildren": "Маєте дітей?",
     "hasSiblings": "Маєте братів/сестер?",
@@ -118,7 +121,7 @@
     "status": "Статус",
     "resetPassword": "Скинути пароль",
     "role": "Роль",
-    "admin": "Адміністрування користувача",
+    "admin": "Адміністрування користувачів",
     "delete": "Видалити профіль",
     "approveRemoving":"Ви збираєтесь видалити профіль <b>{{user}}</b>! Ви впевені?",
     "approve": "Підтвердити",
@@ -137,7 +140,7 @@
     "sex": "Стать",
     "systemFields": "Системні дані",
     "permitFields": "Дані про ВНЖ/ПМЖ",
-    "businessFields": "Дані про ІП",
+    "businessFields": "Дані про ФОП",
     "workFields": "Дані про роботу",
     "recruiter": "Рекрутер",
     "source": "Джерело",
@@ -150,11 +153,91 @@
     "permitAdress": "Реєстраційна адреса",
     "permitDepartment": "Районний відділ",
     "permitNumber": "Номер запису в реєстрі",
+    "permitCardNumber": "Номер картки ВНЖ/ПМЖ",
     "blocked": "Чорний список",
     "notes": "Примітки",
     "oldPassword": "Попередній пароль",
     "newPassword": "Новий пароль",
-    "cooperationType": "Тип співпраці"
+    "cooperationType": "Тип співпраці",
+    "workHistory": "Історія співпраці",
+    "lastUpdate": "Останні зміни",
+    "createdAt": "Дата створення",
+    "cooperation": "Співпраця",
+    "history": "Історія",
+    "finances": "Фінанси",
+    "addDoc": "Додати документ",
+    "permitCardId": "Ідентифікаційний номер",
+    "permitGoal": "Ціль",
+    "visaNumber": "Номер візи",
+    "bankInfo": "Банківські дані",
+    "bankName": "Банк",
+    "SWIFT": "SWIFT",
+    "employmentInfo": "Інформація для працевлаштування",
+    "medicalInsurance": "Страховка",
+    "birthSurname": "Прізвище при народження",
+    "childrenCount": "Кількість дітей",
+    "businessStatus": "Статус підприємця",
+    "businessActivities": "КВЕДИ",
+    "employment": "Працевлаштування",
+    "individualCooperation": "Співпраця — ФОП",
+    "hireDate": "Дата працевлаштування",
+    "fireDate": "Дата звільнення",
+    "fireReason": "Причина звільнення",
+    "hire": "Працевлаштувати",
+    "cancel": "Скасувати",
+    "change": "Змінити",
+    "fire": "Звільнити",
+    "updateEmploymentInfo": "Змінити інформацію про працевлаштування",
+    "addEmployment": "Додати співпрацю",
+    "alreadyExistsError": "Користувач з таким імейлом вже зареєстрований",
+    "pass": {
+      "pass": "Міжнародний паспорт",
+      "number": "Міжнародний паспорт > Номер",
+      "country": "Міжнародний паспорт > Країна",
+      "dateFrom": "Міжнародний паспорт > Дата від", 
+      "dateTo": "Міжнародний паспорт > Дата до", 
+      "issuedBy": "Міжнародний паспорт > Видав"
+    },
+    "visa": {
+      "visa": "Віза",
+      "number": "Віза > Номер",
+      "dateFrom": "Віза > Дата від", 
+      "dateTo": "Віза > Дата до",
+      "comment": "Віза > Коментар"
+    },
+    "permit": {
+      "permit": "Дозвіл на проживання",
+      "number": "Дозвіл на проживання > Номер",
+      "dateFrom": "Дозвіл на проживання > Дата від", 
+      "dateTo": "Дозвіл на проживання > Дата до",
+      "address": "Дозвіл на проживання > Адреса",
+      "isMedicalCheck": "Дозвіл на проживання > Медичний огляд?",
+      "goal": "Дозвіл на проживання > Мета"
+    },
+    "idcard": {
+      "idcard": "Паспорт",
+      "number": "Паспорт > Номер",
+      "dateFrom": "Паспорт > Дата від", 
+      "dateTo": "Паспорт > Дата до",
+      "country": "Паспорт > Країна"
+    }
+  },
+  "userHistory": {
+    "updatedBy": "Ким оновлено",
+    "updatedAt": "Коли оновлено",
+    "updates": "Оновлення"
+  },
+  "businessActivity": {
+    "description": "Опис",
+    "dateFrom": "Дата від",
+    "dateTo": "Дата до"
+  },
+  "doc": {
+    "dateFrom": "Дійсний від",
+    "dateTo": "Дійсний до",
+    "issuerCountry": "Країна випуску",
+    "issuedBy": "Видав",
+    "number": "Номер"
   },
   "userUpload": {
     "title": "Імпорт профілів",
@@ -166,6 +249,14 @@
     "resultPreview": "Перегляд",
     "finish": "Імпорт",
     "successText": "Профілі користувачі завантажено. Це - пароль за замовчуванням, скопіюйте його та надішліть користувачам"
+  },
+  "finance": {
+    "add": "Додати",
+    "edit": "Змінити",
+    "type": "Тип",
+    "period": "Період",
+    "comment": "Коментар",
+    "createdAt": "Дата створення"
   },
   "prepayment": {
     "date": "Дата",
@@ -179,7 +270,9 @@
     "status": "Статус аванса",
     "paymentDate": "Дата оплати",
     "prepayment": "Аванс",
-    "new":"Новий аванс"
+    "new":"Новий аванс",
+    "createdAt": "Дата створення",
+    "period": "Період"
   },
   "dayoff": {
     "dateStart": "Початок",
@@ -188,7 +281,9 @@
     "adminComment": "Коментар фірми",
     "comment": "Коментар",
     "user": "Користувач",
-    "send": "Надіслати"
+    "send": "Надіслати",
+    "createdAt": "Дата створення",
+    "dayoff": "Відгул"
   },
   "profileList": "Профілі",
   "selects": {
@@ -204,8 +299,8 @@
       "high": "Вища"
     },
     "familyStatus": {
-      "married": "Одружений",
-      "single": "Неодружений"
+      "married": "Одружений/Одружена",
+      "single": "Неодружений/Неодружена"
     },
     "userStatus": {
       "candidate": "Кандидат",
@@ -227,9 +322,9 @@
       "other": "Інше"
     },
     "tariff": {
-      "candidate": "Кандидат",
-      "hour": "Година",
-      "month": "Місяць"
+      "candidate": "За кандидата",
+      "hour": "За відпрац. годину",
+      "month": "За відпрац. місяць"
     },
     "accommodationTariff": {
       "night": "Ніч",
@@ -253,9 +348,9 @@
     },
     "clientStatus": {
       "active": "Активний",
-      "inactive": "Неактивний",
-      "development": "Розробка",
-      "rejected": "Відхилено"
+      "development": "У розробці",
+      "inactive": "Призупинений",
+      "rejected": "Скасований"
     },
     "projectStatus": {
       "active": "Активний",
@@ -266,6 +361,20 @@
       "approved": "Підтверджено",
       "rejected": "Відхилено",
       "paid": "Оплачено"
+    },
+    "financeType": {
+      "paycheck": "Інвойс",
+      "payroll": "Зарплатня"
+    },
+    "corporateBodyStatus": {
+      "active":"Активно",
+      "stopped": "Призупинено",
+      "closed": "Ліквідовано"
+    },
+    "userPositionEmploymentStatus": {
+      "hired": "Найнятий",
+      "fired": "Звільнений",
+      "canceled": "Відкликаний"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -274,20 +383,20 @@
   "false": "Ні",
   "prepaymentsList": "Список авансів",
   "dayoffList": "Список відгулів",
-  "paychecksUpload": "Завантаження розрахункових листів",
+  "paychecksUpload": "Завантаження розрахункових листів та фактур",
   "file": {
     "upload": "Перетягніть сюди файли, або натисніть",
-    "submit": "Підтвердити",
+    "submit": "Відправити",
     "add": "Додати",
     "name": "Назва",
     "ext": "Розширення",
     "type": "Тип"
   },
   "paycheck": {
-    "successfullUpload": "Розрахункові листи успішно завантажено",
+    "successfullUpload": "Завантаження пройшло успішно",
     "message": "Увага! Будуть оброблені лише файли з такими форматами назви: «ММ.ГГГГ - Проект - Ім'я Прізвище или «ММ.ГГГГ_-_Проект_-_Ім'я_Прізвище»",
     "upload": "Завантаження",
-    "uploaded": "Фактури в системі",
+    "uploaded": "Завантажені фактури",
     "date": "Дата",
     "user": "Користувач",
     "new": "Створити нову",
@@ -313,7 +422,7 @@
     "cost": "Вартість",
     "tariff": "Тариф",
     "addProfile": "Додати профілі в проект",
-    "mainInfo": "Головна інформація",
+    "mainInfo": "Основна інформація",
     "location": "Локація",
     "stages": "Етапи працевлаштування",
     "status": "Статус",
@@ -358,14 +467,16 @@
     "costMonth": "Вартість місячна",
     "sum": "Сума",
     "residences": "Записи проживаня",
-    "objects": "Обьекти житла",
+    "objects": "Житлові об'єкти",
     "notificate": "Сповістити власника",
-    "active": "Активно"
+    "active": "Активно",
+    "createdAt":"Дата створення",
+    "residence": "Запис проживання"
   },
   "docsTemplates": {
     "template": "Шаблон",
     "codes": "Коди",
-    "file": "Файл docx",
+    "file": "Файл .docx",
     "print": "Згенерувати документ",
     "fieldName": "Назва поля",
     "fieldCode": "Код в шаблоні"
@@ -382,17 +493,22 @@
     "DIC": "DIČ",
     "ICDPH": "IČDPH",
     "sidlo": "Sidlo",
-    "websiteUrl": "Сайт",
+    "websiteUrl": "Вебсторінка",
     "contactPerson": "Контакта особа",
-    "contactPersonPosition": "Позиція контактної особи",
+    "contactPersonPosition": "Посада контактної особи",
     "phone": "Телефон",
     "status": "Статус",
     "new": "Новий клієнт",
     "cooperationStartDate": "Початок співпраці",
-    "cooperationEndDate": "Кінець співпраці"
+    "cooperationEndDate": "Кінець співпраці",
+    "email": "Email",
+    "managers": "Менеджери",
+    "profile": "Профіль",
+    "projects": "Проєкти",
+    "profiles": "Працівники"
   },
   "errorTexts": {
-    "emptyPassword": "Пароль не може бути пустим",
+    "emptyPassword": "Поле (Пароль) не може бути пустим",
     "passwordsNotMatched": "Паролі не співпадають",
     "wrongOldPassword": "Помилковий попередній пароль",
     "sww": "Щось пішло не так",
@@ -408,6 +524,7 @@
   "rowsPerPage": "Кількість рядів",
   "selectAll": "Вибрати все",
   "removeSelect": "Прибрати вибір",
+  "cols": "Колонки",
   "selectAllCols": "Вибрати вси колонки",
   "add": "Додати",
   "comment": "Коментар",
@@ -422,8 +539,34 @@
   "female": "Жіноча",
   "dataUpdated": "Дані оновлено",
   "example": "Приклад",
+  "edit": "Редагувати",
   "save": "Зберегти",
   "delete": "Видалити",
   "date": "Дата",
-  "countries": "Країни"
+  "countries": "Країни",
+  "addFilter": "Додати фільтр",
+  "filters": "Фільтри",
+  "showAll": "Показати все",
+  "rollup": "Згорнути",
+  "docs": "Документи",
+  "employer": "Роботодавець",
+  "employee": "Співробітник",
+  "header": {
+    "search": "Пошук користувачів, проектів, клієнтів"
+  },
+  "unsavedChanges": "Незбережені зміни",
+  "unsavedChangesWarn": "У вас є незбережені зміни. Якщо ви їх не збережете, вони можуть бути втрачені.",
+  "searchHistory": "Історія пошуку",
+  "profilesPage": {
+    "status": "Статуси користувачів",
+    "organization": "Організації",
+    "all_workers": "Усі робочі простори",
+    "selected_workers": "Вибрані робочі простори",
+    "search_workers": "Пошук робочих просторів",
+    "choose_few": "Вибір кількох варіантів",
+    "control_organization": "Управління організаційними підрозділами",
+    "users": "Користувачі",
+    "users_all_space": "Користувачі з усіх робочих просторів",
+    "new_user": "Новий користувач"
+  }
 }

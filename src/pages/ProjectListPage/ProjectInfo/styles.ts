@@ -6,6 +6,8 @@ export const ProjectInfoWrapper = styled.div`
   flex-grow: 1;
   margin-left: 10px;
   position: relative;
+  max-width: 100%;
+  overflow: auto;
 
   .table-actions {
     display: flex;

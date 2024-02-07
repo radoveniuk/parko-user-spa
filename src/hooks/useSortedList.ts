@@ -28,7 +28,7 @@ export default function useSortedList <T> (data: T[]) {
       navigate({
         search: createSearchParams({
           ...pageQueries,
-          page: '1',
+          page: '0',
         }).toString(),
       });
     }

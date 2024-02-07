@@ -11,7 +11,10 @@
     "customization": "Customizácia",
     "accommodation": "Ubytovanie",
     "docsTemplates": "Šablóny dokumentov",
-    "clients": "Clienti"
+    "clients": "Clienti",
+    "workspaces": "Pracovné priestory",
+    "finance": "Financie",
+    "feedback": "Spätná väzba"
   },
   "menu": {
     "prepayment": "Objednať zálohu",
@@ -88,7 +91,7 @@
     "shoesSize": "Veľkosť topánok",
     "study": "Vzdelanie",
     "speciality": "Odbor",
-    "familyState": "Rodinný stav",
+    "familyStatus": "Rodinný stav",
     "prevSurname": "Rodné priezvisko",
     "hasChildren": "Mate deti?",
     "hasSiblings": "Mate súrodencov?",
@@ -100,7 +103,6 @@
     "fatherSurname": "Priezvisko otca",
     "fatherBirthdate": "Dátum narodenia otca",
     "wrongCredentials": "Nesprávne prihlasovacie meno alebo heslo",
-    "dataUpdated": "Údaje aktualizované",
     "scancopies": "Skeny",
     "internationalPassScan": "Cestovný pas",
     "passScan": "Pas",
@@ -138,7 +140,7 @@
     "sex": "Pohlavie",
     "systemFields": "Systémové udaje",
     "permitFields": "Údaje o povolení na prechodný/trvalý pobyt",
-    "businessFields": "Údaje o živnosti",
+    "businessFields": "Obchodné informácie",
     "workFields": "Údaje o prace",
     "recruiter": "Recruiter",
     "source": "Zdroj",
@@ -151,8 +153,89 @@
     "permitAdress": "Miesto podnikania",
     "permitDepartment": "Okresný úrad",
     "permitNumber": "Číslo živnostenského registru",
+    "permitCardNumber": "Číslo pobytovéj karty",
     "blocked": "Black List",
-    "notes": "Poznámky"
+    "notes": "Poznámky",
+    "workHistory": "Historia prace",
+    "lastUpdate": "Posledné meny",
+    "createdAt": "Datum vytvorenia",
+    "cooperation": "Spolupraca",
+    "history": "História",
+    "finances": "Financie",
+    "addDoc": "Nový doklad",
+    "povolenie": "Prechodný / trvalý pobyt",
+    "permitCardId": "Číslo pobytovéj karty",
+    "permitGoal": "Cieľ",
+    "visaNumber": "Číslo visy",
+    "bankInfo": "Bankové údaje",
+    "bankName": "Banka",
+    "employmentInfo": "Informácie pre zamestnanie",
+    "medicalInsurance": "Poistenie",
+    "birthSurname": "Priezvisko pri narodení",
+    "childrenCount": "Počet detí",
+    "businessStatus": "Stav živnosti",
+    "businessActivities": "Predmety podnikania",
+    "employment": "Zamestnanie",
+    "individualCooperation": "Spolupraca — Živnosť",
+    "hireDate": "Dátum začiatku",
+    "fireDate": "Dátum ukončenia",
+    "fireReason": "Dôvod ukončenia",
+    "hire": "Najať",
+    "cancel": "Storno",
+    "change": "Zmeniť",
+    "fire": "Ukončiť",
+    "updateEmploymentInfo": "Zmeňte informácie o zamestnaní",
+    "addEmployment": "Pridať spolupracu",
+    "alreadyExistsError": "Používateľ s týmto e-mailom už existuje",
+    "SWIFT": "SWIFT",
+    "pass": {
+      "pass": "Medzinárodný pas",
+      "number": "Medzinárodný pas > Číslo",
+      "country": "Medzinárodný pas > Krajina",
+      "dateFrom": "Medzinárodný pas > Dátum od", 
+      "dateTo": "Medzinárodný pas > Dátum do", 
+      "issuedBy": "Medzinárodný pas > Vydal"
+    },
+    "visa": {
+      "visa": "Víza",
+      "number": "Víza > Číslo",
+      "dateFrom": "Víza > Dátum od", 
+      "dateTo": "Víza > Dátum do",
+      "comment": "Víza > Komentár"
+    },
+    "permit": {
+      "permit": "Povolenie na pobyt",
+      "number": "Povolenie na pobyt > Číslo",
+      "dateFrom": "Povolenie na pobyt > Dátum od", 
+      "dateTo": "Povolenie na pobyt > Dátum do",
+      "address": "Povolenie na pobyt > Adresa",
+      "isMedicalCheck": "Povolenie na pobyt > Lekársky prehliadka?",
+      "goal": "Povolenie na pobyt > Cieľ"
+    },
+    "idcard": {
+      "idcard": "Občiansky preukaz",
+      "number": "Občiansky preukaz > Číslo",
+      "dateFrom": "Občiansky preukaz > Dátum od", 
+      "dateTo": "Občiansky preukaz > Dátum do",
+      "country": "Občiansky preukaz > Krajina"
+    }
+  },
+  "userHistory": {
+    "updatedBy": "Aktualizoval",
+    "updatedAt": "Datum aktualizácii",
+    "updates": "Aktualizácie"
+  },
+  "businessActivity": {
+    "description": "Popis",
+    "dateFrom": "Dátum od",
+    "dateTo": "Dátum do"
+  },
+  "doc": {
+    "dateFrom": "Dátum od",
+    "dateTo": "Dátum do",
+    "issuerCountry": "Krajina vydania",
+    "issuedBy": "Vydal",
+    "number": "Číslo"
   },
   "userUpload": {
     "title": "Import profilov",
@@ -166,6 +249,14 @@
     "successText": "Používatelia boli importovaní. Toto je predvolené heslo, skopírujte ho a odošlite používateľom",
     "errorText": "Vyskytla chyba"
   },
+  "finance": {
+    "add": "Pridať",
+    "edit": "Upraviť",
+    "type": "Typ",
+    "period": "Obdobie",
+    "comment": "Komentár",
+    "createdAt": "Vytvorené dňa"
+  },
   "prepayment": {
     "date": "Dátum",
     "sum": "Suma",
@@ -178,7 +269,9 @@
     "status": "Status zálohy",
     "paymentDate": "Data splaty",
     "prepayment": "Záloha",
-    "new":"Nova záloha"
+    "new":"Nova záloha",
+    "createdAt": "Datum vytvorenia",
+    "period": "Period"
   },
   "dayoff": {
     "dateStart": "Začiatok",
@@ -189,12 +282,13 @@
     "user": "Používateľ",
     "send": "Poslať",
     "dayoff": "Voľno",
-    "new": "Urobiť voľno"
+    "new": "Urobiť voľno",
+    "createdAt": "Datum vytvorenia"
   },
   "profileList": "Profily",
   "selects": {
     "permitType": {
-      "business": "Biznis",
+      "business": "Podnikanie",
       "study": "Vzdelanie",
       "work": "Práca"
     },
@@ -205,8 +299,8 @@
       "high": "Vysokoškolské"
     },
     "familyStatus": {
-      "married": "Ženatý",
-      "single": "Slobodný"
+      "married": "Ženatý/Vydatá",
+      "single": "Slobodný/Slobodná"
     },
     "userStatus": {
       "candidate": "Kandidát",
@@ -252,20 +346,34 @@
       "date": "Dátum"
     },
     "clientStatus": {
-      "active": "Aktív",
-      "inactive": "Neaktív",
-      "development": "Vývoj",
-      "rejected": "Zamietnuté"
+      "active": "Aktívný",
+      "inactive": "Pozastavený",
+      "development": "Vo vývoji",
+      "rejected": "Zrušený"
     },
     "projectStatus": {
       "active": "Aktív",
       "inactive": "Neaktív"
     },
     "prepaymentStatus": {
-      "pending": "V procese",
+      "pending": "Spracovava sá",
       "approved": "Potvrdený",
       "rejected": "Zamietnuté",
       "paid": "Zaplatené"
+    },
+    "financeType": {
+      "paycheck": "Faktúra",
+      "payroll": "Mzda"
+    },
+    "corporateBodyStatus": {
+      "active": "Aktívne",
+      "stopped": "Pozastavené",
+      "closed": "Zrušené"
+    },
+    "userPositionEmploymentStatus": {
+      "hired": "Zamestnaný",
+      "fired": "Ukončený",
+      "canceled": "Stornovaný"
     }
   },
   "notFoundPage": "Stránka nenájdená",
@@ -286,8 +394,8 @@
   "paycheck": {
     "successfullUpload": "Nahranie bolo úspešne",
     "message": "Pozor! Akceptované sú iba tieto formáty názvy súborov: «mm.rrrr - Projekt - Meno Priezvisko» alebo «mm.rrrr_-_Projekt_-_Meno Priezvisko»",
-    "upload": "Nahrať faktúry",
-    "uploaded": "Faktúry v systéme",
+    "upload": "Nahravanie",
+    "uploaded": "Nahraté faktúry",
     "date": "Dátum",
     "user": "Používateľ",
     "new": "Vytvoriť novu",
@@ -360,7 +468,9 @@
     "residences": "Zápisy o ubytovaní",
     "objects": "Ubytovacie zariadenia",
     "notificate": "Uvedomiť majiteľa",
-    "active": "Aktív"
+    "active": "Aktív",
+    "createdAt": "Datum vytvorenia",
+    "residence": "Zápis o ubytovaní"
   },
   "docsTemplates": {
     "template": "Šablóna",
@@ -382,9 +492,14 @@
     "contactPersonPosition": "Pozícia Kontaktnej osoba",
     "phone": "Telefón",
     "status": "Status",
-    "new": "Vytvoriť novy",
-    "cooperationStartDate": "Nástup",
-    "cooperationEndDate": "Ukončenie"
+    "new": "Nový klient",
+    "cooperationStartDate": "Začiatok spoluprace",
+    "cooperationEndDate": "Koniec spoluprace",
+    "email": "Email",
+    "managers": "Manažéri",
+    "profile": "Profil",
+    "projects": "Projekty",
+    "profiles": "Pracovníci"
   },
   "fastActions": "Akcie",
   "language": "Jazyk",
@@ -396,6 +511,7 @@
   "rowsPerPage": "Množstvo riadkov",
   "selectAll": "Vybrať všetko",
   "removeSelect": "Odstrániť výber",
+  "cols": "Stĺpci",
   "selectAllCols": "Vybrať všetky stĺpci",
   "add": "Pridať",
   "comment": "Komentár",
@@ -404,12 +520,39 @@
   "firstDate": "Dátum od",
   "lastDate": "Dátum do",
   "welcomeText": " Vitajte v systéme Parko User, ",
-  "download": "Uložiť",
+  "download": "Stiahnuť",
   "noSelected": " Nie je zvolený ",
   "male": "Muž",
   "female": "Žena",
+  "edit": "Upraviť",
   "save": "Uložiť",
   "delete": "Vymazať",
   "date": "Dátum",
-  "countries": "Krajíny"
+  "countries": "Krajíny",
+  "addFilter": "Pridať filter",
+  "filters": "Filtry",
+  "showAll": "Zobraziť všetko",
+  "rollup": "Zrolovať",
+  "docs": "Doklady",
+  "employer": "Zamestnávateľ",
+  "employee": "Zamestnanec",
+  "dataUpdated": "Údaje aktualizované",
+  "header": {
+    "search": "Vyhľadajte používateľov, projekty alebo klientov"
+  },
+  "unsavedChanges": "Neuložené zmeny",
+  "unsavedChangesWarn": "Máte neuložené zmeny. Ak ich neuložíte, môžu byť stratené.",
+  "searchHistory": "História",
+  "profilesPage": {
+    "status": "Používateľské stavy",
+    "organization": "Organizácie",
+    "all_workers": "Všetky pracovné priestory",
+    "selected_workers": "Vybrané pracovné priestory",
+    "search_workers": "Vyhľadajte pracovné priestory",
+    "choose_few": "Viacero možností",
+    "control_organization": "Riadenie organizačných jednotiek",
+    "users": "Používatelia",
+    "users_all_space": "Používatelia zo všetkých pracovných priestorov",
+    "new_user": "Nový užívateľ"
+  }
 }

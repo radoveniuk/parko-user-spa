@@ -2,20 +2,36 @@ import styled, { css } from 'styled-components';
 
 import { themeConfig } from 'theme';
 
-export const ListTableWrapper = styled.div<{ cols: number }>`
+export const ListTableWrapper = styled.div<{ cols: number, maxHeight?: string | number }>`
   display: grid;
   grid-template-columns: repeat(${props => props.cols}, 1fr);
   overflow: auto;
+  max-height: ${props => (typeof props.maxHeight === 'number' ? `${props.maxHeight}px` : props.maxHeight) || 'auto'};
 `;
 
-export const ListTableRow = styled.div.attrs({ className: 'list-table-row' })`
+export const ListTableRow = styled.div.attrs({ className: 'list-table-row' })<{ error?: boolean }>`
   display: contents;
   grid-gap: 20px;
-  &:hover {
-    .list-table-cell {
-      background-color: #e9e9e9;
+  ${props => !props.error && css`
+    &:hover {
+      .list-table-cell {
+        background-color: #e9e9e9;
+        .table-link {
+          color: rgb(0 86 255);
+        }
+      }
     }
-  }
+  `}
+
+  ${props => props.error && css`
+    .list-table-cell {
+      background-color: #f2e5e5 !important;
+
+      .table-link {
+        color: #720000;
+      }
+    }
+  `}
 `;
 
 export const ListTableHeaderRow = styled.div<{ sticky?: boolean }>`
@@ -38,7 +54,7 @@ export const ListTableHeaderRow = styled.div<{ sticky?: boolean }>`
 `;
 
 export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })<{ color?: string }>`
-  min-height: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #e9e9e9;
@@ -55,7 +71,7 @@ export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })<
   }
 
   .table-link {
-    color: ${themeConfig.palette.primary.light};
+    color: ${themeConfig.palette.primary.main};
     cursor: pointer;
 
     &:hover {

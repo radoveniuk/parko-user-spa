@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Select from 'v2/uikit/Select';
 
-import Select from 'components/shared/Select';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 
 type Props = {

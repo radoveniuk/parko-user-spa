@@ -1,14 +1,14 @@
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import Autocomplete from 'v2/uikit/Autocomplete';
+import DatePicker from 'v2/uikit/DatePicker';
+import Input from 'v2/uikit/Input';
+import Select from 'v2/uikit/Select';
 
 import { useGetUserListForFilter } from 'api/query/userQuery';
-import Autocomplete from 'components/shared/Autocomplete';
 import Button from 'components/shared/Button';
-import DatePicker from 'components/shared/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'components/shared/Dialog';
-import Input from 'components/shared/Input';
-import Select from 'components/shared/Select';
 import { REASONS } from 'constants/dayoffReasons';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IDayOff } from 'interfaces/dayoff.interface';
@@ -57,7 +57,7 @@ const DayoffDialog = ({ dayoff, submit, ...rest }: Props) => {
           rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
-              value={field.value}
+              defaultValue={field.value}
               onChange={field.onChange}
               label={t('dayoff.dateStart')}
               error={!!errors.dateStart}
@@ -71,7 +71,7 @@ const DayoffDialog = ({ dayoff, submit, ...rest }: Props) => {
           rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
-              value={field.value}
+              defaultValue={field.value}
               onChange={field.onChange}
               label={t('dayoff.dateEnd')}
               error={!!errors.dateEnd}

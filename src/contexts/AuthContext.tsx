@@ -15,6 +15,7 @@ type contextType = {
   userId: string;
   role: UserRole | undefined;
   isVerified: boolean;
+  isFetching: boolean;
   username: string;
 };
 
@@ -26,7 +27,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userId, setUserId] = useLocalStorageState('userId');
   const loginMutation = useLoginMutation();
   const logoutMutation = useLogoutMutation();
-  const { data: userData } = useGetUser(userId, { enabled: !!userId && isAuth });
+  const { data: userData, isLoading } = useGetUser(userId, { enabled: !!userId && isAuth });
 
   const isVerified = useMemo(() => !!userData?.project || ['admin', 'recruiter', 'super-admin'].includes(userData?.role as string), [userData]);
 
@@ -53,7 +54,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const role = useMemo(() => isAuth && userData ? userData.role : undefined, [userData, isAuth]);
 
   return (
-    <AuthContext.Provider value={{ isAuth, login, logout, userId, role, isVerified, username: `${userData?.name} ${userData?.surname}` }}>
+    <AuthContext.Provider
+      value={{ isAuth, login, logout, userId, role, isVerified, username: `${userData?.name} ${userData?.surname}`, isFetching: isLoading }}>
       {children}
     </AuthContext.Provider>
   );
@@ -94,6 +96,7 @@ export const useAuthData = () => {
     role: authContext.role,
     isVerified: authContext.isVerified,
     username: authContext.username,
+    isFetching: authContext.isFetching,
   };
 };
 

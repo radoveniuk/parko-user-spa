@@ -1,7 +1,7 @@
 import React, { ForwardedRef, forwardRef, HTMLProps, useState } from 'react';
 
 import { EyeIcon, EyeSlashIcon } from 'components/icons';
-import IconButton from 'components/shared/IconButton';
+import IconButton from 'v2/uikit/IconButton';
 
 import { PasswordInputWrapper } from './styles';
 

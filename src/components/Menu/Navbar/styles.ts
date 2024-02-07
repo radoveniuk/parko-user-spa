@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
 
-const NAV_BG_COLOR = process.env.REACT_APP_COLOR_NAVBAR || '#EEE2DC';
+// const NAV_BG_COLOR = process.env.REACT_APP_COLOR_NAVBAR || '#EEE2DC';
+const NAV_BG_COLOR = import.meta.env.REACT_APP_COLOR_NAVBAR || '#EEE2DC';
 
 export const NavbarWrapper = styled(Box)`
   a {

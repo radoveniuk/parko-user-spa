@@ -1,3 +1,4 @@
+import { MongoHistory } from './base.types';
 import { IFile } from './file.interface';
 import { IProject } from './project.interface';
 
@@ -17,6 +18,14 @@ export type RegisterUserDto = {
 
 export type UserRole = 'user' | 'admin' | 'recruiter' | 'super-admin';
 
+export type UserPersonalDocType = 'idcard' | 'pass' | 'permit' | 'visa';
+
+export type UserBusinessActivity = {
+  description: string;
+  dateFrom: string;
+  dateTo?: string;
+};
+
 export interface IUser {
   _id: string;
   // base fields
@@ -28,11 +37,11 @@ export interface IUser {
   phone: string;
   birthDate: string;
   passNumber: string;
-  sex: string;
+  sex: 'male' | 'female';
   blocked: boolean;
   notes: string;
   // system data
-  recruiter: string | { name: string; surname: string; } | null;
+  recruiter: string | { name: string; surname: string; _id: string } | null;
   source: string;
   project: string | IProject | null;
   // adress
@@ -49,6 +58,8 @@ export interface IUser {
   hasMedicalExamination: boolean;
   // business docs
   IBAN: string;
+  bankName: string;
+  SWIFT: string;
   ICO: string;
   DIC: string;
   permitAdress: string;
@@ -81,6 +92,8 @@ export interface IUser {
   idCardBackScan: string | IFile;
   permitFaceScan: string | IFile;
   permitBackScan: string | IFile;
+  // docs info
+  docs?: (Record<string, string | boolean> & { type: UserPersonalDocType })[];
 
   projectStages: {
     [key: string]: {
@@ -89,4 +102,22 @@ export interface IUser {
       active: boolean;
     };
   } | null;
+
+  // NEW
+  medicalInsurance: string;
+  birthPlace: string;
+  familyStatus: string;
+  birthSurname: string;
+  childrenCount: number;
+  history?: MongoHistory<IUser>[];
+  createdBy: string | null;
+  updatedBy: string | null;
+  businessName?: string;
+  businessStatus?: 'active' | 'stopped' | 'closed';
+  businessActivities?: UserBusinessActivity[];
+  isDeleted?: boolean;
+
+  tags?: string[];
+  createdAt?: string,
+  updatedAt?: string,
 }

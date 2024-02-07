@@ -9,13 +9,15 @@ type Props = {
   columnComponent?: (col: string, index: number) => ReactNode;
   stickyHeader?: boolean;
   renderIf?: boolean;
+  maxHeight?: string | number;
 } & HTMLAttributes<HTMLDivElement>
 
-const ListTable = ({ columns, children, columnComponent, stickyHeader, renderIf = true, ...rest }: Props) => {
+const ListTable = ({ columns, children, columnComponent, stickyHeader, renderIf = true, maxHeight, ...rest }: Props) => {
   const { t } = useTranslation();
   if (!renderIf) return null;
+
   return (
-    <ListTableWrapper cols={columns.length} {...rest}>
+    <ListTableWrapper cols={columns.length} maxHeight={maxHeight} {...rest}>
       <ListTableHeaderRow sticky={stickyHeader}>
         {columns.map((column, index) => (
           <ListTableCell

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
-import Page, { PageTitle } from 'components/shared/Page';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 
 import UploadArea from './UploadArea';
@@ -10,9 +10,10 @@ import UploadedPaychecks from './UploadedPaychecks';
 const PaychecksUploadPage = () => {
   const { t } = useTranslation();
 
+  useDocumentTitle(t('paychecksUpload'));
+
   return (
-    <Page title={t('paychecksUpload')}>
-      <PageTitle>{t('paychecksUpload')}</PageTitle>
+    <>
       <TabsContainer>
         <Tabs>
           <Tab label={t('paycheck.uploaded')} />
@@ -25,7 +26,7 @@ const PaychecksUploadPage = () => {
           <UploadArea />
         </TabPanel>
       </TabsContainer>
-    </Page>
+    </>
   );
 };
 

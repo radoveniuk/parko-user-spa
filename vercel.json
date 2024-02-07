@@ -1,0 +1,17 @@
+{
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "http://vmi1528393.contaboserver.net:3000/$1",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    },
+    {
+      "src": "/favicon-api",
+      "dest": "https://t2.gstatic.com/faviconV2",
+      "methods": ["GET"]
+    },
+    { "src": "/[^.]+", "dest": "/", "status": 200 },
+    { "src": "/profile/(.*)", "dest": "/$1", "status": 200 },
+    { "src": "/client/(.*)", "dest": "/$1", "status": 200 }
+  ]
+}

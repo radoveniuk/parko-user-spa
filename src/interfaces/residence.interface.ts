@@ -7,4 +7,5 @@ export interface IResidence {
   accommodation: string | IAccommodation;
   checkInDate: string | null;
   checkOutDate: string | null;
+  createdAt?: string;
 }

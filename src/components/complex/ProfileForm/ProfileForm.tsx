@@ -2,16 +2,16 @@ import React, { useMemo } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import _ from 'lodash-es';
+import DatePicker from 'v2/uikit/DatePicker';
+import Input from 'v2/uikit/Input';
+import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
+import Select from 'v2/uikit/Select';
 
 import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import Accordion from 'components/shared/Accordion';
 import BooleanSelect from 'components/shared/BooleanSelect';
-import DatePicker from 'components/shared/DatePicker';
-import Input from 'components/shared/Input';
-import PhoneInput, { checkPhoneNumber } from 'components/shared/PhoneInput';
-import Select from 'components/shared/Select';
 import { COUNTRIES } from 'constants/countries';
 import { EMPLOYMENT_TYPE, FAMILY_STATUSES, SIZES, STUDY } from 'constants/selectsOptions';
 import {
@@ -42,7 +42,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
   const { data: countryDictionary } = useGetDictionary('COUNTRIES');
-  const familyStateOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
+  const familyStatusOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
   const studyOptions = useTranslatedSelect(STUDY, 'study');
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
   const sexOptions = useTranslatedSelect(['male', 'female']);
@@ -58,11 +58,11 @@ const ProfileForm = ({ defaultValues }: Props) => {
     pantsSize: SIZES,
     tshortSize: SIZES,
     country: COUNTRIES.sort(),
-    familyState: familyStateOptions,
+    familyStatus: familyStatusOptions,
     study: studyOptions,
     sex: sexOptions,
     employmentType: employmentTypeOptions,
-  }), [employmentTypeOptions, familyStateOptions, sexOptions, studyOptions]);
+  }), [employmentTypeOptions, familyStatusOptions, sexOptions, studyOptions]);
 
   const dynamicSelectOptions: AnyObject = useMemo(() => ({
     recruiter: {
@@ -151,7 +151,7 @@ const ProfileForm = ({ defaultValues }: Props) => {
             defaultValue={defaultValues?.[fieldName] || ''}
             render={({ field }) => (
               <DatePicker
-                value={field.value as string}
+                defaultValue={field.value as string}
                 onChange={field.onChange}
                 label={t(`user.${fieldName}`)}
               />

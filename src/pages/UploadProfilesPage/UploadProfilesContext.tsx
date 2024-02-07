@@ -2,11 +2,10 @@ import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, 
 import { pick } from 'lodash-es';
 import { DateTime } from 'luxon';
 
+import { DEFAULT_PASS } from 'constants/user';
 import { TRANSLATED_FIELDS } from 'constants/userCsv';
 import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
-
-import { DEFAULT_PASS } from './constants';
 
 const TRUE_VALUES = ['áno', 'true', 'yes', 'да', 'так'];
 const FALSE_VALUES = ['nie', 'false', 'not', 'no', 'нет', 'ні'];

@@ -6,7 +6,7 @@ import { SM } from 'theme/sizeBreakpoints';
 export const StyledMenuButton = styled.button`
   width: 280px;
   height: 280px;
-  background-color: ${themeConfig.palette.primary.main};
+  background-color: ${themeConfig.palette.primary.dark};
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -30,5 +30,9 @@ export const StyledMenuButton = styled.button`
     margin-top: 25px;
     justify-content: space-around;
     height: 120px;
+  }
+
+  & > p {
+    color: #fff;
   }
 `;

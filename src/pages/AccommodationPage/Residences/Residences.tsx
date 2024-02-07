@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
+import IconButton from 'v2/uikit/IconButton';
 
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { useGetAccommodations } from 'api/query/accommodationQuery';
@@ -9,8 +10,7 @@ import { useGetResidenceFilterLists, useGetResidences } from 'api/query/residenc
 import { ArrowUpIcon, CloseIcon, EditIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
-import { ClearFiLtersButton, FilterAutocomplete, FilterDate, FilterSelect, FilterText } from 'components/shared/Filters/Filters';
-import IconButton from 'components/shared/IconButton';
+import { ClearFiltersButton, FilterAutocomplete, FilterDate, FilterSelect, FilterText } from 'components/shared/Filters/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import usePrev from 'hooks/usePrev';
@@ -164,9 +164,10 @@ const Residences = () => {
           options={accommodations}
           labelKey="adress"
         />
-        <ClearFiLtersButton />
+        <ClearFiltersButton />
       </FiltersBar>
       <ListTable
+        maxHeight="calc(100vh - 300px)"
         columns={COLUMNS}
         columnComponent={(col) => col && (
           <div role="button" className="col-item" onClick={() => void toggleSorting(col.replace(/user.|accommodation./gi, ''))}>

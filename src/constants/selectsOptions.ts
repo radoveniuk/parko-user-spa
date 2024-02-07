@@ -69,3 +69,15 @@ export const PREPAYMENT_STATUS = [
   'rejected',
   'paid',
 ];
+
+export const INSURANCE = [
+  'Union',
+  'VŠZP',
+  'Dôvera',
+];
+
+export const CORPORATE_BODY_STATUS = [
+  'active',
+  'stopped',
+  'closed',
+];
