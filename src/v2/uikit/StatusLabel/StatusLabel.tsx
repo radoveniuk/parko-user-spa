@@ -24,6 +24,7 @@ const StatusLabel = styled.div`
   padding: 1px 4px;
   border-radius: 2px;
   max-width: min-content;
+  white-space: nowrap;
 `;
 
 export default StatusLabel;
