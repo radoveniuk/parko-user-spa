@@ -76,7 +76,7 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
     { type: 'pass', label: 'user.pass.pass', defaultValues: DEFAULT_INT_PASS },
     { type: 'permit', label: 'user.permit.permit', defaultValues: DEFAULT_PERMIT },
     { type: 'visa', label: 'user.visa.visa', defaultValues: DEFAULT_VISA },
-    { type: 'idcard', label: 'user.pass', defaultValues: DEFAULT_PASS },
+    { type: 'idcard', label: 'user.idcard.idcard', defaultValues: DEFAULT_PASS },
   ].filter((item) => !docs.some((docItem) => docItem.type === item.type)), [docs]);
 
   useEffect(() => {
