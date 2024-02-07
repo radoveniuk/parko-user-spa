@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import pick from 'lodash-es/pick';
 import { Button } from 'v2/uikit';
 import BreadCrumbs from 'v2/uikit/BreadCrumbs';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
@@ -258,11 +259,23 @@ const ProfileAdminPageRender = () => {
           <TabPanel className="cards" index={1}>
             <div className="col">
               <PersonalDocsFormCard data={profileData.docs || []} onUpdateDocs={(docs) => { updateUser({ docs }); }} />
-              <BankDataFormCard data={profileData} onUpdate={updateUser} />
+              <BankDataFormCard data={pick(profileData, ['IBAN', 'bankName', 'SWIFT'])} onUpdate={updateUser} />
             </div>
             <div className="col">
-              <EmploymentInfoFormCard data={profileData} onUpdateEmploymentInfo={updateUser} />
-              <BusinessInfoFormCard data={profileData} onChange={updateUser} />
+              <EmploymentInfoFormCard
+                data={pick(
+                  profileData,
+                  ['passNumber', 'rodneCislo', 'medicalInsurance', 'country', 'birthDate', 'birthPlace', 'familyStatus', 'birthSurname', 'childrenCount'],
+                )}
+                onUpdateEmploymentInfo={updateUser}
+              />
+              <BusinessInfoFormCard
+                data={pick(
+                  profileData,
+                  ['ICO', 'businessName', 'DIC', 'adress', 'permitAdress', 'businessStatus', 'permitDepartment', 'permitNumber', 'name', 'surname'],
+                )}
+                onChange={updateUser}
+              />
               <BusinessActivitiesFormCard
                 data={profileData.businessActivities || []}
                 onUpdateActivities={(businessActivities) => { updateUser({ businessActivities }); }}
