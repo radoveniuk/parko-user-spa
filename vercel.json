@@ -1,0 +1,11 @@
+{
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "http://vmi1528393.contaboserver.net:3000/$1",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    },
+    { "src": "/[^.]+", "dest": "/", "status": 200 },
+    { "src": "/profile/(.*)", "dest": "/$1", "status": 200 }
+  ]
+}
