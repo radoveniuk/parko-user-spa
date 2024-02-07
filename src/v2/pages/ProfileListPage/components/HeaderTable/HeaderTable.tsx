@@ -8,6 +8,7 @@ import ProfileFormDialog from 'v2/components/ProfileFormDialog';
 import { Button, Divider, Menu, MenuItem, Stack } from 'v2/uikit';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 import IconButton from 'v2/uikit/IconButton';
+import Skeleton from 'v2/uikit/Skeleton';
 
 import { useCreateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
@@ -21,11 +22,21 @@ import { isMongoId } from 'helpers/regex';
 import { useExportData } from 'hooks/useExportData';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
+import { ICustomFormField } from 'interfaces/form.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import { FiltersWrapper, HeaderWrapper } from './styles';
 
-const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data, activeCols, customFields }: any) => {
+type Props = {
+  selectedItems: IUser[],
+  setSelectedItems: (v: IUser[]) => void,
+  setOpenPrintDialog: (v: boolean) => void,
+  data: IUser[], activeCols: string[],
+  customFields: ICustomFormField[],
+  loading?: boolean,
+};
+
+const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data, activeCols, customFields, loading }: Props) => {
   const { t, i18n } = useTranslation();
 
   // filters
@@ -133,7 +144,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
     <>
       <HeaderWrapper>
         <Stack direction="row" gap="9px" alignContent="center">
-          <span className="bold">{t('profilesPage.users')}: {data.length}</span>
+          <span className="bold counter">{t('profilesPage.users')}: {!loading ? data.length : <Skeleton width={50} height={18} />}</span>
         </Stack>
         <Stack direction="row" gap="15px">
           <IconButton className="small-btn" onClick={() => void setOpenMobileFilters(true)}><FilterIcon size={25} /></IconButton>

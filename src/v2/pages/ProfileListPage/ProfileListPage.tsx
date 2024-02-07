@@ -32,7 +32,8 @@ const ProfileListPageRender = () => {
   const { debouncedFiltersState, filtersState, removeFilter, addFilter } = useFilters();
 
   // table content
-  const { data = [], refetch, remove, isFetching } = useGetUserList(debouncedFiltersState, { enabled: false });
+  const { data: startData = [], isFetching: isFetchingStartData } = useGetUserList({ take: 20, skip: 0 }, { enabled: true });
+  const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
 
   // filters
   const { data: usersFilter = [] } = useGetUserListForFilter();
@@ -71,9 +72,10 @@ const ProfileListPageRender = () => {
           selectedItems={selectedItems}
           setSelectedItems={setSelectedItems}
           setOpenPrintDialog={setOpenPrintDialog}
-          data={data}
+          data={!data.length ? startData : data}
           activeCols={activeCols}
           customFields={customFields}
+          loading={!data.length}
         />
         <FilterTableWrapper>
           <FilterAutocomplete
@@ -148,11 +150,11 @@ const ProfileListPageRender = () => {
         <Table
           activeCols={activeCols}
           setActiveCols={setActiveCols}
-          data={data}
+          data={!data.length ? startData : data}
           customFields={customFields}
           setSelectedItems={setSelectedItems}
           selectedItems={selectedItems}
-          isFetching={isFetching}
+          isFetching={isFetchingStartData}
         />
       </div>
       {openPrintDialog && (

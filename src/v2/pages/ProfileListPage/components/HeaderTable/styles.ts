@@ -10,6 +10,14 @@ export const HeaderWrapper = styled.div`
   justify-content: space-between;
   padding: 22px 35px;
 
+  .counter {
+    display: flex;
+    align-items: center;
+    .MuiSkeleton-root {
+      margin-left: 5px;
+    }
+  }
+
   .link {
     color: #e72a33;
     display: flex;
