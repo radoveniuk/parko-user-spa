@@ -8,7 +8,7 @@ import Select from 'v2/uikit/Select';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
-import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
+import { getUserListByParams, useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { SearchIcon } from 'components/icons';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
@@ -32,8 +32,17 @@ const ProfileListPageRender = () => {
   const { debouncedFiltersState, filtersState, removeFilter, addFilter } = useFilters();
 
   // table content
-  const { data: startData = [], isFetching: isFetchingStartData, remove: removeStartData } = useGetUserList({ take: 20, skip: 0 }, { enabled: true });
-  const { data = [], refetch, remove } = useGetUserList(debouncedFiltersState, { enabled: false });
+  const { data = [], refetch, remove, isFetching, isLoading } = useGetUserList(debouncedFiltersState, { enabled: false });
+
+  const [startData, setStartData] = useState<IUser[]>([]);
+  const [isFetchingStartData, setIsFetchingStartData] = useState(false);
+  useEffect(() => {
+    setIsFetchingStartData(true);
+    getUserListByParams({ take: 20, skip: 0 }).then((res: IUser[]) => {
+      setStartData(res);
+      setIsFetchingStartData(false);
+    });
+  }, []);
 
   // filters
   const { data: usersFilter = [] } = useGetUserListForFilter();
@@ -56,7 +65,14 @@ const ProfileListPageRender = () => {
   }, [debouncedFiltersState, refetch]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => () => { remove(); removeStartData(); }, []);
+  useEffect(() => () => { remove(); }, []);
+
+  useEffect(() => {
+    if (data.length) {
+      setStartData([]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.length]);
 
   useEffect(() => {
     setStoredColsSettings(JSON.stringify({ cols: activeCols }));
@@ -64,8 +80,6 @@ const ProfileListPageRender = () => {
 
   const projectsFilter = filtersState?.projects?.split(',') || [];
   const statusesFilter = filtersState?.statuses?.split(',') || [];
-
-  // console.log(projects.filter((projectItem) => !filtersState?.projects?.includes(projectItem._id)));
 
   return (
     <ProfileListPageWrapper cols={activeCols.length + 1}>
@@ -77,7 +91,7 @@ const ProfileListPageRender = () => {
           data={!data.length ? startData : data}
           activeCols={activeCols}
           customFields={customFields}
-          loading={!data.length}
+          loading={isLoading || isFetching || isFetchingStartData}
         />
         <FilterTableWrapper>
           <FilterAutocomplete
