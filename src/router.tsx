@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from 'v2/components/ProtectedRoute';
 import AuthLayouts from 'v2/layouts/AuthLayouts';
 import PageLayouts from 'v2/layouts/PageLayouts';
-import { ClientListPage, ClientPage, HomePage, LoginPage, ProfileAdminPage, ProfileListPage, RegisterPage } from 'v2/pages';
+import { ClientListPage, ClientPage, HomePage, LoginPage, PrepaymentListPage, ProfileAdminPage, ProfileListPage, RegisterPage } from 'v2/pages';
 
 import NavbarStateProvider from 'contexts/NavbarStateContext';
 import NotificationProvider from 'contexts/NotificationContext';
@@ -19,7 +19,6 @@ import NotificationsPage from 'pages/NotificationsPage';
 import PaychecksPage from 'pages/PaychecksPage';
 import PaychecksUploadPage from 'pages/PaychecksUploadPage';
 import PrepaymentPage from 'pages/PrepaymentPage';
-import PrepaymentsListPage from 'pages/PrepaymentsListPage';
 import ProfilePage from 'pages/ProfilePage';
 import ProjectListPage from 'pages/ProjectListPage';
 import UploadProfilesPage from 'pages/UploadProfilesPage';
@@ -48,7 +47,7 @@ export default function Router () {
             <Route element={<ProtectedRoute matchedRoles={FULL_PERMISSION_ROLES} />}>
               <Route element={<PageLayouts />}>
                 <Route path="/projects" element={<ProjectListPage />} />
-                <Route path="/prepayments" element={<PrepaymentsListPage />} />
+                <Route path="/prepayments" element={<PrepaymentListPage />} />
                 <Route path="/daysoff" element={<DayoffListPage />} />
                 <Route path="/paychecks-upload" element={<PaychecksUploadPage />} />
                 <Route path="/create-notification" element={<CreateNotificationPage />} />

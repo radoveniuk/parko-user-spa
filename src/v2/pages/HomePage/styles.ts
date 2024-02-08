@@ -36,6 +36,8 @@ overflow: auto;
 
   @media (max-width: 700px) {
     width: 100%;
+    margin-top: 12px;
+    margin-bottom: 12px;
   }
 
   .col {

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { themeConfig } from 'theme';
 
 const StatusLabel = styled.div`
-  &.candidate, &.development {
+  &.candidate, &.development, &.pending {
     background-color: #f0c844;
     color: #2b2b2b;
   }
@@ -25,6 +25,7 @@ const StatusLabel = styled.div`
   border-radius: 2px;
   max-width: min-content;
   white-space: nowrap;
+  max-height: min-content;
 `;
 
 export default StatusLabel;
