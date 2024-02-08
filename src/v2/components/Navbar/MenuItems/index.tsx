@@ -35,7 +35,7 @@ const MenuItems = () => {
         if (item.type === 'link' && item.to) {
           return (
             <Link to={item.to} key={item.title} aria-label={item.title}>
-              <ListItem button className="list-item" title={t(item.title)} aria-label={item.title}>
+              <ListItem className="list-item" title={t(item.title)} aria-label={item.title}>
                 <NavItem
                   key={item.to}
                   className={`
@@ -74,7 +74,7 @@ const MenuItems = () => {
               <AccordionDetails>
                 {item.children?.map((children) => (
                   <Link to={children.to} key={children.title} aria-label={item.title}>
-                    <ListItem button className="list-item" title={t(children.title)} aria-label={item.title}>
+                    <ListItem className="list-item" title={t(children.title)} aria-label={item.title}>
                       <NavItem
                         className={`
                             ${(children.to === selectedLink) ? 'active' : ''}
