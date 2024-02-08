@@ -1,8 +1,8 @@
 import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import Checkbox from 'v2/uikit/Checkbox';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 
-import Checkbox from 'v2/uikit/Checkbox';
 import { EXPORT_USER_DOC_FIELDS, EXPORT_USER_FIELDS } from 'constants/userCsv';
 import { ICustomFormField } from 'interfaces/form.interface';
 
@@ -34,7 +34,7 @@ const SettingsTable = ({ customFields, activeCols, setActiveCols, open, onClose 
       <ColsSettingsWrapper>
         <div className="cols">
           <Checkbox
-            title={t('selectAll')}
+            label={t('selectAll')}
             checked={activeCols.length === COLS_TO_SETTINGS.length + customColumns.length}
             onChange={(e) =>
               void setActiveCols(() => {
@@ -53,7 +53,7 @@ const SettingsTable = ({ customFields, activeCols, setActiveCols, open, onClose 
           {COLS_TO_SETTINGS.map(field => (
             <Checkbox
               key={field}
-              title={t(field)}
+              label={t(field)}
               checked={activeCols.includes(field)}
               onChange={e => {
                 setActiveCols((prev: any) => {
@@ -70,7 +70,7 @@ const SettingsTable = ({ customFields, activeCols, setActiveCols, open, onClose 
           {customFields.map((field: any) => (
             <Checkbox
               key={field._id}
-              title={field.names[i18n.language]}
+              label={field.names[i18n.language]}
               checked={activeCols.includes(field._id)}
               onChange={e =>
                 void setActiveCols((prev: any) => {
