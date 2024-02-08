@@ -49,12 +49,14 @@ export const FooterWrapper = styled.div`
     align-items: center;
     gap: 15px;
     margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.87);
   }
 
   .parko {
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
+    color: rgba(0, 0, 0, 0.87);
   }
 `;
 

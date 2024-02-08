@@ -8,8 +8,5 @@ import App from './App';
 
 import './index.css';
 
-console.log(`Parko User App ${import.meta.env.PACKAGE_VERSION}`);
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(<App />);
