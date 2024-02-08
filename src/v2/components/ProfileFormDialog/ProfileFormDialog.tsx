@@ -157,7 +157,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
                 ? translatedWorkTypes.filter((translatedItem) => data.workTypes?.includes(translatedItem.value as UserWorkType))
                 : []
               }
-              value={translatedWorkTypes.filter((translatedItem) => field.value.includes(translatedItem.value as UserWorkType))}
+              value={translatedWorkTypes.filter((translatedItem) => field.value?.includes(translatedItem.value as UserWorkType))}
               theme="gray"
               options={translatedWorkTypes}
               valueKey="value"
