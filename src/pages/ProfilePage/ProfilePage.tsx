@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import _ from 'lodash-es';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
+import Button from 'v2/uikit/Button';
 
 import { useCreateUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetUser } from 'api/query/userQuery';
 import ProfileForm from 'components/complex/ProfileForm';
 import ProfileScans from 'components/complex/ProfileScans';
 import { PasswordIcon } from 'components/icons';
-import Button from 'components/shared/Button';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { DEFAULT_PASS } from 'constants/user';
 import { useAuthData } from 'contexts/AuthContext';

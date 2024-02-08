@@ -2,11 +2,11 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCSVReader } from 'react-papaparse';
 import { invert, omit } from 'lodash-es';
+import Button from 'v2/uikit/Button';
 import Select from 'v2/uikit/Select';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { DownloadFileIcon, UploadIcon } from 'components/icons';
-import Button from 'components/shared/Button';
 import { IMPORT_USER_FIELDS } from 'constants/userCsv';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';

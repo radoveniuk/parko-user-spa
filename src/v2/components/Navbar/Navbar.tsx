@@ -43,10 +43,15 @@ const Navbar = () => {
           <FooterWrapper>
             <Divider />
             <div className="container-content-inset">
-              <div className="feedback">
-                <BiMessageIcon size={24} /> <span>{t('navbar.feedback')}</span>
-              </div>
-              <span className="parko">© Parko Limited s.r.o., {date.getFullYear()}</span>
+              <a href="mailto:support@parko.sk" title="support@parko.sk" aria-label="Support email">
+                <div className="feedback">
+                  <BiMessageIcon size={24} /> <span>{t('navbar.feedback')}</span>
+                </div>
+              </a>
+              <a href="https://parko-staff.com" aria-label="Parko Limited s.r.o. website">
+                <span className="parko">© Parko Limited s.r.o., {date.getFullYear()}</span>
+              </a><br/>
+              <span className="parko">Parko User v.{import.meta.env.PACKAGE_VERSION}</span>
             </div>
           </FooterWrapper>
         </Stack>
@@ -71,10 +76,15 @@ const Navbar = () => {
             <FooterWrapper>
               <Divider />
               <div className="container-content-inset">
-                <div className="feedback">
-                  <BiMessageIcon size={24} /> <span>{t('navbar.feedback')}</span>
-                </div>
-                <span className="parko">© Parko Limited s.r.o., {date.getFullYear()}</span>
+                <a href="mailto:support@parko.sk" title="support@parko.sk" aria-label="Support email">
+                  <div className="feedback">
+                    <BiMessageIcon size={24} /> <span>{t('navbar.feedback')}</span>
+                  </div>
+                </a>
+                <a href="https://parko-staff.com" aria-label="Parko Limited s.r.o. website">
+                  <span className="parko">© Parko Limited s.r.o., {date.getFullYear()}</span>
+                </a><br/>
+                <span className="parko">Parko User v.{import.meta.env.PACKAGE_VERSION}</span>
               </div>
             </FooterWrapper>
           )}

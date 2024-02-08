@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
+import Button from 'v2/uikit/Button';
 
 import { CheckInIcon, CheckOutIcon, ExcelIcon, PlusIcon } from 'components/icons';
-import Button from 'components/shared/Button';
 import { PageActions } from 'components/shared/PageComponents';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 

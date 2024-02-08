@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import Button from 'v2/uikit/Button';
+import Checkbox from 'v2/uikit/Checkbox';
 import IconButton from 'v2/uikit/IconButton';
 import Select from 'v2/uikit/Select';
 
@@ -11,8 +13,6 @@ import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { ArrowUpIcon, CheckAllIcon, DeleteIcon, ExcelIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
-import Button from 'components/shared/Button';
-import Checkbox from 'components/shared/Checkbox';
 import Dialog from 'components/shared/Dialog';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { FilterDate } from 'components/shared/Filters/Filters';

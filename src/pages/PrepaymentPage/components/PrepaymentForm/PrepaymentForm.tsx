@@ -3,10 +3,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash-es';
+import Button from 'v2/uikit/Button';
 import Input from 'v2/uikit/Input';
 
 import { useCreatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
-import Button from 'components/shared/Button';
 import { useAuthData } from 'contexts/AuthContext';
 
 import { StyledForm } from './styles';

@@ -98,4 +98,5 @@ export const SB_MOCK_USER: IUser = {
   childrenCount: 0,
   createdBy: null,
   updatedBy: null,
+  workTypes: [],
 };

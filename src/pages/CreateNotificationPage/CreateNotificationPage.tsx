@@ -11,7 +11,7 @@ import Input from 'v2/uikit/Input';
 import { useCreateNotificationMutation } from 'api/mutations/notificationMutation';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import Editor from 'components/complex/Editor';
-import Button from 'components/shared/Button';
+import Button from 'v2/uikit/Button';
 import { useAuthData } from 'contexts/AuthContext';
 import { INotification } from 'interfaces/notification.interface';
 import { IUser } from 'interfaces/users.interface';

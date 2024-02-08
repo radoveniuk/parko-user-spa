@@ -4,6 +4,15 @@ import styled from 'styled-components';
 export const StyledAutocomplete = styled(AutocompleteMaterial)`
   .MuiAutocomplete-endAdornment {
     background-color: ${({ theme }) => theme === 'white' ? '#fff' : '#FAFAFA'};
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  input {
+    height: 1em !important;
+    padding: 10px 14px !important;
   }
 `;
 

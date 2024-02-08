@@ -1,8 +1,8 @@
 import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import Checkbox from 'v2/uikit/Checkbox';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 
-import Checkbox from 'components/shared/Checkbox';
 import { EXPORT_USER_DOC_FIELDS, EXPORT_USER_FIELDS } from 'constants/userCsv';
 import { ICustomFormField } from 'interfaces/form.interface';
 

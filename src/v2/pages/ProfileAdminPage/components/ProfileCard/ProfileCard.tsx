@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { pick } from 'lodash-es';
 import isEqual from 'lodash-es/isEqual';
 import { DateTime } from 'luxon';
 import ProfileFormDialog from 'v2/components/ProfileFormDialog';
@@ -147,7 +148,10 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
         </div>
       </ProfileCardWrapper>
       <ProfileFormDialog
-        data={{ ...user, recruiter: recruiter?._id || null }}
+        data={pick(
+          { ...user, recruiter: recruiter?._id || null },
+          ['name', 'surname', 'email', 'birthDate', 'country', 'sex', 'address', 'source', 'recruiter', 'phone', 'role', 'notes', 'workTypes'],
+        )}
         title={`${user.name} ${user.surname}`}
         open={isOpenForm}
         onClose={closeForm}

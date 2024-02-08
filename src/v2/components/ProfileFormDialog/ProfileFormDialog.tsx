@@ -2,7 +2,9 @@ import React, { memo, useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { COUNTRIES } from 'v2/constants/countries';
+import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import { Button, Input } from 'v2/uikit';
+import Autocomplete from 'v2/uikit/Autocomplete';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
 import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
@@ -13,15 +15,15 @@ import { useGetUserList } from 'api/query/userQuery';
 import { ROLES } from 'constants/userRoles';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import { IUser } from 'interfaces/users.interface';
+import { IUser, UserWorkType } from 'interfaces/users.interface';
 
 import { CountrySelectOption, FormWrapper } from './styles';
 
 type Data = Pick<IUser, 'name' | 'surname' | 'email' | 'birthDate' | 'country' | 'sex' |
-'adress' | 'source' | 'recruiter' | 'phone' | 'role' | 'status' | 'notes'>
+'adress' | 'source' | 'recruiter' | 'phone' | 'role' | 'notes' | 'workTypes'>
 
 export type ProfileFormDialogProps = DialogProps & {
-  data?: Data;
+  data?: Partial<Data>;
   onSave?(values: Data): void;
 }
 
@@ -30,6 +32,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const { t } = useTranslation();
   const sexOptions = useTranslatedSelect(['male', 'female']);
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
+  const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: recruiters = [] } = useGetUserList({ roles: 'recruiter,admin' });
 
@@ -145,6 +148,28 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             {...register('role')}
           />
         )}
+        <Controller
+          control={control}
+          name="workTypes"
+          render={({ field }) => (
+            <Autocomplete
+              defaultValue={data && data.workTypes
+                ? translatedWorkTypes.filter((translatedItem) => data.workTypes?.includes(translatedItem.value as UserWorkType))
+                : []
+              }
+              value={translatedWorkTypes.filter((translatedItem) => field.value?.includes(translatedItem.value as UserWorkType))}
+              theme="gray"
+              options={translatedWorkTypes}
+              valueKey="value"
+              labelKey="label"
+              label={t('user.workTypes')}
+              limitTags={1}
+              onChange={(values) => void field.onChange(values.map((item: { value: string }) => item.value))}
+              disableCloseOnSelect
+              multiple
+            />
+          )}
+        />
         <Input
           label={t('user.notes')}
           theme="gray"

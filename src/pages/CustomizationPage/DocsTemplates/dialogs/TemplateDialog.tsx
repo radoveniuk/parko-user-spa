@@ -5,7 +5,7 @@ import Input from 'v2/uikit/Input';
 import { uploadFiles } from 'api/common';
 import { useCreateDocsTemplate, useUpdateDocsTemplate } from 'api/mutations/docsTemplateMutation';
 import { FileIcon } from 'components/icons';
-import Button from 'components/shared/Button';
+import Button from 'v2/uikit/Button';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import FileInput from 'components/shared/FileInput';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';

@@ -6,7 +6,7 @@ import MenuItemMaterial from '@mui/material/MenuItem';
 import styled from 'styled-components';
 
 import { SelectMenuIcon } from 'components/icons';
-import Button from 'components/shared/Button';
+import Button from 'v2/uikit/Button';
 import { themeConfig } from 'theme';
 
 type Props = {

@@ -2,7 +2,7 @@ import React, { HTMLAttributes, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { LanguageIcon } from 'components/icons';
-import Button from 'components/shared/Button';
+import Button from 'v2/uikit/Button';
 import Dialog from 'components/shared/Dialog';
 import { LANGUAGES } from 'constants/languages';
 

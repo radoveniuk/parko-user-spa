@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
+import Button from 'v2/uikit/Button';
 
 import Notifications from 'components/complex/Notifications';
 import { NotificationIcon } from 'components/icons';
-import Button from 'components/shared/Button';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'components/shared/Tabs';
 import { useAuthData } from 'contexts/AuthContext';
 

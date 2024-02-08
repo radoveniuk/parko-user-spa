@@ -50,8 +50,8 @@ const MobileUserCard = ({ style, user, selected, onSelect }: Props) => {
           }}
         />
         <div className="left">
-          <Avatar size={70} sx={{ bgcolor: settings[user.role].color }}>
-            {settings[user.role].icon}
+          <Avatar size={70} sx={{ bgcolor: settings[user.role]?.color }}>
+            {settings[user.role]?.icon}
           </Avatar>
           <div className="actions">
             <Link to={`/profile/${user._id}`}>

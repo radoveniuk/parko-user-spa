@@ -191,6 +191,7 @@
     "alreadyExistsError": "A user with this email already exists",
     "businessName": "Business name",
     "SWIFT": "SWIFT",
+    "workTypes": "Work type",
     "pass": {
       "pass": "Int. Passport",
       "number": "Int. Passport > Number",
@@ -377,6 +378,10 @@
       "hired": "Hired",
       "fired": "Terminated",
       "canceled": "Withdrawn"
+    },
+    "userWorkType": {
+      "business": "Business",
+      "employment": "Employment"
     }
   },
   "notFoundPage": "Page not found",

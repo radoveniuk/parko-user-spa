@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 import Autocomplete from 'v2/uikit/Autocomplete';
+import Button from 'v2/uikit/Button';
 import Select from 'v2/uikit/Select';
 
 import { useGetProjects } from 'api/query/projectQuery';
 import { PlusIcon } from 'components/icons';
-import Button from 'components/shared/Button';
 import { FiltersBar } from 'components/shared/Filters';
 import List from 'components/shared/List';
 import { PROJECT_STATUS } from 'constants/selectsOptions';

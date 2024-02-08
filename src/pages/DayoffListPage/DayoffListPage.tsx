@@ -8,7 +8,7 @@ import { useGetDaysoff } from 'api/query/dayoffQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import { ArrowUpIcon, CloseIcon, EditIcon, PlusIcon } from 'components/icons';
-import Button from 'components/shared/Button';
+import Button from 'v2/uikit/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { FilterDate } from 'components/shared/Filters/Filters';

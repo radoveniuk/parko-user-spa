@@ -2,9 +2,9 @@ import React from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { isEmpty } from 'lodash-es';
+import Button from 'v2/uikit/Button';
 
 import { useCreateProjectMutation } from 'api/mutations/projectMutation';
-import Button from 'components/shared/Button';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { IProject } from 'interfaces/project.interface';
 

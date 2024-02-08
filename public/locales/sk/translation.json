@@ -188,6 +188,7 @@
     "addEmployment": "Pridať spolupracu",
     "alreadyExistsError": "Používateľ s týmto e-mailom už existuje",
     "SWIFT": "SWIFT",
+    "workTypes": "Typ práce",
     "pass": {
       "pass": "Medzinárodný pas",
       "number": "Medzinárodný pas > Číslo",
@@ -374,6 +375,10 @@
       "hired": "Zamestnaný",
       "fired": "Ukončený",
       "canceled": "Stornovaný"
+    },
+    "userWorkType": {
+      "business": "SZČO",
+      "employment": "Zamestnanie"
     }
   },
   "notFoundPage": "Stránka nenájdená",

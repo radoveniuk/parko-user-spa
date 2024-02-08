@@ -77,7 +77,6 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
   }
   .MuiAutocomplete-tag {
     border-radius: 5px;
+    max-height: 28px;
   }
-
-  
 `;

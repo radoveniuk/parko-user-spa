@@ -3,12 +3,12 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import Autocomplete from 'v2/uikit/Autocomplete';
+import Button from 'v2/uikit/Button';
 import DatePicker from 'v2/uikit/DatePicker';
 import Input from 'v2/uikit/Input';
 import Select from 'v2/uikit/Select';
 
 import { useGetUserListForFilter } from 'api/query/userQuery';
-import Button from 'components/shared/Button';
 import Dialog, { DialogActions, DialogProps } from 'components/shared/Dialog';
 import { PREPAYMENT_STATUS } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
