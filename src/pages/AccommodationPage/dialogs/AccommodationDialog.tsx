@@ -2,12 +2,12 @@ import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { isEmpty } from 'lodash-es';
+import Button from 'v2/uikit/Button';
 import Input from 'v2/uikit/Input';
 import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 import Select from 'v2/uikit/Select';
 
 import { useCreateAccommodation, useUpdateAccommodation } from 'api/mutations/accommodationMutation';
-import Button from 'components/shared/Button';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { ACCOMMODATION_TARIFF_TYPE } from 'constants/selectsOptions';
 import { validateEmail } from 'helpers/validateEmail';

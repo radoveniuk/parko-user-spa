@@ -8,7 +8,7 @@ import Input from 'v2/uikit/Input';
 import { useCreateDictionaryMutation, useDeleteDictionaryMutation, useUpdateDictionaryMutation } from 'api/mutations/dictionaryMutation';
 import { useGetDictionaries } from 'api/query/dictionariesQuery';
 import { PlusIcon } from 'components/icons';
-import Button from 'components/shared/Button';
+import Button from 'v2/uikit/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import List from 'components/shared/List';
 import { IDictionary } from 'interfaces/dictionary.interface';

@@ -6,7 +6,7 @@ import { useDeleteFileMutation } from 'api/mutations/fileMutation';
 import { useGetDocsTemplates } from 'api/query/docsTemplateQuery';
 import downloadFile from 'api/query/downloadFile';
 import { CloseIcon, DownloadFileIcon, EditIcon, EyeIcon, PlusIcon } from 'components/icons';
-import Button from 'components/shared/Button';
+import Button from 'v2/uikit/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';

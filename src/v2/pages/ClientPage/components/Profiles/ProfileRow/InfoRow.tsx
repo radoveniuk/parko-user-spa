@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { BooleanIcon } from 'components/icons';
-import Checkbox from 'components/shared/Checkbox';
+import Checkbox from 'v2/uikit/Checkbox';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';

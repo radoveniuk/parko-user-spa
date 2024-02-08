@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { invert } from 'lodash-es';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
+import Button from 'v2/uikit/Button';
 
 import { useUploadUsersMutation } from 'api/mutations/userMutation';
-import Button from 'components/shared/Button';
 import Stepper from 'components/shared/Stepper';
 import { isMongoId } from 'helpers/regex';
 import { AnyObject } from 'interfaces/base.types';

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Button from 'v2/uikit/Button';
 
 import { useLoginMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
-import Button from 'components/shared/Button';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import PasswordInput from 'components/shared/PasswordInput';
 

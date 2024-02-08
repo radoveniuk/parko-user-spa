@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import Button from 'v2/uikit/Button';
 
 import { useCreatePaycheckMutation } from 'api/mutations/paycheckMutation';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import Paychecks from 'components/complex/Paychecks';
 import { PlusIcon } from 'components/icons';
-import Button from 'components/shared/Button';
 import { FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { ClearFiltersButton, FilterDate } from 'components/shared/Filters/Filters';
 import { PageActions } from 'components/shared/PageComponents';

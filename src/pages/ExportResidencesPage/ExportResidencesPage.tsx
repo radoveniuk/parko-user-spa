@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
+import Checkbox from 'v2/uikit/Checkbox';
 
 import { useGetResidences } from 'api/query/residenceQuery';
 import { ExportIcon } from 'components/icons';
-import Checkbox from 'components/shared/Checkbox';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { MenuItem } from 'components/shared/Menu';
 import { getDateFromIso } from 'helpers/datetime';

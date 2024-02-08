@@ -13,7 +13,7 @@ import {
 import { useGetCustomFormSections } from 'api/query/customFormsQuery';
 import { fetchTranslation } from 'api/query/translationQuery';
 import { DeleteIcon, EditIcon, PlusIcon } from 'components/icons';
-import Button from 'components/shared/Button';
+import Button from 'v2/uikit/Button';
 import Dialog from 'components/shared/Dialog';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import RadioButtonGroup, { RadioButton } from 'components/shared/RadioButtonGroup';

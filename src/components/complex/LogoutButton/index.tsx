@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import { ExitIcon } from 'components/icons';
-import Button from 'components/shared/Button';
+import Button from 'v2/uikit/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
 import { useLogout } from 'contexts/AuthContext';
 

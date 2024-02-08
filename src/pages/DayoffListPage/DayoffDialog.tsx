@@ -7,7 +7,7 @@ import Input from 'v2/uikit/Input';
 import Select from 'v2/uikit/Select';
 
 import { useGetUserListForFilter } from 'api/query/userQuery';
-import Button from 'components/shared/Button';
+import Button from 'v2/uikit/Button';
 import Dialog, { DialogActions, DialogProps } from 'components/shared/Dialog';
 import { REASONS } from 'constants/dayoffReasons';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
