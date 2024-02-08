@@ -190,6 +190,7 @@
     "addEmployment": "Новое сотрудничество",
     "alreadyExistsError": "Пользователь с таким имейлом уже существует",
     "SWIFT": "SWIFT",
+    "workTypes": "Тип работы",
     "pass": {
       "pass": "Международный паспорт",
       "number": "Международный паспорт > Номер",
@@ -376,6 +377,10 @@
       "hired": "Нанят",
       "fired": "Уволен",
       "canceled": "Отозван"
+    },
+    "userWorkType": {
+      "business": "ИП",
+      "employment": "Трудоустройство"
     }
   },
   "notFoundPage": "Страница не найдена",

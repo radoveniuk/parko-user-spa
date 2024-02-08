@@ -116,8 +116,11 @@ export interface IUser {
   businessStatus?: 'active' | 'stopped' | 'closed';
   businessActivities?: UserBusinessActivity[];
   isDeleted?: boolean;
+  workTypes: UserWorkType[];
 
   tags?: string[];
   createdAt?: string,
   updatedAt?: string,
 }
+
+export type UserWorkType = 'business' | 'employment';
