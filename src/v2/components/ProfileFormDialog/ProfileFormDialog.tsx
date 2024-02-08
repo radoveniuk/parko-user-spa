@@ -40,7 +40,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
 
   const submitHamdler: SubmitHandler<Data> = (values) => {
     const recruiter = recruiters.find((item) => item._id === values.recruiter);
-    onSave?.({ ...values, recruiter: recruiter || null });
+    onSave?.({ ...values, recruiter: recruiter || null, role: values.role || 'user' });
   };
 
   useEffect(() => {
