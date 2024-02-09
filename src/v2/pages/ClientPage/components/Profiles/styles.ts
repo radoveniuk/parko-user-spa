@@ -40,6 +40,7 @@ export const ProfilesWrapper = styled.div<{cols: number }>`
     }
     @media (max-width: ${TB}) {
       width: 100%;
+      max-width: 100%;
 
       .MuiFormLabel-root {
         display: none;

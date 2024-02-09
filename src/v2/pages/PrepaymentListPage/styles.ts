@@ -59,6 +59,7 @@ export const ProfileListPageWrapper = styled.div`
 
   .filter-name {
     max-width: 400px;
+    max-width: 100%;
     .MuiOutlinedInput-root {
       /* border-radius: 40px; */
     }

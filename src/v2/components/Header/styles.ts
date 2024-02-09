@@ -21,7 +21,7 @@ export const HeaderWrapper = styled.header`
   }
 
   .toggle-menu-icon {
-    margin-left: 10px;
+    margin-left: 8px;
   }
 
   .header-left {
