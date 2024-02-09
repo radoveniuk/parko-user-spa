@@ -32,7 +32,7 @@ const Input = ({
 
   return (
     <InputWrapper className={className} style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
-      <div className={`label${props.error ? ' error' : ''}`}>{label}</div>
+      {!!label && <div className={`label${props.error ? ' error' : ''}`}>{label}</div>}
       <TextField
         ref={ref}
         type={showPasswordIcon ? (showPassword ? 'text' : 'password') : type}

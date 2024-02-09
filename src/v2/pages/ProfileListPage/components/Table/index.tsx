@@ -29,7 +29,7 @@ import { TableWrapper } from './styles';
 
 const STATIC_COLS = ['', 'user.name'];
 
-type TTable = {
+type Props = {
   activeCols: string[];
   setActiveCols: React.Dispatch<React.SetStateAction<string[]>>;
   data: IUser[];
@@ -38,6 +38,7 @@ type TTable = {
   selectedItems: IUser[];
   isFetching?: boolean;
 };
+
 const Table = ({
   activeCols,
   setActiveCols,
@@ -46,7 +47,7 @@ const Table = ({
   setSelectedItems,
   selectedItems,
   isFetching,
-}: TTable) => {
+}: Props) => {
   const { t, i18n } = useTranslation();
   const queryClient = useQueryClient();
   const { debouncedFiltersState } = useFilters();

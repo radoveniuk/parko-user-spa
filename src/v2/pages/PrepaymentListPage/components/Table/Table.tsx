@@ -17,14 +17,17 @@ import ProfileRow from '../PrepaymentRow';
 
 import { TableWrapper } from './styles';
 
-type TTable = {
+type Props = {
   activeCols: string[];
   data: IPrepayment[];
+  isFetching?: boolean;
 };
+
 const Table = ({
   activeCols,
   data,
-}: TTable) => {
+  isFetching,
+}: Props) => {
   const { t } = useTranslation();
 
   const [rowsPerPage, setRowsPerPage] = useState(20);
@@ -59,7 +62,7 @@ const Table = ({
               <div
                 role="button"
                 className="col-item"
-                onClick={() => void toggleSorting(col.replace('client.', '') as keyof IClient)}
+                onClick={() => void toggleSorting(col.replace('prepayment.', '') as keyof IClient)}
               >
                 {t(col)}
                 <IconButton
@@ -83,7 +86,7 @@ const Table = ({
             cols={activeCols}
           />
         ))}
-        {!pageItems.length && (
+        {!pageItems.length && isFetching && (
           iterateMap(20, (index) => (
             <ListTableRow key={index}>
               {allCols.map((emptyCol, emptyColIndex) => (

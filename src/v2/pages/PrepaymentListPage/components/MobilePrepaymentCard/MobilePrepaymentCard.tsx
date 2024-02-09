@@ -7,6 +7,7 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { DeleteIcon, EditIcon, MoneyBillIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
+import { IClient } from 'interfaces/client.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -24,6 +25,7 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
 
   const user = prepayment.user;
   const project = user.project as IProject;
+  const client = project?.client as IClient;
 
   return (
     <MobileClientCardWrapper style={style}>
@@ -35,7 +37,7 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
             <div>{prepayment.user.name} {prepayment.user.surname}</div>
             <div className="side-info">
               <StatusLabel className={prepayment.user.status}>{t(`selects.userStatus.${prepayment.user.status}`)}</StatusLabel>
-              <div className="project">{project.name}</div>
+              {!!project && <div className="project">{client ? `${client.name} > ` : ''}{project?.name}</div>}
             </div>
           </div>
         </Link>

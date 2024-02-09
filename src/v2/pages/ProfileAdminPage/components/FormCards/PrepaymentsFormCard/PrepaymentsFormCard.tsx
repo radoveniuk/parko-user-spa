@@ -178,7 +178,6 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
               defaultValue={prepaymentDialogData?.paymentDate || null}
               render={({ field }) => (
                 <DatePicker
-                  views={['year', 'month']}
                   defaultValue={field.value}
                   onChange={field.onChange}
                   label={t('prepayment.paymentDate')}

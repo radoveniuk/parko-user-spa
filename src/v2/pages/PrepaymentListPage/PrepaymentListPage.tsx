@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
+import { useGetUserListForFilter } from 'api/query/userQuery';
 import { SearchIcon } from 'components/icons';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
-import { IUser } from 'interfaces/users.interface';
 
 import HeaderTable from './components/HeaderTable';
 import MobileClientCard from './components/MobilePrepaymentCard';
@@ -16,10 +16,11 @@ const DEFAULT_COLS = [
   'prepayment.user',
   'user.project',
   'user.status',
-  'prepayment.date',
+  'prepayment.period',
   'prepayment.sum',
   'prepayment.comment',
   'prepayment.status',
+  'prepayment.date',
   'prepayment.paymentDate',
   '',
   '',
@@ -29,44 +30,32 @@ const ClientListPageRender = () => {
   const { t } = useTranslation();
   useDocumentTitle(t('navbar.prepayments'));
 
-  const { filtersState } = useFilters();
+  const { debouncedFiltersState } = useFilters();
 
   // table content
-  const { data = [], remove } = useGetPrepayments();
+  const { data = [], remove, refetch, isFetching, isLoading } = useGetPrepayments(debouncedFiltersState, { enabled: false });
+  const { data: users = [] } = useGetUserListForFilter();
+
+  useEffect(() => {
+    refetch();
+  }, [debouncedFiltersState, refetch]);
 
   useEffect(() => () => { remove(); }, [remove]);
-
-  const filteredPrepayments = useMemo(() => {
-    let updatedList = [...data];
-    if (filtersState?.users) {
-      updatedList = updatedList.filter((item) => filtersState?.users.includes(item.user._id));
-    }
-    return updatedList;
-  }, [data, filtersState?.users]);
-
-  const usersFilter = useMemo(() => {
-    const usersList: IUser[] = [];
-    data.forEach((item) => {
-      if (!usersList.some(user => user._id === item.user._id)) {
-        usersList.push(item.user);
-      }
-    });
-    return usersList;
-  }, [data]);
 
   return (
     <ProfileListPageWrapper>
       <div className="container-table">
         <HeaderTable
-          data={filteredPrepayments}
+          data={data}
           activeCols={DEFAULT_COLS}
         />
         <FilterTableWrapper>
           <FilterAutocomplete
             multiple
-            options={usersFilter}
+            options={users}
             getOptionLabel={(user) => `${user.name} ${user.surname}`}
             filterKey="users"
+            valueKey="_id"
             prefixIcon={<SearchIcon className="search-icon"/>}
             className="filter-name"
             limitTags={1}
@@ -74,7 +63,7 @@ const ClientListPageRender = () => {
           />
         </FilterTableWrapper>
         <div className="mobile-list">
-          {filteredPrepayments.map((prepayment) => (
+          {data.map((prepayment) => (
             <MobileClientCard
               key={prepayment._id}
               prepayment={prepayment}
@@ -83,7 +72,8 @@ const ClientListPageRender = () => {
         </div>
         <Table
           activeCols={DEFAULT_COLS}
-          data={filteredPrepayments}
+          data={data}
+          isFetching={isLoading || isFetching}
         />
       </div>
     </ProfileListPageWrapper>

@@ -8,6 +8,7 @@ import { useCreatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import { PlusIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { IPrepayment } from 'interfaces/prepayment.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import PrepaymentDialog from '../PrepaymentDialog';
 
@@ -21,11 +22,14 @@ const HeaderTable = ({ data }: any) => {
   const createPrepaymentMutation = useCreatePrepaymentMutation();
   const queryClient = useQueryClient();
 
-  const createNewClientHndler = (data: Partial<IPrepayment>) => {
+  const createNewPrepaymentHandler = (values: Partial<IPrepayment>) => {
     setOpenNewPrepayment(false);
     const queryKey = ['prepayments', JSON.stringify({})];
-    queryClient.setQueryData(queryKey, [data, ...(queryClient.getQueryData(queryKey) as IPrepayment[])]);
-    createPrepaymentMutation.mutateAsync(data).then((res) => {
+    const users: IUser[] = queryClient.getQueryData(['users-filter', JSON.stringify({})]) || [];
+    queryClient.setQueryData(
+      queryKey, [{ data: values, user: users.find((user) => user._id === values.user) }, ...(queryClient.getQueryData(queryKey) as IPrepayment[])],
+    );
+    createPrepaymentMutation.mutateAsync(values).then((res) => {
       const [, ...oldItems] = queryClient.getQueryData(queryKey) as IPrepayment[];
       queryClient.setQueryData(queryKey, [res, ...oldItems]);
     });
@@ -51,7 +55,7 @@ const HeaderTable = ({ data }: any) => {
       <PrepaymentDialog
         open={openNewPrepayment}
         onClose={() => void setOpenNewPrepayment(false)}
-        onSave={createNewClientHndler}
+        onSave={createNewPrepaymentHandler}
       />
     </>
   );

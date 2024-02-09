@@ -1,16 +1,18 @@
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
+import isObject from 'lodash-es/isObject';
 import { Button, Input } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
 import Select from 'v2/uikit/Select';
 
-import { useGetUserListForFilter } from 'api/query/userQuery';
 import { PREPAYMENT_STATUS } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IPrepayment } from 'interfaces/prepayment.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import { PrepaymentDialogContent } from './styles';
 
@@ -23,10 +25,11 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
   const { t } = useTranslation();
   const prepaymentStatusList = useTranslatedSelect(PREPAYMENT_STATUS, 'prepaymentStatus');
   const { control, register, formState: { errors }, handleSubmit } = useForm<IPrepayment>();
-  const { data: users = [] } = useGetUserListForFilter();
+  const queryClient = useQueryClient();
+  const users: IUser[] = queryClient.getQueryData(['users-filter', JSON.stringify({})]) || [];
 
   const submitHandler: SubmitHandler<IPrepayment> = (values) => {
-    onSave(values);
+    onSave({ ...values, user: isObject(values.user) ? (values.user as IUser)?._id : values.user });
   };
 
   return (
@@ -40,15 +43,18 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
           <Controller
             control={control}
             name="user"
-            defaultValue={data?.period || undefined}
+            defaultValue={data?.user}
             rules={{ required: true }}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <Autocomplete
-                label={t('prepayment.user')}
+                label={`${t('prepayment.user')}*`}
                 options={users}
                 valueKey="_id"
-                getOptionLabel={(user) => `${user.name} ${user.surname}`}
                 theme="gray"
+                error={!!fieldState.error}
+                getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
+                defaultValue={data?.user || null}
+                onChange={(v) => void field.onChange(v?._id || '')}
               />
             )}
           />
@@ -93,11 +99,11 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
             defaultValue={data?.paymentDate || null}
             render={({ field }) => (
               <DatePicker
-                views={['year', 'month']}
                 defaultValue={field.value}
                 onChange={field.onChange}
                 label={t('prepayment.paymentDate')}
                 inputProps={{ theme: 'gray' }}
+                views={['day']}
               />
             )}
           />
