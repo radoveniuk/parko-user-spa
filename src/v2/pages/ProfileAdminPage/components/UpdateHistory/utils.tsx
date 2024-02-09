@@ -120,7 +120,7 @@ export const renderDocs = (
   t: (v: string) => string,
 ) => (
   <DocItems>
-    {docs.map((docItem, index) => (
+    {!!docs?.length && docs.map((docItem, index) => (
       <DocItem key={index} className={isNew ? 'new' : 'old'}>
         {docItem.type === 'pass' && (
           <>
