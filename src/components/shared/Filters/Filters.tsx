@@ -58,7 +58,6 @@ export const FilterAutocomplete = ({ filterKey, options = [], ...rest }: FilterA
   return (
     <Autocomplete
       {...rest}
-      theme="gray"
       style={{ minWidth: 200 }}
       options={options}
       value={!rest.multiple ? options.find((item) => item._id === value) || null : options.filter((item) => value.includes(item._id) || undefined)}
