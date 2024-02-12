@@ -150,7 +150,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
       <ProfileFormDialog
         data={pick(
           { ...user, recruiter: recruiter?._id || null },
-          ['name', 'surname', 'email', 'birthDate', 'country', 'sex', 'address', 'source', 'recruiter', 'phone', 'role', 'notes', 'workTypes'],
+          ['name', 'surname', 'email', 'birthDate', 'country', 'sex', 'adress', 'source', 'recruiter', 'phone', 'role', 'notes', 'workTypes'],
         )}
         title={`${user.name} ${user.surname}`}
         open={isOpenForm}
