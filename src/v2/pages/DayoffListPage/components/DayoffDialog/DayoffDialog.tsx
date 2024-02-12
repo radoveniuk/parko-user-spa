@@ -130,7 +130,7 @@ const DayoffDialog = ({ onSave, data, ...rest }: Props) => {
               render={({ field, fieldState }) => (
                 <>
                   <ul className="files-list">
-                    {field.value.map((file) => {
+                    {field.value?.map((file) => {
                       if (typeof file === 'object') {
                         return (
                           <li key={file._id} title={file.originalname}>
@@ -140,7 +140,7 @@ const DayoffDialog = ({ onSave, data, ...rest }: Props) => {
                             <IconButton
                               onClick={() => {
                                 deleteFileMutation.mutate(file);
-                                field.onChange(field.value.filter((fItem) => !isEqual(fItem, file)));
+                                field.onChange(field.value?.filter((fItem) => !isEqual(fItem, file)));
                               }}
                             >
                               <DeleteIcon />
@@ -165,7 +165,7 @@ const DayoffDialog = ({ onSave, data, ...rest }: Props) => {
                           setFileUploading(true);
                           const uploadedFilesData = await uploadFiles(formData);
                           setFileUploading(false);
-                          field.onChange([...field.value, ...uploadedFilesData]);
+                          field.onChange([...(field.value || []), ...uploadedFilesData]);
                         }
                       }}
                     >
