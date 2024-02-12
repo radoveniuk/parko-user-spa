@@ -1,7 +1,8 @@
-import React, { CSSProperties, memo } from 'react';
+import React, { CSSProperties, memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Avatar } from 'v2/uikit';
+import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
@@ -12,6 +13,9 @@ import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
+
+import usePrepaymentMutations from '../../hooks/usePrepaymentMutations';
+import PrepaymentDialog from '../PrepaymentDialog';
 
 import { MobileClientCardWrapper } from './styles';
 
@@ -26,6 +30,10 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
   const user = prepayment.user;
   const project = user.project as IProject;
   const client = project?.client as IClient;
+
+  const [openDialog, setOpenDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const { updatePrepayment, removePrepayment } = usePrepaymentMutations();
 
   return (
     <MobileClientCardWrapper style={style}>
@@ -50,13 +58,34 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
         </div>
         <div className="actions">
           <IconButton>
-            <EditIcon />
+            <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
           </IconButton>
           <IconButton>
-            <DeleteIcon />
+            <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
           </IconButton>
         </div>
       </div>
+      {!!openDialog && (
+        <PrepaymentDialog
+          open={openDialog}
+          onClose={() => void setOpenDialog(false)}
+          onSave={(values: Partial<IPrepayment>) => {
+            setOpenDialog(false);
+            updatePrepayment(prepayment, values);
+          }}
+          data={prepayment}
+        />
+      )}
+      {!!openDeleteDialog && (
+        <DialogConfirm
+          open={openDeleteDialog}
+          onSubmit={() => {
+            setOpenDeleteDialog(false);
+            removePrepayment(prepayment);
+          }}
+          onClose={() => void setOpenDeleteDialog(false)}
+        />
+      )}
     </MobileClientCardWrapper>
   );
 };
