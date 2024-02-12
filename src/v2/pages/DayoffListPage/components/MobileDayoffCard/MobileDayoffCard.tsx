@@ -6,10 +6,10 @@ import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
-import { DeleteIcon, EditIcon, MoneyBillIcon } from 'components/icons';
+import { DeleteIcon, EditIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
-import { IPrepayment } from 'interfaces/prepayment.interface';
+import { IDayOff } from 'interfaces/dayoff.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
@@ -21,40 +21,40 @@ import { MobileClientCardWrapper } from './styles';
 
 type Props = {
   style?: CSSProperties;
-  prepayment: IPrepayment & { user: IUser };
+  data: IDayOff & { user: IUser };
 };
 
-const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
+const MobilePrepaymentCard = ({ style, data }: Props) => {
   const { t } = useTranslation();
 
-  const user = prepayment.user;
+  const user = data.user;
   const project = user.project as IProject;
   const client = project?.client as IClient;
 
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const { updateDayoff: updatePrepayment, removeDayoff: removePrepayment } = useDayoffMutations();
+  const { updateDayoff, removeDayoff } = useDayoffMutations();
 
   return (
     <MobileClientCardWrapper style={style}>
       <div className="card">
-        <div className="date">{getDateFromIso(prepayment.createdAt)}</div>
-        <Link to={`/profile/${prepayment.user._id}`} className="user">
-          <Avatar size={40} color={themeConfig.palette.primary.light} username={`${prepayment.user.name} ${prepayment.user.surname}`} />
+        <div className="date">{getDateFromIso(data.createdAt)}</div>
+        <Link to={`/profile/${data.user._id}`} className="user">
+          <Avatar size={40} color={themeConfig.palette.primary.light} username={`${data.user.name} ${data.user.surname}`} />
           <div className="info">
-            <div>{prepayment.user.name} {prepayment.user.surname}</div>
+            <div>{data.user.name} {data.user.surname}</div>
             <div className="side-info">
-              <StatusLabel className={prepayment.user.status}>{t(`selects.userStatus.${prepayment.user.status}`)}</StatusLabel>
+              <StatusLabel className={data.user.status}>{t(`selects.userStatus.${data.user.status}`)}</StatusLabel>
               {!!project && <div className="project">{client ? `${client.name} > ` : ''}{project?.name}</div>}
             </div>
           </div>
         </Link>
         <div className="prepayment">
-          <div className="row">
+          {/* <div className="row">
             <MoneyBillIcon size={20} />
-            {Number(prepayment.sum).toFixed(2)}€
-            <StatusLabel className={prepayment.status}>{t(`selects.prepaymentStatus.${prepayment.status}`)}</StatusLabel>
-          </div>
+            {Number(data.sum).toFixed(2)}€
+            <StatusLabel className={data.status}>{t(`selects.prepaymentStatus.${data.status}`)}</StatusLabel>
+          </div> */}
         </div>
         <div className="actions">
           <IconButton>
@@ -69,11 +69,11 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
         <PrepaymentDialog
           open={openDialog}
           onClose={() => void setOpenDialog(false)}
-          onSave={(values: Partial<IPrepayment>) => {
+          onSave={(values: Partial<IDayOff>) => {
             setOpenDialog(false);
-            updatePrepayment(prepayment, values);
+            updateDayoff(data, values);
           }}
-          data={prepayment}
+          data={data}
         />
       )}
       {!!openDeleteDialog && (
@@ -81,7 +81,7 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
           open={openDeleteDialog}
           onSubmit={() => {
             setOpenDeleteDialog(false);
-            removePrepayment(prepayment);
+            removeDayoff(data);
           }}
           onClose={() => void setOpenDeleteDialog(false)}
         />

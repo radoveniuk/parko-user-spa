@@ -12,5 +12,5 @@ export interface IDayOff {
   isApproved?: boolean | null;
   createdAt?: string;
   updatedAt?: string;
-  docs: IFile[] | string[];
+  docs?: IFile[] | string[];
 }
