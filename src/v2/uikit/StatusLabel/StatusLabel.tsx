@@ -7,14 +7,14 @@ const StatusLabel = styled.div`
     background-color: #f0c844;
     color: #2b2b2b;
   }
-  &.hired, &.active, &.paid, &.approved {
+  &.hired, &.active, &.paid, &.approved, &.continues {
     background-color: ${themeConfig.palette.success.main};
   }
-  &.approved {
+  &.approved, &.future {
     background-color: ${themeConfig.palette.success.light};
     color: #2b2b2b;
   }
-  &.canceled, &.inactive {
+  &.canceled, &.inactive, &.finished {
     background-color: #717171;
   }
   &.fired, &.rejected {

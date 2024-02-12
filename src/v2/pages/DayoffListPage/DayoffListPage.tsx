@@ -16,6 +16,7 @@ const DEFAULT_COLS = [
   'dayoff.user',
   'user.project',
   'user.status',
+  'dayoff.status',
   'dayoff.dateStart',
   'dayoff.dateEnd',
   'dayoff.reason',
@@ -26,7 +27,7 @@ const DEFAULT_COLS = [
 
 const DayoffListPageRender = () => {
   const { t } = useTranslation();
-  useDocumentTitle(t('navbar.prepayments'));
+  useDocumentTitle(t('navbar.daysoff'));
 
   const { debouncedFiltersState } = useFilters();
 

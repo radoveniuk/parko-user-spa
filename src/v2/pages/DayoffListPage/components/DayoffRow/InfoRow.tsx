@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { DateTime } from 'luxon';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
@@ -33,6 +34,21 @@ const InfoRow = () => {
 
   const { updateDayoff, removeDayoff } = useDayoffMutations();
 
+  const dayoffStatus = useMemo(() => {
+    const msStart = DateTime.fromISO(data.dateStart).startOf('day').toMillis();
+    const msEnd = DateTime.fromISO(data.dateEnd).endOf('day').toMillis();
+    const msNow = DateTime.now().toMillis();
+    if (msNow > msStart && msNow < msEnd) {
+      return 'continues';
+    }
+    if (msNow > msEnd) {
+      return 'finished';
+    }
+    if (msNow < msStart) {
+      return 'future';
+    }
+  }, [data.dateEnd, data.dateStart]);
+
   return (
     <ListTableRow>
       <ListTableCell>
@@ -47,6 +63,9 @@ const InfoRow = () => {
       </ListTableCell>
       <ListTableCell>
         <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel>
+      </ListTableCell>
+      <ListTableCell>
+        <StatusLabel className={dayoffStatus}>{t(`selects.dayoffStatus.${dayoffStatus}`)}</StatusLabel>
       </ListTableCell>
       <ListTableCell>
         {getDateFromIso(data.dateStart)}

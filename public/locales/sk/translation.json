@@ -284,7 +284,10 @@
     "send": "Poslať",
     "dayoff": "Voľno",
     "new": "Urobiť voľno",
-    "createdAt": "Datum vytvorenia"
+    "createdAt": "Datum vytvorenia",
+    "status": "Status voľno",
+    "data": "Informácie",
+    "docs": "Doklady"
   },
   "profileList": "Profily",
   "selects": {
@@ -320,7 +323,11 @@
       "illnes": "Choroba",
       "medicalCheck": "Lekárska prehliadka",
       "alcohol": "Intoxikácia alkoholom",
-      "other": "Iné"
+      "other": "Iné",
+      "unable": "PN",
+      "pass": "Priepustka",
+      "familyMemberCare": "Ošetrovanie člena rodiny",
+      "blocker": "Prekážka na stráne zamestnávateľa"
     },
     "tariff": {
       "candidate": "Za kandidáta",
@@ -379,6 +386,11 @@
     "userWorkType": {
       "business": "SZČO",
       "employment": "Zamestnanie"
+    },
+    "dayoffStatus": {
+      "continues": "Prebieha",
+      "finished": "Ukončená",
+      "future": "Nezačala"
     }
   },
   "notFoundPage": "Stránka nenájdená",
@@ -548,6 +560,7 @@
   "unsavedChanges": "Neuložené zmeny",
   "unsavedChangesWarn": "Máte neuložené zmeny. Ak ich neuložíte, môžu byť stratené.",
   "searchHistory": "História",
+  "fileDeletedSuccess": "Dokument bol úspešne odstránený",
   "profilesPage": {
     "status": "Používateľské stavy",
     "organization": "Organizácie",

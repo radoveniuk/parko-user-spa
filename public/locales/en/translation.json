@@ -286,7 +286,10 @@
     "send": "Send",
     "dayoff": "Dayoff",
     "new": "New dayoff",
-    "createdAt": "Created at"
+    "createdAt": "Created at",
+    "status": "Dayoff status",
+    "data": "Information",
+    "docs": "Docs"
   },
   "profileList": "Profiles",
   "selects": {
@@ -322,7 +325,11 @@
       "illnes": "Illnes",
       "medicalCheck": "Medical check",
       "alcohol": "Alcohol",
-      "other": "Other"
+      "other": "Other",
+      "unable": "Unable to work",
+      "pass": "Pass",
+      "familyMemberCare": "Caring for a family member",
+      "blocker": "An obstacle on the side of the employer"
     },
     "tariff": {
       "candidate": "Per candidate",
@@ -382,6 +389,11 @@
     "userWorkType": {
       "business": "Business",
       "employment": "Employment"
+    },
+    "dayoffStatus": {
+      "continues": "Continues",
+      "finished": "Finished",
+      "future": "Not started yet"
     }
   },
   "notFoundPage": "Page not found",
@@ -564,6 +576,7 @@
   "unsavedChanges": "Unsaved changes",
   "unsavedChangesWarn": "You have unsaved changes. If you do not save them, they may be lost.",
   "searchHistory": "Search history",
+  "fileDeletedSuccess": "File has been deleted",
   "profilesPage": {
     "status": "User statuses",
     "organization": "Organizations",

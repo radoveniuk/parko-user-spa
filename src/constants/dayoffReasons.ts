@@ -1,7 +1,8 @@
 export const REASONS = [
+  'unable',
+  'pass',
   'vacation',
-  'illnes',
-  'medicalCheck',
-  'alcohol',
+  'familyMemberCare',
+  'blocker',
   'other',
 ];

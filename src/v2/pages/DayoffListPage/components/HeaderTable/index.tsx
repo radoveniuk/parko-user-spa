@@ -7,6 +7,7 @@ import IconButton from 'v2/uikit/IconButton';
 import { useCreateDayoffMutation } from 'api/mutations/dayoffMutation';
 import { PlusIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
+import createId from 'helpers/createId';
 import { IDayOff } from 'interfaces/dayoff.interface';
 import { IUser } from 'interfaces/users.interface';
 
@@ -31,7 +32,8 @@ const HeaderTable = ({ data }: Props) => {
     const queryKey = ['daysoff', JSON.stringify({})];
     const users: IUser[] = queryClient.getQueryData(['users-filter', JSON.stringify({})]) || [];
     queryClient.setQueryData(
-      queryKey, [{ data: values, user: users.find((user) => user._id === values.user) }, ...(queryClient.getQueryData(queryKey) as IDayOff[])],
+      queryKey, [{ ...values, user: users.find((user) => user._id === values.user), _id: createId() },
+        ...(queryClient.getQueryData(queryKey) as IDayOff[])],
     );
     createDayoffMutation.mutateAsync(values).then((res) => {
       const [, ...oldItems] = queryClient.getQueryData(queryKey) as IDayOff[];
@@ -56,11 +58,13 @@ const HeaderTable = ({ data }: Props) => {
           </div>
         </Stack>
       </HeaderWrapper>
-      <DayoffDialog
-        open={openNewDayoff}
-        onClose={() => void setOpenNewDayoff(false)}
-        onSave={createNewPrepaymentHandler}
-      />
+      {openNewDayoff && (
+        <DayoffDialog
+          open={openNewDayoff}
+          onClose={() => void setOpenNewDayoff(false)}
+          onSave={createNewPrepaymentHandler}
+        />
+      )}
     </>
   );
 };

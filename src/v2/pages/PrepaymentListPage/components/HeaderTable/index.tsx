@@ -7,6 +7,7 @@ import IconButton from 'v2/uikit/IconButton';
 import { useCreatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import { PlusIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
+import createId from 'helpers/createId';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IUser } from 'interfaces/users.interface';
 
@@ -27,7 +28,10 @@ const HeaderTable = ({ data }: any) => {
     const queryKey = ['prepayments', JSON.stringify({})];
     const users: IUser[] = queryClient.getQueryData(['users-filter', JSON.stringify({})]) || [];
     queryClient.setQueryData(
-      queryKey, [{ data: values, user: users.find((user) => user._id === values.user) }, ...(queryClient.getQueryData(queryKey) as IPrepayment[])],
+      queryKey, [
+        { ...values, user: users.find((user) => user._id === values.user), _id: createId() },
+        ...(queryClient.getQueryData(queryKey) as IPrepayment[]),
+      ],
     );
     createPrepaymentMutation.mutateAsync(values).then((res) => {
       const [, ...oldItems] = queryClient.getQueryData(queryKey) as IPrepayment[];
