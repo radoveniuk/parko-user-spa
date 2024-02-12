@@ -2,13 +2,14 @@ import { useQuery } from 'react-query';
 
 import api from 'api/common';
 import { useAuthData } from 'contexts/AuthContext';
+import { AnyObject } from 'interfaces/base.types';
 import { IDayOff } from 'interfaces/dayoff.interface';
 
 const DENIED_ROLES: any = ['super-admin'];
 
 const fakeData = () => new Promise<IDayOff[]>((resolve) => resolve([]));
 
-export const useGetDaysoff = (params: Partial<IDayOff> = {}) => {
+export const useGetDaysoff = (params: Partial<IDayOff> = {}, options: AnyObject = {}) => {
   const { role } = useAuthData();
   const request = (): Promise<IDayOff[]> => api.get('/days-off', {
     headers: {
@@ -17,5 +18,5 @@ export const useGetDaysoff = (params: Partial<IDayOff> = {}) => {
     },
     params,
   }).then(res => res.data.data);
-  return useQuery(['daysoff', JSON.stringify(params)], !DENIED_ROLES.includes(role) ? request : fakeData, { initialData: [] });
+  return useQuery(['daysoff', JSON.stringify(params)], !DENIED_ROLES.includes(role) ? request : fakeData, { initialData: [], ...options });
 };

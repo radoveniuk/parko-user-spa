@@ -9,19 +9,20 @@ import { DeleteIcon, EditIcon } from 'components/icons';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
+import { IDayOff } from 'interfaces/dayoff.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import usePrepaymentMutations from '../../hooks/usePrepaymentMutations';
-import PrepaymentDialog from '../PrepaymentDialog';
+import useDayoffMutations from '../../hooks/usePrepaymentMutations';
+import DayoffDialog from '../DayoffDialog';
 
-import { usePrepaymentRowContext } from './context';
+import { useDayoffRowContext } from './context';
 import { LinkWrapper } from './styles';
 
 const InfoRow = () => {
   const { t } = useTranslation();
-  const { data } = usePrepaymentRowContext();
+  const { data } = useDayoffRowContext();
 
   const user = data.user as IUser;
   const project = user.project as IProject;
@@ -30,7 +31,7 @@ const InfoRow = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-  const { updatePrepayment, removePrepayment } = usePrepaymentMutations();
+  const { updateDayoff, removeDayoff } = useDayoffMutations();
 
   return (
     <ListTableRow>
@@ -48,34 +49,31 @@ const InfoRow = () => {
         <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel>
       </ListTableCell>
       <ListTableCell>
-        {getDateFromIso(data.period || data.createdAt, 'MM/yyyy')}
+        {getDateFromIso(data.dateStart)}
       </ListTableCell>
       <ListTableCell>
-        {Number(data.sum).toFixed(2)} €
+        {getDateFromIso(data.dateEnd)}
       </ListTableCell>
       <ListTableCell>
-        {data.userComment}
+        {t(`selects.dayoffReason.${data.reason}`)}
       </ListTableCell>
       <ListTableCell>
-        <StatusLabel className={data.status}>{t(`selects.prepaymentStatus.${data.status}`)}</StatusLabel>
+        {data.description}
       </ListTableCell>
       <ListTableCell>
-        {getDateFromIso(data.createdAt)}
-      </ListTableCell>
-      <ListTableCell>
-        {getDateFromIso(data.paymentDate)}
+        {data.adminComment}
       </ListTableCell>
       <ListTableCell>
         <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
         <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
       </ListTableCell>
       {!!openDialog && (
-        <PrepaymentDialog
+        <DayoffDialog
           open={openDialog}
           onClose={() => void setOpenDialog(false)}
           onSave={(values: Partial<IPrepayment>) => {
             setOpenDialog(false);
-            updatePrepayment(data, values);
+            updateDayoff(data, values as Partial<IDayOff>);
           }}
           data={data}
         />
@@ -85,7 +83,7 @@ const InfoRow = () => {
           open={openDeleteDialog}
           onSubmit={() => {
             setOpenDeleteDialog(false);
-            removePrepayment(data);
+            removeDayoff(data);
           }}
           onClose={() => void setOpenDeleteDialog(false)}
         />
