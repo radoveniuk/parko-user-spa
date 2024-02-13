@@ -27,7 +27,7 @@ const HeaderTable = ({ data }: Props) => {
   const createDayoffMutation = useCreateDayoffMutation();
   const queryClient = useQueryClient();
 
-  const createNewPrepaymentHandler = (values: Partial<IDayOff>) => {
+  const createNewDayoffHandler = (values: Partial<IDayOff>) => {
     setOpenNewDayoff(false);
     const queryKey = ['daysoff', JSON.stringify({})];
     const users: IUser[] = queryClient.getQueryData(['users-filter', JSON.stringify({})]) || [];
@@ -62,7 +62,7 @@ const HeaderTable = ({ data }: Props) => {
         <DayoffDialog
           open={openNewDayoff}
           onClose={() => void setOpenNewDayoff(false)}
-          onSave={createNewPrepaymentHandler}
+          onSave={createNewDayoffHandler}
         />
       )}
     </>

@@ -42,6 +42,7 @@ export const SelectWrapper = styled.label<{ fieldColor?: string }>`
       min-height: 16px !important;
       height: 16px !important;
       line-height: 16px !important;
+      user-select: auto;
     }
 
     &.Mui-disabled {

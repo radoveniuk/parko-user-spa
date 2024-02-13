@@ -23,6 +23,7 @@ export const FilterText = ({ filterKey, label }: FilterProps) => {
   return (
     <FilterWrapper>
       <Input
+        theme="gray"
         label={label}
         value={value || ''}
         onChange={({ target }) => void setValue(target.value)}
@@ -37,6 +38,7 @@ export const FilterDate = ({ filterKey, label, ...rest }: Required<FilterProps> 
   return (
     <FilterWrapper style={{ maxWidth: 200 }}>
       <DatePicker
+        inputProps={{ theme: 'gray' }}
         {...rest}
         label={label}
         defaultValue={value || ''}
@@ -57,6 +59,7 @@ export const FilterAutocomplete = ({ filterKey, options = [], ...rest }: FilterA
 
   return (
     <Autocomplete
+      theme="gray"
       {...rest}
       style={{ minWidth: 200 }}
       options={options}
@@ -74,6 +77,7 @@ export const FilterSelect = ({ filterKey, label, ...rest }: FilterProps & Select
   return (
     <FilterWrapper>
       <Select
+        theme="gray"
         label={label}
         value={rest.options?.length ? value || '' : ''}
         onChange={({ target }) => void setValue(target.value as string)}

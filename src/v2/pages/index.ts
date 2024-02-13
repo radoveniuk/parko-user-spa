@@ -1,3 +1,4 @@
+export { default as AccommodationPage } from './AccommodationPage';
 export { default as ClientListPage } from './ClientListPage';
 export { default as ClientPage } from './ClientPage';
 export { default as DayoffListPage } from './DayoffListPage';
