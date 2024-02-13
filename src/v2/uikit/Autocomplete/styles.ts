@@ -14,6 +14,12 @@ export const StyledAutocomplete = styled(AutocompleteMaterial)`
     height: 1em !important;
     padding: 10px 14px !important;
   }
+
+  &:has(input:disabled) {
+    .MuiAutocomplete-endAdornment {
+      background-color: transparent;
+    }
+  }
 `;
 
 export const DropdownIconWrapper = styled.div`
