@@ -10,7 +10,6 @@ import { FiltersProvider, useFilters } from 'components/shared/Filters';
 import { ClearFiltersButton, FilterAutocomplete, FilterDate, FilterSelect, FilterText } from 'components/shared/Filters/Filters';
 import { getDateFromIso } from 'helpers/datetime';
 import usePrev from 'hooks/usePrev';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IResidence } from 'interfaces/residence.interface';
@@ -68,7 +67,6 @@ const getDays = (residence: IResidence) => {
 const Residences = () => {
   const { t } = useTranslation();
   const { debouncedFiltersState } = useFilters();
-  const activeOptions = useTranslatedSelect(['true', 'false']);
   const { data: filters, refetch: refetchFilters } = useGetResidenceFilterLists();
   const { data: accommodations = [] } = useGetAccommodations();
 
@@ -122,7 +120,6 @@ const Residences = () => {
         >
           <FilterDate label={t('firstDate')} filterKey="firstDate" />
           <FilterDate label={t('lastDate')} filterKey="lastDate" />
-          <FilterSelect filterKey="active" label={t('accommodation.active')} options={activeOptions} emptyItem={t('selectAll')} />
           {filters?.users && (
             <FilterAutocomplete
               filterKey="user"
