@@ -43,12 +43,13 @@ const InfoRow = () => {
     if (msNow > msStart && msNow < msEnd) {
       return 'continues';
     }
-    if (msNow > msEnd) {
+    if (data.dateEnd && msNow > msEnd) {
       return 'finished';
     }
     if (msNow < msStart) {
       return 'future';
     }
+    return 'continues';
   }, [data.dateEnd, data.dateStart]);
 
   return (
@@ -76,7 +77,7 @@ const InfoRow = () => {
         {getDateFromIso(data.dateEnd)}
       </ListTableCell>
       <ListTableCell>
-        {t(`selects.dayoffReason.${data.reason}`)}
+        {data.reason && t(`selects.dayoffReason.${data.reason}`)}
       </ListTableCell>
       <ListTableCell>
         {data.description}

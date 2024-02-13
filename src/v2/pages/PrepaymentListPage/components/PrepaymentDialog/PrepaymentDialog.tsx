@@ -58,24 +58,6 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
               />
             )}
           />
-          <Controller
-            control={control}
-            name="period"
-            defaultValue={data?.period || undefined}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <DatePicker
-                views={['year', 'month']}
-                format="MM/yyyy"
-                openTo="month"
-                defaultValue={field.value}
-                onChange={field.onChange}
-                label={`${t('prepayment.period')}*`}
-                error={!!errors.period}
-                inputProps={{ theme: 'gray' }}
-              />
-            )}
-          />
           <Input
             InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
             label={`${t('prepayment.sum')}*`}
@@ -106,6 +88,13 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
                 views={['day']}
               />
             )}
+          />
+          <Input
+            label={t('prepayment.comment')}
+            defaultValue={data?.adminComment || ''}
+            theme="gray"
+            className="fullwidth"
+            {...register('adminComment')}
           />
         </div>
         <DialogActions>
