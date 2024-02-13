@@ -9,10 +9,18 @@ export const PrepaymentDialogContent = styled.div`
     column-gap: 24px;
     row-gap: 12px;
     margin-bottom: 48px;
+    
+    .fullwidth {
+      grid-column: 1 / 3;
+    }
 
     @media (max-width: ${TB}) {
       grid-template-columns: 1fr;
+      width: 100%;
       *:last-child {
+        grid-column: 1;
+      }
+      .fullwidth {
         grid-column: 1;
       }
     }

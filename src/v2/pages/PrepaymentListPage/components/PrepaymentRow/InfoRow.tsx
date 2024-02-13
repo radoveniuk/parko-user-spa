@@ -48,13 +48,13 @@ const InfoRow = () => {
         <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel>
       </ListTableCell>
       <ListTableCell>
-        {getDateFromIso(data.period || data.createdAt, 'MM/yyyy')}
+        {getDateFromIso(data.paymentDate, 'MM/yyyy')}
       </ListTableCell>
       <ListTableCell>
-        {Number(data.sum).toFixed(2)} €
+        {Number(data.sum).toFixed(2)}€
       </ListTableCell>
       <ListTableCell>
-        {data.userComment}
+        {data.adminComment}
       </ListTableCell>
       <ListTableCell>
         <StatusLabel className={data.status}>{t(`selects.prepaymentStatus.${data.status}`)}</StatusLabel>
