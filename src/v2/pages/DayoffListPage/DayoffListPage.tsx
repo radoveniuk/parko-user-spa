@@ -8,7 +8,7 @@ import { SearchIcon } from 'components/icons';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 
 import HeaderTable from './components/HeaderTable';
-// import MobileDayoffCard from './components/MobileDayoffCard';
+import MobileDayoffCard from './components/MobileDayoffCard';
 import Table from './components/Table';
 import { FilterTableWrapper, ProfileListPageWrapper } from './styles';
 
@@ -22,6 +22,7 @@ const DEFAULT_COLS = [
   'dayoff.reason',
   'dayoff.comment',
   'dayoff.adminComment',
+  'dayoff.docs',
   '',
 ];
 
@@ -60,14 +61,14 @@ const DayoffListPageRender = () => {
             placeholder={t('search')}
           />
         </FilterTableWrapper>
-        {/* <div className="mobile-list">
+        <div className="mobile-list">
           {data.map((dayoff) => (
             <MobileDayoffCard
               key={dayoff._id}
-              prepayment={dayoff}
+              data={dayoff}
             />
           ))}
-        </div> */}
+        </div>
         <Table
           activeCols={DEFAULT_COLS}
           data={data}

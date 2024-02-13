@@ -1,12 +1,13 @@
-import React, { CSSProperties, memo, useState } from 'react';
+import React, { CSSProperties, memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { DateTime } from 'luxon';
 import { Avatar } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
-import { DeleteIcon, EditIcon } from 'components/icons';
+import { DayoffIcon, DeleteIcon, EditIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IDayOff } from 'interfaces/dayoff.interface';
@@ -35,6 +36,30 @@ const MobilePrepaymentCard = ({ style, data }: Props) => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const { updateDayoff, removeDayoff } = useDayoffMutations();
 
+  const dayoffStatus = useMemo(() => {
+    const msStart = DateTime.fromISO(data.dateStart).startOf('day').toMillis();
+    const msEnd = DateTime.fromISO(data.dateEnd).endOf('day').toMillis();
+    const msNow = DateTime.now().toMillis();
+    if (msNow > msStart && msNow < msEnd) {
+      return 'continues';
+    }
+    if (msNow > msEnd) {
+      return 'finished';
+    }
+    if (msNow < msStart) {
+      return 'future';
+    }
+  }, [data.dateEnd, data.dateStart]);
+
+  const dayoffDescription = useMemo(() => {
+    const dateStart = getDateFromIso(data.dateStart);
+    const dateEnd = getDateFromIso(data.dateEnd);
+    if (dateStart === dateEnd) {
+      return dateStart;
+    }
+    return `${getDateFromIso(data.dateStart)} - ${getDateFromIso(data.dateEnd)}`;
+  }, [data.dateEnd, data.dateStart]);
+
   return (
     <MobileClientCardWrapper style={style}>
       <div className="card">
@@ -50,19 +75,17 @@ const MobilePrepaymentCard = ({ style, data }: Props) => {
           </div>
         </Link>
         <div className="prepayment">
-          {/* <div className="row">
-            <MoneyBillIcon size={20} />
-            {Number(data.sum).toFixed(2)}€
-            <StatusLabel className={data.status}>{t(`selects.prepaymentStatus.${data.status}`)}</StatusLabel>
-          </div> */}
+          <div className="row">
+            <DayoffIcon size={20} />
+            {dayoffDescription}
+          </div>
+          <div className="row">
+            <StatusLabel className={dayoffStatus}>{t(`selects.dayoffStatus.${dayoffStatus}`)}</StatusLabel>
+          </div>
         </div>
         <div className="actions">
-          <IconButton>
-            <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
-          </IconButton>
-          <IconButton>
-            <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
-          </IconButton>
+          <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
+          <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
         </div>
       </div>
       {!!openDialog && (

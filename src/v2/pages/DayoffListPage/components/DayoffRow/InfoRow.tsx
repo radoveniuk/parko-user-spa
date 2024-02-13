@@ -6,11 +6,13 @@ import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
+import downloadFile from 'api/query/downloadFile';
 import { DeleteIcon, EditIcon } from 'components/icons';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IDayOff } from 'interfaces/dayoff.interface';
+import { IFile } from 'interfaces/file.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -81,6 +83,16 @@ const InfoRow = () => {
       </ListTableCell>
       <ListTableCell>
         {data.adminComment}
+      </ListTableCell>
+      <ListTableCell>
+        <ul className="doc-list">
+          {data.docs?.map((docItem) => {
+            const doc = docItem as IFile;
+            return (
+              <li key={doc._id}><a onClick={() => downloadFile(doc._id, doc.originalname, doc.ext)}>{doc.originalname}.{doc.ext}</a></li>
+            );
+          })}
+        </ul>
       </ListTableCell>
       <ListTableCell>
         <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>

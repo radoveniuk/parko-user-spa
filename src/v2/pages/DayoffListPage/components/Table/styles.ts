@@ -15,6 +15,19 @@ export const TableWrapper = styled.div`
     @media (max-width: ${TB}) {
       max-height: calc(100vh - 255px);
     }
+
+    .list-table-cell:has(li) {
+      .doc-list {
+        max-height: 30px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
   }
 
   .users-table > div > div {

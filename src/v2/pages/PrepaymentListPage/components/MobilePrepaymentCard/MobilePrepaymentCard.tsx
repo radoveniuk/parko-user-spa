@@ -57,12 +57,8 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
           </div>
         </div>
         <div className="actions">
-          <IconButton>
-            <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
-          </IconButton>
-          <IconButton>
-            <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
-          </IconButton>
+          <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
+          <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
         </div>
       </div>
       {!!openDialog && (

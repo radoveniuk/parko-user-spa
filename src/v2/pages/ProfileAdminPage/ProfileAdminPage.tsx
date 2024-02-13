@@ -273,7 +273,8 @@ const ProfileAdminPageRender = () => {
               <BusinessInfoFormCard
                 data={pick(
                   profileData,
-                  ['ICO', 'businessName', 'DIC', 'adress', 'permitAdress', 'businessStatus', 'permitDepartment', 'permitNumber', 'name', 'surname'],
+                  ['ICO', 'businessName', 'DIC', 'corporateBodyAddress', 'permitAdress', 'businessStatus',
+                    'permitDepartment', 'permitNumber', 'name', 'surname'],
                 )}
                 onChange={updateUser}
               />

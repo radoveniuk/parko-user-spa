@@ -117,7 +117,7 @@ export interface IUser {
   businessActivities?: UserBusinessActivity[];
   isDeleted?: boolean;
   workTypes: UserWorkType[];
-
+  corporateBodyAddress?: string;
   tags?: string[];
   createdAt?: string,
   updatedAt?: string,

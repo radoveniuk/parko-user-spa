@@ -95,7 +95,7 @@ const DayoffDialog = ({ onSave, data, ...rest }: Props) => {
                   label={`${t('dayoff.dateStart')}*`}
                   error={!!errors.dateStart}
                   inputProps={{ theme: 'gray' }}
-                  views={['day', 'month']}
+                  views={['day']}
                 />
               )}
             />
@@ -110,7 +110,7 @@ const DayoffDialog = ({ onSave, data, ...rest }: Props) => {
                   label={t('dayoff.dateEnd')}
                   error={!!errors.dateEnd}
                   inputProps={{ theme: 'gray' }}
-                  views={['day', 'month']}
+                  views={['day']}
                 />
               )}
             />
