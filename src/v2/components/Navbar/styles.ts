@@ -83,6 +83,12 @@ export const NavItem = styled(ListItemButton)`
   }
 
   border-radius: 0px 20px 20px 0px !important;
+  
+  &:not(:has(.nav-item-text)) {
+    border-radius: 20px !important;
+    padding-left: 16px;
+  }
+
   &.active {
     background: rgba(42, 106, 231, 0.10);
     color: ${themeConfig.palette.primary.main} !important;

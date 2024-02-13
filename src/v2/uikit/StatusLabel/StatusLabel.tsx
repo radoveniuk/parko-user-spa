@@ -3,14 +3,18 @@ import styled from 'styled-components';
 import { themeConfig } from 'theme';
 
 const StatusLabel = styled.div`
-  &.candidate, &.development {
+  &.candidate, &.development, &.pending {
     background-color: #f0c844;
     color: #2b2b2b;
   }
-  &.hired, &.active {
+  &.hired, &.active, &.paid, &.approved, &.continues {
     background-color: ${themeConfig.palette.success.main};
   }
-  &.canceled, &.inactive {
+  &.approved, &.future {
+    background-color: ${themeConfig.palette.success.light};
+    color: #2b2b2b;
+  }
+  &.canceled, &.inactive, &.finished {
     background-color: #717171;
   }
   &.fired, &.rejected {
@@ -25,6 +29,7 @@ const StatusLabel = styled.div`
   border-radius: 2px;
   max-width: min-content;
   white-space: nowrap;
+  max-height: min-content;
 `;
 
 export default StatusLabel;

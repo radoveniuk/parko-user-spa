@@ -17,7 +17,7 @@ import { IUser } from 'interfaces/users.interface';
 
 import { CorporateBodiesDropdown, CorporateBodiesSearchField, LoaderWrapper } from './styles';
 
-type Data = Pick<IUser, 'ICO' | 'businessName' | 'DIC' | 'adress' |
+type Data = Pick<IUser, 'ICO' | 'businessName' | 'DIC' | 'corporateBodyAddress' |
  'permitAdress' | 'businessStatus' | 'permitDepartment' | 'permitNumber' | 'name' | 'surname'>
 
 type Props = {
@@ -67,7 +67,7 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
       ICO: result.cin,
       businessName: result.companyName,
       DIC: result.DIC,
-      adress: result.address,
+      corporateBodyAddress: result.address,
       permitAdress: result.businessAddress,
       businessStatus: result.status,
       permitDepartment: result.register,
@@ -193,7 +193,7 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
                 label={t('user.adress')}
                 theme="gray"
                 disabled={formCardConfig.disabled || formCardConfig.loading}
-                {...register('adress')}
+                {...register('corporateBodyAddress')}
               />
               <Input
                 label={t('user.permitDepartment')}

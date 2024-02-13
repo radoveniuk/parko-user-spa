@@ -1,3 +1,4 @@
+import { IFile } from './file.interface';
 import { IUser } from './users.interface';
 
 export interface IDayOff {
@@ -11,4 +12,5 @@ export interface IDayOff {
   isApproved?: boolean | null;
   createdAt?: string;
   updatedAt?: string;
+  docs?: IFile[] | string[];
 }

@@ -91,7 +91,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     }
     @media (max-width: ${TB}) {
       width: 100%;
-
+      max-width: 100%;
       .MuiFormLabel-root {
         display: none;
       }

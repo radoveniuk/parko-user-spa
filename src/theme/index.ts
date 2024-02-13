@@ -30,6 +30,7 @@ export const themeConfig = {
     },
     success: {
       main: '#43a047',
+      light: '#c6eac7',
     },
     error: {
       main: '#ec3c3c',

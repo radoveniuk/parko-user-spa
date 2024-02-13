@@ -265,14 +265,16 @@ const ProfileAdminPageRender = () => {
               <EmploymentInfoFormCard
                 data={pick(
                   profileData,
-                  ['passNumber', 'rodneCislo', 'medicalInsurance', 'country', 'birthDate', 'birthPlace', 'familyStatus', 'birthSurname', 'childrenCount'],
+                  ['passNumber', 'rodneCislo', 'medicalInsurance', 'country', 'birthDate',
+                    'birthPlace', 'familyStatus', 'birthSurname', 'childrenCount'],
                 )}
                 onUpdateEmploymentInfo={updateUser}
               />
               <BusinessInfoFormCard
                 data={pick(
                   profileData,
-                  ['ICO', 'businessName', 'DIC', 'adress', 'permitAdress', 'businessStatus', 'permitDepartment', 'permitNumber', 'name', 'surname'],
+                  ['ICO', 'businessName', 'DIC', 'corporateBodyAddress', 'permitAdress', 'businessStatus',
+                    'permitDepartment', 'permitNumber', 'name', 'surname'],
                 )}
                 onChange={updateUser}
               />

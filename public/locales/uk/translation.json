@@ -284,7 +284,10 @@
     "user": "Користувач",
     "send": "Надіслати",
     "createdAt": "Дата створення",
-    "dayoff": "Відгул"
+    "dayoff": "Відгул",
+    "status": "Статус відгула",
+    "data": "Інформація",
+    "docs": "Документи"
   },
   "profileList": "Профілі",
   "selects": {
@@ -320,7 +323,11 @@
       "illnes": "Хвороба",
       "medicalCheck": "Медичне обстеження",
       "alcohol": "Алкогольне сп'яніння",
-      "other": "Інше"
+      "other": "Інше",
+      "unable": "Непрацездатність",
+      "pass": "Пропуск",
+      "familyMemberCare": "Турбота про члена родини",
+      "blocker": "Завада на стороні працедавця"
     },
     "tariff": {
       "candidate": "За кандидата",
@@ -380,6 +387,11 @@
     "userWorkType": {
       "business": "ФОП",
       "employment": "Працевлаштування"
+    },
+    "dayoffStatus": {
+      "continues": "Відбувається",
+      "finished": "Завершено",
+      "future": "Не почався"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -562,6 +574,7 @@
   "unsavedChanges": "Незбережені зміни",
   "unsavedChangesWarn": "У вас є незбережені зміни. Якщо ви їх не збережете, вони можуть бути втрачені.",
   "searchHistory": "Історія пошуку",
+  "fileDeletedSuccess": "Файл видалено",
   "profilesPage": {
     "status": "Статуси користувачів",
     "organization": "Організації",
