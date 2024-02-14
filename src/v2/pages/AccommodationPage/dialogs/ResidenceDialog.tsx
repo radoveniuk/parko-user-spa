@@ -56,6 +56,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
             control={control}
             name="user"
             rules={{ required: true }}
+            defaultValue={data?.user}
             render={({ field }) => (
               <Autocomplete
                 loading={isFetching || isLoading}

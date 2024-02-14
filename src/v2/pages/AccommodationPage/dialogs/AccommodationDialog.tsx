@@ -102,6 +102,7 @@ const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
             helperText={errors.costNight?.message}
             type="number"
             className="form-field"
+            InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
             {...register('costNight')}
           />
           <Input
@@ -111,6 +112,7 @@ const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
             helperText={errors.costMonth?.message}
             type="number"
             className="form-field"
+            InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
             {...register('costMonth')}
           />
           <Select

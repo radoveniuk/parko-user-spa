@@ -1,5 +1,6 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
@@ -7,6 +8,7 @@ import Skeleton from 'v2/uikit/Skeleton';
 
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { ArrowUpIcon, DeleteIcon, EditIcon } from 'components/icons';
+import { useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { iterateMap } from 'helpers/iterateMap';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
@@ -47,6 +49,8 @@ const Table = ({
   isFetching,
 }: Props) => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const { filtersState } = useFilters();
 
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
 
@@ -87,35 +91,40 @@ const Table = ({
           }
         }}
       >
-        {sortedData.map((item: ResidenceTableRow) => (
-          <ListTableRow key={item._id}>
-            <ListTableCell>
-              <Link to={`/profile/${(item.metadata.user as IUser)._id}`} className="table-link">{item.user}</Link>
-            </ListTableCell>
-            <ListTableCell>
-              <Link to={`/projects?id=${((item.metadata.user as IUser).project as IProject)?._id}`} className="table-link">{item.project}</Link>
-            </ListTableCell>
-            <ListTableCell>{item.owner}</ListTableCell>
-            <ListTableCell>
-              <div
-                role="button"
-                className="table-link"
-                onClick={() => void setOpenAccommodation(item.metadata.accommodation as IAccommodation)}
-              >
-                {item.adress}
-              </div>
-            </ListTableCell>
-            <ListTableCell>{item.checkInDate}</ListTableCell>
-            <ListTableCell>{item.checkOutDate}</ListTableCell>
-            <ListTableCell>{item.days}</ListTableCell>
-            <ListTableCell>{item.costNight}</ListTableCell>
-            <ListTableCell>{item.sum}</ListTableCell>
-            <ListTableCell>
-              <IconButton onClick={() => void setOpenResidence(item.metadata)}><EditIcon /></IconButton>
-              <IconButton onClick={() => void setIdToDelete(item._id)}><DeleteIcon /></IconButton>
-            </ListTableCell>
-          </ListTableRow>
-        ))}
+        {sortedData.map((item: ResidenceTableRow) => {
+          const user = item.metadata.user as IUser;
+          const project = user.project as IProject;
+          const client = project?.client as IClient;
+          return (
+            <ListTableRow key={item._id}>
+              <ListTableCell>
+                <Link to={`/profile/${(item.metadata.user as IUser)._id}`} className="table-link">{item.user}</Link>
+              </ListTableCell>
+              <ListTableCell>
+                {client ? `${client.name} > ` : ''}{project?.name}
+              </ListTableCell>
+              <ListTableCell>{item.owner}</ListTableCell>
+              <ListTableCell>
+                <div
+                  role="button"
+                  className="table-link"
+                  onClick={() => void setOpenAccommodation(item.metadata.accommodation as IAccommodation)}
+                >
+                  {item.adress}
+                </div>
+              </ListTableCell>
+              <ListTableCell>{item.checkInDate}</ListTableCell>
+              <ListTableCell>{item.checkOutDate}</ListTableCell>
+              <ListTableCell>{item.days}</ListTableCell>
+              <ListTableCell>{item.costNight}</ListTableCell>
+              <ListTableCell>{item.sum}</ListTableCell>
+              <ListTableCell>
+                <IconButton onClick={() => void setOpenResidence(item.metadata)}><EditIcon /></IconButton>
+                <IconButton onClick={() => void setIdToDelete(item._id)}><DeleteIcon /></IconButton>
+              </ListTableCell>
+            </ListTableRow>
+          );
+        })}
         {!sortedData.length && isFetching && (
           iterateMap(20, (index) => (
             <ListTableRow key={index}>
@@ -130,9 +139,10 @@ const Table = ({
         onClose={() => void setIdToDelete(null)}
         open={!!idToDelete}
         onSubmit={() => {
-          deleteResidence.mutateAsync(idToDelete as string).then(() => {
-            setIdToDelete(null);
-          });
+          const prevAccommodations = queryClient.getQueryData(['residences', JSON.stringify(filtersState)]) as IResidence[];
+          queryClient.setQueryData(['residences', JSON.stringify(filtersState)], prevAccommodations.filter((item) => item._id !== idToDelete));
+          setIdToDelete(null);
+          deleteResidence.mutate(idToDelete as string);
         }}
       />
     </TableWrapper>

@@ -19,7 +19,7 @@ type Props = Partial<MenuProps> & {
   disabled?: boolean;
 }
 
-const Menu = ({ open, menuTitle: title, children, isCloseOnMenu, menuComponent, disabled, ...rest }: Props) => {
+const Menu = ({ open, menuTitle: title, children, isCloseOnMenu, menuComponent, disabled, className, ...rest }: Props) => {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);
@@ -48,6 +48,7 @@ const Menu = ({ open, menuTitle: title, children, isCloseOnMenu, menuComponent, 
         aria-haspopup="true"
         aria-expanded={openMenu ? 'true' : undefined}
         onClick={!disabled ? handleClick : undefined}
+        className={className}
       >
         {menuComponent || (
           <Button>

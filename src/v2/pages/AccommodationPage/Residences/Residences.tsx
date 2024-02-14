@@ -1,15 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 
-import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { useGetResidenceFilterLists, useGetResidences } from 'api/query/residenceQuery';
-import DialogConfirm from 'components/shared/DialogConfirm';
 import { FiltersProvider, useFilters } from 'components/shared/Filters';
 import { ClearFiltersButton, FilterAutocomplete, FilterDate, FilterSelect, FilterText } from 'components/shared/Filters/Filters';
 import { getDateFromIso } from 'helpers/datetime';
 import usePrev from 'hooks/usePrev';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IResidence } from 'interfaces/residence.interface';
@@ -18,9 +17,11 @@ import { IUser } from 'interfaces/users.interface';
 import { useActiveAccommodation } from '../contexts/AccommodationContext';
 import { useActiveResidence } from '../contexts/ResidenceContext';
 
+import MobileResidenceCard from './MobileResidenceCard/MobileResidenceCard';
 import HeaderTable from './HeaderTable';
 import { FilterTableWrapper, ResidencesWrapper } from './styles';
 import Table from './Table';
+import { ResidenceTableRow } from './types';
 
 const COLUMNS = [
   'user.name',
@@ -34,20 +35,6 @@ const COLUMNS = [
   'accommodation.sum',
   '',
 ];
-
-type ResidenceTableRow = {
-  _id: string;
-  user: string;
-  project: string;
-  owner: string;
-  adress: string;
-  checkInDate: string | null;
-  checkOutDate: string | null;
-  days: number;
-  costNight: string;
-  sum: number;
-  metadata: IResidence;
-};
 
 const getDays = (residence: IResidence) => {
   if (!residence.checkInDate) return null;
@@ -69,8 +56,9 @@ const Residences = () => {
   const { debouncedFiltersState } = useFilters();
   const { data: filters, refetch: refetchFilters } = useGetResidenceFilterLists();
   const { data: accommodations = [] } = useGetAccommodations();
+  const activeOptions = useTranslatedSelect(['true', 'false']);
 
-  const { data: residences = [], refetch, remove } = useGetResidences(debouncedFiltersState, { enabled: false });
+  const { data: residences = [], refetch, remove, isFetching, isLoading } = useGetResidences(debouncedFiltersState, { enabled: false });
   const tableData: ResidenceTableRow[] = useMemo(() => residences.map((item) => {
     const { name, surname, project } = item.user as IUser;
     const { owner, adress, costNight } = item.accommodation as IAccommodation;
@@ -92,9 +80,6 @@ const Residences = () => {
 
   const [openResidence] = useActiveResidence();
   const [openAccomodation] = useActiveAccommodation();
-
-  const deleteResidence = useDeleteResidence();
-  const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
   const prevResidence = usePrev(openResidence);
   const prevAccommodation = usePrev(openAccomodation);
@@ -120,6 +105,7 @@ const Residences = () => {
         >
           <FilterDate label={t('firstDate')} filterKey="firstDate" />
           <FilterDate label={t('lastDate')} filterKey="lastDate" />
+          <FilterSelect filterKey="active" label={t('accommodation.active')} options={activeOptions} emptyItem={t('selectAll')} />
           {filters?.users && (
             <FilterAutocomplete
               filterKey="user"
@@ -133,7 +119,7 @@ const Residences = () => {
               filterKey="project"
               label={t('user.project')}
               options={filters.projects}
-              labelKey="name"
+              getOptionLabel={(item) => `${item.client ? `${item.client.name} > ` : ''}${item?.name}`}
             />
           )}
           <FilterText filterKey="accommodationOwner" label={t('accommodation.owner')} />
@@ -145,21 +131,20 @@ const Residences = () => {
           />
           <ClearFiltersButton />
         </FilterTableWrapper>
+        <div className="mobile-list">
+          {tableData.map((rowItem) => (
+            <MobileResidenceCard
+              key={rowItem._id}
+              data={rowItem}
+            />
+          ))}
+        </div>
         <Table
           activeCols={COLUMNS}
           data={tableData}
+          isFetching={isFetching || isLoading}
         />
       </div>
-      <DialogConfirm
-        onClose={() => void setIdToDelete(null)}
-        open={!!idToDelete}
-        onSubmit={() => {
-          deleteResidence.mutateAsync(idToDelete as string).then(() => {
-            setIdToDelete(null);
-            refetch();
-          });
-        }}
-      />
     </ResidencesWrapper>
   );
 };

@@ -30,10 +30,12 @@ interface TabPanelProps {
   children?: React.ReactNode;
   className?: string;
   index: number;
+  hiddenRender?: boolean;
 }
 
-export const TabPanel = ({ children, index, className }: TabPanelProps) => {
+export const TabPanel = ({ children, index, className, hiddenRender = true }: TabPanelProps) => {
   const [value] = useTabs();
+  if (!hiddenRender && value !== index) return null;
   return (
     <TabPanelWrapper
       role="tabpanel"

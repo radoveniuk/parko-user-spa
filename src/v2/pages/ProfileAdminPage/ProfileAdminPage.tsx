@@ -30,7 +30,6 @@ import { useAuthData } from 'contexts/AuthContext';
 import { IPaycheck } from 'interfaces/paycheck.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
-import { themeConfig } from 'theme';
 
 import Employments from './components/Employments';
 import BankDataFormCard from './components/FormCards/BankDataFormCard';
@@ -134,7 +133,7 @@ const ProfileAdminPageRender = () => {
             )}
             {role === 'admin' && (
               <Button color="error" disabled={profileData.isDeleted} onClick={() => void setOpenDeleteDialog(true)}>
-                <DeleteIcon size={16} color={!profileData.isDeleted ? themeConfig.palette.error.main : '#717171'} />
+                <DeleteIcon size={16} />
                 {t('delete')}
               </Button>
             )}

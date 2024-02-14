@@ -52,15 +52,3 @@ export const HeaderWrapper = styled.div`
     }
   }
 `;
-
-export const MemuItemContent = styled.div`
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  &.btn {
-    color: ${themeConfig.palette.primary.main};
-  }
-  &.export {
-    color: #1e6e43;
-  }
-`;

@@ -1,15 +1,16 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Stack } from 'v2/uikit';
+import { Link } from 'react-router-dom';
+import { Menu, MenuItem, Stack } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
 
-import { CheckInIcon, CheckOutIcon } from 'components/icons';
+import { CheckInIcon, CheckOutIcon, ExcelIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 
 import { useActiveResidence } from '../../contexts/ResidenceContext';
 import CheckoutDialog from '../../dialogs/CheckoutDialog';
 
-import { HeaderWrapper } from './styles';
+import { HeaderWrapper, MemuItemContent } from './styles';
 
 type Props = {
   count: number;
@@ -32,10 +33,21 @@ const HeaderTable = ({ count }: Props) => {
           <div className="link">
             {role === 'admin' && (
               <>
+                <Menu className="big-btn" isCloseOnMenu>
+                  <MenuItem onClick={() => void setOpenResidence(true)}>
+                    <MemuItemContent className="btn"><CheckInIcon size={20}/>Check in</MemuItemContent>
+                  </MenuItem>
+                  <MenuItem onClick={() => void setOpenCheckout(true)}>
+                    <MemuItemContent className="btn"><CheckOutIcon size={20}/>Check out</MemuItemContent>
+                  </MenuItem>
+                  <Link to="/export-residences">
+                    <MenuItem color="secondary">
+                      <MemuItemContent className="export"><ExcelIcon size={20}/>{t('user.export')}</MemuItemContent>
+                    </MenuItem>
+                  </Link>
+                </Menu>
                 <IconButton className="small-btn primary" onClick={() => void setOpenResidence(true)}><CheckInIcon size={25} /></IconButton>
                 <IconButton className="small-btn primary" onClick={() => void setOpenCheckout(true)}><CheckOutIcon size={25} /></IconButton>
-                <Button className="big-btn" onClick={() => void setOpenResidence(true)}><CheckInIcon size={20}/>CheckIn</Button>
-                <Button className="big-btn" onClick={() => void setOpenCheckout(true)}><CheckOutIcon size={20}/>CheckOut</Button>
               </>
             )}
           </div>

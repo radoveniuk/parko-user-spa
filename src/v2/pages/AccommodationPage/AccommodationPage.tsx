@@ -1,20 +1,16 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
-import Button from 'v2/uikit/Button';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'v2/uikit/Tabs';
-
-import { CheckInIcon, CheckOutIcon, ExcelIcon, PlusIcon } from 'components/icons';
-import { PageActions } from 'components/shared/PageComponents';
 
 import AccommodationProvider, { useActiveAccommodation } from './contexts/AccommodationContext';
 import ResidenceProvider, { useActiveResidence } from './contexts/ResidenceContext';
 import AccommodationDialog from './dialogs/AccommodationDialog';
 import CheckoutDialog from './dialogs/CheckoutDialog';
 import ResidenceDialog from './dialogs/ResidenceDialog';
-import Accommodations from './Accommodations';
+import AccommodationObjects from './AccommodationObjects';
 import Residences from './Residences';
+import { PageWrapper } from './styles';
 
 const AccommodationPageRender = () => {
   const { t } = useTranslation();
@@ -25,7 +21,7 @@ const AccommodationPageRender = () => {
   useDocumentTitle(t('navbar.accommodation'));
 
   return (
-    <>
+    <PageWrapper>
       <TabsContainer>
         <Tabs>
           <Tab label={t('accommodation.residences')} />
@@ -34,8 +30,8 @@ const AccommodationPageRender = () => {
         <TabPanel index={0}>
           <Residences />
         </TabPanel>
-        <TabPanel index={1}>
-          <Accommodations />
+        <TabPanel index={1} hiddenRender={false}>
+          <AccommodationObjects />
         </TabPanel>
       </TabsContainer>
       {openAccommodation && (
@@ -58,7 +54,7 @@ const AccommodationPageRender = () => {
           onClose={() => void setOpenCheckout(false)}
         />
       )}
-    </>
+    </PageWrapper>
   );
 };
 

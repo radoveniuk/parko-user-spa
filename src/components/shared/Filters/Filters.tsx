@@ -74,6 +74,7 @@ export const FilterAutocomplete = ({ filterKey, options = [], ...rest }: FilterA
 
 export const FilterSelect = ({ filterKey, label, ...rest }: FilterProps & SelectProps<any>) => {
   const [value, setValue] = useFilterState(filterKey);
+
   return (
     <FilterWrapper>
       <Select
