@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 
@@ -36,27 +36,27 @@ const COLUMNS = [
   '',
 ];
 
-const getDays = (residence: IResidence) => {
-  if (!residence.checkInDate) return null;
-
-  const checkIn = DateTime.fromISO(residence.checkInDate);
-
-  if (residence.checkOutDate) {
-    const checkOut = DateTime.fromISO(residence.checkOutDate);
-    const diff = -checkIn.diff(checkOut, 'days').days.toFixed();
-    return diff > 0 ? diff : 0;
-  }
-
-  const diff = -checkIn.diffNow('days').days.toFixed();
-  return diff > 0 ? diff : 0;
-};
-
 const Residences = () => {
   const { t } = useTranslation();
   const { debouncedFiltersState } = useFilters();
   const { data: filters, refetch: refetchFilters } = useGetResidenceFilterLists();
   const { data: accommodations = [] } = useGetAccommodations();
   const activeOptions = useTranslatedSelect(['true', 'false']);
+
+  const getDays = useCallback((residence: IResidence) => {
+    if (!residence.checkInDate) return null;
+
+    const checkIn = debouncedFiltersState?.firstDate ? DateTime.fromISO(debouncedFiltersState?.firstDate) : DateTime.fromISO(residence.checkInDate);
+
+    if (debouncedFiltersState?.lastDate || residence.checkOutDate) {
+      const checkOut = DateTime.fromISO(debouncedFiltersState?.lastDate || residence.checkOutDate);
+      const diff = -checkIn.diff(checkOut, 'days').days.toFixed();
+      return diff > 0 ? diff : 0;
+    }
+
+    const diff = -checkIn.diffNow('days').days.toFixed();
+    return diff > 0 ? diff : 0;
+  }, [debouncedFiltersState?.firstDate, debouncedFiltersState?.lastDate]);
 
   const { data: residences = [], refetch, remove, isFetching, isLoading } = useGetResidences(debouncedFiltersState, { enabled: false });
   const tableData: ResidenceTableRow[] = useMemo(() => residences.map((item) => {
@@ -76,7 +76,7 @@ const Residences = () => {
       sum: days * Number(costNight),
       metadata: item,
     };
-  }), [residences]);
+  }), [getDays, residences]);
 
   const [openResidence] = useActiveResidence();
   const [openAccomodation] = useActiveAccommodation();
@@ -101,8 +101,7 @@ const Residences = () => {
     <ResidencesWrapper>
       <div className="container-table">
         <HeaderTable count={tableData.length} />
-        <FilterTableWrapper
-        >
+        <FilterTableWrapper>
           <FilterDate label={t('firstDate')} filterKey="firstDate" />
           <FilterDate label={t('lastDate')} filterKey="lastDate" />
           <FilterSelect filterKey="active" label={t('accommodation.active')} options={activeOptions} emptyItem={t('selectAll')} />
