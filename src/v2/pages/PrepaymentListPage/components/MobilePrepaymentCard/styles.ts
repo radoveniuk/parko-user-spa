@@ -41,7 +41,9 @@ export const MobileClientCardWrapper = styled.div`
             font-size: 0.7rem;
             padding: 1px 4px;
             border-radius: 2px;
-            max-width: min-content;
+            max-width: 200px;
+            text-overflow: ellipsis;
+            overflow: hidden;
             white-space: nowrap;
           }
         }

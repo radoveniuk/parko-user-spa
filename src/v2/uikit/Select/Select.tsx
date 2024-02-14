@@ -58,7 +58,7 @@ function Select<T> ({
   }, [labelPath, options, valuePath]);
 
   useEffect(() => {
-    if (value) {
+    if (value !== null && value !== undefined) {
       setSelectedValue(value as Path<T>);
     }
   }, [value]);

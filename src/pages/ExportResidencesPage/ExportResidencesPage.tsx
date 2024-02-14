@@ -101,7 +101,7 @@ const ExportProfilesPage = () => {
       <ExportProfilesWrapper>
         <div className="fast-actions">
           <Checkbox
-            title={t('selectAll')}
+            label={t('selectAll')}
             checked={selectedItems.length === residences.length}
             onChange={(e) => {
               if (e.target.checked) {
@@ -112,7 +112,7 @@ const ExportProfilesPage = () => {
             }}
           />
           <Checkbox
-            title={t('selectAllCols')}
+            label={t('selectAllCols')}
             checked={colsToExport.length === COLUMNS.length}
             onChange={(e) => {
               if (e.target.checked) {
@@ -148,7 +148,7 @@ const ExportProfilesPage = () => {
 
             return (
               <Checkbox
-                title={t(colName)}
+                label={t(colName)}
                 checked={colsToExport.includes(col)}
                 onChange={(e) => {
                   if (e.target.checked) {

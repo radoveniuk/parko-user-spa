@@ -18,7 +18,7 @@ import { themeConfig } from 'theme';
 import useDayoffMutations from '../../hooks/usePrepaymentMutations';
 import PrepaymentDialog from '../DayoffDialog';
 
-import { MobileClientCardWrapper } from './styles';
+import { MobileCardWrapper } from './styles';
 
 type Props = {
   style?: CSSProperties;
@@ -61,7 +61,7 @@ const MobilePrepaymentCard = ({ style, data }: Props) => {
   }, [data.dateEnd, data.dateStart]);
 
   return (
-    <MobileClientCardWrapper style={style}>
+    <MobileCardWrapper style={style}>
       <div className="card">
         <div className="date">{getDateFromIso(data.createdAt)}</div>
         <Link to={`/profile/${data.user._id}`} className="user">
@@ -109,7 +109,7 @@ const MobilePrepaymentCard = ({ style, data }: Props) => {
           onClose={() => void setOpenDeleteDialog(false)}
         />
       )}
-    </MobileClientCardWrapper>
+    </MobileCardWrapper>
   );
 };
 

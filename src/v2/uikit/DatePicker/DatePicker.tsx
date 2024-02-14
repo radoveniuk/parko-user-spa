@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -48,6 +48,12 @@ const DatePicker = ({
     }
   }, [defaultValue]);
 
+  const [value, setValue] = useState(datetimeDefaultValue);
+
+  useEffect(() => {
+    setValue(datetimeDefaultValue);
+  }, [datetimeDefaultValue]);
+
   return (
     <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale={i18n.language}>
       <StyledDatePicker
@@ -55,9 +61,11 @@ const DatePicker = ({
         label={label}
         format={format}
         defaultValue={datetimeDefaultValue}
+        value={value}
         disabled={disabled}
         slotProps={{ textField: { error, onBlur, ...inputProps } }}
         onChange={(luxonValue: DateTime | null) => {
+          setValue(luxonValue);
           onChange(
             luxonValue?.isValid ? luxonValue?.toISO() || '' : '',
             luxonValue?.isValid,
