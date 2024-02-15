@@ -147,7 +147,7 @@ export const renderDocs = (
         )}
         {docItem.type === 'visa' && (
           <>
-            <div className="title">{t('user.visa')}</div>
+            <div className="title">{t('user.visa.visa')}</div>
             <div className="fields">
               <DocField label={t('doc.number')} value={docItem.number} />
               <DocField label={t('doc.dateFrom')} value={getDateFromIso(docItem.dateFrom)} />
@@ -158,7 +158,7 @@ export const renderDocs = (
         )}
         {docItem.type === 'permit' && (
           <>
-            <div className="title">{t('user.permit')}</div>
+            <div className="title">{t('user.permit.permit')}</div>
             <div className="fields">
               <DocField label="ID" value={docItem.id} />
               <DocField label={t('user.permitGoal')} value={t(`selects.permitType.${docItem.goal}`)} />
