@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import Button from 'v2/uikit/Button';
 import IconButton from 'v2/uikit/IconButton';
 
 import { useCreateDayoffMutation, useDeleteDayoffMutation, useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
@@ -8,9 +9,8 @@ import { useGetDaysoff } from 'api/query/dayoffQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import { ArrowUpIcon, CloseIcon, EditIcon, PlusIcon } from 'components/icons';
-import Button from 'v2/uikit/Button';
 import DialogConfirm from 'components/shared/DialogConfirm';
-import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { ClearFiltersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { FilterDate } from 'components/shared/Filters/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { PageActions } from 'components/shared/PageComponents';
@@ -109,7 +109,7 @@ const DayoffListPageRender = () => {
         />
         <FilterDate filterKey="firstDate" label={t('firstDate')} />
         <FilterDate filterKey="lastDate" label={t('lastDate')} />
-        <ClearFiLtersButton />
+        <ClearFiltersButton />
       </FiltersBar>
       <ListTable
         columns={COLS}

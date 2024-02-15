@@ -2,12 +2,17 @@ import AutocompleteMaterial from '@mui/material/Autocomplete';
 import styled from 'styled-components';
 
 export const StyledAutocomplete = styled(AutocompleteMaterial)`
+  &:hover, &.Mui-focused {
+    .MuiAutocomplete-endAdornment {
+      background-color: ${({ theme }) => theme === 'white' ? '#fff' : '#FAFAFA'};
+    }
+  }
   .MuiAutocomplete-endAdornment {
-    background-color: ${({ theme }) => theme === 'white' ? '#fff' : '#FAFAFA'};
     top: 0;
     height: 100%;
     display: flex;
     align-items: center;
+    right: 7px;
   }
 
   input {

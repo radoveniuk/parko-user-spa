@@ -6,7 +6,7 @@ import IconButton from 'v2/uikit/IconButton';
 import Input from 'v2/uikit/Input';
 import Select, { SelectProps } from 'v2/uikit/Select';
 
-import { CloseIcon } from 'components/icons';
+import { ClearFiltersIcon } from 'components/icons';
 import usePrev from 'hooks/usePrev';
 import { MongoEntity } from 'interfaces/base.types';
 
@@ -94,7 +94,7 @@ export const ClearFiltersButton = () => {
   return (
     <ClearFiltersWrapper>
       <IconButton disabled={isEmpty(filtersState)} onClick={clearFilters}>
-        <CloseIcon />
+        <ClearFiltersIcon />
       </IconButton>
     </ClearFiltersWrapper>
   );

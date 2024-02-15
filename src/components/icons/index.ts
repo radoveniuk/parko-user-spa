@@ -80,3 +80,8 @@ export {
   RiVerifiedBadgeFill as VerifiedIcon,
 } from 'react-icons/ri';
 export { SiMicrosoftexcel as ExcelIcon } from 'react-icons/si';
+export {
+  TbFilterOff as ClearFiltersIcon,
+  TbFilterDown as FilterDownIcon,
+  TbFilterUp as FilterUpIcon,
+} from 'react-icons/tb';

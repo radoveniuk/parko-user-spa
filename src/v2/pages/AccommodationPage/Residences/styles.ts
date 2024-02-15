@@ -25,18 +25,6 @@ export const ResidencesWrapper = styled.div`
     }
   }
 
-  .table-settings-wrapper {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: relative;
-
-    @media (max-width: ${TB}) {
-      display: none;
-    }
-  }
-
   .container-table {
     margin-top: 6px;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.20), 0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
