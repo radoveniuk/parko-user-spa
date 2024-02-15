@@ -110,7 +110,7 @@ export const renderValue = (key: keyof IUser, value: string | boolean | number |
 const DocField = (props: { label: string, value: string | boolean | number }) => (
   <div className="field">
     <div className="fieldTitle">{props.label}</div>
-    <Tooltip title={props.value.toString()}><div className="fieldValue">{props.value}</div></Tooltip>
+    <Tooltip title={props?.value?.toString()}><div className="fieldValue">{props?.value}</div></Tooltip>
   </div>
 );
 
