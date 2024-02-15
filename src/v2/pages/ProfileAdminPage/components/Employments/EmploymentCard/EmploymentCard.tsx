@@ -5,7 +5,8 @@ import { useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import { useSnackbar } from 'notistack';
-import { getProjectType } from 'v2/constants/projectType';
+import { BROKERS } from 'v2/constants/brokers';
+import { getProjectType, PROJECT_TYPES } from 'v2/constants/projectType';
 import { Button, Checkbox, Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
@@ -25,6 +26,18 @@ import { themeConfig } from 'theme';
 
 import CustomProjectSettingsDialog from './CustomProjectSettingsDialog';
 import { EmploymentCardTitleWrapper, EmploymentCardWrapper, FormCardContent } from './styles';
+
+const EMPLOYER_FIRST_LABEL_MAP = {
+  [PROJECT_TYPES.Outsourcing.value]: 'Odoberateľ',
+  [PROJECT_TYPES.Leasing.value]: 'Zamestnavateľ',
+  [PROJECT_TYPES.PodKmen.value]: 'Zamestnavateľ',
+};
+
+const EMPLOYER_SECOND_LABEL_MAP = {
+  [PROJECT_TYPES.Outsourcing.value]: 'Dodávateľ',
+  [PROJECT_TYPES.Leasing.value]: 'Uživateľský zamestnavateľ',
+  [PROJECT_TYPES.PodKmen.value]: 'Sprostredkovateľ',
+};
 
 type Props = {
   data: IEmployment;
@@ -194,10 +207,16 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                     <b className="title">{project?.type === 'Outsourcing' ? 'Odoberateľ' : t('employer')}</b>
                     <div className={`info${formCardConfig.viewEmployer ? '' : ' hide'}`}>
                       <div className="row">
-                        Zamestnavateľ: {project?.zamestnavatel}
+                        {EMPLOYER_FIRST_LABEL_MAP[project?.type as string]}: {' '}
+                        {project?.type !== PROJECT_TYPES.Outsourcing.value
+                          ? project?.zamestnavatel
+                          : project?.businessName}
                       </div>
                       <div className="row">
-                        Uživateľský zamestnavateľ: {project?.uzivatelskyZamestnavatel}
+                        {EMPLOYER_SECOND_LABEL_MAP[project?.type as string]}: {' '}
+                        {project?.type !== PROJECT_TYPES.Outsourcing.value
+                          ? project?.uzivatelskyZamestnavatel
+                          : BROKERS.find(item => item.ico === project?.uzivatelskyZamestnavatel)?.name}
                       </div>
                       <div className="row">
                         Pracovná pozícia (ISCO, Názov): {position?.ISCO}, {position?.name}
