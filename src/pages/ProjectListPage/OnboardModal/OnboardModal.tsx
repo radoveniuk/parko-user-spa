@@ -7,7 +7,7 @@ import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
-import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { ClearFiltersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { STATUSES_COLORS, USER_STATUSES } from 'constants/statuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -77,7 +77,7 @@ const OnboardModalRender = ({ onClose, project, ...rest }: Props) => {
             options={translatedStatuses}
             labelKey="label"
           />
-          <ClearFiLtersButton />
+          <ClearFiltersButton />
         </FiltersBar>
         <ListTable columns={['user.name', 'user.email', 'user.status', 'user.project']} className="profiles-grid">
           {users?.map((user) => (

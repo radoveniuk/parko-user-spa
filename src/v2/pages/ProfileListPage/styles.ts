@@ -86,7 +86,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
     }
   }
 
-  .clear-filter, .AddFilterButton {
+  .clear-filter, .AddFilterButton, .MuiAutocomplete-root:not(.filter-name), .label {
     @media (max-width: ${TB}) {
       display: none;
     }
@@ -166,7 +166,8 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
 
 export const FilterTableWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
   align-items: end;
   border-bottom: 1px solid #e9e9e9;
   gap: 10px;
@@ -175,11 +176,21 @@ export const FilterTableWrapper = styled.div`
     padding: 0;
     gap: 0;
   }
+  .MuiAutocomplete-tag {
+     max-width: calc(100% - 55px) !important;
+   }
+  .MuiInputBase-root:not(.Mui-focused) {
+    flex-wrap: nowrap !important;
 
-  .filter-chip {
-    height: 36px;
-    @media (max-width: ${TB}) {
-      display: none;
+    input {
+      min-width: 0;
     }
+  }
+
+  transition: .3s;
+
+  &.hide {
+    height: 0;
+    padding: 0 30px;
   }
 `;

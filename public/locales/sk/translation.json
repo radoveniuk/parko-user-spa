@@ -118,7 +118,7 @@
     "openForm": "Otvoriť formulár",
     "successfullRegister": "Úspešná registrácia! Teraz sa môžete prihlásiť",
     "project": "Projekt",
-    "status": "Status",
+    "status": "Status zamestnanca",
     "resetPassword": "Resetovanie hesla",
     "role": "Role",
     "admin": "Správa používateľov",
@@ -294,7 +294,9 @@
     "permitType": {
       "business": "Podnikanie",
       "study": "Vzdelanie",
-      "work": "Práca"
+      "work": "Práca",
+      "temporaryShelter": "Dočasne útočisko",
+      "familyReunification": "Zlučenie rodiny"
     },
     "study": {
       "base": "Základné",
@@ -522,7 +524,7 @@
   "language": "Jazyk",
   "youNotVerified": "Momentálne nie sú k dispozícii hlavné časti systému aplikácií Parko. Najprv je potrebné vyplniť údaje o sebe v sekcii Profil",
   "next": "Vpred",
-  "Back": "Vzad",
+  "back": "Naspäť",
   "errors": "Chyby pri zadaní údajov:",
   "deleteApprove": "Ste istý?",
   "rowsPerPage": "Množstvo riadkov",
@@ -544,6 +546,7 @@
   "edit": "Upraviť",
   "save": "Uložiť",
   "delete": "Vymazať",
+  "deletePermanent": "Vymazať navždy",
   "date": "Dátum",
   "countries": "Krajíny",
   "addFilter": "Pridať filter",

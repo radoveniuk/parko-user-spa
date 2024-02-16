@@ -54,6 +54,7 @@ export {
   IoLanguageSharp as LanguageIcon,
   IoLocationSharp as LocationIcon,
   IoMenu as MenuIcon,
+  IoWarningOutline as WarningIcon,
 } from 'react-icons/io5';
 export {
   MdOutlineBusiness as BusinessIcon,
@@ -80,3 +81,8 @@ export {
   RiVerifiedBadgeFill as VerifiedIcon,
 } from 'react-icons/ri';
 export { SiMicrosoftexcel as ExcelIcon } from 'react-icons/si';
+export {
+  TbFilterOff as ClearFiltersIcon,
+  TbFilterDown as FilterDownIcon,
+  TbFilterUp as FilterUpIcon,
+} from 'react-icons/tb';

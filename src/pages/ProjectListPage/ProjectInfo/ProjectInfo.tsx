@@ -14,7 +14,7 @@ import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { ArrowUpIcon, CheckAllIcon, DeleteIcon, ExcelIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
 import Dialog from 'components/shared/Dialog';
-import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { ClearFiltersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { FilterDate } from 'components/shared/Filters/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import Menu, { Divider, MenuItem } from 'components/shared/Menu';
@@ -183,7 +183,7 @@ const ProjectInfoRender = ({ data, onDelete }: Props) => {
             filterKey="cooperationTo"
             label={t('project.cooperationTo')}
           />
-          <ClearFiLtersButton />
+          <ClearFiltersButton />
           <div className="table-settings">
             <Select
               label={t('rowsPerPage')}

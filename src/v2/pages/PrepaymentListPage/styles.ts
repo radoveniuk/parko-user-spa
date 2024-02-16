@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { PC, TB } from 'theme/sizeBreakpoints';
 
 export const ProfileListPageWrapper = styled.div`
-  .users-table {
+  .prepayments-table {
     .list-table-cell {
       white-space: nowrap;
     }
@@ -22,18 +22,6 @@ export const ProfileListPageWrapper = styled.div`
       .column-content {
         color: inherit !important;
       }
-    }
-  }
-
-  .table-settings-wrapper {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: relative;
-
-    @media (max-width: ${TB}) {
-      display: none;
     }
   }
 
@@ -129,7 +117,7 @@ export const ProfileListPageWrapper = styled.div`
   }
 
   @media (max-width: ${TB}) {
-    .pagination-bottom, .users-table {
+    .pagination-bottom, .prepayments-table {
       display: none;
     }
   }

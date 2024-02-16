@@ -11,7 +11,7 @@ import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import { ArrowUpIcon, CloseIcon, EditIcon, PlusIcon } from 'components/icons';
 import DialogConfirm from 'components/shared/DialogConfirm';
-import { ClearFiLtersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { ClearFiltersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { FilterDate, FilterSelect } from 'components/shared/Filters/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { PageActions } from 'components/shared/PageComponents';
@@ -121,7 +121,7 @@ const PrepaymentsListPageRender = () => {
         />
         <FilterDate filterKey="firstDate" label={t('firstDate')} />
         <FilterDate filterKey="lastDate" label={t('lastDate')} />
-        <ClearFiLtersButton />
+        <ClearFiltersButton />
       </FiltersBar>
       <ListTable
         columns={COLS}

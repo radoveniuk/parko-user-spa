@@ -51,7 +51,7 @@ const ClientListPageRender = () => {
             prefixIcon={<SearchIcon className="search-icon"/>}
             className="filter-name"
             limitTags={1}
-            placeholder={t('search')}
+            label={t('search')}
           />
         </FilterTableWrapper>
         <div className="mobile-list">

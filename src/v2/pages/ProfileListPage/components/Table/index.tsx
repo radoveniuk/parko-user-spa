@@ -11,7 +11,7 @@ import Skeleton from 'v2/uikit/Skeleton';
 
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
-import { ArrowUpIcon, SettingsIcon } from 'components/icons';
+import { ArrowUpIcon, FilterDownIcon, FilterUpIcon, SettingsIcon } from 'components/icons';
 import { useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { iterateMap } from 'helpers/iterateMap';
@@ -22,6 +22,7 @@ import { Path } from 'interfaces/base.types';
 import { ICustomFormField } from 'interfaces/form.interface';
 import { IUser } from 'interfaces/users.interface';
 
+import { useFilterBarVisibility } from '../../contexts/FilterBarVisibilityContext';
 import ProfileRow from '../ProfileRow';
 import SettingsTable from '../SettingsTable';
 
@@ -59,6 +60,7 @@ const Table = ({
   const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
   const updateUserMutation = useUpdateUserMutation();
   const { data: projects = [] } = useGetProjects();
+  const [filterBarVisibility, setFilterBarVisibility] = useFilterBarVisibility();
 
   const toggleSorting = (userKey: keyof IUser) => {
     let sortingValue: Path<IUser> | ((v: IUser) => any) = userKey;
@@ -138,7 +140,7 @@ const Table = ({
       </FixedSizeList>
       <ListTable
         columns={[...allCols, '']}
-        className="users-table"
+        className={`users-table ${!filterBarVisibility ? 'expand' : ''}`}
         columnComponent={(col, index) => {
           if (col) {
             return (
@@ -168,11 +170,16 @@ const Table = ({
 
           if (!col && index !== 0) {
             return (
-              <div className="table-settings-wrapper">
-                <IconButton onClick={() => void setOpenColsSettings((prev) => !prev)} aria-label="toggle table columns">
-                  <SettingsIcon />
-                </IconButton>
-              </div>
+              <>
+                <div className="table-settings-wrapper">
+                  <IconButton onClick={() => void setFilterBarVisibility((prev) => !prev)} aria-label="toggle filters">
+                    {filterBarVisibility ? <FilterUpIcon /> : <FilterDownIcon />}
+                  </IconButton>
+                  <IconButton onClick={() => void setOpenColsSettings((prev) => !prev)} aria-label="toggle table columns">
+                    <SettingsIcon />
+                  </IconButton>
+                </div>
+              </>
             );
           }
         }}
