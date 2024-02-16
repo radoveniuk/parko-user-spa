@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import pick from 'lodash-es/pick';
 import { Button } from 'v2/uikit';
 import BreadCrumbs from 'v2/uikit/BreadCrumbs';
-import DialogConfirm from 'v2/uikit/DialogConfirm';
+import Dialog, { DialogActions } from 'v2/uikit/Dialog';
 import Loader, { FullPageLoaderWrapper } from 'v2/uikit/Loader';
 import { TabPanel, TabsContainer, useTabs } from 'v2/uikit/Tabs';
 
@@ -25,7 +25,7 @@ import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetResidences } from 'api/query/residenceQuery';
 import { useGetUser } from 'api/query/userQuery';
-import { DeleteIcon, PlusIcon } from 'components/icons';
+import { DeleteIcon, PlusIcon, WarningIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { IPaycheck } from 'interfaces/paycheck.interface';
 import { IProject } from 'interfaces/project.interface';
@@ -291,22 +291,59 @@ const ProfileAdminPageRender = () => {
           </TabPanel>
         </ContentWrapper>
       </div>
-      <DialogConfirm
-        open={openDeleteDialog}
-        onClose={() => void setOpenDeleteDialog(false)}
-        onSubmit={async () => {
-          await deleteUserMutation.mutateAsync(userId as string);
-          navigate('/profiles');
-        }}
-      />
+      <Dialog color="rgb(237, 108, 2)" title={t('user.delete')} open={openDeleteDialog} onClose={() => void setOpenDeleteDialog(false)}>
+        <div style={{ paddingRight: 8, marginBottom: 12 }}>
+          <Trans
+            t={t}
+            i18nKey="user.approveRemoving"
+            values={{
+              user: `${profileData?.name} ${profileData?.surname}`,
+            }}
+            components={{
+              b: <strong />,
+            }}
+          />
+        </div>
+        <DialogActions>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setOpenDeleteDialog(false);
+            }}
+          >
+            {t('back')}
+          </Button>
+          <Button
+            color="warning"
+            variant="outlined"
+            onClick={async () => {
+              await updateUser({ isDeleted: true });
+              navigate('/profiles');
+            }}
+          >
+            {t('delete')}
+          </Button>
+          <Button
+            color="error"
+            variant="outlined"
+            onClick={async () => {
+              await deleteUserMutation.mutateAsync(userId as string);
+              navigate('/profiles');
+            }}
+          >
+            <WarningIcon />
+            {t('deletePermanent')}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </ProfileAdminPageWrapper>
   );
 };
 
 const ProfileAdminPage = () => {
-  const { id: userId } = useParams();
+  const { id } = useParams();
   return (
-    <TabsContainer key={userId}>
+    <TabsContainer key={id}>
       <ProfileAdminPageRender />
     </TabsContainer>
   );

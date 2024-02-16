@@ -14,7 +14,7 @@ export const TableWrapper = styled.div`
     position: relative;
 
     &.expand {
-      max-height: calc(100vh - 230px);
+      max-height: calc(100vh - 223px);
     }
 
     @media (max-width: ${TB}) {

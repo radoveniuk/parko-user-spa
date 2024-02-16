@@ -3,9 +3,14 @@ import { useTranslation } from 'react-i18next';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
+import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import { SearchIcon } from 'components/icons';
-import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { FilterAutocomplete, FilterSelect, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { ClearFiltersButton, FilterDate } from 'components/shared/Filters/Filters';
+import { PREPAYMENT_STATUS } from 'constants/selectsOptions';
+import { USER_STATUSES } from 'constants/statuses';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 
 import HeaderTable from './components/HeaderTable';
 import MobilePrepaymentCard from './components/MobilePrepaymentCard';
@@ -34,6 +39,9 @@ const PrepaymentListPageRender = () => {
   // table content
   const { data = [], remove, refetch, isFetching, isLoading } = useGetPrepayments(debouncedFiltersState, { enabled: false });
   const { data: users = [] } = useGetUserListForFilter();
+  const { data: projects = [] } = useGetProjects();
+  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
+  const translatedPrepaymentStatuses = useTranslatedSelect(PREPAYMENT_STATUS, 'prepaymentStatus');
 
   useEffect(() => {
     refetch();
@@ -58,8 +66,31 @@ const PrepaymentListPageRender = () => {
             prefixIcon={<SearchIcon className="search-icon"/>}
             className="filter-name"
             limitTags={1}
-            placeholder={t('search')}
+            label={t('prepayment.user')}
           />
+          <FilterAutocomplete
+            multiple
+            filterKey="projects"
+            label={t('user.project')}
+            options={projects}
+            labelKey="name"
+          />
+          <FilterAutocomplete
+            multiple
+            filterKey="userStatuses"
+            label={t('user.status')}
+            options={translatedStatuses}
+            labelKey="label"
+          />
+          <FilterSelect
+            filterKey="status"
+            label={t('prepayment.status')}
+            options={translatedPrepaymentStatuses}
+            emptyItem="noSelected"
+          />
+          <FilterDate filterKey="firstDate" label={t('firstDate')} />
+          <FilterDate filterKey="lastDate" label={t('lastDate')} />
+          <ClearFiltersButton />
         </FilterTableWrapper>
         <div className="mobile-list">
           {data.map((prepayment) => (

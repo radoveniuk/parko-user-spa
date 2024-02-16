@@ -4,6 +4,8 @@ export const PERMIT_TYPES = [
   'business',
   'study',
   'work',
+  'temporaryShelter',
+  'familyReunification',
 ];
 
 export const FAMILY_STATUSES = [

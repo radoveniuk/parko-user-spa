@@ -295,7 +295,9 @@
     "permitType": {
       "business": "Бизнес",
       "study": "Образование",
-      "work": "Работа"
+      "work": "Работа",
+      "temporaryShelter": "Временное убежище",
+      "familyReunification": "Воссоединение семьи"
     },
     "study": {
       "base": "Общее",
@@ -560,6 +562,7 @@
   "edit": "Редактировать",
   "save": "Сохранить",
   "delete": "Удалить",
+  "deletePermanent": "Удалить навсегда",
   "date": "Дата",
   "countries": "Страны",
   "addFilter": "Добавить фильтр",

@@ -2,7 +2,7 @@
   "name": "parko-user-client",
   "author": "Bohdan Radoveniuk",
   "version": "5.0.3",
-  "private": false,
+  "private": true,
   "dependencies": {
     "@date-io/luxon": "^2.16.0",
     "@emotion/react": "^11.9.0",

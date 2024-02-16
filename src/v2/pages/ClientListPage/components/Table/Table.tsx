@@ -57,7 +57,7 @@ const Table = ({
     <TableWrapper>
       <ListTable
         columns={allCols}
-        className="users-table"
+        className="clients-table"
         columnComponent={(col, index) => {
           if (col) {
             return (

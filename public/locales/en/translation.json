@@ -118,7 +118,7 @@
     "openForm": "Open form",
     "successfullRegister": "Registration was successfull, you can login now !",
     "project": "Project",
-    "status": "Status",
+    "status": "User status",
     "resetPassword": "Reset password",
     "role": "Role",
     "admin": "User administration",
@@ -296,7 +296,9 @@
     "permitType": {
       "business": "Business",
       "study": "Study",
-      "work": "Work"
+      "work": "Work",
+      "temporaryShelter": "Temporary shelter",
+      "familyReunification": "Family reunification"
     },
     "study": {
       "base": "Primary",
@@ -561,6 +563,7 @@
   "edit": "Edit",
   "save": "Save",
   "delete": "Delete",
+  "deletePermanent": "Delete forever",
   "date": "Date",
   "countries": "Countries",
   "addFilter": "Add filter",
