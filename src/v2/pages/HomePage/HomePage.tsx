@@ -133,7 +133,7 @@ const HomePage = () => {
                           <TableRow>
                             <TableCell>{t('prepayment.user')}</TableCell>
                             <TableCell>{t('prepayment.sum')}</TableCell>
-                            <TableCell>{t('project.status')}</TableCell>
+                            <TableCell>{t('prepayment.status')}</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
@@ -143,7 +143,9 @@ const HomePage = () => {
                                 <Link to={`/profile/${prepayment.user._id}`}>{prepayment.user.name} {prepayment.user.surname}</Link>
                               </TableCell>
                               <TableCell>{Number(prepayment.sum).toFixed(2)}€</TableCell>
-                              <TableCell>{t(`selects.prepaymentStatus.${prepayment.status}`)}</TableCell>
+                              <TableCell>
+                                <StatusLabel className={prepayment.status}>{t(`selects.prepaymentStatus.${prepayment.status}`)}</StatusLabel>
+                              </TableCell>
                             </TableRow>
                           ))}
                         </TableBody>
