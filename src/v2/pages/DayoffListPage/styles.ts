@@ -143,10 +143,7 @@ export const FilterTableWrapper = styled.div`
     padding: 0;
   }
 
-  .filter-chip {
-    height: 36px;
-    @media (max-width: ${TB}) {
-      display: none;;
-    }
+  @media (max-width: ${TB}) {
+    display: none;
   }
 `;
