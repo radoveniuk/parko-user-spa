@@ -139,14 +139,8 @@ export const FilterTableWrapper = styled.div`
   border-bottom: 1px solid #e9e9e9;
   gap: 10px;
   padding: 14px 30px;
-  @media (max-width: ${TB}) {
-    padding: 0;
-  }
 
-  .filter-chip {
-    height: 36px;
-    @media (max-width: ${TB}) {
-      display: none;;
-    }
-  }
+@media (max-width: ${TB}) {
+  display: none;
+}
 `;
