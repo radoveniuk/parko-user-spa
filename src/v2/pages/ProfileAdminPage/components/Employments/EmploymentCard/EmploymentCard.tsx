@@ -422,7 +422,6 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
           data={data.changes || []}
           onSave={(changes) => {
             setOpenCustomSettings(false);
-            setValue('status', dialogStatus);
             onChange({ changes });
           }}
         />
