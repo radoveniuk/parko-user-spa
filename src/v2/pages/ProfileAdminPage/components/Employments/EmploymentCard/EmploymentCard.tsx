@@ -9,6 +9,7 @@ import { BROKERS } from 'v2/constants/brokers';
 import { getProjectType, PROJECT_TYPES } from 'v2/constants/projectType';
 import { Button, Checkbox, Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
+import Dialog from 'v2/uikit/Dialog';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import { FormCard, FormCardBody, FormCardBodyRow, FormCardHeader } from 'v2/uikit/FormCard';
 import IconButton from 'v2/uikit/IconButton';
@@ -24,7 +25,7 @@ import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 
-import CustomProjectSettingsDialog from './CustomProjectSettingsDialog';
+import CustomProjectSettingsDataGrid from './CustomProjectSettingsDataGrid';
 import { EmploymentCardTitleWrapper, EmploymentCardWrapper, FormCardContent } from './styles';
 
 const EMPLOYER_FIRST_LABEL_MAP = {
@@ -411,15 +412,21 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
           }
         }}
       />
-      <CustomProjectSettingsDialog
+      <Dialog
+        fullScreen
         open={openCustomSettings}
         onClose={() => void setOpenCustomSettings(false)}
-        defaultValues={data.changes}
-        onSubmit={(changes) => {
-          setOpenCustomSettings(false);
-          onChange({ changes });
-        }}
-      />
+        title="Employment changes"
+      >
+        <CustomProjectSettingsDataGrid
+          data={data.changes || []}
+          onSave={(changes) => {
+            setOpenCustomSettings(false);
+            setValue('status', dialogStatus);
+            onChange({ changes });
+          }}
+        />
+      </Dialog>
     </FormCardContent>
   );
 };

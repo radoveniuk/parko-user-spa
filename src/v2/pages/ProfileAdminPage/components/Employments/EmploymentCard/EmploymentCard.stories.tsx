@@ -37,9 +37,7 @@ export const Example: Story = {
       isNonTaxablePart: true,
       isChildTaxBonus: false,
       status: 'hired',
-      changes: {
-        employmentType: 'partTime',
-      },
+      changes: [],
       createdBy: {
         _id: '6548ee1529af3e28b09d03f8',
         name: 'Bohdan',

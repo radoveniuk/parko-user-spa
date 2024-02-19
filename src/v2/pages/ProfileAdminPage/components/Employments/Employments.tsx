@@ -40,6 +40,10 @@ const Employments = ({ data }: Props) => {
         if (values.status === 'canceled' && !otherEmployments.some((employment) => employment.status === 'hired')) {
           updateCachedUserData({ status: 'candidate' });
         }
+        queryClient.setQueryData(
+          ['employments', JSON.stringify({ user: userId })],
+          data.map((itemToUpdate) => itemToUpdate._id === item._id ? { ...item, ...values } : itemToUpdate),
+        );
       }}
       onDelete={() => {
         deleteEmployment.mutate(item._id);

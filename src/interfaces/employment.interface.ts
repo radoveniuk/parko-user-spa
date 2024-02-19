@@ -15,10 +15,19 @@ export interface IEmployment {
   isNonTaxablePart: boolean;
   isChildTaxBonus: boolean;
   status?: 'hired' | 'fired' | 'canceled';
-  changes: Partial<ProjectPosition>;
+  changes: ProjectPositionChange[];
   history?: MongoHistory<IEmployment>[];
   createdBy: string | Partial<IUser> | null;
   updatedBy: string | Partial<IUser> | null;
   createdAt?: string;
   updatedAt?: string;
 }
+
+export type ProjectPositionChange = {
+  type: keyof ProjectPosition | null;
+  data: any;
+  dateFrom: string;
+  createdBy: string;
+  createdAt: string;
+  matterId: string;
+};

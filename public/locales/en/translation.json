@@ -580,6 +580,7 @@
   "unsavedChangesWarn": "You have unsaved changes. If you do not save them, they may be lost.",
   "searchHistory": "Search history",
   "fileDeletedSuccess": "File has been deleted",
+  "cancel": "Cancel",
   "profilesPage": {
     "status": "User statuses",
     "organization": "Organizations",

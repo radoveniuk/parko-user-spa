@@ -564,6 +564,7 @@
   "unsavedChangesWarn": "Máte neuložené zmeny. Ak ich neuložíte, môžu byť stratené.",
   "searchHistory": "História",
   "fileDeletedSuccess": "Dokument bol úspešne odstránený",
+  "cancel": "Storno",
   "profilesPage": {
     "status": "Používateľské stavy",
     "organization": "Organizácie",

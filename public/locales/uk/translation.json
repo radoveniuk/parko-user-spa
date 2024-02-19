@@ -578,6 +578,7 @@
   "unsavedChangesWarn": "У вас є незбережені зміни. Якщо ви їх не збережете, вони можуть бути втрачені.",
   "searchHistory": "Історія пошуку",
   "fileDeletedSuccess": "Файл видалено",
+  "cancel": "Скасувати",
   "profilesPage": {
     "status": "Статуси користувачів",
     "organization": "Організації",
