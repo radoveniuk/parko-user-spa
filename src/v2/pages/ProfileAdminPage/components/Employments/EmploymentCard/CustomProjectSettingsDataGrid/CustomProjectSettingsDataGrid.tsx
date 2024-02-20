@@ -41,6 +41,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
       field: (
         <Input
           theme="gray"
+          label={t('user.employmentChangeData')}
           className="border-right"
           disabled={disabled}
           {...register('data')}
@@ -52,6 +53,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
       field: (
         <Input
           theme="gray"
+          label={t('user.employmentChangeData')}
           className="border-right"
           disabled={disabled}
           {...register('data')}
@@ -64,6 +66,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
         <Input
           theme="gray"
           type="number"
+          label={t('user.employmentChangeData')}
           className="border-right"
           disabled={disabled}
           {...register('data')}
@@ -76,6 +79,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
         <Input
           theme="gray"
           className="border-right"
+          label={t('user.employmentChangeData')}
           disabled={disabled}
           {...register('data')}
         />
@@ -86,6 +90,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
       field: (
         <Select
           defaultValue={data.data}
+          label={t('user.employmentChangeData')}
           theme="gray"
           options={employmentTypeOptions}
           disabled={disabled}
@@ -102,6 +107,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
           type="number"
           className="border-right"
           disabled={disabled}
+          label={t('user.employmentChangeData')}
           {...register('data')}
         />
       ),
@@ -113,6 +119,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
           theme="gray"
           className="border-right"
           disabled={disabled}
+          label={t('user.employmentChangeData')}
           {...register('data')}
         />
       ),
@@ -126,6 +133,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
           className="border-right"
           defaultValue={data.data}
           disabled={disabled}
+          label={t('user.employmentChangeData')}
           {...register('data')}
         />
       ),
@@ -137,6 +145,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
           theme="gray"
           className="border-right"
           disabled={disabled}
+          label={t('user.employmentChangeData')}
           {...register('data')}
         />
       ),
@@ -148,6 +157,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
           theme="gray"
           className="border-right"
           disabled={disabled}
+          label={t('user.employmentChangeData')}
           {...register('data')}
         />
       ),
@@ -159,6 +169,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
           theme="gray"
           className="border-right"
           disabled={disabled}
+          label={t('user.employmentChangeData')}
           {...register('data')}
         />
       ),
@@ -186,7 +197,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
   }, [settingData, settingDateFrom, settingType]);
 
   return (
-    <>
+    <div className="row">
       <div className="cell">
         <Select
           options={settingsOptions}
@@ -195,6 +206,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
           defaultValue={data.type}
           theme="gray"
           className="border-right"
+          label={t('user.employmentChangeType')}
           {...register('type', {
             onChange () {
               setValue('data', null);
@@ -214,6 +226,7 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
           render={({ field }) => (
             <DatePicker
               defaultValue={field.value as string}
+              label={t('user.employmentChangeDateFrom')}
               onChange={field.onChange}
               inputProps={{ theme: 'gray' }}
               className="border-right"
@@ -223,13 +236,13 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
         />
       </div>
       <div className="cell">
-        <Input className="border-right" disabled value={data.createdBy}/>
+        <Input className="border-right" label={t('user.employmentChangeCreatedBy')} disabled value={data.createdBy}/>
       </div>
       <div className="cell">
-        <Input disabled value={getDateFromIso(data.createdAt, 'dd.MM.yyyy hh:mm')}/>
+        <Input label={t('user.employmentChangeCreatedAt')} disabled value={getDateFromIso(data.createdAt, 'dd.MM.yyyy hh:mm')}/>
         <IconButton className="delete-btn" disabled={disabled} onClick={() => void onDelete()}><DeleteIcon size={16} /></IconButton>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -249,11 +262,13 @@ const CustomProjectSettingsDataGrid = ({ data, onSave }: Props) => {
   return (
     <CustomProjectSettingsDataGridWrapper>
       <div className="grid">
-        <div className="cell header">{t('user.employmentChangeType')}</div>
-        <div className="cell header">{t('user.employmentChangeData')}</div>
-        <div className="cell header">{t('user.employmentChangeDateFrom')}</div>
-        <div className="cell header">{t('user.employmentChangeCreatedBy')}</div>
-        <div className="cell header">{t('user.employmentChangeCreatedAt')}</div>
+        <div className="row">
+          <div className="cell header">{t('user.employmentChangeType')}</div>
+          <div className="cell header">{t('user.employmentChangeData')}</div>
+          <div className="cell header">{t('user.employmentChangeDateFrom')}</div>
+          <div className="cell header">{t('user.employmentChangeCreatedBy')}</div>
+          <div className="cell header">{t('user.employmentChangeCreatedAt')}</div>
+        </div>
         {settings.map((item) => (
           <CustomProjectSettingsDataGridRow
             key={item.matterId}
