@@ -3,8 +3,10 @@ import { I18nextProvider } from 'react-i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import type { Meta, StoryObj } from '@storybook/react';
 import i18n from 'i18n';
+import { SnackbarProvider } from 'notistack';
 
 import { SB_MOCK_USER } from 'constants/storybookData';
+import AuthProvider from 'contexts/AuthContext';
 
 import EmploymentCard from './EmploymentCard';
 
@@ -37,7 +39,24 @@ export const Example: Story = {
       isNonTaxablePart: true,
       isChildTaxBonus: false,
       status: 'hired',
-      changes: [],
+      changes: [
+        {
+          type: 'salary',
+          data: '1000',
+          createdBy: 'Andrii Fedorenko',
+          dateFrom: '2024-01-01',
+          createdAt: '2021-09-01T14:35:00.000+02:00',
+          matterId: '245342',
+        },
+        {
+          type: 'salaryType',
+          data: 'mes.',
+          createdBy: 'Andrii Fedorenko',
+          dateFrom: '2024-01-01',
+          createdAt: '2021-09-01T14:35:00.000+02:00',
+          matterId: '245341',
+        },
+      ],
       createdBy: {
         _id: '6548ee1529af3e28b09d03f8',
         name: 'Bohdan',
@@ -121,7 +140,11 @@ export const Example: Story = {
   render: (args) => (
     <QueryClientProvider client={queryClient}>
       <I18nextProvider i18n={i18n}>
-        <EmploymentCard {...args} />
+        <SnackbarProvider maxSnack={1}>
+          <AuthProvider>
+            <EmploymentCard {...args} />
+          </AuthProvider>
+        </SnackbarProvider>
       </I18nextProvider>
     </QueryClientProvider>
   ),

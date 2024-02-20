@@ -219,7 +219,13 @@
       "dateFrom": "Občiansky preukaz > Dátum od", 
       "dateTo": "Občiansky preukaz > Dátum do",
       "country": "Občiansky preukaz > Krajina"
-    }
+    },
+    "employmentChanges": "Zmeny v zamestnaní",
+    "employmentChangeType": "Typ",
+    "employmentChangeData": "Údaje",
+    "employmentChangeDateFrom": "Dátum od",
+    "employmentChangeCreatedBy": "Vytvoril",
+    "employmentChangeCreatedAt": "Vytvorené o"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",

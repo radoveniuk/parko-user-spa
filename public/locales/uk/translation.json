@@ -221,7 +221,13 @@
       "dateFrom": "Паспорт > Дата від", 
       "dateTo": "Паспорт > Дата до",
       "country": "Паспорт > Країна"
-    }
+    },
+    "employmentChanges": "Зміни у співпраці",
+    "employmentChangeType": "Тип",
+    "employmentChangeData": "Дані",
+    "employmentChangeDateFrom": "Діє від",
+    "employmentChangeCreatedBy": "Створив",
+    "employmentChangeCreatedAt": "Дата створення"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",

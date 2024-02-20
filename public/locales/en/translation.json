@@ -222,7 +222,13 @@
       "dateFrom": "ID card > Date from", 
       "dateTo": "ID card > Date to",
       "country": "ID card > Country"
-    }
+    },
+    "employmentChanges": "Employment's changes",
+    "employmentChangeType": "Type",
+    "employmentChangeData": "Data",
+    "employmentChangeDateFrom": "Date from",
+    "employmentChangeCreatedBy": "Created by",
+    "employmentChangeCreatedAt": "Created at"
   },
   "userHistory": {
     "updatedBy": "Updated by",

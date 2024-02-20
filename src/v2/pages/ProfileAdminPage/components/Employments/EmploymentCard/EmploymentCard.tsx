@@ -416,7 +416,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
         fullScreen
         open={openCustomSettings}
         onClose={() => void setOpenCustomSettings(false)}
-        title="Employment changes"
+        title={t('user.employmentChanges')}
       >
         <CustomProjectSettingsDataGrid
           data={data.changes || []}

@@ -15,22 +15,14 @@ import createId from 'helpers/createId';
 import { getDateFromIso } from 'helpers/datetime';
 import useListState from 'hooks/useListState';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { ProjectPositionChange } from 'interfaces/employment.interface';
 import { ProjectPosition } from 'interfaces/project.interface';
 
 import { CustomProjectSettingsDataGridWrapper } from './styles';
 
-interface ICustomSetting {
-  type: keyof ProjectPosition | null;
-  data: any;
-  dateFrom: string;
-  createdBy: string;
-  createdAt: string;
-  matterId: string;
-};
-
 type CustomProjectSettingsDataGridRowProps = {
-  data: ICustomSetting;
-  onChange(data: ICustomSetting): void;
+  data: ProjectPositionChange;
+  onChange(data: ProjectPositionChange): void;
   onDelete(): void;
   disabledForRecruiter: boolean;
 };
@@ -242,8 +234,8 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
 };
 
 type Props = {
-  data: ICustomSetting[];
-  onSave(values: ICustomSetting[]): void;
+  data: ProjectPositionChange[];
+  onSave(values: ProjectPositionChange[]): void;
 };
 
 const CustomProjectSettingsDataGrid = ({ data, onSave }: Props) => {
@@ -257,11 +249,11 @@ const CustomProjectSettingsDataGrid = ({ data, onSave }: Props) => {
   return (
     <CustomProjectSettingsDataGridWrapper>
       <div className="grid">
-        <div className="cell header">Type</div>
-        <div className="cell header">Data</div>
-        <div className="cell header">Date from</div>
-        <div className="cell header">Created by</div>
-        <div className="cell header">Created at</div>
+        <div className="cell header">{t('user.employmentChangeType')}</div>
+        <div className="cell header">{t('user.employmentChangeData')}</div>
+        <div className="cell header">{t('user.employmentChangeDateFrom')}</div>
+        <div className="cell header">{t('user.employmentChangeCreatedBy')}</div>
+        <div className="cell header">{t('user.employmentChangeCreatedAt')}</div>
         {settings.map((item) => (
           <CustomProjectSettingsDataGridRow
             key={item.matterId}

@@ -221,7 +221,13 @@
       "dateFrom": "Паспорт > Дата с", 
       "dateTo": "Паспорт > Дата по",
       "country": "Паспорт > Страна"
-    }
+    },
+    "employmentChanges": "Изменения в трудоустройстве",
+    "employmentChangeType": "Тип изменения",
+    "employmentChangeData": "Данные",
+    "employmentChangeDateFrom": "Действительно от",
+    "employmentChangeCreatedBy": "Создал",
+    "employmentChangeCreatedAt": "Дата создания"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",
