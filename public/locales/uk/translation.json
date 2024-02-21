@@ -221,7 +221,13 @@
       "dateFrom": "Паспорт > Дата від", 
       "dateTo": "Паспорт > Дата до",
       "country": "Паспорт > Країна"
-    }
+    },
+    "employmentChanges": "Зміни у співпраці",
+    "employmentChangeType": "Тип",
+    "employmentChangeData": "Дані",
+    "employmentChangeDateFrom": "Діє від",
+    "employmentChangeCreatedBy": "Створив",
+    "employmentChangeCreatedAt": "Дата створення"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",
@@ -578,6 +584,7 @@
   "unsavedChangesWarn": "У вас є незбережені зміни. Якщо ви їх не збережете, вони можуть бути втрачені.",
   "searchHistory": "Історія пошуку",
   "fileDeletedSuccess": "Файл видалено",
+  "cancel": "Скасувати",
   "profilesPage": {
     "status": "Статуси користувачів",
     "organization": "Організації",

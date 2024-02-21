@@ -210,7 +210,7 @@
       "dateFrom": "Povolenie na pobyt > Dátum od", 
       "dateTo": "Povolenie na pobyt > Dátum do",
       "address": "Povolenie na pobyt > Adresa",
-      "isMedicalCheck": "Povolenie na pobyt > Lekársky prehliadka?",
+      "isMedicalCheck": "Povolenie na pobyt > Lekárska prehliadka?",
       "goal": "Povolenie na pobyt > Cieľ"
     },
     "idcard": {
@@ -219,7 +219,13 @@
       "dateFrom": "Občiansky preukaz > Dátum od", 
       "dateTo": "Občiansky preukaz > Dátum do",
       "country": "Občiansky preukaz > Krajina"
-    }
+    },
+    "employmentChanges": "Zmeny v zamestnaní",
+    "employmentChangeType": "Typ",
+    "employmentChangeData": "Údaje",
+    "employmentChangeDateFrom": "Dátum od",
+    "employmentChangeCreatedBy": "Vytvoril",
+    "employmentChangeCreatedAt": "Vytvorené o"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",
@@ -564,6 +570,7 @@
   "unsavedChangesWarn": "Máte neuložené zmeny. Ak ich neuložíte, môžu byť stratené.",
   "searchHistory": "História",
   "fileDeletedSuccess": "Dokument bol úspešne odstránený",
+  "cancel": "Storno",
   "profilesPage": {
     "status": "Používateľské stavy",
     "organization": "Organizácie",

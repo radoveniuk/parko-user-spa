@@ -2,6 +2,7 @@ import React, { memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
+import cloneDeep from 'lodash-es/cloneDeep';
 import pick from 'lodash-es/pick';
 import set from 'lodash-es/set';
 import ProfileFormDialog from 'v2/components/ProfileFormDialog';
@@ -12,7 +13,7 @@ import Skeleton from 'v2/uikit/Skeleton';
 
 import { useCreateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
-import { ArrowDownIcon, FilterIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
+import { ArrowDownIcon, ExcelIcon, FilterIcon, PlusIcon, ThreeDotsIcon, UploadIcon } from 'components/icons';
 import { FilterAutocomplete, useFilters } from 'components/shared/Filters';
 import { USER_STATUSES } from 'constants/statuses';
 import { DEFAULT_PASS } from 'constants/user';
@@ -44,9 +45,9 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
 
   const colsToExport = useMemo(() => {
-    const result = activeCols.map((col: any) => {
+    const result = activeCols.map((col) => {
       if (isMongoId(col)) {
-        const customField = customFields.find((item: any) => item._id === col);
+        const customField = customFields.find((item: AnyObject) => item._id === col);
         return customField?.names[i18n.language] || col;
       }
       return col.replace('user.', '');
@@ -54,32 +55,57 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
     return ['name', ...result];
   }, [activeCols, customFields, i18n.language]);
 
-  const usersToExport = useMemo(() => selectedItems.map((item: any) => {
-    let newItem: AnyObject = { ...item };
-    Object.keys(item).forEach((userKey) => {
+  const usersToExport = useMemo(() => selectedItems.map((item: AnyObject) => {
+    let newItem: AnyObject = cloneDeep(item);
+
+    const visa = newItem.docs.find((doc: AnyObject) => doc.type === 'visa');
+    set(visa, 'dateFrom', getDateFromIso(visa?.dateFrom));
+    set(visa, 'dateTo', getDateFromIso(visa?.dateTo));
+
+    const permit = newItem.docs.find((doc: AnyObject) => doc.type === 'permit');
+    set(permit, 'dateFrom', getDateFromIso(permit?.dateFrom));
+    set(permit, 'dateTo', getDateFromIso(permit?.dateTo));
+    set(permit, 'goal', permit?.goal ? t(`selects.permitType.${permit.goal}`) : '');
+    set(permit, 'isMedicalCheck', typeof permit?.isMedicalCheck === 'boolean' ? t(permit?.isMedicalCheck.toString()) : '');
+
+    const idcard = newItem.docs.find((doc: AnyObject) => doc.type === 'idcard');
+    set(idcard, 'dateFrom', getDateFromIso(idcard?.dateFrom));
+    set(idcard, 'dateTo', getDateFromIso(idcard?.dateTo));
+
+    const pass = newItem.docs.find((doc: AnyObject) => doc.type === 'pass');
+    set(pass, 'dateFrom', getDateFromIso(pass?.dateFrom));
+    set(pass, 'dateTo', getDateFromIso(pass?.dateTo));
+
+    set(newItem, 'visa', visa);
+    set(newItem, 'permit', permit);
+    set(newItem, 'idcard', idcard);
+    set(newItem, 'pass', pass);
+
+    Object.keys(newItem).forEach((userKey) => {
       if (userKey === 'name') {
-        newItem = { ...newItem, name: `${item.name} ${item.surname}` };
+        newItem = { ...newItem, name: `${newItem.name} ${newItem.surname}` };
       }
-      if (typeof newItem[userKey] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(newItem[userKey])) {
+      if (typeof newItem[userKey] === 'string' &&
+       (/^\d{4}-\d{2}-\d{2}$/.test(newItem[userKey]) || /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{2}:\d{2}$/.test(newItem[userKey]))) {
         newItem[userKey] = getDateFromIso(newItem[userKey]);
       }
-      if (TRANSLATED_FIELDS.includes(userKey as keyof IUser)) {
-        if (typeof newItem[userKey] === 'boolean') {
-          newItem[userKey] = t(newItem[userKey]);
-        } else if (newItem[userKey]) {
-          if (userKey === 'role') {
-            newItem[userKey] = t(`selects.userRole.${newItem[userKey]}`);
-          }
-          if (userKey === 'status') {
-            newItem[userKey] = t(`selects.userStatus.${newItem[userKey]}`);
-          }
-          if (userKey === 'permitType') {
-            newItem[userKey] = t(`selects.permitType.${newItem[userKey]}`);
-          }
-          if (userKey === 'sex') {
-            newItem[userKey] = t(newItem[userKey]);
-          }
-        }
+      if (typeof newItem[userKey] === 'boolean') {
+        newItem[userKey] = t(newItem[userKey]);
+      }
+      if (userKey === 'role') {
+        newItem[userKey] = t(`selects.userRole.${newItem[userKey]}`);
+      }
+      if (userKey === 'status') {
+        newItem[userKey] = t(`selects.userStatus.${newItem[userKey]}`);
+      }
+      if (userKey === 'permitType') {
+        newItem[userKey] = t(`selects.permitType.${newItem[userKey]}`);
+      }
+      if (userKey === 'sex') {
+        newItem[userKey] = t(newItem[userKey]);
+      }
+      if (userKey === 'familyStatus') {
+        newItem[userKey] = t(`selects.familyStatus.${newItem[userKey]}`);
       }
       if (DYNAMIC_FIELDS.includes(userKey as keyof IUser)) {
         if (userKey === 'project') {
@@ -90,11 +116,6 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
         }
       }
     });
-
-    set(item, 'visa', item.docs.find((doc: any) => doc.type === 'visa'));
-    set(item, 'permit', item.docs.find((doc: any) => doc.type === 'permit'));
-    set(item, 'idcard', item.docs.find((doc: any) => doc.type === 'visa'));
-    set(item, 'pass', item.docs.find((doc: any) => doc.type === 'pass'));
 
     customFields.forEach((customField: any) => {
       const customFieldValue = newItem.customFields?.[customField._id];
@@ -177,11 +198,12 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
             <Divider />
             <Link to="/import-profiles">
               <MenuItem>
+                <UploadIcon style={{ marginRight: 6 }} />
                 {t('user.import')}
               </MenuItem>
             </Link>
-            <MenuItem disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
-              {t('user.export')}
+            <MenuItem style={{ color: '#1e6e43' }} disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
+              <ExcelIcon size={20} style={{ marginRight: 6 }} />{t('user.export')}
             </MenuItem>
           </Menu>
         </Stack>

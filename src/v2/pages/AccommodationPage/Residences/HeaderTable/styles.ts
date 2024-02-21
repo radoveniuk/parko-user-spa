@@ -53,7 +53,7 @@ export const HeaderWrapper = styled.div`
   }
 `;
 
-export const MemuItemContent = styled.div`
+export const MenuItemContent = styled.div`
   display: flex;
   gap: 6px;
   align-items: center;

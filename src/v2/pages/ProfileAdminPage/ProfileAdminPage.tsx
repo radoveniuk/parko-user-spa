@@ -102,7 +102,7 @@ const ProfileAdminPageRender = () => {
       comment: '',
       isNonTaxablePart: false,
       isChildTaxBonus: false,
-      changes: {},
+      changes: [],
     });
     refetchEmplyments();
   };

@@ -10,7 +10,7 @@ import { useAuthData } from 'contexts/AuthContext';
 import { useActiveResidence } from '../../contexts/ResidenceContext';
 import CheckoutDialog from '../../dialogs/CheckoutDialog';
 
-import { HeaderWrapper, MemuItemContent } from './styles';
+import { HeaderWrapper, MenuItemContent } from './styles';
 
 type Props = {
   count: number;
@@ -35,14 +35,14 @@ const HeaderTable = ({ count }: Props) => {
               <>
                 <Menu className="big-btn" isCloseOnMenu>
                   <MenuItem onClick={() => void setOpenResidence(true)}>
-                    <MemuItemContent className="btn"><CheckInIcon size={20}/>Check in</MemuItemContent>
+                    <MenuItemContent className="btn"><CheckInIcon size={20}/>Check in</MenuItemContent>
                   </MenuItem>
                   <MenuItem onClick={() => void setOpenCheckout(true)}>
-                    <MemuItemContent className="btn"><CheckOutIcon size={20}/>Check out</MemuItemContent>
+                    <MenuItemContent className="btn"><CheckOutIcon size={20}/>Check out</MenuItemContent>
                   </MenuItem>
                   <Link to="/export-residences">
                     <MenuItem color="secondary">
-                      <MemuItemContent className="export"><ExcelIcon size={20}/>{t('user.export')}</MemuItemContent>
+                      <MenuItemContent className="export"><ExcelIcon size={20}/>{t('user.export')}</MenuItemContent>
                     </MenuItem>
                   </Link>
                 </Menu>
