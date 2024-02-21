@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { usePapaParse } from 'react-papaparse';
 import xlsx from 'json-as-xlsx';
-import { pick } from 'lodash-es';
+import pick from 'lodash-es/pick';
 import { DateTime } from 'luxon';
 
 import { AnyObject } from 'interfaces/base.types';

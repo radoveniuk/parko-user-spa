@@ -16,7 +16,7 @@ export const EXPORT_USER_FIELDS: (Path<IUser>)[] = [
 export const EXPORT_USER_DOC_FIELDS = [
   'pass.number', 'pass.country', 'pass.dateFrom', 'pass.dateTo', 'pass.issuedBy',
   'visa.number', 'visa.dateFrom', 'visa.dateTo', 'visa.comment',
-  'permit.number', 'permit.goal', 'permit.isMedicalCheck', 'permit.address',
+  'permit.number', 'permit.goal', 'permit.isMedicalCheck', 'permit.address', 'permit.dateFrom', 'permit.dateTo',
   'idcard.number', 'idcard.country', 'idcard.dateFrom', 'idcard.dateTo',
 ];
 

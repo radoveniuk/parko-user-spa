@@ -210,7 +210,7 @@
       "dateFrom": "Povolenie na pobyt > Dátum od", 
       "dateTo": "Povolenie na pobyt > Dátum do",
       "address": "Povolenie na pobyt > Adresa",
-      "isMedicalCheck": "Povolenie na pobyt > Lekársky prehliadka?",
+      "isMedicalCheck": "Povolenie na pobyt > Lekárska prehliadka?",
       "goal": "Povolenie na pobyt > Cieľ"
     },
     "idcard": {
