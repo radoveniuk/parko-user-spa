@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
@@ -25,26 +25,34 @@ type CustomProjectSettingsDataGridRowProps = {
   onChange(data: ProjectPositionChange): void;
   onDelete(): void;
   disabledForRecruiter: boolean;
+  triggerAllFields: boolean;
 };
 
-const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledForRecruiter }: CustomProjectSettingsDataGridRowProps) => {
+const CustomProjectSettingsDataGridRow = ({
+  data, onChange, onDelete, disabledForRecruiter, triggerAllFields,
+}: CustomProjectSettingsDataGridRowProps) => {
   const { role } = useAuthData();
   const disabled = role !== 'admin' && disabledForRecruiter;
-  const { register, watch, control, setValue } = useForm<typeof data>({ defaultValues: data });
+  const { register, watch, control, setValue, trigger, formState: { errors }, clearErrors } = useForm<typeof data>({ defaultValues: data });
 
   const { t } = useTranslation();
 
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
 
+  const dataFieldProps = {
+    theme: 'gray',
+    className: 'border-right',
+    disabled,
+    error: !!errors.data,
+    ...register('data', { required: true, onChange () { clearErrors('data'); } }),
+  } as const;
+
   const SETTINGS_FIELDS_MAP: Partial<Record<keyof ProjectPosition, { field: ReactNode, label: string }>> = {
     address: {
       field: (
         <Input
-          theme="gray"
           label={t('user.employmentChangeData')}
-          className="border-right"
-          disabled={disabled}
-          {...register('data')}
+          {...dataFieldProps}
         />
       ),
       label: 'Miesto výkonu práce',
@@ -52,11 +60,8 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
     internalName: {
       field: (
         <Input
-          theme="gray"
           label={t('user.employmentChangeData')}
-          className="border-right"
-          disabled={disabled}
-          {...register('data')}
+          {...dataFieldProps}
         />
       ),
       label: 'Interný názov',
@@ -64,12 +69,9 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
     ISCO: {
       field: (
         <Input
-          theme="gray"
           type="number"
           label={t('user.employmentChangeData')}
-          className="border-right"
-          disabled={disabled}
-          {...register('data')}
+          {...dataFieldProps}
         />
       ),
       label: 'ISCO',
@@ -77,11 +79,8 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
     name: {
       field: (
         <Input
-          theme="gray"
-          className="border-right"
           label={t('user.employmentChangeData')}
-          disabled={disabled}
-          {...register('data')}
+          {...dataFieldProps}
         />
       ),
       label: 'Názov',
@@ -91,11 +90,8 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
         <Select
           defaultValue={data.data}
           label={t('user.employmentChangeData')}
-          theme="gray"
           options={employmentTypeOptions}
-          disabled={disabled}
-          className="border-right"
-          {...register('data')}
+          {...dataFieldProps}
         />
       ),
       label: t('user.employmentType'),
@@ -103,12 +99,9 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
     variability: {
       field: (
         <Input
-          theme="gray"
           type="number"
-          className="border-right"
-          disabled={disabled}
           label={t('user.employmentChangeData')}
-          {...register('data')}
+          {...dataFieldProps}
         />
       ),
       label: 'Zmennosť',
@@ -116,11 +109,8 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
     salary: {
       field: (
         <Input
-          theme="gray"
-          className="border-right"
-          disabled={disabled}
           label={t('user.employmentChangeData')}
-          {...register('data')}
+          {...dataFieldProps}
         />
       ),
       label: 'Mzda',
@@ -129,12 +119,9 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
       field: (
         <Select
           options={['mes.', 'hod.']}
-          theme="gray"
-          className="border-right"
           defaultValue={data.data}
-          disabled={disabled}
           label={t('user.employmentChangeData')}
-          {...register('data')}
+          {...dataFieldProps}
         />
       ),
       label: 'Typ mzdy',
@@ -142,11 +129,8 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
     workFundH: {
       field: (
         <Input
-          theme="gray"
-          className="border-right"
-          disabled={disabled}
           label={t('user.employmentChangeData')}
-          {...register('data')}
+          {...dataFieldProps}
         />
       ),
       label: 'Pracovný fond hod.',
@@ -154,11 +138,8 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
     workFundD: {
       field: (
         <Input
-          theme="gray"
-          className="border-right"
-          disabled={disabled}
           label={t('user.employmentChangeData')}
-          {...register('data')}
+          {...dataFieldProps}
         />
       ),
       label: 'Pracovný fond dní',
@@ -166,11 +147,8 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
     workFundHW: {
       field: (
         <Input
-          theme="gray"
-          className="border-right"
-          disabled={disabled}
           label={t('user.employmentChangeData')}
-          {...register('data')}
+          {...dataFieldProps}
         />
       ),
       label: 'Pracovný fond hod./t.',
@@ -196,6 +174,12 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settingData, settingDateFrom, settingType]);
 
+  useEffect(() => {
+    if (triggerAllFields) {
+      trigger();
+    }
+  }, [trigger, triggerAllFields]);
+
   return (
     <div className="row">
       <div className="cell">
@@ -204,27 +188,36 @@ const CustomProjectSettingsDataGridRow = ({ data, onChange, onDelete, disabledFo
           valuePath="value"
           labelPath="label"
           defaultValue={data.type}
+          label={t('user.employmentChangeType')}
+          error={!!errors.type}
           theme="gray"
           className="border-right"
-          label={t('user.employmentChangeType')}
           {...register('type', {
             onChange () {
               setValue('data', null);
+              clearErrors('type');
             },
+            required: true,
           })}
-          disabled={disabled}
         />
       </div>
       <div className="cell">
-        {settingType ? SETTINGS_FIELDS_MAP[settingType]?.field : <Input disabled className="border-right" />}
+        {settingType ? SETTINGS_FIELDS_MAP[settingType]?.field : <Input disabled className="border-right" label={t('user.employmentChangeData')} />}
       </div>
       <div className="cell">
         <Controller
           control={control}
           name="dateFrom"
           defaultValue={data.dateFrom || ''}
-          render={({ field }) => (
+          rules={{
+            required: true,
+            onChange () {
+              clearErrors('dateFrom');
+            },
+          }}
+          render={({ field, fieldState }) => (
             <DatePicker
+              error={!!fieldState.error}
               defaultValue={field.value as string}
               label={t('user.employmentChangeDateFrom')}
               onChange={field.onChange}
@@ -258,10 +251,12 @@ const CustomProjectSettingsDataGrid = ({ data, onSave }: Props) => {
   const [settings, settingsActions, setSettings] = useListState(data);
 
   const [isOpenWarn, setIsOpenWarn] = useState(false);
+  const [triggerAll, setTriggerAll] = useState(false);
+  const tableRef = useRef<HTMLDivElement>(null);
 
   return (
     <CustomProjectSettingsDataGridWrapper>
-      <div className="grid">
+      <div className="grid" ref={tableRef}>
         <div className="row">
           <div className="cell header">{t('user.employmentChangeType')}</div>
           <div className="cell header">{t('user.employmentChangeData')}</div>
@@ -276,6 +271,7 @@ const CustomProjectSettingsDataGrid = ({ data, onSave }: Props) => {
             onChange={(v) => void settingsActions.update(item, v)}
             onDelete={() => settingsActions.remove(item)}
             disabledForRecruiter={data.some(dataItem => dataItem.matterId === item.matterId)}
+            triggerAllFields={triggerAll}
           />
         ))}
       </div>
@@ -294,7 +290,25 @@ const CustomProjectSettingsDataGrid = ({ data, onSave }: Props) => {
       </Button>
       <div className="actions">
         <Button variant="outlined" onClick={() => void setSettings(data)}>{t('cancel')}</Button>
-        <Button variant="outlined" color="warning" onClick={() => void setIsOpenWarn(true)}>{t('save')}</Button>
+        <Button
+          variant="outlined"
+          color="warning"
+          onClick={() => {
+            setTriggerAll(true);
+            setTimeout(() => {
+              const formCardEl = tableRef.current;
+              if (formCardEl) {
+                const errorFields = formCardEl.querySelectorAll('.error');
+                if (!errorFields.length) {
+                  setIsOpenWarn(true);
+                }
+              }
+              setTriggerAll(false);
+            }, 100);
+          }}
+        >
+          {t('save')}
+        </Button>
       </div>
       <DialogConfirm
         onClose={() => void setIsOpenWarn(false)}

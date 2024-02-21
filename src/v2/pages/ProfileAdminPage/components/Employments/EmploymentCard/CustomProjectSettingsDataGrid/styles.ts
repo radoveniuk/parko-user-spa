@@ -79,7 +79,7 @@ export const CustomProjectSettingsDataGridWrapper = styled.div`
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
           }
-          .MuiInputBase-root:not(.Mui-focused) {
+          .MuiInputBase-root:not(.Mui-focused):not(.Mui-error) {
             fieldset {
               border-bottom-color: transparent;
             }
@@ -105,7 +105,7 @@ export const CustomProjectSettingsDataGridWrapper = styled.div`
             display: none;
           }
     
-          .border-right:not(:has(.Mui-focused)):not(.Mui-focused):not(:hover) {
+          .border-right:not(:has(.Mui-focused)):not(.Mui-focused):not(:has(.Mui-error)):not(.Mui-error) {
             fieldset {
               border-right-color: transparent;
             }
