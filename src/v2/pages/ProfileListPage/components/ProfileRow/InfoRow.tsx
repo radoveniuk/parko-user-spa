@@ -88,6 +88,7 @@ const InfoRow = () => {
           return createTableCell(!docValueKey.includes('date') ? value || '' : getDateFromIso(value) || '');
         }
         if (isMongoId(colName)) {
+          // eslint-disable-next-line max-len
           return createTableCell(typeof data.customFields?.[colName] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(data.customFields?.[colName] as string || '')
             ? getDateFromIso(data.customFields?.[colName] as string)
             : data.customFields?.[colName] as string || '',
