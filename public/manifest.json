@@ -1,6 +1,6 @@
 {
-  "short_name": "Parko User",
-  "name": "Parko User Client SPA",
+  "short_name": "PU",
+  "name": "Parko User",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,7 +10,8 @@
     {
       "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "maskable"
     },
     {
       "src": "logo512.png",
@@ -19,7 +20,18 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
+  "display": "fullscreen",
   "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "id": "ParkoUser",
+  "description": "Introducing Parko User - Your Comprehensive PWA Solution for Streamlining Workforce Management\n\nParko User is the ultimate Progressive Web Application (PWA) designed to revolutionize how you manage your workforce, projects, clients, and finances effortlessly. Whether you're a small business or a large enterprise, Parko User empowers you to take control of every aspect of your human resources management with ease.\n\nKey Features:\n\nEmployee Management: From recruitment to retirement, Parko User centralizes all employee data, including personal information, employment history, performance evaluations, and more. Keep track of employee records efficiently and securely.\n\nProject Tracking: Stay on top of projects from inception to completion. Assign tasks, set deadlines, and monitor progress in real-time. With Parko User, you'll never miss a deadline again.\n\nClient Management: Manage client relationships seamlessly. Keep track of client information, communication history, and project requirements all in one place. Deliver exceptional service and foster long-term partnerships effortlessly.\n\nPayroll Management: Say goodbye to manual payroll processing. Parko User automates payroll calculations, tax deductions, and salary disbursements, saving you time and reducing errors. Ensure timely and accurate payments for your employees.\n\nPrepayments and Invoicing: Simplify financial transactions with integrated prepayment and invoicing features. Generate invoices, record prepayments, and track payment statuses effortlessly. Streamline your billing process and improve cash flow management.\n\nLeave Management: Easily manage employee leave requests, track accruals, and maintain compliance with company policies and regulations. Parko User provides a user-friendly interface for requesting, approving, and tracking leaves, ensuring smooth operations.\n\nCustomizable Dashboards: Tailor your dashboard to display the metrics and insights that matter most to your business. Gain valuable insights into employee productivity, project performance, financial health, and more at a glance.\n\nSecure Access Anytime, Anywhere: Access Parko User securely from any device with an internet connection. Whether you're in the office, at home, or on the go, you can manage your workforce and projects with confidence.\n\nExperience the Future of HR Management with Parko User. Sign up for a free trial today and discover how our powerful PWA can transform your business operations for the better.",
+  "dir": "ltr",
+  "scope": "https://parko-user.com",
+  "lang": "sk",
+  "orientation": "portrait",
+  "categories": [
+    "business",
+    "finance",
+    "productivity"
+  ]
 }
