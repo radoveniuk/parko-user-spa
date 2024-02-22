@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Checkbox from 'v2/uikit/Checkbox';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
-import { BooleanIcon, EditIcon } from 'components/icons';
+import { EditIcon } from 'components/icons';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
@@ -35,8 +35,8 @@ const InfoRow = () => {
       {cols.map((colName) => {
         const userField = colName.replace('user.', '') as keyof IUser;
 
-        const createTableCell = (content: string) => (
-          <ListTableCell key={colName} title={content}>
+        const createTableCell = (content: string | ReactNode, title?: string) => (
+          <ListTableCell key={colName} title={title || content as string}>
             <span className="column-content">{content}</span>
           </ListTableCell>
         );
@@ -50,7 +50,8 @@ const InfoRow = () => {
           return createTableCell(`${client?.name ? `${client.name} > ` : ''}${project?.name || ''}`);
         }
         if (userField === 'status') {
-          return createTableCell(data.status ? t(`selects.userStatus.${data.status}`) : '');
+          return createTableCell(data.status ? <StatusLabel className={data.status}>{t(`selects.userStatus.${data.status}`)}</StatusLabel> : '',
+            t(`selects.userStatus.${data.status}`));
         }
         if (userField === 'salary') {
           return createTableCell(data.salary ? `${Number(data.salary).toFixed(2).toString().replace('.', ',')} €` : '');
