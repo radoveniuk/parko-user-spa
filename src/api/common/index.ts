@@ -35,7 +35,9 @@ export const openFile = (file: any, name: string) => {
     type: contentType,
   });
   const fileURL = URL.createObjectURL(blob);
-  window.open(fileURL, '_blank');
+  setTimeout(() => {
+    window.open(fileURL, '_blank');
+  });
 };
 
 export default api;
