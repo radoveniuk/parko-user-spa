@@ -30,6 +30,7 @@ export interface IUser {
   _id: string;
   // base fields
   nickname: string;
+  fullname: string;
   name: string;
   surname: string;
   email: string;

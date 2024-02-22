@@ -74,6 +74,13 @@ function Select<T> ({
           setSelectedValue(e.target.value as Path<T>);
           onChange?.(e, child);
         }}
+        MenuProps={{
+          PaperProps: {
+            style: {
+              maxHeight: 250,
+            },
+          },
+        }}
         {...rest}
       >
         {emptyItem && (

@@ -255,24 +255,24 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                     </IconButton>
                     <b className="title">{project?.type === 'Outsourcing' ? 'SubDodávateľ' : t('employee')}</b>
                     <div className={`info${formCardConfig.viewEmployee ? '' : ' hide'}`}>
-                      <div className="row">Meno: {user.name}</div>
-                      <div className="row">Priezvisko: {user.surname}</div>
-                      <div className="row">Rodne priezvisko: {user.birthSurname}</div>
-                      <div className="row">Dátum narodenia: {getDateFromIso(user.birthDate)}</div>
-                      <div className="row">Miesto narodenia: {user.birthPlace}</div>
-                      <div className="row">Zdravotna poistovna: {user.medicalInsurance}</div>
-                      <div className="row">Národnosť: {user.country}</div>
-                      <div className="row">Statna prislusnost: {user.country}</div>
-                      <div className="row">Pohlavie: {t(user.sex)}</div>
-                      <div className="row">Rodiny stav: {t(`selects.familyStatus.${user.familyStatus}`)}</div>
-                      <div className="row">IBAN: {user.IBAN}</div>
-                      <div className="row">Adresa: {user.adress}</div>
-                      <div className="row">PSČ: {user.zip}</div>
-                      <div className="row">Mesto: {user.city}</div>
-                      <div className="row">Krajina: {user.country}</div>
-                      <div className="row">Email: {user.email}</div>
-                      <div className="row">Rodne cislo: {user.rodneCislo}</div>
-                      <div className="row">Číslo OP: {user.passNumber}</div>
+                      <div className="row">Meno: {user?.name}</div>
+                      <div className="row">Priezvisko: {user?.surname}</div>
+                      <div className="row">Rodne priezvisko: {user?.birthSurname}</div>
+                      <div className="row">Dátum narodenia: {getDateFromIso(user?.birthDate)}</div>
+                      <div className="row">Miesto narodenia: {user?.birthPlace}</div>
+                      <div className="row">Zdravotna poistovna: {user?.medicalInsurance}</div>
+                      <div className="row">Národnosť: {user?.country}</div>
+                      <div className="row">Statna prislusnost: {user?.country}</div>
+                      <div className="row">Pohlavie: {t(user?.sex)}</div>
+                      <div className="row">Rodiny stav: {t(`selects.familyStatus.${user?.familyStatus}`)}</div>
+                      <div className="row">IBAN: {user?.IBAN}</div>
+                      <div className="row">Adresa: {user?.adress}</div>
+                      <div className="row">PSČ: {user?.zip}</div>
+                      <div className="row">Mesto: {user?.city}</div>
+                      <div className="row">Krajina: {user?.country}</div>
+                      <div className="row">Email: {user?.email}</div>
+                      <div className="row">Rodne cislo: {user?.rodneCislo}</div>
+                      <div className="row">Číslo OP: {user?.passNumber}</div>
                     </div>
                   </div>
                   <Controller

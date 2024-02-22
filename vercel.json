@@ -12,6 +12,7 @@
     },
     { "src": "/[^.]+", "dest": "/", "status": 200 },
     { "src": "/profile/(.*)", "dest": "/$1", "status": 200 },
-    { "src": "/client/(.*)", "dest": "/$1", "status": 200 }
+    { "src": "/client/(.*)", "dest": "/$1", "status": 200 },
+    { "src": "/profile/(.*)", "dest": "/$1", "status": 200 }
   ]
 }
