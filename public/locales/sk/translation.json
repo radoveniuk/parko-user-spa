@@ -189,6 +189,7 @@
     "alreadyExistsError": "Používateľ s týmto e-mailom už existuje",
     "SWIFT": "SWIFT",
     "workTypes": "Typ práce",
+    "employmentStatus": "Status zamestnania",
     "pass": {
       "pass": "Medzinárodný pas",
       "number": "Medzinárodný pas > Číslo",

@@ -3,11 +3,9 @@ import { useTranslation } from 'react-i18next';
 import MobileUserCard from 'v2/components/MobileUserCard';
 import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
-import Skeleton from 'v2/uikit/Skeleton';
 
 import { ArrowUpIcon, SettingsIcon } from 'components/icons';
-import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import { iterateMap } from 'helpers/iterateMap';
+import ListTable from 'components/shared/ListTable';
 import { isMongoId } from 'helpers/regex';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList from 'hooks/useSortedList';
@@ -20,12 +18,12 @@ import SettingsTable from '../SettingsTable';
 
 import { TableWrapper } from './styles';
 
-const STATIC_COLS = ['', 'user.name'];
+const STATIC_COLS = ['', 'user.name', 'user.employmentStatus'];
 
 type TTable = {
   activeCols: string[];
   setActiveCols: React.Dispatch<React.SetStateAction<string[]>>;
-  data: IUser[];
+  data: (IUser & {employmentStatus: string})[];
   customFields: ICustomFormField[];
   setSelectedItems: React.Dispatch<React.SetStateAction<IUser[]>>;
   selectedItems: IUser[];
@@ -136,7 +134,7 @@ const Table = ({
           }
         }}
       >
-        {pageItems.map((user: IUser) => (
+        {pageItems.map((user) => (
           <ProfileRow
             key={user._id}
             data={user}
@@ -152,15 +150,6 @@ const Table = ({
             }}
           />
         ))}
-        {!pageItems.length && (
-          iterateMap(20, (index) => (
-            <ListTableRow key={index}>
-              {allCols.map((emptyCol, emptyColIndex) => (
-                <ListTableCell key={emptyCol + emptyColIndex}><Skeleton /></ListTableCell>
-              ))}
-            </ListTableRow>
-          ))
-        )}
       </ListTable>
       <div className="pagination-bottom">
         <Pagination {...paginationConfig} setRowsPerPage={setRowsPerPage} rowsPerPage={rowsPerPage} labelRowsPerPage={t('rowsPerPage')}/>

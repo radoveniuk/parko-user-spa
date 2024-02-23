@@ -192,6 +192,7 @@
     "businessName": "Business name",
     "SWIFT": "SWIFT",
     "workTypes": "Work type",
+    "employmentStatus": "Employment`s status",
     "pass": {
       "pass": "Int. Passport",
       "number": "Int. Passport > Number",
