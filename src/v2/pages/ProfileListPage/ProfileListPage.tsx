@@ -108,6 +108,14 @@ const ProfileListPageRender = () => {
           />
           <FilterAutocomplete
             multiple
+            filterKey="employmentProjects"
+            label={t('user.cooperation')}
+            options={projects}
+            getOptionLabel={(option) => `${option.client?.name ? `${option.client?.name} > ` : ''}${option.name}`}
+            theme="gray"
+          />
+          <FilterAutocomplete
+            multiple
             filterKey="projects"
             label={t('user.project')}
             options={projects}
