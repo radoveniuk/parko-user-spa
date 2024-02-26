@@ -5,7 +5,8 @@ import AuthLayouts from 'v2/layouts/AuthLayouts';
 import PageLayouts from 'v2/layouts/PageLayouts';
 import {
   AccommodationPage,
-  ClientListPage, ClientPage, DayoffListPage, HomePage, LoginPage,
+  ClientListPage, ClientPage, CustomizationPage,
+  DayoffListPage, HomePage, LoginPage,
   PrepaymentListPage, ProfileAdminPage, ProfileListPage, RegisterPage,
 } from 'v2/pages';
 
@@ -13,7 +14,6 @@ import NavbarStateProvider from 'contexts/NavbarStateContext';
 import NotificationProvider from 'contexts/NotificationContext';
 import { UserRole } from 'interfaces/users.interface';
 import CreateNotificationPage from 'pages/CreateNotificationPage';
-import CustomizationPage from 'pages/CustomizationPage';
 import DayoffPage from 'pages/DayoffPage';
 import ExportResidencesPage from 'pages/ExportResidencesPage';
 import NotFoundPage from 'pages/NotFoundPage';

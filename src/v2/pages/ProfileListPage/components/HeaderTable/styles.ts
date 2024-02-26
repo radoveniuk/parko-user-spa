@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22px 35px;
+  padding: 10px 35px;
 
   .counter {
     display: flex;

@@ -9,7 +9,7 @@ export const TableWrapper = styled.div`
 
   .accommodations-table {
     overflow: scroll;
-    max-height: calc(100vh - 282px);
+    max-height: calc(100vh - 258px);
     position: relative;
 
     @media (max-width: ${TB}) {

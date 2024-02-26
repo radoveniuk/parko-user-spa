@@ -505,7 +505,11 @@
     "file": "Файл .docx",
     "print": "Згенерувати документ",
     "fieldName": "Назва поля",
-    "fieldCode": "Код в шаблоні"
+    "fieldCode": "Код в шаблоні",
+    "new": "Новий шаблон",
+    "categories": "Категорії",
+    "category": "Категорія",
+    "createdAt": "Дата створення"
   },
   "dictionaries": "Списки",
   "dictionary": {
@@ -559,7 +563,7 @@
   "firstDate": "Дата від",
   "lastDate": "Дата до",
   "welcomeText": "Ласкаво просимо до системи Parko User, ",
-  "download": "Скачать",
+  "download": "Завантажити",
   "noSelected": "Не вибрано",
   "male": "Чоловіча",
   "female": "Жіноча",

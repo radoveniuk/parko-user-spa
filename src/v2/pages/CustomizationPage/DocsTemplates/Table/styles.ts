@@ -7,22 +7,30 @@ export const TableWrapper = styled.div`
   flex-direction: column;
   height: 100%;
 
-  .users-table {
-    transition: .3s;
+  .daysoff-table {
     overflow: scroll;
-    max-height: calc(100vh - 286px);
+    max-height: calc(100vh - 310px);
     position: relative;
-
-    &.expand {
-      max-height: calc(100vh - 199px);
-    }
 
     @media (max-width: ${TB}) {
       max-height: calc(100vh - 255px);
     }
+
+    .list-table-cell:has(li) {
+      .doc-list {
+        max-height: 30px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
   }
 
-  .users-table > div > div {
+  .daysoff-table > div > div {
     padding-left: 35px;
 
     @media (max-width: ${TB}) {
@@ -30,14 +38,14 @@ export const TableWrapper = styled.div`
     }
   }
 
-  .users-table div:first-child > .list-table-cell {
+  .daysoff-table div:first-child > .list-table-cell {
     background: #f5f5f5;
     position: sticky;
     top: 0;
     z-index: 1;
   }
 
-  .users-table .col-item svg {
+  .daysoff-table .col-item svg {
     fill: #212121;
     width: 15px;
     height: 15px;
