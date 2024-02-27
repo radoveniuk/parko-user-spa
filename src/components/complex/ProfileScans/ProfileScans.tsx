@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import Input from 'v2/uikit/Input';
 import Select from 'v2/uikit/Select';
@@ -11,7 +12,6 @@ import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import downloadFile from 'api/query/downloadFile';
 import { useGetUser } from 'api/query/userQuery';
 import { CloseIcon, DownloadFileIcon, EditIcon, UploadIcon } from 'components/icons';
-import DialogConfirm from 'components/shared/DialogConfirm';
 import FileInput from 'components/shared/FileInput';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { USER_SCAN_TYPE } from 'constants/selectsOptions';

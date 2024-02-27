@@ -509,7 +509,11 @@
     "new": "Новий шаблон",
     "categories": "Категорії",
     "category": "Категорія",
-    "createdAt": "Дата створення"
+    "createdAt": "Дата створення",
+    "newCategory": "Нова категорія",
+    "categoryName": "Назва категорії",
+    "create": "Створити",
+    "categoryNameError": "Категорія з такою назвою вже існує"
   },
   "dictionaries": "Списки",
   "dictionary": {
@@ -590,6 +594,8 @@
   "searchHistory": "Історія пошуку",
   "fileDeletedSuccess": "Файл видалено",
   "cancel": "Скасувати",
+  "confirmation": "Підтвердження",
+  "areYouSureMsg": "Ви впевнені, що хочете продовжити?",
   "profilesPage": {
     "status": "Статуси користувачів",
     "organization": "Організації",

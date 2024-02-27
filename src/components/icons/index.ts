@@ -5,7 +5,6 @@ export * from './DropdownIcon';
 export * from './EditIcon';
 export {
   AiOutlineArrowUp as ArrowUpIcon,
-  AiOutlineFileText as FileIcon,
   AiOutlineQuestion as QuestionIcon,
   AiOutlineSearch as SearchIcon,
   AiOutlineUser as UserOutlineIcon,
@@ -40,6 +39,7 @@ export {
 export {
   FaBuildingCircleCheck as CheckInIcon,
   FaBuildingCircleArrowRight as CheckOutIcon,
+  FaFileLines as FileIcon,
 } from 'react-icons/fa6';
 export { FiFilter as FilterIcon, FiInfo as InfoIcon } from 'react-icons/fi';
 export { GiHouseKeys as AccommodationIcon, GiOpenFolder as CategoryIcon, GiReceiveMoney as PrepaymentIcon } from 'react-icons/gi';
@@ -71,6 +71,7 @@ export {
   MdRemoveDone as RemoveCheckIcon,
 } from 'react-icons/md';
 export { MdFactory as FactoryIcon } from 'react-icons/md';
+export { PiFoldersFill as FileGroupIcon } from 'react-icons/pi';
 export {
   RiAdminFill as AdminIcon,
   RiArrowLeftSLine as ArrowBackIcon,
@@ -88,4 +89,3 @@ export {
   TbFilterDown as FilterDownIcon,
   TbFilterUp as FilterUpIcon,
 } from 'react-icons/tb';
-export { VscFileSubmodule as FileGroupIcon } from 'react-icons/vsc';

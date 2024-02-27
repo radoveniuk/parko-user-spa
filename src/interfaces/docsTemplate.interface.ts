@@ -1,3 +1,4 @@
+import { IDocsTemplateCategory } from './docsTemplateCategory.interface';
 import { IFile } from './file.interface';
 
 export interface IDocsTemplate {
@@ -6,5 +7,5 @@ export interface IDocsTemplate {
   // entity: 'user' | 'project';
   file: string | IFile | File;
   createdAt?: Date;
-  category?: string;
+  category?: string | IDocsTemplateCategory;
 }

@@ -1,23 +1,16 @@
-import React, { CSSProperties, memo, useMemo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { DateTime } from 'luxon';
-import { Avatar, Menu, MenuItem } from 'v2/uikit';
+import { useQueryClient } from 'react-query';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
-import IconButton from 'v2/uikit/IconButton';
-import StatusLabel from 'v2/uikit/StatusLabel';
+import Menu, { MenuItem } from 'v2/uikit/Menu';
 
 import { useDeleteDocsTemplate } from 'api/mutations/docsTemplateMutation';
 import { useDeleteFileMutation } from 'api/mutations/fileMutation';
 import downloadFile from 'api/query/downloadFile';
-import { DayoffIcon, DeleteIcon, DownloadFileIcon, EditIcon, WordFileIcon } from 'components/icons';
+import { DeleteIcon, DownloadFileIcon, EditIcon, WordFileIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
-import { IClient } from 'interfaces/client.interface';
-import { IDayOff } from 'interfaces/dayoff.interface';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
 import { IFile } from 'interfaces/file.interface';
-import { IProject } from 'interfaces/project.interface';
-import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 
 import { TemplateDialog } from '../dialogs';
@@ -30,6 +23,8 @@ type Props = {
 
 const MobilePrepaymentCard = ({ data }: Props) => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const queryKey = ['docsTemplates', JSON.stringify({})];
 
   const deleteTemplateMutation = useDeleteDocsTemplate();
   const deleteFileMutation = useDeleteFileMutation();
@@ -74,9 +69,14 @@ const MobilePrepaymentCard = ({ data }: Props) => {
           open={openDeleteDialog}
           onClose={() => void setOpenDeleteDialog(false)}
           onSubmit={() => {
+            const prevData = queryClient.getQueryData(queryKey) as IDocsTemplate[];
+            queryClient.setQueryData(
+              ['docsTemplates', JSON.stringify({})],
+              prevData.filter(item => item._id !== data._id),
+            );
             Promise.all([
               deleteTemplateMutation.mutateAsync(data._id as string),
-              deleteFileMutation.mutateAsync(file),
+              deleteFileMutation.mutateAsync(file, { onSuccess: undefined }),
             ]).then(() => {
               setOpenDeleteDialog(false);
             });

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Input } from 'v2/uikit';
 
 import { useGetDocsTemplates } from 'api/query/docsTemplateQuery';
+import { IDocsTemplateCategory } from 'interfaces/docsTemplateCategory.interface';
 
 import HeaderTable from './HeaderTable';
 import MobileTemplateCard from './MobileTemplateCard';
@@ -16,7 +17,7 @@ const DocsTemplates = () => {
   const [searchValue, setSearchValue] = useState('');
   const docsTemplates = useMemo(() =>
     data.filter((item) => item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-    item?.category?.toLowerCase().includes(searchValue.toLowerCase())), [data, searchValue]);
+    (item.category as IDocsTemplateCategory)?.name?.toLowerCase()?.includes(searchValue.toLowerCase())), [data, searchValue]);
 
   return (
     <DocsTemplatesWrapper>

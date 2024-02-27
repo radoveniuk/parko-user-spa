@@ -166,14 +166,17 @@ export const CategoriesWrapper = styled.div`
     }
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+  .categories {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 6px;
 
     .category {
       display: flex;
       gap: 6px;
       align-items: center;
+      color: #4d4d4dde;
       .name {
         max-width: 150px;
         overflow: hidden;

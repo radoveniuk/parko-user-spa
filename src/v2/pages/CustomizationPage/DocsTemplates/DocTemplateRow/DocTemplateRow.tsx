@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import { ClickAwayListener } from '@mui/material';
 import { Menu, MenuItem } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
@@ -12,6 +13,7 @@ import { DeleteIcon, DownloadFileIcon, EditIcon, ThreeDotsIcon } from 'component
 import { ListTableCell } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
+import { IDocsTemplateCategory } from 'interfaces/docsTemplateCategory.interface';
 import { IFile } from 'interfaces/file.interface';
 
 import { TemplateDialog } from '../dialogs';
@@ -24,6 +26,9 @@ type RowProps = {
 
 const DocTemplateRow = ({ data }: RowProps) => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const queryKey = ['docsTemplates', JSON.stringify({})];
+
   const deleteTemplateMutation = useDeleteDocsTemplate();
   const deleteFileMutation = useDeleteFileMutation();
 
@@ -43,7 +48,7 @@ const DocTemplateRow = ({ data }: RowProps) => {
         {file.originalname}.{file.ext}
       </ListTableCell>
       <ListTableCell>
-        {data.category}
+        {(data.category as IDocsTemplateCategory)?.name}
       </ListTableCell>
       <ListTableCell>
         {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')}
@@ -81,9 +86,14 @@ const DocTemplateRow = ({ data }: RowProps) => {
           open={openDeleteDialog}
           onClose={() => void setOpenDeleteDialog(false)}
           onSubmit={() => {
+            const prevData = queryClient.getQueryData(queryKey) as IDocsTemplate[];
+            queryClient.setQueryData(
+              ['docsTemplates', JSON.stringify({})],
+              prevData.filter(item => item._id !== data._id),
+            );
             Promise.all([
               deleteTemplateMutation.mutateAsync(data._id as string),
-              deleteFileMutation.mutateAsync(file),
+              deleteFileMutation.mutateAsync(file, { onSuccess: undefined }),
             ]).then(() => {
               setOpenDeleteDialog(false);
             });

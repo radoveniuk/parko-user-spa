@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import Button from 'v2/uikit/Button';
+import DialogConfirm from 'v2/uikit/DialogConfirm';
 
 import { ExitIcon } from 'components/icons';
-import Button from 'v2/uikit/Button';
-import DialogConfirm from 'components/shared/DialogConfirm';
 import { useLogout } from 'contexts/AuthContext';
 
 type Props = {

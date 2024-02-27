@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 import Button from 'v2/uikit/Button';
+import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 
 import { useCreatePrepaymentMutation, useDeletePrepaymentMutation, useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
@@ -10,7 +11,6 @@ import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import { ArrowUpIcon, CloseIcon, EditIcon, PlusIcon } from 'components/icons';
-import DialogConfirm from 'components/shared/DialogConfirm';
 import { ClearFiltersButton, FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { FilterDate, FilterSelect } from 'components/shared/Filters/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';

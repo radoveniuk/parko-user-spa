@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
 import { Avatar, Menu, MenuItem } from 'v2/uikit';
+import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 
 import { IoCloseIcon, IoExitOutlineIcon, MenuIcon } from 'components/icons';
-import DialogConfirm from 'components/shared/DialogConfirm';
 import { useAuthData, useLogout } from 'contexts/AuthContext';
 import { useToggleNavbar } from 'contexts/NavbarStateContext';
 import { themeConfig } from 'theme';

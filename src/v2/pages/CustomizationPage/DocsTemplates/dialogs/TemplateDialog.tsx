@@ -1,6 +1,7 @@
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import { IconButton } from '@mui/material';
 import isEmpty from 'lodash-es/isEmpty';
 import AutoComplete from 'v2/uikit/Autocomplete/Autocomplete';
@@ -11,6 +12,7 @@ import Input from 'v2/uikit/Input';
 
 import { uploadFiles } from 'api/common';
 import { useCreateDocsTemplate, useUpdateDocsTemplate } from 'api/mutations/docsTemplateMutation';
+import { useGetDocsTemplateCategories } from 'api/query/docsTemplateCategoryQuery';
 import downloadFile from 'api/query/downloadFile';
 import { DeleteIcon, FileIcon, UploadIcon } from 'components/icons';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
@@ -30,6 +32,10 @@ export const TemplateDialog = ({ defaultData, onClose, ...rest }: Props) => {
   } = useForm<IDocsTemplate>({ defaultValues: typeof defaultData !== 'boolean' ? defaultData : {} });
   const createTemplate = useCreateDocsTemplate();
   const updateTemplate = useUpdateDocsTemplate();
+  const queryClient = useQueryClient();
+  const queryKey = ['docsTemplates', JSON.stringify({})];
+
+  const { data: templates = [] } = useGetDocsTemplateCategories();
 
   const submitHandler: SubmitHandler<IDocsTemplate> = async (values) => {
     const updateFn = (uploadedFileData: IFile) => {
@@ -38,13 +44,27 @@ export const TemplateDialog = ({ defaultData, onClose, ...rest }: Props) => {
       mutation.mutateAsync({
         name: values.name,
         file: uploadedFileData?._id,
+        category: (typeof values.category === 'string' || values.category === null) ? values.category : values.category?._id,
         ...(defaultData !== true && { _id: defaultData._id }),
-      }).then(() => {
+      }).then((res) => {
+        const prevData = queryClient.getQueryData(queryKey) as IDocsTemplate[];
+        const valuesToUpdate = {
+          ...res,
+          name: values.name,
+          file: uploadedFileData,
+          category: values.category,
+        };
+        queryClient.setQueryData(
+          ['docsTemplates', JSON.stringify({})],
+          defaultData === true ? [valuesToUpdate, ...prevData] : prevData.map(item => item._id === res._id ? valuesToUpdate : item),
+        );
         onClose();
       });
     };
 
-    if (values.file !== null) {
+    const isFile = (input: File | IFile | string) => 'File' in window && input instanceof File;
+
+    if (isFile(values.file)) {
       const formData = new window.FormData();
       formData.append('files', values.file as File);
       const [uploadedFileData] = await uploadFiles(formData);
@@ -71,11 +91,15 @@ export const TemplateDialog = ({ defaultData, onClose, ...rest }: Props) => {
           <Controller
             control={control}
             name="category"
-            render={() => (
+            render={({ field }) => (
               <AutoComplete
                 theme="gray"
                 label={t('docsTemplates.category')}
-                options={[]}
+                options={templates}
+                valueKey="_id"
+                labelKey="name"
+                onChange={field.onChange}
+                value={field.value}
               />
             )}
           />
@@ -149,6 +173,7 @@ export const TemplateDialog = ({ defaultData, onClose, ...rest }: Props) => {
           <Button
             onClick={handleSubmit(submitHandler)}
             disabled={!isEmpty(errors)}
+            variant="contained"
           >
             {t('approve')}
           </Button>

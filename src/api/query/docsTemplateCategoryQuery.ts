@@ -4,7 +4,7 @@ import api from 'api/common';
 import { IDocsTemplateCategory } from 'interfaces/docsTemplateCategory.interface';
 
 export const useGetDocsTemplateCategories = (params: Partial<IDocsTemplateCategory> = {}) => {
-  const request = (): Promise<IDocsTemplateCategory[]> => api.get('/docs-templates-category', {
+  const request = (): Promise<IDocsTemplateCategory[]> => api.get('/docs-template-categories', {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
