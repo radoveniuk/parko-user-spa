@@ -8,6 +8,12 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   
     .list-table-cell {
       white-space: nowrap;
+
+      .column-content {
+        max-width: 200px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
 
     .fast-edit-profile {

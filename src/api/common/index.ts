@@ -1,4 +1,5 @@
 import axios from 'axios';
+import mime from 'mime';
 
 import { IFile } from 'interfaces/file.interface';
 
@@ -25,6 +26,18 @@ export const saveFile = (file: any, name: string) => {
   document.body.appendChild(link);
   link.click();
   link.remove();
+};
+
+export const openFile = (file: any, name: string) => {
+  const contentType = mime.getType(name) as string;
+
+  const blob = new Blob([file], {
+    type: contentType,
+  });
+  const fileURL = URL.createObjectURL(blob);
+  setTimeout(() => {
+    window.open(fileURL, '_blank');
+  });
 };
 
 export default api;

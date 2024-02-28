@@ -232,7 +232,7 @@ const CustomProjectSettingsDataGridRow = ({
         <Input className="border-right" label={t('user.employmentChangeCreatedBy')} disabled value={data.createdBy}/>
       </div>
       <div className="cell">
-        <Input label={t('user.employmentChangeCreatedAt')} disabled value={getDateFromIso(data.createdAt, 'dd.MM.yyyy hh:mm')}/>
+        <Input label={t('user.employmentChangeCreatedAt')} disabled value={getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')}/>
         <IconButton className="delete-btn" disabled={disabled} onClick={() => void onDelete()}><DeleteIcon size={16} /></IconButton>
       </div>
     </div>
