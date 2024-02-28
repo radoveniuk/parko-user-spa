@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import set from 'lodash-es/set';
 import { useSnackbar } from 'notistack';
 import { Input } from 'v2/uikit';
-import Autocomplete from 'v2/uikit/Autocomplete';
 import Button from 'v2/uikit/Button';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
 import IconButton from 'v2/uikit/IconButton';
@@ -13,7 +12,7 @@ import { useDownloadPrintedTemplate } from 'api/mutations/docsTemplateMutation';
 import { useGetDocsTemplateCategories } from 'api/query/docsTemplateCategoryQuery';
 import { useGetDocsTemplates } from 'api/query/docsTemplateQuery';
 import { useGetEmployments } from 'api/query/employmentQuery';
-import { ArrowBackIcon, CategoryIcon, DownloadFileIcon, FileIcon } from 'components/icons';
+import { ArrowBackIcon, CategoryIcon, FileIcon } from 'components/icons';
 import useListState from 'hooks/useListState';
 import { IClient } from 'interfaces/client.interface';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
@@ -22,6 +21,7 @@ import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import { DialogContentWrapper } from './styles';
+import { getDateFromIso } from 'helpers/datetime';
 
 type Props = DialogProps & {
   users: Pick<IUser, '_id' | 'name' | 'surname'>[];
@@ -96,7 +96,7 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
                   const project = employment.project as IProject;
                   const client = project?.client as IClient;
                   const position = project?.positions?.find(position => position.matterId === employment.positionId);
-                  return `${client?.name} > ${project?.name} > ${position?.name}`;
+                  return `${client?.name} > ${project?.name} > ${position?.name} ${getDateFromIso(employment.hireDate) || ''} - ${getDateFromIso(employment.fireDate || '')}`;
                 }}
               />
             </div>
