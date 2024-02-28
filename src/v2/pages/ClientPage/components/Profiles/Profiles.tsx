@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Autocomplete from 'v2/uikit/Autocomplete';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
-import PrintDocDialog from 'components/complex/PrintDocDialog';
+import PrintDocDialog from 'v2/components/PrintDocDialog';
 import { SearchIcon } from 'components/icons';
 import { FiltersProvider } from 'components/shared/Filters';
 import { USER_EMPLOYMENT_STATUSES, USER_STATUSES } from 'constants/statuses';

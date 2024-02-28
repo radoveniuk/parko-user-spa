@@ -11,7 +11,7 @@ import { useDeleteProjectMutation, useUpdateProjectMutation } from 'api/mutation
 import { useGetClients } from 'api/query/clientQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
-import PrintDocDialog from 'components/complex/PrintDocDialog';
+import PrintDocDialog from 'v2/components/PrintDocDialog';
 import { ArrowUpIcon, CheckAllIcon, DeleteIcon, ExcelIcon, PlusIcon, PrintIcon, RemoveCheckIcon, SaveIcon } from 'components/icons';
 import Dialog from 'components/shared/Dialog';
 import { ClearFiltersButton, FilterAutocomplete, FiltersBar, FilterSelect, FiltersProvider, useFilters } from 'components/shared/Filters';

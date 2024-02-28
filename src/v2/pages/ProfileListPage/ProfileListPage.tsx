@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import PrintDocDialog from 'v2/components/PrintDocDialog';
 import { COUNTRIES } from 'v2/constants/countries';
 import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
@@ -7,7 +8,6 @@ import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { getUserListByParams, useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
-import PrintDocDialog from 'components/complex/PrintDocDialog';
 import { SearchIcon } from 'components/icons';
 import { ClearFiltersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { USER_STATUSES } from 'constants/statuses';

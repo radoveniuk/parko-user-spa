@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Autocomplete from 'v2/uikit/Autocomplete';
+import Button from 'v2/uikit/Button';
 
 import { useDownloadPrintedTemplate } from 'api/mutations/docsTemplateMutation';
 import { useGetDocsTemplates } from 'api/query/docsTemplateQuery';
 import { DownloadFileIcon } from 'components/icons';
-import Button from 'v2/uikit/Button';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
 

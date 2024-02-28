@@ -176,6 +176,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
             </Button>
           </div>
           <Menu
+            isCloseOnMenu
             menuComponent={(
               <>
                 <Button className="big-btn">
