@@ -1,8 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { WarningIcon } from 'components/icons';
+
 import Button from '../Button';
-import Dialog, { DialogProps } from '../Dialog';
+import Dialog, { DialogActions, DialogProps } from '../Dialog';
 
 import { DialogContent } from './styles';
 
@@ -14,19 +16,28 @@ const DialogConfirm = ({ onSubmit, title, onClose, ...rest }: Props) => {
   const { t } = useTranslation();
   return (
     <Dialog
-      title={title || t('deleteApprove')}
+      title={title || t('confirmation')}
       onClose={onClose}
       onKeyPress={(e) => {
         if (e.key === 'Enter') {
           onSubmit();
         }
       }}
+      color="#ff9800"
       {...rest}
     >
       <DialogContent>
-        <Button color="error" variant="outlined" onClick={onSubmit}>{t('true')}</Button>
-        <Button color="primary" variant="outlined" onClick={onClose}>{t('false')}</Button>
+        <div className="msg">
+          <WarningIcon size={32}/>
+          <div className="text">
+            {t('areYouSureMsg')}
+          </div>
+        </div>
       </DialogContent>
+      <DialogActions>
+        <Button color="error" variant="outlined" onClick={onSubmit}>{t('true')}</Button>
+        <Button color="inherit" variant="contained" onClick={onClose}>{t('false')}</Button>
+      </DialogActions>
     </Dialog>
   );
 };

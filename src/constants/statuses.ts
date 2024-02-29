@@ -7,6 +7,12 @@ export const USER_STATUSES = [
   'fired',
 ];
 
+export const USER_EMPLOYMENT_STATUSES = [
+  'canceled',
+  'hired',
+  'fired',
+];
+
 export const STATUSES_COLORS: AnyObject = {
   candidate: '#e3bb00',
   hired: themeConfig.palette.success.main,

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import Button from 'v2/uikit/Button';
 import Checkbox from 'v2/uikit/Checkbox';
+import DialogConfirm from 'v2/uikit/DialogConfirm';
 import Input from 'v2/uikit/Input';
 import Select from 'v2/uikit/Select';
 
@@ -15,8 +17,6 @@ import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetDictionaries } from 'api/query/dictionariesQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { fetchTranslation } from 'api/query/translationQuery';
-import Button from 'v2/uikit/Button';
-import DialogConfirm from 'components/shared/DialogConfirm';
 import List from 'components/shared/List';
 import { LANGUAGES } from 'constants/languages';
 import useDebounce from 'hooks/useDebounce';

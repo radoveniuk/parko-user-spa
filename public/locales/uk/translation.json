@@ -191,6 +191,7 @@
     "addEmployment": "Додати співпрацю",
     "alreadyExistsError": "Користувач з таким імейлом вже зареєстрований",
     "workTypes": "Тип роботи",
+    "employmentStatus": "Статус співпраці",
     "pass": {
       "pass": "Міжнародний паспорт",
       "number": "Міжнародний паспорт > Номер",
@@ -504,7 +505,16 @@
     "file": "Файл .docx",
     "print": "Згенерувати документ",
     "fieldName": "Назва поля",
-    "fieldCode": "Код в шаблоні"
+    "fieldCode": "Код в шаблоні",
+    "new": "Новий шаблон",
+    "categories": "Категорії",
+    "category": "Категорія",
+    "createdAt": "Дата створення",
+    "newCategory": "Нова категорія",
+    "categoryName": "Назва категорії",
+    "create": "Створити",
+    "categoryNameError": "Категорія з такою назвою вже існує",
+    "docsWithoutCategory": "Шаблони без категорії"
   },
   "dictionaries": "Списки",
   "dictionary": {
@@ -558,7 +568,7 @@
   "firstDate": "Дата від",
   "lastDate": "Дата до",
   "welcomeText": "Ласкаво просимо до системи Parko User, ",
-  "download": "Скачать",
+  "download": "Завантажити",
   "noSelected": "Не вибрано",
   "male": "Чоловіча",
   "female": "Жіноча",
@@ -585,6 +595,8 @@
   "searchHistory": "Історія пошуку",
   "fileDeletedSuccess": "Файл видалено",
   "cancel": "Скасувати",
+  "confirmation": "Підтвердження",
+  "areYouSureMsg": "Ви впевнені, що хочете продовжити?",
   "profilesPage": {
     "status": "Статуси користувачів",
     "organization": "Організації",
@@ -596,5 +608,24 @@
     "users": "Користувачі",
     "users_all_space": "Користувачі з усіх робочих просторів",
     "new_user": "Новий користувач"
+  },
+  "employment": {
+    "user": "Користувач",
+    "client": "Клієнт",
+    "project": "Проект",
+    "positionId": "Робоча позиція",
+    "hireDate": "Дата найму",
+    "fireDate": "Дата звільнення",
+    "fireReason": "Причина звільнення",
+    "comment": "Коментар",
+    "isNonTaxablePart": "Uplatnenie nezdaniteľej časti zakladu dane",
+    "isChildTaxBonus": "Uplatnenie daňového bonusu na dieťa",
+    "status": "Статус працевлаштування",
+    "changes": "Зміни",
+    "history": "Історія",
+    "createdBy": "Ким створено ",
+    "updatedBy": "Ким оновлено",
+    "createdAt": "Дата створення",
+    "updatedAt": "Коли оновлено"
   }
 }

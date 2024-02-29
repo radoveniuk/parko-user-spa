@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Button from 'v2/uikit/Button';
+import DialogConfirm from 'v2/uikit/DialogConfirm';
+import IconButton from 'v2/uikit/IconButton';
 
 import { useDeleteDocsTemplate } from 'api/mutations/docsTemplateMutation';
 import { useDeleteFileMutation } from 'api/mutations/fileMutation';
 import { useGetDocsTemplates } from 'api/query/docsTemplateQuery';
 import downloadFile from 'api/query/downloadFile';
 import { CloseIcon, DownloadFileIcon, EditIcon, EyeIcon, PlusIcon } from 'components/icons';
-import Button from 'v2/uikit/Button';
-import DialogConfirm from 'components/shared/DialogConfirm';
-import IconButton from 'v2/uikit/IconButton';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { PageActions } from 'components/shared/PageComponents';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';

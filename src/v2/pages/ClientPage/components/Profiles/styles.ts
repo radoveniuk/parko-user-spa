@@ -8,9 +8,6 @@ export const ProfilesWrapper = styled.div<{cols: number }>`
 
   .filter-name {
     max-width: 400px;
-    .MuiOutlinedInput-root {
-      /* border-radius: 40px; */
-    }
 
     .MuiAutocomplete-popupIndicator {
       display: none;
@@ -59,7 +56,7 @@ export const ProfilesWrapper = styled.div<{cols: number }>`
   }
 
   .users-table {
-    grid-template-columns: 30px 1fr ${(props) => Array(props.cols).fill('1fr').join(' ')};
+    grid-template-columns: 30px 1fr 1fr ${(props) => Array(props.cols).fill('1fr').join(' ')};
 
     .table-settings-wrapper {
       margin-left: auto;
@@ -105,19 +102,12 @@ export const ProfilesWrapper = styled.div<{cols: number }>`
 
 export const FilterTableWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  overflow: auto;
   align-items: end;
   border-bottom: 1px solid #e9e9e9;
   gap: 10px;
   padding: 14px 30px;
   @media (max-width: ${TB}) {
-    padding: 0;
-  }
-
-  .filter-chip {
-    height: 36px;
-    @media (max-width: ${TB}) {
-      display: none;;
-    }
+    display: none;
   }
 `;

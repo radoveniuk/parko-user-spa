@@ -5,7 +5,6 @@ export * from './DropdownIcon';
 export * from './EditIcon';
 export {
   AiOutlineArrowUp as ArrowUpIcon,
-  AiOutlineFileText as FileIcon,
   AiOutlineQuestion as QuestionIcon,
   AiOutlineSearch as SearchIcon,
   AiOutlineUser as UserOutlineIcon,
@@ -26,6 +25,7 @@ export {
   BsFillKeyFill as PasswordIcon,
   BsThreeDots as ThreeDotsIcon,
   BsFillCloudUploadFill as UploadIcon,
+  BsFiletypeDocx as WordFileIcon,
 } from 'react-icons/bs';
 export {
   FaFileDownload as DownloadFileIcon,
@@ -39,9 +39,12 @@ export {
 export {
   FaBuildingCircleCheck as CheckInIcon,
   FaBuildingCircleArrowRight as CheckOutIcon,
+  FaFileLines as FileIcon,
 } from 'react-icons/fa6';
 export { FiFilter as FilterIcon, FiInfo as InfoIcon } from 'react-icons/fi';
-export { GiHouseKeys as AccommodationIcon, GiReceiveMoney as PrepaymentIcon } from 'react-icons/gi';
+export {
+  GiHouseKeys as AccommodationIcon, GiOpenFolder as CategoryIcon, GiFullFolder as NonCategoryIcon, GiReceiveMoney as PrepaymentIcon,
+} from 'react-icons/gi';
 export { HiOutlinePlus as PlusIcon } from 'react-icons/hi';
 export { ImExit as ExitIcon } from 'react-icons/im';
 export { IoMdArrowDropdown as ArrowDownIcon, IoIosPaperPlane as NotificationIcon, IoMdSettings as SettingsIcon } from 'react-icons/io';
@@ -70,6 +73,7 @@ export {
   MdRemoveDone as RemoveCheckIcon,
 } from 'react-icons/md';
 export { MdFactory as FactoryIcon } from 'react-icons/md';
+export { PiFoldersFill as FileGroupIcon } from 'react-icons/pi';
 export {
   RiAdminFill as AdminIcon,
   RiArrowLeftSLine as ArrowBackIcon,
@@ -83,6 +87,7 @@ export {
 export { SiMicrosoftexcel as ExcelIcon } from 'react-icons/si';
 export {
   TbFilterOff as ClearFiltersIcon,
+  TbCodeDots as CodeIcon,
   TbFilterDown as FilterDownIcon,
   TbFilterUp as FilterUpIcon,
 } from 'react-icons/tb';

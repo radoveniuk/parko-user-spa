@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import Checkbox from 'v2/uikit/Checkbox';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { BooleanIcon } from 'components/icons';
-import Checkbox from 'v2/uikit/Checkbox';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
@@ -29,6 +29,13 @@ const InfoRow = () => {
           <Link to={`/profile/${data._id}`} className="table-link">
             <span className="column-content">{data.name} {data.surname}</span>
           </Link>
+        </LinkWrapper>
+      </ListTableCell>
+      <ListTableCell>
+        <LinkWrapper>
+          <StatusLabel className={data.employmentStatus}>
+            {data.employmentStatus && t(`selects.userPositionEmploymentStatus.${data.employmentStatus}`)}
+          </StatusLabel>
         </LinkWrapper>
       </ListTableCell>
       {cols.map((colName) => {

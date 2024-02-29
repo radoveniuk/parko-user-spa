@@ -17,7 +17,7 @@ import { ArrowDownIcon, ExcelIcon, FilterIcon, PlusIcon, ThreeDotsIcon, UploadIc
 import { FilterAutocomplete, useFilters } from 'components/shared/Filters';
 import { USER_STATUSES } from 'constants/statuses';
 import { DEFAULT_PASS } from 'constants/user';
-import { DYNAMIC_FIELDS, TRANSLATED_FIELDS } from 'constants/userCsv';
+import { DYNAMIC_FIELDS } from 'constants/userCsv';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
 import { useExportData } from 'hooks/useExportData';
@@ -176,6 +176,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
             </Button>
           </div>
           <Menu
+            isCloseOnMenu
             menuComponent={(
               <>
                 <Button className="big-btn">

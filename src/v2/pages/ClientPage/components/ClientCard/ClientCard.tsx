@@ -12,6 +12,8 @@ import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IUser } from 'interfaces/users.interface';
 
+import { TABS } from '../../constants/tabs';
+
 import { ProfileCardWrapper } from './styles';
 
 export type ClientCardProps = {
@@ -75,8 +77,7 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
         </div>
         <div className="tabs-wrapper">
           <Tabs orientation="vertical">
-            <Tab label={t('client.projects')} />
-            <Tab label={t('client.profiles')} />
+            {TABS.map((item) => <Tab key={item} label={t(`client.${item}`)} />)}
           </Tabs>
         </div>
       </ProfileCardWrapper>

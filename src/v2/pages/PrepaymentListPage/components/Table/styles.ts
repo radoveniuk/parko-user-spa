@@ -9,7 +9,7 @@ export const TableWrapper = styled.div`
 
   .prepayments-table {
     overflow: scroll;
-    max-height: calc(100vh - 306px);
+    max-height: calc(100vh - 280px);
     position: relative;
 
     @media (max-width: ${TB}) {

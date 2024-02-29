@@ -53,7 +53,7 @@ export const ListTableHeaderRow = styled.div<{ sticky?: boolean }>`
   `}
 `;
 
-export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })<{ color?: string }>`
+export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })<{ color?: string, align?: 'center' | 'left' | 'right' }>`
   height: 30px;
   display: flex;
   align-items: center;
@@ -62,6 +62,19 @@ export const ListTableCell = styled.div.attrs({ className: 'list-table-cell' })<
   transition: background-color 0.3s;
   background-color: #fff;
   white-space: nowrap;
+
+  ${(props) => props.align === 'center' && css`
+  justify-content: center;
+  `}
+
+  ${(props) => props.align === 'left' && css`
+  justify-content: flex-start;
+  `}
+
+  ${(props) => props.align === 'right' && css`
+  justify-content: flex-end;
+  `}
+
   ${(props) => props.color && css`
     color: ${props.color};
   `}

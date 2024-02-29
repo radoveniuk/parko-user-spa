@@ -10,8 +10,8 @@ import { TabPanel, TabsContainer, useTabs } from 'v2/uikit/Tabs';
 import { useDeleteClientMutation } from 'api/mutations/clientMutation';
 import { useCreateProjectMutation } from 'api/mutations/projectMutation';
 import { useGetClient } from 'api/query/clientQuery';
+import { useGetEmployments } from 'api/query/employmentQuery';
 import { useGetProjects } from 'api/query/projectQuery';
-import { useGetUserList } from 'api/query/userQuery';
 import { DeleteIcon, PlusIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { themeConfig } from 'theme';
@@ -19,9 +19,8 @@ import { themeConfig } from 'theme';
 import ClientCard from './components/ClientCard';
 import Profiles from './components/Profiles';
 import Projects from './components/Projects';
+import { TABS } from './constants/tabs';
 import { ClientPageWrapper, ContentWrapper } from './styles';
-
-const TABS = ['projects', 'profiles'];
 
 const ClientPageRender = () => {
   const { role } = useAuthData();
@@ -31,7 +30,7 @@ const ClientPageRender = () => {
 
   const { data: clientData } = useGetClient(clientId as string);
   const { data: projects = [], refetch: refetchProjects } = useGetProjects({ client: clientId });
-  const { data: users = [] } = useGetUserList({ client: clientId });
+  const { data: employments = [] } = useGetEmployments({ client: clientId });
   const createProjectMutation = useCreateProjectMutation();
   const deleteClient = useDeleteClientMutation();
 
@@ -89,7 +88,7 @@ const ClientPageRender = () => {
             {!!projects.length && <Projects data={projects} />}
           </TabPanel>
           <TabPanel index={1}>
-            {!!users.length && <Profiles projects={projects} users={users} />}
+            {!!employments.length && <Profiles projects={projects} employments={employments} />}
           </TabPanel>
         </ContentWrapper>
       </div>
