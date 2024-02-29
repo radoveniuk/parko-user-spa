@@ -55,8 +55,8 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
     handleSubmit, watch, control, setValue, clearErrors, register,
   } = useForm<IEmployment>({
     defaultValues: {
-      ...data,
-      project: (data?.project as IProject)?._id,
+      ...(data as any),
+      project: (data?.project as IProject)?._id as string,
     },
   });
   const queryClient = useQueryClient();
