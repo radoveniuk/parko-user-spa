@@ -12,7 +12,7 @@ import { useDownloadPrintedTemplate } from 'api/mutations/docsTemplateMutation';
 import { useGetDocsTemplateCategories } from 'api/query/docsTemplateCategoryQuery';
 import { useGetDocsTemplates } from 'api/query/docsTemplateQuery';
 import { useGetEmployments } from 'api/query/employmentQuery';
-import { ArrowBackIcon, CategoryIcon, FileIcon } from 'components/icons';
+import { ArrowBackIcon, CategoryIcon, FileIcon, NonCategoryIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import useListState from 'hooks/useListState';
 import { IClient } from 'interfaces/client.interface';
@@ -121,9 +121,18 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
                 <div className="text">{category.name}</div>
               </div>
             ))}
+            <div
+              title={t('docsTemplates.docsWithoutCategory')}
+              className="card"
+              role="button"
+              onClick={() => void setSelectedCategory('other')}
+            >
+              <NonCategoryIcon size={24} />
+              <div className="text">{t('docsTemplates.docsWithoutCategory')}</div>
+            </div>
           </div>
         )}
-        {!!selectedCategory && (
+        {!!selectedCategory && selectedCategory !== 'other' && (
           <div>
             <div className="docSettings categories">
               <IconButton onClick={() => void setSelectedCategory(null)}><ArrowBackIcon /></IconButton>
@@ -138,6 +147,36 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
             <div className="docSettings">
               {docsTemplates
                 .filter((template) => (template?.category as IDocsTemplateCategory)?._id === selectedCategory)
+                .map((template) => (
+                  <div
+                    title={template.name}
+                    className={`card ${selectedTemplates.some(selectedTemplate => selectedTemplate._id === template._id) ? 'active' : ''}`}
+                    key={template._id}
+                    role="button"
+                    onClick={() => void toggle(template)}
+                  >
+                    <FileIcon size={24} />
+                    <div className="text">{template.name}</div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        )}
+        {selectedCategory === 'other' && (
+          <div>
+            <div className="docSettings categories">
+              <IconButton onClick={() => void setSelectedCategory(null)}><ArrowBackIcon /></IconButton>
+              <div
+                className="card active"
+                role="button"
+              >
+                <NonCategoryIcon size={24} />
+                <div className="text">{t('docsTemplates.docsWithoutCategory')}</div>
+              </div>
+            </div>
+            <div className="docSettings">
+              {docsTemplates
+                .filter((template) => !template?.category)
                 .map((template) => (
                   <div
                     title={template.name}

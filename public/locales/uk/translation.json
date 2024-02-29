@@ -513,7 +513,8 @@
     "newCategory": "Нова категорія",
     "categoryName": "Назва категорії",
     "create": "Створити",
-    "categoryNameError": "Категорія з такою назвою вже існує"
+    "categoryNameError": "Категорія з такою назвою вже існує",
+    "docsWithoutCategory": "Шаблони без категорії"
   },
   "dictionaries": "Списки",
   "dictionary": {

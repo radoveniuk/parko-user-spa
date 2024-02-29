@@ -514,7 +514,8 @@
     "newCategory": "Новая категория",
     "categoryName": "Название категории",
     "create": "Создать",
-    "categoryNameError": "Категория с таким названием уже существует"
+    "categoryNameError": "Категория с таким названием уже существует",
+    "docsWithoutCategory": "Шаблоны без категории"
   },
   "dictionaries": "Списки",
   "dictionary": {

@@ -4,7 +4,7 @@ import { TB } from 'theme/sizeBreakpoints';
 
 export const DialogContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: 242px 456px;
+  grid-template-columns: 242px 470px;
   .userSettings {
     display: flex;
     flex-direction: column;
@@ -39,11 +39,12 @@ export const DialogContentWrapper = styled.div`
     justify-content: flex-start;
     height: min-content;
     align-items: center;
-    max-height: 400px;
+    max-height: 305px;
 
     &:not(.categories) {
       border-top: 1px solid #d0d0d0;
       padding-top: 12px;
+      padding-bottom: 12px;
     }
 
     .card {

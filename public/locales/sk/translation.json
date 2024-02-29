@@ -512,7 +512,8 @@
     "newCategory": "Nová kategória",
     "categoryName": "Názov kategórie",
     "create": "Vytvoriť",
-    "categoryNameError": "Kategória s takým názvom už existuje"
+    "categoryNameError": "Kategória s takým názvom už existuje",
+    "docsWithoutCategory": "Šablóny bez kategórie"
   },
   "client": {
     "company": "Spoločnosť",

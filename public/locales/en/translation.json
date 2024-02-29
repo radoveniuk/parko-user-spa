@@ -515,7 +515,8 @@
     "newCategory": "New Category",
     "categoryName": "Category Name",
     "create": "Create",
-    "categoryNameError": "Category with this name already exists"
+    "categoryNameError": "Category with this name already exists",
+    "docsWithoutCategory": "Templates without category"
   },
   "dictionaries": "Lists",
   "dictionary": {
