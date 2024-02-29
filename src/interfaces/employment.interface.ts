@@ -1,12 +1,12 @@
 import { MongoHistory } from './base.types';
-import { ProjectPosition } from './project.interface';
+import { IProject, ProjectPosition } from './project.interface';
 import { IUser } from './users.interface';
 
 export interface IEmployment {
   _id: string;
   user: any;
   client: string | null;
-  project: string | null;
+  project: string | null | IProject;
   positionId: string;
   hireDate: string;
   fireDate: string;
