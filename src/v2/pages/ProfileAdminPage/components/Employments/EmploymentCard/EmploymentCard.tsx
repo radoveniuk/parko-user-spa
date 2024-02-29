@@ -53,7 +53,12 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
   const { enqueueSnackbar } = useSnackbar();
   const {
     handleSubmit, watch, control, setValue, clearErrors, register,
-  } = useForm<IEmployment>({ defaultValues: data as any });
+  } = useForm<IEmployment>({
+    defaultValues: {
+      ...(data as any),
+      project: (data?.project as IProject)?._id as string,
+    },
+  });
   const queryClient = useQueryClient();
   const { id: userId } = useParams();
   const { role } = useAuthData();
@@ -159,7 +164,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                         valuePath="_id"
                         options={projects?.filter((projectItem) => (projectItem.client as IClient)?._id === watch('client'))}
                         disabled={formCardConfig.disabled || !watch('client')}
-                        defaultValue={data?.project}
+                        defaultValue={(data?.project as IProject)?._id}
                         error={!!fieldState.error}
                         value={field.value}
                         onChange={(e) => {
