@@ -113,7 +113,7 @@ export const FieldCodesGrid = styled.div`
   gap: 6px;
 
   @media (max-width: ${SM}) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
   .code {
     display: flex;

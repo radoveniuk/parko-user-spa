@@ -181,7 +181,7 @@
     "individualCooperation": "Cooperation — PE",
     "hireDate": "Hire date",
     "fireDate": "Termination date",
-    "fireReason": "RTermination reason",
+    "fireReason": "Termination reason",
     "hire": "Hire",
     "cancel": "Cancel",
     "change": "Change",
@@ -507,7 +507,15 @@
     "file": "File .docx",
     "print": "Generate document",
     "fieldName": "Field name",
-    "fieldCode": "Template code"
+    "fieldCode": "Template code",
+    "new": "New Template",
+    "categories": "Categories",
+    "category": "Category",
+    "createdAt": "Created At",
+    "newCategory": "New Category",
+    "categoryName": "Category Name",
+    "create": "Create",
+    "categoryNameError": "Category with this name already exists"
   },
   "dictionaries": "Lists",
   "dictionary": {
@@ -599,5 +607,24 @@
     "users": "Users",
     "users_all_space": "Users from all workspaces",
     "new_user": "New user"
+  },
+  "employment": {
+    "user": "User",
+    "client": "Client",
+    "project": "Project",
+    "positionId": "Position",
+    "hireDate": "Hire Date",
+    "fireDate": "Fire Date",
+    "fireReason": "Fire Reason",
+    "comment": "Comment",
+    "isNonTaxablePart": "Non-Taxable Part Application",
+    "isChildTaxBonus": "Child Tax Bonus Application",
+    "status": "Employment Status",
+    "changes": "Changes",
+    "history": "History",
+    "createdBy": "Created By",
+    "updatedBy": "Updated By",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
   }
 }

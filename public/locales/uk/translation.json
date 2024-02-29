@@ -607,5 +607,24 @@
     "users": "Користувачі",
     "users_all_space": "Користувачі з усіх робочих просторів",
     "new_user": "Новий користувач"
+  },
+  "employment": {
+    "user": "Користувач",
+    "client": "Клієнт",
+    "project": "Проект",
+    "positionId": "Робоча позиція",
+    "hireDate": "Дата найму",
+    "fireDate": "Дата звільнення",
+    "fireReason": "Причина звільнення",
+    "comment": "Коментар",
+    "isNonTaxablePart": "Uplatnenie nezdaniteľej časti zakladu dane",
+    "isChildTaxBonus": "Uplatnenie daňového bonusu na dieťa",
+    "status": "Статус працевлаштування",
+    "changes": "Зміни",
+    "history": "Історія",
+    "createdBy": "Ким створено ",
+    "updatedBy": "Ким оновлено",
+    "createdAt": "Дата створення",
+    "updatedAt": "Коли оновлено"
   }
 }

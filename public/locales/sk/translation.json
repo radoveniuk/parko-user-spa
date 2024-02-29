@@ -504,7 +504,15 @@
     "file": "Súbor .docx",
     "print": "Generácia dokumentu",
     "fieldName": "Názov polia",
-    "fieldCode": "Kód v šablóne"
+    "fieldCode": "Kód v šablóne",
+    "new": "Nová šablóna",
+    "categories": "Kategórie",
+    "category": "Kategória",
+    "createdAt": "Dátum vytvorenia",
+    "newCategory": "Nová kategória",
+    "categoryName": "Názov kategórie",
+    "create": "Vytvoriť",
+    "categoryNameError": "Kategória s takým názvom už existuje"
   },
   "client": {
     "company": "Spoločnosť",
@@ -583,5 +591,24 @@
     "users": "Používatelia",
     "users_all_space": "Používatelia zo všetkých pracovných priestorov",
     "new_user": "Nový užívateľ"
+  },
+  "employment": {
+    "user": "Používateľ",
+    "client": "Klient",
+    "project": "Projekt",
+    "positionId": "Pracovná pozícia",
+    "hireDate": "Dátum nájmu",
+    "fireDate": "Dátum prepustenia",
+    "fireReason": "Dôvod prepustenia",
+    "comment": "Komentár",
+    "isNonTaxablePart": "Uplatnenie nezdaniteľnej časti základu dane",
+    "isChildTaxBonus": "Uplatnenie daňového bonusu na dieťa",
+    "status": "Stav zamestnania",
+    "changes": "Zmeny",
+    "history": "História",
+    "createdBy": "Kto vytvoril",
+    "updatedBy": "Kto aktualizoval",
+    "createdAt": "Dátum vytvorenia",
+    "updatedAt": "Dátum aktualizácie"
   }
 }

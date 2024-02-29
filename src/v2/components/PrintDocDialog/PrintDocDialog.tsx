@@ -13,6 +13,7 @@ import { useGetDocsTemplateCategories } from 'api/query/docsTemplateCategoryQuer
 import { useGetDocsTemplates } from 'api/query/docsTemplateQuery';
 import { useGetEmployments } from 'api/query/employmentQuery';
 import { ArrowBackIcon, CategoryIcon, FileIcon } from 'components/icons';
+import { getDateFromIso } from 'helpers/datetime';
 import useListState from 'hooks/useListState';
 import { IClient } from 'interfaces/client.interface';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
@@ -21,7 +22,6 @@ import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import { DialogContentWrapper } from './styles';
-import { getDateFromIso } from 'helpers/datetime';
 
 type Props = DialogProps & {
   users: Pick<IUser, '_id' | 'name' | 'surname'>[];
@@ -58,15 +58,19 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
     onClose();
     if (users.length === 1 && selectedTemplates.length === 1) {
       downloadDoc(
-        users.map((item) => item._id),
-        selectedTemplates.map((item) => item._id as string),
+        {
+          userId: Object.keys(userEmploymentMap),
+          templateId: selectedTemplates.map((item) => item._id as string),
+          employmentId: Object.values(userEmploymentMap),
+        },
         `${selectedTemplates[0].name}_${users[0].name}_${users[0].surname}.docx`,
       );
     } else {
-      downloadDoc(
-        users.map((item) => item._id),
-        selectedTemplates.map((item) => item._id as string),
-      );
+      downloadDoc({
+        userId: Object.keys(userEmploymentMap),
+        templateId: selectedTemplates.map((item) => item._id as string),
+        employmentId: Object.values(userEmploymentMap),
+      });
     }
   };
 
@@ -96,6 +100,7 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
                   const project = employment.project as IProject;
                   const client = project?.client as IClient;
                   const position = project?.positions?.find(position => position.matterId === employment.positionId);
+                  // eslint-disable-next-line max-len
                   return `${client?.name} > ${project?.name} > ${position?.name} ${getDateFromIso(employment.hireDate) || ''} - ${getDateFromIso(employment.fireDate || '')}`;
                 }}
               />
