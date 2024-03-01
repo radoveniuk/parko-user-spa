@@ -41,6 +41,7 @@ export const CorporateBodiesSearchField = styled.div`
   @media (max-width: ${TB}) {
     grid-column: 1 / 1;
     .search-btn {
+      max-height: 48px;
       height: 48px;
       font-size: 0px;
       min-width: 40px;

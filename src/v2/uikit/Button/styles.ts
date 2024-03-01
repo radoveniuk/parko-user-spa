@@ -1,5 +1,5 @@
 import ButtonMui from '@mui/lab/LoadingButton';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Button = styled(ButtonMui)`
   box-shadow: none !important;
@@ -10,7 +10,9 @@ export const Button = styled(ButtonMui)`
   /* height: 36px; */
   /* border: 1px solid transparent; */
 
-  /* &:disabled {
-    border: 1px solid #b4b4b4 !important;
-  } */
+  ${props => props.variant === 'outlined' && css`
+    &:disabled {
+      border: 1px solid #b4b4b4 !important;
+    }
+  `}
 `;
