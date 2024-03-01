@@ -1,13 +1,14 @@
 import React, { CSSProperties, ForwardedRef, forwardRef, memo, PropsWithChildren, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { WarningIcon } from 'components/icons';
 import useOutsideClick from 'hooks/useOutsideClick';
 import { AnyObject } from 'interfaces/base.types';
 
 import Button from '../Button';
 import Dialog, { DialogActions } from '../Dialog';
 
-import { FormCardBodyRowWrapper, FormCardBodyWrapper, FormCardHeaderWrapper, FormCardWrapper } from './styles';
+import { FormCardBodyRowWrapper, FormCardBodyWrapper, FormCardHeaderWrapper, FormCardWrapper, WarningDialogContent } from './styles';
 
 type BaseProps = {
   className?: string;
@@ -23,9 +24,10 @@ export type FormCardProps<T> = BaseProps & {
   children?: ((props: { formCardConfig: T, updateFormCardConfig: (values: Partial<T>) => void }) => React.ReactNode)
   | React.ReactNode;
   onOutsideClick?(actions: FormCardOutsideClickAction): void;
+  onReset?(): void;
 };
 
-function Card<T extends AnyObject> ({ children, defaultConfig, onOutsideClick, className, ...rest }: FormCardProps<T>) {
+function Card<T extends AnyObject> ({ children, defaultConfig, onOutsideClick, className, onReset, ...rest }: FormCardProps<T>) {
   const { t } = useTranslation();
   const [config, setConfig] = useState<T>(defaultConfig || {} as T);
   const updateConfig = (values: Partial<T>) => void setConfig(prev => ({ ...prev, ...values }));
@@ -66,8 +68,17 @@ function Card<T extends AnyObject> ({ children, defaultConfig, onOutsideClick, c
           onSubmit={() => void setOpenWarnDialog(false)}
           color="#ed6c02"
         >
-          <div>{t('unsavedChangesWarn')}</div>
-          <DialogActions><Button variant="contained" color="warning" onClick={() => void setOpenWarnDialog(false)}>OK</Button></DialogActions>
+          <WarningDialogContent>{t('unsavedChangesWarn')}</WarningDialogContent>
+          <DialogActions>
+            <Button variant="contained" onClick={() => void setOpenWarnDialog(false)}>{t('back')}</Button>
+            <Button
+              variant="outlined"
+              color="warning"
+              onClick={() => { setOpenWarnDialog(false); onReset?.(); }}
+            >
+              <WarningIcon />{t('continue')}
+            </Button>
+          </DialogActions>
         </Dialog>
       )}
     </FormCardWrapper>

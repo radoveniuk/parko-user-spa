@@ -18,6 +18,7 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { DeleteIcon, EyeIcon, EyeSlashIcon, ProjectIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
+import createId from 'helpers/createId';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IEmployment } from 'interfaces/employment.interface';
@@ -52,7 +53,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const {
-    handleSubmit, watch, control, setValue, clearErrors, register,
+    handleSubmit, watch, control, setValue, clearErrors, register, reset,
   } = useForm<IEmployment>({
     defaultValues: {
       ...(data as any),
@@ -91,12 +92,16 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
   const disableChanges = status === 'canceled';
   const disableFire = status !== 'hired' || !fireDate || !fireReason;
 
+  const [cardKey, setCardKey] = useState(createId());
+
   return (
     <FormCardContent>
       <FormCard
         className="EmploymentCard"
         defaultConfig={{ disabled: true, viewEmployer: false, viewEmployee: false }}
         onOutsideClick={({ warn }) => { warn(); }}
+        onReset={() => { setCardKey(createId()); reset(); }}
+        key={cardKey}
       >
         {({ formCardConfig, updateFormCardConfig }) => (
           <>

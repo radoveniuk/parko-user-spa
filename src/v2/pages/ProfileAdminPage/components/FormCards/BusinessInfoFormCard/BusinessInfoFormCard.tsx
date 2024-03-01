@@ -10,6 +10,7 @@ import api from 'api/common';
 import { useGetCorporateBodies } from 'api/query/corporateBodyQuery';
 import { SearchIcon, UserIcon } from 'components/icons';
 import { CORPORATE_BODY_STATUS } from 'constants/selectsOptions';
+import createId from 'helpers/createId';
 import useOutsideClick from 'hooks/useOutsideClick';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { ICorporateBody } from 'interfaces/corporateBody.interface';
@@ -79,12 +80,14 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
     onChange?.(values);
   };
 
+  const [cardKey, setCardKey] = useState(createId());
+
   return (
     <FormCard
       defaultConfig={{ disabled: true, loading: false }}
-      onOutsideClick={({ warn }) => {
-        warn();
-      }}
+      onOutsideClick={({ warn }) => { warn(); }}
+      onReset={() => { setCardKey(createId()); reset(); }}
+      key={cardKey}
     >
       {({ formCardConfig, updateFormCardConfig }) => (
         <>

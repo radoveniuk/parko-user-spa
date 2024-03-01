@@ -7,6 +7,7 @@ import { FormCard, FormCardBody, FormCardHeader } from 'v2/uikit/FormCard';
 import IconButton from 'v2/uikit/IconButton';
 
 import { CloseIcon, PersonalDocIcon, PlusIcon } from 'components/icons';
+import createId from 'helpers/createId';
 import useListState from 'hooks/useListState';
 import { UserPersonalDocType } from 'interfaces/users.interface';
 
@@ -88,12 +89,14 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
 
   const formCardRef = useRef<HTMLDivElement>(null);
 
+  const [cardKey, setCardKey] = useState(createId());
+
   return (
     <FormCard
       defaultConfig={{ triggerAll: false, disabled: true }}
-      onOutsideClick={({ warn }) => {
-        warn();
-      }}
+      onOutsideClick={({ warn }) => { warn(); }}
+      onReset={() => { setCardKey(createId()); setDocs(data); }}
+      key={cardKey}
     >
       {({ formCardConfig, updateFormCardConfig }) => (
         <>

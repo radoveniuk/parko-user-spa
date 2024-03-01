@@ -540,7 +540,8 @@
   "language": "Jazyk",
   "youNotVerified": "Momentálne nie sú k dispozícii hlavné časti systému aplikácií Parko. Najprv je potrebné vyplniť údaje o sebe v sekcii Profil",
   "next": "Vpred",
-  "back": "Naspäť",
+  "back": "Späť",
+  "continue": "Pokracovať",
   "errors": "Chyby pri zadaní údajov:",
   "deleteApprove": "Ste istý?",
   "rowsPerPage": "Množstvo riadkov",
@@ -577,7 +578,7 @@
     "search": "Vyhľadajte používateľov, projekty alebo klientov"
   },
   "unsavedChanges": "Neuložené zmeny",
-  "unsavedChangesWarn": "Máte neuložené zmeny. Ak ich neuložíte, môžu byť stratené.",
+  "unsavedChangesWarn": "Vaša posledná zmena nebola uložená. Chcete pokracovat bez uloženia?",
   "searchHistory": "História",
   "fileDeletedSuccess": "Dokument bol úspešne odstránený",
   "cancel": "Storno",

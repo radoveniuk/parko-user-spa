@@ -556,6 +556,7 @@
   "youNotVerified": "Temporarily you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
   "next": "Next",
   "back": "Back",
+  "continue": "Continue",
   "errors": "Errors",
   "deleteApprove": "Are you sure?",
   "rowsPerPage": "Rows per page",
