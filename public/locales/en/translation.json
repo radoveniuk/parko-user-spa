@@ -229,7 +229,8 @@
     "employmentChangeData": "Data",
     "employmentChangeDateFrom": "Date from",
     "employmentChangeCreatedBy": "Created by",
-    "employmentChangeCreatedAt": "Created at"
+    "employmentChangeCreatedAt": "Created at",
+    "thisNameExistsMsg": "There is already a registered user in the system with the same first and last name. Do you want to continue?"
   },
   "userHistory": {
     "updatedBy": "Updated by",
@@ -549,15 +550,17 @@
     "passwordsNotMatched": "Passwords does't match",
     "wrongOldPassword": "Wrong old password",
     "sww": "Something went wrong",
-    "requiredField": "Field is required"
+    "requiredField": "Field is required",
+    "wrongIbanFormat": "Wrong IBAN format"
   },
   "fastActions": "Actions",
   "language": "Language",
   "youNotVerified": "Temporarily you don't have an access to parts of the Parko app. Firstly you need to fill info about yourself",
   "next": "Next",
   "back": "Back",
+  "continue": "Continue",
   "errors": "Errors",
-  "deleteApprove": "Are you sure?",
+  "areYouSure": "Are you sure?",
   "rowsPerPage": "Rows per page",
   "selectAll": "Select all",
   "removeSelect": "Remove selection",

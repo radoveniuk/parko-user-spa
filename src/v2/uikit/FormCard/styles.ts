@@ -87,3 +87,7 @@ export const FormCardBodyRowWrapper = styled.div`
     }
   }
 `;
+
+export const WarningDialogContent = styled.div`
+  padding: 8px;
+`;

@@ -129,8 +129,8 @@ const ProfileAdminPageRender = () => {
                 <PlusIcon />{t('user.addEmployment')}
               </Button>
             )}
-            {role === 'admin' && (
-              <Button color="error" disabled={profileData.isDeleted} onClick={() => void setOpenDeleteDialog(true)}>
+            {role !== 'user' && (
+              <Button color="error" onClick={() => void setOpenDeleteDialog(true)}>
                 <DeleteIcon size={16} />
                 {t('delete')}
               </Button>
@@ -314,6 +314,7 @@ const ProfileAdminPageRender = () => {
           <Button
             color="warning"
             variant="outlined"
+            disabled={profileData.isDeleted}
             onClick={async () => {
               await updateUser({ isDeleted: true });
               navigate('/profiles');
@@ -321,17 +322,19 @@ const ProfileAdminPageRender = () => {
           >
             {t('delete')}
           </Button>
-          <Button
-            color="error"
-            variant="outlined"
-            onClick={async () => {
-              await deleteUserMutation.mutateAsync(userId as string);
-              navigate('/profiles');
-            }}
-          >
-            <WarningIcon />
-            {t('deletePermanent')}
-          </Button>
+          {role === 'admin' && (
+            <Button
+              color="error"
+              variant="outlined"
+              onClick={async () => {
+                await deleteUserMutation.mutateAsync(userId as string);
+                navigate('/profiles');
+              }}
+            >
+              <WarningIcon />
+              {t('deletePermanent')}
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </ProfileAdminPageWrapper>

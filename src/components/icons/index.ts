@@ -50,6 +50,7 @@ export { ImExit as ExitIcon } from 'react-icons/im';
 export { IoMdArrowDropdown as ArrowDownIcon, IoIosPaperPlane as NotificationIcon, IoMdSettings as SettingsIcon } from 'react-icons/io';
 export {
   IoCheckmark as AcceptIcon,
+  IoCheckmark as CheckIcon,
   IoClose as CloseIcon,
   IoHome as HomeIcon,
   IoClose as IoCloseIcon,

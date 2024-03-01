@@ -6,7 +6,6 @@ import { useDeleteEmployment, useUpdateEmployment } from 'api/mutations/employme
 import { useGetClients } from 'api/query/clientQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { IEmployment } from 'interfaces/employment.interface';
-import { IProject } from 'interfaces/project.interface';
 
 import useUpdateCachedUserData from '../../hooks/useUpdateCachedUserData';
 

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { COUNTRIES } from 'v2/constants/countries';
@@ -8,6 +8,7 @@ import Select from 'v2/uikit/Select';
 
 import { FactoryIcon } from 'components/icons';
 import { FAMILY_STATUSES, INSURANCE } from 'constants/selectsOptions';
+import createId from 'helpers/createId';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';
 
@@ -23,7 +24,7 @@ type Props = {
 
 const EmploymentInfoFormCard = ({ data, onUpdateEmploymentInfo }: Props) => {
   const { t } = useTranslation();
-  const { register, handleSubmit } = useForm<EmploymentInfo>({ defaultValues: data });
+  const { register, handleSubmit, reset } = useForm<EmploymentInfo>({ defaultValues: data });
 
   const familyStatusOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
 
@@ -31,12 +32,14 @@ const EmploymentInfoFormCard = ({ data, onUpdateEmploymentInfo }: Props) => {
     onUpdateEmploymentInfo?.(values);
   };
 
+  const [cardKey, setCardKey] = useState(createId());
+
   return (
     <FormCard
       defaultConfig={{ disabled: true }}
-      onOutsideClick={({ warn }) => {
-        warn();
-      }}
+      onOutsideClick={({ warn }) => { warn(); }}
+      onReset={() => { setCardKey(createId()); reset(); }}
+      key={cardKey}
     >
       {({ formCardConfig, updateFormCardConfig }) => (
         <>
