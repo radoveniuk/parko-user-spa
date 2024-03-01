@@ -22,7 +22,6 @@ import { useGetEmployments } from 'api/query/employmentQuery';
 import { useGetPaycheckList } from 'api/query/paycheckQuery';
 import { useGetPayrollList } from 'api/query/payrollQuery';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
-import { useGetProjects } from 'api/query/projectQuery';
 import { useGetResidences } from 'api/query/residenceQuery';
 import { useGetUser } from 'api/query/userQuery';
 import { DeleteIcon, PlusIcon, WarningIcon } from 'components/icons';
@@ -67,7 +66,6 @@ const ProfileAdminPageRender = () => {
   const { data: daysoff = [] } = useGetDaysoff({ user: userId });
   const { data: employments = [], refetch: refetchEmplyments } = useGetEmployments({ user: userId });
   const { data: accommodations = [] } = useGetAccommodations();
-  const { data: projects = [] } = useGetProjects();
 
   const updateUserMutation = useUpdateUserMutation();
   const deleteUserMutation = useDeleteUserMutation();
@@ -148,14 +146,14 @@ const ProfileAdminPageRender = () => {
         <ProfileCard
           data={profileData}
           workHistory={employments.map((employmentItem) => {
-            const project = projects.find(project => project._id === employmentItem.project) as IProject;
+            const project = employmentItem.project as IProject;
             const position = project?.positions?.find((positionItem) => positionItem.matterId === employmentItem.positionId)?.internalName as string;
 
             return {
               _id: employmentItem._id,
               dateFrom: employmentItem.hireDate,
-              project: project,
-              position: position,
+              project,
+              position,
               dateTo: employmentItem.fireDate,
             };
           })}

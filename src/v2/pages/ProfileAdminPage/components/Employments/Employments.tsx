@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { useDeleteEmployment, useUpdateEmployment } from 'api/mutations/employmentMutation';
 import { useGetClients } from 'api/query/clientQuery';
+import { useGetProjects } from 'api/query/projectQuery';
 import { IEmployment } from 'interfaces/employment.interface';
 import { IProject } from 'interfaces/project.interface';
 
@@ -20,7 +21,7 @@ const Employments = ({ data }: Props) => {
   const updateEmployment = useUpdateEmployment();
   const deleteEmployment = useDeleteEmployment();
   const queryClient = useQueryClient();
-  const projects = queryClient.getQueryData(['projects', JSON.stringify({})]) as IProject[];
+  const { data: projects = [] } = useGetProjects();
   const { data: clients = [] } = useGetClients();
   const updateCachedUserData = useUpdateCachedUserData();
 
