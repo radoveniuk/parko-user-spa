@@ -228,7 +228,8 @@
     "employmentChangeData": "Данные",
     "employmentChangeDateFrom": "Действительно от",
     "employmentChangeCreatedBy": "Создал",
-    "employmentChangeCreatedAt": "Дата создания"
+    "employmentChangeCreatedAt": "Дата создания",
+    "thisNameExistsMsg": "В системе уже есть зарегистрированный пользователь с таким именем и фамилией. Хотите продолжить?"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",
@@ -548,7 +549,8 @@
     "passwordsNotMatched": "Пароли не совпадают",
     "wrongOldPassword": "Неверный старый пароль",
     "sww": "Что-то пошло не так",
-    "requiredField": "Поле обязательное"
+    "requiredField": "Поле обязательное",
+    "wrongIbanFormat": "IBAN указан в неправильном формате"
   },
   "fastActions": "Действия",
   "language": "Язык",
@@ -557,7 +559,7 @@
   "back": "Назад",
   "continue": "Продолжить",
   "errors": "Ошибки при вводе:",
-  "deleteApprove": "Вы уверенны?",
+  "areYouSure": "Вы уверенны?",
   "rowsPerPage": "Количество строк",
   "selectAll": "Выбрать всё",
   "removeSelect": "Убрать выбор",

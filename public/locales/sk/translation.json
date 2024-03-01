@@ -226,7 +226,8 @@
     "employmentChangeData": "Údaje",
     "employmentChangeDateFrom": "Dátum od",
     "employmentChangeCreatedBy": "Vytvoril",
-    "employmentChangeCreatedAt": "Vytvorené o"
+    "employmentChangeCreatedAt": "Vytvorené o",
+    "thisNameExistsMsg": "V systéme už existuje registrovaný užívateľ s rovnakým menom a priezviskom. Chcete pokračovať?"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",
@@ -536,6 +537,14 @@
     "projects": "Projekty",
     "profiles": "Pracovníci"
   },
+  "errorTexts": {
+    "emptyPassword": "Pole (Heslo) nemôže byť prázdne",
+    "passwordsNotMatched": "Heslá sa nezhodujú",
+    "wrongOldPassword": "Nesprávne staré heslo",
+    "sww": "Vyskytol sa problém",
+    "requiredField": "Pole je povinné",
+    "wrongIbanFormat": "IBAN je zadaný v nesprávnom formáte"
+  },
   "fastActions": "Akcie",
   "language": "Jazyk",
   "youNotVerified": "Momentálne nie sú k dispozícii hlavné časti systému aplikácií Parko. Najprv je potrebné vyplniť údaje o sebe v sekcii Profil",
@@ -543,7 +552,7 @@
   "back": "Späť",
   "continue": "Pokracovať",
   "errors": "Chyby pri zadaní údajov:",
-  "deleteApprove": "Ste istý?",
+  "areYouSure": "Ste istý?",
   "rowsPerPage": "Množstvo riadkov",
   "selectAll": "Vybrať všetko",
   "removeSelect": "Odstrániť výber",

@@ -228,7 +228,8 @@
     "employmentChangeData": "Дані",
     "employmentChangeDateFrom": "Діє від",
     "employmentChangeCreatedBy": "Створив",
-    "employmentChangeCreatedAt": "Дата створення"
+    "employmentChangeCreatedAt": "Дата створення",
+    "thisNameExistsMsg": "В системі вже є зареєстрований користувач з таким ім'ям та прізвищем. Бажаєте продовжити?"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",
@@ -547,7 +548,8 @@
     "passwordsNotMatched": "Паролі не співпадають",
     "wrongOldPassword": "Помилковий попередній пароль",
     "sww": "Щось пішло не так",
-    "requiredField": "Поле обовʼязкове"
+    "requiredField": "Поле обовʼязкове",
+    "wrongIbanFormat": "IBAN вказано в неправильному форматі"
   },
   "fastActions": "Дії",
   "language": "Мова",
@@ -556,7 +558,7 @@
   "back": "Назад",
   "continue": "Продовжити",
   "errors": "Помилкові поля:",
-  "deleteApprove": "Ви впевнені?",
+  "areYouSure": "Ви впевнені?",
   "rowsPerPage": "Кількість рядів",
   "selectAll": "Вибрати все",
   "removeSelect": "Прибрати вибір",

@@ -61,7 +61,7 @@ const BankDataFormCard = ({ data, onUpdate }: Props) => {
     const iban = getValues('IBAN');
 
     if (iban.replaceAll('_', '').length !== 29) {
-      enqueueSnackbar(t('errors.wrongIbanFormat'), { variant: 'error' });
+      enqueueSnackbar(t('errorTexts.wrongIbanFormat'), { variant: 'error' });
       return;
     }
     setLoading(true);
