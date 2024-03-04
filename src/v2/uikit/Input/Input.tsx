@@ -30,12 +30,23 @@ const Input = ({
     setShowPassword(prev => !prev);
   }, []);
 
+  const nameCyrillicValidator = (e: any) => {
+    function containsCyrillicCharacters (str: string): boolean {
+      const cyrillicRegex = /[а-яА-Я]/;
+      return cyrillicRegex.test(str);
+    }
+    if (containsCyrillicCharacters(e.key)) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <InputWrapper className={className} style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
       <div className={`label${props.error ? ' error' : ''}`}>{label}</div>
       <TextField
         ref={ref}
         type={showPasswordIcon ? (showPassword ? 'text' : 'password') : type}
+        onKeyPress={nameCyrillicValidator}
         InputProps={showPasswordIcon
           ? {
             endAdornment: (
@@ -51,8 +62,8 @@ const Input = ({
             ),
           }
           : {}}
-        {...props}
         label={undefined}
+        {...props}
       />
     </InputWrapper>
   );

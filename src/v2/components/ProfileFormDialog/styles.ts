@@ -27,3 +27,16 @@ export const CountrySelectOption = styled.div`
   align-items: center;
   gap: 6px;
 `;
+
+export const NamesakesDialogContent = styled.div`
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 50px 1fr;
+
+  @media (max-width: ${SM}) {
+    svg {
+      display: none;
+    }
+    grid-template-columns: 1fr;
+  }
+`;
