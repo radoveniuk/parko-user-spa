@@ -1,4 +1,4 @@
-import React, { CSSProperties, ForwardedRef, forwardRef, memo, PropsWithChildren, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, ForwardedRef, forwardRef, memo, PropsWithChildren, ReactNode, useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { WarningIcon } from 'components/icons';
@@ -38,23 +38,17 @@ function Card<T extends AnyObject> ({ children, defaultConfig, onOutsideClick, c
   const [warnHighlight, setWarnHighlight] = useState(false);
 
   const warn = useCallback((text: string) => {
-    if (!warnHighlight && !config.disabled) {
+    if (!config.disabled) {
       setOpenWarnDialog(text || true);
       setWarnHighlight(true);
     }
-  }, [config.disabled, warnHighlight]);
+  }, [config.disabled]);
 
   const outsideClickHandler = useCallback(() => {
     onOutsideClick?.({ warn });
   }, [onOutsideClick, warn]);
 
   useOutsideClick(formCardRef, outsideClickHandler);
-
-  useEffect(() => {
-    if (config.disabled) {
-      setWarnHighlight(false);
-    }
-  }, [config.disabled]);
 
   return (
     <FormCardWrapper ref={formCardRef} className={`${className || ''} ${warnHighlight ? 'warn' : ''}`} {...rest}>
