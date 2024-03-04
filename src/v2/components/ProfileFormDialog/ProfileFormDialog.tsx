@@ -1,6 +1,7 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import { COUNTRIES } from 'v2/constants/countries';
 import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import { Button, Input } from 'v2/uikit';
@@ -12,12 +13,13 @@ import Select from 'v2/uikit/Select';
 
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList } from 'api/query/userQuery';
+import { WarningIcon } from 'components/icons';
 import { ROLES } from 'constants/userRoles';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser, UserWorkType } from 'interfaces/users.interface';
 
-import { CountrySelectOption, FormWrapper } from './styles';
+import { CountrySelectOption, FormWrapper, NamesakesDialogContent } from './styles';
 
 type Data = Pick<IUser, 'name' | 'surname' | 'email' | 'birthDate' | 'country' | 'sex' |
 'adress' | 'source' | 'recruiter' | 'phone' | 'role' | 'notes' | 'workTypes'>
@@ -36,11 +38,39 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: recruiters = [] } = useGetUserList({ roles: 'recruiter,admin' });
 
-  const { register, control, handleSubmit, formState: { errors }, reset } = useForm<Data>({ defaultValues: data });
+  const { register, control, handleSubmit, formState: { errors }, reset, getValues } = useForm<Data>({ defaultValues: data });
 
-  const submitHamdler: SubmitHandler<Data> = (values) => {
+  const queryClient = useQueryClient();
+
+  const [showNamesakesDialog, setShowNamesakesDialog] = useState(false);
+
+  const processName = (name: string): string => {
+    const processedName = name.replace(/\b\s+-\s+\b/g, '-').replace(/\s+/g, ' ').trim();
+    return processedName;
+  };
+
+  const saveProfile = () => {
+    const values = getValues();
     const recruiter = recruiters.find((item) => item._id === values.recruiter);
-    onSave?.({ ...values, recruiter: recruiter || null, role: values.role || 'user' });
+    onSave?.({
+      ...values,
+      recruiter: recruiter || null,
+      role: values.role || 'user',
+      name: processName(values.name),
+      surname: processName(values.surname),
+    });
+  };
+
+  const submitHamdler: SubmitHandler<Data> = async (values) => {
+    const allUsers = queryClient.getQueryData(['users-filter', '{}']) as IUser[];
+    const isNamesakes = allUsers.some((user) => user.name.trim().toLowerCase() === values.name.trim().toLowerCase() &&
+     user.surname.trim().toLowerCase() === values.surname.trim().toLowerCase());
+
+    if (!data && isNamesakes) {
+      setShowNamesakesDialog(true);
+    } else {
+      saveProfile();
+    }
   };
 
   useEffect(() => {
@@ -50,136 +80,148 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   }, [data, reset, rest.open]);
 
   return (
-    <Dialog mobileFullscreen title={title || t('profile')} {...rest}>
-      <FormWrapper>
-        <Input
-          label={`${t('user.name')}*`}
-          theme="gray"
-          error={!!errors.name}
-          {...register('name', { required: true })}
-        />
-        <Input
-          label={`${t('user.surname')}*`}
-          theme="gray"
-          error={!!errors.name}
-          {...register('surname', { required: true })}
-        />
-        <Input
-          type="email"
-          label={t('user.email')}
-          theme="gray"
-          {...register('email')}
-        />
-        <Controller
-          control={control}
-          name="phone"
-          defaultValue={data?.phone || ''}
-          rules={{ validate: (value) => !value || checkPhoneNumber(value as string), required: true }}
-          render={({ field }) => (
-            <PhoneInput
-              theme="gray"
-              value={field.value as string}
-              onChange={field.onChange}
-              label={`${t('project.phone')}*`}
-              error={!!errors.phone}
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="birthDate"
-          render={({ field }) => (
-            <DatePicker
-              inputProps={{ theme: 'gray' }}
-              defaultValue={field.value}
-              onChange={field.onChange}
-              label={t('user.birthDate')}
-              error={!!errors.birthDate}
-              onBlur={field.onBlur}
-            />
-          )}
-        />
-        <Select
-          theme="gray"
-          options={sexOptions}
-          label={t('user.sex')}
-          defaultValue={data?.sex}
-          {...register('sex')}
-        />
-        <Select
-          theme="gray"
-          options={COUNTRIES}
-          labelPath={(data) => (
-            <CountrySelectOption><img src={`https://flagcdn.com/w20/${data.code}.png`} className="mr-12" />{data.value}</CountrySelectOption>
-          )}
-          label={t('user.country')}
-          defaultValue={data?.country}
-          {...register('country')}
-        />
-        <Input
-          label={t('user.adress')}
-          theme="gray"
-          {...register('adress')}
-        />
-        <Select
-          theme="gray"
-          label={t('user.source')}
-          defaultValue={data?.source}
-          options={sourceDictionary?.options}
-          labelPath="label"
-          {...register('source')}
-        />
-        <Select
-          theme="gray"
-          label={t('user.recruiter')}
-          defaultValue={data?.recruiter}
-          options={recruiters.toSorted((a, b) => b.role.length - a.role.length)}
-          valuePath="_id"
-          labelPath={(item) => `${item.name} ${item.surname}, ${t(`selects.userRole.${item.role}`)}`}
-          {...register('recruiter')}
-        />
-        {role === 'admin' && (
+    <>
+      <Dialog mobileFullscreen title={title || t('profile')} {...rest}>
+        <FormWrapper>
+          <Input
+            label={`${t('user.name')}*`}
+            theme="gray"
+            error={!!errors.name}
+            {...register('name', { required: true })}
+          />
+          <Input
+            label={`${t('user.surname')}*`}
+            theme="gray"
+            error={!!errors.name}
+            {...register('surname', { required: true })}
+          />
+          <Input
+            type="email"
+            label={t('user.email')}
+            theme="gray"
+            {...register('email')}
+          />
+          <Controller
+            control={control}
+            name="phone"
+            defaultValue={data?.phone || ''}
+            rules={{ validate: (value) => !value || checkPhoneNumber(value as string), required: true }}
+            render={({ field }) => (
+              <PhoneInput
+                theme="gray"
+                value={field.value as string}
+                onChange={field.onChange}
+                label={`${t('project.phone')}*`}
+                error={!!errors.phone}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="birthDate"
+            render={({ field }) => (
+              <DatePicker
+                inputProps={{ theme: 'gray' }}
+                defaultValue={field.value}
+                onChange={field.onChange}
+                label={t('user.birthDate')}
+                error={!!errors.birthDate}
+                onBlur={field.onBlur}
+              />
+            )}
+          />
           <Select
             theme="gray"
-            options={translatedRoles}
-            defaultValue={data?.role || 'user'}
-            fullWidth
-            label={t('user.role')}
-            {...register('role')}
+            options={sexOptions}
+            label={t('user.sex')}
+            defaultValue={data?.sex}
+            {...register('sex')}
           />
-        )}
-        <Controller
-          control={control}
-          name="workTypes"
-          render={({ field }) => (
-            <Autocomplete
-              defaultValue={data && data.workTypes
-                ? translatedWorkTypes.filter((translatedItem) => data.workTypes?.includes(translatedItem.value as UserWorkType))
-                : []
-              }
-              value={translatedWorkTypes.filter((translatedItem) => field.value?.includes(translatedItem.value as UserWorkType))}
+          <Select
+            theme="gray"
+            options={COUNTRIES}
+            labelPath={(data) => (
+              <CountrySelectOption><img src={`https://flagcdn.com/w20/${data.code}.png`} className="mr-12" />{data.value}</CountrySelectOption>
+            )}
+            label={t('user.country')}
+            defaultValue={data?.country}
+            {...register('country')}
+          />
+          <Input
+            label={t('user.adress')}
+            theme="gray"
+            {...register('adress')}
+          />
+          <Select
+            theme="gray"
+            label={t('user.source')}
+            defaultValue={data?.source}
+            options={sourceDictionary?.options}
+            labelPath="label"
+            {...register('source')}
+          />
+          <Select
+            theme="gray"
+            label={t('user.recruiter')}
+            defaultValue={data?.recruiter}
+            options={recruiters.toSorted((a, b) => b.role.length - a.role.length)}
+            valuePath="_id"
+            labelPath={(item) => `${item.name} ${item.surname}, ${t(`selects.userRole.${item.role}`)}`}
+            {...register('recruiter')}
+          />
+          {role === 'admin' && (
+            <Select
               theme="gray"
-              options={translatedWorkTypes}
-              valueKey="value"
-              labelKey="label"
-              label={t('user.workTypes')}
-              limitTags={1}
-              onChange={(values) => void field.onChange(values.map((item: { value: string }) => item.value))}
-              disableCloseOnSelect
-              multiple
+              options={translatedRoles}
+              defaultValue={data?.role || 'user'}
+              fullWidth
+              label={t('user.role')}
+              {...register('role')}
             />
           )}
-        />
-        <Input
-          label={t('user.notes')}
-          theme="gray"
-          {...register('notes')}
-        />
-      </FormWrapper>
-      <DialogActions>
-        <Button onClick={handleSubmit(submitHamdler)} variant="contained">{t('save')}</Button>
-      </DialogActions>
-    </Dialog>
+          <Controller
+            control={control}
+            name="workTypes"
+            render={({ field }) => (
+              <Autocomplete
+                defaultValue={data && data.workTypes
+                  ? translatedWorkTypes.filter((translatedItem) => data.workTypes?.includes(translatedItem.value as UserWorkType))
+                  : []
+                }
+                value={translatedWorkTypes.filter((translatedItem) => field.value?.includes(translatedItem.value as UserWorkType))}
+                theme="gray"
+                options={translatedWorkTypes}
+                valueKey="value"
+                labelKey="label"
+                label={t('user.workTypes')}
+                limitTags={1}
+                onChange={(values) => void field.onChange(values.map((item: { value: string }) => item.value))}
+                disableCloseOnSelect
+                multiple
+              />
+            )}
+          />
+          <Input
+            label={t('user.notes')}
+            theme="gray"
+            {...register('notes')}
+          />
+        </FormWrapper>
+        <DialogActions>
+          <Button onClick={handleSubmit(submitHamdler)} variant="contained">{t('save')}</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog color="rgb(237, 108, 2)" title={t('areYouSure')} open={showNamesakesDialog} onClose={() => void setShowNamesakesDialog(false)}>
+        <NamesakesDialogContent>
+          <WarningIcon size={36} />
+          <div>{t('user.thisNameExistsMsg')}</div>
+        </NamesakesDialogContent>
+        <DialogActions>
+          <Button variant="outlined" onClick={() => void setShowNamesakesDialog(false)}>{t('cancel')}</Button>
+          <Button variant="contained" onClick={() => void saveProfile()}>{t('continue')}</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 
