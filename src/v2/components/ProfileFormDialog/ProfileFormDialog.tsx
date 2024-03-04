@@ -62,12 +62,13 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   };
 
   const submitHamdler: SubmitHandler<Data> = async (values) => {
-    const allUsers = queryClient.getQueryData(['users-filter', '{}']) as IUser[];
-    const isNamesakes = allUsers.some((user) => user.name.trim().toLowerCase() === values.name.trim().toLowerCase() &&
-     user.surname.trim().toLowerCase() === values.surname.trim().toLowerCase());
-
-    if (!data && isNamesakes) {
-      setShowNamesakesDialog(true);
+    if (!data) {
+      const allUsers = queryClient.getQueryData(['users-filter', '{}']) as IUser[];
+      const isNamesakes = allUsers.some((user) => user.name.trim().toLowerCase() === values.name.trim().toLowerCase() &&
+       user.surname.trim().toLowerCase() === values.surname.trim().toLowerCase());
+      if (isNamesakes) {
+        setShowNamesakesDialog(true);
+      }
     } else {
       saveProfile();
     }
