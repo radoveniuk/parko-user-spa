@@ -550,7 +550,8 @@
     "wrongOldPassword": "Неверный старый пароль",
     "sww": "Что-то пошло не так",
     "requiredField": "Поле обязательное",
-    "wrongIbanFormat": "IBAN указан в неправильном формате"
+    "wrongIbanFormat": "IBAN указан в неправильном формате",
+    "addressFormat": "Street 36, 00000 City или Street 36/17, 00000 City"
   },
   "fastActions": "Действия",
   "language": "Язык",

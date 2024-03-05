@@ -19,6 +19,8 @@ import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser, UserWorkType } from 'interfaces/users.interface';
 
+import AddressSearchInput from '../AddressSearchInput/AddressSearchInput';
+
 import { CountrySelectOption, FormWrapper, NamesakesDialogContent } from './styles';
 
 type Data = Pick<IUser, 'name' | 'surname' | 'email' | 'birthDate' | 'country' | 'sex' |
@@ -38,7 +40,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: recruiters = [] } = useGetUserList({ roles: 'recruiter,admin' });
 
-  const { register, control, handleSubmit, formState: { errors }, reset, getValues } = useForm<Data>({ defaultValues: data });
+  const { register, control, handleSubmit, formState: { errors }, reset, getValues, watch } = useForm<Data>({ defaultValues: data });
 
   const queryClient = useQueryClient();
 
@@ -148,10 +150,27 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             defaultValue={data?.country}
             {...register('country')}
           />
-          <Input
-            label={t('user.adress')}
-            theme="gray"
-            {...register('adress')}
+          <Controller
+            name="adress"
+            control={control}
+            rules={{
+              validate: (address: string) => {
+                // eslint-disable-next-line no-useless-escape, max-len
+                const pattern = /^[\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+ \d+(\/\d+[a-zA-Z]?)?[,-]? \d{5} [\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+$/u;
+                return address ? pattern.test(address) || t('errorTexts.addressFormat') : true;
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <AddressSearchInput
+                country={COUNTRIES.find(country => country.value === watch('country'))?.code}
+                label={t('user.adress')}
+                theme="gray"
+                value={field.value}
+                onChange={field.onChange}
+                error={!!fieldState.error?.message}
+                helperText={fieldState.error?.message}
+              />
+            )}
           />
           <Select
             theme="gray"

@@ -108,7 +108,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
         <div className="common section">
           <div className="common-item">{t('user.birthDate')}: {getDateFromIso(user.birthDate)}</div>
           <div className="common-item">{t('user.country')}: {user.country}</div>
-          <div className="common-item">{t('user.adress')}: {user.adress} {user.city} {user.zip}</div>
+          <div className="common-item">{t('user.adress')}: {user.adress}</div>
           <div className="common-item">{t('user.source')}: {user.source} / {recruiter?.name} {recruiter?.surname}</div>
           <div className="common-item">{t('user.notes')}: {user.notes}</div>
         </div>

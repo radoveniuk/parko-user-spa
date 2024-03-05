@@ -543,7 +543,8 @@
     "wrongOldPassword": "Nesprávne staré heslo",
     "sww": "Vyskytol sa problém",
     "requiredField": "Pole je povinné",
-    "wrongIbanFormat": "IBAN je zadaný v nesprávnom formáte"
+    "wrongIbanFormat": "IBAN je zadaný v nesprávnom formáte",
+    "addressFormat": "Ulica 36, 00000 Mesto alebo Ulica 36/17, 00000 Mesto"
   },
   "fastActions": "Akcie",
   "language": "Jazyk",

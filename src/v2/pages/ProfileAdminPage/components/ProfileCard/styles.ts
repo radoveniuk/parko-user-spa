@@ -96,7 +96,7 @@ export const ProfileCardWrapper = styled.div`
       gap: 5px;
 
       &-item {
-        color: #717171;
+        color: #a2a2a2;
         font-size: 14px;
         font-weight: 600;
         line-height: 18px;

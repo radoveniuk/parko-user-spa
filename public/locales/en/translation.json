@@ -551,7 +551,8 @@
     "wrongOldPassword": "Wrong old password",
     "sww": "Something went wrong",
     "requiredField": "Field is required",
-    "wrongIbanFormat": "Wrong IBAN format"
+    "wrongIbanFormat": "Wrong IBAN format",
+    "addressFormat": "Street 36, 00000 City or Street 36/17, 00000 City"
   },
   "fastActions": "Actions",
   "language": "Language",

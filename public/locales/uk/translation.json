@@ -549,7 +549,8 @@
     "wrongOldPassword": "Помилковий попередній пароль",
     "sww": "Щось пішло не так",
     "requiredField": "Поле обовʼязкове",
-    "wrongIbanFormat": "IBAN вказано в неправильному форматі"
+    "wrongIbanFormat": "IBAN вказано в неправильному форматі",
+    "addressFormat": "Вулиця 36, 00000 Місто або Вулиця 36/17, 00000 Місто"
   },
   "fastActions": "Дії",
   "language": "Мова",
