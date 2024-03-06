@@ -52,6 +52,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   };
 
   const saveProfile = () => {
+    setShowNamesakesDialog(false);
     const values = getValues();
     const recruiter = recruiters.find((item) => item._id === values.recruiter);
     onSave?.({
