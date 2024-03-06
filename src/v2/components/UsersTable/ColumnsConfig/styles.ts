@@ -24,10 +24,6 @@ export const ColsSettingsWrapper = styled.div`
   }
   .cols {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    label {
-      margin-right: 0;
-    }
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
