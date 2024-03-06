@@ -7,6 +7,7 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
   display: flex;
   flex-direction: column;
   .label {
+    display: flex;
     color: #717171;
     font-size: 14px;
     line-height: 14px;
@@ -17,6 +18,10 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
     text-overflow: ellipsis;
     &.error {
       color: ${themeConfig.palette.error.main};
+    }
+
+    .tooltip {
+      margin-left: auto;
     }
   }
   &:has(.Mui-focused) {

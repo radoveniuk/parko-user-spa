@@ -41,8 +41,9 @@ const BpCheckedIcon = styled(BpIcon)({
 export type CheckboxProps = CheckboxPropsMUI & {
   label?: string
 }
-const Checkbox = (props: CheckboxProps) => (
+const Checkbox = ({ className, ...props }: CheckboxProps) => (
   <FormControlLabelWrapper
+    className={className}
     control={(
       <CheckboxMUI
         sx={{

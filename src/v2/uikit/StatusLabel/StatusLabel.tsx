@@ -28,6 +28,7 @@ const StatusLabel = styled.div`
   padding: 1px 4px;
   border-radius: 2px;
   max-width: min-content;
+  width: min-content;
   white-space: nowrap;
   max-height: min-content;
 `;

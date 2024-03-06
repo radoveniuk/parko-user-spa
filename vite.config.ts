@@ -18,8 +18,8 @@ export default defineConfig({
     proxy: {
       '/api': {
         // target: 'https://parko-user.com:3000',
-        // target: 'http://vmi1528393.contaboserver.net:3000',
-        target: 'http://localhost:3000',
+        target: 'http://vmi1528393.contaboserver.net:3000',
+        // target: 'http://localhost:3000',
         changeOrigin: true,
         secure: false,
         ws: true,

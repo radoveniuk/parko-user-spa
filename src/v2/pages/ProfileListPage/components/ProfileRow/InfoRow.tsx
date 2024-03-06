@@ -87,6 +87,9 @@ const InfoRow = () => {
 
           return createTableCell(!docValueKey.includes('date') ? value || '' : getDateFromIso(value) || '');
         }
+        if (userField === 'workTypes') {
+          return createTableCell(data[userField].map(item => t(`selects.userWorkType.${item}`)).toString() || '');
+        }
         if (isMongoId(colName)) {
           // eslint-disable-next-line max-len
           return createTableCell(typeof data.customFields?.[colName] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(data.customFields?.[colName] as string || '')

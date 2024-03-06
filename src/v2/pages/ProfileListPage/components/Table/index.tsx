@@ -2,9 +2,9 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { FixedSizeList } from 'react-window';
 import MobileUserCard from 'v2/components/MobileUserCard';
+import { ColumnsConfig } from 'v2/components/UsersTable';
 import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
 import Skeleton from 'v2/uikit/Skeleton';
@@ -24,7 +24,6 @@ import { IUser } from 'interfaces/users.interface';
 
 import { useFilterBarVisibility } from '../../contexts/FilterBarVisibilityContext';
 import ProfileRow from '../ProfileRow';
-import SettingsTable from '../SettingsTable';
 
 import { TableWrapper } from './styles';
 
@@ -219,7 +218,7 @@ const Table = ({
       <div className="pagination-bottom">
         <Pagination {...paginationConfig} setRowsPerPage={setRowsPerPage} rowsPerPage={rowsPerPage} labelRowsPerPage={t('rowsPerPage')}/>
       </div>
-      <SettingsTable
+      <ColumnsConfig
         open={openColsSettins}
         onClose={() => void setOpenColsSettings(false)}
         activeCols={activeCols}

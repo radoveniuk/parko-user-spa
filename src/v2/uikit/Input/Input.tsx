@@ -2,9 +2,10 @@ import React, { ForwardedRef, forwardRef, memo, useCallback } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 
-import { EyeIcon, EyeSlashIcon } from 'components/icons';
+import { EyeIcon, EyeSlashIcon, InfoIcon } from 'components/icons';
 
 import IconButton from '../IconButton';
+import Tooltip from '../Tooltip';
 
 import { InputWrapper } from './styles';
 
@@ -19,10 +20,11 @@ export type InputProps = {
   showPasswordIcon?: boolean;
   maxWidth?: number;
   theme?: FieldTheme;
+  tooltip?: string;
 } & TextFieldProps;
 
 const Input = ({
-  showPasswordIcon, type, maxWidth, theme = 'white', label, className, ...props
+  showPasswordIcon, type, maxWidth, theme = 'white', label, className, tooltip, ...props
 }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -42,7 +44,10 @@ const Input = ({
 
   return (
     <InputWrapper className={className} style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
-      <div className={`label${props.error ? ' error' : ''}`}>{label}</div>
+      <div className={`label${props.error ? ' error' : ''}`}>
+        {label}
+        {!!tooltip && <div className="tooltip"><Tooltip title={tooltip}><InfoIcon /></Tooltip></div>}
+      </div>
       <TextField
         ref={ref}
         type={showPasswordIcon ? (showPassword ? 'text' : 'password') : type}

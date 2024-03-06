@@ -169,6 +169,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
                 onChange={field.onChange}
                 error={!!fieldState.error?.message}
                 helperText={fieldState.error?.message}
+                tooltip={t('errorTexts.addressFormat')}
               />
             )}
           />
