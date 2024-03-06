@@ -7,7 +7,7 @@ import { AnyObject } from 'interfaces/base.types';
 import { IUser } from 'interfaces/users.interface';
 
 export type UserField = {
-  type: 'string' | 'number' | 'boolean' | 'date' | 'select' | 'dynamic-select' | 'phone' | 'textarea' | 'readonly';
+  type: 'string' | 'number' | 'boolean' | 'date' | 'select' | 'multiselect' | 'dynamic-select' | 'phone' | 'textarea' | 'readonly';
   required?: boolean;
   validation?: Record<string, Validate<unknown, unknown>>;
   permissionRoles?: string[];
@@ -210,6 +210,9 @@ export const WORK_FIELDS: UserFieldsList = {
   salaryType: {
     type: 'readonly',
     render: (data) => data,
+  },
+  workTypes: {
+    type: 'multiselect',
   },
 };
 

@@ -4,7 +4,7 @@ import { IUser } from 'interfaces/users.interface';
 
 export const EXPORT_USER_FIELDS: (Path<IUser>)[] = [
   'email', 'name', 'surname', 'phone', 'birthDate', 'sex',
-  'country', 'city', 'adress', 'zip',
+  'country', 'adress',
   'passNumber', 'IBAN', 'ICO', 'DIC', 'rodneCislo',
   'permitNumber', 'permitDepartment', 'permitAdress',
   'role', 'status', 'notes', 'position',

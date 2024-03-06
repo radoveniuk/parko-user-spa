@@ -7,6 +7,8 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import get from 'lodash-es/get';
 import omit from 'lodash-es/omit';
 import set from 'lodash-es/set';
+import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
+import Autocomplete from 'v2/uikit/Autocomplete';
 import Checkbox from 'v2/uikit/Checkbox';
 import DatePicker from 'v2/uikit/DatePicker';
 import IconButton from 'v2/uikit/IconButton';
@@ -55,6 +57,7 @@ const EditingRow = () => {
   const corporateBodyStatusOptions = useTranslatedSelect(CORPORATE_BODY_STATUS, 'corporateBodyStatus');
   const familyStatusOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
   const translatedPermitTypes = useTranslatedSelect(PERMIT_TYPES, 'permitType');
+  const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
 
   const { data: customFields = [] } = useGetCustomFormFields({ entity: 'user' });
 
@@ -68,11 +71,10 @@ const EditingRow = () => {
     businessStatus: corporateBodyStatusOptions,
     familyStatus: familyStatusOptions,
     medicalInsurance: INSURANCE,
+    workTypes: translatedWorkTypes,
     'permit.goal': translatedPermitTypes,
-  }), [
-    corporateBodyStatusOptions, employmentTypeOptions, familyStatusOptions,
-    sexOptions, translatedPermitTypes, translatedRoles, translatedStatuses,
-  ]);
+  }), [corporateBodyStatusOptions, employmentTypeOptions, familyStatusOptions, sexOptions,
+    translatedPermitTypes, translatedRoles, translatedStatuses, translatedWorkTypes]);
 
   const dynamicSelectOptions: AnyObject = useMemo(() => ({
     project: {
@@ -118,12 +120,15 @@ const EditingRow = () => {
 
   const generateField = (fieldName: keyof IUser) => {
     const fieldData = ALL_FORM_FIELDS[fieldName];
-    let fieldValue = typeof data?.[fieldName] === 'object' ? (data?.[fieldName] as AnyObject)?._id || '' : data?.[fieldName] || '';
+    let fieldValue = data?.[fieldName] || '';
+    if (typeof data?.[fieldName] === 'object' && !Array.isArray(data?.[fieldName])) {
+      fieldValue = (data?.[fieldName] as AnyObject)?._id || '';
+    }
     if (/\b(?:idcard.|visa.|permit.|pass.)\b/i.test(fieldName)) {
       const docType = fieldName.split('.')[0];
       const docValueKey = fieldName.split('.')[1];
       const doc = data.docs?.find(doc => doc.type === docType);
-      fieldValue = doc?.[docValueKey];
+      fieldValue = doc?.[docValueKey] || '';
     }
     return (
       <FormFieldWrapper style={style}>
@@ -193,6 +198,26 @@ const EditingRow = () => {
               required: fieldData.required,
             })}
             {...fieldData.selectProps}
+          />
+        )}
+        {(fieldData?.type === 'multiselect' && selectOptions[fieldName]) && (
+          <Controller
+            key={customFields.find((customField) => customField._id === fieldName)?._id}
+            name={fieldName}
+            control={control}
+            defaultValue={fieldValue}
+            render={({ field }) => (
+              <Autocomplete
+                multiple
+                options={selectOptions[fieldName] || []}
+                labelKey="label"
+                valueKey="_id"
+                value={selectOptions[fieldName].filter((selectOption: { _id: string; }) => (field.value as string[])?.includes(selectOption._id))}
+                onChange={(v) => void field.onChange(v.map((item: { _id: string; }) => item._id))}
+                style={{ minWidth: 200 }}
+                error={!!errors[fieldName]}
+              />
+            )}
           />
         )}
         {(fieldData?.type === 'dynamic-select' && !!dynamicSelectOptions[fieldName]?.options?.length) && (

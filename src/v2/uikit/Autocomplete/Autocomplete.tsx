@@ -40,6 +40,8 @@ const AutoComplete = ({
   valueKey = '_id', theme = 'white',
   ...rest
 }: AutocompleteProps) => {
+  // console.log(value, rest.options);
+
   const [open, setOpen] = useState(false);
 
   return (
