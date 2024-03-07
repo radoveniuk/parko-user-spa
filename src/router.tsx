@@ -6,7 +6,7 @@ import PageLayouts from 'v2/layouts/PageLayouts';
 import {
   AccommodationPage,
   ClientListPage, ClientPage, CustomizationPage,
-  DayoffListPage, HomePage, LoginPage,
+  DayoffListPage, HomePage, LoginPage, NotFoundPage,
   PrepaymentListPage, ProfileAdminPage, ProfileListPage, RegisterPage,
 } from 'v2/pages';
 
@@ -16,13 +16,11 @@ import { UserRole } from 'interfaces/users.interface';
 import CreateNotificationPage from 'pages/CreateNotificationPage';
 import DayoffPage from 'pages/DayoffPage';
 import ExportResidencesPage from 'pages/ExportResidencesPage';
-import NotFoundPage from 'pages/NotFoundPage';
 import NotificationsPage from 'pages/NotificationsPage';
 import PaychecksPage from 'pages/PaychecksPage';
 import PaychecksUploadPage from 'pages/PaychecksUploadPage';
 import PrepaymentPage from 'pages/PrepaymentPage';
 import ProfilePage from 'pages/ProfilePage';
-import ProjectListPage from 'pages/ProjectListPage';
 import UploadProfilesPage from 'pages/UploadProfilesPage';
 
 const ALL_ROLES: UserRole[] = ['admin', 'recruiter', 'super-admin', 'user'];
@@ -48,7 +46,6 @@ export default function Router () {
             </Route>
             <Route element={<ProtectedRoute matchedRoles={FULL_PERMISSION_ROLES} />}>
               <Route element={<PageLayouts />}>
-                <Route path="/projects" element={<ProjectListPage />} />
                 <Route path="/prepayments" element={<PrepaymentListPage />} />
                 <Route path="/daysoff" element={<DayoffListPage />} />
                 <Route path="/paychecks-upload" element={<PaychecksUploadPage />} />
