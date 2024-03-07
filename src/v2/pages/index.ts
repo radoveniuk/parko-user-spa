@@ -5,6 +5,7 @@ export { default as CustomizationPage } from './CustomizationPage';
 export { default as DayoffListPage } from './DayoffListPage';
 export { default as HomePage } from './HomePage';
 export { default as LoginPage } from './LoginPage';
+export { default as NotFoundPage } from './NotFoundPage';
 export { default as PrepaymentListPage } from './PrepaymentListPage';
 export { default as ProfileAdminPage } from './ProfileAdminPage';
 export { default as ProfileListPage } from './ProfileListPage';

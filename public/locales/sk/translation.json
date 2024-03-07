@@ -227,7 +227,8 @@
     "employmentChangeDateFrom": "Dátum od",
     "employmentChangeCreatedBy": "Vytvoril",
     "employmentChangeCreatedAt": "Vytvorené o",
-    "thisNameExistsMsg": "V systéme už existuje registrovaný užívateľ s rovnakým menom a priezviskom. Chcete pokračovať?"
+    "thisNameExistsMsg": "V systéme už existuje registrovaný užívateľ s rovnakým menom a priezviskom. Chcete pokračovať?",
+    "corporateBodyAddress": "Adresa (Živnostník)"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",
