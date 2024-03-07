@@ -2,7 +2,7 @@ import { Accordion, Box, Drawer as DrawerMaterial, ListItemButton } from '@mui/m
 import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
-import { SM } from 'theme/sizeBreakpoints';
+import { SM, TB } from 'theme/sizeBreakpoints';
 
 export const NavbarWrapper = styled(Box)`
   height: calc(100vh - 70px);
@@ -83,6 +83,10 @@ export const NavItem = styled(ListItemButton)`
   }
 
   border-radius: 0px 20px 20px 0px !important;
+
+  @media (max-width: ${TB}) {
+    border-radius: 0 !important;
+  }
   
   &:not(:has(.nav-item-text)) {
     border-radius: 20px !important;
@@ -125,6 +129,11 @@ export const Drawer = styled(DrawerMaterial)`
     @media (max-width: 1024px) {
       .MuiListItem-root {
         padding: 0 0 0 5px;
+      }
+    }
+    @media (max-width: ${TB}) {
+      .MuiListItem-root {
+        padding: 0;
       }
     }
   }
