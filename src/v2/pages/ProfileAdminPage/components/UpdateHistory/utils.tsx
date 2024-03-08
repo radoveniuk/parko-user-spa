@@ -98,6 +98,9 @@ export const renderValue = (key: keyof IUser, value: string | boolean | number |
   if (key === 'businessStatus') {
     return value ? t(`selects.corporateBodyStatus.${value}`) : '';
   }
+  if (key === 'businessActivities') {
+    return (value as Array<unknown>).length;
+  }
   if (key === 'familyStatus') {
     return value ? t(`selects.familyStatus.${value}`) : '';
   }
@@ -124,7 +127,7 @@ export const renderDocs = (
       <DocItem key={index} className={isNew ? 'new' : 'old'}>
         {docItem.type === 'pass' && (
           <>
-            <div className="title">{t('user.internationalPassScan')}</div>
+            <div className="title">{t('user.pass.pass')}</div>
             <div className="fields">
               <DocField label={t('doc.number')} value={docItem.number} />
               <DocField label={t('doc.issuerCountry')} value={docItem.country} />
@@ -136,7 +139,7 @@ export const renderDocs = (
         )}
         {docItem.type === 'idcard' && (
           <>
-            <div className="title">{t('user.pass')}</div>
+            <div className="title">{t('user.idcard.idcard')}</div>
             <div className="fields">
               <DocField label={t('doc.number')} value={docItem.number} />
               <DocField label={t('doc.issuerCountry')} value={docItem.country} />
