@@ -545,7 +545,7 @@
     "sww": "Vyskytol sa problém",
     "requiredField": "Pole je povinné",
     "wrongIbanFormat": "IBAN je zadaný v nesprávnom formáte",
-    "addressFormat": "Ulica 36, 00000 Mesto alebo Ulica 36/17, 00000 Mesto"
+    "addressFormat": "Ulica 36/17, 00000 Mesto (і)"
   },
   "fastActions": "Akcie",
   "language": "Jazyk",

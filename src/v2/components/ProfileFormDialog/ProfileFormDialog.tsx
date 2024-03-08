@@ -71,6 +71,8 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
        user.surname.trim().toLowerCase() === values.surname.trim().toLowerCase());
       if (isNamesakes) {
         setShowNamesakesDialog(true);
+      } else {
+        saveProfile();
       }
     } else {
       saveProfile();
