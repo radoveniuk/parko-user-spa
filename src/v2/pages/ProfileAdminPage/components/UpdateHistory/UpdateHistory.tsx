@@ -32,7 +32,7 @@ const UpdateHistory = ({ data }: Props) => {
   const renderUpdates = (historyItem: MongoHistory<IUser>) => {
     const UPDATE_SECTION_MAP = getFieldSectionLabelMap(t);
 
-    return (Object.keys(omit(historyItem.changes, ['updatedAt', 'businessActivities'])) as (keyof IUser)[])
+    return (Object.keys(omit(historyItem.changes, ['updatedAt'])) as (keyof IUser)[])
       // .filter((key) => !!historyItem.changes[key]?.newValue)
       .map((key, index) => {
         if (!UPDATE_SECTION_MAP[key]) return '';
