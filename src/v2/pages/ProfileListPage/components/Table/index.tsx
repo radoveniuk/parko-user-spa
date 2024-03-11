@@ -61,8 +61,13 @@ const Table = ({
   const { data: projects = [] } = useGetProjects();
   const [filterBarVisibility, setFilterBarVisibility] = useFilterBarVisibility();
 
-  const toggleSorting = (userKey: keyof IUser) => {
-    let sortingValue: Path<IUser> | ((v: IUser) => any) = userKey;
+  const toggleSorting = (userKey: string) => {
+    let sortingValue = userKey as Path<IUser> | ((v: IUser) => any);
+    console.log(userKey);
+
+    if (userKey === 'client') {
+      sortingValue = 'project.client.name';
+    }
     if (userKey === 'project') {
       sortingValue = 'project.name';
     }
@@ -81,7 +86,7 @@ const Table = ({
         'source',
       ].includes(userKey)
     ) {
-      sortingValue = _ => _[userKey] || null;
+      sortingValue = _ => _[userKey as keyof IUser] || null;
     }
     if (isMongoId(userKey)) {
       sortingValue = `customFields.${userKey}`;

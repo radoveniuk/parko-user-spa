@@ -11,7 +11,7 @@
     "customization": "Customizácia",
     "accommodation": "Ubytovanie",
     "docsTemplates": "Šablóny dokumentov",
-    "clients": "Clienti",
+    "clients": "Klienti",
     "workspaces": "Pracovné priestory",
     "finance": "Financie",
     "feedback": "Spätná väzba"
@@ -228,7 +228,8 @@
     "employmentChangeCreatedBy": "Vytvoril",
     "employmentChangeCreatedAt": "Vytvorené o",
     "thisNameExistsMsg": "V systéme už existuje registrovaný užívateľ s rovnakým menom a priezviskom. Chcete pokračovať?",
-    "corporateBodyAddress": "Adresa (Živnostník)"
+    "corporateBodyAddress": "Adresa (Živnostník)",
+    "client": "Klient"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",

@@ -230,7 +230,8 @@
     "employmentChangeCreatedBy": "Создал",
     "employmentChangeCreatedAt": "Дата создания",
     "thisNameExistsMsg": "В системе уже есть зарегистрированный пользователь с таким именем и фамилией. Хотите продолжить?",
-    "corporateBodyAddress": "Адрес (ИП)"
+    "corporateBodyAddress": "Адрес (ИП)",
+    "client": "Клиент"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",

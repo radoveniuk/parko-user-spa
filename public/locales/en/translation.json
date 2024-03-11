@@ -231,7 +231,8 @@
     "employmentChangeCreatedBy": "Created by",
     "employmentChangeCreatedAt": "Created at",
     "thisNameExistsMsg": "There is already a registered user in the system with the same first and last name. Do you want to continue?",
-    "corporateBodyAddress": "Address"
+    "corporateBodyAddress": "Address",
+    "client": "Client"
   },
   "userHistory": {
     "updatedBy": "Updated by",

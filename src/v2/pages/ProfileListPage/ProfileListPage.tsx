@@ -5,7 +5,8 @@ import { COUNTRIES } from 'v2/constants/countries';
 import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
-import { useGetCustomFormFields } from 'api/query/customFormsQuery';
+import { useGetClients } from 'api/query/clientQuery';
+// import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { getUserListByParams, useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import { SearchIcon } from 'components/icons';
@@ -45,7 +46,8 @@ const ProfileListPageRender = () => {
   // filters
   const { data: usersFilter = [] } = useGetUserListForFilter();
   const recruiters = usersFilter.filter((item) => item.role === 'recruiter' || item.role === 'admin');
-  const { data: projects = [] } = useGetProjects();
+  const { data: clients = [] } = useGetClients();
+  const { data: projects = [] } = useGetProjects({ clients: debouncedFiltersState?.clients });
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
   const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
@@ -58,7 +60,7 @@ const ProfileListPageRender = () => {
   const [activeCols, setActiveCols] = useState<string[]>(storedColsSettings ? JSON.parse(storedColsSettings).cols : DEFAULT_COLS);
 
   // custom cols
-  const { data: customFields = [] } = useGetCustomFormFields({ entity: 'user' });
+  // const { data: customFields = [] } = useGetCustomFormFields({ entity: 'user' });
 
   useEffect(() => {
     if (debouncedFiltersState) {
@@ -91,7 +93,7 @@ const ProfileListPageRender = () => {
           setOpenPrintDialog={setOpenPrintDialog}
           data={!data.length ? startData : data}
           activeCols={activeCols}
-          customFields={customFields}
+          customFields={[]}
           loading={isLoading || isFetching || isFetchingStartData}
         />
         <FilterTableWrapper className={!filterBarVisibility ? 'hide' : ''}>
@@ -108,16 +110,25 @@ const ProfileListPageRender = () => {
           />
           <FilterAutocomplete
             multiple
-            filterKey="employmentProjects"
-            label={t('user.cooperation')}
+            filterKey="clients"
+            label={t('project.client')}
+            options={clients}
+            getOptionLabel={(option) => option.name}
+            theme="gray"
+          />
+          <FilterAutocomplete
+            disabled={!debouncedFiltersState?.clients}
+            multiple
+            filterKey="projects"
+            label={t('user.project')}
             options={projects}
             getOptionLabel={(option) => `${option.client?.name ? `${option.client?.name} > ` : ''}${option.name}`}
             theme="gray"
           />
           <FilterAutocomplete
             multiple
-            filterKey="projects"
-            label={t('user.project')}
+            filterKey="employmentProjects"
+            label={t('user.cooperation')}
             options={projects}
             getOptionLabel={(option) => `${option.client?.name ? `${option.client?.name} > ` : ''}${option.name}`}
             theme="gray"
@@ -181,7 +192,7 @@ const ProfileListPageRender = () => {
           activeCols={activeCols}
           setActiveCols={setActiveCols}
           data={!data.length ? startData : data}
-          customFields={customFields}
+          customFields={[]}
           setSelectedItems={setSelectedItems}
           selectedItems={selectedItems}
           isFetching={isFetchingStartData}

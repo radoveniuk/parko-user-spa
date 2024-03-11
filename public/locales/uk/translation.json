@@ -230,7 +230,8 @@
     "employmentChangeCreatedBy": "Створив",
     "employmentChangeCreatedAt": "Дата створення",
     "thisNameExistsMsg": "В системі вже є зареєстрований користувач з таким ім'ям та прізвищем. Бажаєте продовжити?",
-    "corporateBodyAddress": "Адреса (ФОП)"
+    "corporateBodyAddress": "Адреса (ФОП)",
+    "client": "Клієнт"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",

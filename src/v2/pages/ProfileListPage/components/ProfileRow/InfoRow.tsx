@@ -33,7 +33,7 @@ const InfoRow = () => {
         </LinkWrapper>
       </ListTableCell>
       {cols.map((colName) => {
-        const userField = colName.replace('user.', '') as keyof IUser;
+        const userField = colName.replace('user.', '');
 
         const createTableCell = (content: string | ReactNode, title?: string) => (
           <ListTableCell key={colName} title={title || content as string}>
@@ -42,12 +42,16 @@ const InfoRow = () => {
         );
 
         if (userField.includes('Date') || userField === 'permitExpire') {
-          return createTableCell(getDateFromIso(data[userField]));
+          return createTableCell(getDateFromIso(data[userField as keyof IUser]));
+        }
+        if (userField === 'client') {
+          const project = data.project as IProject | undefined;
+          const client = project?.client as IClient | undefined;
+          return createTableCell(client?.name);
         }
         if (userField === 'project') {
           const project = data.project as IProject | undefined;
-          const client = project?.client as IClient | undefined;
-          return createTableCell(`${client?.name ? `${client.name} > ` : ''}${project?.name || ''}`);
+          return createTableCell(project?.name);
         }
         if (userField === 'status') {
           return createTableCell(data.status ? <StatusLabel className={data.status}>{t(`selects.userStatus.${data.status}`)}</StatusLabel> : '',
@@ -56,8 +60,8 @@ const InfoRow = () => {
         if (userField === 'salary') {
           return createTableCell(data.salary ? `${Number(data.salary).toFixed(2).toString().replace('.', ',')} €` : '');
         }
-        if (typeof data[userField] === 'boolean' || userField === 'sex') {
-          return createTableCell(t(data[userField]));
+        if (typeof data[userField as keyof IUser] === 'boolean' || userField === 'sex') {
+          return createTableCell(t(data[userField as keyof IUser]));
         }
         if (userField === 'role') {
           return createTableCell(data[userField] ? t(`selects.userRole.${data[userField]}`) : '');
@@ -98,7 +102,7 @@ const InfoRow = () => {
           );
         }
 
-        return createTableCell(data[userField]?.toString() || '');
+        return createTableCell(data[userField as keyof IUser]?.toString() || '');
       })}
       <ListTableCell>
         <IconButton
