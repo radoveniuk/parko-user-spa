@@ -1,39 +1,47 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
 import Skeleton from 'v2/uikit/Skeleton';
 
-import { ArrowUpIcon } from 'components/icons';
+import { useUpdateClientMutation } from 'api/mutations/clientMutation';
+import { ArrowUpIcon, SettingsIcon } from 'components/icons';
+import { useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { iterateMap } from 'helpers/iterateMap';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList from 'hooks/useSortedList';
-import { Path } from 'interfaces/base.types';
 import { IClient } from 'interfaces/client.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import ProfileRow from '../ClientRow';
+import ClientRow from '../ClientRow';
+import ColumnsConfig from '../ColumnsConfig';
 
 import { TableWrapper } from './styles';
 
-type TTable = {
+type Props = {
   activeCols: string[];
+  setActiveCols: React.Dispatch<React.SetStateAction<string[]>>;
   data: IClient[];
 };
 const Table = ({
   activeCols,
   data,
-}: TTable) => {
+  setActiveCols,
+}: Props) => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const [rowsPerPage, setRowsPerPage] = useState(20);
 
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
   const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
 
-  const toggleSorting = (userKey: keyof IClient) => {
-    let sortingValue: Path<IClient> | ((v: IClient) => any) = userKey;
+  const updateClientMutation = useUpdateClientMutation();
+
+  const toggleSorting = (clientKey: keyof IClient) => {
+    let sortingValue = clientKey as keyof IClient | ((v: IClient) => any);
     if (
       [
         'cooperationStartDate',
@@ -44,14 +52,31 @@ const Table = ({
         'permitType',
         'status',
         'source',
-      ].includes(userKey)
+      ].includes(clientKey)
     ) {
-      sortingValue = _ => _[userKey] || null;
+      sortingValue = _ => _[clientKey] || null;
     }
-    sortingToggler(userKey, sortingValue);
+    sortingToggler(clientKey, sortingValue);
   };
 
-  const allCols = ['client.name', ...activeCols];
+  const [openColsSettins, setOpenColsSettings] = useState(false);
+  const [editingRow, setEditingRow] = useState<null | string>(null);
+  const { debouncedFiltersState } = useFilters();
+
+  const allCols = ['client.name', ...activeCols, ''];
+
+  const updateClient = (values: IClient) => {
+    updateClientMutation.mutate({
+      ...values,
+      managers: values.managers?.map(manager => (manager as IUser)._id) || [],
+    });
+    queryClient.setQueryData(['clients', JSON.stringify(debouncedFiltersState)], data.map((client) => client._id === values._id
+      ? {
+        ...values,
+        managers: values.managers || client.managers,
+      }
+      : client));
+  };
 
   return (
     <TableWrapper>
@@ -79,13 +104,28 @@ const Table = ({
               </div>
             );
           }
+          if (!col && index !== 0) {
+            return (
+              <div className="table-settings-wrapper">
+                <IconButton onClick={() => void setOpenColsSettings((prev) => !prev)}>
+                  <SettingsIcon />
+                </IconButton>
+              </div>
+            );
+          }
         }}
       >
-        {pageItems.map((user: IClient) => (
-          <ProfileRow
-            key={user._id}
-            data={user}
+        {pageItems.map((client: IClient) => (
+          <ClientRow
+            key={client._id}
+            data={client}
             cols={activeCols}
+            editingMode={editingRow === client._id}
+            startEdit={() => void setEditingRow(client._id)}
+            saveEdit={(values) => {
+              setEditingRow(null);
+              updateClient(values);
+            }}
           />
         ))}
         {!pageItems.length && (
@@ -101,6 +141,12 @@ const Table = ({
       <div className="pagination-bottom">
         <Pagination {...paginationConfig} setRowsPerPage={setRowsPerPage} rowsPerPage={rowsPerPage} labelRowsPerPage={t('rowsPerPage')}/>
       </div>
+      <ColumnsConfig
+        activeCols={activeCols}
+        setActiveCols={setActiveCols}
+        open={openColsSettins}
+        onClose={() => void setOpenColsSettings(false)}
+      />
     </TableWrapper>
   );
 };

@@ -372,7 +372,10 @@
       "active": "Active",
       "inactive": "Paused",
       "development": "In development",
-      "rejected": "Canceled"
+      "rejected": "Canceled",
+      "negotiation": "In negotiation",
+      "contacted": "In contact",
+      "potential": "Potential"
     },
     "projectStatus": {
       "active": "Active",
@@ -545,7 +548,13 @@
     "managers": "Managers",
     "profile": "Profile",
     "projects": "Projects",
-    "profiles": "Employees"
+    "profiles": "Employees",
+    "baseFields": "Basic information",
+    "contacts": "Contacts",
+    "financial": "Financial data",
+    "cooperation": "Cooperation",
+    "comment": "Comment",
+    "shortName": "Short name"
   },
   "errorTexts": {
     "emptyPassword": "Password cannot be empty",

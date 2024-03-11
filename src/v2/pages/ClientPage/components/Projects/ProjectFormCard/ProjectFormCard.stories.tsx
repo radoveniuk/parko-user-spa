@@ -63,7 +63,6 @@ export const Example: Story = {
       location: 'Nitra',
       stages: [],
       status: 'inactive',
-      customFields: {},
       type: 'HR Service',
     },
   },

@@ -6,6 +6,29 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   .clients-table {
     .list-table-cell {
       white-space: nowrap;
+
+      .column-content {
+        max-width: 200px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .fast-edit-profile {
+        opacity: 0;
+        transition: .3s;
+        margin-left: auto;
+        margin-right: 10px;
+
+        &.active {
+          opacity: 1;
+        }
+      }
+    }
+
+    .list-table-row:hover {
+      .fast-edit-profile {
+        opacity: 1;
+      }
     }
 
     @media (max-width: ${TB}) {
