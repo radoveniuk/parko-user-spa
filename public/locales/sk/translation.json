@@ -594,6 +594,8 @@
   "searchHistory": "História",
   "fileDeletedSuccess": "Dokument bol úspešne odstránený",
   "cancel": "Storno",
+  "confirmation": "Potvrdenie",
+  "areYouSureMsg": "Naozaj chcete pokračovať?",
   "profilesPage": {
     "status": "Používateľské stavy",
     "organization": "Organizácie",

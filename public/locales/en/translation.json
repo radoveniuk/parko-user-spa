@@ -603,6 +603,8 @@
   "searchHistory": "Search history",
   "fileDeletedSuccess": "File has been deleted",
   "cancel": "Cancel",
+  "confirmation": "Confirmation",
+  "areYouSureMsg": "Are you sure?",
   "profilesPage": {
     "status": "User statuses",
     "organization": "Organizations",
