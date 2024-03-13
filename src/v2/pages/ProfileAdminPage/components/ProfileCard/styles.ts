@@ -56,7 +56,7 @@ export const ProfileCardWrapper = styled.div`
       align-items: center;
       gap: 10px;
       .name {
-        font-size: 24px;
+        font-size: 1.5rem;
         font-weight: 400;
       }
     }

@@ -17,7 +17,6 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
         opacity: 0;
         transition: .3s;
         margin-left: auto;
-        margin-right: 10px;
 
         &.active {
           opacity: 1;
@@ -162,13 +161,6 @@ export const FilterTableWrapper = styled.div`
   gap: 10px;
   padding: 14px 30px;
   @media (max-width: ${TB}) {
-    padding: 0;
-  }
-
-  .filter-chip {
-    height: 36px;
-    @media (max-width: ${TB}) {
-      display: none;;
-    }
+    display: none;
   }
 `;

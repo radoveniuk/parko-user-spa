@@ -82,7 +82,11 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
   }
   .MuiAutocomplete-tag {
     border-radius: 5px;
-    max-height: 28px;
+    max-height: 24px;
+
+    .MuiChip-deleteIcon {
+      font-size: 18px;
+    }
   }
 
   .MuiFormHelperText-root {

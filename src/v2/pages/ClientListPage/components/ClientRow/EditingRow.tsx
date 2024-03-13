@@ -1,6 +1,5 @@
 import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Autocomplete from 'v2/uikit/Autocomplete';
 import DatePicker from 'v2/uikit/DatePicker';
@@ -20,11 +19,10 @@ import { useClientRowContext } from './context';
 import { FormFieldWrapper, LinkWrapper } from './styles';
 
 const EditingRow = () => {
-  const { t } = useTranslation();
   const { data, cols, saveEdit } = useClientRowContext();
   const { register, formState: { errors }, control, handleSubmit } = useForm<IClient>();
 
-  const { data: managers = [], isFetching: isManagersFetching } = useGetUserList({ roles: 'recruiter,admin' });
+  const { data: managers = [] } = useGetUserList({ roles: 'recruiter,admin' });
   const statuses = useTranslatedSelect(CLIENT_STATUS, 'clientStatus', true, false);
 
   const generateField = (fieldName: keyof IClient) => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { isEmpty } from 'lodash-es';
+import { Button } from 'v2/uikit';
 import Autocomplete, { AutocompleteProps } from 'v2/uikit/Autocomplete';
 import DatePicker, { DatePickerProps } from 'v2/uikit/DatePicker';
 import IconButton from 'v2/uikit/IconButton';
@@ -88,6 +89,22 @@ export const FilterSelect = ({ filterKey, label, ...rest }: FilterProps & Select
         style={{ minWidth: 200 }}
         {...rest}
       />
+    </FilterWrapper>
+  );
+};
+
+export const FilterSwitch = ({ filterKey, label }: FilterProps) => {
+  const [value, setValue] = useFilterState(filterKey);
+
+  return (
+    <FilterWrapper>
+      <Button
+        variant="outlined"
+        className={value === 'true' ? 'switch checked' : 'switch'}
+        onClick={() => setValue(value === 'true' ? 'false' : 'true')}
+      >
+        {label}
+      </Button>
     </FilterWrapper>
   );
 };

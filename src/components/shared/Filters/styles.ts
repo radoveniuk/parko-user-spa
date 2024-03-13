@@ -12,6 +12,13 @@ export const FiltersBar = styled.div`
 
 export const FilterWrapper = styled.div`
   min-width: 200px;
+
+  .switch {
+    height: 36px;
+    &.checked {
+      background-color: rgba(42, 106, 231, 0.2);
+    }
+  }
 `;
 
 export const ClearFiltersWrapper = styled.div.attrs({ className: 'clear-filter' })`

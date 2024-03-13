@@ -59,6 +59,7 @@ export {
   IoLocationSharp as LocationIcon,
   IoMenu as MenuIcon,
   IoWarningOutline as WarningIcon,
+  IoEarth as WebIcon,
 } from 'react-icons/io5';
 export {
   MdOutlineBusiness as BusinessIcon,

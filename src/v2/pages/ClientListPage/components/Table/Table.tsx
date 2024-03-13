@@ -24,11 +24,14 @@ type Props = {
   activeCols: string[];
   setActiveCols: React.Dispatch<React.SetStateAction<string[]>>;
   data: IClient[];
+  isFetching?: boolean;
 };
+
 const Table = ({
   activeCols,
   data,
   setActiveCols,
+  isFetching,
 }: Props) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -66,6 +69,8 @@ const Table = ({
   const allCols = ['client.name', ...activeCols, ''];
 
   const updateClient = (values: IClient) => {
+    console.log('update');
+
     updateClientMutation.mutate({
       ...values,
       managers: values.managers?.map(manager => (manager as IUser)._id) || [],
@@ -128,7 +133,7 @@ const Table = ({
             }}
           />
         ))}
-        {!pageItems.length && (
+        {!pageItems.length && isFetching && (
           iterateMap(20, (index) => (
             <ListTableRow key={index}>
               {allCols.map((emptyCol, emptyColIndex) => (

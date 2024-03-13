@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { themeConfig } from 'theme';
 
 export const STATUS_LABEL_COLOR_STYLES = css`
+    color: #fff;
   &.candidate, &.development, &.pending {
     background-color: #f0c844;
     color: #2b2b2b;
@@ -33,7 +34,6 @@ export const STATUS_LABEL_COLOR_STYLES = css`
   }
   &.fired, &.rejected {
     background-color: #E72A2A;
-    color: #fff;
     &:hover {
       background-color: #E72A2A !important;
     }
@@ -47,14 +47,13 @@ export const STATUS_LABEL_COLOR_STYLES = css`
   }
   &.contacted {
     background-color: #64B5F6;
-    color: #2b2b2b;
+    /* color: #2b2b2b; */
     &:hover {
       background-color: #64B5F6 !important;
     }
   }
   &.negotiation {
     background-color: #90A4AE;
-    color: #2b2b2b;
     &:hover {
       background-color: #90A4AE !important;
     }

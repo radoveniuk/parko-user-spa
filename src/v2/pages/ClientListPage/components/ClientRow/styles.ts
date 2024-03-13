@@ -8,6 +8,10 @@ export const FormFieldWrapper = styled.div`
   .MuiInputBase-root input {
     padding: 4px 0 5px !important;
   }
+
+  .MuiAutocomplete-inputRoot {
+    flex-wrap: nowrap !important;
+   }
 `;
 
 export const LinkWrapper = styled.div`

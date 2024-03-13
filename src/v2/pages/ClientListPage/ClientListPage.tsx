@@ -6,6 +6,7 @@ import { useGetClients } from 'api/query/clientQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { SearchIcon } from 'components/icons';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { FilterSwitch } from 'components/shared/Filters/Filters';
 import { CLIENT_STATUS } from 'constants/selectsOptions';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -30,7 +31,7 @@ const ClientListPageRender = () => {
   const { debouncedFiltersState } = useFilters();
 
   // table content
-  const { data = [], refetch, remove } = useGetClients(debouncedFiltersState, { enabled: false });
+  const { data = [], refetch, remove, isFetching } = useGetClients(debouncedFiltersState, { enabled: false });
 
   useEffect(() => {
     if (debouncedFiltersState) {
@@ -72,6 +73,10 @@ const ClientListPageRender = () => {
             limitTags={1}
             label={t('client.status')}
           />
+          <FilterSwitch
+            filterKey="my"
+            label={t('myFilter')}
+          />
         </FilterTableWrapper>
         <div className="mobile-list">
           {data.map((client) => (
@@ -86,6 +91,7 @@ const ClientListPageRender = () => {
           activeCols={activeCols}
           setActiveCols={setActiveCols}
           data={data}
+          isFetching={isFetching}
         />
       </div>
     </ProfileListPageWrapper>

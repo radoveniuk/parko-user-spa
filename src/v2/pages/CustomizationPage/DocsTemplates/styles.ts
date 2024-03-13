@@ -37,6 +37,6 @@ export const FilterTableWrapper = styled.div`
   gap: 10px;
   padding: 14px 30px;
   @media (max-width: ${TB}) {
-    display: none;;
+    display: none;
   }
 `;

@@ -530,7 +530,7 @@
     "sidlo": "Sidlo",
     "websiteUrl": "Web stranka",
     "contactPerson": "Kontaktná osoba",
-    "contactPersonPosition": "Pozícia Kontaktnej osoba",
+    "contactPersonPosition": "Pozícia kontaktnej osoby",
     "phone": "Telefón",
     "status": "Status",
     "new": "Nový klient",
@@ -605,6 +605,8 @@
   "cancel": "Storno",
   "confirmation": "Potvrdenie",
   "areYouSureMsg": "Naozaj chcete pokračovať?",
+  "myFilter": "Moje režim",
+  "copied": "Skopírovane",
   "profilesPage": {
     "status": "Používateľské stavy",
     "organization": "Organizácie",

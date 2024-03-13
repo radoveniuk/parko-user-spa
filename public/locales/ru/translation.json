@@ -612,6 +612,8 @@
   "cancel": "Отменить",
   "confirmation": "Подтверждение",
   "areYouSureMsg": "Вы уверены, что хотите продолжить?",
+  "myFilter": "Мой режим",
+  "copied": "Скопировано",
   "profilesPage": {
     "status": "Статусы пользователей",
     "organization": "Организации",

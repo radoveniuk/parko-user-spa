@@ -614,6 +614,8 @@
   "cancel": "Cancel",
   "confirmation": "Confirmation",
   "areYouSureMsg": "Are you sure?",
+  "myFilter": "Me mode",
+  "copied": "Copied successfull",
   "profilesPage": {
     "status": "User statuses",
     "organization": "Organizations",

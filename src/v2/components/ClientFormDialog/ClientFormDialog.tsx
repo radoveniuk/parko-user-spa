@@ -66,7 +66,7 @@ const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProp
           )}
         />
         <Input label={`${t('client.company')}*`} error={!!errors.name} theme="gray" {...register('name', { required: true })} />
-        <Input label={`${t('client.shortName')}*`} error={!!errors.name} theme="gray" {...register('shortName', { required: true })} />
+        <Input label={t('client.shortName')} theme="gray" {...register('shortName')} />
         <Input label={t('client.ICO')} theme="gray" {...register('ICO')} />
         <Input label={t('client.DIC')} theme="gray" {...register('DIC')} />
         <Input label={t('client.ICDPH')} theme="gray" {...register('ICDPH')} />

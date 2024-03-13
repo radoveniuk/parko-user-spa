@@ -44,7 +44,7 @@ export const ProfileCardWrapper = styled.div`
     gap: 10px;
 
     .name {
-      font-size: 24px;
+      font-size: 1.5rem;
       font-weight: 400;
       white-space: nowrap;
       max-width: calc(100% - 30px);
@@ -57,22 +57,65 @@ export const ProfileCardWrapper = styled.div`
       flex-direction: column;
       gap: 9px;
       .contact-text-link {
-        color: #131313;
-        font-size: 16px;
+        color: #565656;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+    }
+  }
+
+  .financial {
+    border-top: 1px solid #E7E7E7;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    column-gap: 24px;
+    div:last-child {
+      grid-column: 1 / 3;
+    }
+  }
+
+  .info-item {
+    font-size: 0.85em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    svg {
+      position: absolute;
+      right: -15px;
+      opacity: 0;
+      transition: all.3s;
+      color: #717171;
+    }
+
+    .name {
+      color: #717171;
+      display: inline;
+    }
+
+    .value {
+      display: inline;
+      position: relative;
+    }
+
+    &.copyable {
+      cursor: pointer;
+      &:hover {
+        svg {
+          opacity: 1;
+        }
       }
     }
   }
 
   .common {
     border-top: 1px solid #E7E7E7;
-
-    &-item {
-      color: #717171;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 18px;
-    }
   }
 
   .system-info {
