@@ -100,3 +100,36 @@ export const SB_MOCK_USER: IUser = {
   updatedBy: null,
   workTypes: [],
 };
+
+export const SB_MOCK_CLIENT: IClient = {
+  _id: '63a176f8206ee9a3f8bdd90a',
+  name: 'HYZA a.s.',
+  ICO: '31562540',
+  DIC: '2020445405',
+  ICDPH: 'SK2020445405',
+  sidlo: 'Odbojárov 2279/37 955 92 Topoľčany',
+  websiteUrl: 'https://www.hyza.sk/',
+  contactPerson: 'Mgr. Mária Trenčianská',
+  contactPersonPosition: 'HR specialist',
+  email: 'maria.trencianska@hyza.sk',
+  phone: '+421 901 919 322',
+  cooperationStartDate: '2021-11-01',
+  status: 'active',
+  createdAt: '2022-12-20T08:48:56.557Z',
+  updatedAt: '2022-12-20T08:48:56.557Z',
+  cooperationEndDate: '',
+  managers: [
+    {
+      _id: '6377a624bbb34cf2b779fdf7',
+      name: 'Hanna',
+      surname: 'Terentieva',
+    },
+    {
+      _id: '64c8ef39db7ec89143e7232f',
+      name: 'Zuzana',
+      surname: 'Kušnieriková',
+    },
+  ],
+  shortName: '',
+  comment: '',
+};

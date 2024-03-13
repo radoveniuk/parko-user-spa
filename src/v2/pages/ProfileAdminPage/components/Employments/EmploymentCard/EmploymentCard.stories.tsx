@@ -84,7 +84,6 @@ export const Example: Story = {
       {
         _id: '645363ae02313a2b9522fd4d',
         name: 'Faurecia slovakia s.r.o. ',
-        status: 'active',
         client: {
           _id: '63a16f24b6eae50997c56bbc',
           name: 'MAXIN’S People Slovakia, s. r. o.',
@@ -111,7 +110,6 @@ export const Example: Story = {
       {
         _id: '645363ae02313a2b9522fd4c',
         name: 'Test s.r.o. ',
-        status: 'active',
         client: {
           _id: '63a16de8206ee9a3f8bdd777',
           name: 'MAXIN’S People Slovakia, s. r. o.',

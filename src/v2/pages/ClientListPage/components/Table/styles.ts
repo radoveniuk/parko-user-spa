@@ -12,6 +12,10 @@ export const TableWrapper = styled.div`
     max-height: calc(100vh - 280px);
     position: relative;
 
+    .table-settings-wrapper {
+      margin-left: auto;
+    }
+
     @media (max-width: ${TB}) {
       max-height: calc(100vh - 255px);
     }

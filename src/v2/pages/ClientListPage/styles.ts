@@ -6,6 +6,28 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   .clients-table {
     .list-table-cell {
       white-space: nowrap;
+
+      .column-content {
+        max-width: 200px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .fast-edit-profile {
+        opacity: 0;
+        transition: .3s;
+        margin-left: auto;
+
+        &.active {
+          opacity: 1;
+        }
+      }
+    }
+
+    .list-table-row:hover {
+      .fast-edit-profile {
+        opacity: 1;
+      }
     }
 
     @media (max-width: ${TB}) {
@@ -139,13 +161,6 @@ export const FilterTableWrapper = styled.div`
   gap: 10px;
   padding: 14px 30px;
   @media (max-width: ${TB}) {
-    padding: 0;
-  }
-
-  .filter-chip {
-    height: 36px;
-    @media (max-width: ${TB}) {
-      display: none;;
-    }
+    display: none;
   }
 `;

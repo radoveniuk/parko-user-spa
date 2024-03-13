@@ -47,6 +47,7 @@ const ProfileListPageRender = () => {
   const { data: usersFilter = [] } = useGetUserListForFilter();
   const recruiters = usersFilter.filter((item) => item.role === 'recruiter' || item.role === 'admin');
   const { data: clients = [] } = useGetClients();
+  const { data: allProjects = [] } = useGetProjects();
   const { data: projects = [] } = useGetProjects({ clients: debouncedFiltersState?.clients });
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
@@ -122,15 +123,15 @@ const ProfileListPageRender = () => {
             filterKey="projects"
             label={t('user.project')}
             options={projects}
-            getOptionLabel={(option) => `${option.client?.name ? `${option.client?.name} > ` : ''}${option.name}`}
+            getOptionLabel={(option) => `${option.client?.shortName ? `${option.client?.shortName} > ` : `${option.client?.name} > `}${option.name}`}
             theme="gray"
           />
           <FilterAutocomplete
             multiple
             filterKey="employmentProjects"
             label={t('user.cooperation')}
-            options={projects}
-            getOptionLabel={(option) => `${option.client?.name ? `${option.client?.name} > ` : ''}${option.name}`}
+            options={allProjects}
+            getOptionLabel={(option) => `${option.client?.shortName ? `${option.client?.shortName} > ` : `${option.client?.name} > `}${option.name}`}
             theme="gray"
           />
           <FilterAutocomplete

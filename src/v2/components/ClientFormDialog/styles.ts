@@ -9,13 +9,13 @@ export const FormWrapper = styled.div`
   row-gap: 12px;
   margin-bottom: 25px;
 
-  .MuiAutocomplete-root:first-child {
+  .fullwidth {
     grid-column: 1 / 3;
   }
   
   @media (max-width: ${SM}) {
     grid-template-columns: 1fr;
-    .MuiAutocomplete-root:first-child {
+    .fullwidth {
       grid-column: 1;
     }
   }

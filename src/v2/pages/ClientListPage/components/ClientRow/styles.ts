@@ -4,6 +4,14 @@ import { themeConfig } from 'theme';
 
 export const FormFieldWrapper = styled.div`
   min-width: 200px;
+
+  .MuiInputBase-root input {
+    padding: 4px 0 5px !important;
+  }
+
+  .MuiAutocomplete-inputRoot {
+    flex-wrap: nowrap !important;
+   }
 `;
 
 export const LinkWrapper = styled.div`
