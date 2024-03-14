@@ -20,8 +20,7 @@ export const ProfileListPageWrapper = styled.div<{ cols: number }>`
       opacity: 0;
       transition: .3s;
       margin-left: auto;
-      margin-right: 10px;
-
+      
       &.active {
         opacity: 1;
       }

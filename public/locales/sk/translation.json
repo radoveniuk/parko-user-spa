@@ -3,7 +3,7 @@
     "home": "Hlavná",
     "profile": " Profil",
     "profiles": "Profily",
-    "notifications": "Notifikácie", 
+    "notifications": "Notifikácie",
     "prepayments": "Zálohy",
     "daysoff": "Voľno",
     "paychecks": "Faktúry",
@@ -11,7 +11,7 @@
     "customization": "Customizácia",
     "accommodation": "Ubytovanie",
     "docsTemplates": "Šablóny dokumentov",
-    "clients": "Clienti",
+    "clients": "Klienti",
     "workspaces": "Pracovné priestory",
     "finance": "Financie",
     "feedback": "Spätná väzba"
@@ -123,7 +123,7 @@
     "role": "Role",
     "admin": "Správa používateľov",
     "delete": "Trvalo odstraniť používateľský profil",
-    "approveRemoving":"Chystáte sa trvalo odstrániť používateľský profil <b>{{user}}</b>! Ste istý?",
+    "approveRemoving": "Chystáte sa trvalo odstrániť používateľský profil <b>{{user}}</b>! Ste istý?",
     "approve": "Potvrdiť",
     "removedSuccess": "Profil trvalo odstranený",
     "logout": "Odhlásiť sa",
@@ -194,21 +194,21 @@
       "pass": "Medzinárodný pas",
       "number": "Medzinárodný pas > Číslo",
       "country": "Medzinárodný pas > Krajina",
-      "dateFrom": "Medzinárodný pas > Dátum od", 
-      "dateTo": "Medzinárodný pas > Dátum do", 
+      "dateFrom": "Medzinárodný pas > Dátum od",
+      "dateTo": "Medzinárodný pas > Dátum do",
       "issuedBy": "Medzinárodný pas > Vydal"
     },
     "visa": {
       "visa": "Víza",
       "number": "Víza > Číslo",
-      "dateFrom": "Víza > Dátum od", 
+      "dateFrom": "Víza > Dátum od",
       "dateTo": "Víza > Dátum do",
       "comment": "Víza > Komentár"
     },
     "permit": {
       "permit": "Povolenie na pobyt",
       "number": "Povolenie na pobyt > Číslo",
-      "dateFrom": "Povolenie na pobyt > Dátum od", 
+      "dateFrom": "Povolenie na pobyt > Dátum od",
       "dateTo": "Povolenie na pobyt > Dátum do",
       "address": "Povolenie na pobyt > Adresa",
       "isMedicalCheck": "Povolenie na pobyt > Lekárska prehliadka?",
@@ -217,7 +217,7 @@
     "idcard": {
       "idcard": "Občiansky preukaz",
       "number": "Občiansky preukaz > Číslo",
-      "dateFrom": "Občiansky preukaz > Dátum od", 
+      "dateFrom": "Občiansky preukaz > Dátum od",
       "dateTo": "Občiansky preukaz > Dátum do",
       "country": "Občiansky preukaz > Krajina"
     },
@@ -228,7 +228,8 @@
     "employmentChangeCreatedBy": "Vytvoril",
     "employmentChangeCreatedAt": "Vytvorené o",
     "thisNameExistsMsg": "V systéme už existuje registrovaný užívateľ s rovnakým menom a priezviskom. Chcete pokračovať?",
-    "corporateBodyAddress": "Adresa (Živnostník)"
+    "corporateBodyAddress": "Adresa (Živnostník)",
+    "client": "Klient"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",
@@ -279,7 +280,7 @@
     "status": "Status zálohy",
     "paymentDate": "Data splaty",
     "prepayment": "Záloha",
-    "new":"Nova záloha",
+    "new": "Nova záloha",
     "createdAt": "Datum vytvorenia",
     "period": "Period"
   },
@@ -368,7 +369,10 @@
       "active": "Aktívný",
       "inactive": "Pozastavený",
       "development": "Vo vývoji",
-      "rejected": "Zrušený"
+      "rejected": "Zrušený",
+      "negotiation": "Rokovanie",
+      "contacted": "Kontaktovany",
+      "potential": "Potencialny"
     },
     "projectStatus": {
       "active": "Aktív",
@@ -444,7 +448,7 @@
     "users": "Profily",
     "data": "Informácie",
     "submit": "Uložiť",
-    "approveRemoving": "Chystáte sa trvalo odstrániť projekt! Ste istý?" ,
+    "approveRemoving": "Chystáte sa trvalo odstrániť projekt! Ste istý?",
     "approve": "Potvrdiť",
     "cost": "Cena",
     "tariff": "Tarifa",
@@ -476,7 +480,7 @@
     "required": "Povinné",
     "section": "Úsek formuláru",
     "save": "Uložiť",
-    "delete":"Vymazať",
+    "delete": "Vymazať",
     "order": "Zoradiť podľa:"
   },
   "accommodation": {
@@ -526,7 +530,7 @@
     "sidlo": "Sidlo",
     "websiteUrl": "Web stranka",
     "contactPerson": "Kontaktná osoba",
-    "contactPersonPosition": "Pozícia Kontaktnej osoba",
+    "contactPersonPosition": "Pozícia kontaktnej osoby",
     "phone": "Telefón",
     "status": "Status",
     "new": "Nový klient",
@@ -536,7 +540,13 @@
     "managers": "Manažéri",
     "profile": "Profil",
     "projects": "Projekty",
-    "profiles": "Pracovníci"
+    "profiles": "Pracovníci",
+    "baseFields": "Všeobecné informácie",
+    "contacts": "Kontakty",
+    "financial": "Finančné údaje",
+    "cooperation": "Spolupráca",
+    "comment": "Komentár",
+    "shortName": "Kratke meno"
   },
   "errorTexts": {
     "emptyPassword": "Pole (Heslo) nemôže byť prázdne",
@@ -593,6 +603,10 @@
   "searchHistory": "História",
   "fileDeletedSuccess": "Dokument bol úspešne odstránený",
   "cancel": "Storno",
+  "confirmation": "Potvrdenie",
+  "areYouSureMsg": "Naozaj chcete pokračovať?",
+  "myFilter": "Moje režim",
+  "copied": "Skopírovane",
   "profilesPage": {
     "status": "Používateľské stavy",
     "organization": "Organizácie",

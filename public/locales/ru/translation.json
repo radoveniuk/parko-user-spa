@@ -230,7 +230,8 @@
     "employmentChangeCreatedBy": "Создал",
     "employmentChangeCreatedAt": "Дата создания",
     "thisNameExistsMsg": "В системе уже есть зарегистрированный пользователь с таким именем и фамилией. Хотите продолжить?",
-    "corporateBodyAddress": "Адрес (ИП)"
+    "corporateBodyAddress": "Адрес (ИП)",
+    "client": "Клиент"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",
@@ -370,7 +371,10 @@
       "active": "Активный",
       "inactive": "Приостановлен",
       "development": "В разработке",
-      "rejected": "Отменен"
+      "rejected": "Отменен",
+      "negotiation": "Переговоры",
+      "contacted": "В контакте",
+      "potential": "Потенциальный"
     },
     "projectStatus": {
       "active": "Активный",
@@ -526,7 +530,7 @@
   },
   "client": {
     "company": "Компания",
-    "name": "Имя",
+    "name": "Название",
     "ICO": "IČO",
     "DIC": "DIČ",
     "ICDPH": "IČDPH",
@@ -543,7 +547,13 @@
     "managers": "Менеджеры",
     "profile": "Профиль",
     "projects": "Проекты",
-    "profiles": "Работники"
+    "profiles": "Работники",
+    "baseFields": "Общая информация",
+    "contacts": "Контакты",
+    "financial": "Финансовые данные",
+    "cooperation": "Сотрудничество",
+    "comment": "Коментарий",
+    "shortName": "Короткое название"
   },
   "errorTexts": {
     "emptyPassword": "Пароль не может быть пустым",
@@ -600,6 +610,10 @@
   "unsavedChangesWarn": "У вас есть несохранённые изменения. Если вы их не сохраните, они могут быть потеряны.",
   "searchHistory": "История поиска",
   "cancel": "Отменить",
+  "confirmation": "Подтверждение",
+  "areYouSureMsg": "Вы уверены, что хотите продолжить?",
+  "myFilter": "Мой режим",
+  "copied": "Скопировано",
   "profilesPage": {
     "status": "Статусы пользователей",
     "organization": "Организации",

@@ -2,11 +2,13 @@ import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import ClientFormDialog from 'v2/components/ClientFormDialog';
+import useCopyToClipboard from 'v2/hooks/useCopyToClipboard';
 import IconButton from 'v2/uikit/IconButton';
+import StatusLabel from 'v2/uikit/StatusLabel';
 import { Tab, Tabs } from 'v2/uikit/Tabs';
 
 import { useUpdateClientMutation } from 'api/mutations/clientMutation';
-import { EditIcon } from 'components/icons';
+import { CopyIcon, EditIcon, EmailIcon, PhoneIcon, WebIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
@@ -15,6 +17,21 @@ import { IUser } from 'interfaces/users.interface';
 import { TABS } from '../../constants/tabs';
 
 import { ProfileCardWrapper } from './styles';
+
+type ClientCardCommonItemProps = {
+  label: string;
+  value: string;
+};
+
+const ClientCardCommonItem = ({ value, label }: ClientCardCommonItemProps) => {
+  const copy = useCopyToClipboard();
+  return (
+    <div className="info-item copyable" onClick={() => void copy(value)}>
+      <div className="name">{label}: </div>
+      <span className="value">{value}<CopyIcon /></span>
+    </div>
+  );
+};
 
 export type ClientCardProps = {
   data: IClient;
@@ -54,22 +71,28 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
         <div className="contacts-info section">
           <div className="name">{client.name}</div>
           <div className="contacts">
-            <a href={`mailto:${client.email}`} className="contact-text-link">{client.email}</a>
-            <a href={`tel:${client.phone}`} className="contact-text-link">{client.phone}</a>
-            <a href={client.websiteUrl} className="contact-text-link">{client.websiteUrl}</a>
+            {!!client.email && <a href={`mailto:${client.email}`} className="contact-text-link"><EmailIcon /> {client.email}</a>}
+            {!!client.phone && <a href={`tel:${client.phone}`} className="contact-text-link"><PhoneIcon /> {client.phone}</a>}
+            {!!client.websiteUrl && <a href={client.websiteUrl} className="contact-text-link"><WebIcon /> {client.websiteUrl}</a>}
+            {!!client.status && <StatusLabel className={client.status}>{t(`selects.clientStatus.${client.status}`)}</StatusLabel>}
           </div>
         </div>
+        <div className="financial section">
+          <ClientCardCommonItem label="IČO" value={client.ICO} />
+          <ClientCardCommonItem label="DIČ" value={client.DIC} />
+          <ClientCardCommonItem label="IČ DPH" value={client.ICDPH} />
+        </div>
         <div className="common section">
-          {!!client.status && <div className="common-item">{t('client.status')}: {t(`selects.clientStatus.${client.status}`)}</div>}
-          <div className="common-item">IČO: {client.ICO}</div>
-          <div className="common-item">DIČ: {client.DIC}</div>
-          <div className="common-item">IČ DPH: {client.ICDPH}</div>
-          <div className="common-item">Sídlo: {client.sidlo}</div>
-          <div className="common-item">{t('client.contactPerson')}: {client.contactPerson}</div>
-          <div className="common-item">{t('client.contactPersonPosition')}: {client.contactPersonPosition}</div>
-          <div className="common-item">{t('client.cooperationStartDate')}: {getDateFromIso(client.cooperationStartDate)}</div>
-          <div className="common-item">{t('client.cooperationEndDate')}: {getDateFromIso(client.cooperationEndDate)}</div>
-          <div className="common-item">{t('client.managers')}: {renderManagers()}</div>
+          <div className="info-item"><div className="name">Sídlo:</div> {client.sidlo}</div>
+          <div className="info-item"><div className="name">{t('client.contactPerson')}:</div> {client.contactPerson}</div>
+          <div className="info-item"><div className="name">{t('client.contactPersonPosition')}:</div> {client.contactPersonPosition}</div>
+          <div className="info-item"><div className="name">
+            {t('client.cooperationStartDate')}:</div> {getDateFromIso(client.cooperationStartDate)}
+          </div>
+          <div className="info-item"><div className="name">{t('client.cooperationEndDate')}:</div> {getDateFromIso(client.cooperationEndDate)}</div>
+          <div className="info-item"><div className="name">{t('client.managers')}:</div> {renderManagers()}</div>
+          <div className="info-item"><div className="name">{t('client.shortName')}:</div> {client.shortName}</div>
+          <div className="info-item"><div className="name">{t('client.comment')}:</div> {client.comment}</div>
         </div>
         <div className="system-info section">
           <div className="system-info-item">{t('user.lastUpdate')}: {getDateFromIso(client.updatedAt)}</div>

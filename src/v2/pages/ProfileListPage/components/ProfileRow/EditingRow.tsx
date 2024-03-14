@@ -18,7 +18,6 @@ import Select from 'v2/uikit/Select';
 
 import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
-import { useGetProjects } from 'api/query/projectQuery';
 import CustomField from 'components/complex/CustomField';
 import { SaveIcon } from 'components/icons';
 import BooleanSelect from 'components/shared/BooleanSelect';
@@ -43,7 +42,6 @@ const EditingRow = () => {
   const { register, formState: { errors }, control, handleSubmit } = useForm<IUser>();
   const queryClient = useQueryClient();
   // options
-  const { data: projects = [] } = useGetProjects();
   const recruiters = queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) as IUser[];
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
@@ -77,10 +75,6 @@ const EditingRow = () => {
     translatedPermitTypes, translatedRoles, translatedStatuses, translatedWorkTypes]);
 
   const dynamicSelectOptions: AnyObject = useMemo(() => ({
-    project: {
-      options: projects,
-      labelPath: 'name',
-    },
     recruiter: {
       options: recruiters.map((item) => ({ _id: item._id, label: `${item.name} ${item.surname}` })),
       labelPath: 'label',
@@ -115,7 +109,7 @@ const EditingRow = () => {
     },
   }), [
     countryDictionary?.options, cooperationTypeDictionary?.options, permitTypeDictionary?.options, profilePositionDictionary?.options,
-    projects, recruiters, sourceDictionary?.options,
+    recruiters, sourceDictionary?.options,
   ]);
 
   const generateField = (fieldName: keyof IUser) => {
@@ -232,8 +226,11 @@ const EditingRow = () => {
             {...fieldData.selectProps}
           />
         )}
-        {fieldData.type === 'readonly' && (
+        {fieldData.type === 'readonly' && fieldName as string !== 'client' && (
           <div>{fieldData.render?.(data?.[fieldName], t)}</div>
+        )}
+        {fieldData.type === 'readonly' && fieldName as string === 'client' && (
+          <div>{fieldData.render?.((data?.project as IProject).client, t)}</div>
         )}
         {isMongoId(fieldName) && customFields.some((customField) => customField._id === fieldName) && (
           <Controller

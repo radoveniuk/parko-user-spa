@@ -1,6 +1,8 @@
 export interface IClient {
   _id: string;
   name: string;
+  shortName: string;
+  comment: string;
   ICO: string;
   DIC: string;
   ICDPH: string;

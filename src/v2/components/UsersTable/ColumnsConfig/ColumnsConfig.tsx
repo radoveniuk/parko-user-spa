@@ -25,7 +25,8 @@ const COLS_TREE = {
     'user.medicalInsurance', 'user.birthPlace', 'user.familyStatus', 'user.birthSurname', 'user.childrenCount'],
   businessFields: ['user.businessName', 'user.businessStatus',
     'user.ICO', 'user.DIC', 'user.permitAdress', 'user.corporateBodyAddress', 'user.permitDepartment', 'user.permitNumber'],
-  employment: ['user.project', 'user.position', 'user.cooperationStartDate', 'user.cooperationEndDate'],
+  employment: ['user.client', 'user.project', 'user.position', 'user.cooperationStartDate',
+    'user.cooperationEndDate', 'user.salary', 'user.salaryType'],
 };
 
 const DEFAULT_COLS = [

@@ -49,16 +49,7 @@ const ClientPageRender = () => {
               <Button
                 onClick={async () => {
                   await createProjectMutation.mutateAsync({
-                    email: '',
-                    phone: '',
                     name: '',
-                    comment: '',
-                    dateStart: null,
-                    dateEnd: null,
-                    cost: '',
-                    tariff: '',
-                    status: '',
-                    location: '',
                     client: clientId,
                     stages: [],
                   });

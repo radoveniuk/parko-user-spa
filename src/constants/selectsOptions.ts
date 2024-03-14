@@ -54,9 +54,12 @@ export const USER_SCAN_TYPE = [
 ];
 
 export const CLIENT_STATUS = [
+  'contacted',
+  'potential',
+  'negotiation',
+  'development',
   'active',
   'inactive',
-  'development',
   'rejected',
 ];
 

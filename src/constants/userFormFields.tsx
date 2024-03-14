@@ -217,9 +217,13 @@ export const WORK_FIELDS: UserFieldsList = {
 };
 
 export const SYSTEM_SETTINGS_FIELDS: UserFieldsList = {
+  client: {
+    type: 'readonly',
+    render: (data) => data?.name || '',
+  },
   project: {
     type: 'readonly',
-    render: (data) => `${data?.client?.name ? `${data?.client?.name} > ` : ''}${data?.name || ''}`,
+    render: (data) => data?.name || '',
   },
   status: {
     type: 'readonly',
@@ -290,7 +294,7 @@ export const DOCS_FIELDS: UserFieldsList = {
   },
 };
 
-export const ALL_FORM_FIELDS = {
+export const ALL_FORM_FIELDS: UserFieldsList = {
   ...BASE_FIELDS,
   ...ADRESS_FIELDS,
   ...SYSTEM_FIELDS,

@@ -26,7 +26,7 @@ export type ClientFormDialogProps = DialogProps & {
 
 const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProps) => {
   const { t } = useTranslation();
-  const statuses = useTranslatedSelect(CLIENT_STATUS, 'clientStatus');
+  const statuses = useTranslatedSelect(CLIENT_STATUS, 'clientStatus', true, false);
   const { data: managers = [], isFetching: isManagersFetching } = useGetUserList({ roles: 'recruiter,admin' });
 
   const { register, control, handleSubmit, formState: { errors }, reset } = useForm<Data>({ defaultValues: data });
@@ -61,10 +61,12 @@ const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProp
               disableCloseOnSelect
               limitTags={2}
               theme="gray"
+              className="fullwidth"
             />
           )}
         />
         <Input label={`${t('client.company')}*`} error={!!errors.name} theme="gray" {...register('name', { required: true })} />
+        <Input label={t('client.shortName')} theme="gray" {...register('shortName')} />
         <Input label={t('client.ICO')} theme="gray" {...register('ICO')} />
         <Input label={t('client.DIC')} theme="gray" {...register('DIC')} />
         <Input label={t('client.ICDPH')} theme="gray" {...register('ICDPH')} />
@@ -112,6 +114,12 @@ const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProp
               inputProps={{ theme: 'gray' }}
             />
           )}
+        />
+        <Input
+          label={t('comment')}
+          theme="gray"
+          className="fullwidth"
+          {...register('comment')}
         />
       </FormWrapper>
       <DialogActions>
