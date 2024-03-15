@@ -64,7 +64,7 @@ const Table = ({
     <TableWrapper>
       <ListTable
         columns={COLS}
-        className="daysoff-table"
+        className="templates-table"
         columnComponent={(col) => {
           if (col) {
             return (

@@ -67,10 +67,16 @@ export const NavItem = styled(ListItemButton)`
   transition: background-color 0.3s;
   color: #000 !important;
 
+  &.open:has(svg) {
+    display: grid !important;
+    grid-template-columns: 30px 1fr;
+  }
+
   .nav-icon {
     max-width: 20px !important;
     min-width: 20px !important;
     max-height: 20px;
+    justify-content: center;
 
     svg {
       width: 100%;
@@ -86,6 +92,9 @@ export const NavItem = styled(ListItemButton)`
 
   @media (max-width: ${TB}) {
     border-radius: 0 !important;
+    &:has(svg) {
+      margin-left: 7px !important;
+    }
   }
   
   &:not(:has(.nav-item-text)) {
@@ -163,6 +172,15 @@ export const AccordionWrapper = styled(Accordion)`
     max-height: 45px;
     min-height: 45px;
     padding-left: 0px;
+    margin-left: 21px;
+    &:has(p) {
+      margin-left: 24px;
+    }
+
+    .MuiAccordionSummary-expandIconWrapper {
+      position: absolute;
+      left: -24px;
+    }
   }
 
   .MuiAccordionSummary-root.Mui-expanded {
@@ -173,6 +191,11 @@ export const AccordionWrapper = styled(Accordion)`
     margin: 10px 0;
     gap: 15px;
     align-items: center;
+    
+    &:has(p) {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+    }
   }
 
   .MuiAccordionSummary-content svg {
@@ -189,7 +212,7 @@ export const AccordionWrapper = styled(Accordion)`
   }
 
   .MuiListItemButton-root {
-    padding-left: 57px;
+    padding-left: 67px;
   }
 
   .MuiAccordionSummary-expandIconWrapper.Mui-expanded {

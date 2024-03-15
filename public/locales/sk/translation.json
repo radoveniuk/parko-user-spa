@@ -476,12 +476,16 @@
     "names": "Názov",
     "configuration": "Konfigurácia",
     "projects": "Projekty",
-    "type": "Typ polia",
     "required": "Povinné",
     "section": "Úsek formuláru",
     "save": "Uložiť",
     "delete": "Vymazať",
-    "order": "Zoradiť podľa:"
+    "order": "Zoradiť podľa:",
+    "fields": "Vlastné polia",
+    "fieldName": "Názov poľa",
+    "fieldType": "Typ poľa",
+    "fieldCreatedAt": "Kedy vytvorené",
+    "newField": "Nove pole"
   },
   "accommodation": {
     "owner": "Majiteľ",
