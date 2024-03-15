@@ -35,7 +35,7 @@ export const TemplateDialog = ({ defaultData, onClose, ...rest }: Props) => {
   const queryClient = useQueryClient();
   const queryKey = ['docsTemplates', JSON.stringify({})];
 
-  const { data: templates = [] } = useGetDocsTemplateCategories();
+  const { data: categories = [] } = useGetDocsTemplateCategories();
 
   const submitHandler: SubmitHandler<IDocsTemplate> = async (values) => {
     const updateFn = (uploadedFileData: IFile) => {
@@ -55,7 +55,7 @@ export const TemplateDialog = ({ defaultData, onClose, ...rest }: Props) => {
           category: values.category,
         };
         queryClient.setQueryData(
-          ['docsTemplates', JSON.stringify({})],
+          queryKey,
           defaultData === true ? [valuesToUpdate, ...prevData] : prevData.map(item => item._id === res._id ? valuesToUpdate : item),
         );
         onClose();
@@ -95,7 +95,7 @@ export const TemplateDialog = ({ defaultData, onClose, ...rest }: Props) => {
               <AutoComplete
                 theme="gray"
                 label={t('docsTemplates.category')}
-                options={templates}
+                options={categories}
                 valueKey="_id"
                 labelKey="name"
                 onChange={field.onChange}

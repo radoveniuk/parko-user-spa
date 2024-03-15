@@ -476,15 +476,19 @@
   },
   "customForms": {
     "names": "Name",
-    "configuration": "Connfiguration",
+    "configuration": "Configuration",
     "projects": "Projects",
-    "type": "Field Type",
     "required": "Required",
     "section": "Form's section",
     "save": "Save",
     "delete": "Delete",
     "order": "Order",
-    "source": "Source"
+    "source": "Source",
+    "fields": "Custom form fields",
+    "fieldName": "Field name",
+    "fieldType": "Field Type",
+    "fieldCreatedAt": "Created at",
+    "newField": "New field"
   },
   "accommodation": {
     "owner": "Owner",

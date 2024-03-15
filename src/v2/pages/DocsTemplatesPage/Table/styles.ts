@@ -7,9 +7,9 @@ export const TableWrapper = styled.div`
   flex-direction: column;
   height: 100%;
 
-  .daysoff-table {
+  .templates-table {
     overflow: scroll;
-    max-height: calc(100vh - 310px);
+    max-height: calc(100vh - 280px);
     position: relative;
 
     @media (max-width: ${TB}) {
@@ -30,7 +30,7 @@ export const TableWrapper = styled.div`
     }
   }
 
-  .daysoff-table > div > div {
+  .templates-table > div > div {
     padding-left: 35px;
 
     @media (max-width: ${TB}) {
@@ -38,14 +38,14 @@ export const TableWrapper = styled.div`
     }
   }
 
-  .daysoff-table div:first-child > .list-table-cell {
+  .templates-table div:first-child > .list-table-cell {
     background: #f5f5f5;
     position: sticky;
     top: 0;
     z-index: 1;
   }
 
-  .daysoff-table .col-item svg {
+  .templates-table .col-item svg {
     fill: #212121;
     width: 15px;
     height: 15px;

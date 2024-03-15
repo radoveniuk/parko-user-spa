@@ -88,7 +88,7 @@ const DocTemplateRow = ({ data }: RowProps) => {
           onSubmit={() => {
             const prevData = queryClient.getQueryData(queryKey) as IDocsTemplate[];
             queryClient.setQueryData(
-              ['docsTemplates', JSON.stringify({})],
+              queryKey,
               prevData.filter(item => item._id !== data._id),
             );
             Promise.all([
