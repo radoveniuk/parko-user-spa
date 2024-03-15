@@ -6,7 +6,6 @@ import PhoneInput from 'v2/uikit/PhoneInput';
 import Select from 'v2/uikit/Select';
 
 import BooleanSelect from 'components/shared/BooleanSelect';
-import { IDictionary } from 'interfaces/dictionary.interface';
 import { ICustomFormField } from 'interfaces/form.interface';
 
 type CustomFieldProps = {
@@ -41,7 +40,7 @@ const CustomField = ({ value, onChange, metadata }: CustomFieldProps) => {
     return (
       <Select
         value={value as string || ''}
-        options={(metadata.source as IDictionary)?.options || []}
+        options={metadata.options || []}
         onChange={onChange}
         label={metadata.names[i18n.language]}
       />

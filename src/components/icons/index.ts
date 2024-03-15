@@ -29,6 +29,7 @@ export {
 } from 'react-icons/bs';
 export {
   FaFileDownload as DownloadFileIcon,
+  FaWpforms as FormIcon,
   FaMoneyBill as MoneyBillIcon,
   FaMoneyCheckAlt as PaycheckIcon,
   FaIdCard as PersonalDocIcon,

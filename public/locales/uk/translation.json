@@ -364,7 +364,9 @@
       "number": "Число",
       "phone": "Телефон",
       "date": "Дата",
-      "select": "Випадаючий список"
+      "select": "Випадаючий список",
+      "multiselect": "Мультиселект",
+      "expirience": "Досвід роботи"
     },
     "clientStatus": {
       "active": "Активний",
@@ -486,7 +488,8 @@
     "fieldName": "Назва поля",
     "fieldType": "Тип поля",
     "fieldCreatedAt": "Коли створено",
-    "newField": "Нове поле"
+    "newField": "Нове поле",
+    "addOptions": "Додати варіанти вибору"
   },
   "accommodation": {
     "owner": "Власник",

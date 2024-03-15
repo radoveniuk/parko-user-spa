@@ -363,7 +363,10 @@
       "boolean": "Áno/nie",
       "number": "Číslo",
       "phone": "Telefón",
-      "date": "Dátum"
+      "date": "Dátum",
+      "select": "Select",
+      "multiselect": "Multiselect",
+      "expirience": "Pracovné skúsenosti"
     },
     "clientStatus": {
       "active": "Aktívný",
@@ -485,7 +488,8 @@
     "fieldName": "Názov poľa",
     "fieldType": "Typ poľa",
     "fieldCreatedAt": "Kedy vytvorené",
-    "newField": "Nove pole"
+    "newField": "Nove pole",
+    "addOptions": "Pridať možnosti"
   },
   "accommodation": {
     "owner": "Majiteľ",

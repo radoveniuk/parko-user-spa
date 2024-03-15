@@ -7,7 +7,7 @@ import Input from 'v2/uikit/Input';
 import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 import Select from 'v2/uikit/Select';
 
-import { useGetCustomFormFields, useGetCustomFormSections } from 'api/query/customFormsQuery';
+import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import Accordion from 'components/shared/Accordion';
@@ -23,8 +23,6 @@ import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
-
-import CustomField from '../CustomField';
 
 import { AccordionFieldsWrapper, ProfileFormWrapper } from './styles';
 
@@ -48,7 +46,6 @@ const ProfileForm = ({ defaultValues }: Props) => {
   const sexOptions = useTranslatedSelect(['male', 'female']);
 
   // custom fields
-  const { data: customSections = [] } = useGetCustomFormSections({ entity: 'user' });
   const { data: customFields = [] } = useGetCustomFormFields({
     entity: 'user',
     projects: defaultValues?.project ? [(defaultValues.project as IProject)._id] : 'null',
@@ -257,38 +254,6 @@ const ProfileForm = ({ defaultValues }: Props) => {
           {generateAccordionContent(BIOMETRY_FIELDS)}
         </AccordionFieldsWrapper>
       </Accordion>
-      {customSections
-        .filter((section) => customFields.some((customField) => customField.section === section._id))
-        .map((section) => (
-          <Accordion
-            key={section._id}
-            title={section.names[i18n.language]}
-            id={section._id}
-            className="accordion"
-            defaultExpanded
-          >
-            <AccordionFieldsWrapper cols={3}>
-              {customFields
-                .filter((customField) => customField.section === section._id)
-                .map((customField) => (
-                  <Controller
-                    key={customField._id}
-                    name={`customFields.${customField._id}`}
-                    rules={{ required: customField.required }}
-                    control={control}
-                    defaultValue={defaultValues?.customFields?.[customField._id as string]}
-                    render={({ field }) => (
-                      <CustomField
-                        value={field.value}
-                        onChange={field.onChange}
-                        metadata={customField}
-                      />
-                    )}
-                  />
-                ))}
-            </AccordionFieldsWrapper>
-          </Accordion>
-        ))}
       {!_.isEmpty(errors) && (
         <div className="form-errors">
           <p>{t('errors')}</p>

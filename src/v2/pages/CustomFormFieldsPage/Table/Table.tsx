@@ -13,7 +13,7 @@ import { IClient } from 'interfaces/client.interface';
 import { ICustomFormField } from 'interfaces/form.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import DocTemplateRow from '../FormFieldsRow';
+import FormFieldsRow from '../FormFieldsRow';
 
 import { TableWrapper } from './styles';
 
@@ -88,7 +88,7 @@ const Table = ({
         }}
       >
         {pageItems.map((item) => (
-          <DocTemplateRow
+          <FormFieldsRow
             key={item._id}
             data={item}
           />

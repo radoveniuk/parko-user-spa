@@ -366,7 +366,9 @@
       "number": "Number",
       "phone": "Phone number",
       "date": "Date",
-      "select": "Dropdown list"
+      "select": "Dropdown list",
+      "multiselect": "Multiselect",
+      "expirience": "Work expirience"
     },
     "clientStatus": {
       "active": "Active",
@@ -488,7 +490,8 @@
     "fieldName": "Field name",
     "fieldType": "Field Type",
     "fieldCreatedAt": "Created at",
-    "newField": "New field"
+    "newField": "New field",
+    "addOptions": "Add select options"
   },
   "accommodation": {
     "owner": "Owner",

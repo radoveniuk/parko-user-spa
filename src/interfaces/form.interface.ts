@@ -1,6 +1,6 @@
 export type CustomFormEntity = 'user' | 'project';
 
-export type CustomFormFieldType = 'string' | 'number' | 'date' | 'boolean' | 'phone' | 'email' | 'select' | 'multiselect';
+export type CustomFormFieldType = 'string' | 'number' | 'date' | 'boolean' | 'phone' | 'email' | 'select' | 'multiselect' | 'expirience';
 
 export interface ICustomFormField {
   _id: string;

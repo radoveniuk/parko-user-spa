@@ -5,6 +5,10 @@ type Language = {
 
 export const LANGUAGES: Language[] = [
   {
+    code: 'sk',
+    title: 'Slovenský',
+  },
+  {
     code: 'uk',
     title: 'Українська',
   },
@@ -15,9 +19,5 @@ export const LANGUAGES: Language[] = [
   {
     code: 'ru',
     title: 'Русский',
-  },
-  {
-    code: 'sk',
-    title: 'Slovenský',
   },
 ];

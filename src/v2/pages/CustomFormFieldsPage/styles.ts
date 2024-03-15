@@ -18,7 +18,7 @@ export const DocsTemplatesWrapper = styled.div`
 
     @media (max-width: ${TB}) {
       box-shadow: none;
-      .pagination-bottom, .daysoff-table {
+      .pagination-bottom, .fields-table {
         display: none;
       }
       .mobile-list {
