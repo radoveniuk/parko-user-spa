@@ -10,7 +10,7 @@ type Props = {
   label?: string;
   isEmptyItem?: boolean;
   className?: string;
-  theme: FieldTheme;
+  theme?: FieldTheme;
 };
 
 const booleanOptions = ['true', 'false'];
