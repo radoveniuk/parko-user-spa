@@ -5,7 +5,7 @@ import { Input } from 'v2/uikit';
 import { useGetCustomForms } from 'api/query/customFormsQuery';
 
 import HeaderTable from './HeaderTable';
-// import MobileFieldCard from './MobileFieldCard';
+import MobileFormCard from './MobileFormCard';
 import { DocsTemplatesWrapper, FilterTableWrapper } from './styles';
 import Table from './Table';
 
@@ -24,14 +24,14 @@ const CustomFormsPage = () => {
         <FilterTableWrapper>
           <Input label={t('search')} theme="gray" value={searchValue} onChange={(e) => void setSearchValue(e.target.value)} />
         </FilterTableWrapper>
-        {/* <div className="mobile-list">
+        <div className="mobile-list">
           {data.map((field) => (
-            <MobileFieldCard
+            <MobileFormCard
               key={field._id}
               data={field}
             />
           ))}
-        </div> */}
+        </div>
         <Table data={forms} isFetching={isFetching || isLoading} />
       </div>
     </DocsTemplatesWrapper>

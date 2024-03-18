@@ -479,7 +479,6 @@
     "names": "Názov",
     "configuration": "Konfigurácia",
     "projects": "Projekty",
-    "required": "Povinné",
     "section": "Úsek formuláru",
     "save": "Uložiť",
     "delete": "Vymazať",
@@ -489,7 +488,13 @@
     "fieldType": "Typ poľa",
     "fieldCreatedAt": "Kedy vytvorené",
     "newField": "Nove pole",
-    "addOptions": "Pridať možnosti"
+    "addOptions": "Pridať možnosti",
+    "forms": "Formuláre",
+    "formName": "Názov formulára",
+    "newForm": "Nový formulár",
+    "form": "Formulár",
+    "field": "Pole",
+    "isRequired": "Povinné"
   },
   "accommodation": {
     "owner": "Majiteľ",

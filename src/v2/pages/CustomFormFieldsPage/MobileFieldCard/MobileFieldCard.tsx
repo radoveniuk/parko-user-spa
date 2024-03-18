@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import Menu, { MenuItem } from 'v2/uikit/Menu';
 
-import { DeleteIcon, EditIcon, FormIcon } from 'components/icons';
+import { DeleteIcon, EditIcon, PuzzleIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import { ICustomFormField } from 'interfaces/form.interface';
 import { themeConfig } from 'theme';
@@ -31,7 +31,7 @@ const MobileFieldCard = ({ data }: Props) => {
         isCloseOnMenu
         menuComponent={(
           <MobileCardWrapper>
-            <FormIcon size={80} color={themeConfig.palette.primary.light} />
+            <PuzzleIcon size={80} color={themeConfig.palette.primary.light} />
             <div className="name">{data.names[i18n.language]}</div>
             <div className="date">{getDateFromIso(data.createdAt)}</div>
           </MobileCardWrapper>

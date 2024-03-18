@@ -1,32 +1,29 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient } from 'react-query';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import Menu, { MenuItem } from 'v2/uikit/Menu';
 
-import { useDeleteCustomFormFieldMutation } from 'api/mutations/customFormsMutation';
 import { DeleteIcon, EditIcon, FormIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
-import { ICustomFormField } from 'interfaces/form.interface';
+import { ICustomForm } from 'interfaces/form.interface';
 import { themeConfig } from 'theme';
 
 import FieldDialog from '../FormDialog';
+import useCustomFormActions from '../hooks/useCustomFormActions';
 
 import { MobileCardWrapper } from './styles';
 
 type Props = {
-  data: ICustomFormField;
+  data: ICustomForm;
 };
 
-const MobileFieldCard = ({ data }: Props) => {
-  const { t, i18n } = useTranslation();
-  const queryClient = useQueryClient();
-  const queryKey = ['customFormFields', JSON.stringify({})];
+const MobileFormCard = ({ data }: Props) => {
+  const { t } = useTranslation();
 
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-  const deleteField = useDeleteCustomFormFieldMutation();
+  const { remove } = useCustomFormActions();
 
   return (
     <>
@@ -35,7 +32,7 @@ const MobileFieldCard = ({ data }: Props) => {
         menuComponent={(
           <MobileCardWrapper>
             <FormIcon size={80} color={themeConfig.palette.primary.light} />
-            <div className="name">{data.names[i18n.language]}</div>
+            <div className="name">{data.name}</div>
             <div className="date">{getDateFromIso(data.createdAt)}</div>
           </MobileCardWrapper>
         )}
@@ -50,7 +47,7 @@ const MobileFieldCard = ({ data }: Props) => {
           defaultData={data}
           onClose={() => void setOpenDialog(false)}
           open={openDialog}
-          title={data.names[i18n.language]}
+          title={data.name}
         />
       )}
       {!!openDeleteDialog && (
@@ -58,12 +55,7 @@ const MobileFieldCard = ({ data }: Props) => {
           onClose={() => void setOpenDeleteDialog(false)}
           open={openDeleteDialog}
           onSubmit={() => {
-            deleteField.mutate(data._id);
-            const prevData = queryClient.getQueryData(queryKey) as ICustomFormField[];
-            queryClient.setQueryData(
-              queryKey,
-              prevData.filter(item => item._id !== data._id),
-            );
+            remove(data._id as string);
           }}
         />
       )}
@@ -71,4 +63,4 @@ const MobileFieldCard = ({ data }: Props) => {
   );
 };
 
-export default memo(MobileFieldCard);
+export default memo(MobileFormCard);

@@ -480,7 +480,6 @@
     "names": "Name",
     "configuration": "Configuration",
     "projects": "Projects",
-    "required": "Required",
     "section": "Form's section",
     "save": "Save",
     "delete": "Delete",
@@ -491,7 +490,13 @@
     "fieldType": "Field Type",
     "fieldCreatedAt": "Created at",
     "newField": "New field",
-    "addOptions": "Add select options"
+    "addOptions": "Add select options",
+    "forms": "Forms",
+    "formName": "Form name",
+    "newForm": "New form",
+    "form": "Form",
+    "field": "Field",
+    "isRequired": "Required"
   },
   "accommodation": {
     "owner": "Owner",

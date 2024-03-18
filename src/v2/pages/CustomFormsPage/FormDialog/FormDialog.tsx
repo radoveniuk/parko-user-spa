@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash-es/isEmpty';
@@ -24,6 +25,14 @@ type CustomFieldSetting = {
   isRequired: boolean;
 };
 
+const reorder = (list: any[], startIndex: number, endIndex: number) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
 type Props = DialogProps & {
   defaultData: ICustomForm | true;
 };
@@ -31,16 +40,8 @@ type Props = DialogProps & {
 const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
   const { t } = useTranslation();
   const {
-    register, formState: { errors }, handleSubmit, getValues, setValue, watch, control,
+    register, formState: { errors }, handleSubmit,
   } = useForm<ICustomForm>({ defaultValues: typeof defaultData !== 'boolean' ? defaultData : {} });
-
-  // form submit
-  const { create, update } = useCustomFormActions();
-
-  const submitHandler: SubmitHandler<ICustomForm> = (values) => {
-    defaultData === true ? create(values) : update(values);
-    onClose();
-  };
 
   // fields settings
 
@@ -49,6 +50,38 @@ const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
     ? []
     : defaultData.fields
       .map((field) => ({ field, isRequired: defaultData.requiredFields.includes(field as string), id: createId() }))) as CustomFieldSetting[]);
+
+  const removeFieldSetting = (id: string) => {
+    setFields((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  // field settings dragndrop
+
+  const onDragEnd = (result: DropResult) => {
+    console.log(result);
+
+    const dest = result.destination;
+    if (dest) {
+      setFields(prev => reorder(
+        prev,
+        result.source.index,
+        dest.index,
+      ));
+    }
+  };
+
+  // form submit
+  const { create, update } = useCustomFormActions();
+
+  const submitHandler: SubmitHandler<ICustomForm> = (formValues) => {
+    const values: ICustomForm = {
+      ...formValues,
+      fields: fields.map(item => item.field),
+      requiredFields: fields.filter(item => item.isRequired).map(item => item.field),
+    };
+    defaultData === true ? create(values) : update(values);
+    onClose();
+  };
 
   return (
     <Dialog
@@ -66,8 +99,67 @@ const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
           />
         </div>
         <div className="fields">
-          <div className="label">{t('customForms.formFields')}</div>
-          <div className="grid">
+          <div className="label separated">{t('customForms.fields')}</div>
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppable" direction="vertical">
+              {(provided) => (
+                <div className="grid"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  <div className="row">
+                    <div className="cell label">{t('customForms.field')}</div>
+                    <div className="cell label">{t('customForms.isRequired')}</div>
+                  </div>
+                  {fields.map((setting, index) => (
+                    <Draggable key={setting.id} draggableId={setting.id} index={index}>
+                      {(provided) => (
+                        <div className="row" key={setting.id} ref={provided.innerRef} {...provided.draggableProps}>
+                          <div className="cell">
+                            <Select
+                              label={t('customForms.field')}
+                              options={customFormFields}
+                              valuePath="_id"
+                              labelPath="names.sk"
+                              defaultValue={setting.field}
+                              theme="gray"
+                              className="border-right"
+                              onChange={(e) => {
+                                setFields(prev => prev.map((prevSetting) => prevSetting.id === setting.id
+                                  ? ({ ...prevSetting, field: e.target.value as string })
+                                  : prevSetting),
+                                );
+                              }}
+                            />
+                          </div>
+                          <div className="cell">
+                            <BooleanSelect
+                              label={t('customForms.isRequired')}
+                              isEmptyItem={false}
+                              defaultValue={setting.isRequired || false}
+                              theme="gray"
+                              onChange={(v) => {
+                                setFields(prev => prev.map((prevSetting) => prevSetting.id === setting.id
+                                  ? ({ ...prevSetting, isRequired: !!v })
+                                  : prevSetting),
+                                );
+                              }}
+                            />
+                          </div>
+                          <div className="actions cell">
+                            <IconButton onClick={() => void removeFieldSetting(setting.id)}><DeleteIcon size={16} /></IconButton>
+                            <IconButton {...provided.dragHandleProps}><DragIcon size={16} /></IconButton>
+                          </div>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+          {/* <div className="grid">
             <div className="row">
               <div className="cell header">{t('customForms.field')}</div>
               <div className="cell header">{t('customForms.isRequired')}</div>
@@ -109,7 +201,7 @@ const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
           <Button
             onClick={() => void setFields(prev => [...prev, { field: '', isRequired: false, id: createId() }])}
             variant="text"

@@ -479,7 +479,6 @@
     "names": "Название",
     "configuration": "Конфигурация",
     "projects": "Проекты",
-    "required": "Обязательное",
     "section": "Секция на форме",
     "save": "Сохранить",
     "delete": "Удалить",
@@ -490,7 +489,13 @@
     "fieldType": "Тип поля",
     "fieldCreatedAt": "Когда создано",
     "newField": "Новое поле",
-    "addOptions": "Добавить варианты выбора"
+    "addOptions": "Добавить варианты выбора",
+    "forms": "Анкеты",
+    "formName": "Название анкеты",
+    "newForm": "Нова анкета",
+    "form": "Анкета",
+    "field": "Поле",
+    "isRequired": "Обязательное"
   },
   "accommodation": {
     "owner": "Владелец",
