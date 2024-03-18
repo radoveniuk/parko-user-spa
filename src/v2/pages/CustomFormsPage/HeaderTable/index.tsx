@@ -5,7 +5,7 @@ import IconButton from 'v2/uikit/IconButton';
 
 import { PlusIcon } from 'components/icons';
 
-import FieldDialog from '../FieldDialog';
+import FieldDialog from '../FormDialog';
 
 import { HeaderWrapper } from './styles';
 
@@ -22,11 +22,11 @@ const HeaderTable = ({ count }: Props) => {
     <>
       <HeaderWrapper>
         <Stack direction="row" gap="9px" alignContent="center">
-          <span className="bold">{t('customForms.fields')}: {count}</span>
+          <span className="bold">{t('customForms.forms')}: {count}</span>
         </Stack>
         <Stack direction="row" gap="15px">
           <div className="link">
-            <Button className="big-btn" onClick={() => void setOpenTemplate(true)}>{t('customForms.newField')}</Button>
+            <Button className="big-btn" onClick={() => void setOpenTemplate(true)}>{t('customForms.newForm')}</Button>
             <IconButton className="small-btn primary" onClick={() => void setOpenTemplate(true)}><PlusIcon size={25} /></IconButton>
           </div>
         </Stack>
@@ -34,7 +34,7 @@ const HeaderTable = ({ count }: Props) => {
       {!!openTemplate && (
         <FieldDialog
           defaultData
-          title={t('customForms.newField')}
+          title={t('customForms.form')}
           open={!!openTemplate}
           onClose={() => { setOpenTemplate(false); }}
         />

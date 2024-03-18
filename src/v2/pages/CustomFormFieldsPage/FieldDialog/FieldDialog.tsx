@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient } from 'react-query';
 import isEmpty from 'lodash-es/isEmpty';
 import Button from 'v2/uikit/Button';
 import Chip from 'v2/uikit/Chip';
@@ -9,13 +8,14 @@ import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
 import Input from 'v2/uikit/Input';
 import Select from 'v2/uikit/Select';
 
-import { useCreateCustomFormFieldMutation, useUpdateCustomFormFieldMutation } from 'api/mutations/customFormsMutation';
 import { fetchTranslation } from 'api/query/translationQuery';
 import { AcceptIcon, PlusIcon } from 'components/icons';
 import { LANGUAGES } from 'constants/languages';
 import useDebounce from 'hooks/useDebounce';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { CustomFormFieldType, ICustomFormField } from 'interfaces/form.interface';
+
+import useCustomFormFieldActions from '../hooks/useCustomFormFieldActions';
 
 import { AddOptionButton, DialogContentWrapper, OptionField, OptionFieldWrapper } from './styles';
 
@@ -60,28 +60,11 @@ const FieldDialog = ({ defaultData, onClose, ...rest }: Props) => {
   }, [debouncedNameToTranslate, getValues, setValue]);
 
   // form submit
-  const createField = useCreateCustomFormFieldMutation();
-  const updateField = useUpdateCustomFormFieldMutation();
-  const queryClient = useQueryClient();
-  const queryKey = ['customFormFields', JSON.stringify({})];
+  const { create, update } = useCustomFormFieldActions();
 
   const submitHandler: SubmitHandler<ICustomFormField> = (values) => {
-    const mutation = defaultData === true ? createField : updateField;
-
-    mutation.mutateAsync({
-      ...(defaultData !== true && { _id: defaultData._id }),
-      ...values,
-    }).then((res) => {
-      const prevData = queryClient.getQueryData(queryKey) as ICustomFormField[];
-      const valuesToUpdate = {
-        ...res,
-      };
-      queryClient.setQueryData(
-        queryKey,
-        defaultData === true ? [valuesToUpdate, ...prevData] : prevData.map(item => item._id === res._id ? valuesToUpdate : item),
-      );
-      onClose();
-    });
+    defaultData === true ? create(values) : update(values);
+    onClose();
   };
 
   // create of new option

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Select from 'v2/uikit/Select';
+import Select, { FieldTheme } from 'v2/uikit/Select';
 
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 
@@ -8,17 +8,21 @@ type Props = {
   defaultValue?: boolean;
   onChange(value: boolean | null): void;
   label?: string;
+  isEmptyItem?: boolean;
+  className?: string;
+  theme: FieldTheme;
 };
 
 const booleanOptions = ['true', 'false'];
 
-const BooleanSelect = ({ defaultValue, onChange, label }: Props) => {
+const BooleanSelect = ({ defaultValue, onChange, label, isEmptyItem = true, ...rest }: Props) => {
   const { t } = useTranslation();
   const options = useTranslatedSelect(booleanOptions);
   const [value, setValue] = useState(defaultValue !== undefined ? `${defaultValue}` : '');
 
   return (
     <Select
+      {...rest}
       options={options}
       onChange={(e) => {
         const selectedOption = e.target.value as string;
@@ -30,7 +34,7 @@ const BooleanSelect = ({ defaultValue, onChange, label }: Props) => {
         }
       }}
       value={value}
-      emptyItem={t('noSelected')}
+      emptyItem={isEmptyItem ? t('noSelected') : undefined}
       label={label}
     />
   );

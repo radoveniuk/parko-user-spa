@@ -128,6 +128,11 @@ const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
         title: 'customForms.fields',
         to: '/customization/fields',
       },
+      {
+        type: 'link',
+        title: 'customForms.forms',
+        to: '/customization/forms',
+      },
     ],
   },
 ];

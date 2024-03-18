@@ -67,6 +67,7 @@ export {
   MdDoneAll as CheckAllIcon,
   MdCopyAll as CopyIcon,
   MdWeekend as DayoffIcon,
+  MdDragHandle as DragIcon,
   MdEmail as EmailIcon,
   MdOutlineHistory as HistoryIcon,
   MdLanguage as InternetIcon,

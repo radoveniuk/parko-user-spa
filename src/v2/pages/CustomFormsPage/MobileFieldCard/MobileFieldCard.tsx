@@ -1,15 +1,16 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import Menu, { MenuItem } from 'v2/uikit/Menu';
 
+import { useDeleteCustomFormFieldMutation } from 'api/mutations/customFormsMutation';
 import { DeleteIcon, EditIcon, FormIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import { ICustomFormField } from 'interfaces/form.interface';
 import { themeConfig } from 'theme';
 
-import FieldDialog from '../FieldDialog';
-import useCustomFormFieldActions from '../hooks/useCustomFormFieldActions';
+import FieldDialog from '../FormDialog';
 
 import { MobileCardWrapper } from './styles';
 
@@ -19,11 +20,13 @@ type Props = {
 
 const MobileFieldCard = ({ data }: Props) => {
   const { t, i18n } = useTranslation();
+  const queryClient = useQueryClient();
+  const queryKey = ['customFormFields', JSON.stringify({})];
 
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-  const { remove } = useCustomFormFieldActions();
+  const deleteField = useDeleteCustomFormFieldMutation();
 
   return (
     <>
@@ -55,7 +58,12 @@ const MobileFieldCard = ({ data }: Props) => {
           onClose={() => void setOpenDeleteDialog(false)}
           open={openDeleteDialog}
           onSubmit={() => {
-            remove(data._id);
+            deleteField.mutate(data._id);
+            const prevData = queryClient.getQueryData(queryKey) as ICustomFormField[];
+            queryClient.setQueryData(
+              queryKey,
+              prevData.filter(item => item._id !== data._id),
+            );
           }}
         />
       )}

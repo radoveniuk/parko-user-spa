@@ -16,3 +16,11 @@ export interface ICustomFormSection {
   entity: CustomFormEntity;
   order: number;
 }
+
+export interface ICustomForm {
+  _id?: string;
+  name: string;
+  fields: (ICustomFormField | string)[];
+  requiredFields: string[];
+  createdAt: string;
+}

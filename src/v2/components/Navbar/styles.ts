@@ -212,7 +212,7 @@ export const AccordionWrapper = styled(Accordion)`
   }
 
   .MuiListItemButton-root {
-    padding-left: 67px;
+    padding-left: 69px;
   }
 
   .MuiAccordionSummary-expandIconWrapper.Mui-expanded {

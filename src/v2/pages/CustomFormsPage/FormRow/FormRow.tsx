@@ -8,33 +8,30 @@ import IconButton from 'v2/uikit/IconButton';
 import { DeleteIcon, EditIcon, ThreeDotsIcon } from 'components/icons';
 import { ListTableCell } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
-import { ICustomFormField } from 'interfaces/form.interface';
+import { ICustomForm } from 'interfaces/form.interface';
 
-import FieldDialog from '../FieldDialog';
-import useCustomFormFieldActions from '../hooks/useCustomFormFieldActions';
+import FormDialog from '../FormDialog';
+import useCustomFormActions from '../hooks/useCustomFormActions';
 
 import { StyledListTableRow } from './styles';
 
 type RowProps = {
-  data: ICustomFormField;
+  data: ICustomForm;
 }
 
-const FormFieldRow = ({ data }: RowProps) => {
-  const { t, i18n } = useTranslation();
+const FormRow = ({ data }: RowProps) => {
+  const { t } = useTranslation();
 
   const [openMenu, setOpenMenu] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-  const { remove } = useCustomFormFieldActions();
+  const { remove } = useCustomFormActions();
 
   return (
     <StyledListTableRow isActive={openMenu}>
       <ListTableCell>
-        {data.names[i18n.language]}
-      </ListTableCell>
-      <ListTableCell>
-        {t(`selects.customForms.${data.type}`)}
+        {data.name}
       </ListTableCell>
       <ListTableCell>
         {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')}
@@ -55,23 +52,21 @@ const FormFieldRow = ({ data }: RowProps) => {
         </Menu>
       </ListTableCell>
       {!!openDialog && (
-        <FieldDialog
+        <FormDialog
           defaultData={data}
           onClose={() => void setOpenDialog(false)}
           open={openDialog}
-          title={data.names[i18n.language]}
+          title={data.name}
         />
       )}
       {!!openDeleteDialog && (
         <DialogConfirm
           onClose={() => void setOpenDeleteDialog(false)}
           open={openDeleteDialog}
-          onSubmit={() => {
-            remove(data._id);
-          }}
+          onSubmit={() => { remove(data._id as string); }}
         />
       )}
     </StyledListTableRow>
   );
 };
-export default FormFieldRow;
+export default FormRow;
