@@ -46,23 +46,21 @@ const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
   // fields settings
 
   const { data: customFormFields } = useGetCustomFormFields();
-  const [fields, setFields] = useState((typeof defaultData === 'boolean'
+  const [fieldSettings, setFieldSettings] = useState((typeof defaultData === 'boolean'
     ? []
     : defaultData.fields
       .map((field) => ({ field, isRequired: defaultData.requiredFields.includes(field as string), id: createId() }))) as CustomFieldSetting[]);
 
   const removeFieldSetting = (id: string) => {
-    setFields((prev) => prev.filter((item) => item.id !== id));
+    setFieldSettings((prev) => prev.filter((item) => item.id !== id));
   };
 
   // field settings dragndrop
 
   const onDragEnd = (result: DropResult) => {
-    console.log(result);
-
     const dest = result.destination;
     if (dest) {
-      setFields(prev => reorder(
+      setFieldSettings(prev => reorder(
         prev,
         result.source.index,
         dest.index,
@@ -70,14 +68,21 @@ const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
     }
   };
 
+  // field settings validation
+  const [triggerredSettings, setTriggerredSettings] = useState(false);
+
   // form submit
   const { create, update } = useCustomFormActions();
 
   const submitHandler: SubmitHandler<ICustomForm> = (formValues) => {
+    if (fieldSettings.some(item => !item.field)) {
+      setTriggerredSettings(true);
+      return;
+    }
     const values: ICustomForm = {
       ...formValues,
-      fields: fields.map(item => item.field),
-      requiredFields: fields.filter(item => item.isRequired).map(item => item.field),
+      fields: fieldSettings.map(item => item.field),
+      requiredFields: fieldSettings.filter(item => item.isRequired).map(item => item.field),
     };
     defaultData === true ? create(values) : update(values);
     onClose();
@@ -111,7 +116,7 @@ const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
                     <div className="cell label">{t('customForms.field')}</div>
                     <div className="cell label">{t('customForms.isRequired')}</div>
                   </div>
-                  {fields.map((setting, index) => (
+                  {fieldSettings.map((setting, index) => (
                     <Draggable key={setting.id} draggableId={setting.id} index={index}>
                       {(provided) => (
                         <div className="row" key={setting.id} ref={provided.innerRef} {...provided.draggableProps}>
@@ -125,11 +130,13 @@ const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
                               theme="gray"
                               className="border-right"
                               onChange={(e) => {
-                                setFields(prev => prev.map((prevSetting) => prevSetting.id === setting.id
+                                setFieldSettings(prev => prev.map((prevSetting) => prevSetting.id === setting.id
                                   ? ({ ...prevSetting, field: e.target.value as string })
                                   : prevSetting),
                                 );
+                                setTriggerredSettings(false);
                               }}
+                              error={triggerredSettings && !setting.field}
                             />
                           </div>
                           <div className="cell">
@@ -139,7 +146,7 @@ const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
                               defaultValue={setting.isRequired || false}
                               theme="gray"
                               onChange={(v) => {
-                                setFields(prev => prev.map((prevSetting) => prevSetting.id === setting.id
+                                setFieldSettings(prev => prev.map((prevSetting) => prevSetting.id === setting.id
                                   ? ({ ...prevSetting, isRequired: !!v })
                                   : prevSetting),
                                 );
@@ -203,7 +210,7 @@ const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
             ))}
           </div> */}
           <Button
-            onClick={() => void setFields(prev => [...prev, { field: '', isRequired: false, id: createId() }])}
+            onClick={() => void setFieldSettings(prev => [...prev, { field: '', isRequired: false, id: createId() }])}
             variant="text"
           >
             <PlusIcon size={16} /> {t('add')}

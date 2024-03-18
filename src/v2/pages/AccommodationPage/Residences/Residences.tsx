@@ -46,7 +46,14 @@ const Residences = () => {
   const getDays = useCallback((residence: IResidence) => {
     if (!residence.checkInDate) return null;
 
-    const checkIn = debouncedFiltersState?.firstDate ? DateTime.fromISO(debouncedFiltersState?.firstDate) : DateTime.fromISO(residence.checkInDate);
+    let checkIn = DateTime.fromISO(residence.checkInDate);
+
+    if (
+      debouncedFiltersState?.firstDate &&
+      DateTime.fromISO(debouncedFiltersState?.firstDate).toMillis() > DateTime.fromISO(residence.checkInDate).toMillis()
+    ) {
+      checkIn = DateTime.fromISO(debouncedFiltersState?.firstDate);
+    }
 
     if (debouncedFiltersState?.lastDate || residence.checkOutDate) {
       const checkOut = DateTime.fromISO(debouncedFiltersState?.lastDate || residence.checkOutDate);
@@ -55,7 +62,7 @@ const Residences = () => {
     }
 
     const diff = -checkIn.diffNow('days').days.toFixed();
-    return diff > 0 ? diff : 0;
+    return diff > 0 ? diff + 1 : 0;
   }, [debouncedFiltersState?.firstDate, debouncedFiltersState?.lastDate]);
 
   const { data: residences = [], refetch, remove, isFetching, isLoading } = useGetResidences(debouncedFiltersState, { enabled: false });
