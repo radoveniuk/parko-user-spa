@@ -14,7 +14,7 @@ export interface ICustomFormSection {
   _id?: string;
   names: Record<string, string>;
   entity: CustomFormEntity;
-  order: number;
+  createdAt: string;
 }
 
 export interface ICustomForm {
@@ -22,5 +22,13 @@ export interface ICustomForm {
   name: string;
   fields: (ICustomFormField | string)[];
   requiredFields: string[];
+  createdAt: string;
+}
+
+export interface ICustomFormFieldSectionBinding<T extends boolean = false> {
+  _id: string;
+  field: T extends true ? ICustomFormField : string;
+  section: T extends true ? ICustomFormSection : string;
+  isRequired: boolean;
   createdAt: string;
 }

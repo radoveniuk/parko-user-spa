@@ -24,6 +24,7 @@ export const DocsTemplatesWrapper = styled.div`
       .mobile-list {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
       }
     }
   }

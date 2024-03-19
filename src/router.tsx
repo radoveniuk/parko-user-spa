@@ -7,6 +7,7 @@ import {
   AccommodationPage,
   ClientListPage, ClientPage, CustomFormFieldsPage,
   CustomFormsPage,
+  CustomUserFieldsPage,
   DayoffListPage, DocsTemplatesPage,
   HomePage, LoginPage, NotFoundPage,
   PrepaymentListPage, ProfileAdminPage, ProfileListPage, RegisterPage,
@@ -56,6 +57,7 @@ export default function Router () {
                 <Route path="/create-profile" element={<ProfilePage />} />
                 <Route path="/customization/fields" element={<CustomFormFieldsPage />} />
                 <Route path="/customization/forms" element={<CustomFormsPage />} />
+                <Route path="/customization/users" element={<CustomUserFieldsPage />} />
                 <Route path="/customization/docs-templates" element={<DocsTemplatesPage />} />
                 <Route path="/accommodation" element={<AccommodationPage />} />
                 <Route path="/export-residences" element={<ExportResidencesPage />} />

@@ -494,7 +494,9 @@
     "newForm": "Nový formulár",
     "form": "Formulár",
     "field": "Pole",
-    "isRequired": "Povinné"
+    "isRequired": "Povinné",
+    "userCustomFields": "Vlastné polia zamestnanca",
+    "sections": "Úseky formuláru"
   },
   "accommodation": {
     "owner": "Majiteľ",

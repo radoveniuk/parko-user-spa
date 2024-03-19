@@ -5,8 +5,7 @@ import IconButton from 'v2/uikit/IconButton';
 
 import { CodeIcon, FileGroupIcon, FileIcon } from 'components/icons';
 
-import { FieldsDialog, TemplateDialog } from '../dialogs';
-import { CategoriesDialog } from '../dialogs/CategoriesDialog';
+import { CategoriesDialog, FieldsDialog, TemplateDialog } from '../dialogs';
 
 import { HeaderWrapper, MenuItemContent } from './styles';
 

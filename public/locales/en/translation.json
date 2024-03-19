@@ -496,7 +496,9 @@
     "newForm": "New form",
     "form": "Form",
     "field": "Field",
-    "isRequired": "Required"
+    "isRequired": "Required",
+    "userCustomFields": "User's custom fields",
+    "sections": "Sections"
   },
   "accommodation": {
     "owner": "Owner",

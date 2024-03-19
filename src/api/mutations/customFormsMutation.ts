@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query';
 
 import api from 'api/common';
-import { ICustomForm, ICustomFormField, ICustomFormSection } from 'interfaces/form.interface';
+import { ICustomForm, ICustomFormField, ICustomFormFieldSectionBinding, ICustomFormSection } from 'interfaces/form.interface';
 
 const PATH = '/custom-form';
 
@@ -20,6 +20,11 @@ export const useCreateCustomFormMutation = () => {
   return useMutation(request);
 };
 
+export const useCreateCustomFormFieldSectionBindingMutation = () => {
+  const request = (data: ICustomFormFieldSectionBinding) => api.post(`${PATH}/bindings`, data).then(res => res.data.data);
+  return useMutation(request);
+};
+
 export const useUpdateCustomFormFieldMutation = () => {
   const request = (data: ICustomFormField) => api.put(`${PATH}/fields/${data._id}`, data).then(res => res.data.data);
   return useMutation(request);
@@ -35,6 +40,11 @@ export const useUpdateCustomFormMutation = () => {
   return useMutation(request);
 };
 
+export const useUpdateCustomFormFieldSectionBindingMutation = () => {
+  const request = (data: ICustomFormFieldSectionBinding) => api.put(`${PATH}/bindings/${data._id}`, data).then(res => res.data.data);
+  return useMutation(request);
+};
+
 export const useDeleteCustomFormFieldMutation = () => {
   const request = (id: string) => api.delete(`${PATH}/fields/${id}`).then(res => res.data.data);
   return useMutation(request);
@@ -47,5 +57,10 @@ export const useDeleteCustomFormSectionMutation = () => {
 
 export const useDeleteCustomFormMutation = () => {
   const request = (id: string) => api.delete(`${PATH}/forms/${id}`).then(res => res.data.data);
+  return useMutation(request);
+};
+
+export const useDeleteCustomFormFieldSectionBindingMutation = () => {
+  const request = (id: string) => api.delete(`${PATH}/bindings/${id}`).then(res => res.data.data);
   return useMutation(request);
 };

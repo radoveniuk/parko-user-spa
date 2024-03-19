@@ -495,7 +495,9 @@
     "newForm": "Нова анкета",
     "form": "Анкета",
     "field": "Поле",
-    "isRequired": "Обязательное"
+    "isRequired": "Обязательное",
+    "userCustomFields": "Кастомные поля профиля",
+    "sections": "Разделы"
   },
   "accommodation": {
     "owner": "Владелец",

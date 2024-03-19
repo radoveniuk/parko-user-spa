@@ -5,25 +5,25 @@ import Menu, { MenuItem } from 'v2/uikit/Menu';
 
 import { DeleteIcon, EditIcon, FieldIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
-import { ICustomFormField } from 'interfaces/form.interface';
+import { ICustomFormFieldSectionBinding } from 'interfaces/form.interface';
 import { themeConfig } from 'theme';
 
-import FieldDialog from '../FieldDialog';
-import useCustomFormFieldActions from '../hooks/useCustomFormFieldActions';
+import { BindingDialog } from '../dialogs';
+import useBindingActions from '../hooks/useBindingActions';
 
 import { MobileCardWrapper } from './styles';
 
 type Props = {
-  data: ICustomFormField;
+  data: ICustomFormFieldSectionBinding<true>;
 };
 
-const MobileFieldCard = ({ data }: Props) => {
+const MobileBindingCard = ({ data }: Props) => {
   const { t, i18n } = useTranslation();
 
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-  const { remove } = useCustomFormFieldActions();
+  const { remove } = useBindingActions();
 
   return (
     <>
@@ -32,7 +32,8 @@ const MobileFieldCard = ({ data }: Props) => {
         menuComponent={(
           <MobileCardWrapper>
             <FieldIcon size={80} color={themeConfig.palette.primary.light} />
-            <div className="name">{data.names[i18n.language]}</div>
+            <div className="name">{data.field.names[i18n.language]}</div>
+            <div className="section">{data.section.names[i18n.language]}</div>
             <div className="date">{getDateFromIso(data.createdAt)}</div>
           </MobileCardWrapper>
         )}
@@ -43,17 +44,17 @@ const MobileFieldCard = ({ data }: Props) => {
         <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon style={{ marginRight: 5 }} />{t('delete')}</MenuItem>
       </Menu>
       {!!openDialog && (
-        <FieldDialog
+        <BindingDialog
+          title={data.field.names[i18n.language]}
+          open={openDialog}
           defaultData={data}
           onClose={() => void setOpenDialog(false)}
-          open={openDialog}
-          title={data.names[i18n.language]}
         />
       )}
       {!!openDeleteDialog && (
         <DialogConfirm
-          onClose={() => void setOpenDeleteDialog(false)}
           open={openDeleteDialog}
+          onClose={() => void setOpenDeleteDialog(false)}
           onSubmit={() => {
             remove(data._id);
           }}
@@ -63,4 +64,4 @@ const MobileFieldCard = ({ data }: Props) => {
   );
 };
 
-export default memo(MobileFieldCard);
+export default memo(MobileBindingCard);

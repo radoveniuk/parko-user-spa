@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 
 import api from 'api/common';
 import { AnyObject } from 'interfaces/base.types';
-import { ICustomForm, ICustomFormField, ICustomFormSection } from 'interfaces/form.interface';
+import { ICustomForm, ICustomFormField, ICustomFormFieldSectionBinding, ICustomFormSection } from 'interfaces/form.interface';
 import { QueryOptions } from 'interfaces/query.types';
 
 const PATH = '/custom-form';
@@ -36,3 +36,14 @@ export const useGetCustomForms = (params: Partial<ICustomForm> = {}, options?: Q
     ...options,
   },
 );
+
+export const useGetCustomFormFieldSectionBindings = (params: Partial<ICustomFormFieldSectionBinding> = {}, options?: QueryOptions) =>
+  useQuery<ICustomFormFieldSectionBinding<true>[]>(
+    ['customFormFieldSectionBindings', JSON.stringify(params)],
+    () => api.get(`${PATH}/bindings`, { params }).then((res) => res.data.data),
+    {
+      initialData: [],
+      refetchOnWindowFocus: false,
+      ...options,
+    },
+  );

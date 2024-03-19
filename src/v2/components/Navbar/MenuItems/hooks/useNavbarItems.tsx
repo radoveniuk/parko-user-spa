@@ -133,6 +133,11 @@ const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
         title: 'customForms.forms',
         to: '/customization/forms',
       },
+      {
+        type: 'link',
+        title: 'navbar.profiles',
+        to: '/customization/users',
+      },
     ],
   },
 ];
