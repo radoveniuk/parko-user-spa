@@ -1,14 +1,15 @@
-import React, { memo, ReactElement } from 'react';
+import React, { memo, ReactElement, ReactNode } from 'react';
 import { Box, styled, Tooltip as TooltipMUI, tooltipClasses } from '@mui/material';
 
 export type TooltipProps = {
+  contentClassName?: string;
   className?: string;
-  title: string;
+  title: string | ReactNode;
   children: ReactElement<any, any>;
 }
 
-const Tooltip = styled(({ className, children, title }: TooltipProps) => (
-  <TooltipMUI title={title} classes={{ popper: className }}>
+const Tooltip = styled(({ className, children, title, contentClassName }: TooltipProps) => (
+  <TooltipMUI title={title} classes={{ popper: className }} className={contentClassName}>
     <Box
       sx={{ maxWidth: 'min-content' }}
     >

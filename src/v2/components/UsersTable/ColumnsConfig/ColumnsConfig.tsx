@@ -24,7 +24,8 @@ const COLS_TREE = {
   employmentInfo: ['user.passNumber', 'user.rodneCislo',
     'user.medicalInsurance', 'user.birthPlace', 'user.familyStatus', 'user.birthSurname', 'user.childrenCount'],
   businessFields: ['user.businessName', 'user.businessStatus',
-    'user.ICO', 'user.DIC', 'user.permitAdress', 'user.corporateBodyAddress', 'user.permitDepartment', 'user.permitNumber'],
+    'user.ICO', 'user.DIC', 'user.permitAdress', 'user.corporateBodyAddress',
+    'user.permitDepartment', 'user.permitNumber', 'user.businessActivities'],
   employment: ['user.client', 'user.project', 'user.position', 'user.cooperationStartDate',
     'user.cooperationEndDate', 'user.salary', 'user.salaryType'],
 };
