@@ -11,7 +11,7 @@ import { isMongoId } from 'helpers/regex';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList from 'hooks/useSortedList';
 import { Path } from 'interfaces/base.types';
-import { ICustomFormField } from 'interfaces/form.interface';
+import { ICustomFormFieldSectionBinding } from 'interfaces/form.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import ProfileRow from '../ProfileRow';
@@ -24,7 +24,7 @@ type TTable = {
   activeCols: string[];
   setActiveCols: React.Dispatch<React.SetStateAction<string[]>>;
   data: (IUser & {employmentStatus: string})[];
-  customFields: ICustomFormField[];
+  customFields: ICustomFormFieldSectionBinding<true>[];
   setSelectedItems: React.Dispatch<React.SetStateAction<IUser[]>>;
   selectedItems: IUser[];
 };
@@ -107,7 +107,7 @@ const Table = ({
               >
                 {!isMongoId(col)
                   ? t(col)
-                  : customFields.find((customField: any) => customField._id === col)?.names[
+                  : customFields.find((customField: any) => customField._id === col)?.field.names[
                     i18n.language
                   ]}
                 <IconButton

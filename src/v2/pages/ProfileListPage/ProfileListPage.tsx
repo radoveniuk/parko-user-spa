@@ -6,7 +6,7 @@ import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetClients } from 'api/query/clientQuery';
-import { useGetCustomFormFieldSectionBindings, useGetCustomFormSections } from 'api/query/customFormsQuery';
+import { useGetCustomFormFieldSectionBindings } from 'api/query/customFormsQuery';
 // import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { getUserListByParams, useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
@@ -79,7 +79,6 @@ const ProfileListPageRender = () => {
   const [filterBarVisibility] = useFilterBarVisibility();
 
   // Custom fields
-  const { data: sections = [] } = useGetCustomFormSections({ entity: 'user' });
   const { data: allCustomFieldSectionBindings = [] } = useGetCustomFormFieldSectionBindings();
   const userBindings = useMemo(() =>
     allCustomFieldSectionBindings.filter(binding => binding.section.entity === 'user'),
@@ -113,7 +112,7 @@ const ProfileListPageRender = () => {
           setOpenPrintDialog={setOpenPrintDialog}
           data={!data.length ? startData : data}
           activeCols={activeCols}
-          customFields={allCustomFieldSectionBindings.filter(item => sections.some(sectionItem => item.section._id === sectionItem._id))}
+          customFields={userBindings}
           loading={isLoading || isFetching || isFetchingStartData}
         />
         <FilterTableWrapper className={!filterBarVisibility ? 'hide' : ''}>
