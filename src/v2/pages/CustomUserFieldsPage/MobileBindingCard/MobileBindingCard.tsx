@@ -32,7 +32,7 @@ const MobileBindingCard = ({ data }: Props) => {
         menuComponent={(
           <MobileCardWrapper>
             <FieldIcon size={80} color={themeConfig.palette.primary.light} />
-            <div className="name">{data.field.names[i18n.language]}</div>
+            <div className="name">{data.field?.names[i18n.language]}</div>
             <div className="section">{data.section.names[i18n.language]}</div>
             <div className="date">{getDateFromIso(data.createdAt)}</div>
           </MobileCardWrapper>
@@ -45,7 +45,7 @@ const MobileBindingCard = ({ data }: Props) => {
       </Menu>
       {!!openDialog && (
         <BindingDialog
-          title={data.field.names[i18n.language]}
+          title={data.field?.names[i18n.language]}
           open={openDialog}
           defaultData={data}
           onClose={() => void setOpenDialog(false)}

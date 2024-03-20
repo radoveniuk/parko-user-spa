@@ -225,7 +225,7 @@ const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose, customFields 
                 {bindings.map((binding) => (
                   <Checkbox
                     key={binding._id}
-                    label={binding.field.names[i18n.language]}
+                    label={binding.field?.names[i18n.language]}
                     checked={activeCols.includes(binding._id)}
                     onChange={e => {
                       setActiveCols((prev: any) => {

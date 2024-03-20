@@ -57,7 +57,7 @@ const BindingRow = ({ data }: RowProps) => {
       </ListTableCell>
       {!!openDialog && (
         <BindingDialog
-          title={data.field.names[i18n.language]}
+          title={data.field?.names[i18n.language]}
           open={openDialog}
           defaultData={data}
           onClose={() => void setOpenDialog(false)}
