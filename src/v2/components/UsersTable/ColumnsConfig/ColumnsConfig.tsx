@@ -1,10 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import In from 'v2/components/In';
 import Checkbox from 'v2/uikit/Checkbox';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 
-import { ICustomFormField } from 'interfaces/form.interface';
+import { ICustomFormFieldSectionBinding, ICustomFormSection } from 'interfaces/form.interface';
 
 import { ColsSettingsWrapper } from './styles';
 
@@ -34,15 +34,15 @@ const DEFAULT_COLS = [
 ];
 
 type Props = {
-  customFields: ICustomFormField[],
+  customFields: ICustomFormFieldSectionBinding<true>[],
   activeCols: string[],
   setActiveCols: React.Dispatch<React.SetStateAction<string[]>>,
   open: boolean,
   onClose: () => void
 };
 
-const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose }: Props) => {
-  const { t } = useTranslation();
+const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose, customFields }: Props) => {
+  const { t, i18n } = useTranslation();
 
   const docsCols = [
     ...COLS_TREE.docs.pass,
@@ -68,6 +68,17 @@ const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose }: Props) => {
     }
     return true;
   };
+
+  // Custom fields
+  const customSections = useMemo(() => {
+    const sections: ICustomFormSection[] = [];
+    customFields.forEach((bindingData) => {
+      if (!sections.some(section => section._id === bindingData.section._id)) {
+        sections.push(bindingData.section);
+      }
+    });
+    return sections;
+  }, [customFields]);
 
   return (
     <DialogFullscreen open={open} onClose={onClose} width={500} title={t('cols')}>
@@ -190,6 +201,48 @@ const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose }: Props) => {
             }
           }}
         />
+        {customSections.map((section) => {
+          const bindings = customFields.filter(bindingItem => bindingItem.section._id === section._id);
+          return (
+            <div className="checkbox-group" key={section._id}>
+              <Checkbox
+                className="selectGroup"
+                label={section.names[i18n.language]}
+                checked={isIncludedCols(bindings.map((item) => item._id))}
+                onChange={(e) => {
+                  setActiveCols((prev) => {
+                    const ids = bindings.map((item) => item._id);
+                    if (e.target.checked) {
+                      const set = new Set([...prev, ...ids]);
+                      return [...set];
+                    } else {
+                      return prev.filter(col => !ids.includes(col));
+                    }
+                  });
+                }}
+              />
+              <div className="cols">
+                {bindings.map((binding) => (
+                  <Checkbox
+                    key={binding._id}
+                    label={binding.field.names[i18n.language]}
+                    checked={activeCols.includes(binding._id)}
+                    onChange={e => {
+                      setActiveCols((prev: any) => {
+                        if (e.target.checked) {
+                          return [...prev, binding._id];
+                        } else {
+                          return prev.filter((item: any) => item !== binding._id);
+                        }
+                      });
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          );
+        },
+        )}
       </ColsSettingsWrapper>
     </DialogFullscreen>
   );
