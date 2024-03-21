@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import PrintDocDialog from 'v2/components/PrintDocDialog';
 import Autocomplete from 'v2/uikit/Autocomplete';
 
-import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { SearchIcon } from 'components/icons';
 import { FiltersProvider } from 'components/shared/Filters';
 import { USER_EMPLOYMENT_STATUSES, USER_STATUSES } from 'constants/statuses';
@@ -36,8 +35,6 @@ const Profiles = ({ employments, projects }: Props) => {
   const translatedEmploymentStatuses = useTranslatedSelect(USER_EMPLOYMENT_STATUSES, 'userPositionEmploymentStatus');
   const [storedColsSettings] = useLocalStorageState('clientProfilesTableCols');
   const [activeCols, setActiveCols] = useState<string[]>(storedColsSettings ? JSON.parse(storedColsSettings).cols : ['user.status']);
-  // custom cols
-  const { data: customFields = [] } = useGetCustomFormFields({ entity: 'user' });
 
   const users = useMemo(() => {
     let filteredData = [...employments];
@@ -112,7 +109,7 @@ const Profiles = ({ employments, projects }: Props) => {
           activeCols={activeCols}
           setActiveCols={setActiveCols}
           data={users}
-          customFields={customFields}
+          customFields={[]}
           setSelectedItems={setSelectedItems}
           selectedItems={selectedItems}
         />

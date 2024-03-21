@@ -19,7 +19,7 @@ import { isMongoId } from 'helpers/regex';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList from 'hooks/useSortedList';
 import { Path } from 'interfaces/base.types';
-import { ICustomFormField } from 'interfaces/form.interface';
+import { ICustomFormFieldSectionBinding } from 'interfaces/form.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import { useFilterBarVisibility } from '../../contexts/FilterBarVisibilityContext';
@@ -33,7 +33,7 @@ type Props = {
   activeCols: string[];
   setActiveCols: React.Dispatch<React.SetStateAction<string[]>>;
   data: IUser[];
-  customFields: ICustomFormField[];
+  customFields: ICustomFormFieldSectionBinding<true>[];
   setSelectedItems: React.Dispatch<React.SetStateAction<IUser[]>>;
   selectedItems: IUser[];
   isFetching?: boolean;
@@ -155,9 +155,8 @@ const Table = ({
               >
                 {!isMongoId(col)
                   ? t(col)
-                  : customFields.find((customField: any) => customField._id === col)?.names[
-                    i18n.language
-                  ]}
+                  : customFields.find((customField: any) => customField._id === col)?.field?.names[i18n.language]
+                }
                 <IconButton
                   className={
                     sorting?.key === (col.replace('user.', '') as keyof IUser)

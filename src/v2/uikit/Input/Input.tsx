@@ -21,10 +21,11 @@ export type InputProps = {
   maxWidth?: number;
   theme?: FieldTheme;
   tooltip?: string;
+  allowCyrillic?: boolean;
 } & TextFieldProps;
 
 const Input = ({
-  showPasswordIcon, type, maxWidth, theme = 'white', label, className, tooltip, ...props
+  showPasswordIcon, type, maxWidth, theme = 'white', label, className, tooltip, allowCyrillic = false, ...props
 }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -33,12 +34,14 @@ const Input = ({
   }, []);
 
   const nameCyrillicValidator = (e: any) => {
-    function containsCyrillicCharacters (str: string): boolean {
-      const cyrillicRegex = /[а-яА-Я]/;
-      return cyrillicRegex.test(str);
-    }
-    if (containsCyrillicCharacters(e.key)) {
-      e.preventDefault();
+    if (!allowCyrillic) {
+      function containsCyrillicCharacters (str: string): boolean {
+        const cyrillicRegex = /[а-яА-Я]/;
+        return cyrillicRegex.test(str);
+      }
+      if (containsCyrillicCharacters(e.key)) {
+        e.preventDefault();
+      }
     }
   };
 

@@ -83,7 +83,7 @@ const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
   {
     type: 'collapse',
     title: 'navbar.finance',
-    icon: <MoneyBillIcon />,
+    icon: <MoneyBillIcon size={20} />,
     children: [
       {
         type: 'link',
@@ -116,8 +116,29 @@ const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
   {
     type: 'link',
     title: 'navbar.customization',
-    icon: <CustomizeIcon size={30} />,
-    to: '/customization',
+    icon: <CustomizeIcon size={20} />,
+    children: [
+      {
+        type: 'link',
+        title: 'navbar.docsTemplates',
+        to: '/customization/docs-templates',
+      },
+      {
+        type: 'link',
+        title: 'customForms.fields',
+        to: '/customization/fields',
+      },
+      {
+        type: 'link',
+        title: 'customForms.forms',
+        to: '/customization/forms',
+      },
+      {
+        type: 'link',
+        title: 'navbar.profiles',
+        to: '/customization/users',
+      },
+    ],
   },
 ];
 

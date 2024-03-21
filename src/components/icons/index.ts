@@ -29,9 +29,12 @@ export {
 } from 'react-icons/bs';
 export {
   FaFileDownload as DownloadFileIcon,
+  FaEdit as FieldIcon,
+  FaWpforms as FormIcon,
   FaMoneyBill as MoneyBillIcon,
   FaMoneyCheckAlt as PaycheckIcon,
   FaIdCard as PersonalDocIcon,
+  FaPuzzlePiece as PuzzleIcon,
   FaBed as ResidenceIcon,
   FaUserTie as UserIcon,
   FaUsers as UsersIcon,
@@ -82,6 +85,7 @@ export {
   RiArrowDownSFill as ArrowDownIconRi,
   RiRobot2Fill as BotIcon,
   RiToolsFill as CustomizeIcon,
+  RiDragMove2Fill as DragIcon,
   RiUserSearchFill as RecruiterIcon,
   RiQrScanFill as ScanIcon,
   RiVerifiedBadgeFill as VerifiedIcon,

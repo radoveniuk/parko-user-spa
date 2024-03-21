@@ -133,7 +133,22 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
   {
     title: 'navbar.customization',
     icon: <CustomizeIcon size={30} />,
-    to: '/customization',
+    to: '/customization/docs-templates',
+  },
+  {
+    title: 'navbar.customization',
+    icon: <CustomizeIcon size={30} />,
+    to: '/customization/users',
+  },
+  {
+    title: 'navbar.customization',
+    icon: <CustomizeIcon size={30} />,
+    to: '/customization/fields',
+  },
+  {
+    title: 'navbar.customization',
+    icon: <CustomizeIcon size={30} />,
+    to: '/customization/forms',
   },
 ];
 

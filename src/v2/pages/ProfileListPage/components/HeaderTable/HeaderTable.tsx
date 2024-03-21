@@ -23,7 +23,7 @@ import { isMongoId } from 'helpers/regex';
 import { useExportData } from 'hooks/useExportData';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
-import { ICustomFormField } from 'interfaces/form.interface';
+import { ICustomFormFieldSectionBinding } from 'interfaces/form.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import { FiltersWrapper, HeaderWrapper } from './styles';
@@ -33,7 +33,7 @@ type Props = {
   setSelectedItems: (v: IUser[]) => void,
   setOpenPrintDialog: (v: boolean) => void,
   data: IUser[], activeCols: string[],
-  customFields: ICustomFormField[],
+  customFields: ICustomFormFieldSectionBinding<true>[],
   loading?: boolean,
 };
 
@@ -48,7 +48,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
     const result = activeCols.map((col) => {
       if (isMongoId(col)) {
         const customField = customFields.find((item: AnyObject) => item._id === col);
-        return customField?.names[i18n.language] || col;
+        return customField?.field.names[i18n.language] || col;
       }
       return col.replace('user.', '');
     });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PrintDocDialog from 'v2/components/PrintDocDialog';
 import { COUNTRIES } from 'v2/constants/countries';
@@ -6,6 +6,7 @@ import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetClients } from 'api/query/clientQuery';
+import { useGetCustomFormFieldSectionBindings } from 'api/query/customFormsQuery';
 // import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { getUserListByParams, useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
@@ -13,7 +14,9 @@ import { SearchIcon } from 'components/icons';
 import { ClearFiltersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { USER_STATUSES } from 'constants/statuses';
 import { ROLES } from 'constants/userRoles';
+import { isMongoId } from 'helpers/regex';
 import useLocalStorageState from 'hooks/useLocalStorageState';
+import usePageQueries from 'hooks/usePageQueries';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';
 
@@ -27,6 +30,7 @@ const DEFAULT_COLS = ['user.email'];
 const ProfileListPageRender = () => {
   const { t } = useTranslation();
   useDocumentTitle(t('profileList'));
+  const pageQueries = usePageQueries();
 
   const { debouncedFiltersState } = useFilters();
 
@@ -37,10 +41,11 @@ const ProfileListPageRender = () => {
   const [isFetchingStartData, setIsFetchingStartData] = useState(false);
   useEffect(() => {
     setIsFetchingStartData(true);
-    getUserListByParams({ take: 20, skip: 0 }).then((res: IUser[]) => {
+    getUserListByParams({ take: 20, skip: 0, ...pageQueries }).then((res: IUser[]) => {
       setStartData(res);
       setIsFetchingStartData(false);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // filters
@@ -56,12 +61,6 @@ const ProfileListPageRender = () => {
 
   const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
-
-  const [storedColsSettings, setStoredColsSettings] = useLocalStorageState('profilesTableCols');
-  const [activeCols, setActiveCols] = useState<string[]>(storedColsSettings ? JSON.parse(storedColsSettings).cols : DEFAULT_COLS);
-
-  // custom cols
-  // const { data: customFields = [] } = useGetCustomFormFields({ entity: 'user' });
 
   useEffect(() => {
     if (debouncedFiltersState) {
@@ -79,11 +78,33 @@ const ProfileListPageRender = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.length]);
 
+  // Toggle table heigth for better ux
+  const [filterBarVisibility] = useFilterBarVisibility();
+
+  // Custom fields
+  const { data: allCustomFieldSectionBindings = [] } = useGetCustomFormFieldSectionBindings();
+  const userBindings = useMemo(() =>
+    allCustomFieldSectionBindings.filter(binding => binding?.section?.entity === 'user'),
+  [allCustomFieldSectionBindings]);
+
+  // Columns Settings
+  const [storedColsSettings, setStoredColsSettings] = useLocalStorageState('profilesTableCols');
+  const [activeCols, setActiveCols] = useState<string[]>(storedColsSettings ? JSON.parse(storedColsSettings).cols : DEFAULT_COLS);
+
+  useEffect(() => {
+    if (allCustomFieldSectionBindings.length) {
+      setActiveCols((prev) => prev.filter((col) => {
+        if (isMongoId(col) && !allCustomFieldSectionBindings.some(binding => binding._id === col)) {
+          return false;
+        }
+        return true;
+      }));
+    }
+  }, [allCustomFieldSectionBindings]);
+
   useEffect(() => {
     setStoredColsSettings(JSON.stringify({ cols: activeCols }));
   }, [activeCols, setStoredColsSettings]);
-
-  const [filterBarVisibility] = useFilterBarVisibility();
 
   return (
     <ProfileListPageWrapper cols={activeCols.length + 1}>
@@ -94,7 +115,7 @@ const ProfileListPageRender = () => {
           setOpenPrintDialog={setOpenPrintDialog}
           data={!data.length ? startData : data}
           activeCols={activeCols}
-          customFields={[]}
+          customFields={userBindings}
           loading={isLoading || isFetching || isFetchingStartData}
         />
         <FilterTableWrapper className={!filterBarVisibility ? 'hide' : ''}>
@@ -193,7 +214,7 @@ const ProfileListPageRender = () => {
           activeCols={activeCols}
           setActiveCols={setActiveCols}
           data={!data.length ? startData : data}
-          customFields={[]}
+          customFields={userBindings}
           setSelectedItems={setSelectedItems}
           selectedItems={selectedItems}
           isFetching={isFetchingStartData}

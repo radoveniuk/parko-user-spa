@@ -1,23 +1,34 @@
-import { IDictionary } from './dictionary.interface';
-
 export type CustomFormEntity = 'user' | 'project';
 
-export type CustomFormFieldType = 'string' | 'number' | 'date' | 'boolean' | 'phone' | 'email' | 'select'
+export type CustomFormFieldType = 'string' | 'number' | 'date' | 'boolean' | 'phone' | 'email' | 'select' | 'multiselect' | 'expirience';
 
 export interface ICustomFormField {
   _id: string;
   names: Record<string, string>;
-  entity: CustomFormEntity;
   type: CustomFormFieldType;
-  source?: string | IDictionary;
-  required: boolean;
-  section: string | null;
-  projects: string[];
+  options: string[];
+  createdAt: string;
 }
 
 export interface ICustomFormSection {
   _id?: string;
   names: Record<string, string>;
   entity: CustomFormEntity;
-  order: number;
+  createdAt: string;
+}
+
+export interface ICustomForm {
+  _id?: string;
+  name: string;
+  fields: (ICustomFormField | string)[];
+  requiredFields: string[];
+  createdAt: string;
+}
+
+export interface ICustomFormFieldSectionBinding<T extends boolean = false> {
+  _id: string;
+  field: T extends true ? ICustomFormField : string;
+  section: T extends true ? ICustomFormSection : string;
+  isRequired: boolean;
+  createdAt: string;
 }

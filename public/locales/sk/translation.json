@@ -363,7 +363,10 @@
       "boolean": "Áno/nie",
       "number": "Číslo",
       "phone": "Telefón",
-      "date": "Dátum"
+      "date": "Dátum",
+      "select": "Select",
+      "multiselect": "Multiselect",
+      "expirience": "Pracovné skúsenosti"
     },
     "clientStatus": {
       "active": "Aktívný",
@@ -476,12 +479,24 @@
     "names": "Názov",
     "configuration": "Konfigurácia",
     "projects": "Projekty",
-    "type": "Typ polia",
-    "required": "Povinné",
     "section": "Úsek formuláru",
     "save": "Uložiť",
     "delete": "Vymazať",
-    "order": "Zoradiť podľa:"
+    "order": "Zoradiť podľa:",
+    "fields": "Vlastné polia",
+    "fieldName": "Názov poľa",
+    "fieldType": "Typ poľa",
+    "fieldCreatedAt": "Kedy vytvorené",
+    "newField": "Nove pole",
+    "addOptions": "Pridať možnosti",
+    "forms": "Formuláre",
+    "formName": "Názov formulára",
+    "newForm": "Nový formulár",
+    "form": "Formulár",
+    "field": "Pole",
+    "isRequired": "Povinné",
+    "userCustomFields": "Vlastné polia zamestnanca",
+    "sections": "Úseky formuláru"
   },
   "accommodation": {
     "owner": "Majiteľ",

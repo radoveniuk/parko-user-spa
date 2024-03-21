@@ -16,7 +16,6 @@ import Input from 'v2/uikit/Input';
 import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 import Select from 'v2/uikit/Select';
 
-import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import CustomField from 'components/complex/CustomField';
 import { SaveIcon } from 'components/icons';
@@ -29,7 +28,7 @@ import { ROLES } from 'constants/userRoles';
 import { isMongoId } from 'helpers/regex';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
-import { ICustomFormField } from 'interfaces/form.interface';
+import { ICustomFormField, ICustomFormFieldSectionBinding } from 'interfaces/form.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
@@ -57,7 +56,7 @@ const EditingRow = () => {
   const translatedPermitTypes = useTranslatedSelect(PERMIT_TYPES, 'permitType');
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
 
-  const { data: customFields = [] } = useGetCustomFormFields({ entity: 'user' });
+  const customFields: ICustomFormFieldSectionBinding<true>[] = queryClient.getQueryData(['customFormFieldSectionBindings', JSON.stringify({})]) || [];
 
   const selectOptions: AnyObject = useMemo(() => ({
     pantsSize: SIZES,
@@ -226,11 +225,11 @@ const EditingRow = () => {
             {...fieldData.selectProps}
           />
         )}
-        {fieldData.type === 'readonly' && fieldName as string !== 'client' && (
+        {fieldData?.type === 'readonly' && fieldName as string !== 'client' && (
           <div>{fieldData.render?.(data?.[fieldName], t)}</div>
         )}
-        {fieldData.type === 'readonly' && fieldName as string === 'client' && (
-          <div>{fieldData.render?.((data?.project as IProject).client, t)}</div>
+        {fieldData?.type === 'readonly' && fieldName as string === 'client' && (
+          <div>{fieldData.render?.((data?.project as IProject)?.client, t)}</div>
         )}
         {isMongoId(fieldName) && customFields.some((customField) => customField._id === fieldName) && (
           <Controller
@@ -242,7 +241,9 @@ const EditingRow = () => {
               <CustomField
                 value={field.value}
                 onChange={field.onChange}
-                metadata={customFields.find((customField) => customField._id === fieldName) as ICustomFormField}
+                metadata={customFields.find((customField) => customField._id === fieldName)?.field as ICustomFormField}
+                label=""
+                variant="standard"
               />
             )}
           />

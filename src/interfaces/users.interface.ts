@@ -80,7 +80,7 @@ export interface IUser {
   role: UserRole;
   status: string;
   // customization
-  customFields: Record<string, unknown>;
+  customFields: Record<string, any>;
   otherScans: any[];
   // salary
   salary: string;

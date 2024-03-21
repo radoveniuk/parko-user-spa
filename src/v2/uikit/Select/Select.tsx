@@ -10,7 +10,7 @@ import { Path } from 'interfaces/base.types';
 
 import { SelectWrapper } from './styles';
 
-type FieldTheme = 'white' | 'gray';
+export type FieldTheme = 'white' | 'gray';
 
 const COLORS_MAP: Record<FieldTheme, string> = {
   gray: '#FAFAFA',

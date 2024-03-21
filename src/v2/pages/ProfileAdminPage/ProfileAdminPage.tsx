@@ -17,6 +17,7 @@ import { useCreatePrepaymentMutation, useDeletePrepaymentMutation, useUpdatePrep
 import { useCreateResidence, useDeleteResidence, useUpdateResidence } from 'api/mutations/residenceMutation';
 import { useDeleteUserMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetAccommodations } from 'api/query/accommodationQuery';
+import { useGetCustomFormFieldSectionBindings, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import { useGetDaysoff } from 'api/query/dayoffQuery';
 import { useGetEmployments } from 'api/query/employmentQuery';
 import { useGetPaycheckList } from 'api/query/paycheckQuery';
@@ -34,6 +35,7 @@ import Employments from './components/Employments';
 import BankDataFormCard from './components/FormCards/BankDataFormCard';
 import BusinessActivitiesFormCard from './components/FormCards/BusinessActivitiesFormCard';
 import BusinessInfoFormCard from './components/FormCards/BusinessInfoFormCard';
+import CustomSectionFormCard from './components/FormCards/CustomSectionFormCard';
 import DaysOffFormCard from './components/FormCards/DaysOffFormCard';
 import EmploymentInfoFormCard from './components/FormCards/EmploymentInfoFormCard';
 import FinancesFormCard from './components/FormCards/FinancesFormCard';
@@ -116,6 +118,10 @@ const ProfileAdminPageRender = () => {
     ...paychecks.map((data) => ({ type: 'paycheck' as const, data })),
     ...payrolls.map((data) => ({ type: 'payroll' as const, data })),
   ], [paychecks, payrolls]);
+
+  // Custom fields
+  const { data: sections = [] } = useGetCustomFormSections({ entity: 'user' });
+  const { data: allCustomFieldSectionBindings = [] } = useGetCustomFormFieldSectionBindings();
 
   if (!profileData) return <FullPageLoaderWrapper><Loader /></FullPageLoaderWrapper>;
 
@@ -257,6 +263,25 @@ const ProfileAdminPageRender = () => {
             <div className="col">
               <PersonalDocsFormCard data={profileData.docs || []} onUpdateDocs={(docs) => { updateUser({ docs }); }} />
               <BankDataFormCard data={pick(profileData, ['IBAN', 'bankName', 'SWIFT'])} onUpdate={updateUser} />
+              {sections.map((sectionData) => {
+                const bindings = allCustomFieldSectionBindings.filter((item) => item.section._id === sectionData._id);
+                return (
+                  <CustomSectionFormCard
+                    key={sectionData._id}
+                    sectionData={sectionData}
+                    sectionFieldsData={bindings}
+                    data={pick(profileData.customFields, bindings.map(item => item._id))}
+                    onUpdate={(values) => {
+                      updateUser({
+                        customFields: {
+                          ...profileData.customFields,
+                          ...values,
+                        },
+                      });
+                    }}
+                  />
+                );
+              })}
             </div>
             <div className="col">
               <EmploymentInfoFormCard

@@ -366,7 +366,9 @@
       "number": "Number",
       "phone": "Phone number",
       "date": "Date",
-      "select": "Dropdown list"
+      "select": "Dropdown list",
+      "multiselect": "Multiselect",
+      "expirience": "Work expirience"
     },
     "clientStatus": {
       "active": "Active",
@@ -476,15 +478,27 @@
   },
   "customForms": {
     "names": "Name",
-    "configuration": "Connfiguration",
+    "configuration": "Configuration",
     "projects": "Projects",
-    "type": "Field Type",
-    "required": "Required",
     "section": "Form's section",
     "save": "Save",
     "delete": "Delete",
     "order": "Order",
-    "source": "Source"
+    "source": "Source",
+    "fields": "Custom form fields",
+    "fieldName": "Field name",
+    "fieldType": "Field Type",
+    "fieldCreatedAt": "Created at",
+    "newField": "New field",
+    "addOptions": "Add select options",
+    "forms": "Forms",
+    "formName": "Form name",
+    "newForm": "New form",
+    "form": "Form",
+    "field": "Field",
+    "isRequired": "Required",
+    "userCustomFields": "User's custom fields",
+    "sections": "Sections"
   },
   "accommodation": {
     "owner": "Owner",

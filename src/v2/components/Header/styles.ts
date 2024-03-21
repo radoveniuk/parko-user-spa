@@ -50,11 +50,13 @@ export const HeaderWrapper = styled.header`
     cursor: pointer;
     display: flex;
     padding: 0;
-    margin: 0 8px 0 15px;
-    transition: .3s;
+    margin: 0 15px 0 15px;
+    transition: .2s;
 
-    &.opened {
-      margin: 0 8px 0 17px;
+    @media (min-width: ${PC}) {
+      &.opened {
+        margin: 0 213px 0 17px;
+      }
     }
   }
   .line {

@@ -1,11 +1,12 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Checkbox from 'v2/uikit/Checkbox';
+import Dialog from 'v2/uikit/Dialog';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
-import { EditIcon } from 'components/icons';
+import { EditIcon, EyeIcon } from 'components/icons';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
@@ -19,6 +20,7 @@ import { LinkWrapper } from './styles';
 const InfoRow = () => {
   const { t } = useTranslation();
   const { data, selected, onChangeSelect, cols, startEdit, style } = useProfileRowContext();
+  const [showBusinessActivities, setShowBusinessActivities] = useState(false);
 
   return (
     <ListTableRow error={data.isDeleted} style={style}>
@@ -94,12 +96,23 @@ const InfoRow = () => {
         if (userField === 'workTypes') {
           return createTableCell(data[userField].map(item => t(`selects.userWorkType.${item}`)).toString() || '');
         }
-        if (isMongoId(colName)) {
-          // eslint-disable-next-line max-len
-          return createTableCell(typeof data.customFields?.[colName] === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(data.customFields?.[colName] as string || '')
-            ? getDateFromIso(data.customFields?.[colName] as string)
-            : data.customFields?.[colName] as string || '',
+        if (userField === 'businessActivities') {
+          const descriptions = data[userField]?.filter(item => !item.dateTo).map(item => item.description);
+          if (!descriptions?.length) return createTableCell('');
+          return createTableCell(
+            <IconButton onClick={() => void setShowBusinessActivities(true)}><EyeIcon /></IconButton>,
+            descriptions?.join('\n'),
           );
+        }
+        if (isMongoId(colName)) {
+          const value = data.customFields?.[colName];
+          if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value.substring(0, 10))) {
+            return createTableCell(getDateFromIso(value));
+          }
+          if (typeof value === 'boolean') {
+            return createTableCell(t(value.toString()));
+          }
+          return createTableCell(value || '');
         }
 
         return createTableCell(data[userField as keyof IUser]?.toString() || '');
@@ -113,6 +126,17 @@ const InfoRow = () => {
           <EditIcon />
         </IconButton>
       </ListTableCell>
+      {!!showBusinessActivities && (
+        <Dialog
+          title={`${data.fullname}: ${t('user.businessActivities')}`}
+          open={showBusinessActivities}
+          onClose={() => void setShowBusinessActivities(false)}
+        >
+          <ol style={{ padding: '0 0 0 20px', margin: 0 }}>
+            {data.businessActivities?.filter(item => !item.dateTo).map(item => item.description).map((item, index) => <li key={index}>{item}</li>)}
+          </ol>
+        </Dialog>
+      )}
     </ListTableRow>
   );
 };

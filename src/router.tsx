@@ -5,8 +5,11 @@ import AuthLayouts from 'v2/layouts/AuthLayouts';
 import PageLayouts from 'v2/layouts/PageLayouts';
 import {
   AccommodationPage,
-  ClientListPage, ClientPage, CustomizationPage,
-  DayoffListPage, HomePage, LoginPage, NotFoundPage,
+  ClientListPage, ClientPage, CustomFormFieldsPage,
+  CustomFormsPage,
+  CustomUserFieldsPage,
+  DayoffListPage, DocsTemplatesPage,
+  HomePage, LoginPage, NotFoundPage,
   PrepaymentListPage, ProfileAdminPage, ProfileListPage, RegisterPage,
 } from 'v2/pages';
 
@@ -52,7 +55,10 @@ export default function Router () {
                 <Route path="/create-notification" element={<CreateNotificationPage />} />
                 <Route path="/import-profiles" element={<UploadProfilesPage />} />
                 <Route path="/create-profile" element={<ProfilePage />} />
-                <Route path="/customization" element={<CustomizationPage />} />
+                <Route path="/customization/fields" element={<CustomFormFieldsPage />} />
+                <Route path="/customization/forms" element={<CustomFormsPage />} />
+                <Route path="/customization/users" element={<CustomUserFieldsPage />} />
+                <Route path="/customization/docs-templates" element={<DocsTemplatesPage />} />
                 <Route path="/accommodation" element={<AccommodationPage />} />
                 <Route path="/export-residences" element={<ExportResidencesPage />} />
                 <Route path="/clients" element={<ClientListPage />} />

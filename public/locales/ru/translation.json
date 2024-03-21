@@ -365,7 +365,9 @@
       "number": "Число",
       "phone": "Телефон",
       "date": "Дата",
-      "select": "Выпадающий список"
+      "select": "Выпадающий список",
+      "multiselect": "Мультиселект",
+      "expirience": "Опыт работы"
     },
     "clientStatus": {
       "active": "Активный",
@@ -477,13 +479,25 @@
     "names": "Название",
     "configuration": "Конфигурация",
     "projects": "Проекты",
-    "type": "Тип поля",
-    "required": "Обязательное",
     "section": "Секция на форме",
     "save": "Сохранить",
     "delete": "Удалить",
     "order": "Порядок",
-    "source": "Источник"
+    "source": "Источник",
+    "fields": "Кастомные поля",
+    "fieldName": "Название поля",
+    "fieldType": "Тип поля",
+    "fieldCreatedAt": "Когда создано",
+    "newField": "Новое поле",
+    "addOptions": "Добавить варианты выбора",
+    "forms": "Анкеты",
+    "formName": "Название анкеты",
+    "newForm": "Нова анкета",
+    "form": "Анкета",
+    "field": "Поле",
+    "isRequired": "Обязательное",
+    "userCustomFields": "Кастомные поля профиля",
+    "sections": "Разделы"
   },
   "accommodation": {
     "owner": "Владелец",
