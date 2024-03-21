@@ -33,6 +33,7 @@ const NavbarStateProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const currentLink = menuItems.find((item) => item.to === location.pathname || item?.relativeLocations?.includes(location.pathname.split('/')[1]));
+
     setActiveLink(currentLink?.to as string);
 
     if (viewportWidth <= smBreakpoint) {

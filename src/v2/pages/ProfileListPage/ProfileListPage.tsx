@@ -16,6 +16,7 @@ import { USER_STATUSES } from 'constants/statuses';
 import { ROLES } from 'constants/userRoles';
 import { isMongoId } from 'helpers/regex';
 import useLocalStorageState from 'hooks/useLocalStorageState';
+import usePageQueries from 'hooks/usePageQueries';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';
 
@@ -29,6 +30,7 @@ const DEFAULT_COLS = ['user.email'];
 const ProfileListPageRender = () => {
   const { t } = useTranslation();
   useDocumentTitle(t('profileList'));
+  const pageQueries = usePageQueries();
 
   const { debouncedFiltersState } = useFilters();
 
@@ -39,10 +41,11 @@ const ProfileListPageRender = () => {
   const [isFetchingStartData, setIsFetchingStartData] = useState(false);
   useEffect(() => {
     setIsFetchingStartData(true);
-    getUserListByParams({ take: 20, skip: 0 }).then((res: IUser[]) => {
+    getUserListByParams({ take: 20, skip: 0, ...pageQueries }).then((res: IUser[]) => {
       setStartData(res);
       setIsFetchingStartData(false);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // filters
@@ -81,7 +84,7 @@ const ProfileListPageRender = () => {
   // Custom fields
   const { data: allCustomFieldSectionBindings = [] } = useGetCustomFormFieldSectionBindings();
   const userBindings = useMemo(() =>
-    allCustomFieldSectionBindings.filter(binding => binding.section.entity === 'user'),
+    allCustomFieldSectionBindings.filter(binding => binding?.section?.entity === 'user'),
   [allCustomFieldSectionBindings]);
 
   // Columns Settings
