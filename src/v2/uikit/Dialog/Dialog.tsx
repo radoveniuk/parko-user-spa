@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { Dialog as DialogMaterial, DialogActions as DialogActionsMaterial, DialogProps } from '@mui/material';
+import styled from 'styled-components';
 
 import { CloseIcon } from 'components/icons';
 import useViewportWidth from 'hooks/useViewportWsdth';
@@ -34,4 +35,6 @@ const Dialog = ({ children, title, onClose, mobileFullscreen = false, color, ...
 
 export default memo(Dialog);
 
-export const DialogActions = DialogActionsMaterial;
+export const DialogActions = styled(DialogActionsMaterial)`
+padding: 0 !important;
+`;

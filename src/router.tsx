@@ -10,6 +10,7 @@ import {
   CustomUserFieldsPage,
   DayoffListPage, DocsTemplatesPage,
   HomePage, LoginPage, NotFoundPage,
+  OrderListPage,
   PrepaymentListPage, ProfileAdminPage, ProfileListPage, RegisterPage,
 } from 'v2/pages';
 
@@ -63,6 +64,8 @@ export default function Router () {
                 <Route path="/export-residences" element={<ExportResidencesPage />} />
                 <Route path="/clients" element={<ClientListPage />} />
                 <Route path="/client/:id" element={<ClientPage />} />
+                <Route path="/orders" element={<OrderListPage />} />
+                <Route path="/order/:id" element={<ClientPage />} />
               </Route>
             </Route>
             <Route element={<ProtectedRoute matchedRoles={['admin', 'recruiter']} />}>

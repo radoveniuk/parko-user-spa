@@ -86,3 +86,9 @@ export const CORPORATE_BODY_STATUS = [
   'stopped',
   'closed',
 ];
+
+export const ORDER_STATUS = [
+];
+
+export const ORDER_COOPERATION_TYPE = [
+];
