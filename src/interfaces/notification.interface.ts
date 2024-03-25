@@ -10,6 +10,7 @@ export interface INotification {
   linkedDoc?: string;
   viewed: boolean;
   createdAt: string;
+  updatedAt: string;
 }
 
 export type INotificationEntity = 'prepayment' | 'dayoff' | 'paycheck' | 'mail';

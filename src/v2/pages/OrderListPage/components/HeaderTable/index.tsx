@@ -8,10 +8,11 @@ import { useCreatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import { PlusIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
+import { IOrder } from 'interfaces/order.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import PrepaymentDialog from '../OrderDialog';
+import OrderDialog from '../OrderDialog';
 
 import { HeaderWrapper } from './styles';
 
@@ -27,20 +28,20 @@ const HeaderTable = ({ count }: Props) => {
   const createPrepaymentMutation = useCreatePrepaymentMutation();
   const queryClient = useQueryClient();
 
-  const createNewPrepaymentHandler = (values: Partial<IPrepayment>) => {
+  const createNewPrepaymentHandler = (values: Partial<IOrder>) => {
     setOpenNewPrepayment(false);
-    const queryKey = ['prepayments', JSON.stringify({})];
-    const users: IUser[] = queryClient.getQueryData(['users-filter', JSON.stringify({})]) || [];
-    queryClient.setQueryData(
-      queryKey, [
-        { ...values, user: users.find((user) => user._id === values.user), _id: createId() },
-        ...(queryClient.getQueryData(queryKey) as IPrepayment[]),
-      ],
-    );
-    createPrepaymentMutation.mutateAsync(values).then((res) => {
-      const [, ...oldItems] = queryClient.getQueryData(queryKey) as IPrepayment[];
-      queryClient.setQueryData(queryKey, [res, ...oldItems]);
-    });
+    const queryKey = ['orders', JSON.stringify({})];
+    // const users: IUser[] = queryClient.getQueryData(['users-filter', JSON.stringify({})]) || [];
+    // queryClient.setQueryData(
+    //   queryKey, [
+    //     { ...values, user: users.find((user) => user._id === values.user), _id: createId() },
+    //     ...(queryClient.getQueryData(queryKey) as IPrepayment[]),
+    //   ],
+    // );
+    // createPrepaymentMutation.mutateAsync(values).then((res) => {
+    //   const [, ...oldItems] = queryClient.getQueryData(queryKey) as IPrepayment[];
+    //   queryClient.setQueryData(queryKey, [res, ...oldItems]);
+    // });
   };
 
   return (
@@ -60,7 +61,7 @@ const HeaderTable = ({ count }: Props) => {
           </div>
         </Stack>
       </HeaderWrapper>
-      <PrepaymentDialog
+      <OrderDialog
         open={openNewPrepayment}
         onClose={() => void setOpenNewPrepayment(false)}
         onSave={createNewPrepaymentHandler}

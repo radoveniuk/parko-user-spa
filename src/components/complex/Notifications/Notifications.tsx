@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Button from 'v2/uikit/Button';
 
 import { useDeleteNotificationMutation, useUpdateNotificationMutation } from 'api/mutations/notificationMutation';
 import { useGetNotifications } from 'api/query/notificationsQuery';
-import Button from 'v2/uikit/Button';
 import Dialog from 'components/shared/Dialog';
 import List from 'components/shared/List';
 import { useAuthData } from 'contexts/AuthContext';

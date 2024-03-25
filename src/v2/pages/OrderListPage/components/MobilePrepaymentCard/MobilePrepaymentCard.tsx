@@ -9,6 +9,7 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 import { DeleteIcon, EditIcon, MoneyBillIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
+import { IOrder } from 'interfaces/order.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -21,14 +22,14 @@ import { MobileClientCardWrapper } from './styles';
 
 type Props = {
   style?: CSSProperties;
-  prepayment: IPrepayment & { user: IUser };
+  order: IOrder<true>;
 };
 
-const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
+const MobilePrepaymentCard = ({ style, order }: Props) => {
   const { t } = useTranslation();
 
-  const user = prepayment.user;
-  const project = user.project as IProject;
+  // const user = prepayment.user;
+  const project = order.project as IProject;
   const client = project?.client as IClient;
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -37,7 +38,7 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
 
   return (
     <MobileClientCardWrapper style={style}>
-      <div className="card">
+      {/* <div className="card">
         <div className="date">{getDateFromIso(prepayment.createdAt)}</div>
         <Link to={`/profile/${prepayment.user._id}`} className="user">
           <Avatar size={40} color={themeConfig.palette.primary.light} username={`${prepayment.user.name} ${prepayment.user.surname}`} />
@@ -60,16 +61,16 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
           <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
           <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
         </div>
-      </div>
+      </div> */}
       {!!openDialog && (
         <PrepaymentDialog
           open={openDialog}
           onClose={() => void setOpenDialog(false)}
-          onSave={(values: Partial<IPrepayment>) => {
+          onSave={(values: Partial<IOrder>) => {
             setOpenDialog(false);
-            updatePrepayment(prepayment, values);
+            // updatePrepayment(prepayment, values);
           }}
-          data={prepayment}
+          data={order}
         />
       )}
       {!!openDeleteDialog && (
@@ -77,7 +78,7 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
           open={openDeleteDialog}
           onSubmit={() => {
             setOpenDeleteDialog(false);
-            removePrepayment(prepayment);
+            // removePrepayment(prepayment);
           }}
           onClose={() => void setOpenDeleteDialog(false)}
         />

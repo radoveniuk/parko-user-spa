@@ -24,7 +24,7 @@ type Props = DialogProps & {
   data?: IOrder<true>
 };
 
-const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
+const OrderDialog = ({ onSave, data, ...rest }: Props) => {
   const { t } = useTranslation();
   const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus');
   const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
@@ -268,4 +268,4 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
   );
 };
 
-export default PrepaymentDialog;
+export default OrderDialog;

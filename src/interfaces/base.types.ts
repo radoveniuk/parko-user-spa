@@ -25,5 +25,5 @@ export type MongoHistory<T> = {
 export interface IMongoDoc {
   _id: string
   createdAt: string;
-  updateAt: string;
+  updatedAt: string;
 }
