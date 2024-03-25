@@ -1,7 +1,7 @@
 {
   "navbar": {
     "home": "Hlavná",
-    "profile": " Profil",
+    "profile": "Profil",
     "profiles": "Profily",
     "notifications": "Notifikácie",
     "prepayments": "Zálohy",
@@ -89,7 +89,7 @@
     "tshortSize": "Veľkosť trička",
     "pantsSize": "Veľkosť montérok",
     "shoesSize": "Veľkosť topánok",
-    "study": "Vzdelanie",
+    "study": "Štúdium",
     "speciality": "Odbor",
     "familyStatus": "Rodinný stav",
     "prevSurname": "Rodné priezvisko",
@@ -103,7 +103,7 @@
     "fatherSurname": "Priezvisko otca",
     "fatherBirthdate": "Dátum narodenia otca",
     "wrongCredentials": "Nesprávne prihlasovacie meno alebo heslo",
-    "scancopies": "Skeny",
+    "scancopies": "Skeny dokumentov",
     "internationalPassScan": "Cestovný pas",
     "passScan": "Pas",
     "idCardFaceScan": "ID karta (predná strana)",
@@ -114,11 +114,11 @@
     "upload": "Nahrať",
     "uploaded": "Nahrané",
     "childrenJson": "Informácie o deťoch",
-    "siblingsJson": " Informácie o súrodencoch",
+    "siblingsJson": "Informácie o súrodencoch",
     "openForm": "Otvoriť formulár",
     "successfullRegister": "Úspešná registrácia! Teraz sa môžete prihlásiť",
     "project": "Projekt",
-    "status": "Status zamestnanca",
+    "status": "Status",
     "resetPassword": "Resetovanie hesla",
     "role": "Role",
     "admin": "Správa používateľov",
@@ -157,7 +157,7 @@
     "blocked": "Black List",
     "notes": "Poznámky",
     "workHistory": "Historia prace",
-    "lastUpdate": "Posledné meny",
+    "lastUpdate": "Posledné zmeny",
     "createdAt": "Datum vytvorenia",
     "cooperation": "Spolupraca",
     "history": "História",
@@ -191,12 +191,12 @@
     "workTypes": "Typ práce",
     "employmentStatus": "Status zamestnania",
     "pass": {
-      "pass": "Medzinárodný pas",
-      "number": "Medzinárodný pas > Číslo",
-      "country": "Medzinárodný pas > Krajina",
-      "dateFrom": "Medzinárodný pas > Dátum od",
-      "dateTo": "Medzinárodný pas > Dátum do",
-      "issuedBy": "Medzinárodný pas > Vydal"
+      "pass": "Cestovný pas",
+      "number": "Cestovný pas > Číslo",
+      "country": "Cestovný pas > Krajina",
+      "dateFrom": "Cestovný pas > Dátum od",
+      "dateTo": "Cestovný pas > Dátum do",
+      "issuedBy": "Cestovný pas > Vydal"
     },
     "visa": {
       "visa": "Víza",
@@ -278,7 +278,7 @@
     "approve": "Potvrdiť",
     "reject": "Odmietnuť",
     "status": "Status zálohy",
-    "paymentDate": "Data splaty",
+    "paymentDate": "Dátum plaťby",
     "prepayment": "Záloha",
     "new": "Nova záloha",
     "createdAt": "Datum vytvorenia",
@@ -293,7 +293,7 @@
     "user": "Používateľ",
     "send": "Poslať",
     "dayoff": "Voľno",
-    "new": "Urobiť voľno",
+    "new": "Nové voľno",
     "createdAt": "Datum vytvorenia",
     "status": "Status voľno",
     "data": "Informácie",
@@ -303,8 +303,8 @@
   "selects": {
     "permitType": {
       "business": "Podnikanie",
-      "study": "Vzdelanie",
-      "work": "Práca",
+      "study": "Štúdium",
+      "work": "Zamestnanie",
       "temporaryShelter": "Dočasne útočisko",
       "familyReunification": "Zlučenie rodiny"
     },
@@ -319,9 +319,9 @@
       "single": "Slobodný/Slobodná"
     },
     "userStatus": {
-      "candidate": "Kandidát",
-      "hired": "Najatý",
-      "fired": "Ukončený",
+      "candidate": "Candidate",
+      "hired": "Active",
+      "fired": "Departed",
       "undefined": "-"
     },
     "userRole": {
@@ -344,7 +344,7 @@
     "tariff": {
       "candidate": "Za kandidáta",
       "hour": "Za odprac. hod.",
-      "month": " Za odprac. mes."
+      "month": "Za odprac. mes."
     },
     "accommodationTariff": {
       "night": "Noc",
@@ -369,10 +369,10 @@
       "expirience": "Pracovné skúsenosti"
     },
     "clientStatus": {
-      "active": "Aktívný",
-      "inactive": "Pozastavený",
-      "development": "Vo vývoji",
-      "rejected": "Zrušený",
+      "active": "Active",
+      "inactive": "Paused",
+      "development": "In development",
+      "rejected": "Canceled",
       "negotiation": "Rokovanie",
       "contacted": "Kontaktovany",
       "potential": "Potencialny"
@@ -383,9 +383,9 @@
     },
     "prepaymentStatus": {
       "pending": "Spracovava sá",
-      "approved": "Potvrdený",
-      "rejected": "Zamietnuté",
-      "paid": "Zaplatené"
+      "approved": "Potvrdená",
+      "rejected": "Zamietnutá",
+      "paid": "Zaplatená"
     },
     "financeType": {
       "paycheck": "Faktúra",
@@ -407,8 +407,8 @@
     },
     "dayoffStatus": {
       "continues": "Prebieha",
-      "finished": "Ukončená",
-      "future": "Nezačala"
+      "finished": "Ukončené",
+      "future": "Naplánované"
     }
   },
   "notFoundPage": "Stránka nenájdená",
@@ -486,7 +486,7 @@
     "fields": "Vlastné polia",
     "fieldName": "Názov poľa",
     "fieldType": "Typ poľa",
-    "fieldCreatedAt": "Kedy vytvorené",
+    "fieldCreatedAt": "Dátum vytvorenia",
     "newField": "Nove pole",
     "addOptions": "Pridať možnosti",
     "forms": "Formuláre",
@@ -505,7 +505,7 @@
     "checkOut": "Dátum Check Out",
     "create": "Vytvoriť ubytovanie",
     "managerPhone": "Tel. číslo. vedúceho",
-    "receptionPhone": " Tel. číslo. recepcii",
+    "receptionPhone": "Tel. číslo. recepcii",
     "comment": "Komentár",
     "tariff": "Tarifa",
     "days": "Množstvo odspaných noci",
@@ -545,7 +545,7 @@
     "sidlo": "Sidlo",
     "websiteUrl": "Web stranka",
     "contactPerson": "Kontaktná osoba",
-    "contactPersonPosition": "Pozícia kontaktnej osoby",
+    "contactPersonPosition": "Pozícia Kontaktnej osoba",
     "phone": "Telefón",
     "status": "Status",
     "new": "Nový klient",
@@ -576,7 +576,7 @@
   "language": "Jazyk",
   "youNotVerified": "Momentálne nie sú k dispozícii hlavné časti systému aplikácií Parko. Najprv je potrebné vyplniť údaje o sebe v sekcii Profil",
   "next": "Vpred",
-  "back": "Späť",
+  "back": "Vzad",
   "continue": "Pokracovať",
   "errors": "Chyby pri zadaní údajov:",
   "areYouSure": "Ste istý?",
@@ -591,15 +591,15 @@
   "approve": "Potvrdiť",
   "firstDate": "Dátum od",
   "lastDate": "Dátum do",
-  "welcomeText": " Vitajte v systéme Parko User, ",
+  "welcomeText": "Vitajte v systéme Parko User, ",
   "download": "Stiahnuť",
-  "noSelected": " Nie je zvolený ",
+  "noSelected": "Nie je zvolený ",
   "male": "Muž",
   "female": "Žena",
   "edit": "Upraviť",
   "save": "Uložiť",
   "delete": "Vymazať",
-  "deletePermanent": "Vymazať navždy",
+  "deletePermanent": "Vymazať natrvalo",
   "date": "Dátum",
   "countries": "Krajíny",
   "addFilter": "Pridať filter",
@@ -614,13 +614,13 @@
     "search": "Vyhľadajte používateľov, projekty alebo klientov"
   },
   "unsavedChanges": "Neuložené zmeny",
-  "unsavedChangesWarn": "Vaša posledná zmena nebola uložená. Chcete pokracovat bez uloženia?",
+  "unsavedChangesWarn": "Máte neuložené zmeny. Ak ich neuložíte, môžu byť stratené.",
   "searchHistory": "História",
   "fileDeletedSuccess": "Dokument bol úspešne odstránený",
   "cancel": "Storno",
   "confirmation": "Potvrdenie",
   "areYouSureMsg": "Naozaj chcete pokračovať?",
-  "myFilter": "Moje režim",
+  "myFilter": "Moj režim",
   "copied": "Skopírovane",
   "profilesPage": {
     "status": "Používateľské stavy",
@@ -628,7 +628,7 @@
     "all_workers": "Všetky pracovné priestory",
     "selected_workers": "Vybrané pracovné priestory",
     "search_workers": "Vyhľadajte pracovné priestory",
-    "choose_few": "Viacero možností",
+    "choose_few": "Viaceré možností",
     "control_organization": "Riadenie organizačných jednotiek",
     "users": "Používatelia",
     "users_all_space": "Používatelia zo všetkých pracovných priestorov",
@@ -639,9 +639,9 @@
     "client": "Klient",
     "project": "Projekt",
     "positionId": "Pracovná pozícia",
-    "hireDate": "Dátum nájmu",
-    "fireDate": "Dátum prepustenia",
-    "fireReason": "Dôvod prepustenia",
+    "hireDate": "Dátum nástupu",
+    "fireDate": "Dátum ukončenia",
+    "fireReason": "Dôvod ukončenia",
     "comment": "Komentár",
     "isNonTaxablePart": "Uplatnenie nezdaniteľnej časti základu dane",
     "isChildTaxBonus": "Uplatnenie daňového bonusu na dieťa",
@@ -651,6 +651,7 @@
     "createdBy": "Kto vytvoril",
     "updatedBy": "Kto aktualizoval",
     "createdAt": "Dátum vytvorenia",
-    "updatedAt": "Dátum aktualizácie"
-  }
+    "updatedAt": "Dátum poslednej aktualizácie"
+  },
+  "": ""
 }

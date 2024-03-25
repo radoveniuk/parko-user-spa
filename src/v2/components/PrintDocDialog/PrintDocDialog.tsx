@@ -59,7 +59,7 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
     if (users.length === 1 && selectedTemplates.length === 1) {
       downloadDoc(
         {
-          userId: Object.keys(userEmploymentMap),
+          userId: users.map((user) => user._id),
           templateId: selectedTemplates.map((item) => item._id as string),
           employmentId: Object.values(userEmploymentMap),
         },
@@ -67,7 +67,7 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
       );
     } else {
       downloadDoc({
-        userId: Object.keys(userEmploymentMap),
+        userId: users.map((user) => user._id),
         templateId: selectedTemplates.map((item) => item._id as string),
         employmentId: Object.values(userEmploymentMap),
       });
