@@ -19,31 +19,31 @@
   "menu": {
     "prepayment": "Request prepayment",
     "paychecks": "Invoices",
-    "dayoff": "Request day off",
+    "dayoff": "Day off request",
     "prepaymentList": "Prepayments",
-    "paychecksUpload": "Upload paychecks",
+    "paychecksUpload": "Upload invoices",
     "dayoffList": "Days off list",
     "profile": "My profile",
     "notification": "Send notification"
   },
   "footer": {
     "contacts": "Contacts",
-    "contactsInfo": "In case of technical problems or questions regarding the operation of the system, please contact:"
+    "contactsInfo": "In case of technical issues or questions regarding the operation of the system, please contact:"
   },
   "prepaymentPage": {
-    "title": "Prepayment order",
+    "title": "Prepayment request",
     "form": {
-      "order": "Send order",
+      "order": "Send request",
       "sumMinValidation": "Min sum - 50",
       "sumMaxValidation": "Max sum - 200",
-      "successCreate": "Prepayment created"
+      "successCreate": "Prepayment requsted"
     }
   },
   "dayoffPage": {
     "title": "Notice of absence from work",
     "form": {
       "explainReason": "State the reason",
-      "successCreate": "Notice of adsence has been sended"
+      "successCreate": "Notice of absence has been sent"
     }
   },
   "notifications": "Notifications",
@@ -68,16 +68,16 @@
     "biometryFields": "Closes sizes",
     "expirienceFields": "Your expirience",
     "familyFields": "Family information",
-    "hasInternationalPass": "Travel passport?",
-    "internationalPassNumber": "Travel passport number",
+    "hasInternationalPass": "Travel document?",
+    "internationalPassNumber": "Travel document number",
     "internationalPassExpire": "Date of expiry",
     "internationalPassAuthority": "Authority",
-    "hasIdCard": "Id card?",
-    "passNumber": "Pass number",
+    "hasIdCard": "ID card?",
+    "passNumber": "Passport number",
     "hasPermit": "Do you have temporary residence permit?",
-    "permitType": "Permit type",
+    "permitType": "Temporary residence permit type",
     "permitExpire": "Date of expiry",
-    "hasPrevPermit": "Did you have previous residence permits?",
+    "hasPrevPermit": "Have you had previous residence permits?",
     "rodneCislo": "Rodné číslo",
     "IBAN": "IBAN",
     "ICO": "IČO",
@@ -90,7 +90,7 @@
     "pantsSize": "Pants size",
     "shoesSize": "Shoes size",
     "study": "Education",
-    "speciality": "SStudy program",
+    "speciality": "Study program",
     "familyStatus": "Marital status",
     "prevSurname": "Maiden name",
     "hasChildren": "Do you have children?",
@@ -104,13 +104,13 @@
     "fatherBirthdate": "Father`s birth date",
     "wrongCredentials": "Wrong login or password",
     "scancopies": "Document scans",
-    "internationalPassScan": "Travel passport",
+    "internationalPassScan": "Travel document",
     "passScan": "Passport",
-    "idCardFaceScan": "ID card face",
-    "idCardBackScan": "ID card back",
+    "idCardFaceScan": "ID card (front)",
+    "idCardBackScan": "ID card (back)",
     "permitFaceScan": "Residence permit (front)",
     "permitBackScan": "Residence permit (back)",
-    "updateData": "Update",
+    "updateData": "Save",
     "upload": "Upload",
     "uploaded": "Uploaded",
     "childrenJson": "Information about children",
@@ -118,7 +118,7 @@
     "openForm": "Open form",
     "successfullRegister": "Registration was successfull, you can login now !",
     "project": "Project",
-    "status": "User status",
+    "status": "Status",
     "resetPassword": "Reset password",
     "role": "Role",
     "admin": "User administration",
@@ -145,7 +145,7 @@
     "recruiter": "Recruiter",
     "source": "Source",
     "permitStartDate": "Residence permit date of issue",
-    "hasMedicalExamination": "Medical check?",
+    "hasMedicalExamination": "Medical check",
     "position": "Position",
     "cooperationStartDate": "Cooperation start",
     "cooperationEndDate": "Cooperation end",
@@ -180,12 +180,12 @@
     "employment": "Employment",
     "individualCooperation": "Cooperation — PE",
     "hireDate": "Hire date",
-    "fireDate": "Termination date",
-    "fireReason": "Termination reason",
+    "fireDate": "Fire date",
+    "fireReason": "Fire reason",
     "hire": "Hire",
-    "cancel": "Cancel",
+    "cancel": "Withdraw",
     "change": "Change",
-    "fire": "Terminate",
+    "fire": "Fire",
     "updateEmploymentInfo": "Update employment info",
     "addEmployment": "Add employment",
     "alreadyExistsError": "A user with this email already exists",
@@ -194,24 +194,24 @@
     "workTypes": "Work type",
     "employmentStatus": "Employment`s status",
     "pass": {
-      "pass": "Int. Passport",
-      "number": "Int. Passport > Number",
-      "country": "Int. Passport > Country",
-      "dateFrom": "Int. Passport > Date from", 
-      "dateTo": "Int. Passport > Date to", 
-      "issuedBy": "Int. Passport > Issued by"
+      "pass": "Travel Passport",
+      "number": "Travel Passport > Number",
+      "country": "Travel Passport > Country",
+      "dateFrom": "Travel Passport > Date from",
+      "dateTo": "Travel Passport > Date to",
+      "issuedBy": "Travel Passport > Issued by"
     },
     "visa": {
       "visa": "Visa",
       "number": "Visa > Number",
-      "dateFrom": "Visa > Date from", 
+      "dateFrom": "Visa > Date from",
       "dateTo": "Visa > Date to",
       "comment": "Visa > Comment"
     },
     "permit": {
       "permit": "Residence permit",
       "number": "Residence permit > Number",
-      "dateFrom": "Residence permit > Date from", 
+      "dateFrom": "Residence permit > Date from",
       "dateTo": "Residence permit > Date to",
       "address": "Residence permit > Address",
       "isMedicalCheck": "Residence permit > Medical checkup?",
@@ -220,7 +220,7 @@
     "idcard": {
       "idcard": "ID card",
       "number": "ID card > Number",
-      "dateFrom": "ID card > Date from", 
+      "dateFrom": "ID card > Date from",
       "dateTo": "ID card > Date to",
       "country": "ID card > Country"
     },
@@ -294,8 +294,8 @@
     "comment": "Comment",
     "user": "User",
     "send": "Send",
-    "dayoff": "Dayoff",
-    "new": "New dayoff",
+    "dayoff": "Day off",
+    "new": "New day off",
     "createdAt": "Created at",
     "status": "Dayoff status",
     "data": "Information",
@@ -322,8 +322,8 @@
     },
     "userStatus": {
       "candidate": "Candidate",
-      "hired": "Employed",
-      "fired": "Terminated",
+      "hired": "Active",
+      "fired": "Departed",
       "undefined": "-"
     },
     "userRole": {
@@ -334,19 +334,19 @@
     },
     "dayoffReason": {
       "vacation": "Vacation",
-      "illnes": "Illnes",
+      "illnes": "Illness",
       "medicalCheck": "Medical check",
       "alcohol": "Alcohol",
       "other": "Other",
-      "unable": "Unable to work",
-      "pass": "Pass",
+      "unable": "Sick leave",
+      "pass": "Doctor visit",
       "familyMemberCare": "Caring for a family member",
       "blocker": "An obstacle on the side of the employer"
     },
     "tariff": {
       "candidate": "Per candidate",
       "hour": "Per worked hour",
-      "month": "Per worke month"
+      "month": "Per worked month"
     },
     "accommodationTariff": {
       "night": "Night",
@@ -376,7 +376,7 @@
       "development": "In development",
       "rejected": "Canceled",
       "negotiation": "In negotiation",
-      "contacted": "In contact",
+      "contacted": "Contacted",
       "potential": "Potential"
     },
     "projectStatus": {
@@ -408,9 +408,9 @@
       "employment": "Employment"
     },
     "dayoffStatus": {
-      "continues": "Continues",
+      "continues": "Ongoing",
       "finished": "Finished",
-      "future": "Not started yet"
+      "future": "Planned"
     }
   },
   "notFoundPage": "Page not found",
@@ -478,7 +478,7 @@
   },
   "customForms": {
     "names": "Name",
-    "configuration": "Configuration",
+    "configuration": "Connfiguration",
     "projects": "Projects",
     "section": "Form's section",
     "save": "Save",
@@ -511,8 +511,8 @@
     "comment": "Comment",
     "tariff": "Tariff",
     "days": "Days of stay",
-    "costNight": "Cost for a night",
-    "costMonth": "Cost for a month",
+    "costNight": "Cost per night",
+    "costMonth": "Cost per month",
     "sum": "Sum",
     "residences": "Accommodation records",
     "objects": "Accommodation facilities",
@@ -531,7 +531,7 @@
     "new": "New Template",
     "categories": "Categories",
     "category": "Category",
-    "createdAt": "Created At",
+    "createdAt": "Creation date",
     "newCategory": "New Category",
     "categoryName": "Category Name",
     "create": "Create",
@@ -608,7 +608,7 @@
   "edit": "Edit",
   "save": "Save",
   "delete": "Delete",
-  "deletePermanent": "Delete forever",
+  "deletePermanent": "Delete permanently",
   "date": "Date",
   "countries": "Countries",
   "addFilter": "Add filter",
@@ -628,8 +628,8 @@
   "cancel": "Cancel",
   "confirmation": "Confirmation",
   "areYouSureMsg": "Are you sure?",
-  "myFilter": "Me mode",
-  "copied": "Copied successfull",
+  "myFilter": "My mode",
+  "copied": "Copied",
   "profilesPage": {
     "status": "User statuses",
     "organization": "Organizations",
@@ -658,7 +658,7 @@
     "history": "History",
     "createdBy": "Created By",
     "updatedBy": "Updated By",
-    "createdAt": "Created At",
-    "updatedAt": "Updated At"
+    "createdAt": "Creation date",
+    "updatedAt": "Last update at"
   }
 }

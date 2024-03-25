@@ -18,10 +18,10 @@
   },
   "menu": {
     "prepayment": "Замовити аванс",
-    "paychecks": "Розрахункові листи",
+    "paychecks": "Фактури",
     "dayoff": "Замовити відгул",
     "prepaymentList": "Список авансів",
-    "paychecksUpload": "Завантажити розрахункові листи",
+    "paychecksUpload": "Завантажити фактури",
     "dayoffList": "Список відгулів",
     "profile": "Мій профіль",
     "notification": "Надіслати сповіщення"
@@ -43,12 +43,12 @@
     "title": "Інформування про відсутність на роботі",
     "form": {
       "explainReason": "Вкажіть причину",
-      "successCreate": "Інформацію про відгул надіслано"
+      "successCreate": "Інформацію про відсутність надіслано"
     }
   },
   "notifications": "Сповіщення",
   "noData": "Дані не знайдено",
-  "paychecks": "Розрахункові листи",
+  "paychecks": "Фактури",
   "profile": "Профіль",
   "user": {
     "info": "Відомості",
@@ -66,7 +66,7 @@
     "slovakDocsFields": "Словацькі документи",
     "adressFields": "Адреса",
     "biometryFields": "Розміри одягу",
-    "expirienceFields": "Досвід",
+    "expirienceFields": "Досвід роботи",
     "familyFields": "Сім'я",
     "hasInternationalPass": "Закордонний паспорт?",
     "internationalPassNumber": "Номер закордонного паспорту",
@@ -91,7 +91,7 @@
     "shoesSize": "Розмір взуття",
     "study": "Освіта",
     "speciality": "Спеціальність",
-    "familyStatus": "Сімейне положення",
+    "familyStatus": "Сімейний стан",
     "prevSurname": "Дівоче прізвище",
     "hasChildren": "Маєте дітей?",
     "hasSiblings": "Маєте братів/сестер?",
@@ -110,7 +110,7 @@
     "idCardBackScan": "ID картка (зворот)",
     "permitFaceScan": "ВНЖ (перед)",
     "permitBackScan": "ВНЖ (зворот)",
-    "updateData": "Оновити дані",
+    "updateData": "Зберегти",
     "upload": "Завантажити",
     "uploaded": "Завантажено",
     "childrenJson": "Інформація про дітей",
@@ -118,7 +118,7 @@
     "openForm": "Відкрити форму",
     "successfullRegister": "Реєстрація успішна! Можете увійти за своїми данними",
     "project": "Проєкт",
-    "status": "Статус користувача",
+    "status": "Статус",
     "resetPassword": "Скинути пароль",
     "role": "Роль",
     "admin": "Адміністрування користувачів",
@@ -166,25 +166,25 @@
     "history": "Історія",
     "finances": "Фінанси",
     "addDoc": "Додати документ",
-    "permitCardId": "Ідентифікаційний номер",
+    "permitCardId": "Номер картки ВНЖ/ПМЖ",
     "permitGoal": "Ціль",
     "visaNumber": "Номер візи",
     "bankInfo": "Банківські дані",
     "bankName": "Банк",
     "SWIFT": "SWIFT",
     "employmentInfo": "Інформація для працевлаштування",
-    "medicalInsurance": "Страховка",
-    "birthSurname": "Прізвище при народження",
+    "medicalInsurance": "Страхування",
+    "birthSurname": "Прізвище при народженні",
     "childrenCount": "Кількість дітей",
     "businessStatus": "Статус підприємця",
-    "businessActivities": "КВЕДИ",
+    "businessActivities": "КВЕДи",
     "employment": "Працевлаштування",
     "individualCooperation": "Співпраця — ФОП",
     "hireDate": "Дата працевлаштування",
     "fireDate": "Дата звільнення",
     "fireReason": "Причина звільнення",
     "hire": "Працевлаштувати",
-    "cancel": "Скасувати",
+    "cancel": "Відкликати",
     "change": "Змінити",
     "fire": "Звільнити",
     "updateEmploymentInfo": "Змінити інформацію про працевлаштування",
@@ -193,12 +193,12 @@
     "workTypes": "Тип роботи",
     "employmentStatus": "Статус співпраці",
     "pass": {
-      "pass": "Міжнародний паспорт",
-      "number": "Міжнародний паспорт > Номер",
-      "country": "Міжнародний паспорт > Країна",
-      "dateFrom": "Міжнародний паспорт > Дата від",
-      "dateTo": "Міжнародний паспорт > Дата до",
-      "issuedBy": "Міжнародний паспорт > Видав"
+      "pass": "Закордонний паспорт",
+      "number": "Закордонний паспорт > Номер",
+      "country": "Закордонний паспорт > Країна",
+      "dateFrom": "Закордонний паспорт > Дата від",
+      "dateTo": "Закордонний паспорт > Дата до",
+      "issuedBy": "Закордонний паспорт > Видав"
     },
     "visa": {
       "visa": "Віза",
@@ -246,8 +246,8 @@
   "doc": {
     "dateFrom": "Дійсний від",
     "dateTo": "Дійсний до",
-    "issuerCountry": "Країна випуску",
-    "issuedBy": "Видав",
+    "issuerCountry": "Країна видачі",
+    "issuedBy": "Орган що видав",
     "number": "Номер"
   },
   "userUpload": {
@@ -294,7 +294,7 @@
     "user": "Користувач",
     "send": "Надіслати",
     "createdAt": "Дата створення",
-    "dayoff": "Відгул",
+    "dayoff": "Новий Відгул",
     "status": "Статус відгула",
     "data": "Інформація",
     "docs": "Документи"
@@ -319,9 +319,9 @@
       "single": "Неодружений/Неодружена"
     },
     "userStatus": {
-      "candidate": "Кандидат",
-      "hired": "Найнятий",
-      "fired": "Звільнений",
+      "candidate": "Candidate",
+      "hired": "Active",
+      "fired": "Departed",
       "undefined": "-"
     },
     "userRole": {
@@ -337,7 +337,7 @@
       "alcohol": "Алкогольне сп'яніння",
       "other": "Інше",
       "unable": "Непрацездатність",
-      "pass": "Пропуск",
+      "pass": "Візит лікаря",
       "familyMemberCare": "Турбота про члена родини",
       "blocker": "Завада на стороні працедавця"
     },
@@ -365,16 +365,16 @@
       "phone": "Телефон",
       "date": "Дата",
       "select": "Випадаючий список",
-      "multiselect": "Мультиселект",
+      "multiselect": "Множинний вибір",
       "expirience": "Досвід роботи"
     },
     "clientStatus": {
-      "active": "Активний",
-      "development": "У розробці",
-      "inactive": "Призупинений",
-      "rejected": "Скасований",
+      "active": "Active",
+      "development": "In development",
+      "inactive": "Paused",
+      "rejected": "Canceled",
       "negotiation": "Переговори",
-      "contacted": "В контакті",
+      "contacted": "Зконтактований",
       "potential": "Потенційний"
     },
     "projectStatus": {
@@ -388,7 +388,7 @@
       "paid": "Оплачено"
     },
     "financeType": {
-      "paycheck": "Інвойс",
+      "paycheck": "Фактура",
       "payroll": "Зарплатня"
     },
     "corporateBodyStatus": {
@@ -406,9 +406,9 @@
       "employment": "Працевлаштування"
     },
     "dayoffStatus": {
-      "continues": "Відбувається",
+      "continues": "Триває",
       "finished": "Завершено",
-      "future": "Не почався"
+      "future": "Заплановано"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -486,7 +486,7 @@
     "fields": "Кастомні поля",
     "fieldName": "Назва поля",
     "fieldType": "Тип поля",
-    "fieldCreatedAt": "Коли створено",
+    "fieldCreatedAt": "Дата створення",
     "newField": "Нове поле",
     "addOptions": "Додати варіанти вибору",
     "forms": "Анкети",
@@ -589,7 +589,7 @@
   "selectAll": "Вибрати все",
   "removeSelect": "Прибрати вибір",
   "cols": "Колонки",
-  "selectAllCols": "Вибрати вси колонки",
+  "selectAllCols": "Вибрати всі колонки",
   "add": "Додати",
   "comment": "Коментар",
   "other": "Інше",
@@ -597,7 +597,7 @@
   "firstDate": "Дата від",
   "lastDate": "Дата до",
   "welcomeText": "Ласкаво просимо до системи Parko User, ",
-  "download": "Завантажити",
+  "download": "Скачати",
   "noSelected": "Не вибрано",
   "male": "Чоловіча",
   "female": "Жіноча",
@@ -643,20 +643,20 @@
   "employment": {
     "user": "Користувач",
     "client": "Клієнт",
-    "project": "Проект",
+    "project": "Проєкт",
     "positionId": "Робоча позиція",
-    "hireDate": "Дата найму",
+    "hireDate": "Дата виходу на роботу",
     "fireDate": "Дата звільнення",
     "fireReason": "Причина звільнення",
     "comment": "Коментар",
-    "isNonTaxablePart": "Uplatnenie nezdaniteľej časti zakladu dane",
-    "isChildTaxBonus": "Uplatnenie daňového bonusu na dieťa",
+    "isNonTaxablePart": "Використання неоподаткованої частини податкової бази",
+    "isChildTaxBonus": "Використання податкового бонусу на дитину",
     "status": "Статус працевлаштування",
     "changes": "Зміни",
     "history": "Історія",
     "createdBy": "Ким створено ",
     "updatedBy": "Ким оновлено",
     "createdAt": "Дата створення",
-    "updatedAt": "Коли оновлено"
+    "updatedAt": "Дата останнього оновлення"
   }
 }

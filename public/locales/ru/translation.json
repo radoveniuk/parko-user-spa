@@ -18,7 +18,7 @@
   },
   "menu": {
     "prepayment": "Заказать аванс",
-    "paychecks": "Рассчетные листы",
+    "paychecks": "Фактуры",
     "dayoff": "Заказать отгул",
     "prepaymentList": "Список авансов",
     "paychecksUpload": "Загрузка фактур",
@@ -48,7 +48,7 @@
   },
   "notifications": "Оповещения",
   "noData": "Данных не найдено",
-  "paychecks": "Рассчетные листы",
+  "paychecks": "Фактуры",
   "profile": "Профиль",
   "user": {
     "info": "Сведения",
@@ -66,7 +66,7 @@
     "slovakDocsFields": "Словацкие документы",
     "adressFields": "Адрес",
     "biometryFields": "Размер одежды",
-    "expirienceFields": "Опыт",
+    "expirienceFields": "Опыт работы",
     "familyFields": "Семья",
     "hasInternationalPass": "Загранпаспорт?",
     "internationalPassNumber": "Номер загранпаспорта",
@@ -122,10 +122,10 @@
     "resetPassword": "Сброс пароля",
     "role": "Роль",
     "admin": "Администрирование пользователей",
-    "delete": "Удалить аккаунт",
+    "delete": "Удалить профиль",
     "approveRemoving": "Вы собираетесь удалить профиль пользователя <b>{{user}}</b>! Вы уверенны?",
     "approve": "Подтвердить",
-    "removedSuccess": "Пользователь удален",
+    "removedSuccess": "Профиль удален",
     "logout": "Выйти",
     "import": "Импорт",
     "create": "Создать",
@@ -176,14 +176,14 @@
     "birthSurname": "Фамилия при рождении",
     "childrenCount": "Количество детей",
     "businessStatus": "Статус ИП",
-    "businessActivities": "КВЭДЫ",
+    "businessActivities": "КВЭДы",
     "employment": "Трудоустройство",
     "individualCooperation": "Сотрудничество — ИП",
     "hireDate": "Дата трудоустройства",
     "fireDate": "Дата увольнения",
     "fireReason": "Причина увольнения",
     "hire": "Трудоустроить",
-    "cancel": "Отменить",
+    "cancel": "Отозвать",
     "change": "Изменить",
     "fire": "Уволить",
     "updateEmploymentInfo": "Изменить информацию о трудоустройстве",
@@ -193,12 +193,12 @@
     "workTypes": "Тип работы",
     "employmentStatus": "Статус сотрудничества",
     "pass": {
-      "pass": "Международный паспорт",
-      "number": "Международный паспорт > Номер",
-      "country": "Международный паспорт > Страна",
-      "dateFrom": "Международный паспорт > Дата с",
-      "dateTo": "Международный паспорт > Дата по",
-      "issuedBy": "Международный паспорт > Выдан"
+      "pass": "Загранпаспорт",
+      "number": "Загранпаспорт > Номер",
+      "country": "Загранпаспорт > Страна",
+      "dateFrom": "Загранпаспорт > Дата с",
+      "dateTo": "Загранпаспорт > Дата по",
+      "issuedBy": "Загранпаспорт > Выдан"
     },
     "visa": {
       "visa": "Виза",
@@ -208,13 +208,13 @@
       "comment": "Виза > Комментарий"
     },
     "permit": {
-      "permit": "Разрешение на жительство",
-      "number": "Разрешение на жительство > Номер",
-      "dateFrom": "Разрешение на жительство > Дата с",
-      "dateTo": "Разрешение на жительство > Дата по",
-      "address": "Разрешение на жительство > Адрес",
-      "isMedicalCheck": "Разрешение на жительство > Медицинский осмотр?",
-      "goal": "Разрешение на жительство > Цель"
+      "permit": "Вид на жительство",
+      "number": "Вид на жительство > Номер",
+      "dateFrom": "Вид на жительство > Дата с",
+      "dateTo": "Вид на жительство > Дата по",
+      "address": "Вид на жительство > Адрес",
+      "isMedicalCheck": "Вид на жительство > Медицинский осмотр?",
+      "goal": "Вид на жительство > Цель"
     },
     "idcard": {
       "idcard": "Паспорт",
@@ -320,9 +320,9 @@
       "single": "Не женат/ Не замужем"
     },
     "userStatus": {
-      "candidate": "Кандидат",
-      "hired": "Нанят",
-      "fired": "Уволен",
+      "candidate": "Candidate",
+      "hired": "Active",
+      "fired": "Departed",
       "undefined": "-"
     },
     "userRole": {
@@ -338,7 +338,7 @@
       "alcohol": "Алкогольное опьянение",
       "other": "Другое",
       "unable": "Нетрудоспособный",
-      "pass": "Пропуск",
+      "pass": "Визит к врачу",
       "familyMemberCare": "Забота о члене семьи",
       "blocker": "Помеха на стороне работодателя"
     },
@@ -370,12 +370,12 @@
       "expirience": "Опыт работы"
     },
     "clientStatus": {
-      "active": "Активный",
-      "inactive": "Приостановлен",
-      "development": "В разработке",
-      "rejected": "Отменен",
+      "active": "Active",
+      "inactive": "Paused",
+      "development": "In development",
+      "rejected": "Canceled",
       "negotiation": "Переговоры",
-      "contacted": "В контакте",
+      "contacted": "Сконтактированный",
       "potential": "Потенциальный"
     },
     "projectStatus": {
@@ -389,7 +389,7 @@
       "paid": "Оплачено"
     },
     "financeType": {
-      "paycheck": "Инвойс",
+      "paycheck": "Фактурa",
       "payroll": "Заработная плата"
     },
     "corporateBodyStatus": {
@@ -409,7 +409,7 @@
     "dayoffStatus": {
       "continues": "Осуществляется",
       "finished": "Завершено",
-      "future": "Не начался"
+      "future": "Запланирован"
     }
   },
   "notFoundPage": "Страница не найдена",
@@ -487,7 +487,7 @@
     "fields": "Кастомные поля",
     "fieldName": "Название поля",
     "fieldType": "Тип поля",
-    "fieldCreatedAt": "Когда создано",
+    "fieldCreatedAt": "Дата создания",
     "newField": "Новое поле",
     "addOptions": "Добавить варианты выбора",
     "forms": "Анкеты",
@@ -544,7 +544,7 @@
   },
   "client": {
     "company": "Компания",
-    "name": "Название",
+    "name": "Имя",
     "ICO": "IČO",
     "DIC": "DIČ",
     "ICDPH": "IČDPH",
@@ -645,18 +645,18 @@
     "client": "Клиент",
     "project": "Проект",
     "positionId": "Рабочая позиция",
-    "hireDate": "Дата найма",
+    "hireDate": "Дата выхода на работу",
     "fireDate": "Дата увольнения",
     "fireReason": "Причина увольнения",
     "comment": "Комментарий",
-    "isNonTaxablePart": "Применение незаконного налогового вычета",
+    "isNonTaxablePart": "Применение налогонеоблагаемой части основы налога",
     "isChildTaxBonus": "Применение налогового бонуса на ребенка",
-    "status": "Статус занятости",
+    "status": "Статус трудоустройства",
     "changes": "Изменения",
     "history": "История",
-    "createdBy": "Создано кем",
-    "updatedBy": "Обновлено кем",
+    "createdBy": "Кем создано",
+    "updatedBy": "Кем обновлено",
     "createdAt": "Дата создания",
-    "updatedAt": "Дата обновления"
+    "updatedAt": "Дата последнего обновления"
   }
 }
