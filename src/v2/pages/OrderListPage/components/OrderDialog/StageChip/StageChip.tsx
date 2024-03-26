@@ -1,9 +1,10 @@
 import React, { memo, useState } from 'react';
 import { Popover } from '@mui/material';
 
+import { ORDER_STAGE_COLORS } from 'constants/colors';
 import { IOrderStage } from 'interfaces/order.interface';
 
-import { StageChipWrapper } from './styles';
+import { ColorPickBtn, ColorPickerWrapper, StageChipWrapper } from './styles';
 
 type Props = {
   data: IOrderStage;
@@ -19,9 +20,8 @@ const StageChip = ({ data, onChange, onDelete }: Props) => {
   return (
     <StageChipWrapper>
       {data.name}
-      <div
-        className="color"
-        role="button"
+      <ColorPickBtn
+        style={{ backgroundColor: ORDER_STAGE_COLORS[data.color]?.[0] }}
         onClick={(e) => {
           setColorsPopoverAnchorEl(e.currentTarget);
         }}
@@ -34,7 +34,7 @@ const StageChip = ({ data, onChange, onDelete }: Props) => {
         id={popoverId}
         open={openColors}
         anchorEl={colorsPopoverAnchorEl}
-        onClose={(e) => {
+        onClose={() => {
           setColorsPopoverAnchorEl(null);
         }}
         anchorOrigin={{
@@ -42,7 +42,24 @@ const StageChip = ({ data, onChange, onDelete }: Props) => {
           horizontal: 'left',
         }}
       >
-        colors
+        <ColorPickerWrapper>
+          {Object.keys(ORDER_STAGE_COLORS).map((colorName) => {
+            const backgroundColor = ORDER_STAGE_COLORS[colorName][0];
+            return (
+              <ColorPickBtn
+                key={colorName}
+                style={{ backgroundColor }}
+                onClick={() => {
+                  onChange({
+                    ...data,
+                    color: colorName,
+                  });
+                  setColorsPopoverAnchorEl(null);
+                }}
+              />
+            );
+          })}
+        </ColorPickerWrapper>
       </Popover>
     </StageChipWrapper>
   );

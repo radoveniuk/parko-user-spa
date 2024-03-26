@@ -14,7 +14,8 @@
     "clients": "Clients",
     "workspaces": "Workspaces",
     "finance": "Finance",
-    "feedback": "Feedback"
+    "feedback": "Feedback",
+    "orders": "Recruitment rooms"
   },
   "menu": {
     "prepayment": "Request prepayment",
@@ -411,6 +412,11 @@
       "continues": "Ongoing",
       "finished": "Finished",
       "future": "Planned"
+    },
+    "orderCooperationType": {
+      "leasing": "Leasing",
+      "outsorcing": "Outsorsing",
+      "podkmen": "Pod kmeň"
     }
   },
   "notFoundPage": "Page not found",
@@ -660,5 +666,29 @@
     "updatedBy": "Updated By",
     "createdAt": "Creation date",
     "updatedAt": "Last update at"
+  },
+  "order": {
+    "order": "Recruitment Room",
+    "status": "Recruitment room status",
+    "client": "Client",
+    "project": "Project",
+    "cooperationType": "Type of cooperation",
+    "name": "Name",
+    "tableStats": "Target / Employed / Remaining",
+    "candidateTableStats": "Candidates / Ineligible",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
+    "createdAt": "Created date",
+    "createdBy": "Created By",
+    "new": "New order",
+    "variability": "Variability",
+    "managers": "Managers",
+    "specificationUrl": "Detailed specification",
+    "goal": "Goal",
+    "stages": "Stages",
+    "positionName": "Position name",
+    "form": "Form",
+    "salary": "Salary",
+    "location": "Location"
   }
 }

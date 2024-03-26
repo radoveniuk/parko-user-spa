@@ -4,13 +4,10 @@ import { useQueryClient } from 'react-query';
 import { Button, Stack } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
 
-import { useCreatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
+import { useCreateOrder } from 'api/mutations/orderMutation';
 import { PlusIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
-import createId from 'helpers/createId';
 import { IOrder } from 'interfaces/order.interface';
-import { IPrepayment } from 'interfaces/prepayment.interface';
-import { IUser } from 'interfaces/users.interface';
 
 import OrderDialog from '../OrderDialog';
 
@@ -25,23 +22,16 @@ const HeaderTable = ({ count }: Props) => {
   const { role } = useAuthData();
 
   const [openNewPrepayment, setOpenNewPrepayment] = useState(false);
-  const createPrepaymentMutation = useCreatePrepaymentMutation();
+  const createOrder = useCreateOrder();
   const queryClient = useQueryClient();
 
-  const createNewPrepaymentHandler = (values: Partial<IOrder>) => {
+  const createNewOrderHandler = (values: IOrder) => {
     setOpenNewPrepayment(false);
     const queryKey = ['orders', JSON.stringify({})];
-    // const users: IUser[] = queryClient.getQueryData(['users-filter', JSON.stringify({})]) || [];
-    // queryClient.setQueryData(
-    //   queryKey, [
-    //     { ...values, user: users.find((user) => user._id === values.user), _id: createId() },
-    //     ...(queryClient.getQueryData(queryKey) as IPrepayment[]),
-    //   ],
-    // );
-    // createPrepaymentMutation.mutateAsync(values).then((res) => {
-    //   const [, ...oldItems] = queryClient.getQueryData(queryKey) as IPrepayment[];
-    //   queryClient.setQueryData(queryKey, [res, ...oldItems]);
-    // });
+    createOrder.mutateAsync(values).then((res) => {
+      const oldItems = queryClient.getQueryData(queryKey) as IOrder[];
+      queryClient.setQueryData(queryKey, [res, ...oldItems]);
+    });
   };
 
   return (
@@ -64,7 +54,7 @@ const HeaderTable = ({ count }: Props) => {
       <OrderDialog
         open={openNewPrepayment}
         onClose={() => void setOpenNewPrepayment(false)}
-        onSave={createNewPrepaymentHandler}
+        onSave={createNewOrderHandler}
       />
     </>
   );

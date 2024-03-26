@@ -5,7 +5,6 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
-import { IClient } from 'interfaces/client.interface';
 import { IOrder } from 'interfaces/order.interface';
 
 import { LinkWrapper } from './styles';
@@ -20,13 +19,13 @@ const OrderRow = (props: ClientRowProps) => {
   const { data } = props;
 
   const project = data.project;
-  const client = project?.client as IClient;
+  const client = data?.client;
 
   // TODO
   const statsCellContent = useMemo(() => {
     const employed = 0;
-    const left = data.goal - employed;
-    return `${data.goal} / ${employed} / ${left}`;
+    const left = data.goal || 0 - employed;
+    return `${data.goal || 0} / ${employed} / ${left}`;
   }, [data.goal]);
 
   // TODO
@@ -46,14 +45,17 @@ const OrderRow = (props: ClientRowProps) => {
         </LinkWrapper>
       </ListTableCell>
       <ListTableCell>
-        {client ? `${client.name} > ` : ''}
+        <LinkWrapper>
+          <Link to={`/client/${client._id}`} className="table-link">
+            {client.name}
+          </Link>
+        </LinkWrapper>
       </ListTableCell>
       <ListTableCell>
         {project?.name}
       </ListTableCell>
       <ListTableCell>
         {t(`selects.orderCooperationType.${data?.cooperationType}`)}
-        {data?.cooperationType}
       </ListTableCell>
       <ListTableCell>
         <StatusLabel className={data.status}>{t(`selects.orderStatus.${data.status}`)}</StatusLabel>
@@ -74,7 +76,9 @@ const OrderRow = (props: ClientRowProps) => {
         {getDateFromIso(data.createdAt, 'dd.MM.yyyy hh:mm:ss')}
       </ListTableCell>
       <ListTableCell>
-        {data.createdBy.fullname}
+        <Link to={`/profile/${data.createdBy._id}`} className="table-link">
+          {data.createdBy.fullname}
+        </Link>
       </ListTableCell>
     </ListTableRow>
   );

@@ -27,6 +27,7 @@ export const OrderDialogContent = styled.div`
   }
 
   .stages {
+    margin-bottom: 12px;
     .label {
       color: rgb(113, 113, 113);
       font-size: 14px;

@@ -8,6 +8,8 @@ import { useGetProjects } from 'api/query/projectQuery';
 import { SearchIcon } from 'components/icons';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { ClearFiltersButton } from 'components/shared/Filters/Filters';
+import { CLIENT_STATUS, ORDER_COOPERATION_TYPE } from 'constants/selectsOptions';
+import useTranslatedSelect from 'hooks/useTranslatedSelect';
 
 import HeaderTable from './components/HeaderTable';
 import Table from './components/Table';
@@ -25,14 +27,17 @@ const DEFAULT_COLS = [
   'order.dateTo',
   'order.createdAt',
   'order.createdBy',
-  '',
 ];
 
 const OrderListPageRender = () => {
   const { t } = useTranslation();
   useDocumentTitle(t('navbar.orders'));
 
+  // filters
+  const { data: filterList = [] } = useGetOrders();
   const { debouncedFiltersState } = useFilters();
+  const statusList = useTranslatedSelect(CLIENT_STATUS, 'clientStatus');
+  const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
 
   // table content
   const { data = [], remove, refetch, isFetching, isLoading } = useGetOrders(debouncedFiltersState, { enabled: false });
@@ -54,7 +59,7 @@ const OrderListPageRender = () => {
         <FilterTableWrapper>
           <FilterAutocomplete
             multiple
-            options={[]}
+            options={filterList}
             getOptionLabel={(item) => item.name}
             filterKey="ids"
             valueKey="_id"
@@ -65,10 +70,10 @@ const OrderListPageRender = () => {
           />
           <FilterAutocomplete
             multiple
-            filterKey="clients"
+            filterKey="statuses"
             label={t('order.status')}
-            options={[]}
-            getOptionLabel={(option) => option.name}
+            options={statusList}
+            getOptionLabel={(option) => option.label}
             theme="gray"
           />
           <FilterAutocomplete
@@ -90,10 +95,10 @@ const OrderListPageRender = () => {
           />
           <FilterAutocomplete
             multiple
-            filterKey="clients"
+            filterKey="cooperationTypes"
             label={t('order.cooperationType')}
-            options={[]}
-            getOptionLabel={(option) => option.name}
+            options={cooperationTypeList}
+            getOptionLabel={(option) => option.label}
             theme="gray"
           />
           <ClearFiltersButton />

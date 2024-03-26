@@ -14,7 +14,8 @@
     "clients": "Клієнти",
     "workspaces": "Робочі простори",
     "finance": "Фінанси",
-    "feedback": "Зворотній зв'язок"
+    "feedback": "Зворотній зв'язок",
+    "orders": "Набори"
   },
   "menu": {
     "prepayment": "Замовити аванс",
@@ -368,15 +369,6 @@
       "multiselect": "Множинний вибір",
       "expirience": "Досвід роботи"
     },
-    "clientStatus": {
-      "active": "Active",
-      "development": "In development",
-      "inactive": "Paused",
-      "rejected": "Canceled",
-      "negotiation": "Переговори",
-      "contacted": "Зконтактований",
-      "potential": "Потенційний"
-    },
     "projectStatus": {
       "active": "Активний",
       "inactive": "Неактивний"
@@ -409,6 +401,14 @@
       "continues": "Триває",
       "finished": "Завершено",
       "future": "Заплановано"
+    },
+    "orderStatus": {
+      "active": "Активний"
+    },
+    "orderCooperationType": {
+      "leasing": "Лізинг",
+      "outsorcing": "Аутсорсинг",
+      "podkmen": "Pod kmeň"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -658,5 +658,29 @@
     "updatedBy": "Ким оновлено",
     "createdAt": "Дата створення",
     "updatedAt": "Дата останнього оновлення"
+  },
+  "order": {
+    "order": "Набір",
+    "status": "Статус набора",
+    "client": "Клієнт",
+    "project": "Проєкт",
+    "cooperationType": "Тип співпраці",
+    "name": "Назва",
+    "tableStats": "Ціль / Працівники / Залишок",
+    "candidateTableStats": "Кандидати / Не підійшло",
+    "dateFrom": "Дата від",
+    "dateTo": "Дата до",
+    "createdAt": "Дата створення",
+    "createdBy": "Ким створено",
+    "new": "Новий набор",
+    "variability": "Змінність",
+    "managers": "Менеджери",
+    "specificationUrl": "Детальна специфікація",
+    "goal": "Мета",
+    "stages": "Етапи",
+    "positionName": "Назва позиції",
+    "form": "Анкета",
+    "salary": "Зарплата",
+    "location": "Локація"
   }
 }

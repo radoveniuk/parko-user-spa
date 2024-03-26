@@ -14,7 +14,8 @@
     "clients": "Клиенты",
     "workspaces": "Рабочие пространства",
     "finance": "Финансы",
-    "feedback": "Обратная связь"
+    "feedback": "Обратная связь",
+    "orders": "Наборы"
   },
   "menu": {
     "prepayment": "Заказать аванс",
@@ -369,15 +370,6 @@
       "multiselect": "Мультиселект",
       "expirience": "Опыт работы"
     },
-    "clientStatus": {
-      "active": "Active",
-      "inactive": "Paused",
-      "development": "In development",
-      "rejected": "Canceled",
-      "negotiation": "Переговоры",
-      "contacted": "Сконтактированный",
-      "potential": "Потенциальный"
-    },
     "projectStatus": {
       "active": "Активный",
       "inactive": "Неактивный"
@@ -410,6 +402,14 @@
       "continues": "Осуществляется",
       "finished": "Завершено",
       "future": "Запланирован"
+    },
+    "orderStatus": {
+      "active": "Активный"
+    },
+    "orderCooperationType": {
+      "leasing": "Лизинг",
+      "outsorcing": "Аутсорсинг",
+      "podkmen": "Pod kmeň"
     }
   },
   "notFoundPage": "Страница не найдена",
@@ -658,5 +658,29 @@
     "updatedBy": "Кем обновлено",
     "createdAt": "Дата создания",
     "updatedAt": "Дата последнего обновления"
+  },
+  "order": {
+    "order": "Набор",
+    "status": "Статус набора",
+    "client": "Клиент",
+    "project": "Проект",
+    "cooperationType": "Тип сотрудничества",
+    "name": "Название",
+    "tableStats": "Цель / Сотрудники / Остаток",
+    "candidateTableStats": "Кандидаты / Не подошли",
+    "dateFrom": "Дата от",
+    "dateTo": "Дата до",
+    "createdAt": "Дата создания",
+    "createdBy": "Кем создано",
+    "new": "Новый набор",
+    "variability": "Сменность",
+    "managers": "Менеджеры",
+    "specificationUrl": "Подробная спецификация",
+    "goal": "Цель",
+    "stages": "Этапы",
+    "positionName": "Названия позиции",
+    "form": "Анкета",
+    "salary": "Зарплата",
+    "location": "Локация"
   }
 }

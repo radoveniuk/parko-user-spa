@@ -88,7 +88,11 @@ export const CORPORATE_BODY_STATUS = [
 ];
 
 export const ORDER_STATUS = [
+  'active',
 ];
 
 export const ORDER_COOPERATION_TYPE = [
+  'outsorcing',
+  'leasing',
+  'podkmen',
 ];

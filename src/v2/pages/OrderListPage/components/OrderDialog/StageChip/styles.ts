@@ -30,14 +30,6 @@ export const StageChipWrapper = styled.div`
   gap: 12px;
   padding-left: 12px;
 
-  .color {
-    width: 1.4em;
-    height: 1.4em;
-    border-radius: 50%;
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.26);
-  }
-
   .CancelIcon {
     -webkit-tap-highlight-color: transparent;
     color: rgba(0, 0, 0, 0.26);
@@ -56,4 +48,19 @@ export const StageChipWrapper = styled.div`
       color: rgba(0, 0, 0, 0.4);
     }
   }
+`;
+
+export const ColorPickerWrapper = styled.div`
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+`;
+
+export const ColorPickBtn = styled.div.attrs({ role: 'button' })`
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #e6e6e6;
+  border: 1px solid #d9dce0;
 `;

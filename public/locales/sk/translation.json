@@ -14,7 +14,8 @@
     "clients": "Klienti",
     "workspaces": "Pracovné priestory",
     "finance": "Financie",
-    "feedback": "Spätná väzba"
+    "feedback": "Spätná väzba",
+    "orders": "Náborové miestnosti"
   },
   "menu": {
     "prepayment": "Objednať zálohu",
@@ -368,15 +369,6 @@
       "multiselect": "Multiselect",
       "expirience": "Pracovné skúsenosti"
     },
-    "clientStatus": {
-      "active": "Active",
-      "inactive": "Paused",
-      "development": "In development",
-      "rejected": "Canceled",
-      "negotiation": "Rokovanie",
-      "contacted": "Kontaktovany",
-      "potential": "Potencialny"
-    },
     "projectStatus": {
       "active": "Aktív",
       "inactive": "Neaktív"
@@ -409,6 +401,11 @@
       "continues": "Prebieha",
       "finished": "Ukončené",
       "future": "Naplánované"
+    },
+    "orderCooperationType": {
+      "leasing": "Leasing",
+      "outsorcing": "Outsorsing",
+      "podkmen": "Pod kmeň"
     }
   },
   "notFoundPage": "Stránka nenájdená",
@@ -653,5 +650,28 @@
     "createdAt": "Dátum vytvorenia",
     "updatedAt": "Dátum poslednej aktualizácie"
   },
-  "": ""
+  "order": {
+    "order": "Náborová miestnost",
+    "status": "Status náborovej miestnosti",
+    "client": "Klient",
+    "project": "Projekt",
+    "cooperationType": "Typ spolupráce",
+    "name": "Názov",
+    "tableStats": "Cieľ / Zamestnaní / Ostáva",
+    "candidateTableStats": "Kandidáti / Nevhodní",
+    "dateFrom": "Dátum od",
+    "dateTo": "Dátum do",
+    "createdAt": "Dátum vytvorenia",
+    "createdBy": "Vytvoril",
+    "new": "Nová objednavka",
+    "variability": "Zmennost",
+    "managers": "Manažéri",
+    "specificationUrl": "Podrobná špecifikácia",
+    "goal": "Cieľ",
+    "stages": "Etapy",
+    "positionName": "Názov pozícií",
+    "form": "Dotazník",
+    "salary": "Mzda",
+    "location": "Lokacia"
+  }
 }

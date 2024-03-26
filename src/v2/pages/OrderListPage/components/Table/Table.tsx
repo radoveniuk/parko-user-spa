@@ -13,7 +13,7 @@ import { IClient } from 'interfaces/client.interface';
 import { IOrder } from 'interfaces/order.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import ProfileRow from '../OrderRow';
+import OrderRow from '../OrderRow';
 
 import { TableWrapper } from './styles';
 
@@ -80,7 +80,7 @@ const Table = ({
         }}
       >
         {pageItems.map((item) => (
-          <ProfileRow
+          <OrderRow
             key={item._id}
             data={item}
             cols={activeCols}

@@ -3,6 +3,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button, Input } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
+import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
 import Select from 'v2/uikit/Select';
 
@@ -11,10 +12,11 @@ import { useGetCustomForms } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import { AcceptIcon, PlusIcon } from 'components/icons';
-import { ORDER_COOPERATION_TYPE, ORDER_STATUS } from 'constants/selectsOptions';
+import { CLIENT_STATUS, ORDER_COOPERATION_TYPE } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';
-import { IOrder, IOrderStage } from 'interfaces/order.interface';
+import { IOrder } from 'interfaces/order.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import StageChip from './StageChip';
 import { AddStageButton, OrderDialogContent, StageNameField, StageNameFieldWrapper } from './styles';
@@ -26,7 +28,7 @@ type Props = DialogProps & {
 
 const OrderDialog = ({ onSave, data, ...rest }: Props) => {
   const { t } = useTranslation();
-  const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus');
+  const statusList = useTranslatedSelect(CLIENT_STATUS, 'clientStatus');
   const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
   const { control, register, formState: { errors }, handleSubmit, clearErrors, watch } = useForm<IOrder>();
 
@@ -179,9 +181,9 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
                 valueKey="_id"
                 options={managers}
                 loading={isManagersFetching}
-                label={t('client.managers')}
+                label={t('order.managers')}
                 getOptionLabel={(option) => `${option.name} ${option.surname}`}
-                onChange={field.onChange}
+                onChange={(v) => field.onChange(v.map((item: IUser) => item._id))}
                 disableCloseOnSelect
                 className="fullwidth"
                 limitTags={1}
@@ -201,6 +203,34 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
             theme="gray"
             type="number"
             {...register('goal')}
+          />
+          <Controller
+            control={control}
+            name="dateFrom"
+            render={({ field }) => (
+              <DatePicker
+                inputProps={{ theme: 'gray' }}
+                defaultValue={field.value}
+                onChange={field.onChange}
+                label={t('order.dateFrom')}
+                error={!!errors.dateFrom}
+                onBlur={field.onBlur}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="dateTo"
+            render={({ field }) => (
+              <DatePicker
+                inputProps={{ theme: 'gray' }}
+                defaultValue={field.value}
+                onChange={field.onChange}
+                label={t('order.dateTo')}
+                error={!!errors.dateTo}
+                onBlur={field.onBlur}
+              />
+            )}
           />
           <Input
             label={t('comment')}
@@ -223,9 +253,9 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
                     data={stage}
                     onDelete={() => {
                       field.onChange(field.value.filter((item) => item.name !== stage.name));
-                    } }
-                    onChange={() => {
-
+                    }}
+                    onChange={(v) => {
+                      field.onChange(field.value.map((valueItem) => valueItem.name === stage.name ? v : valueItem));
                     }}
                   />
                 ))}
@@ -238,7 +268,7 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
                     <AddStageButton
                       onClick={() => {
                         if (newStageLabel && !field.value?.some(stage => stage.name === newStageLabel)) {
-                          field.onChange([...(field.value || []), { name: newStageLabel }]);
+                          field.onChange([...(field.value || []), { name: newStageLabel, color: 'gray' }]);
                           setNewStageLabel('');
                           setShowNewStageField(false);
                         } else {
