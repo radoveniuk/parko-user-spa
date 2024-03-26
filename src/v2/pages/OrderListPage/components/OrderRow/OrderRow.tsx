@@ -58,7 +58,7 @@ const OrderRow = (props: ClientRowProps) => {
         {t(`selects.orderCooperationType.${data?.cooperationType}`)}
       </ListTableCell>
       <ListTableCell>
-        <StatusLabel className={data.status}>{t(`selects.orderStatus.${data.status}`)}</StatusLabel>
+        <StatusLabel className={data.status}>{t(`selects.clientStatus.${data.status}`)}</StatusLabel>
       </ListTableCell>
       <ListTableCell>
         {statsCellContent}

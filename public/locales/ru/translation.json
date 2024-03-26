@@ -403,9 +403,6 @@
       "finished": "Завершено",
       "future": "Запланирован"
     },
-    "orderStatus": {
-      "active": "Активный"
-    },
     "orderCooperationType": {
       "leasing": "Лизинг",
       "outsorcing": "Аутсорсинг",
