@@ -695,6 +695,9 @@
     "employed": "Employed users",
     "left": "Left",
     "candidates": "Candidates",
-    "canceled": "Canceled"
+    "canceled": "Canceled",
+    "participations": "Recruitnemt's participations",
+    "activeStage": "Stage",
+    "screening": "Screening"
   }
 }

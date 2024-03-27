@@ -16,8 +16,7 @@ import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 
-import usePrepaymentMutations from '../../hooks/usePrepaymentMutations';
-
+// import usePrepaymentMutations from '../../hooks/usePrepaymentMutations';
 import { MobileClientCardWrapper } from './styles';
 
 type Props = {
@@ -34,7 +33,7 @@ const MobilePrepaymentCard = ({ style, order }: Props) => {
 
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const { updatePrepayment, removePrepayment } = usePrepaymentMutations();
+  // const { updatePrepayment, removePrepayment } = usePrepaymentMutations();
 
   return (
     <MobileClientCardWrapper style={style}>

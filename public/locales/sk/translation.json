@@ -678,6 +678,9 @@
     "zamestnaný": "Zamestnanci",
     "left": "Zostáva",
     "candidates": "Kandidáti",
-    "canceled": "Zrušené"
+    "canceled": "Zrušené",
+    "participations": "Účasť v náborovej miestnosti",
+    "activeStage": "Etapy",
+    "screening": "Skrining"
   }
 }

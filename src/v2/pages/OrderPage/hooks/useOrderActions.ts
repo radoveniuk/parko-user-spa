@@ -5,7 +5,7 @@ import { useFilters } from 'components/shared/Filters';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IUser } from 'interfaces/users.interface';
 
-const usePrepaymentMutations = () => {
+const useOrderMutations = () => {
   const queryClient = useQueryClient();
   const { debouncedFiltersState } = useFilters();
   const queryKey = ['prepayments', JSON.stringify(debouncedFiltersState)];
@@ -34,4 +34,4 @@ const usePrepaymentMutations = () => {
   return { updatePrepayment: update, removePrepayment: remove };
 };
 
-export default usePrepaymentMutations;
+export default useOrderMutations;

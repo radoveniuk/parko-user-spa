@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
@@ -11,7 +10,6 @@ import Loader, { FullPageLoaderWrapper } from 'v2/uikit/Loader';
 import { TabPanel, TabsContainer, useTabs } from 'v2/uikit/Tabs';
 
 import { useDeleteOrder } from 'api/mutations/orderMutation';
-import { useCreateOrderParticipation } from 'api/mutations/orderParticipationMutation';
 import { useGetOrderParticipations } from 'api/query/orderParticipationQuery';
 import { useGetOrder } from 'api/query/orderQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
@@ -22,6 +20,7 @@ import { themeConfig } from 'theme';
 
 import OrderCard from './components/OrderCard';
 import Participations from './components/Participations';
+import useOrderParticipationActions from './hooks/useOrderParticipationActions';
 import { ContentWrapper, OrderPageWrapper } from './styles';
 
 const OrderPageRender = () => {
@@ -29,7 +28,6 @@ const OrderPageRender = () => {
   const { t } = useTranslation();
   const { id: orderId } = useParams();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
   // data
   const { data: orderData } = useGetOrder(orderId as string);
@@ -45,7 +43,7 @@ const OrderPageRender = () => {
   const [openCreateParticipationDialog, setOpenCreateParticipationDialog] = useState(false);
   const { data: users = [] } = useGetUserListForFilter();
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
-  const createParticipation = useCreateOrderParticipation();
+  const { create: createParticipation } = useOrderParticipationActions();
 
   if (!orderData) return <FullPageLoaderWrapper><Loader /></FullPageLoaderWrapper>;
 
@@ -113,14 +111,7 @@ const OrderPageRender = () => {
               onClick={async () => {
                 if (selectedUser) {
                   setOpenCreateParticipationDialog(false);
-                  await createParticipation.mutateAsync({
-                    order: orderId as string,
-                    user: selectedUser._id,
-                    screaning: {},
-                    stages: [],
-                  }).then((res) => {
-                    queryClient.setQueryData(['orderParticipations', JSON.stringify({ order: orderId })], [res, ...participations]);
-                  });
+                  await createParticipation(selectedUser._id);
                 }
               }}
             >{t('approve')}</Button>

@@ -684,6 +684,9 @@
     "employed": "Працевлаштовані",
     "left": "Залишилось",
     "candidates": "Кандидати",
-    "canceled": "Не підійшло"
+    "canceled": "Не підійшло",
+    "participations": "Участі в наборі",
+    "activeStage": "Етап",
+    "screaning": "Скрінінг"
   }
 }
