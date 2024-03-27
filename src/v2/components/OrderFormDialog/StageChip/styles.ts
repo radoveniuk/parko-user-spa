@@ -30,6 +30,20 @@ export const StageChipWrapper = styled.div`
   gap: 12px;
   padding-left: 12px;
 
+  &.disabled {
+    .CancelIcon {
+      cursor: default;
+      color: rgba(0, 0, 0, 0.1);
+      &:hover {
+        color: rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .ColorPicker {
+      cursor: default !important;
+    }
+  }
+
   .CancelIcon {
     -webkit-tap-highlight-color: transparent;
     color: rgba(0, 0, 0, 0.26);
@@ -56,7 +70,7 @@ export const ColorPickerWrapper = styled.div`
   padding: 6px;
 `;
 
-export const ColorPickBtn = styled.div.attrs({ role: 'button' })`
+export const ColorPickBtn = styled.div.attrs({ role: 'button', className: 'ColorPicker' })`
   width: 1.4em;
   height: 1.4em;
   border-radius: 50%;

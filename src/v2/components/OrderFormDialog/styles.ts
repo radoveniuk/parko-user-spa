@@ -28,6 +28,8 @@ export const OrderDialogContent = styled.div`
 
   .stages {
     margin-bottom: 12px;
+    max-width: 524px;
+    position: relative;
     .label {
       color: rgb(113, 113, 113);
       font-size: 14px;
@@ -39,8 +41,12 @@ export const OrderDialogContent = styled.div`
     }
     .options {
       display: flex;
-      flex-wrap: wrap;
       gap: 6px;
+      margin-bottom: 6px;
+      width: 100%;
+      max-width: 524px;
+      overflow-x: scroll;
+      padding-bottom: 6px;
     }
   }
 `;

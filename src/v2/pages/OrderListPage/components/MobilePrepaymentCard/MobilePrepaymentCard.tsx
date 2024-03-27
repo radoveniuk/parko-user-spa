@@ -1,6 +1,7 @@
 import React, { CSSProperties, memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import OrderFormDialog from 'v2/components/OrderFormDialog';
 import { Avatar } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
@@ -16,7 +17,6 @@ import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 
 import usePrepaymentMutations from '../../hooks/usePrepaymentMutations';
-import PrepaymentDialog from '../OrderDialog';
 
 import { MobileClientCardWrapper } from './styles';
 
@@ -63,7 +63,7 @@ const MobilePrepaymentCard = ({ style, order }: Props) => {
         </div>
       </div> */}
       {!!openDialog && (
-        <PrepaymentDialog
+        <OrderFormDialog
           open={openDialog}
           onClose={() => void setOpenDialog(false)}
           onSave={(values: Partial<IOrder>) => {

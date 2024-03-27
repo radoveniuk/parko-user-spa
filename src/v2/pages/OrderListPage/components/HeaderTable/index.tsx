@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import OrderFormDialog from 'v2/components/OrderFormDialog';
 import { Button, Stack } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
 
@@ -8,8 +9,6 @@ import { useCreateOrder } from 'api/mutations/orderMutation';
 import { PlusIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { IOrder } from 'interfaces/order.interface';
-
-import OrderDialog from '../OrderDialog';
 
 import { HeaderWrapper } from './styles';
 
@@ -51,7 +50,7 @@ const HeaderTable = ({ count }: Props) => {
           </div>
         </Stack>
       </HeaderWrapper>
-      <OrderDialog
+      <OrderFormDialog
         open={openNewPrepayment}
         onClose={() => void setOpenNewPrepayment(false)}
         onSave={createNewOrderHandler}

@@ -29,5 +29,5 @@ export interface IOrder<T extends boolean = false> extends IMongoDoc {
 export interface IOrderStage {
   name: string;
   color: string;
-  isRequired: boolean;
+  staticName?: 'candidate' | 'hired' | 'canceled';
 }

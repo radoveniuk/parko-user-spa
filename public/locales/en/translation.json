@@ -689,6 +689,12 @@
     "positionName": "Position name",
     "form": "Form",
     "salary": "Salary",
-    "location": "Location"
+    "location": "Location",
+    "addNewParticipation": "Add profile",
+    "stats": "Statistics",
+    "employed": "Employed users",
+    "left": "Left",
+    "candidates": "Candidates",
+    "canceled": "Canceled"
   }
 }

@@ -678,6 +678,12 @@
     "positionName": "Назва позиції",
     "form": "Анкета",
     "salary": "Зарплата",
-    "location": "Локація"
+    "location": "Локація",
+    "addNewParticipation": "Додати співробітника",
+    "stats": "Показники",
+    "employed": "Працевлаштовані",
+    "left": "Залишилось",
+    "candidates": "Кандидати",
+    "canceled": "Не підійшло"
   }
 }

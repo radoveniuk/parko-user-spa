@@ -672,6 +672,12 @@
     "positionName": "Názov pozícií",
     "form": "Dotazník",
     "salary": "Mzda",
-    "location": "Lokacia"
+    "location": "Lokacia",
+    "addNewParticipation": "Pridať zamestnanca",
+    "stats": "Ukazovatele",
+    "zamestnaný": "Zamestnanci",
+    "left": "Zostáva",
+    "candidates": "Kandidáti",
+    "canceled": "Zrušené"
   }
 }

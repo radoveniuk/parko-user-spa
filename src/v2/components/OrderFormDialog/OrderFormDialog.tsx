@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button, Input } from 'v2/uikit';
@@ -13,24 +14,59 @@ import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import { AcceptIcon, PlusIcon } from 'components/icons';
 import { CLIENT_STATUS, ORDER_COOPERATION_TYPE } from 'constants/selectsOptions';
+import reorder from 'helpers/reorder';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';
-import { IOrder } from 'interfaces/order.interface';
+import { IOrder, IOrderStage } from 'interfaces/order.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import StageChip from './StageChip';
 import { AddStageButton, OrderDialogContent, StageNameField, StageNameFieldWrapper } from './styles';
+
+const getOrderDefaultData = (data?: IOrder<true>): Partial<IOrder> => data
+  ? ({
+    ...data,
+    client: data.client._id,
+    project: data.project._id,
+    managers: data.managers.map(item => item._id),
+    form: data.form._id as string,
+    createdBy: data.createdBy._id,
+  })
+  : {};
+
+const DEFAULT_STAGES: IOrderStage[] = [
+  {
+    name: 'Kandidát',
+    color: 'gray',
+    staticName: 'candidate',
+  },
+  {
+    name: 'Zamestnaný',
+    color: 'green',
+    staticName: 'hired',
+  },
+  {
+    name: 'Zrušený',
+    color: 'red',
+    staticName: 'canceled',
+  },
+];
 
 type Props = DialogProps & {
   onSave(values: IOrder): void;
   data?: IOrder<true>
 };
 
-const OrderDialog = ({ onSave, data, ...rest }: Props) => {
+const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
   const { t } = useTranslation();
   const statusList = useTranslatedSelect(CLIENT_STATUS, 'clientStatus');
   const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
-  const { control, register, formState: { errors }, handleSubmit, clearErrors, watch } = useForm<IOrder>();
+  const { control, register, formState: { errors }, handleSubmit, clearErrors, watch } = useForm<IOrder>({
+    defaultValues: {
+      ...getOrderDefaultData(data),
+      stages: data?.stages ? data.stages : DEFAULT_STAGES,
+    },
+  });
 
   const { data: managers = [], isFetching: isManagersFetching } = useGetUserList({ roles: 'recruiter,admin' });
   const { data: clients } = useGetClients();
@@ -100,8 +136,8 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
                 theme="gray"
                 labelPath={item => item.name}
                 valuePath="_id"
-                options={projects?.filter((projectItem) => (projectItem.client as IClient)?._id === watch('client'))}
-                disabled={!watch('client')}
+                options={projects?.filter((projectItem) => (projectItem.client as IClient)?._id === (watch('client') || data?.client._id))}
+                disabled={!watch('client') && !data?.client}
                 defaultValue={data?.project?._id}
                 error={!!fieldState.error}
                 value={field.value}
@@ -146,7 +182,7 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
                 labelPath="name"
                 valuePath="_id"
                 options={customForms}
-                defaultValue={data?.form}
+                defaultValue={data?.form._id}
                 value={field.value}
                 onChange={(e) => { field.onChange(e.target.value); }}
               />
@@ -182,11 +218,11 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
                 options={managers}
                 loading={isManagersFetching}
                 label={t('order.managers')}
-                getOptionLabel={(option) => `${option.name} ${option.surname}`}
+                getOptionLabel={(option) => `${option.fullname}`}
                 onChange={(v) => field.onChange(v.map((item: IUser) => item._id))}
                 disableCloseOnSelect
                 className="fullwidth"
-                limitTags={1}
+                limitTags={2}
                 theme="gray"
               />
             )}
@@ -207,6 +243,7 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
           <Controller
             control={control}
             name="dateFrom"
+            defaultValue={data?.dateFrom}
             render={({ field }) => (
               <DatePicker
                 inputProps={{ theme: 'gray' }}
@@ -221,6 +258,7 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
           <Controller
             control={control}
             name="dateTo"
+            defaultValue={data?.dateTo}
             render={({ field }) => (
               <DatePicker
                 inputProps={{ theme: 'gray' }}
@@ -246,19 +284,83 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
             control={control}
             name="stages"
             render={({ field }) => (
-              <div className="options">
-                {field.value?.map((stage) => (
-                  <StageChip
-                    key={stage.name}
-                    data={stage}
-                    onDelete={() => {
-                      field.onChange(field.value.filter((item) => item.name !== stage.name));
-                    }}
-                    onChange={(v) => {
-                      field.onChange(field.value.map((valueItem) => valueItem.name === stage.name ? v : valueItem));
-                    }}
-                  />
-                ))}
+              <>
+                {/* <div className="options">
+                  {field.value?.map((stage) => (
+                    <StageChip
+                      key={stage.name}
+                      data={stage}
+                      onDelete={() => {
+                        field.onChange(field.value.filter((item) => item.name !== stage.name));
+                      }}
+                      onChange={(v) => {
+                        field.onChange(field.value.map((valueItem) => valueItem.name === stage.name ? v : valueItem));
+                      }}
+                    />
+                  ))}
+                  {!showNewStageField && (
+                    <AddStageButton onClick={() => void setShowNewStageField(true)}><PlusIcon size={20} /></AddStageButton>
+                  )}
+                  {showNewStageField && (
+                    <StageNameFieldWrapper>
+                      <StageNameField onChange={(e) => void setNewStageLabel(e.target.value)} value={newStageLabel} />
+                      <AddStageButton
+                        onClick={() => {
+                          if (newStageLabel && !field.value?.some(stage => stage.name === newStageLabel)) {
+                            field.onChange([...(field.value || []), { name: newStageLabel, color: 'gray' }]);
+                            setNewStageLabel('');
+                            setShowNewStageField(false);
+                          } else {
+                            setNewStageLabel('');
+                            setShowNewStageField(false);
+                          }
+                        }}
+                      >
+                        <AcceptIcon size={20} />
+                      </AddStageButton>
+                    </StageNameFieldWrapper>
+                  )}
+                </div> */}
+                <DragDropContext
+                  onDragEnd={(result: DropResult) => {
+                    const dest = result.destination;
+                    if (dest) {
+                      field.onChange(reorder(
+                        field.value,
+                        result.source.index,
+                        dest.index,
+                      ));
+                    }
+                  }}>
+                  <Droppable droppableId="droppable" direction="horizontal">
+                    {(provided) => (
+                      <div className="options"
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                      >
+                        {field.value?.map((stage, index) => (
+                          <Draggable key={stage.name} draggableId={stage.name} index={index}>
+                            {(provided) => (
+                              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                <StageChip
+                                  key={stage.name}
+                                  data={stage}
+                                  onDelete={() => {
+                                    field.onChange(field.value.filter((item) => item.name !== stage.name));
+                                  }}
+                                  onChange={(v) => {
+                                    field.onChange(field.value.map((valueItem) => valueItem.name === stage.name ? v : valueItem));
+                                  }}
+                                />
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                </DragDropContext>
                 {!showNewStageField && (
                   <AddStageButton onClick={() => void setShowNewStageField(true)}><PlusIcon size={20} /></AddStageButton>
                 )}
@@ -281,7 +383,7 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
                     </AddStageButton>
                   </StageNameFieldWrapper>
                 )}
-              </div>
+              </>
             )}
           />
         </div>
@@ -298,4 +400,4 @@ const OrderDialog = ({ onSave, data, ...rest }: Props) => {
   );
 };
 
-export default OrderDialog;
+export default OrderFormDialog;

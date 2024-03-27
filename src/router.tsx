@@ -11,6 +11,7 @@ import {
   DayoffListPage, DocsTemplatesPage,
   HomePage, LoginPage, NotFoundPage,
   OrderListPage,
+  OrderPage,
   PrepaymentListPage, ProfileAdminPage, ProfileListPage, RegisterPage,
 } from 'v2/pages';
 
@@ -65,7 +66,7 @@ export default function Router () {
                 <Route path="/clients" element={<ClientListPage />} />
                 <Route path="/client/:id" element={<ClientPage />} />
                 <Route path="/orders" element={<OrderListPage />} />
-                <Route path="/order/:id" element={<ClientPage />} />
+                <Route path="/order/:id" element={<OrderPage />} />
               </Route>
             </Route>
             <Route element={<ProtectedRoute matchedRoles={['admin', 'recruiter']} />}>

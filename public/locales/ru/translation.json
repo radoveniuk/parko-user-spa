@@ -678,6 +678,12 @@
     "positionName": "Названия позиции",
     "form": "Анкета",
     "salary": "Зарплата",
-    "location": "Локация"
+    "location": "Локация",
+    "addNewParticipation": "Добавить сотрудника",
+    "stats": "Показатели",
+    "employed": "Трудоустроены",
+    "left": "Осталось",
+    "candidates": "Кандидаты",
+    "canceled": "Не подошло"
   }
 }
