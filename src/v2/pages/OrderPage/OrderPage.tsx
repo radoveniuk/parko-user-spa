@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'v2/uikit';
+import Autocomplete from 'v2/uikit/Autocomplete';
 import BreadCrumbs from 'v2/uikit/BreadCrumbs';
+import Dialog, { DialogActions } from 'v2/uikit/Dialog';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import Loader, { FullPageLoaderWrapper } from 'v2/uikit/Loader';
 import { TabPanel, TabsContainer, useTabs } from 'v2/uikit/Tabs';
 
 import { useDeleteOrder } from 'api/mutations/orderMutation';
-import { useCreateProjectMutation } from 'api/mutations/projectMutation';
+import { useCreateOrderParticipation } from 'api/mutations/orderParticipationMutation';
+import { useGetOrderParticipations } from 'api/query/orderParticipationQuery';
 import { useGetOrder } from 'api/query/orderQuery';
+import { useGetUserListForFilter } from 'api/query/userQuery';
 import { DeleteIcon, PlusIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
+import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 
 import OrderCard from './components/OrderCard';
+import Participations from './components/Participations';
 import { ContentWrapper, OrderPageWrapper } from './styles';
 
 const OrderPageRender = () => {
@@ -22,14 +29,23 @@ const OrderPageRender = () => {
   const { t } = useTranslation();
   const { id: orderId } = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
+  // data
   const { data: orderData } = useGetOrder(orderId as string);
-  const createProjectMutation = useCreateProjectMutation();
+  const { data: participations = [] } = useGetOrderParticipations({ order: orderId });
+
   const deleteOrder = useDeleteOrder();
 
   const [tab] = useTabs();
 
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
+  // create new participation
+  const [openCreateParticipationDialog, setOpenCreateParticipationDialog] = useState(false);
+  const { data: users = [] } = useGetUserListForFilter();
+  const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+  const createParticipation = useCreateOrderParticipation();
 
   if (!orderData) return <FullPageLoaderWrapper><Loader /></FullPageLoaderWrapper>;
 
@@ -40,12 +56,8 @@ const OrderPageRender = () => {
           <>
             {role === 'admin' && tab === 0 && (
               <Button
-                onClick={async () => {
-                  await createProjectMutation.mutateAsync({
-                    name: '',
-                    client: orderId,
-                    stages: [],
-                  });
+                onClick={() => {
+                  setOpenCreateParticipationDialog(true);
                 }}
               >
                 <PlusIcon />{t('order.addNewParticipation')}
@@ -67,6 +79,7 @@ const OrderPageRender = () => {
         <OrderCard data={orderData} />
         <ContentWrapper>
           <TabPanel index={0}>
+            <Participations participations={participations} />
           </TabPanel>
         </ContentWrapper>
       </div>
@@ -78,6 +91,42 @@ const OrderPageRender = () => {
           navigate('/orders');
         }}
       />
+      {!!openCreateParticipationDialog && (
+        <Dialog
+          onClose={() => void setOpenCreateParticipationDialog(false)}
+          open={openCreateParticipationDialog}
+          title={t('order.addNewParticipation')}
+        >
+          <Autocomplete
+            options={users}
+            label={t('profile')}
+            theme="gray"
+            getOptionLabel={(item) => `${item.name} ${item.surname}`}
+            style={{ marginBottom: 12 }}
+            value={selectedUser}
+            onChange={(v) => void setSelectedUser(v)}
+          />
+          <DialogActions>
+            <Button
+              variant="contained"
+              disabled={!selectedUser}
+              onClick={async () => {
+                if (selectedUser) {
+                  setOpenCreateParticipationDialog(false);
+                  await createParticipation.mutateAsync({
+                    order: orderId as string,
+                    user: selectedUser._id,
+                    screaning: {},
+                    stages: [],
+                  }).then((res) => {
+                    queryClient.setQueryData(['orderParticipations', JSON.stringify({ order: orderId })], [res, ...participations]);
+                  });
+                }
+              }}
+            >{t('approve')}</Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </OrderPageWrapper>
   );
 };
