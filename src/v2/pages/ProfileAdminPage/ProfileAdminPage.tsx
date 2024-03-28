@@ -20,6 +20,7 @@ import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { useGetCustomFormFieldSectionBindings, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import { useGetDaysoff } from 'api/query/dayoffQuery';
 import { useGetEmployments } from 'api/query/employmentQuery';
+import { useGetOrderParticipations } from 'api/query/orderParticipationQuery';
 import { useGetPaycheckList } from 'api/query/paycheckQuery';
 import { useGetPayrollList } from 'api/query/payrollQuery';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
@@ -43,6 +44,7 @@ import PersonalDocsFormCard from './components/FormCards/PersonalDocsFormCard';
 import PrepaymentsFormCard from './components/FormCards/PrepaymentsFormCard';
 import ResidencesFormCard from './components/FormCards/ResidencesFormCard';
 import ScansFormCard from './components/FormCards/ScansFormCard';
+import OrderParticipations from './components/OrderParticipations';
 import ProfileCard from './components/ProfileCard';
 import UpdateHistory from './components/UpdateHistory';
 import useUpdateCachedUserData from './hooks/useUpdateCachedUserData';
@@ -68,6 +70,7 @@ const ProfileAdminPageRender = () => {
   const { data: daysoff = [] } = useGetDaysoff({ user: userId });
   const { data: employments = [], refetch: refetchEmplyments } = useGetEmployments({ user: userId });
   const { data: accommodations = [] } = useGetAccommodations();
+  const { data: orderParticipations = [] } = useGetOrderParticipations({ user: userId });
 
   const updateUserMutation = useUpdateUserMutation();
   const deleteUserMutation = useDeleteUserMutation();
@@ -309,7 +312,10 @@ const ProfileAdminPageRender = () => {
           <TabPanel className="cards" index={2}>
             <Employments data={employments} />
           </TabPanel>
-          <TabPanel index={3}>
+          <TabPanel className="cards" index={3}>
+            <OrderParticipations data={orderParticipations} />
+          </TabPanel>
+          <TabPanel index={4}>
             <UpdateHistory data={profileData.history || []} />
           </TabPanel>
         </ContentWrapper>

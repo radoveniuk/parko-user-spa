@@ -4,11 +4,13 @@ import { themeConfig } from 'theme';
 import { TB } from 'theme/sizeBreakpoints';
 
 export const HeaderWrapper = styled.div`
-  background: #F5F5F5;
+  background: rgb(245, 245, 245);
   display: flex;
+  -webkit-box-align: center;
   align-items: center;
+  -webkit-box-pack: justify;
   justify-content: space-between;
-  padding: 10px 35px;
+  padding: 19px 35px;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 
@@ -51,17 +53,5 @@ export const HeaderWrapper = styled.div`
         border: 1px solid ${themeConfig.palette.primary.main} !important;
       }
     }
-  }
-`;
-
-export const FiltersWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 24px 12px;
-  height: 100%;
-
-  .apply-filter-btn {
-    margin-top: auto;
   }
 `;

@@ -563,7 +563,8 @@
     "financial": "Фінансові дані",
     "cooperation": "Співпраця",
     "comment": "Коментар",
-    "shortName": "Коротка назва"
+    "shortName": "Коротка назва",
+    "orders": "Набори"
   },
   "errorTexts": {
     "emptyPassword": "Поле (Пароль) не може бути пустим",
@@ -690,6 +691,7 @@
     "screaning": "Скрінінг",
     "specification": "Специфікація замовлення",
     "stage": "Етап",
-    "stageFrom": "Дата"
+    "stageFrom": "Дата",
+    "updatedAt":"Дата останнього оновлення"
   }
 }

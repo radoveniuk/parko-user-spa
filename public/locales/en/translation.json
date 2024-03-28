@@ -574,7 +574,8 @@
     "financial": "Financial data",
     "cooperation": "Cooperation",
     "comment": "Comment",
-    "shortName": "Short name"
+    "shortName": "Short name",
+    "orders": "Recruitment rooms"
   },
   "errorTexts": {
     "emptyPassword": "Password cannot be empty",
@@ -701,6 +702,7 @@
     "screening": "Screening",
     "specification": "Order specification",
     "stage": "Stage",
-    "stageFrom": "Date and time"
+    "stageFrom": "Date and time",
+    "updatedAt": "Last update at"
   }
 }

@@ -564,7 +564,8 @@
     "financial": "Финансовые данные",
     "cooperation": "Сотрудничество",
     "comment": "Коментарий",
-    "shortName": "Короткое название"
+    "shortName": "Короткое название",
+    "orders": "Наборы"
   },
   "errorTexts": {
     "emptyPassword": "Пароль не может быть пустым",
@@ -690,6 +691,7 @@
     "screaning": "Скрининг",
     "specification": "Спецификация заказа",
     "stage": "Этап",
-    "stageFrom": "Дата"
+    "stageFrom": "Дата",
+    "updatedAt": "Дата последнего обновления"
   }
 }

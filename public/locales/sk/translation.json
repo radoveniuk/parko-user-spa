@@ -558,7 +558,8 @@
     "financial": "Finančné údaje",
     "cooperation": "Spolupráca",
     "comment": "Komentár",
-    "shortName": "Kratke meno"
+    "shortName": "Kratke meno",
+    "orders": "Náborové miestnosti"
   },
   "errorTexts": {
     "emptyPassword": "Pole (Heslo) nemôže byť prázdne",
@@ -681,9 +682,10 @@
     "canceled": "Zrušené",
     "participations": "Účasť v náborovej miestnosti",
     "activeStage": "Etapy",
-    "screening": "Skrining",
+    "screaning": "Skrining",
     "specifikácia": "Špecifikácia objednávky",
     "stage": "Etápa",
-    "stageFrom": "Dátum a čas"
+    "stageFrom": "Dátum a čas",
+    "updatedAt": "Dátum poslednej aktualizácie"
   }
 }
