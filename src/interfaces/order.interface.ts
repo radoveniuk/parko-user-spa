@@ -7,14 +7,14 @@ import { IUser } from './users.interface';
 export interface IOrder<T extends boolean = false> extends IMongoDoc {
   name: string;
   status: string;
-  client: T extends true ? IClient : string;
-  project: T extends true ? IProject : string;
+  client: T extends true ? Partial<IClient> : string;
+  project: T extends true ? Partial<IProject> : string;
   positionName: string;
   cooperationType: string;
   salary: string;
   location: string;
   variability: string;
-  managers: (T extends true ? IUser : string)[];
+  managers: (T extends true ? Partial<IUser> : string)[];
   specificationUrl: string;
   form: T extends true ? ICustomForm : string;
   stages: IOrderStage[];
@@ -22,7 +22,7 @@ export interface IOrder<T extends boolean = false> extends IMongoDoc {
   comment: string;
   dateFrom: string;
   dateTo: string;
-  createdBy: T extends true ? IUser : string;
+  createdBy: T extends true ? Partial<IUser> : string;
   updatedBy: string | null;
 }
 

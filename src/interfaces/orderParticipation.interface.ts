@@ -9,10 +9,10 @@ export interface IOrderParticipationStage {
 }
 
 export interface IOrderParticipation<T extends boolean = false> extends IMongoDoc {
-  user: T extends true ? IUser : string;
+  user: T extends true ? Partial<IUser> : string;
   order: T extends true ? IOrder<true> : string;
   screaning: Record<string, any>;
   stages: IOrderParticipationStage[];
-  createdBy: T extends true ? IUser : string;
+  createdBy: T extends true ? Partial<IUser> : string;
   updatedBy: string | null;
 }

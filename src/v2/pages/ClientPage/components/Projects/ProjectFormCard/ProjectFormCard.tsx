@@ -308,37 +308,6 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
                         </div>
                       </div>
                     )}
-                    {/* {!isOutsorce && (
-                      <Controller
-                        control={control}
-                        name={`positions.${index}.docs`}
-                        render={({ field }) => (
-                          <>
-                            <FileInput
-                              disabled={formCardConfig.disabled}
-                              multiple
-                              className="FileInput"
-                              onChange={async (e) => {
-                                if (e.target.files?.length) {
-                                  const formData = new window.FormData();
-                                  formData.append('files', e.target.files[0]);
-                                  const [uploadedFileData] = await uploadFiles(formData);
-                                  field.onChange(uploadedFileData);
-                                }
-                              }}
-                            >
-                              <Button
-                                variant="outlined"
-                                disabled={formCardConfig.disabled}
-                              >
-                                <UploadIcon />
-                                {t('docs')}
-                              </Button>
-                            </FileInput>
-                          </>
-                        )}
-                      />
-                    )} */}
                     {role === 'admin' && (
                       <Button
                         variant="outlined"
