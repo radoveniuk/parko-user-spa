@@ -50,7 +50,7 @@ import UpdateHistory from './components/UpdateHistory';
 import useUpdateCachedUserData from './hooks/useUpdateCachedUserData';
 import { ContentWrapper, ProfileAdminPageWrapper } from './styles';
 
-const TABS = ['profile', 'user.info', 'user.cooperation', 'user.history'];
+const TABS = ['profile', 'user.info', 'user.cooperation', 'order.participations', 'user.history'];
 
 const ProfileAdminPageRender = () => {
   const { role } = useAuthData();
