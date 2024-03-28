@@ -698,6 +698,9 @@
     "canceled": "Canceled",
     "participations": "Recruitnemt's participations",
     "activeStage": "Stage",
-    "screening": "Screening"
+    "screening": "Screening",
+    "specification": "Order specification",
+    "stage": "Stage",
+    "stageFrom": "Date and time"
   }
 }

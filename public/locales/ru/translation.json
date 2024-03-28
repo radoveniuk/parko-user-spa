@@ -687,6 +687,9 @@
     "canceled": "Не подошло",
     "participations": "Участие в наборе",
     "activeStage": "Этап",
-    "screaning": "Скрининг"
+    "screaning": "Скрининг",
+    "specification": "Спецификация заказа",
+    "stage": "Этап",
+    "stageFrom": "Дата"
   }
 }

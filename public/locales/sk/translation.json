@@ -681,6 +681,9 @@
     "canceled": "Zrušené",
     "participations": "Účasť v náborovej miestnosti",
     "activeStage": "Etapy",
-    "screening": "Skrining"
+    "screening": "Skrining",
+    "specifikácia": "Špecifikácia objednávky",
+    "stage": "Etápa",
+    "stageFrom": "Dátum a čas"
   }
 }

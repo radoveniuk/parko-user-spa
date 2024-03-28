@@ -66,7 +66,7 @@ const mockData: IOrderParticipation<true> = {
             en: 'Practice',
             ru: 'Практика',
           },
-          type: 'expirience',
+          type: 'string',
           options: [],
           createdAt: '2024-03-22T12:05:14.318Z',
         },

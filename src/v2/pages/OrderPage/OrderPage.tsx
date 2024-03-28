@@ -77,7 +77,7 @@ const OrderPageRender = () => {
         <OrderCard data={orderData} />
         <ContentWrapper>
           <TabPanel index={0}>
-            <Participations participations={participations} />
+            <Participations participations={participations} order={orderData} />
           </TabPanel>
         </ContentWrapper>
       </div>

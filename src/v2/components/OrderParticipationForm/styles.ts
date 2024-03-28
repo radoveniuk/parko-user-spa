@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
+import { themeConfig } from 'theme';
 import { TB } from 'theme/sizeBreakpoints';
 
-export const OrderParticipationFormWrapper = styled.div`
+export const FormWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 24px;
@@ -46,6 +47,66 @@ export const InfoWrapper = styled.div`
     font-size: 14px;
     &.hide {
       display: none;
+    }
+    .actions {
+      margin-top: 6px;
+    }
+  }
+`;
+
+export const StagesTable = styled.table`
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 100%;
+  font-size: 14px;
+  margin-bottom: 12px;
+
+  thead {
+    th {
+      font-weight: 500;
+      color: #717171;
+      text-align: left;
+    }
+  }
+
+  tbody {
+    tr td {
+      border-right: 1px solid #D0D0D0;
+      border-bottom: 1px solid #D0D0D0;
+      padding: 8px;
+      background: #F3F3F3;
+      position: relative;
+
+      .tooltip {
+        position: absolute;
+        right: 10px;
+        top: 27%;
+        color: ${themeConfig.palette.primary.main};
+      }
+    }
+
+    tr td:first-child {
+      border-left: 1px solid #D0D0D0;
+    }
+    tr:first-child td {
+      text-align: left;
+      border-top: solid 1px #D0D0D0;
+    }
+    
+    tr:first-child td:first-child {
+      border-top-left-radius: 6px;
+    }
+
+    tr:first-child td:last-child {
+      border-top-right-radius: 6px;
+    }
+
+    tr:last-child td:first-child {
+      border-bottom-left-radius: 6px;
+    }
+
+    tr:last-child td:last-child {
+      border-bottom-right-radius: 6px;
     }
   }
 `;

@@ -111,3 +111,19 @@ export const FilterTableWrapper = styled.div`
     display: none;
   }
 `;
+
+export const FilterButton = styled.button`
+  height: 36px;
+  border-radius: 32px;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: .3s;
+
+  &:hover {
+    filter: brightness(95%);;
+  }
+
+  &:active, &.active {
+    filter: brightness(90%);;
+  }
+`;

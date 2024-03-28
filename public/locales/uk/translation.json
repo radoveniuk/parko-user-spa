@@ -687,6 +687,9 @@
     "canceled": "Не підійшло",
     "participations": "Участі в наборі",
     "activeStage": "Етап",
-    "screaning": "Скрінінг"
+    "screaning": "Скрінінг",
+    "specification": "Специфікація замовлення",
+    "stage": "Етап",
+    "stageFrom": "Дата"
   }
 }

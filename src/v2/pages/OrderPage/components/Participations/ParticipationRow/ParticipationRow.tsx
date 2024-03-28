@@ -9,8 +9,9 @@ import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { ORDER_STAGE_COLORS } from 'constants/colors';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 
-import ScreaningDialog from '../ScreaningDialog';
+import ScreaningDialog from '../../../../../components/ScreaningDialog';
 
+import FormDialog from './FormDialog';
 import { LinkWrapper } from './styles';
 
 export type ParticipationRowProps = {
@@ -40,6 +41,9 @@ const ParticipationRow = ({ participation }: ParticipationRowProps) => {
   };
 
   const [openEdit, setOpenEdit] = useState(false);
+  const editSubmit = (values: Partial<IOrderParticipation>) => {
+    updateParticipation({ _id: participation._id, ...values });
+  };
 
   return (
     <>
@@ -74,6 +78,9 @@ const ParticipationRow = ({ participation }: ParticipationRowProps) => {
       </ListTableRow>
       {!!openScreaning && (
         <ScreaningDialog participation={participation} open={openScreaning} onClose={() => void setOpenScreaning(false)} onSubmit={screaningSubmit} />
+      )}
+      {!!openEdit && (
+        <FormDialog participation={participation} open={openEdit} onClose={() => void setOpenEdit(false)} onSubmit={editSubmit} />
       )}
     </>
   );
