@@ -129,7 +129,10 @@ const mockData: IOrderParticipation<true> = {
     _id: '6548ee1529af3e28b09d03f8',
     fullname: 'Bohdan Radoveniuk',
   },
-  updatedBy: '6548ee1529af3e28b09d03f8',
+  updatedBy: {
+    _id: '6548ee1529af3e28b09d03f8',
+    fullname: 'Bohdan Radoveniuk',
+  },
   createdAt: '2024-03-27T18:49:53.497Z',
   updatedAt: '2024-03-27T18:53:26.078Z',
   screaning: {
