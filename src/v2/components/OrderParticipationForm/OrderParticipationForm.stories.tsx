@@ -136,6 +136,7 @@ const mockData: IOrderParticipation<true> = {
     '65fd73fa572de49a903a4d7d': 'Senior',
     '65fc272f24e5183038e646fe': 'Stredoškolské s maturitou',
   },
+  comment: '',
 };
 
 const ExampleWithHooks = () => {
