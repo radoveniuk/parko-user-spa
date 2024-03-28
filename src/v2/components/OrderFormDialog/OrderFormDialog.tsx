@@ -28,7 +28,7 @@ const getOrderDefaultData = (data?: IOrder<true>): Partial<IOrder> => data
     ...data,
     client: data.client._id,
     project: data.project._id,
-    managers: data.managers.map(item => item._id),
+    managers: data.managers.map(item => item._id as string),
     form: data.form._id as string,
     createdBy: data.createdBy._id,
   })
