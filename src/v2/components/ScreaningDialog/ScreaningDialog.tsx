@@ -21,10 +21,14 @@ const ScreaningDialog = ({ participation, onSubmit, ...rest }: Props) => {
     onSubmit(values);
   };
 
+  if (!participation.order.form) {
+    return null;
+  }
+
   return (
     <Dialog title={`${t('order.screaning')} - ${participation.user.fullname}`} mobileFullscreen {...rest}>
       <FormProvider {...formMethods}>
-        <CustomForm form={participation.order.form} />
+        {participation.order.form && <CustomForm form={participation.order.form} />}
       </FormProvider>
       <DialogActions>
         <Button onClick={formMethods.handleSubmit(submitHandler)} variant="contained">{t('approve')}</Button>

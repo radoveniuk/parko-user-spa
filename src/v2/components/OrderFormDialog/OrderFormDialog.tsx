@@ -29,7 +29,7 @@ const getOrderDefaultData = (data?: IOrder<true>): Partial<IOrder> => data
     client: data.client._id,
     project: data.project._id,
     managers: data.managers.map(item => item._id as string),
-    form: data.form._id as string,
+    form: data.form?._id as string,
     createdBy: data.createdBy._id,
   })
   : {};
@@ -182,7 +182,7 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
                 labelPath="name"
                 valuePath="_id"
                 options={customForms}
-                defaultValue={data?.form._id}
+                defaultValue={data?.form?._id}
                 value={field.value}
                 onChange={(e) => { field.onChange(e.target.value); }}
               />

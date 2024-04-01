@@ -33,7 +33,7 @@ const OrderParticipationForm = ({ disabled }: Props) => {
   const screaning = watch('screaning');
 
   const screaningStat = useMemo(() => {
-    const requiredFieldsIds = order.form.requiredFields;
+    const requiredFieldsIds = order.form?.requiredFields || [];
     let completedRequirderFieldsCount = 0;
     Object.keys(screaning || {}).forEach((fieldId) => {
       if (requiredFieldsIds.includes(fieldId)) {
@@ -42,10 +42,10 @@ const OrderParticipationForm = ({ disabled }: Props) => {
     });
     // eslint-disable-next-line max-len
     return `${completedRequirderFieldsCount} / ${requiredFieldsIds.length} (${(requiredFieldsIds.length ? completedRequirderFieldsCount / requiredFieldsIds.length : 1) * 100}%)`;
-  }, [order.form.requiredFields, screaning]);
+  }, [order.form?.requiredFields, screaning]);
 
   const renderCustomFieldValue = (id: string) => {
-    const fieldData = order.form.fields.find((field) => (field as ICustomFormField)._id === id) as ICustomFormField | undefined;
+    const fieldData = order.form?.fields.find((field) => (field as ICustomFormField)._id === id) as ICustomFormField | undefined;
 
     if (['string', 'email', 'number', 'phone', 'select', 'multiselect'].includes(fieldData?.type as string)) {
       return <>{fieldData?.names[i18n.language]}: {screaning[id]}</>;

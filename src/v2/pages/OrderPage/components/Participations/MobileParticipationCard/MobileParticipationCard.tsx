@@ -17,17 +17,16 @@ import FormDialog from '../ParticipationRow/FormDialog';
 import { MobileProfileCard } from './styles';
 
 type Props = {
-  selected?: boolean;
   style?: CSSProperties;
   participation: IOrderParticipation<true>;
 };
 
-const MobileParticipationCard = ({ style, participation, selected }: Props) => {
+const MobileParticipationCard = ({ style, participation }: Props) => {
   const { t } = useTranslation();
   const participationActualStage = useMemo(() => participation.stages[participation.stages.length - 1]?.stage, [participation.stages]);
 
   const screaningStat = useMemo(() => {
-    const requiredFieldsIds = participation.order.form.requiredFields;
+    const requiredFieldsIds = participation.order.form?.requiredFields || [];
     let completedRequirderFieldsCount = 0;
     Object.keys(participation.screaning || {}).forEach((fieldId) => {
       if (requiredFieldsIds.includes(fieldId)) {
@@ -36,7 +35,7 @@ const MobileParticipationCard = ({ style, participation, selected }: Props) => {
     });
     // eslint-disable-next-line max-len
     return `${completedRequirderFieldsCount} / ${requiredFieldsIds.length} (${(requiredFieldsIds.length ? completedRequirderFieldsCount / requiredFieldsIds.length : 1) * 100}%)`;
-  }, [participation.order.form.requiredFields, participation.screaning]);
+  }, [participation.order.form?.requiredFields, participation.screaning]);
 
   // save updates
   const [openScreaning, setOpenScreaning] = useState(false);
