@@ -126,10 +126,6 @@ export const FilterButton = styled.button`
   }
 
   &:hover {
-    filter: brightness(95%);;
-  }
-
-  &:active, &.active {
-    filter: brightness(90%);;
+    filter: brightness(95%);
   }
 `;
