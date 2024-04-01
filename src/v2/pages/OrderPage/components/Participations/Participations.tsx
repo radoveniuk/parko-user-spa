@@ -39,7 +39,7 @@ const Profiles = ({ participations, order }: Props) => {
   return (
     <FiltersProvider>
       <ProfilesWrapper>
-        <HeaderTable count={participations.length} />
+        <HeaderTable participations={participations} />
         <FilterTableWrapper>
           <Autocomplete
             label={t('search')}
@@ -55,7 +55,7 @@ const Profiles = ({ participations, order }: Props) => {
             return (
               <FilterButton
                 key={stage.name}
-                style={{ background, color, border: `1px dashed ${color}` }}
+                style={{ background, color, border: `1px dashed ${stagesFilter.includes(stage.name) ? color : 'transparent'}` }}
                 onClick={() => {
                   toggleStageFilter(stage.name);
                 }}

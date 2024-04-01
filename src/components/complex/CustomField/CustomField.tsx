@@ -28,6 +28,11 @@ const CustomField = ({ value, onChange, metadata, theme, variant, ...rest }: Cus
 
   const textChange = (e: any) => void onChange(e.target.value);
 
+  if (type === 'textarea') {
+    return (
+      <Input value={value} onChange={textChange} label={metadata.names[i18n.language]} theme={theme} multiline className="fullwidth" {...rest} />
+    );
+  }
   if (type === 'number') {
     return (
       <Input value={value} onChange={textChange} label={metadata.names[i18n.language]} type="number" theme={theme} variant={variant} {...rest} />

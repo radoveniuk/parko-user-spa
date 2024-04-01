@@ -6,6 +6,7 @@ export interface IOrderParticipationStage {
   stage: IOrderStage;
   date: string;
   comment: string;
+  createdByName: string;
 }
 
 export interface IOrderParticipation<T extends boolean = false> extends IMongoDoc {

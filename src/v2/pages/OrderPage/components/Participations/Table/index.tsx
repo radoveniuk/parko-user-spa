@@ -14,7 +14,7 @@ import ParticipationRow from '../ParticipationRow';
 
 import { TableWrapper } from './styles';
 
-const STATIC_COLS = ['user.name', 'order.activeStage', 'order.screaning', ''];
+const STATIC_COLS = ['user.name', 'order.activeStage', 'order.screaning', 'order.createdAt', 'order.createdBy', ''];
 
 type Props = {
   data: IOrderParticipation<true>[];

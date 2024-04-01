@@ -56,7 +56,7 @@ export const ProfilesWrapper = styled.div`
   }
 
   .users-table {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
 
     .table-settings-wrapper {
       margin-left: auto;
@@ -118,6 +118,12 @@ export const FilterButton = styled.button`
   padding: 0 12px;
   cursor: pointer;
   transition: .3s;
+  white-space: nowrap;
+
+  &:not(:hover), &:not(:active), &:not(.active) {
+    filter: grayscale(1) opacity(0.5);
+    border: none;
+  }
 
   &:hover {
     filter: brightness(95%);;

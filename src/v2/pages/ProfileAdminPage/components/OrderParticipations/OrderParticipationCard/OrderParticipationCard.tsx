@@ -23,7 +23,7 @@ type Props = {
   onDelete(): void;
 };
 
-const OrderCard = ({ data, onChange, onDelete }: Props) => {
+const OrderParticipationCard = ({ data, onChange, onDelete }: Props) => {
   const { t } = useTranslation();
   const { role } = useAuthData();
   const formMethods = useForm<IOrderParticipation<true>>({
@@ -49,7 +49,7 @@ const OrderCard = ({ data, onChange, onDelete }: Props) => {
       <FormCard
         defaultConfig={{ disabled: true, viewEmployer: false, viewEmployee: false }}
         onOutsideClick={({ warn }) => { warn(); }}
-        onReset={() => { setCardKey(createId()); reset(); }}
+        onReset={() => { setCardKey(createId()); reset(data); }}
         key={cardKey}
       >
         {({ formCardConfig, updateFormCardConfig }) => (
@@ -113,4 +113,4 @@ const OrderCard = ({ data, onChange, onDelete }: Props) => {
   );
 };
 
-export default OrderCard;
+export default OrderParticipationCard;

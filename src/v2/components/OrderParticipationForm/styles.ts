@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import { themeConfig } from 'theme';
 import { TB } from 'theme/sizeBreakpoints';
 
 export const FormWrapper = styled.div`
@@ -57,7 +56,7 @@ export const InfoWrapper = styled.div`
 export const StagesTable = styled.table`
   border-collapse: separate;
   border-spacing: 0;
-  min-width: 100%;
+  width: calc(100%);
   font-size: 14px;
   margin-bottom: 12px;
 
@@ -76,12 +75,23 @@ export const StagesTable = styled.table`
       padding: 8px;
       background: #F3F3F3;
       position: relative;
+      transition: .2s;
 
-      .tooltip {
+      .edit-btn {
         position: absolute;
-        right: 10px;
-        top: 27%;
-        color: ${themeConfig.palette.primary.main};
+        right: 1px;
+        top: 1px;
+        opacity: 0;
+        transition: .2s;
+      }
+    }
+
+    tr:hover {
+      td {
+        background: #ececec;
+      }
+      .edit-btn {
+        opacity: 0.9;
       }
     }
 

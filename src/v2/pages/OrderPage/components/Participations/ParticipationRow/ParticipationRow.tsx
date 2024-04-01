@@ -7,6 +7,7 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 import { EditIcon } from 'components/icons';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { ORDER_STAGE_COLORS } from 'constants/colors';
+import { getDateFromIso } from 'helpers/datetime';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 
 import ScreaningDialog from '../../../../../components/ScreaningDialog';
@@ -50,7 +51,7 @@ const ParticipationRow = ({ participation }: ParticipationRowProps) => {
       <ListTableRow>
         <ListTableCell>
           <LinkWrapper>
-            <Link to={`/profile/${participation.user._id}`} className="table-link">
+            <Link to={`/profile/${participation.user._id}`} className="table-link" state={{ tab: 3 }}>
               <span className="column-content">{participation.user.fullname}</span>
             </Link>
           </LinkWrapper>
@@ -71,6 +72,14 @@ const ParticipationRow = ({ participation }: ParticipationRowProps) => {
           <span className="table-link" role="button" onClick={() => void setOpenScreaning(true)}>
             {screaningStat}
           </span>
+        </ListTableCell>
+        <ListTableCell>
+          {getDateFromIso(participation.createdAt, 'dd.MM.yyyy HH:mm')}
+        </ListTableCell>
+        <ListTableCell>
+          <Link to={`/profile/${participation.createdBy._id}`} className="table-link">
+            <span className="column-content">{participation.createdBy.fullname}</span>
+          </Link>
         </ListTableCell>
         <ListTableCell align="right">
           <IconButton onClick={() => void setOpenEdit(true)}><EditIcon /></IconButton>

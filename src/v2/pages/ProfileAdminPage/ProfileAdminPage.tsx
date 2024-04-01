@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import pick from 'lodash-es/pick';
 import { Button } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
@@ -432,8 +432,10 @@ const ProfileAdminPageRender = () => {
 
 const ProfileAdminPage = () => {
   const { id } = useParams();
+  const { state } = useLocation();
+
   return (
-    <TabsContainer key={id}>
+    <TabsContainer key={id} defaultTab={state?.tab || 0}>
       <ProfileAdminPageRender />
     </TabsContainer>
   );

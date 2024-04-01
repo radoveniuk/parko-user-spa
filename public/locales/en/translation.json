@@ -370,7 +370,8 @@
       "date": "Date",
       "select": "Dropdown list",
       "multiselect": "Multiselect",
-      "expirience": "Work expirience"
+      "expirience": "Work expirience",
+      "textarea": "Text area"
     },
     "clientStatus": {
       "active": "Active",

@@ -15,11 +15,12 @@ import { FormWrapper, StageOption } from './styles';
 
 type Props = DialogProps & {
   stageOptions: IOrderStage[];
+  defaultData?: IOrderParticipationStage;
   onSubmit(v: IOrderParticipationStage): void;
 }
 
-const StageDialog = ({ onSubmit, stageOptions, ...rest }: Props) => {
-  const { register, control, handleSubmit } = useForm<IOrderParticipationStage>();
+const StageDialog = ({ onSubmit, stageOptions, defaultData, ...rest }: Props) => {
+  const { register, control, handleSubmit } = useForm<IOrderParticipationStage>({ defaultValues: defaultData });
   const { t } = useTranslation();
   return (
     <Dialog {...rest}>
@@ -44,6 +45,7 @@ const StageDialog = ({ onSubmit, stageOptions, ...rest }: Props) => {
                 field.onChange(stageOptions.find(option => option.name === e.target.value));
               }}
               error={!!fieldState.error}
+              value={field.value.name}
             />
           )}
         />

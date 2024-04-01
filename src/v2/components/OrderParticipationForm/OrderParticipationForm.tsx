@@ -1,15 +1,15 @@
 import React, { useMemo, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Button, Input } from 'v2/uikit';
+import { Button, Input, Menu, MenuItem } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
-import Tooltip from 'v2/uikit/Tooltip';
 
-import { EditIcon, EyeIcon, EyeSlashIcon, InfoIcon, PlusIcon } from 'components/icons';
+import { DeleteIcon, EditIcon, EyeIcon, EyeSlashIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
 import { EXPIRIENCE_METHOD_OPTIONS } from 'constants/selectsOptions';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { ICustomFormField } from 'interfaces/form.interface';
-import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
+import { IOrderParticipation, IOrderParticipationStage } from 'interfaces/orderParticipation.interface';
 import { themeConfig } from 'theme';
 
 import ScreaningDialog from '../ScreaningDialog';
@@ -23,6 +23,7 @@ type Props = {
 
 const OrderParticipationForm = ({ disabled }: Props) => {
   const { t, i18n } = useTranslation();
+  const { username } = useAuthData();
   const { control, watch, setValue, register } = useFormContext<IOrderParticipation<true>>();
   const [selectedInfoSection, setSelectedInfoSection] = useState<'order' | 'screaning' | null>(null);
 
@@ -87,7 +88,7 @@ const OrderParticipationForm = ({ disabled }: Props) => {
   };
 
   // stages updates
-  const [openStageDialog, setOpenStageDialog] = useState(false);
+  const [openStageDialog, setOpenStageDialog] = useState<boolean | IOrderParticipationStage>(false);
 
   return (
     <FormWrapper>
@@ -141,6 +142,8 @@ const OrderParticipationForm = ({ disabled }: Props) => {
                   <tr>
                     <th>{t('order.stage')}</th>
                     <th>{t('order.stageFrom')}</th>
+                    <th>{t('order.createdBy')}</th>
+                    <th>{t('comment')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -149,7 +152,18 @@ const OrderParticipationForm = ({ disabled }: Props) => {
                       <td>{stageItem.stage.name}</td>
                       <td>
                         {getDateFromIso(stageItem.date, 'dd.MM.yyyy HH:mm')}
-                        {stageItem.comment && <Tooltip contentClassName="tooltip" title={stageItem.comment}><InfoIcon size={16} /></Tooltip>}
+                      </td>
+                      <td>{stageItem.createdByName}</td>
+                      <td>
+                        {stageItem.comment}
+                        <Menu menuComponent={<IconButton className="edit-btn" disabled={disabled}><ThreeDotsIcon size={14} /></IconButton>}>
+                          <MenuItem onClick={() => void setOpenStageDialog(stageItem)}>
+                            <EditIcon style={{ marginRight: 6 }} />{t('edit')}
+                          </MenuItem>
+                          <MenuItem onClick={() => void field.onChange(field.value.filter(item => item.stage.name !== stageItem.stage.name))}>
+                            <DeleteIcon style={{ marginRight: 6 }} />{t('delete')}
+                          </MenuItem>
+                        </Menu>
                       </td>
                     </tr>
                   ))}
@@ -161,13 +175,20 @@ const OrderParticipationForm = ({ disabled }: Props) => {
               {!!openStageDialog && (
                 <StageDialog
                   title={t('order.stage')}
-                  open={openStageDialog}
+                  open={!!openStageDialog}
                   onClose={() => void setOpenStageDialog(false)}
                   onSubmit={(v) => {
                     setOpenStageDialog(false);
-                    field.onChange([...field.value, v]);
+                    if (typeof openStageDialog === 'boolean') {
+                      field.onChange([...field.value, { ...v, createdByName: username }]);
+                    } else {
+                      field.onChange(
+                        field.value.map(item => item.stage.name === openStageDialog.stage.name ? { ...v, createdByName: username } : item),
+                      );
+                    }
                   }}
-                  stageOptions={availableStages}
+                  stageOptions={typeof openStageDialog !== 'boolean' ? [openStageDialog.stage, ...availableStages] : availableStages}
+                  defaultData={typeof openStageDialog !== 'boolean' ? openStageDialog : undefined}
                 />
               )}
             </div>
@@ -178,6 +199,8 @@ const OrderParticipationForm = ({ disabled }: Props) => {
         className="fullwidth"
         label={t('comment')}
         theme="gray"
+        multiline
+        disabled={disabled}
         {...register('comment')}
       />
       {!!openScreaning && (
