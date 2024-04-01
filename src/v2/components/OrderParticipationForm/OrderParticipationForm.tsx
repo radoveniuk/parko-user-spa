@@ -49,7 +49,7 @@ const OrderParticipationForm = ({ disabled }: Props) => {
   const renderCustomFieldValue = (id: string) => {
     const fieldData = order.form?.fields.find((field) => (field as ICustomFormField)._id === id) as ICustomFormField | undefined;
 
-    if (['string', 'email', 'number', 'phone', 'select'].includes(fieldData?.type as string)) {
+    if (['string', 'email', 'number', 'phone', 'select', 'textarea'].includes(fieldData?.type as string)) {
       return <>{fieldData?.names[i18n.language]}: {screaning[id]}</>;
     }
 
