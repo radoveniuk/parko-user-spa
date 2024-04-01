@@ -56,7 +56,7 @@ const MobileParticipationCard = ({ style, participation }: Props) => {
             <UserIcon size={45} color={ORDER_STAGE_COLORS[participationActualStage?.color]?.[1]} />
           </Avatar>
           <div className="actions">
-            <Link to={`/profile/${participation._id}`}>
+            <Link to={`/profile/${participation.user._id}`} state={{ tab: 3 }}>
               <Button variant="outlined">{t('profile')}</Button>
             </Link>
           </div>
