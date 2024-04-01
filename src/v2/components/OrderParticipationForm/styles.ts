@@ -110,3 +110,17 @@ export const StagesTable = styled.table`
     }
   }
 `;
+
+export const ReadonlyExpirience = styled.div`
+  .title {
+    .company {
+      display: inline;
+      text-decoration: underline;
+    }
+  }
+
+  .data {
+    margin: 0;
+    padding-inline-start: 20px;
+  }
+`;

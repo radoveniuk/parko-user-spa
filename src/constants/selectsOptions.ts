@@ -96,3 +96,13 @@ export const ORDER_COOPERATION_TYPE = [
   'leasing',
   'podkmen',
 ];
+
+export const EXPIRIENCE_METHOD_OPTIONS = [
+  { value: 'terminationDuringProbationPeriod', label: 'Ukončením v skúšobnej dobe' },
+  { value: 'byNotice', label: 'Výpoveďou' },
+  { value: 'byAgreement', label: 'Dohodou' },
+  { value: 'nonRenewalOfContract', label: 'Nepredlženie zmluvy' },
+  { value: 'immediateTerminationOfEmployment', label: 'Okamžitým skončením pracovného pomeru' },
+  { value: 'terminationOfResidencePermit/Visa', label: 'Skončením platnosti pobytu/víza' },
+  { value: 'terminationOfBusiness', label: 'Skončenie s podnikaním' },
+];

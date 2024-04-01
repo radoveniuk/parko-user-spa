@@ -6,6 +6,7 @@ import IconButton from 'v2/uikit/IconButton';
 import Select from 'v2/uikit/Select';
 
 import { DeleteIcon, PlusIcon } from 'components/icons';
+import { EXPIRIENCE_METHOD_OPTIONS } from 'constants/selectsOptions';
 import createId from 'helpers/createId';
 
 import { WorkExpirienceFormWrapper } from './styles';
@@ -34,16 +35,6 @@ type Props = {
   disabled?: boolean;
   onChange(v: WorkExpirience[] | undefined): void;
 };
-
-const EXPIRIENCE_METHOD_OPTIONS = [
-  { value: 'terminationDuringProbationPeriod', label: 'Ukončením v skúšobnej dobe' },
-  { value: 'byNotice', label: 'Výpoveďou' },
-  { value: 'byAgreement', label: 'Dohodou' },
-  { value: 'nonRenewalOfContract', label: 'Nepredlženie zmluvy' },
-  { value: 'immediateTerminationOfEmployment', label: 'Okamžitým skončením pracovného pomeru' },
-  { value: 'terminationOfResidencePermit/Visa', label: 'Skončením platnosti pobytu/víza' },
-  { value: 'terminationOfBusiness', label: 'Skončenie s podnikaním' },
-];
 
 const WorkExpirienceForm = ({ defaultValues = [], error, disabled, onChange }: Props) => {
   const { t } = useTranslation();

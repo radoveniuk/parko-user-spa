@@ -6,6 +6,7 @@ import IconButton from 'v2/uikit/IconButton';
 import Tooltip from 'v2/uikit/Tooltip';
 
 import { EditIcon, EyeIcon, EyeSlashIcon, InfoIcon, PlusIcon } from 'components/icons';
+import { EXPIRIENCE_METHOD_OPTIONS } from 'constants/selectsOptions';
 import { getDateFromIso } from 'helpers/datetime';
 import { ICustomFormField } from 'interfaces/form.interface';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
@@ -14,7 +15,7 @@ import { themeConfig } from 'theme';
 import ScreaningDialog from '../ScreaningDialog';
 
 import StageDialog from './StageDialog';
-import { FormWrapper, InfoWrapper, StagesTable } from './styles';
+import { FormWrapper, InfoWrapper, ReadonlyExpirience, StagesTable } from './styles';
 
 type Props = {
   disabled?: boolean;
@@ -47,8 +48,35 @@ const OrderParticipationForm = ({ disabled }: Props) => {
   const renderCustomFieldValue = (id: string) => {
     const fieldData = order.form?.fields.find((field) => (field as ICustomFormField)._id === id) as ICustomFormField | undefined;
 
-    if (['string', 'email', 'number', 'phone', 'select', 'multiselect'].includes(fieldData?.type as string)) {
+    if (['string', 'email', 'number', 'phone', 'select'].includes(fieldData?.type as string)) {
       return <>{fieldData?.names[i18n.language]}: {screaning[id]}</>;
+    }
+
+    if (fieldData?.type === 'multiselect') {
+      return <>{fieldData?.names[i18n.language]}: {screaning[id]?.map((item: { label: string; }) => item.label).join(', ')}</>;
+    }
+
+    if (fieldData?.type === 'expirience') {
+      return (
+        <>
+          {screaning[id]?.map((
+            item: { matterId: string; company: string; dates: string; position: string; fireMethod: string, fireReason: string }, index: number,
+          ) => (
+            <ReadonlyExpirience key={item.matterId}>
+              <div className="title">
+                {index + 1}.
+                <div className="company">{t('workExpirience.company')}: {item.company}</div>
+              </div>
+              <ul className="data">
+                <li>{t('workExpirience.dates')}: {item.dates}</li>
+                <li>{t('workExpirience.position')}: {item.position}</li>
+                <li>{t('workExpirience.fireMethod')}: {EXPIRIENCE_METHOD_OPTIONS.find(option => option.value === item.fireMethod)?.label}</li>
+                <li>{t('workExpirience.fireReason')}: {item.fireReason}</li>
+              </ul>
+            </ReadonlyExpirience>
+          ))}
+        </>
+      );
     }
   };
 
