@@ -2,9 +2,10 @@ import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import OrderFormDialog from 'v2/components/OrderFormDialog';
-import { Stack } from 'v2/uikit';
+import { Button, Stack } from 'v2/uikit';
 
 import { useCreateOrder } from 'api/mutations/orderMutation';
+import { useAuthData } from 'contexts/AuthContext';
 import { IOrder } from 'interfaces/order.interface';
 
 import { HeaderWrapper } from './styles';
@@ -14,6 +15,7 @@ type Props = {
 }
 
 const HeaderTable = ({ count }: Props) => {
+  const { role } = useAuthData();
   const { t } = useTranslation();
 
   const [openNewPrepayment, setOpenNewPrepayment] = useState(false);
@@ -37,12 +39,11 @@ const HeaderTable = ({ count }: Props) => {
         </Stack>
         <Stack direction="row" gap="15px">
           <div className="link">
-            {/* <IconButton className="small-btn primary" onClick={() => void setOpenNewPrepayment(true)}><PlusIcon size={25} /></IconButton>
             {role === 'admin' && (
               <Button className="big-btn" onClick={() => void setOpenNewPrepayment(true)}>
                 {t('order.new')}
               </Button>
-            )} */}
+            )}
           </div>
         </Stack>
       </HeaderWrapper>

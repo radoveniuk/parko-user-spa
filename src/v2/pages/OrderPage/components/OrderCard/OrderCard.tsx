@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import OrderFormDialog from 'v2/components/OrderFormDialog';
@@ -12,6 +12,7 @@ import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { ICustomForm } from 'interfaces/form.interface';
 import { IOrder } from 'interfaces/order.interface';
+import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
@@ -19,9 +20,10 @@ import { ProfileCardWrapper } from './styles';
 
 export type ClientCardProps = {
   data: IOrder<true>;
+  participations: IOrderParticipation<true>[];
 };
 
-const OrderCard = ({ data }: ClientCardProps) => {
+const OrderCard = ({ data, participations }: ClientCardProps) => {
   const { t } = useTranslation();
   const { role } = useAuthData();
 
@@ -46,6 +48,16 @@ const OrderCard = ({ data }: ClientCardProps) => {
       return `${item.fullname}`;
     })
     .join(' / ');
+
+  const stats = useMemo(() => {
+    const hired = participations.filter((item) => item.stages[item.stages.length - 1]?.stage.staticName === 'hired').length;
+    const canceled = participations.filter((item) => item.stages[item.stages.length - 1]?.stage.staticName === 'canceled').length;
+    const candidates = participations.length - hired - canceled;
+    const left = order.goal - hired;
+    return {
+      hired, canceled, candidates, left,
+    };
+  }, [order.goal, participations]);
 
   return (
     <>
@@ -76,10 +88,10 @@ const OrderCard = ({ data }: ClientCardProps) => {
         <div className="stats section">
           <div className="label">{t('order.stats')}</div>
           <div className="info-item"><div className="name">{t('order.goal')}:</div> {order.goal}</div>
-          <div className="info-item"><div className="name">{t('order.employed')}:</div> 0</div>
-          <div className="info-item"><div className="name">{t('order.left')}:</div> 0</div>
-          <div className="info-item"><div className="name">{t('order.candidates')}:</div> 0</div>
-          <div className="info-item"><div className="name">{t('order.canceled')}:</div> 0</div>
+          <div className="info-item"><div className="name">{t('order.employed')}:</div> {stats.hired}</div>
+          <div className="info-item"><div className="name">{t('order.left')}:</div> {stats.left}</div>
+          <div className="info-item"><div className="name">{t('order.candidates')}:</div> {stats.candidates}</div>
+          <div className="info-item"><div className="name">{t('order.canceled')}:</div> {stats.canceled}</div>
         </div>
         <div className="system-info section">
           <div className="system-info-item">{t('user.lastUpdate')}: {getDateFromIso(order.updatedAt)}</div>

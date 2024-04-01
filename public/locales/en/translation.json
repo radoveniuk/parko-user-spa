@@ -233,7 +233,8 @@
     "employmentChangeCreatedAt": "Created at",
     "thisNameExistsMsg": "There is already a registered user in the system with the same first and last name. Do you want to continue?",
     "corporateBodyAddress": "Address",
-    "client": "Client"
+    "client": "Client",
+    "addNewParticipation": "Add to the order"
   },
   "userHistory": {
     "updatedBy": "Updated by",
@@ -704,5 +705,14 @@
     "stage": "Stage",
     "stageFrom": "Date and time",
     "updatedAt": "Last update at"
+  },
+  "workExperience": {
+    "workExperience": "Work experience",
+    "company": "Company",
+    "dates": "From - To",
+    "position": "Position",
+    "fireMethod": "Fire Method",
+    "fireReason": "Fire Reason",
+    "add": "Add work experience"
   }
 }

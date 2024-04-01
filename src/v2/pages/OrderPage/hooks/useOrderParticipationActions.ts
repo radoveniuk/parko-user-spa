@@ -13,7 +13,7 @@ const useOrderParticipationActions = () => {
   const updateParticipation = useUpdateOrderParticipation();
   const deleteParticipation = useDeleteOrderParticipation();
 
-  const create = async (user: string) => createParticipation.mutateAsync({
+  const create = (user: string) => createParticipation.mutateAsync({
     order: orderId as string,
     user,
     screaning: {},

@@ -9,6 +9,10 @@ export const CustomFormWrapper = styled.div`
   row-gap: 12px;
   margin-bottom: 25px;
 
+  .MuiInputBase-root:not(.Mui-focused) {
+    flex-wrap: nowrap !important;
+  }
+
   .fullwidth {
     grid-column: 1 / 3;
   }

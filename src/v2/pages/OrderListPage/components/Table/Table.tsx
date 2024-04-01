@@ -4,18 +4,19 @@ import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
 import Skeleton from 'v2/uikit/Skeleton';
 
+import { useGetOrderParticipations } from 'api/query/orderParticipationQuery';
 import { ArrowUpIcon } from 'components/icons';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { iterateMap } from 'helpers/iterateMap';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
-import { IClient } from 'interfaces/client.interface';
 import { IOrder } from 'interfaces/order.interface';
-import { IUser } from 'interfaces/users.interface';
 
 import OrderRow from '../OrderRow';
 
 import { TableWrapper } from './styles';
+
+const sortableCols = ['name', 'project', 'client', 'dateFrom', 'dateTo', 'createdBy', 'createdAt', 'cooperationType', 'status'];
 
 type Props = {
   activeCols: string[];
@@ -36,38 +37,41 @@ const Table = ({
   const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
 
   const toggleSorting = (orderKey: string) => {
-    // let sortingValue: SortingValue<IPrepayment> = prepaymentKey as keyof IPrepayment;
-    // if (prepaymentKey === 'user') {
-    //   sortingValue = 'user.name';
-    // }
-    // if (prepaymentKey === 'user.project') {
-    //   sortingValue = 'user.project.name';
-    // }
-    // if (prepaymentKey === 'comment') {
-    //   sortingValue = 'userComment';
-    // }
-    // sortingToggler(prepaymentKey, sortingValue);
+    let sortingValue = orderKey as SortingValue<IOrder<true>>;
+    if (orderKey === 'client') {
+      sortingValue = 'client.name';
+    }
+    if (orderKey === 'project') {
+      sortingValue = 'project.name';
+    }
+    if (orderKey === 'createdBy') {
+      sortingValue = 'createdBy.fullname';
+    }
+    sortingToggler(orderKey, sortingValue);
   };
 
   const allCols = activeCols;
+
+  // order participations for stats
+  const { data: participations = [] } = useGetOrderParticipations();
 
   return (
     <TableWrapper>
       <ListTable
         columns={allCols}
-        className="prepayments-table"
+        className="orders-table"
         columnComponent={(col) => {
-          if (col) {
+          if (col && sortableCols.includes(col.replace('order.', ''))) {
             return (
               <div
                 role="button"
                 className="col-item"
-                onClick={() => void toggleSorting(col.replace('prepayment.', '') as keyof IClient)}
+                onClick={() => void toggleSorting(col.replace('order.', ''))}
               >
                 {t(col)}
                 <IconButton
                   className={
-                    sorting?.key === (col.replace('client.', '') as keyof IUser)
+                    sorting?.key === (col.replace('order.', ''))
                       ? `sort-btn active ${sorting.dir}`
                       : 'sort-btn'
                   }
@@ -83,7 +87,7 @@ const Table = ({
           <OrderRow
             key={item._id}
             data={item}
-            cols={activeCols}
+            participations={participations.filter(partItem => partItem.order._id === item._id)}
           />
         ))}
         {isFetching && (

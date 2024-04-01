@@ -10,6 +10,7 @@ import { IOrder } from 'interfaces/order.interface';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 
 import HeaderTable from './HeaderTable';
+import MobileParticipationCard from './MobileParticipationCard';
 import { FilterButton, FilterTableWrapper, ProfilesWrapper } from './styles';
 import Table from './Table';
 
@@ -65,6 +66,11 @@ const Profiles = ({ participations, order }: Props) => {
             );
           })}
         </FilterTableWrapper>
+        <div className="mobile-list">
+          {tableParticipations.map((item) => (
+            <MobileParticipationCard key={item._id} participation={item} />
+          ))}
+        </div>
         <Table data={tableParticipations} />
       </ProfilesWrapper>
     </FiltersProvider>

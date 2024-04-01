@@ -11,6 +11,8 @@ import { ClearFiltersButton } from 'components/shared/Filters/Filters';
 import { CLIENT_STATUS, ORDER_COOPERATION_TYPE } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 
+import MobileOrderCard from '../../components/MobileOrderCard';
+
 import HeaderTable from './components/HeaderTable';
 import Table from './components/Table';
 import { FilterTableWrapper, ProfileListPageWrapper } from './styles';
@@ -103,14 +105,14 @@ const OrderListPageRender = () => {
           />
           <ClearFiltersButton />
         </FilterTableWrapper>
-        {/* <div className="mobile-list">
-          {data.map((prepayment) => (
-            <MobilePrepaymentCard
-              key={prepayment._id}
-              prepayment={prepayment}
+        <div className="mobile-list">
+          {data.map((order) => (
+            <MobileOrderCard
+              key={order._id}
+              order={order}
             />
           ))}
-        </div> */}
+        </div>
         <Table
           activeCols={DEFAULT_COLS}
           data={data}

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { PC, TB } from 'theme/sizeBreakpoints';
 
 export const OrdersWrapper = styled.div`
-    padding-right: 2px;
+  padding-right: 2px;
   .orders-table {
     .list-table-cell {
       white-space: nowrap;
@@ -35,7 +35,10 @@ export const OrdersWrapper = styled.div`
     width: 100%;
 
     @media (max-width: ${TB}) {
-      box-shadow: none;
+      border: none;
+      .pagination-bottom, .users-table {
+        display: none;
+      }
     }
   }
 

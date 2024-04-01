@@ -230,7 +230,8 @@
     "employmentChangeCreatedAt": "Vytvorené o",
     "thisNameExistsMsg": "V systéme už existuje registrovaný užívateľ s rovnakým menom a priezviskom. Chcete pokračovať?",
     "corporateBodyAddress": "Adresa (Živnostník)",
-    "client": "Klient"
+    "client": "Klient",
+    "addNewParticipation": "Pridať do naborovej miestnosti"
   },
   "userHistory": {
     "updatedBy": "Aktualizoval",
@@ -687,5 +688,14 @@
     "stage": "Etápa",
     "stageFrom": "Dátum a čas",
     "updatedAt": "Dátum poslednej aktualizácie"
+  },
+  "workExpirience": {
+    "workExpirience": "Pracovná skúsenost",
+    "company": "Spoločnosť",
+    "dates": "Od - Do",
+    "position": "Pozícia",
+    "fireMethod": "Spôsob ukončenia",
+    "fireReason": "Dôvod ukončenia",
+    "add": "Pridat pracovnu skúsenost"
   }
 }

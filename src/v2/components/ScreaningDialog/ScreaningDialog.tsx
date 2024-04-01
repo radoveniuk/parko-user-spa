@@ -22,7 +22,7 @@ const ScreaningDialog = ({ participation, onSubmit, ...rest }: Props) => {
   };
 
   return (
-    <Dialog title={`${t('order.screaning')} - ${participation.user.fullname}`} {...rest}>
+    <Dialog title={`${t('order.screaning')} - ${participation.user.fullname}`} mobileFullscreen {...rest}>
       <FormProvider {...formMethods}>
         <CustomForm form={participation.order.form} />
       </FormProvider>

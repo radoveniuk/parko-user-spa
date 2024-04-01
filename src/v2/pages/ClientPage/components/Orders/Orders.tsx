@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import MobileOrderCard from 'v2/components/MobileOrderCard';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 import Autocomplete from 'v2/uikit/Autocomplete';
 
@@ -42,12 +43,32 @@ const Orders = ({ orders, projects }: Props) => {
   const statusList = useTranslatedSelect(CLIENT_STATUS, 'clientStatus');
   const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
 
+  const [idsFilter, setIdsFilter] = useState<IOrder[]>([]);
+  const [statusFilter, setStatusFilter] = useState<{_id: string}[]>([]);
+  const [projectFilter, setProjectFilter] = useState<IProject[]>([]);
+  const [cooperationTypeFilter, setCooperationTypeFilter] = useState<{_id: string}[]>([]);
+
+  const filteredOrders = useMemo(() => {
+    let res = [...orders];
+    if (idsFilter.length) {
+      res = res.filter((item) => idsFilter.some(filterOrder => filterOrder._id === item._id));
+    }
+    if (statusFilter.length) {
+      res = res.filter((item) => statusFilter.some(status => status._id === item.status));
+    }
+    if (projectFilter.length) {
+      res = res.filter((item) => projectFilter.some(project => project._id === item.project._id));
+    }
+    if (cooperationTypeFilter.length) {
+      res = res.filter((item) => cooperationTypeFilter.some(cooperationType => cooperationType._id === item.cooperationType));
+    }
+    return res;
+  }, [cooperationTypeFilter, idsFilter, orders, projectFilter, statusFilter]);
+
   return (
     <OrdersWrapper>
       <div className="container-table">
-        <HeaderTable
-          count={orders.length}
-        />
+        <HeaderTable count={orders.length} />
         <FilterTableWrapper>
           <Autocomplete
             multiple
@@ -59,6 +80,8 @@ const Orders = ({ orders, projects }: Props) => {
             limitTags={1}
             label={t('search')}
             theme="gray"
+            onChange={setIdsFilter}
+            value={idsFilter}
           />
           <Autocomplete
             multiple
@@ -66,6 +89,8 @@ const Orders = ({ orders, projects }: Props) => {
             options={statusList}
             getOptionLabel={(option) => option.label}
             theme="gray"
+            onChange={setStatusFilter}
+            value={statusFilter}
           />
           <Autocomplete
             multiple
@@ -73,6 +98,8 @@ const Orders = ({ orders, projects }: Props) => {
             options={projects}
             getOptionLabel={(option) => `${option.client?.shortName ? `${option.client?.shortName} > ` : `${option.client?.name} > `}${option.name}`}
             theme="gray"
+            onChange={setProjectFilter}
+            value={projectFilter}
           />
           <Autocomplete
             multiple
@@ -80,19 +107,21 @@ const Orders = ({ orders, projects }: Props) => {
             options={cooperationTypeList}
             getOptionLabel={(option) => option.label}
             theme="gray"
+            onChange={setCooperationTypeFilter}
+            value={cooperationTypeFilter}
           />
         </FilterTableWrapper>
-        {/* <div className="mobile-list">
-          {data.map((prepayment) => (
-            <MobilePrepaymentCard
-              key={prepayment._id}
-              prepayment={prepayment}
+        <div className="mobile-list">
+          {orders.map((order) => (
+            <MobileOrderCard
+              key={order._id}
+              order={order}
             />
           ))}
-        </div> */}
+        </div>
         <Table
           activeCols={DEFAULT_COLS}
-          data={orders}
+          data={filteredOrders}
         />
       </div>
     </OrdersWrapper>

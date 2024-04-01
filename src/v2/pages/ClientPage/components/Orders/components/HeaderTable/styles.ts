@@ -14,6 +14,10 @@ export const HeaderWrapper = styled.div`
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 
+  @media (max-width: ${TB}) {
+    display: none;
+  }
+
   .link {
     color: #e72a33;
     display: flex;

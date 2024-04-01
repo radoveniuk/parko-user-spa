@@ -7,7 +7,7 @@ export const TableWrapper = styled.div`
   flex-direction: column;
   height: 100%;
 
-  .prepayments-table {
+  .orders-table {
     overflow: scroll;
     max-height: calc(100vh - 280px);
     position: relative;
@@ -17,7 +17,7 @@ export const TableWrapper = styled.div`
     }
   }
 
-  .prepayments-table > div > div {
+  .orders-table > div > div {
     padding-left: 35px;
 
     @media (max-width: ${TB}) {
@@ -25,14 +25,14 @@ export const TableWrapper = styled.div`
     }
   }
 
-  .prepayments-table div:first-child > .list-table-cell {
+  .orders-table div:first-child > .list-table-cell {
     background: #f5f5f5;
     position: sticky;
     top: 0;
     z-index: 1;
   }
 
-  .prepayments-table .col-item svg {
+  .orders-table .col-item svg {
     fill: #212121;
     width: 15px;
     height: 15px;

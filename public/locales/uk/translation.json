@@ -232,7 +232,8 @@
     "employmentChangeCreatedAt": "Дата створення",
     "thisNameExistsMsg": "В системі вже є зареєстрований користувач з таким ім'ям та прізвищем. Бажаєте продовжити?",
     "corporateBodyAddress": "Адреса (ФОП)",
-    "client": "Клієнт"
+    "client": "Клієнт",
+    "addNewParticipation": "Додати в набір"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",
@@ -693,5 +694,14 @@
     "stage": "Етап",
     "stageFrom": "Дата",
     "updatedAt":"Дата останнього оновлення"
+  },
+  "workExperience": {
+    "workExperience": "Досвід роботи",
+    "company": "Компанія",
+    "dates": "Від - До",
+    "position": "Позиція",
+    "fireMethod": "Метод звільнення",
+    "fireReason": "Причина звільнення",
+    "add": "Додати досвід роботи"
   }
 }

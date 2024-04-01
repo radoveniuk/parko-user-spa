@@ -48,6 +48,7 @@ export { FiFilter as FilterIcon, FiInfo as InfoIcon } from 'react-icons/fi';
 export {
   GiHouseKeys as AccommodationIcon, GiOpenFolder as CategoryIcon, GiFullFolder as NonCategoryIcon, GiReceiveMoney as PrepaymentIcon,
 } from 'react-icons/gi';
+export { GoGoal as GoalIcon } from 'react-icons/go';
 export { HiOutlinePlus as PlusIcon } from 'react-icons/hi';
 export { ImExit as ExitIcon } from 'react-icons/im';
 export { IoMdArrowDropdown as ArrowDownIcon, IoIosPaperPlane as NotificationIcon, IoMdSettings as SettingsIcon } from 'react-icons/io';

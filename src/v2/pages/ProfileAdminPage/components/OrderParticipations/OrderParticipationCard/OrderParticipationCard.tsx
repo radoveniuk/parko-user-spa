@@ -95,7 +95,9 @@ const OrderCard = ({ data, onChange, onDelete }: Props) => {
               </FormProvider>
             </FormCardBody>
             <UpdatingStatsWrapper>
-              <div className="info">{t('order.updatedAt')}: {getDateFromIso(data.updatedAt, 'dd.MM.yyyy HH:mm')} ({data.updatedBy.fullname})</div>
+              <div className="info">
+                {t('order.updatedAt')}: {getDateFromIso(data.updatedAt, 'dd.MM.yyyy HH:mm')} ({data.updatedBy?.fullname || data.createdBy.fullname})
+              </div>
               <div className="info">{t('order.createdAt')}: {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')} ({data.createdBy.fullname})</div>
             </UpdatingStatsWrapper>
             {role === 'admin' && <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>}

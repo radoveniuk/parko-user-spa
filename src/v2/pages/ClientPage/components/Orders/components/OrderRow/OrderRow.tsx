@@ -6,34 +6,34 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { getDateFromIso } from 'helpers/datetime';
 import { IOrder } from 'interfaces/order.interface';
+import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 
 import { LinkWrapper } from './styles';
 
-type ClientRowProps = {
-  cols: string[];
+type Props = {
   data: IOrder<true>;
+  participations: IOrderParticipation<true>[];
 }
 
-const OrderRow = (props: ClientRowProps) => {
+const OrderRow = (props: Props) => {
   const { t } = useTranslation();
-  const { data } = props;
+  const { data, participations } = props;
 
   const project = data.project;
   const client = data?.client;
 
-  // TODO
   const statsCellContent = useMemo(() => {
-    const employed = 0;
-    const left = data.goal || 0 - employed;
+    const employed = participations.filter((item) => item.stages[item.stages.length - 1]?.stage.staticName === 'hired').length;
+    const left = data.goal - employed;
     return `${data.goal || 0} / ${employed} / ${left}`;
-  }, [data.goal]);
+  }, [data.goal, participations]);
 
-  // TODO
   const candidateStatsCellContent = useMemo(() => {
-    const candidates = 0;
-    const rejected = 0;
-    return `${candidates} / ${rejected}`;
-  }, []);
+    const hired = participations.filter((item) => item.stages[item.stages.length - 1]?.stage.staticName === 'hired').length;
+    const canceled = participations.filter((item) => item.stages[item.stages.length - 1]?.stage.staticName === 'canceled').length;
+    const candidates = participations.length - hired - canceled;
+    return `${candidates} / ${canceled}`;
+  }, [participations]);
 
   return (
     <ListTableRow>

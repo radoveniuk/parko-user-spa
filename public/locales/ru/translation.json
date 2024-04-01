@@ -232,7 +232,8 @@
     "employmentChangeCreatedAt": "Дата создания",
     "thisNameExistsMsg": "В системе уже есть зарегистрированный пользователь с таким именем и фамилией. Хотите продолжить?",
     "corporateBodyAddress": "Адрес (ИП)",
-    "client": "Клиент"
+    "client": "Клиент",
+    "addNewParticipation": "Добавить в набор"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",
@@ -693,5 +694,14 @@
     "stage": "Этап",
     "stageFrom": "Дата",
     "updatedAt": "Дата последнего обновления"
+  },
+  "workExperience": {
+    "workExperience": "Опыт работы",
+    "company": "Компания",
+    "dates": "От - До",
+    "position": "Позиция",
+    "fireMethod": "Способ увольнения",
+    "fireReason": "Причина увольнения",
+    "add": "Добавить опыт работы"
   }
 }

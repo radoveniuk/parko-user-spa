@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { PC, TB } from 'theme/sizeBreakpoints';
 
 export const ProfileListPageWrapper = styled.div`
-  .prepayments-table {
+  .orders-table {
     .list-table-cell {
       white-space: nowrap;
     }
@@ -117,7 +117,7 @@ export const ProfileListPageWrapper = styled.div`
   }
 
   @media (max-width: ${TB}) {
-    .pagination-bottom, .prepayments-table {
+    .pagination-bottom, .orders-table {
       display: none;
     }
   }
