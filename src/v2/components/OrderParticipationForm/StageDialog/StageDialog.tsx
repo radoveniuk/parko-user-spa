@@ -45,7 +45,7 @@ const StageDialog = ({ onSubmit, stageOptions, defaultData, ...rest }: Props) =>
                 field.onChange(stageOptions.find(option => option.name === e.target.value));
               }}
               error={!!fieldState.error}
-              value={field.value.name}
+              value={field.value?.name}
             />
           )}
         />
