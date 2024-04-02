@@ -35,6 +35,8 @@ export const Example: Story = {
       hireDate: '2021-09-01T14:35:00.000+02:00',
       fireDate: '2023-10-23',
       fireReason: 'Súhlas strán',
+      businessActivity: '',
+      recruiter: '',
       comment: '',
       isNonTaxablePart: true,
       isChildTaxBonus: false,
