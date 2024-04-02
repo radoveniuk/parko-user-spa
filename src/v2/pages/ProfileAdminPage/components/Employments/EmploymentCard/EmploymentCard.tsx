@@ -69,8 +69,10 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
   };
 
   const project = projects?.find((projectItem) => projectItem._id === watch('project'));
+  const isOutsorce = project?.type === PROJECT_TYPES.Outsourcing.value;
   const position = project?.positions?.find((positionItem) => positionItem.matterId === watch('positionId'));
   const user = queryClient.getQueryData(['user-data', userId]) as IUser;
+  const recruiters = (queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) as IUser[]).filter(item => !!item.fullname);
 
   const hireDate = watch('hireDate');
   const fireDate = watch('fireDate');
@@ -179,24 +181,70 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                       />
                     )}
                   />
-                  <div className="fullwidth">
+                  <Controller
+                    control={control}
+                    name="positionId"
+                    rules={{ required: true }}
+                    render={({ field, fieldState }) => (
+                      <Select
+                        label="Pracovná pozicia"
+                        theme="gray"
+                        labelPath="internalName"
+                        valuePath="matterId"
+                        options={project?.positions}
+                        disabled={formCardConfig.disabled || !watch('project')}
+                        defaultValue={data?.positionId}
+                        error={!!fieldState.error}
+                        value={field.value}
+                        onChange={(e) => {
+                          clearErrors('positionId');
+                          field.onChange(e.target.value);
+                        }}
+                      />
+                    )}
+                  />
+                  {isOutsorce && (
                     <Controller
                       control={control}
-                      name="positionId"
+                      name="businessActivity"
                       rules={{ required: true }}
                       render={({ field, fieldState }) => (
                         <Select
-                          label="Pracovná pozicia"
+                          label="Predmet podnikania"
                           theme="gray"
-                          labelPath="internalName"
-                          valuePath="matterId"
-                          options={project?.positions}
-                          disabled={formCardConfig.disabled || !watch('project')}
-                          defaultValue={data?.positionId}
+                          labelPath="description"
+                          valuePath="description"
+                          options={user.businessActivities?.filter(item => !item.dateTo)}
+                          disabled={formCardConfig.disabled}
+                          defaultValue={data?.businessActivity}
                           error={!!fieldState.error}
                           value={field.value}
                           onChange={(e) => {
-                            clearErrors('positionId');
+                            clearErrors('businessActivity');
+                            field.onChange(e.target.value);
+                          }}
+                        />
+                      )}
+                    />
+                  )}
+                  <div className={isOutsorce ? 'fullwidth' : ''}>
+                    <Controller
+                      control={control}
+                      name="recruiter"
+                      rules={{ required: true }}
+                      render={({ field, fieldState }) => (
+                        <Select
+                          label={t('user.recruiter')}
+                          theme="gray"
+                          labelPath="fullname"
+                          valuePath="_id"
+                          options={recruiters}
+                          disabled={formCardConfig.disabled}
+                          defaultValue={data?.recruiter}
+                          error={!!fieldState.error}
+                          value={field.value}
+                          onChange={(e) => {
+                            clearErrors('recruiter');
                             field.onChange(e.target.value);
                           }}
                         />
