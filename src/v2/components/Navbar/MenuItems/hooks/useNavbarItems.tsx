@@ -9,6 +9,7 @@ import {
   NotificationIcon,
   PaycheckIcon,
   PrepaymentIcon,
+  RecruiterIcon,
   UsersIcon,
 } from 'components/icons';
 import { FULL_PERMISSION_ROLES } from 'constants/userRoles';
@@ -79,6 +80,13 @@ const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     icon: <FillBuildingIcon />,
     to: '/clients',
     relativeLocations: ['client'],
+  },
+  {
+    type: 'link',
+    title: 'navbar.orders',
+    icon: <RecruiterIcon />,
+    to: '/orders',
+    relativeLocations: ['order'],
   },
   {
     type: 'collapse',

@@ -13,6 +13,7 @@ import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { DeleteIcon, DragIcon, PlusIcon } from 'components/icons';
 import BooleanSelect from 'components/shared/BooleanSelect';
 import createId from 'helpers/createId';
+import reorder from 'helpers/reorder';
 import { ICustomForm } from 'interfaces/form.interface';
 
 import useCustomFormActions from '../hooks/useCustomFormActions';
@@ -23,14 +24,6 @@ type CustomFieldSetting = {
   id: string;
   field: string;
   isRequired: boolean;
-};
-
-const reorder = (list: any[], startIndex: number, endIndex: number) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
 };
 
 type Props = DialogProps & {
@@ -119,7 +112,7 @@ const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
                   {fieldSettings.map((setting, index) => (
                     <Draggable key={setting.id} draggableId={setting.id} index={index}>
                       {(provided) => (
-                        <div className="row" key={setting.id} ref={provided.innerRef} {...provided.draggableProps}>
+                        <div className="row" ref={provided.innerRef} {...provided.draggableProps}>
                           <div className="cell">
                             <Select
                               label={t('customForms.field')}
@@ -166,49 +159,6 @@ const FormDialog = ({ defaultData, onClose, ...rest }: Props) => {
               )}
             </Droppable>
           </DragDropContext>
-          {/* <div className="grid">
-            <div className="row">
-              <div className="cell header">{t('customForms.field')}</div>
-              <div className="cell header">{t('customForms.isRequired')}</div>
-            </div>
-            {fields.map((setting) => (
-              <div className="row" key={setting.id}>
-                <div className="cell">
-                  <Select
-                    options={customFormFields}
-                    valuePath="_id"
-                    labelPath="names.sk"
-                    defaultValue={setting.field}
-                    theme="gray"
-                    className="border-right"
-                    onChange={(e) => {
-                      setFields(prev => prev.map((prevSetting) => prevSetting.id === setting.id
-                        ? ({ ...prevSetting, field: e.target.value as string })
-                        : prevSetting),
-                      );
-                    }}
-                  />
-                </div>
-                <div className="cell">
-                  <BooleanSelect
-                    isEmptyItem={false}
-                    defaultValue={setting.isRequired || false}
-                    theme="gray"
-                    onChange={(v) => {
-                      setFields(prev => prev.map((prevSetting) => prevSetting.id === setting.id
-                        ? ({ ...prevSetting, isRequired: !!v })
-                        : prevSetting),
-                      );
-                    }}
-                  />
-                  <div className="actions">
-                    <IconButton><DeleteIcon size={16} /></IconButton>
-                    <IconButton><DragIcon size={16} /></IconButton>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div> */}
           <Button
             onClick={() => void setFieldSettings(prev => [...prev, { field: '', isRequired: false, id: createId() }])}
             variant="text"

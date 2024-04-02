@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import pick from 'lodash-es/pick';
 import { Button } from 'v2/uikit';
+import Autocomplete from 'v2/uikit/Autocomplete';
 import BreadCrumbs from 'v2/uikit/BreadCrumbs';
 import Dialog, { DialogActions } from 'v2/uikit/Dialog';
 import Loader, { FullPageLoaderWrapper } from 'v2/uikit/Loader';
@@ -11,6 +12,7 @@ import { TabPanel, TabsContainer, useTabs } from 'v2/uikit/Tabs';
 
 import { useCreateDayoffMutation, useDeleteDayoffMutation, useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
 import { useCreateEmployment } from 'api/mutations/employmentMutation';
+import { useCreateOrderParticipation } from 'api/mutations/orderParticipationMutation';
 import { useCreatePaycheckMutation, useDeletePaycheckMutation, useUpdatePaycheckMutation } from 'api/mutations/paycheckMutation';
 import { useCreatePayrollMutation, useDeletePayrollMutation, useUpdatePayrollMutation } from 'api/mutations/payrollMutation';
 import { useCreatePrepaymentMutation, useDeletePrepaymentMutation, useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
@@ -20,6 +22,8 @@ import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { useGetCustomFormFieldSectionBindings, useGetCustomFormSections } from 'api/query/customFormsQuery';
 import { useGetDaysoff } from 'api/query/dayoffQuery';
 import { useGetEmployments } from 'api/query/employmentQuery';
+import { useGetOrderParticipations } from 'api/query/orderParticipationQuery';
+import { useGetOrders } from 'api/query/orderQuery';
 import { useGetPaycheckList } from 'api/query/paycheckQuery';
 import { useGetPayrollList } from 'api/query/payrollQuery';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
@@ -27,6 +31,8 @@ import { useGetResidences } from 'api/query/residenceQuery';
 import { useGetUser } from 'api/query/userQuery';
 import { DeleteIcon, PlusIcon, WarningIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
+import { IOrder } from 'interfaces/order.interface';
+import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 import { IPaycheck } from 'interfaces/paycheck.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -43,12 +49,13 @@ import PersonalDocsFormCard from './components/FormCards/PersonalDocsFormCard';
 import PrepaymentsFormCard from './components/FormCards/PrepaymentsFormCard';
 import ResidencesFormCard from './components/FormCards/ResidencesFormCard';
 import ScansFormCard from './components/FormCards/ScansFormCard';
+import OrderParticipations from './components/OrderParticipations';
 import ProfileCard from './components/ProfileCard';
 import UpdateHistory from './components/UpdateHistory';
 import useUpdateCachedUserData from './hooks/useUpdateCachedUserData';
 import { ContentWrapper, ProfileAdminPageWrapper } from './styles';
 
-const TABS = ['profile', 'user.info', 'user.cooperation', 'user.history'];
+const TABS = ['profile', 'user.info', 'user.cooperation', 'order.participations', 'user.history'];
 
 const ProfileAdminPageRender = () => {
   const { role } = useAuthData();
@@ -68,6 +75,7 @@ const ProfileAdminPageRender = () => {
   const { data: daysoff = [] } = useGetDaysoff({ user: userId });
   const { data: employments = [], refetch: refetchEmplyments } = useGetEmployments({ user: userId });
   const { data: accommodations = [] } = useGetAccommodations();
+  const { data: orderParticipations = [] } = useGetOrderParticipations({ user: userId });
 
   const updateUserMutation = useUpdateUserMutation();
   const deleteUserMutation = useDeleteUserMutation();
@@ -123,6 +131,22 @@ const ProfileAdminPageRender = () => {
   const { data: sections = [] } = useGetCustomFormSections({ entity: 'user' });
   const { data: allCustomFieldSectionBindings = [] } = useGetCustomFormFieldSectionBindings();
 
+  // New user participation
+  const [openCreateParticipationDialog, setOpenCreateParticipationDialog] = useState(false);
+  const { data: orders = [] } = useGetOrders();
+  const [selectedOrder, setSelectedOrder] = useState<IOrder | null>(null);
+  const createParticipationMutation = useCreateOrderParticipation();
+  const createParticipation = () => createParticipationMutation.mutateAsync({
+    order: selectedOrder?._id,
+    user: userId,
+    screaning: {},
+    stages: [],
+  }).then((res) => {
+    const queryKey = ['orderParticipations', JSON.stringify({ user: userId })];
+    const participations: IOrderParticipation<true>[] = queryClient.getQueryData(queryKey) || [];
+    queryClient.setQueryData(queryKey, [res, ...participations]);
+  });
+
   if (!profileData) return <FullPageLoaderWrapper><Loader /></FullPageLoaderWrapper>;
 
   return (
@@ -133,6 +157,11 @@ const ProfileAdminPageRender = () => {
             {tab === 2 && (
               <Button onClick={createEmptyEmployment}>
                 <PlusIcon />{t('user.addEmployment')}
+              </Button>
+            )}
+            {tab === 3 && (
+              <Button onClick={() => void setOpenCreateParticipationDialog(true)}>
+                <PlusIcon />{t('user.addNewParticipation')}
               </Button>
             )}
             {role !== 'user' && (
@@ -309,7 +338,10 @@ const ProfileAdminPageRender = () => {
           <TabPanel className="cards" index={2}>
             <Employments data={employments} />
           </TabPanel>
-          <TabPanel index={3}>
+          <TabPanel className="cards" index={3}>
+            <OrderParticipations data={orderParticipations} />
+          </TabPanel>
+          <TabPanel index={4}>
             <UpdateHistory data={profileData.history || []} />
           </TabPanel>
         </ContentWrapper>
@@ -362,14 +394,48 @@ const ProfileAdminPageRender = () => {
           )}
         </DialogActions>
       </Dialog>
+      {!!openCreateParticipationDialog && (
+        <Dialog
+          onClose={() => { setOpenCreateParticipationDialog(false); setSelectedOrder(null); } }
+          open={openCreateParticipationDialog}
+          title={t('user.addNewParticipation')}
+        >
+          <div style={{ width: 300 }}>
+            <Autocomplete
+              options={orders}
+              label={t('order.order')}
+              theme="gray"
+              getOptionLabel={(item) => `${item.name} (${item.client.name} > ${item.project.name})`}
+              style={{ marginBottom: 12 }}
+              value={selectedOrder}
+              onChange={(v) => void setSelectedOrder(v)}
+            />
+          </div>
+          <DialogActions>
+            <Button
+              variant="contained"
+              disabled={!selectedOrder}
+              onClick={async () => {
+                if (selectedOrder) {
+                  setOpenCreateParticipationDialog(false);
+                  setSelectedOrder(null);
+                  await createParticipation();
+                }
+              }}
+            >{t('approve')}</Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </ProfileAdminPageWrapper>
   );
 };
 
 const ProfileAdminPage = () => {
   const { id } = useParams();
+  const { state } = useLocation();
+
   return (
-    <TabsContainer key={id}>
+    <TabsContainer key={id} defaultTab={state?.tab || 0}>
       <ProfileAdminPageRender />
     </TabsContainer>
   );

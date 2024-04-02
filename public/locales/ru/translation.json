@@ -14,7 +14,8 @@
     "clients": "Клиенты",
     "workspaces": "Рабочие пространства",
     "finance": "Финансы",
-    "feedback": "Обратная связь"
+    "feedback": "Обратная связь",
+    "orders": "Наборы"
   },
   "menu": {
     "prepayment": "Заказать аванс",
@@ -66,7 +67,7 @@
     "slovakDocsFields": "Словацкие документы",
     "adressFields": "Адрес",
     "biometryFields": "Размер одежды",
-    "expirienceFields": "Опыт работы",
+    "experienceFields": "Опыт работы",
     "familyFields": "Семья",
     "hasInternationalPass": "Загранпаспорт?",
     "internationalPassNumber": "Номер загранпаспорта",
@@ -231,7 +232,8 @@
     "employmentChangeCreatedAt": "Дата создания",
     "thisNameExistsMsg": "В системе уже есть зарегистрированный пользователь с таким именем и фамилией. Хотите продолжить?",
     "corporateBodyAddress": "Адрес (ИП)",
-    "client": "Клиент"
+    "client": "Клиент",
+    "addNewParticipation": "Добавить в набор"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",
@@ -367,16 +369,7 @@
       "date": "Дата",
       "select": "Выпадающий список",
       "multiselect": "Мультиселект",
-      "expirience": "Опыт работы"
-    },
-    "clientStatus": {
-      "active": "Active",
-      "inactive": "Paused",
-      "development": "In development",
-      "rejected": "Canceled",
-      "negotiation": "Переговоры",
-      "contacted": "Сконтактированный",
-      "potential": "Потенциальный"
+      "experience": "Опыт работы"
     },
     "projectStatus": {
       "active": "Активный",
@@ -410,6 +403,11 @@
       "continues": "Осуществляется",
       "finished": "Завершено",
       "future": "Запланирован"
+    },
+    "orderCooperationType": {
+      "leasing": "Лизинг",
+      "outsorcing": "Аутсорсинг",
+      "podkmen": "Pod kmeň"
     }
   },
   "notFoundPage": "Страница не найдена",
@@ -567,7 +565,8 @@
     "financial": "Финансовые данные",
     "cooperation": "Сотрудничество",
     "comment": "Коментарий",
-    "shortName": "Короткое название"
+    "shortName": "Короткое название",
+    "orders": "Наборы"
   },
   "errorTexts": {
     "emptyPassword": "Пароль не может быть пустым",
@@ -658,5 +657,51 @@
     "updatedBy": "Кем обновлено",
     "createdAt": "Дата создания",
     "updatedAt": "Дата последнего обновления"
+  },
+  "order": {
+    "order": "Набор",
+    "status": "Статус набора",
+    "client": "Клиент",
+    "project": "Проект",
+    "cooperationType": "Тип сотрудничества",
+    "name": "Название",
+    "tableStats": "Цель / Сотрудники / Остаток",
+    "candidateTableStats": "Кандидаты / Не подошли",
+    "dateFrom": "Дата от",
+    "dateTo": "Дата до",
+    "createdAt": "Дата создания",
+    "createdBy": "Кем создано",
+    "new": "Новый набор",
+    "variability": "Сменность",
+    "managers": "Менеджеры",
+    "specificationUrl": "Подробная спецификация",
+    "goal": "Цель",
+    "stages": "Этапы",
+    "positionName": "Названия позиции",
+    "form": "Анкета",
+    "salary": "Зарплата",
+    "location": "Локация",
+    "addNewParticipation": "Добавить сотрудника",
+    "stats": "Показатели",
+    "employed": "Трудоустроены",
+    "left": "Осталось",
+    "candidates": "Кандидаты",
+    "canceled": "Не подошло",
+    "participations": "Участие в наборе",
+    "activeStage": "Этап",
+    "screaning": "Скрининг",
+    "specification": "Спецификация заказа",
+    "stage": "Этап",
+    "stageFrom": "Дата",
+    "updatedAt": "Дата последнего обновления"
+  },
+  "workExperience": {
+    "workExperience": "Опыт работы",
+    "company": "Компания",
+    "dates": "От - До",
+    "position": "Позиция",
+    "fireMethod": "Способ увольнения",
+    "fireReason": "Причина увольнения",
+    "add": "Добавить опыт работы"
   }
 }

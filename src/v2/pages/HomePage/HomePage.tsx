@@ -8,7 +8,7 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from 'v2/uikit/Table';
 
 import { useGetDashboardData } from 'api/query/dashboardQuery';
-import { AccommodationIcon, BusinessIcon, DayoffIcon, PrepaymentIcon, UserIcon } from 'components/icons';
+import { AccommodationIcon, BusinessIcon, DayoffIcon, PrepaymentIcon, RecruiterIcon, UserIcon } from 'components/icons';
 import { MainMenuGrid, MainMenuLink } from 'components/Menu/MainMenu';
 import { ADMIN_MENU_ITEMS, INavbarItem, MENU_ITEMS } from 'constants/menu';
 import { useAuthData } from 'contexts/AuthContext';
@@ -16,6 +16,7 @@ import { getDateFromIso } from 'helpers/datetime';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IClient } from 'interfaces/client.interface';
 import { IDayOff } from 'interfaces/dayoff.interface';
+import { IOrder } from 'interfaces/order.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IUser } from 'interfaces/users.interface';
 
@@ -110,6 +111,37 @@ const HomePage = () => {
                               <TableCell>{client.sidlo}</TableCell>
                               <TableCell>
                                 <StatusLabel className={client.status}>{t(`selects.clientStatus.${client.status}`)}</StatusLabel>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  )}
+                </FormCardBody>
+              </FormCard>
+              <FormCard>
+                <FormCardHeader icon={<RecruiterIcon size={24} />} title={t('navbar.orders')}>
+                  <Link to="/orders"><Button>{t('showAll')}</Button></Link>
+                </FormCardHeader>
+                <FormCardBody>
+                  {!!dashboard.orders.length && (
+                    <TableContainer>
+                      <Table size="small">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>{t('order.name')}</TableCell>
+                            <TableCell>{t('order.client')}</TableCell>
+                            <TableCell>{t('order.status')}</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {dashboard.orders.map((order: IOrder<true>) => (
+                            <TableRow key={order._id}>
+                              <TableCell><Link to={`/order/${order._id}`}>{order.name}</Link></TableCell>
+                              <TableCell>{order.client.name}</TableCell>
+                              <TableCell>
+                                <StatusLabel className={order.status}>{t(`selects.clientStatus.${order.status}`)}</StatusLabel>
                               </TableCell>
                             </TableRow>
                           ))}

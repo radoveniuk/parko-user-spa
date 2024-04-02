@@ -8,7 +8,7 @@ export const DialogContentWrapper = styled.div`
     display: grid;
     gap: 16px;
     grid-template-columns: 1fr 1fr;
-    padding: 8px;
+    margin-bottom: 12px;
     
     @media (max-width: ${TB}) {
       grid-template-columns: 1fr;

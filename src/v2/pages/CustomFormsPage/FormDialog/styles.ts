@@ -11,7 +11,6 @@ export const DialogContentWrapper = styled.div`
     
     @media (max-width: ${TB}) {
       grid-template-columns: 1fr;
-      padding-right: 8px;
     }
   }
   

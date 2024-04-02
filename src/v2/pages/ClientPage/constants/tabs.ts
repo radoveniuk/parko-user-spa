@@ -1,1 +1,1 @@
-export const TABS = ['projects', 'profiles'];
+export const TABS = ['projects', 'profiles', 'orders'];

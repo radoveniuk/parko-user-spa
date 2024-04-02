@@ -23,7 +23,7 @@ type Props = DialogProps & {
   defaultData: ICustomFormField | true;
 };
 
-const CUSTOM_FIELD_TYPES: CustomFormFieldType[] = ['boolean', 'date', 'number', 'phone', 'string', 'select', 'multiselect', 'expirience'];
+const CUSTOM_FIELD_TYPES: CustomFormFieldType[] = ['boolean', 'date', 'number', 'phone', 'string', 'select', 'multiselect', 'experience', 'textarea'];
 
 const FieldDialog = ({ defaultData, onClose, ...rest }: Props) => {
   const { t } = useTranslation();

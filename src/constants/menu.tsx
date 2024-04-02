@@ -150,6 +150,12 @@ export const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     icon: <CustomizeIcon size={30} />,
     to: '/customization/forms',
   },
+  {
+    title: 'navbar.orders',
+    icon: <CustomizeIcon size={30} />,
+    to: '/orders',
+    relativeLocations: ['order'],
+  },
 ];
 
 export const ADMIN_MENU_ITEMS: INavbarItem[] = [

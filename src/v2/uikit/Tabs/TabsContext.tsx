@@ -2,13 +2,18 @@ import React, {
   createContext, ReactNode, useContext, useState,
 } from 'react';
 
+type BaseProps = {
+  children: ReactNode;
+  defaultTab?: number;
+};
+
 type contextType = [number, (v: number) => void]
 
 const TabsContext = createContext<contextType | undefined>(undefined);
 TabsContext.displayName = 'TabsContext';
 
-const TabsProvider = ({ children }: { children: ReactNode }) => {
-  const activeTabState = useState(0);
+const TabsProvider = ({ children, defaultTab = 0 }: BaseProps) => {
+  const activeTabState = useState(defaultTab);
 
   return (
     <TabsContext.Provider value={activeTabState}>

@@ -143,6 +143,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
             <Tab label={t('profile')} />
             <Tab label={t('user.info')} />
             <Tab label={t('user.cooperation')} />
+            <Tab label={t('order.participations')} />
             <Tab label={t('user.history')} />
           </Tabs>
         </div>

@@ -81,8 +81,6 @@ export const ProfileCardWrapper = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 18px;
-    white-space: nowrap;
-    display: flex;
     align-items: center;
     gap: 3px;
 

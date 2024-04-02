@@ -7,13 +7,10 @@ import TabsProvider, { useTabs } from './TabsContext';
 
 type BaseProps = {
   children: React.ReactNode;
+  defaultTab?: number;
 };
 
-export const TabsContainer = ({ children }: BaseProps) => (
-  <TabsProvider>
-    {children}
-  </TabsProvider>
-);
+export const TabsContainer = (props: BaseProps) => (<TabsProvider {...props} />);
 
 export const Tabs = ({ children, ...rest }: BaseProps & TabsProps) => {
   const [tab, setTab] = useTabs();

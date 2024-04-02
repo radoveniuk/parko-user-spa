@@ -307,4 +307,4 @@ export const ALL_FORM_FIELDS: UserFieldsList = {
 };
 
 export type FieldSection = 'baseFields' |
-'docsFields' | 'adressFields' | 'biometryFields' | 'expirienceFields' | 'familyFields' | 'slovakDocsFields' | 'scancopies';
+'docsFields' | 'adressFields' | 'biometryFields' | 'experienceFields' | 'familyFields' | 'slovakDocsFields' | 'scancopies';

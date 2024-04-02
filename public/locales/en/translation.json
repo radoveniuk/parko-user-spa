@@ -14,7 +14,8 @@
     "clients": "Clients",
     "workspaces": "Workspaces",
     "finance": "Finance",
-    "feedback": "Feedback"
+    "feedback": "Feedback",
+    "orders": "Recruitment rooms"
   },
   "menu": {
     "prepayment": "Request prepayment",
@@ -66,7 +67,7 @@
     "slovakDocsFields": "Slovak documents",
     "adressFields": "Adress",
     "biometryFields": "Closes sizes",
-    "expirienceFields": "Your expirience",
+    "experienceFields": "Your experience",
     "familyFields": "Family information",
     "hasInternationalPass": "Travel document?",
     "internationalPassNumber": "Travel document number",
@@ -232,7 +233,8 @@
     "employmentChangeCreatedAt": "Created at",
     "thisNameExistsMsg": "There is already a registered user in the system with the same first and last name. Do you want to continue?",
     "corporateBodyAddress": "Address",
-    "client": "Client"
+    "client": "Client",
+    "addNewParticipation": "Add to the order"
   },
   "userHistory": {
     "updatedBy": "Updated by",
@@ -368,7 +370,8 @@
       "date": "Date",
       "select": "Dropdown list",
       "multiselect": "Multiselect",
-      "expirience": "Work expirience"
+      "experience": "Work experience",
+      "textarea": "Text area"
     },
     "clientStatus": {
       "active": "Active",
@@ -411,6 +414,11 @@
       "continues": "Ongoing",
       "finished": "Finished",
       "future": "Planned"
+    },
+    "orderCooperationType": {
+      "leasing": "Leasing",
+      "outsorcing": "Outsorsing",
+      "podkmen": "Pod kmeň"
     }
   },
   "notFoundPage": "Page not found",
@@ -568,7 +576,8 @@
     "financial": "Financial data",
     "cooperation": "Cooperation",
     "comment": "Comment",
-    "shortName": "Short name"
+    "shortName": "Short name",
+    "orders": "Recruitment rooms"
   },
   "errorTexts": {
     "emptyPassword": "Password cannot be empty",
@@ -660,5 +669,51 @@
     "updatedBy": "Updated By",
     "createdAt": "Creation date",
     "updatedAt": "Last update at"
+  },
+  "order": {
+    "order": "Recruitment Room",
+    "status": "Recruitment room status",
+    "client": "Client",
+    "project": "Project",
+    "cooperationType": "Type of cooperation",
+    "name": "Name",
+    "tableStats": "Target / Employed / Remaining",
+    "candidateTableStats": "Candidates / Ineligible",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
+    "createdAt": "Created date",
+    "createdBy": "Created By",
+    "new": "New order",
+    "variability": "Variability",
+    "managers": "Managers",
+    "specificationUrl": "Detailed specification",
+    "goal": "Goal",
+    "stages": "Stages",
+    "positionName": "Position name",
+    "form": "Form",
+    "salary": "Salary",
+    "location": "Location",
+    "addNewParticipation": "Add profile",
+    "stats": "Statistics",
+    "employed": "Employed users",
+    "left": "Left",
+    "candidates": "Candidates",
+    "canceled": "Canceled",
+    "participations": "Recruitnemt's participations",
+    "activeStage": "Stage",
+    "screening": "Screening",
+    "specification": "Order specification",
+    "stage": "Stage",
+    "stageFrom": "Date and time",
+    "updatedAt": "Last update at"
+  },
+  "workExperience": {
+    "workExperience": "Work experience",
+    "company": "Company",
+    "dates": "From - To",
+    "position": "Position",
+    "fireMethod": "Fire Method",
+    "fireReason": "Fire Reason",
+    "add": "Add work experience"
   }
 }

@@ -1,6 +1,6 @@
 export type AnyObject = {[key: string]: any};
 
-export type MongoEntity = { _id: string } & AnyObject;
+export type MongoEntity = IMongoDoc & AnyObject;
 
 type Primitive = null | undefined | string | number | boolean | symbol | bigint;
 type PathImpl<K extends string | number, V> = V extends Primitive ? `${K}` : `${K}` | `${K}.${Path<V>}`;
@@ -20,4 +20,10 @@ export type MongoHistory<T> = {
     surname?: string,
   };
   changes: Partial<Record<keyof T, { oldValue: any, newValue: any }>>;
+}
+
+export interface IMongoDoc {
+  _id: string
+  createdAt: string;
+  updatedAt: string;
 }

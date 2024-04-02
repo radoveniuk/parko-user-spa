@@ -11,12 +11,14 @@ import { useDeleteClientMutation } from 'api/mutations/clientMutation';
 import { useCreateProjectMutation } from 'api/mutations/projectMutation';
 import { useGetClient } from 'api/query/clientQuery';
 import { useGetEmployments } from 'api/query/employmentQuery';
+import { useGetOrders } from 'api/query/orderQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { DeleteIcon, PlusIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { themeConfig } from 'theme';
 
 import ClientCard from './components/ClientCard';
+import Orders from './components/Orders';
 import Profiles from './components/Profiles';
 import Projects from './components/Projects';
 import { TABS } from './constants/tabs';
@@ -31,6 +33,7 @@ const ClientPageRender = () => {
   const { data: clientData } = useGetClient(clientId as string);
   const { data: projects = [], refetch: refetchProjects } = useGetProjects({ client: clientId });
   const { data: employments = [] } = useGetEmployments({ client: clientId });
+  const { data: orders = [] } = useGetOrders({ client: clientId });
   const createProjectMutation = useCreateProjectMutation();
   const deleteClient = useDeleteClientMutation();
 
@@ -80,6 +83,9 @@ const ClientPageRender = () => {
           </TabPanel>
           <TabPanel index={1}>
             {!!employments.length && <Profiles projects={projects} employments={employments} />}
+          </TabPanel>
+          <TabPanel index={2}>
+            {!!orders.length && <Orders projects={projects} orders={orders} />}
           </TabPanel>
         </ContentWrapper>
       </div>
