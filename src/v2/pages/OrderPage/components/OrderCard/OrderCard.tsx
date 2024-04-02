@@ -83,6 +83,9 @@ const OrderCard = ({ data, participations }: ClientCardProps) => {
           <div className="info-item"><div className="name">{t('order.location')}:</div> {order.location}</div>
           <div className="info-item"><div className="name">{t('order.variability')}:</div> {order.variability}</div>
           <div className="info-item"><div className="name">{t('order.managers')}:</div> {renderManagers()}</div>
+          <div className="info-item">
+            <div className="name">{t('order.dateFrom')} - {t('order.dateTo')}:</div> {getDateFromIso(order.dateFrom)} - {getDateFromIso(order.dateTo)}
+          </div>
           <div className="info-item"><div className="name">{t('comment')}:</div> {order.comment}</div>
         </div>
         <div className="stats section">
