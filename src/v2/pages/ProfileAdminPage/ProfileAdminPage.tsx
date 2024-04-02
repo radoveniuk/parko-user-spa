@@ -293,7 +293,7 @@ const ProfileAdminPageRender = () => {
               <PersonalDocsFormCard data={profileData.docs || []} onUpdateDocs={(docs) => { updateUser({ docs }); }} />
               <BankDataFormCard data={pick(profileData, ['IBAN', 'bankName', 'SWIFT'])} onUpdate={updateUser} />
               {sections.map((sectionData) => {
-                const bindings = allCustomFieldSectionBindings.filter((item) => item.section._id === sectionData._id);
+                const bindings = allCustomFieldSectionBindings.filter((item) => item.section?._id === sectionData?._id);
                 return (
                   <CustomSectionFormCard
                     key={sectionData._id}
