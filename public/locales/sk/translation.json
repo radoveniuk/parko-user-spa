@@ -67,7 +67,7 @@
     "slovakDocsFields": "Slovenské dokumenty",
     "adressFields": "Adresa",
     "biometryFields": "Veľkosti odevov",
-    "expirienceFields": "Prax",
+    "experienceFields": "Prax",
     "familyFields": "Rodina",
     "hasInternationalPass": "Cestovný pas?",
     "internationalPassNumber": "Číslo cestovného pasu",
@@ -368,7 +368,7 @@
       "date": "Dátum",
       "select": "Select",
       "multiselect": "Multiselect",
-      "expirience": "Pracovné skúsenosti"
+      "experience": "Pracovné skúsenosti"
     },
     "projectStatus": {
       "active": "Aktív",
@@ -665,7 +665,7 @@
     "dateTo": "Dátum do",
     "createdAt": "Dátum vytvorenia",
     "createdBy": "Vytvoril",
-    "new": "Nová objednavka",
+    "new": "Nová náborová miestnost",
     "variability": "Zmennost",
     "managers": "Manažéri",
     "specificationUrl": "Podrobná špecifikácia",
@@ -689,8 +689,8 @@
     "stageFrom": "Dátum a čas",
     "updatedAt": "Dátum poslednej aktualizácie"
   },
-  "workExpirience": {
-    "workExpirience": "Pracovná skúsenost",
+  "workExperience": {
+    "workExperience": "Pracovná skúsenost",
     "company": "Spoločnosť",
     "dates": "Od - Do",
     "position": "Pozícia",

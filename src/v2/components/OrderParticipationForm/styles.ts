@@ -44,6 +44,9 @@ export const InfoWrapper = styled.div`
     margin-top: 6px;
     color: #717171;
     font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
     &.hide {
       display: none;
     }
@@ -121,7 +124,7 @@ export const StagesTable = styled.table`
   }
 `;
 
-export const ReadonlyExpirience = styled.div`
+export const ReadonlyExperience = styled.div`
   .title {
     .company {
       display: inline;

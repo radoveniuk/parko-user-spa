@@ -9,7 +9,7 @@ import Select from 'v2/uikit/Select';
 import BooleanSelect from 'components/shared/BooleanSelect';
 import { ICustomFormField } from 'interfaces/form.interface';
 
-import WorkExpirienceForm from './WorkExpirienceForm';
+import WorkExperienceForm from './WorkExperienceForm';
 
 type CustomFieldProps = {
   value: any;
@@ -99,9 +99,9 @@ const CustomField = ({ value, onChange, metadata, theme, variant, ...rest }: Cus
     );
   }
 
-  if (type === 'expirience') {
+  if (type === 'experience') {
     return (
-      <WorkExpirienceForm defaultValues={value} error={!!rest.error} disabled={rest.disabled} onChange={onChange} />
+      <WorkExperienceForm defaultValues={value} error={!!rest.error} disabled={rest.disabled} onChange={onChange} />
     );
   }
 

@@ -9,9 +9,9 @@ import { DeleteIcon, PlusIcon } from 'components/icons';
 import { EXPIRIENCE_METHOD_OPTIONS } from 'constants/selectsOptions';
 import createId from 'helpers/createId';
 
-import { WorkExpirienceFormWrapper } from './styles';
+import { WorkExperienceFormWrapper } from './styles';
 
-type WorkExpirience = {
+type WorkExperience = {
   company: string;
   dates: string;
   position: string;
@@ -20,7 +20,7 @@ type WorkExpirience = {
   matterId: string;
 };
 
-const getDefaultExpirience = (): WorkExpirience => ({
+const getDefaultExperience = (): WorkExperience => ({
   company: '',
   dates: '',
   position: '',
@@ -30,60 +30,60 @@ const getDefaultExpirience = (): WorkExpirience => ({
 });
 
 type Props = {
-  defaultValues?: WorkExpirience[] | undefined;
+  defaultValues?: WorkExperience[] | undefined;
   error?: boolean;
   disabled?: boolean;
-  onChange(v: WorkExpirience[] | undefined): void;
+  onChange(v: WorkExperience[] | undefined): void;
 };
 
-const WorkExpirienceForm = ({ defaultValues = [], error, disabled, onChange }: Props) => {
+const WorkExperienceForm = ({ defaultValues = [], error, disabled, onChange }: Props) => {
   const { t } = useTranslation();
-  const { register, setValue, watch, control } = useForm<{expiriences: WorkExpirience[]}>({ defaultValues: { expiriences: defaultValues || [] } });
+  const { register, setValue, watch, control } = useForm<{experiences: WorkExperience[]}>({ defaultValues: { experiences: defaultValues || [] } });
 
-  const { expiriences = [] } = watch();
+  const { experiences = [] } = watch();
 
   useEffect(() => {
-    onChange(expiriences.length ? expiriences : undefined);
+    onChange(experiences.length ? experiences : undefined);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [expiriences]);
+  }, [experiences]);
 
   return (
-    <WorkExpirienceFormWrapper className="fullwidth">
-      {Array.isArray(expiriences) && expiriences?.map((expirienceForm, index) => (
+    <WorkExperienceFormWrapper className="fullwidth">
+      {Array.isArray(experiences) && experiences?.map((experienceForm, index) => (
         <div className="card" key={index}>
           <IconButton
             className="delete-btn"
-            onClick={() => void setValue('expiriences', expiriences.filter(item => item.matterId !== expirienceForm.matterId))}
+            onClick={() => void setValue('experiences', experiences.filter(item => item.matterId !== experienceForm.matterId))}
             disabled={disabled}
           >
             <DeleteIcon />
           </IconButton>
-          <div className="title">{t('workExpirience.workExpirience')} {index + 1}</div>
+          <div className="title">{t('workExperience.workExperience')} {index + 1}</div>
           <div className="form">
             <Input
-              label={t('workExpirience.company')}
+              label={t('workExperience.company')}
               placeholder="Parko Limited s.r.o."
               disabled={disabled}
-              {...register(`expiriences.${index}.company`)}
+              {...register(`experiences.${index}.company`)}
             />
             <Input
-              label={t('workExpirience.dates')}
+              label={t('workExperience.dates')}
               placeholder="01/2022 - 02/2022"
               disabled={disabled}
-              {...register(`expiriences.${index}.dates`)}
+              {...register(`experiences.${index}.dates`)}
             />
             <Input
-              label={t('workExpirience.position')}
+              label={t('workExperience.position')}
               placeholder="Manažér"
               disabled={disabled}
-              {...register(`expiriences.${index}.position`)}
+              {...register(`experiences.${index}.position`)}
             />
             <Controller
               control={control}
-              name={`expiriences.${index}.fireMethod`}
+              name={`experiences.${index}.fireMethod`}
               render={({ field }) => (
                 <Select
-                  label={t('workExpirience.fireMethod')}
+                  label={t('workExperience.fireMethod')}
                   disabled={disabled}
                   options={EXPIRIENCE_METHOD_OPTIONS}
                   valuePath="value"
@@ -94,9 +94,9 @@ const WorkExpirienceForm = ({ defaultValues = [], error, disabled, onChange }: P
               )}
             />
             <Input
-              label={t('workExpirience.fireReason')}
+              label={t('workExperience.fireReason')}
               disabled={disabled}
-              {...register(`expiriences.${index}.fireReason`)}
+              {...register(`experiences.${index}.fireReason`)}
             />
           </div>
         </div>
@@ -105,15 +105,15 @@ const WorkExpirienceForm = ({ defaultValues = [], error, disabled, onChange }: P
         className="add-btn"
         variant="outlined"
         onClick={() => {
-          setValue('expiriences', [...expiriences, getDefaultExpirience()]);
+          setValue('experiences', [...experiences, getDefaultExperience()]);
         }}
         disabled={disabled}
         color={!error ? 'primary' : 'error'}
       >
-        <PlusIcon />{t('workExpirience.add')}
+        <PlusIcon />{t('workExperience.add')}
       </Button>
-    </WorkExpirienceFormWrapper>
+    </WorkExperienceFormWrapper>
   );
 };
 
-export default memo(WorkExpirienceForm);
+export default memo(WorkExperienceForm);

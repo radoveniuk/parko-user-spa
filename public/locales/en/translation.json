@@ -67,7 +67,7 @@
     "slovakDocsFields": "Slovak documents",
     "adressFields": "Adress",
     "biometryFields": "Closes sizes",
-    "expirienceFields": "Your expirience",
+    "experienceFields": "Your experience",
     "familyFields": "Family information",
     "hasInternationalPass": "Travel document?",
     "internationalPassNumber": "Travel document number",
@@ -370,7 +370,7 @@
       "date": "Date",
       "select": "Dropdown list",
       "multiselect": "Multiselect",
-      "expirience": "Work expirience",
+      "experience": "Work experience",
       "textarea": "Text area"
     },
     "clientStatus": {

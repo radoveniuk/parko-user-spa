@@ -120,7 +120,7 @@ export const FilterButton = styled.button`
   transition: .3s;
   white-space: nowrap;
 
-  &:not(:hover), &:not(:active), &:not(.active) {
+  &:not(:hover):not(:active):not(.active) {
     filter: grayscale(1) opacity(0.5);
     border: none;
   }

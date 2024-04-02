@@ -10,6 +10,7 @@ import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shar
 import { ClearFiltersButton } from 'components/shared/Filters/Filters';
 import { CLIENT_STATUS, ORDER_COOPERATION_TYPE } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IClient } from 'interfaces/client.interface';
 
 import MobileOrderCard from '../../components/MobileOrderCard';
 
@@ -83,7 +84,7 @@ const OrderListPageRender = () => {
             filterKey="clients"
             label={t('order.client')}
             options={clients}
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option: IClient) => option.shortName || option.name}
             theme="gray"
           />
           <FilterAutocomplete

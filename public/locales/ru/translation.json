@@ -67,7 +67,7 @@
     "slovakDocsFields": "Словацкие документы",
     "adressFields": "Адрес",
     "biometryFields": "Размер одежды",
-    "expirienceFields": "Опыт работы",
+    "experienceFields": "Опыт работы",
     "familyFields": "Семья",
     "hasInternationalPass": "Загранпаспорт?",
     "internationalPassNumber": "Номер загранпаспорта",
@@ -369,7 +369,7 @@
       "date": "Дата",
       "select": "Выпадающий список",
       "multiselect": "Мультиселект",
-      "expirience": "Опыт работы"
+      "experience": "Опыт работы"
     },
     "projectStatus": {
       "active": "Активный",

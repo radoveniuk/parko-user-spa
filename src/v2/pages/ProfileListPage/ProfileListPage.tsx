@@ -18,6 +18,7 @@ import { isMongoId } from 'helpers/regex';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import usePageQueries from 'hooks/usePageQueries';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IClient } from 'interfaces/client.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import HeaderTable from './components/HeaderTable';
@@ -135,7 +136,7 @@ const ProfileListPageRender = () => {
             filterKey="clients"
             label={t('project.client')}
             options={clients}
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option: IClient) => option.shortName || option.name}
             theme="gray"
           />
           <FilterAutocomplete

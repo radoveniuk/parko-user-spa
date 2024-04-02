@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { TB } from 'theme/sizeBreakpoints';
 
-export const WorkExpirienceFormWrapper = styled.div`
+export const WorkExperienceFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 18px 0;
