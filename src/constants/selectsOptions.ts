@@ -72,7 +72,6 @@ export const PREPAYMENT_STATUS = [
   'pending',
   'approved',
   'rejected',
-  'paid',
 ];
 
 export const INSURANCE = [

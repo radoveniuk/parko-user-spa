@@ -13,4 +13,6 @@ export interface IPrepayment {
   adminComment?: string;
   period: string;
   createdAt?: string;
+  createdBy?: Partial<IUser>;
+  updatedBy?: Partial<IUser>;
 }
