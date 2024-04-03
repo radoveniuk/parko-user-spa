@@ -191,6 +191,7 @@
     "SWIFT": "SWIFT",
     "workTypes": "Typ práce",
     "employmentStatus": "Status zamestnania",
+    "employmentRecruiter": "Recruiter zamestnania",
     "pass": {
       "pass": "Cestovný pas",
       "number": "Cestovný pas > Číslo",
@@ -284,7 +285,9 @@
     "prepayment": "Záloha",
     "new": "Nova záloha",
     "createdAt": "Datum vytvorenia",
-    "period": "Period"
+    "period": "Period",
+    "createdBy": "Kto vytvoril",
+    "updatedBy": "Kto aktualizoval"
   },
   "dayoff": {
     "dateStart": "Začiatok",
@@ -375,9 +378,9 @@
       "inactive": "Neaktív"
     },
     "prepaymentStatus": {
-      "pending": "Spracovava sá",
-      "approved": "Potvrdená",
-      "rejected": "Zamietnutá",
+      "pending": "Požiadaná",
+      "approved": "Schválená",
+      "rejected": "Odmietnutá",
       "paid": "Zaplatená"
     },
     "financeType": {

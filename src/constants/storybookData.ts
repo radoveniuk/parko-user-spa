@@ -99,6 +99,7 @@ export const SB_MOCK_USER: IUser = {
   createdBy: null,
   updatedBy: null,
   workTypes: [],
+  employmentRecruiter: null,
 };
 
 export const SB_MOCK_CLIENT: IClient = {

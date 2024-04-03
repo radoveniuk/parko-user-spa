@@ -14,6 +14,8 @@ export interface IEmployment {
   comment: string;
   isNonTaxablePart: boolean;
   isChildTaxBonus: boolean;
+  businessActivity: string;
+  recruiter: string | Partial<IUser> | null;
   status?: 'hired' | 'fired' | 'canceled';
   changes: ProjectPositionChange[];
   history?: MongoHistory<IEmployment>[];

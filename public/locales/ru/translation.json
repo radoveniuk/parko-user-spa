@@ -193,6 +193,7 @@
     "SWIFT": "SWIFT",
     "workTypes": "Тип работы",
     "employmentStatus": "Статус сотрудничества",
+    "employmentRecruiter": "Рекрутер сотрудничества",
     "pass": {
       "pass": "Загранпаспорт",
       "number": "Загранпаспорт > Номер",
@@ -285,7 +286,9 @@
     "prepayment": "Аванс",
     "new": "Новый аванс",
     "createdAt": "Дата создания",
-    "period": "Период"
+    "period": "Период",
+    "createdBy": "Создал",
+    "updatedBy": "Внес изменения"
   },
   "dayoff": {
     "dateStart": "Начало",
@@ -376,9 +379,9 @@
       "inactive": "Неактивный"
     },
     "prepaymentStatus": {
-      "pending": "В обработке",
-      "approved": "Подтверждено",
-      "rejected": "Отклонено",
+      "pending": "Запрошен",
+      "approved": "Подтвержден",
+      "rejected": "Отклонен",
       "paid": "Оплачено"
     },
     "financeType": {

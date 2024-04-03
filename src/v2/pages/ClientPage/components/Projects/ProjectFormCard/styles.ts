@@ -100,7 +100,6 @@ export const PositionWrapper = styled.div`
     .field-label {
       color: rgb(113, 113, 113);
       font-size: 14px;
-      line-height: 14px;
       white-space: nowrap;
       max-width: 100%;
       overflow: hidden;

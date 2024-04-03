@@ -214,6 +214,10 @@ export const WORK_FIELDS: UserFieldsList = {
   workTypes: {
     type: 'multiselect',
   },
+  employmentRecruiter: {
+    type: 'readonly',
+    render: (data) => data.fullname,
+  },
 };
 
 export const SYSTEM_SETTINGS_FIELDS: UserFieldsList = {
