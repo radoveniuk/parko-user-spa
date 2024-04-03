@@ -24,7 +24,7 @@ type Props = DialogProps & {
 const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
   const { t } = useTranslation();
   const prepaymentStatusList = useTranslatedSelect(PREPAYMENT_STATUS, 'prepaymentStatus');
-  const { control, register, formState: { errors }, handleSubmit } = useForm<IPrepayment>();
+  const { control, register, formState: { errors }, handleSubmit, watch, clearErrors } = useForm<IPrepayment>();
   const queryClient = useQueryClient();
   const users: IUser[] = queryClient.getQueryData(['users-filter', JSON.stringify({})]) || [];
 
@@ -73,7 +73,13 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
             error={!!errors.status}
             options={prepaymentStatusList}
             defaultValue={data?.status || 'pending'}
-            {...register('status')}
+            {...register('status', {
+              onChange (v) {
+                if (v.target.value !== 'rejected') {
+                  clearErrors(['adminComment']);
+                }
+              },
+            })}
           />
           <Controller
             control={control}
@@ -90,11 +96,12 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
             )}
           />
           <Input
-            label={t('prepayment.comment')}
+            label={`${t('prepayment.comment')}${watch('status') === 'rejected' ? '*' : ''}`}
             defaultValue={data?.adminComment || ''}
             theme="gray"
             className="fullwidth"
-            {...register('adminComment')}
+            error={!!errors.adminComment}
+            {...register('adminComment', { required: watch('status') === 'rejected' })}
           />
         </div>
         <DialogActions>

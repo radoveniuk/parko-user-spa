@@ -25,8 +25,10 @@ const DEFAULT_COLS = [
   'prepayment.sum',
   'prepayment.comment',
   'prepayment.status',
-  'prepayment.date',
   'prepayment.paymentDate',
+  'prepayment.createdAt',
+  'prepayment.createdBy',
+  'prepayment.updatedBy',
   '',
 ];
 

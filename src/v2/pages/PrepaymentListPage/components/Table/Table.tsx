@@ -13,7 +13,7 @@ import { IClient } from 'interfaces/client.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import ProfileRow from '../PrepaymentRow';
+import PrepaymentRow from '../PrepaymentRow';
 
 import { TableWrapper } from './styles';
 
@@ -80,7 +80,7 @@ const Table = ({
         }}
       >
         {pageItems.map((prepayment: IPrepayment) => (
-          <ProfileRow
+          <PrepaymentRow
             key={prepayment._id}
             data={prepayment}
             cols={activeCols}

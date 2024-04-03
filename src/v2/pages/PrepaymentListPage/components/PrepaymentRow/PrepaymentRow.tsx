@@ -64,10 +64,20 @@ const PrepaymentRow = (props: ClientRowProps) => {
         <StatusLabel className={data.status}>{t(`selects.prepaymentStatus.${data.status}`)}</StatusLabel>
       </ListTableCell>
       <ListTableCell>
-        {getDateFromIso(data.createdAt)}
+        {getDateFromIso(data.paymentDate)}
       </ListTableCell>
       <ListTableCell>
-        {getDateFromIso(data.paymentDate)}
+        {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')}
+      </ListTableCell>
+      <ListTableCell>
+        <Link to={`/profile/${data.createdBy?._id}`} className="table-link">
+          {data.createdBy?.fullname}
+        </Link>
+      </ListTableCell>
+      <ListTableCell>
+        <Link to={`/profile/${data.updatedBy?._id}`} className="table-link">
+          {data.updatedBy?.fullname}
+        </Link>
       </ListTableCell>
       <ListTableCell>
         <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
