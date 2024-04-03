@@ -194,6 +194,7 @@
     "SWIFT": "SWIFT",
     "workTypes": "Work type",
     "employmentStatus": "Employment`s status",
+    "employmentRecruiter": "Employment`s recruiter",
     "pass": {
       "pass": "Travel Passport",
       "number": "Travel Passport > Number",
@@ -286,7 +287,9 @@
     "prepayment": "Prepayment",
     "new": "New prepayment",
     "createdAt": "Created at",
-    "period": "Period"
+    "period": "Period",
+    "createdBy": "Created By",
+    "updatedBy": "Updated By"
   },
   "dayoff": {
     "dateStart": "Start date",

@@ -84,6 +84,11 @@ const InfoRow = () => {
         if (userField === 'recruiter') {
           return createTableCell(typeof data.recruiter === 'object' && !!data.recruiter ? `${data.recruiter?.name} ${data.recruiter?.surname}` : '');
         }
+        if (userField === 'employmentRecruiter') {
+          return createTableCell(
+            typeof data.employmentRecruiter === 'object' && !!data.employmentRecruiter ? data.employmentRecruiter?.fullname : '',
+          );
+        }
         if (/\b(?:idcard.|visa.|permit.|pass.)\b/i.test(userField)) {
           const docType = userField.split('.')[0];
           const docValueKey = userField.split('.')[1];

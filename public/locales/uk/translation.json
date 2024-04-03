@@ -193,6 +193,7 @@
     "alreadyExistsError": "Користувач з таким імейлом вже зареєстрований",
     "workTypes": "Тип роботи",
     "employmentStatus": "Статус співпраці",
+    "employmentRecruiter": "Рекрутер співпраці",
     "pass": {
       "pass": "Закордонний паспорт",
       "number": "Закордонний паспорт > Номер",
@@ -285,7 +286,9 @@
     "prepayment": "Аванс",
     "new": "Новий аванс",
     "createdAt": "Дата створення",
-    "period": "Період"
+    "period": "Період",
+    "createdBy": "Ким створено",
+    "updatedBy": "Ким оновлено"
   },
   "dayoff": {
     "dateStart": "Початок",
@@ -375,9 +378,9 @@
       "inactive": "Неактивний"
     },
     "prepaymentStatus": {
-      "pending": "В обробці",
-      "approved": "Підтверджено",
-      "rejected": "Відхилено",
+      "pending": "Запит",
+      "approved": "Підтверджений",
+      "rejected": "Відхилений",
       "paid": "Оплачено"
     },
     "financeType": {
