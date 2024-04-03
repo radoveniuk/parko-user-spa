@@ -9,7 +9,6 @@ export const SelectWrapper = styled.label<{ fieldColor?: string }>`
   .label {
     color: #717171;
     font-size: 14px;
-    line-height: 14px;
     margin-bottom: 3px;
     
     &.error {

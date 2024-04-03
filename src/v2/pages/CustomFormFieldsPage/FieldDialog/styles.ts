@@ -34,7 +34,6 @@ export const DialogContentWrapper = styled.div`
       .label {
         color: rgb(113, 113, 113);
         font-size: 14px;
-        line-height: 14px;
         border-bottom: 1px solid rgb(214 214 214);
         padding-bottom: 6px;
         margin-bottom: 6px;

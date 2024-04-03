@@ -234,7 +234,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                       rules={{ required: true }}
                       render={({ field, fieldState }) => (
                         <Select
-                          label={t('user.recruiter')}
+                          label={`${t('user.recruiter')}*`}
                           theme="gray"
                           labelPath="fullname"
                           valuePath="_id"

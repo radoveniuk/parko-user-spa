@@ -10,7 +10,6 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
   .label {
     color: #717171;
     font-size: 14px;
-    line-height: 14px;
     margin-bottom: 3px;
     white-space: nowrap;
     max-width: 100%;
