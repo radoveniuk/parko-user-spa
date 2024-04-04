@@ -112,7 +112,7 @@ const OrderParticipationForm = ({ disabled }: Props) => {
             <b>{t('order.status')}:</b> {t(`selects.clientStatus.${order.status}`)}
           </div>
           <div className="row">
-            <b>{t('order.positionName')}:</b> {order.positionName}
+            <b>{t('order.positionName')}:</b> {order.project.positions?.find(position => position.matterId === order.positionId)?.internalName}
           </div>
           <div className="row">
             <b>{t('order.cooperationType')}:</b> {t(`selects.orderCooperationType.${order.cooperationType}`)}
