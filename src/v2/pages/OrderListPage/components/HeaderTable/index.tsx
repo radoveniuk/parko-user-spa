@@ -42,11 +42,9 @@ const HeaderTable = ({ count }: Props) => {
         <Stack direction="row" gap="15px">
           <div className="link">
             <IconButton className="small-btn primary" onClick={() => void setOpenNewPrepayment(true)}><PlusIcon size={25} /></IconButton>
-            {role === 'admin' && (
-              <Button className="big-btn" onClick={() => void setOpenNewPrepayment(true)}>
-                {t('order.new')}
-              </Button>
-            )}
+            <Button className="big-btn" onClick={() => void setOpenNewPrepayment(true)}>
+              {t('order.new')}
+            </Button>
           </div>
         </Stack>
       </HeaderWrapper>
