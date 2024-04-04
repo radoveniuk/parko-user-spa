@@ -81,6 +81,8 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
   const [showNewStageField, setShowNewStageField] = useState(false);
   const [newStageLabel, setNewStageLabel] = useState('');
 
+  const project = projects?.find((projectItem) => projectItem._id === watch('project'));
+
   return (
     <Dialog
       mobileFullscreen
@@ -148,11 +150,27 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
               />
             )}
           />
-          <Input
-            label={t('order.positionName')}
-            defaultValue={data?.positionName || ''}
-            theme="gray"
-            {...register('positionName')}
+          <Controller
+            control={control}
+            name="positionId"
+            rules={{ required: true }}
+            render={({ field, fieldState }) => (
+              <Select
+                label={t('order.positionName')}
+                theme="gray"
+                labelPath="internalName"
+                valuePath="matterId"
+                options={project?.positions}
+                disabled={!project}
+                defaultValue={data?.positionId}
+                error={!!fieldState.error}
+                value={field.value}
+                onChange={(e) => {
+                  clearErrors('positionId');
+                  field.onChange(e.target.value);
+                }}
+              />
+            )}
           />
           <Controller
             control={control}

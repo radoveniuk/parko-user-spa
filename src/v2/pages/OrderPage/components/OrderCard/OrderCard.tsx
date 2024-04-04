@@ -75,7 +75,9 @@ const OrderCard = ({ data, participations }: ClientCardProps) => {
           {!!order.specificationUrl && (
             <a href={order.specificationUrl} className="info-item" target="_blank" rel="noreferrer">{t('order.specificationUrl')}</a>
           )}
-          <div className="info-item"><div className="name">{t('order.positionName')}:</div> {order.positionName}</div>
+          <div className="info-item"><div className="name">{t('order.positionName')}:{' '}</div>
+            {order.project.positions?.find(position => position.matterId === order.positionId)?.internalName}
+          </div>
           <div className="info-item">
             <div className="name">{t('order.cooperationType')}:</div> {t(`selects.orderCooperationType.${order.cooperationType}`)}
           </div>
