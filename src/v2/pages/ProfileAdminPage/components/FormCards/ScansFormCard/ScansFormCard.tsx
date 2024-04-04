@@ -122,9 +122,9 @@ const DaysOffFormCard = ({ data, onUpdate }: Props) => {
         setScans((prev) => omit(prev, file.metadata?.type as string));
       } else {
         const oldOtherScans = (scans.otherScans || []) as IFile[];
-        const newOtherScans = oldOtherScans.filter((item) => item._id !== file._id).map((item) => item._id);
+        const newOtherScans = oldOtherScans.filter((item) => item._id !== file._id);
         onUpdate({
-          otherScans: newOtherScans,
+          otherScans: newOtherScans.map((item) => item._id),
         });
         setScans((prev) => ({
           ...prev,
@@ -247,6 +247,7 @@ const DaysOffFormCard = ({ data, onUpdate }: Props) => {
               options={translatedKeys}
               label={t('file.type')}
               error={!!errors.type}
+              theme="gray"
               defaultValue={scanType}
               {...register('type', {
                 required: true,
@@ -262,6 +263,7 @@ const DaysOffFormCard = ({ data, onUpdate }: Props) => {
             <Input
               label={t('comment')}
               error={!!errors.comment}
+              theme="gray"
               {...register('comment', {
                 onChange () {
                   clearErrors('comment');
