@@ -46,7 +46,7 @@ const Profiles = ({ participations, order }: Props) => {
             multiple
             options={participations}
             theme="gray"
-            getOptionLabel={(item) => `${item.user.fullname} (${getDateFromIso(item.createdAt, 'dd.MM.yyyy HH:mm')})`}
+            getOptionLabel={(item) => <>{item.user.fullname}<br />{getDateFromIso(item.createdAt, 'dd.MM.yyyy HH:mm')}</>}
             onChange={setSearchFilter}
             value={searchFilter}
           />

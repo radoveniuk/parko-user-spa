@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { DropdownIcon } from 'components/icons';
@@ -16,7 +16,7 @@ export type AutocompleteProps = {
   label?: string;
   labelKey?: string;
   valueKey?: string;
-  getOptionLabel?(item: any): string;
+  getOptionLabel?(item: any): string | ReactNode;
   multiple?: boolean;
   limitTags?: number;
   style?: React.CSSProperties;
