@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -67,7 +67,7 @@ const ProfileAdminPageRender = () => {
   const userQueryKey = JSON.stringify({ user: userId });
   const updateCachedUserData = useUpdateCachedUserData();
 
-  const { data: profileData } = useGetUser(userId as string);
+  const { data: profileData, remove } = useGetUser(userId as string);
   const { data: residences = [] } = useGetResidences({ user: userId });
   const { data: prepayments = [] } = useGetPrepayments({ user: userId });
   const { data: paychecks = [] } = useGetPaycheckList({ user: userId });
@@ -146,6 +146,8 @@ const ProfileAdminPageRender = () => {
     const participations: IOrderParticipation<true>[] = queryClient.getQueryData(queryKey) || [];
     queryClient.setQueryData(queryKey, [res, ...participations]);
   });
+
+  useEffect(() => () => { remove(); }, [remove]);
 
   if (!profileData) return <FullPageLoaderWrapper><Loader /></FullPageLoaderWrapper>;
 
