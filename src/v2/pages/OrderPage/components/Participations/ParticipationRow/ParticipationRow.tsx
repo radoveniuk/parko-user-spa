@@ -9,8 +9,10 @@ import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { ORDER_STAGE_COLORS } from 'constants/colors';
 import { getDateFromIso } from 'helpers/datetime';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import ScreaningDialog from '../../../../../components/ScreaningDialog';
+import RedirectDialog from '../RedirectDialog';
 
 import FormDialog from './FormDialog';
 import { LinkWrapper } from './styles';
@@ -41,9 +43,16 @@ const ParticipationRow = ({ participation }: ParticipationRowProps) => {
     updateParticipation({ _id: participation._id, screaning: values });
   };
 
+  // redirect msg
+  const [openRedirectMsg, setOpenRedirectMsg] = useState(false);
+
+  // edit
   const [openEdit, setOpenEdit] = useState(false);
   const editSubmit = (values: Partial<IOrderParticipation>) => {
     updateParticipation({ _id: participation._id, ...values });
+    if (values.stages?.[values.stages?.length - 1].stage.staticName === 'hired') {
+      setOpenRedirectMsg(true);
+    }
   };
 
   return (
@@ -90,6 +99,13 @@ const ParticipationRow = ({ participation }: ParticipationRowProps) => {
       )}
       {!!openEdit && (
         <FormDialog participation={participation} open={openEdit} onClose={() => void setOpenEdit(false)} onSubmit={editSubmit} />
+      )}
+      {!!openRedirectMsg && (
+        <RedirectDialog
+          user={participation.user as Pick<IUser, 'fullname' | '_id'>}
+          open={openRedirectMsg}
+          onClose={() => void setOpenRedirectMsg(false)}
+        />
       )}
     </>
   );

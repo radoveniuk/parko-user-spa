@@ -597,6 +597,8 @@
   "comment": "Коментарий",
   "other": "Другое",
   "approve": "Подтвердить",
+  "go": "Перейти",
+  "later": "Позже",
   "firstDate": "Дата от",
   "lastDate": "Дата до",
   "welcomeText": "Добро пожаловать в систему Parko User, ",
@@ -696,7 +698,9 @@
     "specification": "Спецификация заказа",
     "stage": "Этап",
     "stageFrom": "Дата",
-    "updatedAt": "Дата последнего обновления"
+    "updatedAt": "Дата последнего обновления",
+    "redirectToEmploymentMsgTitle": "Переход к сотрудничествам",
+    "redirectToEmploymentMsgText": "Время ввести данные о сотрудничестве. Перейти к сотудничествам {{ user }}?"
   },
   "workExperience": {
     "workExperience": "Опыт работы",

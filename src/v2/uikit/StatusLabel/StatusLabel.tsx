@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { themeConfig } from 'theme';
 
 export const STATUS_LABEL_COLOR_STYLES = css`
-    color: #fff;
+  color: #fff;
   &.candidate, &.development, &.pending {
     background-color: #f0c844;
     color: #2b2b2b;
@@ -11,7 +11,7 @@ export const STATUS_LABEL_COLOR_STYLES = css`
       background-color: #f0c844 !important;
     }
   }
-  &.hired, &.active, &.paid, &.approved, &.continues {
+  &.hired, &.active, &.paid, &.approved, &.continues, &.recruiting {
     background-color: ${themeConfig.palette.success.main};
     color: #fff;
     &:hover {
@@ -38,7 +38,7 @@ export const STATUS_LABEL_COLOR_STYLES = css`
       background-color: #E72A2A !important;
     }
   }
-  &.potential {
+  &.potential, &.processing {
     background-color: #FFEB3B;
     color: #2b2b2b;
     &:hover {

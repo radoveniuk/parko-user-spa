@@ -6,7 +6,7 @@ import Autocomplete from 'v2/uikit/Autocomplete';
 
 import { useGetOrders } from 'api/query/orderQuery';
 import { SearchIcon } from 'components/icons';
-import { CLIENT_STATUS, ORDER_COOPERATION_TYPE } from 'constants/selectsOptions';
+import { ORDER_COOPERATION_TYPE, ORDER_STATUS } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IOrder } from 'interfaces/order.interface';
 import { IProject } from 'interfaces/project.interface';
@@ -40,7 +40,7 @@ const Orders = ({ orders, projects }: Props) => {
 
   // filters
   const { data: filterList = [] } = useGetOrders();
-  const statusList = useTranslatedSelect(CLIENT_STATUS, 'clientStatus');
+  const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus');
   const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
 
   const [idsFilter, setIdsFilter] = useState<IOrder[]>([]);

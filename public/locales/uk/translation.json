@@ -596,6 +596,8 @@
   "comment": "Коментар",
   "other": "Інше",
   "approve": "Підтвердити",
+  "go": "Перейти",
+  "later": "Пізніше",
   "firstDate": "Дата від",
   "lastDate": "Дата до",
   "welcomeText": "Ласкаво просимо до системи Parko User, ",
@@ -696,7 +698,9 @@
     "specification": "Специфікація замовлення",
     "stage": "Етап",
     "stageFrom": "Дата",
-    "updatedAt":"Дата останнього оновлення"
+    "updatedAt":"Дата останнього оновлення",
+    "redirectToEmploymentMsgTitle": "Перейти до співпраць?",
+    "redirectToEmploymentMsgText": "Тепер час ввести дані про співпрацю. Перейти до співпраць {{ user }}?"
   },
   "workExperience": {
     "workExperience": "Досвід роботи",
