@@ -56,7 +56,7 @@ export const ProfilesWrapper = styled.div`
   }
 
   .users-table {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: 30px repeat(6, 1fr);
 
     .table-settings-wrapper {
       margin-left: auto;

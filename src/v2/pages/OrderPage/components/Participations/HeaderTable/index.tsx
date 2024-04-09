@@ -1,13 +1,13 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { Dispatch, memo, SetStateAction, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useOrderParticipationActions from 'v2/pages/OrderPage/hooks/useOrderParticipationActions';
-import { Button, Stack } from 'v2/uikit';
+import { Button, Menu, MenuItem, Stack } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
 import Dialog, { DialogActions } from 'v2/uikit/Dialog';
 import IconButton from 'v2/uikit/IconButton';
 
 import { useGetUserListForFilter } from 'api/query/userQuery';
-import { PlusIcon } from 'components/icons';
+import { ArrowDownIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 import { IUser } from 'interfaces/users.interface';
 
@@ -15,9 +15,12 @@ import { HeaderWrapper } from './styles';
 
 type Props = {
   participations: IOrderParticipation<true>[];
+  setSelectedItems: Dispatch<SetStateAction<IOrderParticipation<true>[]>>;
+  selectedItems: IOrderParticipation<true>[];
+  setOpenPrintDialog: Dispatch<SetStateAction<boolean>>;
 };
 
-const HeaderTable = ({ participations }: Props) => {
+const HeaderTable = ({ participations, selectedItems, setSelectedItems, setOpenPrintDialog }: Props) => {
   const { t } = useTranslation();
 
   // create new participation
@@ -44,6 +47,27 @@ const HeaderTable = ({ participations }: Props) => {
           >
             <PlusIcon />{t('order.addNewParticipation')}
           </Button>
+          <Menu
+            menuComponent={(
+              <>
+                <Button className="big-btn">
+                  <div className="text">{t('fastActions')}</div>
+                  <ArrowDownIcon className="big-icon" />
+                </Button>
+                <IconButton className="small-btn primary"><ThreeDotsIcon size={25} /></IconButton>
+              </>
+            )}
+          >
+            <MenuItem onClick={() => void setSelectedItems(participations)}>
+              {t('selectAll')}
+            </MenuItem>
+            <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
+              {t('removeSelect')}
+            </MenuItem>
+            <MenuItem disabled={!selectedItems.length} onClick={() => void setOpenPrintDialog(true)}>
+              {t('docsTemplates.print')}
+            </MenuItem>
+          </Menu>
         </Stack>
       </HeaderWrapper>
       {!!openCreateParticipationDialog && (

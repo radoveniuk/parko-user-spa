@@ -9,7 +9,7 @@ export const TableWrapper = styled.div`
 
   .users-table {
     overflow: scroll;
-    max-height: calc(100vh - 385px);
+    max-height: calc(100vh - 389px);
     position: relative;
 
     @media (max-width: ${TB}) {

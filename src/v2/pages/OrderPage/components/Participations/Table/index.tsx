@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { Dispatch, memo, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
@@ -14,13 +14,16 @@ import ParticipationRow from '../ParticipationRow';
 
 import { TableWrapper } from './styles';
 
-const STATIC_COLS = ['user.name', 'order.activeStage', 'order.screaning', 'order.createdAt', 'order.createdBy', ''];
+const STATIC_COLS = ['', 'user.name', 'order.activeStage', 'order.screaning', 'order.createdAt', 'order.createdBy', ''];
 
 type Props = {
   data: IOrderParticipation<true>[];
+  setSelectedItems: Dispatch<SetStateAction<IOrderParticipation<true>[]>>;
+  selectedItems: IOrderParticipation<true>[];
 };
+
 const Table = ({
-  data,
+  data, selectedItems, setSelectedItems,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -83,6 +86,15 @@ const Table = ({
           <ParticipationRow
             key={participation._id}
             participation={participation}
+            selected={selectedItems.some(item => item._id === participation._id)}
+            onChangeSelect={checked => {
+              setSelectedItems(prev => {
+                if (checked) {
+                  return [...prev, participation];
+                }
+                return prev.filter(item => item._id !== participation._id);
+              });
+            }}
           />
         ))}
       </ListTable>

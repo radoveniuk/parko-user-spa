@@ -24,7 +24,7 @@ import { IUser } from 'interfaces/users.interface';
 import { DialogContentWrapper } from './styles';
 
 type Props = DialogProps & {
-  users: Pick<IUser, '_id' | 'name' | 'surname'>[];
+  users: Pick<IUser, '_id' | 'name' | 'surname' | 'fullname'>[];
 }
 
 const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
@@ -57,13 +57,14 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
     }
     onClose();
     if (users.length === 1 && selectedTemplates.length === 1) {
+      const name = users[0].fullname ? users[0].fullname?.replace(' ', '_') : `${users[0].name}_${users[0].surname}`;
       downloadDoc(
         {
           userId: users.map((user) => user._id),
           templateId: selectedTemplates.map((item) => item._id as string),
           employmentId: Object.values(userEmploymentMap),
         },
-        `${selectedTemplates[0].name}_${users[0].name}_${users[0].surname}.docx`,
+        `${selectedTemplates[0].name}_${name}.docx`,
       );
     } else {
       downloadDoc({
@@ -82,7 +83,7 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
             <div className="userCard" key={item._id}>
               <Input
                 label={t('profile')}
-                value={`${item.name} ${item.surname}`}
+                value={!item.fullname ? `${item.name} ${item.surname}` : item.fullname}
                 disabled
               />
               <Select

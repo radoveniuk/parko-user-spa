@@ -20,28 +20,31 @@ type CustomFieldProps = {
   error?: boolean;
   label?: string;
   variant?: 'standard' | 'outlined';
+  required?: boolean;
 };
 
-const CustomField = ({ value, onChange, metadata, theme, variant, ...rest }: CustomFieldProps) => {
+const CustomField = ({ value, onChange, metadata, theme, variant, required, ...rest }: CustomFieldProps) => {
   const { i18n } = useTranslation();
   const { type } = metadata;
 
   const textChange = (e: any) => void onChange(e.target.value);
 
+  const labelText = `${metadata.names[i18n.language]}${required ? '*' : ''}`;
+
   if (type === 'textarea') {
     return (
-      <Input value={value} onChange={textChange} label={metadata.names[i18n.language]} theme={theme} multiline className="fullwidth" {...rest} />
+      <Input value={value} onChange={textChange} label={labelText} theme={theme} multiline className="fullwidth" {...rest} />
     );
   }
   if (type === 'number') {
     return (
-      <Input value={value} onChange={textChange} label={metadata.names[i18n.language]} type="number" theme={theme} variant={variant} {...rest} />
+      <Input value={value} onChange={textChange} label={labelText} type="number" theme={theme} variant={variant} {...rest} />
     );
   }
 
   if (type === 'phone') {
     return (
-      <PhoneInput value={value as string || ''} onChange={onChange} label={metadata.names[i18n.language]} theme={theme} variant={variant} {...rest} />
+      <PhoneInput value={value as string || ''} onChange={onChange} label={labelText} theme={theme} variant={variant} {...rest} />
     );
   }
 
@@ -50,7 +53,7 @@ const CustomField = ({ value, onChange, metadata, theme, variant, ...rest }: Cus
       <BooleanSelect
         defaultValue={typeof value === 'boolean' ? value : undefined}
         onChange={onChange}
-        label={metadata.names[i18n.language]}
+        label={labelText}
         theme={theme}
         {...rest}
       />
@@ -62,7 +65,7 @@ const CustomField = ({ value, onChange, metadata, theme, variant, ...rest }: Cus
       <DatePicker
         defaultValue={value as string || ''}
         onChange={onChange}
-        label={metadata.names[i18n.language]}
+        label={labelText}
         inputProps={{ theme, variant }}
         {...rest}
       />
@@ -75,7 +78,7 @@ const CustomField = ({ value, onChange, metadata, theme, variant, ...rest }: Cus
         value={value as string || ''}
         options={metadata.options || []}
         onChange={onChange}
-        label={metadata.names[i18n.language]}
+        label={labelText}
         theme={theme}
         {...rest}
       />
@@ -89,7 +92,7 @@ const CustomField = ({ value, onChange, metadata, theme, variant, ...rest }: Cus
         value={Array.isArray(value) ? value : []}
         options={metadata.options.map(item => ({ value: item, label: item })) || []}
         onChange={onChange}
-        label={metadata.names[i18n.language]}
+        label={labelText}
         theme={theme}
         labelKey="label"
         valueKey="value"
@@ -105,7 +108,7 @@ const CustomField = ({ value, onChange, metadata, theme, variant, ...rest }: Cus
     );
   }
 
-  return <Input value={value} onChange={textChange} label={metadata.names[i18n.language]} theme={theme} {...rest} />;
+  return <Input value={value} onChange={textChange} label={labelText} theme={theme} {...rest} />;
 };
 
 export default CustomField;
