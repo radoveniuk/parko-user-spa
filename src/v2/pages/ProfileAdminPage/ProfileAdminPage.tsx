@@ -3,6 +3,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import pick from 'lodash-es/pick';
+import { DateTime } from 'luxon';
 import { Button } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
 import BreadCrumbs from 'v2/uikit/BreadCrumbs';
@@ -30,6 +31,7 @@ import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetResidences } from 'api/query/residenceQuery';
 import { useGetUser } from 'api/query/userQuery';
 import { DeleteIcon, PlusIcon, WarningIcon } from 'components/icons';
+import { CANDIDATE_ORDER_STAGE } from 'constants/orders';
 import { useAuthData } from 'contexts/AuthContext';
 import { IOrder } from 'interfaces/order.interface';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
@@ -58,7 +60,7 @@ import { ContentWrapper, ProfileAdminPageWrapper } from './styles';
 const TABS = ['profile', 'user.info', 'user.cooperation', 'order.participations', 'user.history'];
 
 const ProfileAdminPageRender = () => {
-  const { role } = useAuthData();
+  const { role, username } = useAuthData();
   const { id: userId } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -140,7 +142,14 @@ const ProfileAdminPageRender = () => {
     order: selectedOrder?._id,
     user: userId,
     screaning: {},
-    stages: [],
+    stages: [
+      {
+        stage: CANDIDATE_ORDER_STAGE,
+        date: DateTime.now().toISO(),
+        comment: '',
+        createdByName: username,
+      },
+    ],
   }).then((res) => {
     const queryKey = ['orderParticipations', JSON.stringify({ user: userId })];
     const participations: IOrderParticipation<true>[] = queryClient.getQueryData(queryKey) || [];

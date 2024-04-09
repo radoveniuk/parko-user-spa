@@ -20,7 +20,7 @@ import { TableWrapper } from './styles';
 
 const STATIC_COLS = ['', 'user.name', 'user.employmentStatus'];
 
-type TTable = {
+type TableProps = {
   activeCols: string[];
   setActiveCols: React.Dispatch<React.SetStateAction<string[]>>;
   data: (IUser & {employmentStatus: string})[];
@@ -28,6 +28,7 @@ type TTable = {
   setSelectedItems: React.Dispatch<React.SetStateAction<IUser[]>>;
   selectedItems: IUser[];
 };
+
 const Table = ({
   activeCols,
   setActiveCols,
@@ -35,7 +36,7 @@ const Table = ({
   customFields,
   setSelectedItems,
   selectedItems,
-}: TTable) => {
+}: TableProps) => {
   const { t, i18n } = useTranslation();
 
   const [rowsPerPage, setRowsPerPage] = useState(20);

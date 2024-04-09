@@ -23,7 +23,7 @@ const MobileOrderCard = ({ style, order }: Props) => {
       <div className="card">
         <div className="date">{getDateFromIso(order.createdAt)}</div>
         <div className="header">
-          <div className="name">{order.name}</div><StatusLabel className={order.status}>{t(`selects.clientStatus.${order.status}`)}</StatusLabel>
+          <div className="name">{order.name}</div><StatusLabel className={order.status}>{t(`selects.orderStatus.${order.status}`)}</StatusLabel>
         </div>
         <div className="project">{order.client.name} {'>'} {order.project.name}</div>
         <a href={order.specificationUrl} target="_blank" rel="noreferrer"><RecruiterIcon />{t('order.specificationUrl')}</a>

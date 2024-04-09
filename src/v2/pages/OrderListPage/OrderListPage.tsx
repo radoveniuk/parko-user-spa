@@ -8,7 +8,7 @@ import { useGetProjects } from 'api/query/projectQuery';
 import { SearchIcon } from 'components/icons';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { ClearFiltersButton } from 'components/shared/Filters/Filters';
-import { CLIENT_STATUS, ORDER_COOPERATION_TYPE } from 'constants/selectsOptions';
+import { ORDER_COOPERATION_TYPE, ORDER_STATUS } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';
 
@@ -39,7 +39,7 @@ const OrderListPageRender = () => {
   // filters
   const { data: filterList = [] } = useGetOrders();
   const { debouncedFiltersState } = useFilters();
-  const statusList = useTranslatedSelect(CLIENT_STATUS, 'clientStatus');
+  const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus');
   const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
 
   // table content

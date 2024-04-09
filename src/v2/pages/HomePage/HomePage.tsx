@@ -141,7 +141,7 @@ const HomePage = () => {
                               <TableCell><Link to={`/order/${order._id}`}>{order.name}</Link></TableCell>
                               <TableCell>{order.client.name}</TableCell>
                               <TableCell>
-                                <StatusLabel className={order.status}>{t(`selects.clientStatus.${order.status}`)}</StatusLabel>
+                                <StatusLabel className={order.status}>{t(`selects.orderStatus.${order.status}`)}</StatusLabel>
                               </TableCell>
                             </TableRow>
                           ))}

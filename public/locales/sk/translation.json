@@ -591,6 +591,8 @@
   "comment": "Komentár",
   "other": "Iné",
   "approve": "Potvrdiť",
+  "go": "Prejsť",
+  "later": "Neskôr",
   "firstDate": "Dátum od",
   "lastDate": "Dátum do",
   "welcomeText": "Vitajte v systéme Parko User, ",
@@ -690,7 +692,9 @@
     "specifikácia": "Špecifikácia objednávky",
     "stage": "Etápa",
     "stageFrom": "Dátum a čas",
-    "updatedAt": "Dátum poslednej aktualizácie"
+    "updatedAt": "Dátum poslednej aktualizácie",
+    "redirectToEmploymentMsgTitle": "Prechod k spolupráci",
+    "redirectToEmploymentMsgText": "Teraz je čas zadať údaje o spolupráci. Prejsť na spoluprácu {{ user }}?"
   },
   "workExperience": {
     "workExperience": "Pracovná skúsenost",

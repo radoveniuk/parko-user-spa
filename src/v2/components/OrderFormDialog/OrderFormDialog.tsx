@@ -13,7 +13,7 @@ import { useGetCustomForms } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import { AcceptIcon, PlusIcon } from 'components/icons';
-import { CLIENT_STATUS, ORDER_COOPERATION_TYPE } from 'constants/selectsOptions';
+import { ORDER_COOPERATION_TYPE, ORDER_STATUS } from 'constants/selectsOptions';
 import reorder from 'helpers/reorder';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';
@@ -59,7 +59,7 @@ type Props = DialogProps & {
 
 const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
   const { t } = useTranslation();
-  const statusList = useTranslatedSelect(CLIENT_STATUS, 'clientStatus');
+  const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus');
   const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
   const { control, register, formState: { errors }, handleSubmit, clearErrors, watch } = useForm<IOrder>({
     defaultValues: {

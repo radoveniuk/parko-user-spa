@@ -87,7 +87,9 @@ export const CORPORATE_BODY_STATUS = [
 ];
 
 export const ORDER_STATUS = [
-  'active',
+  'recruiting',
+  'processing',
+  'finished',
 ];
 
 export const ORDER_COOPERATION_TYPE = [

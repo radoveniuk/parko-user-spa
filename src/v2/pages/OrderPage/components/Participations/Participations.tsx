@@ -1,13 +1,17 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import PrintDocDialog from 'v2/components/PrintDocDialog';
 import Autocomplete from 'v2/uikit/Autocomplete';
+import IconButton from 'v2/uikit/IconButton';
 
+import { ClearFiltersIcon } from 'components/icons';
 import { FiltersProvider } from 'components/shared/Filters';
 import { ORDER_STAGE_COLORS } from 'constants/colors';
 import { getDateFromIso } from 'helpers/datetime';
 import useListState from 'hooks/useListState';
 import { IOrder } from 'interfaces/order.interface';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import HeaderTable from './HeaderTable';
 import MobileParticipationCard from './MobileParticipationCard';
@@ -23,7 +27,7 @@ const Profiles = ({ participations, order }: Props) => {
   const { t } = useTranslation();
 
   const [searchFilter, setSearchFilter] = useState<IOrderParticipation<true>[]>([]);
-  const [stagesFilter, { toggle: toggleStageFilter }] = useListState<string>([]);
+  const [stagesFilter, { toggle: toggleStageFilter }, setStagesFilter] = useListState<string>([]);
 
   const tableParticipations = useMemo(() => {
     let result = [...participations];
@@ -36,17 +40,22 @@ const Profiles = ({ participations, order }: Props) => {
     return result;
   }, [participations, searchFilter, stagesFilter]);
 
+  // print
+  const [selectedItems, setSelectedItems] = useState<IOrderParticipation<true>[]>([]);
+  const selectedItemsState = { selectedItems, setSelectedItems };
+  const [openPrintDialog, setOpenPrintDialog] = useState(false);
+
   return (
     <FiltersProvider>
       <ProfilesWrapper>
-        <HeaderTable participations={participations} />
+        <HeaderTable participations={participations} setOpenPrintDialog={setOpenPrintDialog} {...selectedItemsState} />
         <FilterTableWrapper>
           <Autocomplete
             label={t('search')}
             multiple
             options={participations}
             theme="gray"
-            getOptionLabel={(item) => `${item.user.fullname} (${getDateFromIso(item.createdAt, 'dd.MM.yyyy HH:mm')})`}
+            getOptionLabel={(item) => <>{item.user.fullname}<br />{getDateFromIso(item.createdAt, 'dd.MM.yyyy HH:mm')}</>}
             onChange={setSearchFilter}
             value={searchFilter}
           />
@@ -65,14 +74,27 @@ const Profiles = ({ participations, order }: Props) => {
               </FilterButton>
             );
           })}
+          <IconButton
+            onClick={() => { setSearchFilter([]); setStagesFilter([]); }}
+            disabled={!searchFilter.length && !stagesFilter.length}
+          >
+            <ClearFiltersIcon />
+          </IconButton>
         </FilterTableWrapper>
         <div className="mobile-list">
           {tableParticipations.map((item) => (
             <MobileParticipationCard key={item._id} participation={item} />
           ))}
         </div>
-        <Table data={tableParticipations} />
+        <Table data={tableParticipations} {...selectedItemsState} />
       </ProfilesWrapper>
+      {openPrintDialog && (
+        <PrintDocDialog
+          users={selectedItems.map(participation => participation.user as Pick<IUser, '_id' | 'fullname' | 'name' | 'surname'>)}
+          open={openPrintDialog}
+          onClose={() => void setOpenPrintDialog(false)}
+        />
+      )}
     </FiltersProvider>
   );
 };
