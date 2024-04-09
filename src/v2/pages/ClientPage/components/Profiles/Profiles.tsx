@@ -42,7 +42,7 @@ const Profiles = ({ employments, projects }: Props) => {
       filteredData = filteredData.filter((employment) => usersFilter.includes(employment.user._id));
     }
     if (projectsFilter.length) {
-      filteredData = filteredData.filter((employment) => projectsFilter.some(project => project?._id === employment.project));
+      filteredData = filteredData.filter((employment) => projectsFilter.some(project => project?._id === (employment.project as IProject)?._id));
     }
     if (statusFilter.length) {
       filteredData = filteredData.filter((employment) => statusFilter.includes(employment.user.status));
