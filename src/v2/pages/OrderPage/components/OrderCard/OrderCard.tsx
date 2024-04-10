@@ -62,7 +62,7 @@ const OrderCard = ({ data, participations }: ClientCardProps) => {
   return (
     <>
       <ProfileCardWrapper>
-        {role === 'admin' && <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>}
+        <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
         <div className="contacts-info section">
           <div className="name">{order.name}</div>
           <div className="contacts">
