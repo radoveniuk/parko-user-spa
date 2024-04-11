@@ -69,6 +69,7 @@ const mockData: IOrderParticipation<true> = {
           type: 'string',
           options: [],
           createdAt: '2024-03-22T12:05:14.318Z',
+          updatedAt: '2024-03-22T12:05:14.318Z',
         },
         {
           _id: '65fc272f24e5183038e646fe',
@@ -88,12 +89,15 @@ const mockData: IOrderParticipation<true> = {
             'Vysokoškolské 3. stupeň',
           ],
           createdAt: '2024-03-21T12:25:19.468Z',
+          updatedAt: '2024-03-22T12:05:14.318Z',
         },
       ],
       requiredFields: [
         '65fd73fa572de49a903a4d7d',
       ],
       createdAt: '2024-03-22T12:06:10.863Z',
+      summaryTemplate: null,
+      updatedAt: '2024-03-22T12:05:14.318Z',
     },
     stages: [
       {
