@@ -1,10 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import set from 'lodash-es/set';
 import { Button, Input, Menu, MenuItem } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
 
-import { DeleteIcon, EditIcon, EyeIcon, EyeSlashIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
+import { useDownloadPrintedTemplate } from 'api/mutations/docsTemplateMutation';
+import { DeleteIcon, DownloadFileIcon, EditIcon, EyeIcon, EyeSlashIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
 import { EXPIRIENCE_METHOD_OPTIONS } from 'constants/selectsOptions';
 import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
@@ -24,7 +26,7 @@ type Props = {
 const OrderParticipationForm = ({ disabled }: Props) => {
   const { t, i18n } = useTranslation();
   const { username } = useAuthData();
-  const { control, watch, setValue, register } = useFormContext<IOrderParticipation<true>>();
+  const { control, watch, setValue, register, getValues } = useFormContext<IOrderParticipation<true>>();
   const [selectedInfoSection, setSelectedInfoSection] = useState<'order' | 'screaning' | null>(null);
 
   const infoSectionToggler = (name: 'order' | 'screaning') => () => {
@@ -91,6 +93,43 @@ const OrderParticipationForm = ({ disabled }: Props) => {
   // stages updates
   const [openStageDialog, setOpenStageDialog] = useState<boolean | IOrderParticipationStage>(false);
 
+  // download summary
+
+  const downloadPrintedSummary = useDownloadPrintedTemplate();
+  const downloadSummary = async () => {
+    const fileId = getValues('order.form.summaryTemplate') as string;
+    const screaning = getValues('screaning');
+    const user = getValues('user.fullname');
+    const formFields = getValues('order.form.fields');
+
+    const fileData: Record<string, string> = {};
+
+    for (const key in screaning) {
+      if (Object.prototype.hasOwnProperty.call(screaning, key)) {
+        const screaningValue = screaning[key];
+        const fieldData = formFields.find(field => (field as ICustomFormField)._id === key) as ICustomFormField | undefined;
+        if (fieldData) {
+          if (fieldData.type === 'multiselect') {
+            set(fileData, key, screaningValue.map((option: { label: string; }) => option.label).join(','));
+          } else if (fieldData.type === 'boolean') {
+            set(fileData, key, t(screaningValue));
+          } else if (fieldData.type === 'date') {
+            set(fileData, key, getDateFromIso(screaningValue));
+          } else if (fieldData.type === 'experience') {
+            // eslint-disable-next-line max-len
+            set(fileData, key, screaningValue.map((expirienceItem: { company: string; dates: string; position: string; fireMethod: string; fireReason: string; }, index: number) => `Pracovná skúsenost ${index + 1}:\nSpoločnosť: ${expirienceItem.company},\nOd - Do: ${expirienceItem.dates},\nPozícia: ${expirienceItem.position}\nSpôsob ukončenia: ${EXPIRIENCE_METHOD_OPTIONS.find(item => item.value === expirienceItem.fireMethod)?.label || ''},\nDôvod ukončenia: ${expirienceItem.fireReason}.`).join('\n'));
+          } else {
+            set(fileData, key, screaningValue);
+          }
+        }
+      }
+    }
+
+    if (fileId) {
+      await downloadPrintedSummary({ fileId, fileData }, `${user}.docx`);
+    }
+  };
+
   return (
     <FormWrapper>
       <InfoWrapper className="fullwidth">
@@ -146,6 +185,9 @@ const OrderParticipationForm = ({ disabled }: Props) => {
           ))}
           <div className="actions">
             <Button variant="outlined" disabled={disabled} onClick={() => void setOpenScreaning(true)}><EditIcon /> {t('edit')}</Button>
+            {watch('order.form.summaryTemplate') && (
+              <Button variant="outlined" onClick={downloadSummary}><DownloadFileIcon /> {t('download')}</Button>
+            )}
           </div>
         </div>
       </InfoWrapper>

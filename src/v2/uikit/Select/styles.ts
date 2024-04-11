@@ -6,15 +6,6 @@ import { SM } from 'theme/sizeBreakpoints';
 export const SelectWrapper = styled.label<{ fieldColor?: string }>`
   display: flex;
   flex-direction: column;
-  .label {
-    color: #717171;
-    font-size: 14px;
-    margin-bottom: 3px;
-    
-    &.error {
-      color: ${themeConfig.palette.error.main};
-    }
-  }
 
   &:has(.Mui-focused) {
     .label:not(.error) {

@@ -52,6 +52,8 @@ export const InfoWrapper = styled.div`
     }
     .actions {
       margin-top: 6px;
+      display: flex;
+      gap: 6px;
     }
   }
 `;
