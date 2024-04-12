@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import set from 'lodash-es/set';
+import { DateTime } from 'luxon';
 import { useSnackbar } from 'notistack';
 import { Input } from 'v2/uikit';
 import Button from 'v2/uikit/Button';
-import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
+import DatePicker from 'v2/uikit/DatePicker';
+import Dialog, { DialogProps } from 'v2/uikit/Dialog';
 import IconButton from 'v2/uikit/IconButton';
 import Select from 'v2/uikit/Select';
 
@@ -21,7 +23,7 @@ import { IDocsTemplateCategory } from 'interfaces/docsTemplateCategory.interface
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { DialogContentWrapper } from './styles';
+import { DialogContentWrapper, PrintDocDialogActions } from './styles';
 
 type Props = DialogProps & {
   users: Pick<IUser, '_id' | 'name' | 'surname' | 'fullname'>[];
@@ -39,6 +41,9 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const [userEmploymentMap, setUserEmploymentMap] = useState<Record<string, string>>({});
+
+  // Signature date
+  const [signatureDate, setSignatureDate] = useState(DateTime.now().toISODate());
 
   useEffect(() => {
     if (employments.length) {
@@ -63,6 +68,7 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
           userId: users.map((user) => user._id),
           templateId: selectedTemplates.map((item) => item._id as string),
           employmentId: Object.values(userEmploymentMap),
+          signatureDate: getDateFromIso(signatureDate),
         },
         `${selectedTemplates[0].name}_${name}.docx`,
       );
@@ -71,6 +77,7 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
         userId: users.map((user) => user._id),
         templateId: selectedTemplates.map((item) => item._id as string),
         employmentId: Object.values(userEmploymentMap),
+        signatureDate: getDateFromIso(signatureDate),
       });
     }
   };
@@ -194,7 +201,17 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
           </div>
         )}
       </DialogContentWrapper>
-      <DialogActions>
+      <PrintDocDialogActions>
+        <DatePicker
+          className="signDatepicker"
+          defaultValue={signatureDate}
+          inputProps={{ theme: 'gray' }}
+          label={t('docsTemplates.signDate')}
+          onChange={(v: string) => {
+            setSignatureDate(v);
+          }}
+          views={['day']}
+        />
         <Button
           disabled={!selectedTemplates.length}
           variant="contained"
@@ -202,7 +219,7 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
         >
           {t('docsTemplates.print')} ({selectedTemplates.length})
         </Button>
-      </DialogActions>
+      </PrintDocDialogActions>
     </Dialog>
   );
 };

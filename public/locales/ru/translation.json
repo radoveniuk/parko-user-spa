@@ -536,7 +536,8 @@
     "categoryName": "Название категории",
     "create": "Создать",
     "categoryNameError": "Категория с таким названием уже существует",
-    "docsWithoutCategory": "Шаблоны без категории"
+    "docsWithoutCategory": "Шаблоны без категории",
+    "signDate": "Дата подписания"
   },
   "dictionaries": "Списки",
   "dictionary": {

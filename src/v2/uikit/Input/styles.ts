@@ -6,23 +6,7 @@ import { SM } from 'theme/sizeBreakpoints';
 export const InputWrapper = styled.label<{ fieldColor?: string }>`
   display: flex;
   flex-direction: column;
-  .label {
-    display: flex;
-    color: #717171;
-    font-size: 14px;
-    margin-bottom: 3px;
-    white-space: nowrap;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    &.error {
-      color: ${themeConfig.palette.error.main};
-    }
 
-    .tooltip {
-      margin-left: auto;
-    }
-  }
   &:has(.Mui-focused) {
     .label:not(.error) {
       color: ${themeConfig.palette.primary.main};

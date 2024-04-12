@@ -2,10 +2,10 @@ import React, { ForwardedRef, forwardRef, memo, useCallback } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 
-import { EyeIcon, EyeSlashIcon, InfoIcon } from 'components/icons';
+import { EyeIcon, EyeSlashIcon } from 'components/icons';
 
+import FormLabel from '../FormLabel';
 import IconButton from '../IconButton';
-import Tooltip from '../Tooltip';
 
 import { InputWrapper } from './styles';
 
@@ -47,10 +47,9 @@ const Input = ({
 
   return (
     <InputWrapper className={className} style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
-      <div className={`label${props.error ? ' error' : ''}`}>
+      <FormLabel className={props.error ? ' error' : ''} tooltip={tooltip}>
         {label}
-        {!!tooltip && <div className="tooltip"><Tooltip title={tooltip}><InfoIcon /></Tooltip></div>}
-      </div>
+      </FormLabel>
       <TextField
         ref={ref}
         type={showPasswordIcon ? (showPassword ? 'text' : 'password') : type}

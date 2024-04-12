@@ -535,7 +535,8 @@
     "categoryName": "Názov kategórie",
     "create": "Vytvoriť",
     "categoryNameError": "Kategória s takým názvom už existuje",
-    "docsWithoutCategory": "Šablóny bez kategórie"
+    "docsWithoutCategory": "Šablóny bez kategórie",
+    "signDate": "Datum podpisu"
   },
   "client": {
     "company": "Spoločnosť",

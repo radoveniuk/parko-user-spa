@@ -134,13 +134,13 @@ export const ProfileListPageWrapper = styled.div`
 
 export const FilterTableWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
   align-items: end;
   border-bottom: 1px solid #e9e9e9;
   gap: 10px;
   padding: 14px 30px;
+  overflow: auto;
 
-@media (max-width: ${TB}) {
-  display: none;
-}
+  @media (max-width: ${TB}) {
+    display: none;
+  }
 `;

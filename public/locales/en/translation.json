@@ -552,7 +552,8 @@
     "categoryName": "Category Name",
     "create": "Create",
     "categoryNameError": "Category with this name already exists",
-    "docsWithoutCategory": "Templates without category"
+    "docsWithoutCategory": "Templates without category",
+    "signDate": "Signature date"
   },
   "dictionaries": "Lists",
   "dictionary": {

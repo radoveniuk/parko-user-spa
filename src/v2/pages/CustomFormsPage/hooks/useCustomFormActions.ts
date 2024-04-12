@@ -23,10 +23,10 @@ const useCustomFormActions = () => {
   };
 
   const update = async (data: ICustomForm) => {
-    await updateField.mutateAsync(data);
+    const updateRes = await updateField.mutateAsync(data);
     const prevData = queryClient.getQueryData(queryKey) as ICustomForm[];
 
-    queryClient.setQueryData(queryKey, prevData.map(item => item._id === data._id ? data : item));
+    queryClient.setQueryData(queryKey, prevData.map(item => item._id === updateRes._id ? updateRes : item));
   };
 
   const remove = (id: string) => {

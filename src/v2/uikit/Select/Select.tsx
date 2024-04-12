@@ -8,6 +8,8 @@ import isFunction from 'lodash-es/isFunction';
 import { DropdownIcon } from 'components/icons';
 import { Path } from 'interfaces/base.types';
 
+import FormLabel from '../FormLabel';
+
 import { SelectWrapper } from './styles';
 
 export type FieldTheme = 'white' | 'gray';
@@ -65,7 +67,9 @@ function Select<T> ({
 
   return (
     <SelectWrapper className="Select" style={{ maxWidth }} fieldColor={COLORS_MAP[theme]} >
-      <label className={`label${rest.error ? ' error' : ''}`}>{label}</label>
+      <FormLabel className={rest.error ? ' error' : ''}>
+        {label}
+      </FormLabel>
       <SelectMaterial
         value={selectedValue}
         IconComponent={(props) => <DropdownIcon {...props} color="#131313" size={12} />}

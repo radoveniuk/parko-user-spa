@@ -27,3 +27,28 @@ export const ClearFiltersWrapper = styled.div.attrs({ className: 'clear-filter' 
   min-width: 40px;
   max-width: 40px;
 `;
+
+export const FilterButton = styled.button`
+  height: 36px;
+  border-radius: 32px;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: .3s;
+  white-space: nowrap;
+  background: #c6dbe1;
+  color: #215A6C;
+  border: 1px dashed transparent;
+
+  &.active {
+    border-color: #215A6C;
+  }
+
+  &:not(:hover):not(:active):not(.active) {
+    filter: grayscale(1) opacity(0.5);
+    border-color: transparent;
+  }
+
+  &:hover {
+    filter: brightness(95%);
+  }
+`;

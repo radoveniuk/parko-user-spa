@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useCopyToClipboard from 'v2/hooks/useCopyToClipboard';
 import Dialog, { DialogProps } from 'v2/uikit/Dialog';
 import IconButton from 'v2/uikit/IconButton';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'v2/uikit/Tabs';
@@ -11,6 +12,7 @@ import { FieldCodesGrid } from './styles';
 
 export const FieldsDialog = ({ ...rest }: DialogProps) => {
   const { t } = useTranslation();
+  const copy = useCopyToClipboard();
   return (
     <Dialog {...rest} maxWidth={false} mobileFullscreen>
       <TabsContainer>
@@ -21,12 +23,25 @@ export const FieldsDialog = ({ ...rest }: DialogProps) => {
         </Tabs>
         <TabPanel index={0}>
           <FieldCodesGrid>
+            <div className="code">
+              <div className="name">
+                {t('docsTemplates.signDate')}
+                <IconButton
+                  onClick={() => void copy('{signatureDate}')}
+                >
+                  <CopyIcon size={14} />
+                </IconButton>
+              </div>
+              <div className="value">
+                &#123;signatureDate&#125;
+              </div>
+            </div>
             {EXPORT_USER_FIELDS.map((field) => (
               <div className="code" key={field}>
                 <div className="name">
                   {t(`user.${field}`)}
                   <IconButton
-                    onClick={() => void navigator.clipboard.writeText(`{${field}}`)}
+                    onClick={() => void copy(`{${field}}`)}
                   >
                     <CopyIcon size={14} />
                   </IconButton>
@@ -45,7 +60,7 @@ export const FieldsDialog = ({ ...rest }: DialogProps) => {
                 <div className="name">
                   {t(`user.${field}`)}
                   <IconButton
-                    onClick={() => void navigator.clipboard.writeText(`{${field.replace('.', '_')}}`)}
+                    onClick={() => void copy(`{${field.replace('.', '_')}}`)}
                   >
                     <CopyIcon size={14} />
                   </IconButton>
@@ -64,7 +79,7 @@ export const FieldsDialog = ({ ...rest }: DialogProps) => {
                 <div className="name">
                   {t(`employment.${field}`)}
                   <IconButton
-                    onClick={() => void navigator.clipboard.writeText(`{employment_${field}}`)}
+                    onClick={() => void copy(`{employment_${field}}`)}
                   >
                     <CopyIcon size={14} />
                   </IconButton>

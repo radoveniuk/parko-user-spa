@@ -1,6 +1,7 @@
 import { useMutation } from 'react-query';
 
 import api, { saveFile } from 'api/common';
+import { AnyObject } from 'interfaces/base.types';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
 
 export const useCreateDocsTemplate = () => {
@@ -18,7 +19,9 @@ export const useDeleteDocsTemplate = () => {
   return useMutation(request);
 };
 
-type DownloadTemplateSettings = { userId: string[], templateId: string[], employmentId: string[] };
+type DownloadTemplateSettings = {
+  userId?: string[], templateId?: string[], employmentId?: string[], fileId?: string, fileData?: AnyObject, signatureDate?: string
+};
 export const useDownloadPrintedTemplate = () => {
   const request = (data: DownloadTemplateSettings) =>
     api.post('/docs-templates-print', data, { responseType: 'blob' }).then(res => res.data);
