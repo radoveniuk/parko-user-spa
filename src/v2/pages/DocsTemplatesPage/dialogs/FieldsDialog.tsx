@@ -23,6 +23,19 @@ export const FieldsDialog = ({ ...rest }: DialogProps) => {
         </Tabs>
         <TabPanel index={0}>
           <FieldCodesGrid>
+            <div className="code">
+              <div className="name">
+                {t('docsTemplates.signDate')}
+                <IconButton
+                  onClick={() => void copy('{signatureDate}')}
+                >
+                  <CopyIcon size={14} />
+                </IconButton>
+              </div>
+              <div className="value">
+                &#123;signatureDate&#125;
+              </div>
+            </div>
             {EXPORT_USER_FIELDS.map((field) => (
               <div className="code" key={field}>
                 <div className="name">

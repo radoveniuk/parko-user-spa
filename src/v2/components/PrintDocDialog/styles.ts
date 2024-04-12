@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { DialogActions } from 'v2/uikit/Dialog';
 
 import { TB } from 'theme/sizeBreakpoints';
 
@@ -105,6 +106,19 @@ export const DialogContentWrapper = styled.div`
       .card {
         width: calc(100% - 16px);
       }
+    }
+  }
+`;
+
+export const PrintDocDialogActions = styled(DialogActions)`
+  align-items: flex-end !important;
+
+  @media (max-width: ${TB}) {
+    flex-direction: column;
+    gap: 12px;
+
+    .signDatepicker {
+      width: 100%;
     }
   }
 `;

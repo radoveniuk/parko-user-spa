@@ -1,6 +1,5 @@
 import React from 'react';
 import { isEmpty } from 'lodash-es';
-import { Button } from 'v2/uikit';
 import Autocomplete, { AutocompleteProps } from 'v2/uikit/Autocomplete';
 import DatePicker, { DatePickerProps } from 'v2/uikit/DatePicker';
 import IconButton from 'v2/uikit/IconButton';
@@ -11,7 +10,7 @@ import { ClearFiltersIcon } from 'components/icons';
 import usePrev from 'hooks/usePrev';
 import { MongoEntity } from 'interfaces/base.types';
 
-import { ClearFiltersWrapper, FilterWrapper } from './styles';
+import { ClearFiltersWrapper, FilterButton, FilterWrapper } from './styles';
 import useFilters, { useFilterState } from './useFilters';
 
 type FilterProps = {
@@ -98,13 +97,12 @@ export const FilterSwitch = ({ filterKey, label }: FilterProps) => {
 
   return (
     <FilterWrapper>
-      <Button
-        variant="outlined"
-        className={value === 'true' ? 'switch checked' : 'switch'}
+      <FilterButton
+        className={value === 'true' ? 'active' : ''}
         onClick={() => setValue(value === 'true' ? 'false' : 'true')}
       >
         {label}
-      </Button>
+      </FilterButton>
     </FilterWrapper>
   );
 };

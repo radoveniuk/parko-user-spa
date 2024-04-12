@@ -19,7 +19,9 @@ export const useDeleteDocsTemplate = () => {
   return useMutation(request);
 };
 
-type DownloadTemplateSettings = { userId?: string[], templateId?: string[], employmentId?: string[], fileId?: string, fileData?: AnyObject };
+type DownloadTemplateSettings = {
+  userId?: string[], templateId?: string[], employmentId?: string[], fileId?: string, fileData?: AnyObject, signatureDate?: string
+};
 export const useDownloadPrintedTemplate = () => {
   const request = (data: DownloadTemplateSettings) =>
     api.post('/docs-templates-print', data, { responseType: 'blob' }).then(res => res.data);
