@@ -109,8 +109,9 @@ const PrintDocDialog = ({ users, onClose, ...rest }: Props) => {
                   const client = project?.client as IClient;
                   const position = project?.positions?.find(position => position.matterId === employment.positionId);
                   // eslint-disable-next-line max-len
-                  return `${client?.name} > ${project?.name} > ${position?.name} ${getDateFromIso(employment.hireDate) || ''} - ${getDateFromIso(employment.fireDate || '')}`;
+                  return `${client?.name} > ${project?.name} > ${position?.name} ${getDateFromIso(employment.hireDate) || ''}${employment.fireDate ? ` - ${getDateFromIso(employment.fireDate || '')}` : ''}`;
                 }}
+                maxWidth={200}
               />
             </div>
           ))}

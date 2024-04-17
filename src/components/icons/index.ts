@@ -77,6 +77,7 @@ export {
   MdPhone as PhoneIcon,
   MdWork as ProjectIcon,
   MdRemoveDone as RemoveCheckIcon,
+  MdRestore as RestoreIcon,
 } from 'react-icons/md';
 export { MdFactory as FactoryIcon } from 'react-icons/md';
 export { PiFoldersFill as FileGroupIcon } from 'react-icons/pi';

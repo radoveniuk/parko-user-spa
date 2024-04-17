@@ -48,12 +48,9 @@ const ClientListPageRender = () => {
   }, [activeCols, setStoredColsSettings]);
 
   return (
-    <ProfileListPageWrapper cols={3}>
+    <ProfileListPageWrapper cols={activeCols.length + 1}>
       <div className="container-table">
-        <HeaderTable
-          data={data}
-          activeCols={DEFAULT_COLS}
-        />
+        <HeaderTable data={data} />
         <FilterTableWrapper>
           <FilterAutocomplete
             multiple

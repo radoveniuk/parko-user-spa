@@ -32,45 +32,42 @@ const Table = ({
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
   const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
 
-  const toggleSorting = (participationKey: keyof IOrderParticipation) => {
-    const sortingValue: Path<IOrderParticipation> | ((v: IOrderParticipation) => any) = participationKey;
+  const toggleSorting = (participationKey: string) => {
+    console.log(participationKey);
+
+    let sortingValue = participationKey as Path<IOrderParticipation<true>> | ((v: IOrderParticipation<true>) => any);
+    if (participationKey === 'user.name') {
+      sortingValue = 'user.fullname';
+    }
+    if (participationKey === 'order.activeStage') {
+      sortingValue = (v: IOrderParticipation<true>) => v.stages?.[v.stages.length - 1]?.stage.name;
+    }
+    if (participationKey === 'order.createdAt') {
+      sortingValue = 'createdAt';
+    }
+    if (participationKey === 'order.createdBy') {
+      sortingValue = 'createdBy.fullname';
+    }
     sortingToggler(participationKey, sortingValue);
   };
 
   return (
     <TableWrapper>
-      <div className="mobile-list">
-        {/* {sortedData.map((user) => (
-          <MobileUserCard
-            key={user._id}
-            user={user}
-            selected={selectedItems.some(item => item._id === user._id)}
-            onSelect={checked => {
-              setSelectedItems(prev => {
-                if (checked) {
-                  return [...prev, user];
-                }
-                return prev.filter(item => item._id !== user._id);
-              });
-            }}
-          />
-        ))} */}
-      </div>
       <ListTable
         columns={STATIC_COLS}
         className="users-table"
-        columnComponent={(col, index) => {
-          if (col) {
+        columnComponent={(col) => {
+          if (col && !['order.screaning'].includes(col)) {
             return (
               <div
                 role="button"
                 className="col-item"
-                onClick={() => void toggleSorting(col.replace('user.', '') as keyof IOrderParticipation<true>)}
+                onClick={() => void toggleSorting(col as keyof IOrderParticipation<true>)}
               >
                 {t(col)}
                 <IconButton
                   className={
-                    sorting?.key === (col.replace('user.', '') as keyof IOrderParticipation<true>)
+                    sorting?.key === (col as keyof IOrderParticipation<true>)
                       ? `sort-btn active ${sorting.dir}`
                       : 'sort-btn'
                   }

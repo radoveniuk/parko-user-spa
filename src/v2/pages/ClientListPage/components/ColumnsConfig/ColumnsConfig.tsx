@@ -9,7 +9,7 @@ import { ColsSettingsWrapper } from './styles';
 const COLS_TREE = {
   baseFields: [
     'client.sidlo',
-    'client.shortName',
+    'client.name',
     'client.comment',
   ],
   contacts: [

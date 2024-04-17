@@ -82,6 +82,7 @@ function Select<T> ({
           PaperProps: {
             style: {
               maxHeight: 250,
+              maxWidth,
             },
           },
         }}
@@ -93,7 +94,13 @@ function Select<T> ({
           </MenuItem>
         )}
         {menuItems?.map((menuItem) => (
-          <MenuItem key={menuItem.value} value={menuItem.value}><>{menuItem.label}</></MenuItem>
+          <MenuItem
+            key={menuItem.value}
+            value={menuItem.value}
+            style={{ whiteSpace: 'initial', fontSize: '0.85rem' }}
+          >
+            <>{menuItem.label}</>
+          </MenuItem>
         ))}
       </SelectMaterial>
     </SelectWrapper>

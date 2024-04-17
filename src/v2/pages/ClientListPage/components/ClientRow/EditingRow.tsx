@@ -105,7 +105,7 @@ const EditingRow = () => {
       <ListTableCell>
         <LinkWrapper>
           <Link to={`/clients/${data._id}`} className="table-link">
-            {data.name}
+            {data.shortName || data.name}
           </Link>
         </LinkWrapper>
       </ListTableCell>

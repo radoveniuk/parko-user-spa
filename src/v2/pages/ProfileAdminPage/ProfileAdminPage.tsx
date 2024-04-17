@@ -4,7 +4,8 @@ import { useQueryClient } from 'react-query';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import pick from 'lodash-es/pick';
 import { DateTime } from 'luxon';
-import { Button } from 'v2/uikit';
+import PrintDocDialog from 'v2/components/PrintDocDialog';
+import { Button, Menu } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
 import BreadCrumbs from 'v2/uikit/BreadCrumbs';
 import Dialog, { DialogActions } from 'v2/uikit/Dialog';
@@ -30,7 +31,8 @@ import { useGetPayrollList } from 'api/query/payrollQuery';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetResidences } from 'api/query/residenceQuery';
 import { useGetUser } from 'api/query/userQuery';
-import { DeleteIcon, PlusIcon, WarningIcon } from 'components/icons';
+import { DeleteIcon, PlusIcon, PrintIcon, RestoreIcon, WarningIcon } from 'components/icons';
+import { MenuItem } from 'components/shared/Menu';
 import { CANDIDATE_ORDER_STAGE } from 'constants/orders';
 import { useAuthData } from 'contexts/AuthContext';
 import { IOrder } from 'interfaces/order.interface';
@@ -158,7 +160,30 @@ const ProfileAdminPageRender = () => {
 
   useEffect(() => () => { remove(); }, [remove]);
 
+  // print
+  const [openPrintDialog, setOpenPrintDialog] = useState(false);
+
   if (!profileData) return <FullPageLoaderWrapper><Loader /></FullPageLoaderWrapper>;
+
+  const menuActions = [
+    <MenuItem color="error" onClick={() => void setOpenDeleteDialog(true)} key="delete">
+      <DeleteIcon size={16} />
+      {t('delete')}
+    </MenuItem>,
+    <MenuItem onClick={() => void setOpenPrintDialog(true)} key="print">
+      <PrintIcon size={16} />
+      {t('docsTemplates.print')}
+    </MenuItem>,
+  ];
+
+  if (profileData?.isDeleted) {
+    menuActions.push(
+      <MenuItem onClick={() => void updateUser({ isDeleted: false })} key="restore">
+        <RestoreIcon size={16} />
+        {t('restore')}
+      </MenuItem>,
+    );
+  }
 
   return (
     <ProfileAdminPageWrapper>
@@ -176,10 +201,9 @@ const ProfileAdminPageRender = () => {
               </Button>
             )}
             {role !== 'user' && (
-              <Button color="error" onClick={() => void setOpenDeleteDialog(true)}>
-                <DeleteIcon size={16} />
-                {t('delete')}
-              </Button>
+              <Menu className="big-btn" isCloseOnMenu>
+                {menuActions}
+              </Menu>
             )}
           </>
         )}
@@ -436,6 +460,9 @@ const ProfileAdminPageRender = () => {
             >{t('approve')}</Button>
           </DialogActions>
         </Dialog>
+      )}
+      {openPrintDialog && (
+        <PrintDocDialog users={[profileData]} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
       )}
     </ProfileAdminPageWrapper>
   );

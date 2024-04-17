@@ -114,7 +114,7 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
               <Select
                 label={t('project.client')}
                 theme="gray"
-                labelPath="name"
+                labelPath={(client) => client.shortName || client.name}
                 valuePath="_id"
                 options={clients}
                 defaultValue={data?.client._id}

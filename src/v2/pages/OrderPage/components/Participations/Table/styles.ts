@@ -41,11 +41,4 @@ export const TableWrapper = styled.div`
   .pagination-bottom {
     margin-top: auto;
   }
-
-  .mobile-list {
-    display: none;
-    @media (max-width: ${TB}) {
-      display: initial;
-    }
-  }
 `;

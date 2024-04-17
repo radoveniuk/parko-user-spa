@@ -235,7 +235,8 @@
     "thisNameExistsMsg": "There is already a registered user in the system with the same first and last name. Do you want to continue?",
     "corporateBodyAddress": "Address",
     "client": "Client",
-    "addNewParticipation": "Add to the order"
+    "addNewParticipation": "Add to the order",
+    "isDeleted": "Deleted"
   },
   "userHistory": {
     "updatedBy": "Updated by",
@@ -562,7 +563,7 @@
   },
   "client": {
     "company": "Company",
-    "name": "Name",
+    "name": "Business name",
     "ICO": "IČO",
     "DIC": "DIČ",
     "ICDPH": "IČDPH",
@@ -585,7 +586,7 @@
     "financial": "Financial data",
     "cooperation": "Cooperation",
     "comment": "Comment",
-    "shortName": "Short name",
+    "shortName": "Client",
     "orders": "Recruitment rooms"
   },
   "errorTexts": {
@@ -638,6 +639,7 @@
   "docs": "Docs",
   "employer": "Employer",
   "employee": "Employee",
+  "restore": "Restore",
   "header": {
     "search": "Search for users, projects or clients"
   },
