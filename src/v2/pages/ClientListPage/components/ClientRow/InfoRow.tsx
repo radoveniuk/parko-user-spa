@@ -22,7 +22,7 @@ const InfoRow = () => {
       <ListTableCell>
         <LinkWrapper>
           <Link to={`/client/${data._id}`} className="table-link">
-            <span className="column-content">{data.name}</span>
+            <span className="column-content">{data.shortName || data.name}</span>
           </Link>
         </LinkWrapper>
       </ListTableCell>

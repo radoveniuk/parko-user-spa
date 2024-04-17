@@ -540,7 +540,7 @@
   },
   "client": {
     "company": "Spoločnosť",
-    "name": "Názov",
+    "name": "Obchodné meno",
     "ICO": "IČO",
     "DIC": "DIČ",
     "ICDPH": "IČDPH",
@@ -563,7 +563,7 @@
     "financial": "Finančné údaje",
     "cooperation": "Spolupráca",
     "comment": "Komentár",
-    "shortName": "Kratke meno",
+    "shortName": "Klient",
     "orders": "Náborové miestnosti"
   },
   "errorTexts": {
@@ -614,6 +614,7 @@
   "docs": "Doklady",
   "employer": "Zamestnávateľ",
   "employee": "Zamestnanec",
+  "restore": "Obnoviť",
   "dataUpdated": "Údaje aktualizované",
   "header": {
     "search": "Vyhľadajte používateľov, projekty alebo klientov"

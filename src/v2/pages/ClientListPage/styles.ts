@@ -4,6 +4,7 @@ import { PC, TB } from 'theme/sizeBreakpoints';
 
 export const ProfileListPageWrapper = styled.div<{ cols: number }>`
   .clients-table {
+    grid-template-columns: 160px ${(props) => Array(props.cols).fill('1fr').join(' ')};
     .list-table-cell {
       white-space: nowrap;
 

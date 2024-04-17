@@ -107,7 +107,7 @@ const HomePage = () => {
                         <TableBody>
                           {dashboard.clients.map((client: IClient) => (
                             <TableRow key={client._id}>
-                              <TableCell><Link to={`/client/${client._id}`}>{client.name}</Link></TableCell>
+                              <TableCell><Link to={`/client/${client._id}`}>{client.shortName}</Link></TableCell>
                               <TableCell>{client.sidlo}</TableCell>
                               <TableCell>
                                 <StatusLabel className={client.status}>{t(`selects.clientStatus.${client.status}`)}</StatusLabel>

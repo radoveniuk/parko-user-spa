@@ -66,7 +66,7 @@ const Table = ({
   const [editingRow, setEditingRow] = useState<null | string>(null);
   const { debouncedFiltersState } = useFilters();
 
-  const allCols = ['client.name', ...activeCols, ''];
+  const allCols = ['client.shortName', ...activeCols, ''];
 
   const updateClient = (values: IClient) => {
     console.log('update');

@@ -25,7 +25,7 @@ type DownloadTemplateSettings = {
 export const useDownloadPrintedTemplate = () => {
   const request = (data: DownloadTemplateSettings) =>
     api.post('/docs-templates-print', data, { responseType: 'blob' }).then(res => res.data);
-  const downloadMutation = useMutation(request);
+  const downloadMutation = useMutation(request, { onSuccess: () => undefined });
 
   return async (options: DownloadTemplateSettings, singleFileName?: string) => {
     await downloadMutation.mutateAsync(options).then((res) => {
