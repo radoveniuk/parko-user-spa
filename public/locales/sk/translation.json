@@ -53,6 +53,7 @@
   "profile": "Profil",
   "user": {
     "info": "Informácie",
+    "new": "Nový užívateľ",
     "login": "Prihlásiť",
     "register": "Registrácia",
     "password": "Heslo",

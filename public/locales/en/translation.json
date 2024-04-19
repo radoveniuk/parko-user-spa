@@ -53,6 +53,7 @@
   "profile": "Profile",
   "user": {
     "info": "Info",
+    "new": "New user",
     "login": "Log in",
     "register": "Register",
     "password": "Password",
