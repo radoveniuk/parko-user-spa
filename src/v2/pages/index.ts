@@ -15,3 +15,4 @@ export { default as PrepaymentListPage } from './PrepaymentListPage';
 export { default as ProfileAdminPage } from './ProfileAdminPage';
 export { default as ProfileListPage } from './ProfileListPage';
 export { default as RegisterPage } from './RegisterPage';
+export { default as RolesPage } from './RolesPage';

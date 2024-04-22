@@ -122,7 +122,7 @@ const TemplateDialog = ({ onClose, submit, ...rest }: Props) => {
             <Autocomplete
               options={users}
               label={`${t('paycheck.user')}*`}
-              getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
+              getOptionLabel={(option) => `${option.fullname} ${option.project ? `(${option.project.name})` : ''}`}
               onChange={(v) => void field.onChange(v?._id || '')}
               error={!!errors.user}
             />

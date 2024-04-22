@@ -100,7 +100,7 @@ const HeaderTable = ({ participations, selectedItems, setSelectedItems, setOpenP
               options={availableUsers}
               label={t('profile')}
               theme="gray"
-              getOptionLabel={(item) => `${item.name} ${item.surname}`}
+              labelKey="fullname"
               style={{ marginBottom: 12 }}
               value={selectedUsers}
               onChange={(v) => void setSelectedUsers(v)}

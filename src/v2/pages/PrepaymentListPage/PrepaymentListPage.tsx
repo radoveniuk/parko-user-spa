@@ -62,7 +62,7 @@ const PrepaymentListPageRender = () => {
           <FilterAutocomplete
             multiple
             options={users}
-            getOptionLabel={(user) => `${user.name} ${user.surname}`}
+            labelKey="fullname"
             filterKey="users"
             valueKey="_id"
             prefixIcon={<SearchIcon className="search-icon"/>}

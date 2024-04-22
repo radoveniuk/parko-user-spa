@@ -146,6 +146,11 @@ const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
         title: 'navbar.profiles',
         to: '/customization/users',
       },
+      {
+        type: 'link',
+        title: 'navbar.roles',
+        to: '/customization/roles',
+      },
     ],
   },
 ];

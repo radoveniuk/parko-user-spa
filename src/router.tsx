@@ -13,6 +13,7 @@ import {
   OrderListPage,
   OrderPage,
   PrepaymentListPage, ProfileAdminPage, ProfileListPage, RegisterPage,
+  RolesPage,
 } from 'v2/pages';
 
 import NavbarStateProvider from 'contexts/NavbarStateContext';
@@ -59,6 +60,7 @@ export default function Router () {
                 <Route path="/create-profile" element={<ProfilePage />} />
                 <Route path="/customization/fields" element={<CustomFormFieldsPage />} />
                 <Route path="/customization/forms" element={<CustomFormsPage />} />
+                <Route path="/customization/roles" element={<RolesPage />} />
                 <Route path="/customization/users" element={<CustomUserFieldsPage />} />
                 <Route path="/customization/docs-templates" element={<DocsTemplatesPage />} />
                 <Route path="/accommodation" element={<AccommodationPage />} />

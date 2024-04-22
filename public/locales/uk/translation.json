@@ -15,7 +15,8 @@
     "workspaces": "Робочі простори",
     "finance": "Фінанси",
     "feedback": "Зворотній зв'язок",
-    "orders": "Набори"
+    "orders": "Набори",
+    "roles": "Ролі"
   },
   "menu": {
     "prepayment": "Замовити аванс",
