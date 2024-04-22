@@ -70,7 +70,7 @@ const SearchBar = () => {
               key={client._id}
               to={`/client/${client._id}`}
             >
-              {client.name} ({client.sidlo})
+              {client.shortName || client.name}
             </Link>
           ))}
         </div>
@@ -122,7 +122,7 @@ const SearchBar = () => {
                   }}
 
                 >
-                  {client.name} ({client.sidlo})
+                  {client.shortName}
                 </Link>
               ))}
             </>

@@ -45,11 +45,7 @@ const OrderRow = (props: Props) => {
         </LinkWrapper>
       </ListTableCell>
       <ListTableCell>
-        <LinkWrapper>
-          <Link to={`/client/${client._id}`} className="table-link">
-            {client.name}
-          </Link>
-        </LinkWrapper>
+        {client.shortName}
       </ListTableCell>
       <ListTableCell>
         {project?.name}

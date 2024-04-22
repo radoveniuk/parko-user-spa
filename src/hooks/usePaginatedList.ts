@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { createSearchParams, useNavigate } from 'react-router-dom';
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
+import useLocalStorageState from './useLocalStorageState';
 import usePageQueries from './usePageQueries';
 import usePrev from './usePrev';
 
@@ -10,7 +11,12 @@ type Options = {
 };
 
 const usePaginatedList = <T>(list: T[] = [], options?: Options) => {
-  const rowsPerPage = options?.rowsPerPage || 20;
+  const location = useLocation();
+  const [rowsPerPageConfigString, setRowsPerPageConfigString] = useLocalStorageState('RowsPerPageConfig', '{}');
+  const rowsPerPageConfig = JSON.parse(rowsPerPageConfigString) as Record<string, number>;
+
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageConfig[location.pathname] || options?.rowsPerPage || 20);
+
   const defaultPage = options?.defaultPage || 0;
   const [page, setPage] = useState(defaultPage);
   const navigate = useNavigate();
@@ -44,12 +50,18 @@ const usePaginatedList = <T>(list: T[] = [], options?: Options) => {
     }
   }, [page, pageQueries]);
 
+  useEffect(() => {
+    setRowsPerPageConfigString(JSON.stringify({ ...rowsPerPageConfig, [location.pathname]: rowsPerPage }));
+  }, [location.pathname, rowsPerPage, rowsPerPageConfig, setRowsPerPageConfigString]);
+
   return {
     pageItems,
     paginationConfig: {
       page,
       onChange,
       count: pagesCount,
+      rowsPerPage,
+      setRowsPerPage,
     },
   };
 };

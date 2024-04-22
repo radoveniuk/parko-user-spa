@@ -1,13 +1,16 @@
 import React, { Dispatch, memo, SetStateAction, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import ProfileFormDialog from 'v2/components/ProfileFormDialog';
 import useOrderParticipationActions from 'v2/pages/OrderPage/hooks/useOrderParticipationActions';
-import { Button, Menu, MenuItem, Stack } from 'v2/uikit';
+import { Button, Divider, Menu, MenuItem, Stack } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
 import Dialog, { DialogActions } from 'v2/uikit/Dialog';
 import IconButton from 'v2/uikit/IconButton';
 
+import { useCreateUserMutation } from 'api/mutations/userMutation';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import { ArrowDownIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
+import { DEFAULT_PASS } from 'constants/user';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 import { IUser } from 'interfaces/users.interface';
 
@@ -33,6 +36,18 @@ const HeaderTable = ({ participations, selectedItems, setSelectedItems, setOpenP
     [participations, users],
   );
 
+  // create new user and add it to order
+  const [openCreateUserDialog, setOpenCreateUserDialog] = useState(false);
+  const createUserMutation = useCreateUserMutation();
+
+  const createNewUserHandler = async (data: Partial<IUser>) => {
+    setOpenCreateUserDialog(false);
+    const recruiter = data.recruiter as IUser | null;
+    const values = { ...data, recruiter: recruiter?._id || null, password: DEFAULT_PASS, status: 'candidate' };
+    const createdUser = await createUserMutation.mutateAsync(values);
+    await createParticipation(createdUser._id);
+  };
+
   return (
     <>
       <HeaderWrapper>
@@ -41,12 +56,6 @@ const HeaderTable = ({ participations, selectedItems, setSelectedItems, setOpenP
         </Stack>
         <Stack direction="row" gap="15px">
           <IconButton className="small-btn primary" onClick={() => void setOpenCreateParticipationDialog(true)}><PlusIcon size={25} /></IconButton>
-          <Button
-            className="big-btn"
-            onClick={() => { setOpenCreateParticipationDialog(true); }}
-          >
-            <PlusIcon />{t('order.addNewParticipation')}
-          </Button>
           <Menu
             menuComponent={(
               <>
@@ -58,6 +67,13 @@ const HeaderTable = ({ participations, selectedItems, setSelectedItems, setOpenP
               </>
             )}
           >
+            <MenuItem onClick={() => void setOpenCreateParticipationDialog(true)}>
+              {t('order.addNewParticipation')}
+            </MenuItem>
+            <MenuItem onClick={() => void setOpenCreateUserDialog(true)}>
+              {t('user.new')}
+            </MenuItem>
+            <Divider />
             <MenuItem onClick={() => void setSelectedItems(participations)}>
               {t('selectAll')}
             </MenuItem>
@@ -103,6 +119,13 @@ const HeaderTable = ({ participations, selectedItems, setSelectedItems, setOpenP
             >{t('approve')}</Button>
           </DialogActions>
         </Dialog>
+      )}
+      {!!openCreateUserDialog && (
+        <ProfileFormDialog
+          open={openCreateUserDialog}
+          onClose={() => void setOpenCreateUserDialog(false)}
+          onSave={createNewUserHandler}
+        />
       )}
     </>
   );

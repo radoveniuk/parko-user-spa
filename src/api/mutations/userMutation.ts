@@ -39,7 +39,7 @@ export const useRegisterMutation = () => {
 };
 
 export const useCreateUserMutation = () => {
-  const request = (data: Partial<IUser>) => api.post('/users', data).then(res => res.data.data);
+  const request = (data: Partial<IUser>) => api.post('/users', data).then(res => res.data.data as IUser);
 
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation();

@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
@@ -36,10 +36,8 @@ const Table = ({
 }: Props) => {
   const { t } = useTranslation();
 
-  const [rowsPerPage, setRowsPerPage] = useState(20);
-
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
-  const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
+  const { pageItems, paginationConfig } = usePaginatedList(sortedData);
 
   const toggleSorting = (key: string) => {
     let sortingValue: SortingValue<IDocsTemplate> = key as keyof IDocsTemplate;
@@ -105,7 +103,7 @@ const Table = ({
         )}
       </ListTable>
       <div className="pagination-bottom">
-        <Pagination {...paginationConfig} setRowsPerPage={setRowsPerPage} rowsPerPage={rowsPerPage} labelRowsPerPage={t('rowsPerPage')}/>
+        <Pagination {...paginationConfig} labelRowsPerPage={t('rowsPerPage')}/>
       </div>
     </TableWrapper>
   );

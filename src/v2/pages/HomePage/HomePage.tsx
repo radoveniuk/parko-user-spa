@@ -139,7 +139,7 @@ const HomePage = () => {
                           {dashboard.orders.map((order: IOrder<true>) => (
                             <TableRow key={order._id}>
                               <TableCell><Link to={`/order/${order._id}`}>{order.name}</Link></TableCell>
-                              <TableCell>{order.client.name}</TableCell>
+                              <TableCell>{order.client.shortName}</TableCell>
                               <TableCell>
                                 <StatusLabel className={order.status}>{t(`selects.orderStatus.${order.status}`)}</StatusLabel>
                               </TableCell>

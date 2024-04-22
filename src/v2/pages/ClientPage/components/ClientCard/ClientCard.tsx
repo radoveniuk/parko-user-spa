@@ -69,7 +69,7 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
       <ProfileCardWrapper>
         {role === 'admin' && <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>}
         <div className="contacts-info section">
-          <div className="name">{client.name}</div>
+          <div className="name">{client.shortName}</div>
           <div className="contacts">
             {!!client.email && <a href={`mailto:${client.email}`} className="contact-text-link"><EmailIcon /> {client.email}</a>}
             {!!client.phone && <a href={`tel:${client.phone}`} className="contact-text-link"><PhoneIcon /> {client.phone}</a>}
@@ -83,7 +83,8 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
           <ClientCardCommonItem label="IČ DPH" value={client.ICDPH} />
         </div>
         <div className="common section">
-          <div className="info-item"><div className="name">Sídlo:</div> {client.sidlo}</div>
+          <div className="info-item"><div className="name">{t('client.company')}:</div> {client.name}</div>
+          <div className="info-item"><div className="name">{t('client.sidlo')}:</div> {client.sidlo}</div>
           <div className="info-item"><div className="name">{t('client.contactPerson')}:</div> {client.contactPerson}</div>
           <div className="info-item"><div className="name">{t('client.contactPersonPosition')}:</div> {client.contactPersonPosition}</div>
           <div className="info-item"><div className="name">
@@ -106,7 +107,7 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
       </ProfileCardWrapper>
       <ClientFormDialog
         data={client}
-        title={client.name}
+        title={client.shortName}
         open={isOpenForm}
         onClose={closeForm}
         onSave={(values) => {

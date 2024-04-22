@@ -70,6 +70,12 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
     .MuiChip-deleteIcon {
       font-size: 18px;
     }
+
+    .MuiChip-label {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+    }
   }
 
   .MuiFormHelperText-root {

@@ -51,12 +51,10 @@ const Table = ({
   const { t, i18n } = useTranslation();
   const queryClient = useQueryClient();
   const { debouncedFiltersState } = useFilters();
-
-  const [rowsPerPage, setRowsPerPage] = useState(20);
   const [editingRow, setEditingRow] = useState<null | string>(null);
 
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
-  const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
+  const { pageItems, paginationConfig } = usePaginatedList(sortedData);
   const updateUserMutation = useUpdateUserMutation();
   const { data: projects = [] } = useGetProjects();
   const [filterBarVisibility, setFilterBarVisibility] = useFilterBarVisibility();
@@ -220,7 +218,7 @@ const Table = ({
         )}
       </ListTable>
       <div className="pagination-bottom">
-        <Pagination {...paginationConfig} setRowsPerPage={setRowsPerPage} rowsPerPage={rowsPerPage} labelRowsPerPage={t('rowsPerPage')}/>
+        <Pagination {...paginationConfig} labelRowsPerPage={t('rowsPerPage')}/>
       </div>
       <ColumnsConfig
         open={openColsSettins}

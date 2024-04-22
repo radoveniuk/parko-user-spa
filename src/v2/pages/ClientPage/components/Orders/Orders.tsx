@@ -22,7 +22,6 @@ type Props = {
 
 const DEFAULT_COLS = [
   'order.name',
-  'order.client',
   'order.project',
   'order.cooperationType',
   'order.status',

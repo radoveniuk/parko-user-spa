@@ -142,7 +142,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                     rules={{ required: true }}
                     render={({ field, fieldState }) => (
                       <Select
-                        label={t('project.client')}
+                        label={`${t('user.client')}*`}
                         theme="gray"
                         labelPath="name"
                         valuePath="_id"
@@ -165,7 +165,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                     rules={{ required: true }}
                     render={({ field, fieldState }) => (
                       <Select
-                        label={t('user.project')}
+                        label={`${t('user.project')}*`}
                         theme="gray"
                         labelPath={item => `${item.name}${item.type ? `, ${getProjectType(item.type)?.label}` : ''}`}
                         valuePath="_id"
@@ -187,7 +187,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                     rules={{ required: true }}
                     render={({ field, fieldState }) => (
                       <Select
-                        label="Pracovná pozicia"
+                        label="Pracovná pozicia*"
                         theme="gray"
                         labelPath="internalName"
                         valuePath="matterId"
@@ -203,54 +203,55 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                       />
                     )}
                   />
+                  <Controller
+                    control={control}
+                    name="recruiter"
+                    rules={{ required: true }}
+                    render={({ field, fieldState }) => (
+                      <Select
+                        label={`${t('user.recruiter')}*`}
+                        theme="gray"
+                        labelPath="fullname"
+                        valuePath="_id"
+                        options={recruiters}
+                        disabled={formCardConfig.disabled}
+                        defaultValue={data?.recruiter}
+                        error={!!fieldState.error}
+                        value={field.value}
+                        onChange={(e) => {
+                          clearErrors('recruiter');
+                          field.onChange(e.target.value);
+                        }}
+                      />
+                    )}
+                  />
                   {isOutsorce && (
-                    <Controller
-                      control={control}
-                      name="businessActivity"
-                      rules={{ required: true }}
-                      render={({ field, fieldState }) => (
-                        <Select
-                          label="Predmet podnikania"
-                          theme="gray"
-                          labelPath="description"
-                          valuePath="description"
-                          options={user.businessActivities?.filter(item => !item.dateTo)}
-                          disabled={formCardConfig.disabled}
-                          defaultValue={data?.businessActivity}
-                          error={!!fieldState.error}
-                          value={field.value}
-                          onChange={(e) => {
-                            clearErrors('businessActivity');
-                            field.onChange(e.target.value);
-                          }}
-                        />
-                      )}
-                    />
+                    <div className={isOutsorce ? 'fullwidth' : ''}>
+                      <Controller
+                        control={control}
+                        name="businessActivity"
+                        rules={{ required: true }}
+                        render={({ field, fieldState }) => (
+                          <Select
+                            label="Predmet podnikania*"
+                            theme="gray"
+                            labelPath="description"
+                            valuePath="description"
+                            options={user.businessActivities?.filter(item => !item.dateTo)}
+                            disabled={formCardConfig.disabled}
+                            defaultValue={data?.businessActivity}
+                            error={!!fieldState.error}
+                            value={field.value}
+                            onChange={(e) => {
+                              clearErrors('businessActivity');
+                              field.onChange(e.target.value);
+                            }}
+                            // maxWidth={500}
+                          />
+                        )}
+                      />
+                    </div>
                   )}
-                  <div className={isOutsorce ? 'fullwidth' : ''}>
-                    <Controller
-                      control={control}
-                      name="recruiter"
-                      rules={{ required: true }}
-                      render={({ field, fieldState }) => (
-                        <Select
-                          label={`${t('user.recruiter')}*`}
-                          theme="gray"
-                          labelPath="fullname"
-                          valuePath="_id"
-                          options={recruiters}
-                          disabled={formCardConfig.disabled}
-                          defaultValue={data?.recruiter}
-                          error={!!fieldState.error}
-                          value={field.value}
-                          onChange={(e) => {
-                            clearErrors('recruiter');
-                            field.onChange(e.target.value);
-                          }}
-                        />
-                      )}
-                    />
-                  </div>
                   <div className="fullwidth static-info">
                     <IconButton
                       className="toggle-view"

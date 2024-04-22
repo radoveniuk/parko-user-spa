@@ -66,7 +66,7 @@ const OrderCard = ({ data, participations }: ClientCardProps) => {
         <div className="contacts-info section">
           <div className="name">{order.name}</div>
           <div className="contacts">
-            {!!order.project && <div className="contact-text-link">{order.client.name}</div>}
+            {!!order.client && <div className="contact-text-link">{order.client.shortName}</div>}
             {!!order.project && <div className="contact-text-link">{order.project.name}</div>}
             {!!order.status && <StatusLabel className={order.status}>{t(`selects.orderStatus.${order.status}`)}</StatusLabel>}
           </div>

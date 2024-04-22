@@ -101,7 +101,7 @@ const Table = ({
                 <Link to={`/profile/${(item.metadata.user as IUser)._id}`} className="table-link">{item.user}</Link>
               </ListTableCell>
               <ListTableCell>
-                {client ? `${client.name} > ` : ''}{project?.name}
+                {client ? `${client.shortName} > ` : ''}{project?.name}
               </ListTableCell>
               <ListTableCell>{item.owner}</ListTableCell>
               <ListTableCell>

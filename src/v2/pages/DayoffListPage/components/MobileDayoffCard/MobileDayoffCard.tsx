@@ -70,7 +70,7 @@ const MobilePrepaymentCard = ({ style, data }: Props) => {
             <div>{data.user.name} {data.user.surname}</div>
             <div className="side-info">
               <StatusLabel className={data.user.status}>{t(`selects.userStatus.${data.user.status}`)}</StatusLabel>
-              {!!project && <div className="project">{client ? `${client.name} > ` : ''}{project?.name}</div>}
+              {!!project && <div className="project">{client ? `${client.shortName} > ` : ''}{project?.name}</div>}
             </div>
           </div>
         </Link>

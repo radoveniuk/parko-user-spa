@@ -32,13 +32,17 @@ export const MobileClientCardWrapper = styled.div`
       flex-direction: column;
       gap: 12px;
 
-      .name, .project {
+      .project {
         display: flex;
         gap: 6px;
         align-items: center;
       }
 
-      .project {
+      .business-name {
+        font-size: 0.75em;
+      }
+
+      .project, .business-name {
         color: #717171;
       }
 

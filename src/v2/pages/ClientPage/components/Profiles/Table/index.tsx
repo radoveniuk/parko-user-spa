@@ -39,10 +39,8 @@ const Table = ({
 }: TableProps) => {
   const { t, i18n } = useTranslation();
 
-  const [rowsPerPage, setRowsPerPage] = useState(20);
-
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
-  const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
+  const { pageItems, paginationConfig } = usePaginatedList(sortedData);
 
   const toggleSorting = (userKey: keyof IUser) => {
     let sortingValue: Path<IUser> | ((v: IUser) => any) = userKey;
@@ -153,7 +151,7 @@ const Table = ({
         ))}
       </ListTable>
       <div className="pagination-bottom">
-        <Pagination {...paginationConfig} setRowsPerPage={setRowsPerPage} rowsPerPage={rowsPerPage} labelRowsPerPage={t('rowsPerPage')}/>
+        <Pagination {...paginationConfig} labelRowsPerPage={t('rowsPerPage')}/>
       </div>
       <ColumnsConfig
         open={openColsSettins}

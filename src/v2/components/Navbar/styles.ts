@@ -63,9 +63,8 @@ export const FooterWrapper = styled.div`
 export const NavItem = styled(ListItemButton)`
   height: 45px;
   gap: 15px;
-  color: #000;
   transition: background-color 0.3s;
-  color: #000 !important;
+  color: rgb(66, 66, 66) !important;
 
   &.open:has(svg) {
     display: grid !important;

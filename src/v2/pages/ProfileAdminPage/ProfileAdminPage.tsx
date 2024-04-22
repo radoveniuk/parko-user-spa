@@ -72,14 +72,14 @@ const ProfileAdminPageRender = () => {
   const updateCachedUserData = useUpdateCachedUserData();
 
   const { data: profileData, remove } = useGetUser(userId as string);
-  const { data: residences = [] } = useGetResidences({ user: userId });
-  const { data: prepayments = [] } = useGetPrepayments({ user: userId });
-  const { data: paychecks = [] } = useGetPaycheckList({ user: userId });
-  const { data: payrolls = [] } = useGetPayrollList({ user: userId });
-  const { data: daysoff = [] } = useGetDaysoff({ user: userId });
-  const { data: employments = [], refetch: refetchEmplyments } = useGetEmployments({ user: userId });
-  const { data: accommodations = [] } = useGetAccommodations();
-  const { data: orderParticipations = [] } = useGetOrderParticipations({ user: userId });
+  const { data: residences = [], remove: removeResidences } = useGetResidences({ user: userId });
+  const { data: prepayments = [], remove: removePrepayments } = useGetPrepayments({ user: userId });
+  const { data: paychecks = [], remove: removePaychecks } = useGetPaycheckList({ user: userId });
+  const { data: payrolls = [], remove: removePayrolls } = useGetPayrollList({ user: userId });
+  const { data: daysoff = [], remove: removeDaysoff } = useGetDaysoff({ user: userId });
+  const { data: employments = [], refetch: refetchEmplyments, remove: removeEmployments } = useGetEmployments({ user: userId });
+  const { data: accommodations = [], remove: removeAccommodations } = useGetAccommodations();
+  const { data: orderParticipations = [], remove: removeOrderParticipations } = useGetOrderParticipations({ user: userId });
 
   const updateUserMutation = useUpdateUserMutation();
   const deleteUserMutation = useDeleteUserMutation();
@@ -158,7 +158,18 @@ const ProfileAdminPageRender = () => {
     queryClient.setQueryData(queryKey, [res, ...participations]);
   });
 
-  useEffect(() => () => { remove(); }, [remove]);
+  useEffect(() => () => {
+    remove();
+    removeResidences();
+    removePrepayments();
+    removePaychecks();
+    removePayrolls();
+    removeDaysoff();
+    removeEmployments();
+    removeAccommodations();
+    removeOrderParticipations();
+  }, [remove, removeAccommodations, removeDaysoff, removeEmployments, removeOrderParticipations,
+    removePaychecks, removePayrolls, removePrepayments, removeResidences]);
 
   // print
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
@@ -166,10 +177,6 @@ const ProfileAdminPageRender = () => {
   if (!profileData) return <FullPageLoaderWrapper><Loader /></FullPageLoaderWrapper>;
 
   const menuActions = [
-    <MenuItem color="error" onClick={() => void setOpenDeleteDialog(true)} key="delete">
-      <DeleteIcon size={16} />
-      {t('delete')}
-    </MenuItem>,
     <MenuItem onClick={() => void setOpenPrintDialog(true)} key="print">
       <PrintIcon size={16} />
       {t('docsTemplates.print')}
@@ -184,6 +191,13 @@ const ProfileAdminPageRender = () => {
       </MenuItem>,
     );
   }
+
+  menuActions.push(
+    <MenuItem color="error" onClick={() => void setOpenDeleteDialog(true)} key="delete">
+      <DeleteIcon size={16} />
+      {t('delete')}
+    </MenuItem>,
+  );
 
   return (
     <ProfileAdminPageWrapper>

@@ -26,7 +26,7 @@ const COLS_TREE = {
   businessFields: ['user.businessName', 'user.businessStatus',
     'user.ICO', 'user.DIC', 'user.permitAdress', 'user.corporateBodyAddress',
     'user.permitDepartment', 'user.permitNumber', 'user.businessActivities'],
-  employment: ['user.client', 'user.project', 'user.position', 'user.cooperationStartDate',
+  employment: ['user.client', 'user.clientCompany', 'user.project', 'user.position', 'user.cooperationStartDate',
     'user.cooperationEndDate', 'user.salary', 'user.salaryType', 'user.employmentRecruiter'],
 };
 
