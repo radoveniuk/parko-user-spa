@@ -66,7 +66,7 @@ const DayoffRow = (props: RowProps) => {
         </LinkWrapper>
       </ListTableCell>
       <ListTableCell>
-        {client ? `${client.name} > ` : ''}{project?.name}
+        {client ? `${client.shortName} > ` : ''}{project?.name}
       </ListTableCell>
       <ListTableCell>
         <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel>

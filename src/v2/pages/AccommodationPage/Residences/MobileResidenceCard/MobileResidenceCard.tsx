@@ -50,7 +50,7 @@ const MobileResidenceCard = ({ style, data }: Props) => {
             <div>{data.user}</div>
             <div className="side-info">
               <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel>
-              {!!project && <div className="project">{client ? `${client.name} > ` : ''}{project?.name}</div>}
+              {!!project && <div className="project">{client ? `${client.shortName} > ` : ''}{project?.name}</div>}
             </div>
           </div>
         </Link>

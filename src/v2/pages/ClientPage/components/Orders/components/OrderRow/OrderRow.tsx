@@ -20,7 +20,6 @@ const OrderRow = (props: Props) => {
   const { data, participations } = props;
 
   const project = data.project;
-  const client = data?.client;
 
   const statsCellContent = useMemo(() => {
     const employed = participations.filter((item) => item.stages[item.stages.length - 1]?.stage.staticName === 'hired').length;
@@ -41,13 +40,6 @@ const OrderRow = (props: Props) => {
         <LinkWrapper>
           <Link to={`/order/${data._id}`} className="table-link">
             {data.name}
-          </Link>
-        </LinkWrapper>
-      </ListTableCell>
-      <ListTableCell>
-        <LinkWrapper>
-          <Link to={`/client/${client._id}`} className="table-link">
-            {client.name}
           </Link>
         </LinkWrapper>
       </ListTableCell>

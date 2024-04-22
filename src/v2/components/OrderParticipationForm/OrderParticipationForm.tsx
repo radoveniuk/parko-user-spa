@@ -142,7 +142,7 @@ const OrderParticipationForm = ({ disabled }: Props) => {
         <div className="title"><b>{t('order.specification')}</b></div>
         <div className={`info ${selectedInfoSection !== 'order' ? 'hide' : ''}`}>
           <div className="row">
-            <b>{t('order.client')}:</b> {order.client.name}
+            <b>{t('order.client')}:</b> {order.client.shortName}
           </div>
           <div className="row">
             <b>{t('order.project')}:</b> {order.project.name}

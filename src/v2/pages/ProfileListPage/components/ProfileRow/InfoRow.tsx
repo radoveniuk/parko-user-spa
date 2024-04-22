@@ -49,7 +49,7 @@ const InfoRow = () => {
         if (userField === 'client') {
           const project = data.project as IProject | undefined;
           const client = project?.client as IClient | undefined;
-          return createTableCell(client?.name);
+          return createTableCell(client?.shortName);
         }
         if (userField === 'project') {
           const project = data.project as IProject | undefined;

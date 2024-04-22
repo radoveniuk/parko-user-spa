@@ -46,7 +46,7 @@ const PrepaymentRow = (props: ClientRowProps) => {
         </LinkWrapper>
       </ListTableCell>
       <ListTableCell>
-        {client ? `${client.name} > ` : ''}{project?.name}
+        {client ? `${client.shortName} > ` : ''}{project?.name}
       </ListTableCell>
       <ListTableCell>
         <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel>

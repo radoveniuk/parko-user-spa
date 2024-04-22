@@ -72,7 +72,7 @@ const ClientPageRender = () => {
         )}
       >
         <Link to="/clients">{t('navbar.clients')}</Link>
-        <Link to={`/client/${clientId}`}>{clientData.name}</Link>
+        <Link to={`/client/${clientId}`}>{clientData.shortName}</Link>
         <div>{t(`client.${TABS[tab]}`)}</div>
       </BreadCrumbs>
       <div className="content">

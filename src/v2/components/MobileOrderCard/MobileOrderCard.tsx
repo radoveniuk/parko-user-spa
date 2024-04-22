@@ -25,7 +25,7 @@ const MobileOrderCard = ({ style, order }: Props) => {
         <div className="header">
           <div className="name">{order.name}</div><StatusLabel className={order.status}>{t(`selects.orderStatus.${order.status}`)}</StatusLabel>
         </div>
-        <div className="project">{order.client.name} {'>'} {order.project.name}</div>
+        <div className="project">{order.client.shortName} {'>'} {order.project.name}</div>
         <a href={order.specificationUrl} target="_blank" rel="noreferrer"><RecruiterIcon />{t('order.specificationUrl')}</a>
         <div className="goal"><GoalIcon />{t('order.goal')}: {order.goal}</div>
         <div className="actions">

@@ -124,7 +124,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
                 const workHistoryItemClient = workHistoryItemProject.client as IClient;
                 return (
                   <div key={workHistoryItem._id} className="work-history-list-item">
-                    {workHistoryItemClient.name}{' > '}
+                    {workHistoryItemClient.shortName}{' > '}
                     {workHistoryItemProject.name}{': '}
                     {getDateFromIso(workHistoryItem.dateFrom)}
                     {workHistoryItem.dateTo ? ` - ${getDateFromIso(workHistoryItem.dateTo)}` : ''}<br /><i>{workHistoryItem.position}</i>

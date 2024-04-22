@@ -56,7 +56,10 @@ const MobileClientCard = ({ style, client, projectsCount }: Props) => {
             </StatusLabel>
           )}
           <div className="name">
-            <b>{client.name}</b>
+            <b>{client.shortName}</b><br/>
+            <div className="business-name">
+              {client.name}
+            </div>
           </div>
           <div className="project">
             <ProjectIcon size={20} /> {t('navbar.projects')}: {projectsCount}
