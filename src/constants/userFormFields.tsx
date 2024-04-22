@@ -4,6 +4,7 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { validateEmail } from 'helpers/validateEmail';
 import { AnyObject } from 'interfaces/base.types';
+import { IClient } from 'interfaces/client.interface';
 import { IUser } from 'interfaces/users.interface';
 
 export type UserField = {
@@ -216,14 +217,18 @@ export const WORK_FIELDS: UserFieldsList = {
   },
   employmentRecruiter: {
     type: 'readonly',
-    render: (data) => data.fullname,
+    render: (data) => data?.fullname,
   },
 };
 
 export const SYSTEM_SETTINGS_FIELDS: UserFieldsList = {
   client: {
     type: 'readonly',
-    render: (data) => data?.name || '',
+    render: (data: IClient) => data?.shortName || '',
+  },
+  clientCompany: {
+    type: 'readonly',
+    render: (data: IClient) => data?.name || '',
   },
   project: {
     type: 'readonly',

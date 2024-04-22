@@ -57,7 +57,6 @@ const HeaderTable = ({ participations, selectedItems, setSelectedItems, setOpenP
         <Stack direction="row" gap="15px">
           <IconButton className="small-btn primary" onClick={() => void setOpenCreateParticipationDialog(true)}><PlusIcon size={25} /></IconButton>
           <Menu
-            isCloseOnMenu
             menuComponent={(
               <>
                 <Button className="big-btn">

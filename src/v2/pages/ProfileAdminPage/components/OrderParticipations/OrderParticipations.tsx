@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
 import pick from 'lodash-es/pick';
@@ -7,6 +7,7 @@ import { useDeleteOrderParticipation, useUpdateOrderParticipation } from 'api/mu
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 
 import OrderParticipationCard from './OrderParticipationCard';
+import RedirectDialog from './RedirectDialog';
 
 type Props = {
   data: IOrderParticipation<true>[];
@@ -19,6 +20,9 @@ const Employments = ({ data }: Props) => {
   const deleteOrderParticipation = useDeleteOrderParticipation();
   const queryClient = useQueryClient();
 
+  // redirect msg
+  const [openRedirectMsg, setOpenRedirectMsg] = useState(false);
+
   const renderOrders = (list: typeof data) => list.map((item) => (
     <OrderParticipationCard
       key={item._id}
@@ -29,6 +33,9 @@ const Employments = ({ data }: Props) => {
           queryKey,
           data.map((itemToUpdate) => itemToUpdate._id === item._id ? { ...item, ...values } : itemToUpdate),
         );
+        if (values.stages?.[values.stages?.length - 1].stage.staticName === 'hired') {
+          setOpenRedirectMsg(true);
+        }
       }}
       onDelete={() => {
         deleteOrderParticipation.mutate(item._id);
@@ -48,6 +55,12 @@ const Employments = ({ data }: Props) => {
       <div className="col">
         {renderOrders(data.toSpliced(0, Math.round(data.length / 2)))}
       </div>
+      {!!openRedirectMsg && (
+        <RedirectDialog
+          open={openRedirectMsg}
+          onClose={() => void setOpenRedirectMsg(false)}
+        />
+      )}
     </>
   );
 };

@@ -193,6 +193,7 @@
     "workTypes": "Typ práce",
     "employmentStatus": "Status zamestnania",
     "employmentRecruiter": "Recruiter zamestnania",
+    "clientCompany": "Obchodné meno klienta",
     "pass": {
       "pass": "Cestovný pas",
       "number": "Cestovný pas > Číslo",

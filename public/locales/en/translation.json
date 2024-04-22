@@ -196,6 +196,7 @@
     "workTypes": "Work type",
     "employmentStatus": "Employment`s status",
     "employmentRecruiter": "Employment`s recruiter",
+    "clientCompany": "Client`s businesss name",
     "pass": {
       "pass": "Travel Passport",
       "number": "Travel Passport > Number",

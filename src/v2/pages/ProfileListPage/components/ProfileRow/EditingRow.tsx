@@ -228,7 +228,7 @@ const EditingRow = () => {
         {fieldData?.type === 'readonly' && fieldName as string !== 'client' && (
           <div>{fieldData.render?.(data?.[fieldName], t)}</div>
         )}
-        {fieldData?.type === 'readonly' && fieldName as string === 'client' && (
+        {fieldData?.type === 'readonly' && ['client', 'clientCompany'].includes(fieldName as string) && (
           <div>{fieldData.render?.((data?.project as IProject)?.client, t)}</div>
         )}
         {isMongoId(fieldName) && customFields.some((customField) => customField._id === fieldName) && (

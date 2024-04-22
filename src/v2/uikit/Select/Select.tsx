@@ -66,7 +66,7 @@ function Select<T> ({
   }, [value]);
 
   return (
-    <SelectWrapper className="Select" style={{ maxWidth }} fieldColor={COLORS_MAP[theme]} >
+    <SelectWrapper className="Select" style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
       <FormLabel className={rest.error ? ' error' : ''}>
         {label}
       </FormLabel>
@@ -82,7 +82,7 @@ function Select<T> ({
           PaperProps: {
             style: {
               maxHeight: 250,
-              maxWidth,
+              maxWidth: 'min-content',
             },
           },
         }}

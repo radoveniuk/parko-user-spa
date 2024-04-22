@@ -195,6 +195,7 @@
     "workTypes": "Тип роботи",
     "employmentStatus": "Статус співпраці",
     "employmentRecruiter": "Рекрутер співпраці",
+    "clientCompany": "Назва компанії клієнта",
     "pass": {
       "pass": "Закордонний паспорт",
       "number": "Закордонний паспорт > Номер",
