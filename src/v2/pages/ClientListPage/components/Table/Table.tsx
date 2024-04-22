@@ -36,10 +36,8 @@ const Table = ({
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const [rowsPerPage, setRowsPerPage] = useState(20);
-
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
-  const { pageItems, paginationConfig } = usePaginatedList(sortedData, { rowsPerPage });
+  const { pageItems, paginationConfig } = usePaginatedList(sortedData);
 
   const updateClientMutation = useUpdateClientMutation();
 
@@ -144,7 +142,7 @@ const Table = ({
         )}
       </ListTable>
       <div className="pagination-bottom">
-        <Pagination {...paginationConfig} setRowsPerPage={setRowsPerPage} rowsPerPage={rowsPerPage} labelRowsPerPage={t('rowsPerPage')}/>
+        <Pagination {...paginationConfig} labelRowsPerPage={t('rowsPerPage')}/>
       </div>
       <ColumnsConfig
         activeCols={activeCols}

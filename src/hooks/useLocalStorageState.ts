@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const useLocalStorageState = (storageKey: string, initialValue = ''): [string, (v: string) => void] => {
-  const [value, setValue] = useState<string>(initialValue || window.localStorage.getItem(storageKey) || '');
+  const [value, setValue] = useState<string>(window.localStorage.getItem(storageKey) || initialValue || '');
 
   if (!window.localStorage.getItem(storageKey)) {
     window.localStorage.setItem(storageKey, initialValue);
   }
-  const updateValue = (newValue: string) => {
+  const updateValue = useCallback((newValue: string) => {
     window.localStorage.setItem(storageKey, newValue);
     setValue(newValue);
-  };
+  }, [storageKey]);
 
   return [value, updateValue];
 };
