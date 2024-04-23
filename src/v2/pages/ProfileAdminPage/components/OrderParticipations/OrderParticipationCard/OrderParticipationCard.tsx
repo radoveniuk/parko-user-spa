@@ -25,7 +25,7 @@ type Props = {
 
 const OrderParticipationCard = ({ data, onChange, onDelete }: Props) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
   const formMethods = useForm<IOrderParticipation<true>>({
     defaultValues: {
       ...(data as any),
@@ -100,7 +100,9 @@ const OrderParticipationCard = ({ data, onChange, onDelete }: Props) => {
               </div>
               <div className="info">{t('order.createdAt')}: {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')} ({data.createdBy.fullname})</div>
             </UpdatingStatsWrapper>
-            {role === 'admin' && <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>}
+            {permissions.includes('orders:update') && (
+              <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
+            )}
           </>
         )}
       </FormCard>

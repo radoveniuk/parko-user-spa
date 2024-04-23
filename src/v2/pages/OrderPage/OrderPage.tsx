@@ -19,7 +19,7 @@ import Participations from './components/Participations';
 import { ContentWrapper, OrderPageWrapper } from './styles';
 
 const OrderPageRender = () => {
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
   const { t } = useTranslation();
   const { id: orderId } = useParams();
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const OrderPageRender = () => {
       <BreadCrumbs
         actions={(
           <>
-            {role === 'admin' && (
+            {permissions.includes('orders:delete') && (
               <Button color="error" onClick={() => void setOpenDeleteDialog(true)}>
                 <DeleteIcon size={16} color={themeConfig.palette.error.main} />
                 {t('delete')}

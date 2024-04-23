@@ -6,6 +6,7 @@ import { useLoginMutation, useLogoutMutation } from 'api/mutations/userMutation'
 import { useGetUser } from 'api/query/userQuery';
 import { eraseCookie, getCookieValue } from 'helpers/cookies';
 import useLocalStorageState from 'hooks/useLocalStorageState';
+import { IRole } from 'interfaces/role.interface';
 import { LoginDto, UserRole } from 'interfaces/users.interface';
 
 type contextType = {
@@ -17,6 +18,7 @@ type contextType = {
   isVerified: boolean;
   isFetching: boolean;
   username: string;
+  permissions: string[];
 };
 
 const AuthContext = createContext<contextType | undefined>(undefined);
@@ -55,7 +57,17 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuth, login, logout, userId, role, isVerified, username: `${userData?.name} ${userData?.surname}`, isFetching: isLoading }}>
+      value={{
+        isAuth,
+        login,
+        logout,
+        userId,
+        role,
+        isVerified,
+        username: userData?.fullname as string,
+        isFetching: isLoading,
+        permissions: [...new Set(userData?.roles?.flatMap(role => (role as unknown as IRole).permissions))],
+      }}>
       {children}
     </AuthContext.Provider>
   );
@@ -97,6 +109,7 @@ export const useAuthData = () => {
     isVerified: authContext.isVerified,
     username: authContext.username,
     isFetching: authContext.isFetching,
+    permissions: authContext.permissions,
   };
 };
 

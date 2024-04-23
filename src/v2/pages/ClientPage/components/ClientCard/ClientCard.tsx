@@ -40,7 +40,7 @@ export type ClientCardProps = {
 
 const ClientCard = ({ data, onChange }: ClientCardProps) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [isOpenForm, setIsOpenForm] = useState(false);
 
@@ -67,7 +67,9 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
   return (
     <>
       <ProfileCardWrapper>
-        {role === 'admin' && <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>}
+        {permissions.includes('clients:edit') && (
+          <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
+        )}
         <div className="contacts-info section">
           <div className="name">{client.shortName}</div>
           <div className="contacts">

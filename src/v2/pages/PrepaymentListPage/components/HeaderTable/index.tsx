@@ -17,7 +17,7 @@ import { HeaderWrapper } from './styles';
 
 const HeaderTable = ({ data }: any) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [openNewPrepayment, setOpenNewPrepayment] = useState(false);
   const createPrepaymentMutation = useCreatePrepaymentMutation();
@@ -48,7 +48,7 @@ const HeaderTable = ({ data }: any) => {
         <Stack direction="row" gap="15px">
           <div className="link">
             <IconButton className="small-btn primary" onClick={() => void setOpenNewPrepayment(true)}><PlusIcon size={25} /></IconButton>
-            {role === 'admin' && (
+            {permissions.includes('prepayments:create') && (
               <Button className="big-btn" onClick={() => void setOpenNewPrepayment(true)}>
                 {t('prepayment.new')}
               </Button>

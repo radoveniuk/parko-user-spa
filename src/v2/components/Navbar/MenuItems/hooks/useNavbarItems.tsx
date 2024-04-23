@@ -12,56 +12,17 @@ import {
   RecruiterIcon,
   UsersIcon,
 } from 'components/icons';
-import { FULL_PERMISSION_ROLES } from 'constants/userRoles';
-import { useAuthData } from 'contexts/AuthContext';
 
-interface INavbarItem {
+type NavbarItem = {
   type: 'link' | 'collapse';
   title: string;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   to?: string;
-  children?: {
-    type: 'link';
-    title: string;
-    to: string;
-  }[];
-  relativeLocations?: string[];
+  children?: NavbarItem[];
+  permission?: string;
 }
 
-const NAVBAR_ITEMS: INavbarItem[] = [
-  {
-    title: 'navbar.home',
-    icon: <HomeIcon size={30} />,
-    to: '/',
-    type: 'link',
-  },
-  {
-    title: 'navbar.notifications',
-    icon: <NotificationIcon size={30} />,
-    to: '/notifications',
-    type: 'link',
-  },
-  {
-    title: 'navbar.prepayments',
-    icon: <PrepaymentIcon size={30} />,
-    to: '/prepayment',
-    type: 'link',
-  },
-  {
-    title: 'navbar.daysoff',
-    icon: <DayoffIcon size={30} />,
-    to: '/dayoff',
-    type: 'link',
-  },
-  {
-    title: 'navbar.paychecks',
-    icon: <PaycheckIcon size={30} />,
-    to: '/paychecks',
-    type: 'link',
-  },
-];
-
-const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
+export const NAVBAR_ITEMS: NavbarItem[] = [
   {
     type: 'link',
     title: 'navbar.home',
@@ -69,24 +30,46 @@ const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     to: '/',
   },
   {
+    title: 'navbar.prepayments',
+    icon: <PrepaymentIcon size={30} />,
+    to: '/prepayment',
+    type: 'link',
+    permission: 'user:prepayments',
+  },
+  {
+    title: 'navbar.daysoff',
+    icon: <DayoffIcon size={30} />,
+    to: '/dayoff',
+    type: 'link',
+    permission: 'user:daysoff',
+  },
+  {
+    title: 'navbar.paychecks',
+    icon: <PaycheckIcon size={30} />,
+    to: '/paychecks',
+    type: 'link',
+    permission: 'user:paychecks',
+  },
+  {
     type: 'link',
     title: 'navbar.profiles',
     icon: <UsersIcon />,
     to: '/profiles',
+    permission: 'users:read',
   },
   {
     type: 'link',
     title: 'navbar.clients',
     icon: <FillBuildingIcon />,
     to: '/clients',
-    relativeLocations: ['client'],
+    permission: 'clients:read',
   },
   {
     type: 'link',
     title: 'navbar.orders',
     icon: <RecruiterIcon />,
     to: '/orders',
-    relativeLocations: ['order'],
+    permission: 'orders:read',
   },
   {
     type: 'collapse',
@@ -97,21 +80,25 @@ const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
         type: 'link',
         title: 'navbar.accommodation',
         to: '/accommodation',
+        permission: 'accommodations:read',
       },
       {
         type: 'link',
         title: 'navbar.prepayments',
         to: '/prepayments',
+        permission: 'prepayments:read',
       },
       {
         type: 'link',
         title: 'navbar.daysoff',
         to: '/daysoff',
+        permission: 'daysoff:read',
       },
       {
         type: 'link',
         title: 'navbar.paychecks',
         to: '/paychecks-upload',
+        permission: 'paychecks:read',
       },
     ],
   },
@@ -120,6 +107,7 @@ const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
     title: 'navbar.notifications',
     icon: <NotificationIcon size={30} />,
     to: '/notifications',
+    permission: 'notifications:read',
   },
   {
     type: 'link',
@@ -130,37 +118,32 @@ const ADMIN_NAVBAR_ITEMS: INavbarItem[] = [
         type: 'link',
         title: 'navbar.docsTemplates',
         to: '/customization/docs-templates',
+        permission: 'docsTemplates:read',
       },
       {
         type: 'link',
         title: 'customForms.fields',
         to: '/customization/fields',
+        permission: 'customFields:read',
       },
       {
         type: 'link',
         title: 'customForms.forms',
         to: '/customization/forms',
+        permission: 'customFields:read',
       },
       {
         type: 'link',
         title: 'navbar.profiles',
         to: '/customization/users',
+        permission: 'customFields:read',
       },
       {
         type: 'link',
         title: 'navbar.roles',
         to: '/customization/roles',
+        permission: 'roles:read',
       },
     ],
   },
 ];
-
-const useNavbarItems = () => {
-  const user = useAuthData();
-  if (FULL_PERMISSION_ROLES.includes(user.role as string)) {
-    return ADMIN_NAVBAR_ITEMS;
-  }
-  return NAVBAR_ITEMS;
-};
-
-export default useNavbarItems;

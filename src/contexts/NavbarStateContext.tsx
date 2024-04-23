@@ -1,16 +1,15 @@
-import React, { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { ADMIN_NAVBAR_ITEMS, INavbarItem, LITE_NAVBAR_ITEMS, NAVBAR_ITEMS } from 'constants/menu';
-import { useAuthData } from 'contexts/AuthContext';
+import { ALL_MENU_ITEMS } from 'constants/menu';
 import useViewportWidth from 'hooks/useViewportWsdth';
 import { SM } from 'theme/sizeBreakpoints';
 
 const smBreakpoint = Number(SM.replace('px', ''));
 
-type ContextType = { expandedState: [boolean, React.Dispatch<React.SetStateAction<boolean>>], activeLink?: string, items: INavbarItem[] };
+type ContextType = { expandedState: [boolean, React.Dispatch<React.SetStateAction<boolean>>], activeLink?: string };
 
-const NavbarStateContext = createContext<ContextType>({ expandedState: [false, () => {}], activeLink: '/', items: LITE_NAVBAR_ITEMS });
+const NavbarStateContext = createContext<ContextType>({ expandedState: [false, () => {}], activeLink: '/' });
 
 const NavbarStateProvider = ({ children }: { children: ReactNode }) => {
   const expandedState = useState(false);
@@ -19,31 +18,20 @@ const NavbarStateProvider = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
   const viewportWidth = useViewportWidth();
 
-  const { role, isVerified } = useAuthData();
-
-  const menuItems: INavbarItem[] = useMemo(() => {
-    if (role === 'user' && isVerified) {
-      return NAVBAR_ITEMS;
-    }
-    if (['admin', 'recruiter', 'super-admin'].includes(role as string)) {
-      return ADMIN_NAVBAR_ITEMS;
-    }
-    return LITE_NAVBAR_ITEMS;
-  }, [isVerified, role]);
-
   useEffect(() => {
-    const currentLink = menuItems.find((item) => item.to === location.pathname || item?.relativeLocations?.includes(location.pathname.split('/')[1]));
+    const currentLink = ALL_MENU_ITEMS
+      .find((item) => item.to === location.pathname || item?.relativeLocations?.includes(location.pathname.split('/')[1]));
 
     setActiveLink(currentLink?.to as string);
 
     if (viewportWidth <= smBreakpoint) {
       setExpanded(false);
     }
-  }, [location.pathname, menuItems, setExpanded, viewportWidth]);
+  }, [location.pathname, setExpanded, viewportWidth]);
 
   return (
     <NavbarStateContext.Provider
-      value={{ activeLink, items: menuItems, expandedState }}
+      value={{ activeLink, expandedState }}
     >
       {children}
     </NavbarStateContext.Provider>
@@ -62,11 +50,6 @@ export const useToggleNavbar = () => {
   return {
     open, close, expanded,
   };
-};
-
-export const useNavbarItems = () => {
-  const context = useContext(NavbarStateContext);
-  return context.items;
 };
 
 export const useNavbarActiveLink = () => {

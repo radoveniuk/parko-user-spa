@@ -18,7 +18,7 @@ type Props = {
 
 const HeaderTable = ({ count }: Props) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [openCheckout, setOpenCheckout] = useState(false);
   const [, setOpenResidence] = useActiveResidence();
@@ -31,7 +31,7 @@ const HeaderTable = ({ count }: Props) => {
         </Stack>
         <Stack direction="row" gap="15px">
           <div className="link">
-            {role === 'admin' && (
+            {permissions.includes('residences:create') && (
               <>
                 <Menu className="big-btn" isCloseOnMenu>
                   <MenuItem onClick={() => void setOpenResidence(true)}>

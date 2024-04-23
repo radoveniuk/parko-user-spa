@@ -25,7 +25,7 @@ import { TABS } from './constants/tabs';
 import { ClientPageWrapper, ContentWrapper } from './styles';
 
 const ClientPageRender = () => {
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
   const { t } = useTranslation();
   const { id: clientId } = useParams();
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const ClientPageRender = () => {
       <BreadCrumbs
         actions={(
           <>
-            {role === 'admin' && tab === 0 && (
+            {permissions.includes('project:create') && tab === 0 && (
               <Button
                 onClick={async () => {
                   await createProjectMutation.mutateAsync({
@@ -62,7 +62,7 @@ const ClientPageRender = () => {
                 <PlusIcon />{t('project.creating')}
               </Button>
             )}
-            {role === 'admin' && (
+            {permissions.includes('clients:delete') && (
               <Button color="error" onClick={() => void setOpenDeleteDialog(true)}>
                 <DeleteIcon size={16} color={themeConfig.palette.error.main} />
                 {t('delete')}

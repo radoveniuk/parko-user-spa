@@ -25,7 +25,7 @@ export type ClientCardProps = {
 
 const OrderCard = ({ data, participations }: ClientCardProps) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [isOpenForm, setIsOpenForm] = useState(false);
 
@@ -62,7 +62,9 @@ const OrderCard = ({ data, participations }: ClientCardProps) => {
   return (
     <>
       <ProfileCardWrapper>
-        {role === 'admin' && <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>}
+        {permissions.includes('orders:update') && (
+          <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
+        )}
         <div className="contacts-info section">
           <div className="name">{order.name}</div>
           <div className="contacts">

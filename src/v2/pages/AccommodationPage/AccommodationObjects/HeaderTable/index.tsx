@@ -17,7 +17,7 @@ type Props = {
 
 const HeaderTable = ({ count }: Props) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [openCheckout, setOpenCheckout] = useState(false);
   const [, setOpenAccommodation] = useActiveAccommodation();
@@ -30,7 +30,7 @@ const HeaderTable = ({ count }: Props) => {
         </Stack>
         <Stack direction="row" gap="15px">
           <div className="link">
-            {role === 'admin' && (
+            {permissions.includes('accommodations:create') && (
               <>
                 <Button className="big-btn" onClick={() => void setOpenAccommodation(true)}><PlusIcon size={20}/>{t('accommodation.create')}</Button>
                 <IconButton className="small-btn primary" onClick={() => void setOpenAccommodation(true)}><PlusIcon size={25} /></IconButton>

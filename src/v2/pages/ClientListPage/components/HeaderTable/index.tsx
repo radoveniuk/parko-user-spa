@@ -16,7 +16,7 @@ import { HeaderWrapper } from './styles';
 
 const HeaderTable = ({ data }: any) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [openNewClient, setOpenNewClient] = useState(false);
   const createClientMutation = useCreateClientMutation();
@@ -42,7 +42,7 @@ const HeaderTable = ({ data }: any) => {
         <Stack direction="row" gap="15px">
           <div className="link">
             <IconButton className="small-btn primary" onClick={() => void setOpenNewClient(true)}><PlusIcon size={25} /></IconButton>
-            {role === 'admin' && (
+            {permissions.includes('clients:create') && (
               <Button className="big-btn" onClick={() => void setOpenNewClient(true)}>
                 {t('client.new')}
               </Button>

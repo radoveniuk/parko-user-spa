@@ -15,7 +15,7 @@ type Props = {
 }
 
 const HeaderTable = ({ count }: Props) => {
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
   const { t } = useTranslation();
 
   const [openNewPrepayment, setOpenNewPrepayment] = useState(false);
@@ -39,7 +39,7 @@ const HeaderTable = ({ count }: Props) => {
         </Stack>
         <Stack direction="row" gap="15px">
           <div className="link">
-            {role === 'admin' && (
+            {permissions.includes('orders:create') && (
               <Button className="big-btn" onClick={() => void setOpenNewPrepayment(true)}>
                 {t('order.new')}
               </Button>

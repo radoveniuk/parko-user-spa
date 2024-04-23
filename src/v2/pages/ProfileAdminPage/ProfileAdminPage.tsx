@@ -62,7 +62,7 @@ import { ContentWrapper, ProfileAdminPageWrapper } from './styles';
 const TABS = ['profile', 'user.info', 'user.cooperation', 'order.participations', 'user.history'];
 
 const ProfileAdminPageRender = () => {
-  const { role, username } = useAuthData();
+  const { permissions, username } = useAuthData();
   const { id: userId } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -214,7 +214,7 @@ const ProfileAdminPageRender = () => {
                 <PlusIcon />{t('user.addNewParticipation')}
               </Button>
             )}
-            {role !== 'user' && (
+            {permissions.includes('users:update') && (
               <Menu className="big-btn" isCloseOnMenu>
                 {menuActions}
               </Menu>
@@ -428,7 +428,7 @@ const ProfileAdminPageRender = () => {
           >
             {t('delete')}
           </Button>
-          {role === 'admin' && (
+          {permissions.includes('users:delete') && (
             <Button
               color="error"
               variant="outlined"

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash-es/isEmpty';
-import Autocomplete from 'v2/uikit/Autocomplete';
+import { Checkbox } from 'v2/uikit';
 import Button from 'v2/uikit/Button';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
 import Input from 'v2/uikit/Input';
@@ -26,8 +26,6 @@ const RoleDialog = ({ defaultData, onClose, ...rest }: Props) => {
 
   // permissions
   const { data: permissions = [] } = useGetSystemPermissions();
-  const boxPermissions = (list: string[]) => list.map((item) => ({ value: item, label: t(`roles:permissionList:${item}`.replaceAll(':', '.')) }));
-  const unboxPermissions = (list: ({value: string; label: string})[]) => list.map((item) => item.value);
 
   // form submit
   const { create, update } = useRoleActions();
@@ -57,20 +55,22 @@ const RoleDialog = ({ defaultData, onClose, ...rest }: Props) => {
             name="permissions"
             defaultValue={[]}
             rules={{ validate: v => !!v.length }}
-            render={({ field, fieldState }) => (
-              <div className="fullwidth">
-                <Autocomplete
-                  multiple
-                  theme="gray"
-                  label={t('roles.permissions')}
-                  options={boxPermissions(permissions)}
-                  valueKey="value"
-                  labelKey="label"
-                  limitTags={10}
-                  value={boxPermissions(field.value)}
-                  onChange={(values) => field.onChange(unboxPermissions(values))}
-                  error={!!fieldState.error}
-                />
+            render={({ field }) => (
+              <div className="fullwidth permissions">
+                {permissions.map(permission => (
+                  <Checkbox
+                    key={permission}
+                    label={t(`roles:permissionList:${permission}`.replaceAll(':', '.'))}
+                    checked={field.value.includes(permission)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        field.onChange([...field.value, permission]);
+                      } else {
+                        field.onChange(field.value.filter(p => p !== permission));
+                      }
+                    }}
+                  />
+                ))}
               </div>
             )}
           />

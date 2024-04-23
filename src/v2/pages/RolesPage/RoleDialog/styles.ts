@@ -24,4 +24,9 @@ export const DialogContentWrapper = styled.div`
       }
     }
   }
+
+  .permissions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 `;

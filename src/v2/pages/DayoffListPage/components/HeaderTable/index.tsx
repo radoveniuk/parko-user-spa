@@ -21,7 +21,7 @@ type Props = {
 
 const HeaderTable = ({ data }: Props) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [openNewDayoff, setOpenNewDayoff] = useState(false);
   const createDayoffMutation = useCreateDayoffMutation();
@@ -50,7 +50,7 @@ const HeaderTable = ({ data }: Props) => {
         <Stack direction="row" gap="15px">
           <div className="link">
             <IconButton className="small-btn primary" onClick={() => void setOpenNewDayoff(true)}><PlusIcon size={25} /></IconButton>
-            {role === 'admin' && (
+            {permissions.includes('daysoff:create') && (
               <Button className="big-btn" onClick={() => void setOpenNewDayoff(true)}>
                 {t('dayoff.new')}
               </Button>

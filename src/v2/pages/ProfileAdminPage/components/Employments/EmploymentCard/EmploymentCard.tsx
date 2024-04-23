@@ -62,7 +62,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
   });
   const queryClient = useQueryClient();
   const { id: userId } = useParams();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const submitHandler: SubmitHandler<IEmployment> = (values) => {
     onChange(values);
@@ -450,7 +450,9 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                   </Button>
                 </div>
               </EmploymentCardWrapper>
-              {role === 'admin' && <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>}
+              {permissions.includes('employments:delete') && (
+                <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
+              )}
               <DialogConfirm
                 open={openDeleteDialog}
                 onClose={() => void setOpenDeleteDialog(false)}
