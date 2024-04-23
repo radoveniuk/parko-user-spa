@@ -10,21 +10,22 @@ import { iterateMap } from 'helpers/iterateMap';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IClient } from 'interfaces/client.interface';
-import { ICustomForm } from 'interfaces/form.interface';
+import { IRole } from 'interfaces/role.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import FormFieldsRow from '../FormRow';
+import RoleRow from '../RoleRow';
 
 import { TableWrapper } from './styles';
 
 const COLS = [
-  'customForms.formName',
-  'customForms.fieldCreatedAt',
+  'roles.name',
+  'roles.permissions',
+  'roles.createdAt',
   '',
 ];
 
 type Props = {
-  data: ICustomForm[];
+  data: IRole[];
   isFetching?: boolean;
 };
 
@@ -38,7 +39,7 @@ const Table = ({
   const { pageItems, paginationConfig } = usePaginatedList(sortedData);
 
   const toggleSorting = (key: string) => {
-    const sortingValue: SortingValue<ICustomForm> = key as keyof ICustomForm;
+    const sortingValue: SortingValue<IRole> = key as keyof IRole;
 
     // if (key === 'docsTemplates.template') {
     //   sortingValue = 'name';
@@ -85,7 +86,7 @@ const Table = ({
         }}
       >
         {pageItems.map((item) => (
-          <FormFieldsRow
+          <RoleRow
             key={item._id}
             data={item}
           />

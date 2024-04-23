@@ -2,16 +2,16 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Input } from 'v2/uikit';
 
-import { useGetCustomForms } from 'api/query/customFormsQuery';
+import { useGetRoles } from 'api/query/roleQuery';
 
 import HeaderTable from './HeaderTable';
-import MobileFormCard from './MobileFormCard';
+import MobileRoleCard from './MobileRoleCard';
 import { DocsTemplatesWrapper, FilterTableWrapper } from './styles';
 import Table from './Table';
 
 const RolesPage = () => {
   const { t } = useTranslation();
-  const { data = [], isFetching, isLoading } = useGetCustomForms();
+  const { data = [], isFetching, isLoading } = useGetRoles();
 
   const [searchValue, setSearchValue] = useState('');
   const forms = useMemo(() =>
@@ -26,7 +26,7 @@ const RolesPage = () => {
         </FilterTableWrapper>
         <div className="mobile-list">
           {data.map((field) => (
-            <MobileFormCard
+            <MobileRoleCard
               key={field._id}
               data={field}
             />

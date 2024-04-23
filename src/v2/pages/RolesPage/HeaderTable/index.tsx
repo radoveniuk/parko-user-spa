@@ -5,7 +5,7 @@ import IconButton from 'v2/uikit/IconButton';
 
 import { PlusIcon } from 'components/icons';
 
-import FieldDialog from '../FormDialog';
+import RoleDialog from '../RoleDialog';
 
 import { HeaderWrapper } from './styles';
 
@@ -22,17 +22,17 @@ const HeaderTable = ({ count }: Props) => {
     <>
       <HeaderWrapper>
         <Stack direction="row" gap="9px" alignContent="center">
-          <span className="bold">{t('customForms.forms')}: {count}</span>
+          <span className="bold">{t('navbar.roles')}: {count}</span>
         </Stack>
         <Stack direction="row" gap="15px">
           <div className="link">
-            <Button className="big-btn" onClick={() => void setOpenTemplate(true)}>{t('customForms.newForm')}</Button>
+            <Button className="big-btn" onClick={() => void setOpenTemplate(true)}>{t('roles.newRole')}</Button>
             <IconButton className="small-btn primary" onClick={() => void setOpenTemplate(true)}><PlusIcon size={25} /></IconButton>
           </div>
         </Stack>
       </HeaderWrapper>
       {!!openTemplate && (
-        <FieldDialog
+        <RoleDialog
           defaultData
           title={t('customForms.form')}
           open={!!openTemplate}

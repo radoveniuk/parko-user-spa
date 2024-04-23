@@ -709,5 +709,102 @@
     "fireMethod": "Spôsob ukončenia",
     "fireReason": "Dôvod ukončenia",
     "add": "Pridat pracovnu skúsenost"
-  }
+  },
+  "roles": {
+    "name": "Názov",
+    "permissions": "Povolenia",
+    "newRole": "Nová rola",
+    "createdAt": "Datum vytvorenia",
+    "permissionList": {
+      "users": {
+        "read": "Používatelia: čítať",
+        "create": "Používatelia: vytvoriť",
+        "update": "Používatelia: upraviť",
+        "delete": "Používatelia: výmazať"
+      },
+      "employments": {
+        "read": "Spolupraca: čítať",
+        "create": "Spolupraca: vytvoriť",
+        "update": "Spolupraca: upraviť",
+        "delete": "Spolupraca: výmazať"
+      },
+      "clients": {
+        "read": "Klienti: čítať",
+        "create": "Klienti: vytvoriť",
+        "update": "Klienti: upraviť",
+        "delete": "Klienti: výmazať"
+      },
+      "projects": {
+        "read": "Projekty: čítať",
+        "create": "Projekty: vytvoriť",
+        "update": "Projekty: upraviť",
+        "delete": "Projekty: výmazať"
+      },
+      "orders": {
+        "read": "Náborové miestnosti: čítať",
+        "create": "Náborové miestnosti: vytvoriť",
+        "update": "Náborové miestnosti: upraviť",
+        "delete": "Náborové miestnosti: výmazať"
+      },
+      "residences": {
+        "read": "Zápisy o ubytovaní: čítať",
+        "create": "Zápisy o ubytovaní: vytvoriť",
+        "update": "Zápisy o ubytovaní: upraviť",
+        "delete": "Zápisy o ubytovaní: výmazať"
+      },
+      "accommodations": {
+        "read": "Ubytovanie: čítať",
+        "create": "Ubytovanie: vytvoriť",
+        "update": "Ubytovanie: upraviť",
+        "delete": "Ubytovanie: výmazať"
+      },
+      "prepayments": {
+        "read": "Zálohy: čítať",
+        "create": "Zálohy: vytvoriť",
+        "update": "Zálohy: upraviť",
+        "delete": "Zálohy: výmazať"
+      },
+      "daysoff": {
+        "read": "Voľno: čítať",
+        "create": "Voľno: vytvoriť",
+        "update": "Voľno: upraviť",
+        "delete": "Voľno: výmazať"
+      },
+      "paychecks": {
+        "read": "Faktury: čítať",
+        "create": "Faktury: vytvoriť",
+        "update": "Faktury: upraviť",
+        "delete": "Faktury: výmazať"
+      },
+      "payrolls": {
+        "read": "Mzda: čítať",
+        "create": "Mzda: vytvoriť",
+        "update": "Mzda: upraviť",
+        "delete": "Mzda: výmazať"
+      },
+      "notifications": {
+        "read": "Notifikácie: čítať",
+        "send": "Notifikácie: odoslať",
+        "delete": "Notifikácie: výmazať"
+      },
+      "docsTemplates": {
+        "read": "Šablóny dokumentov: čítať",
+        "create": "Šablóny dokumentov: vytvoriť",
+        "update": "Šablóny dokumentov: upraviť",
+        "delete": "Šablóny dokumentov: výmazať"
+      },
+      "customFields": {
+        "read": "Vlastné polia: čítať",
+        "create": "Vlastné polia: vytvoriť",
+        "update": "Vlastné polia: upraviť",
+        "delete": "Vlastné polia: výmazať"
+      },
+      "roles": {
+        "read": "Role: čítať",
+        "create": "Role: vytvoriť",
+        "update": "Role: upraviť",
+        "delete": "Role: výmazať"
+      }
+    }
+  }  
 }

@@ -733,5 +733,102 @@
     "fireMethod": "Fire Method",
     "fireReason": "Fire Reason",
     "add": "Add work experience"
+  },
+  "roles": {
+    "name": "Name",
+    "permissions": "Permissions",
+    "newRole": "New role",
+    "createdAt": "Created date",
+    "permissionList": {
+      "users": {
+        "read": "Users: read",
+        "create": "Users: create",
+        "update": "Users: update",
+        "delete": "Users: delete"
+      },
+      "employments": {
+        "read": "Employments: read",
+        "create": "Employments: create",
+        "update": "Employments: update",
+        "delete": "Employments: delete"
+      },
+      "clients": {
+        "read": "Clients: read",
+        "create": "Clients: create",
+        "update": "Clients: update",
+        "delete": "Clients: delete"
+      },
+      "projects": {
+        "read": "Projects: read",
+        "create": "Projects: create",
+        "update": "Projects: update",
+        "delete": "Projects: delete"
+      },
+      "orders": {
+        "read": "Orders: read",
+        "create": "Orders: create",
+        "update": "Orders: update",
+        "delete": "Orders: delete"
+      },
+      "residences": {
+        "read": "Residences: read",
+        "create": "Residences: create",
+        "update": "Residences: update",
+        "delete": "Residences: delete"
+      },
+      "accommodations": {
+        "read": "Accommodations: read",
+        "create": "Accommodations: create",
+        "update": "Accommodations: update",
+        "delete": "Accommodations: delete"
+      },
+      "prepayments": {
+        "read": "Prepayments: read",
+        "create": "Prepayments: create",
+        "update": "Prepayments: update",
+        "delete": "Prepayments: delete"
+      },
+      "daysoff": {
+        "read": "Days off: read",
+        "create": "Days off: create",
+        "update": "Days off: update",
+        "delete": "Days off: delete"
+      },
+      "paychecks": {
+        "read": "Paychecks: read",
+        "create": "Paychecks: create",
+        "update": "Paychecks: update",
+        "delete": "Paychecks: delete"
+      },
+      "payrolls": {
+        "read": "Payrolls: read",
+        "create": "Payrolls: create",
+        "update": "Payrolls: update",
+        "delete": "Payrolls: delete"
+      },
+      "notifications": {
+        "read": "Notifications: read",
+        "send": "Notifications: send",
+        "delete": "Notifications: delete"
+      },
+      "docsTemplates": {
+        "read": "Docs Templates: read",
+        "create": "Docs Templates: create",
+        "update": "Docs Templates: update",
+        "delete": "Docs Templates: delete"
+      },
+      "customFields": {
+        "read": "Custom Fields: read",
+        "create": "Custom Fields: create",
+        "update": "Custom Fields: update",
+        "delete": "Custom Fields: delete"
+      },
+      "roles": {
+        "read": "Roles: read",
+        "create": "Roles: create",
+        "update": "Roles: update",
+        "delete": "Roles: delete"
+      }
+    }    
   }
 }

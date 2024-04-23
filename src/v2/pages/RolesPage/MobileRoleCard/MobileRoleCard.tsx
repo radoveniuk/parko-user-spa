@@ -5,25 +5,25 @@ import Menu, { MenuItem } from 'v2/uikit/Menu';
 
 import { DeleteIcon, EditIcon, FormIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
-import { ICustomForm } from 'interfaces/form.interface';
+import { IRole } from 'interfaces/role.interface';
 import { themeConfig } from 'theme';
 
-import FieldDialog from '../FormDialog';
-import useCustomFormActions from '../hooks/useCustomFormActions';
+import useRoleActions from '../hooks/useRoleActions';
+import RoleDialog from '../RoleDialog';
 
 import { MobileCardWrapper } from './styles';
 
 type Props = {
-  data: ICustomForm;
+  data: IRole;
 };
 
-const MobileFormCard = ({ data }: Props) => {
+const MobileRoleCard = ({ data }: Props) => {
   const { t } = useTranslation();
 
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-  const { remove } = useCustomFormActions();
+  const { remove } = useRoleActions();
 
   return (
     <>
@@ -43,8 +43,8 @@ const MobileFormCard = ({ data }: Props) => {
         <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon style={{ marginRight: 5 }} />{t('delete')}</MenuItem>
       </Menu>
       {!!openDialog && (
-        <FieldDialog
-          defaultData={data}
+        <RoleDialog
+          defaultData={true}
           onClose={() => void setOpenDialog(false)}
           open={openDialog}
           title={data.name}
@@ -63,4 +63,4 @@ const MobileFormCard = ({ data }: Props) => {
   );
 };
 
-export default memo(MobileFormCard);
+export default memo(MobileRoleCard);
