@@ -15,7 +15,8 @@
     "workspaces": "Pracovné priestory",
     "finance": "Financie",
     "feedback": "Spätná väzba",
-    "orders": "Náborové miestnosti"
+    "orders": "Náborové miestnosti",
+    "roles": "Rolí"
   },
   "menu": {
     "prepayment": "Objednať zálohu",

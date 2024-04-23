@@ -15,7 +15,8 @@
     "workspaces": "Workspaces",
     "finance": "Finance",
     "feedback": "Feedback",
-    "orders": "Recruitment rooms"
+    "orders": "Recruitment rooms",
+    "roles": "Roles"
   },
   "menu": {
     "prepayment": "Request prepayment",

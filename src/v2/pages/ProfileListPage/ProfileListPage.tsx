@@ -123,7 +123,7 @@ const ProfileListPageRender = () => {
           <FilterAutocomplete
             multiple
             options={usersFilter}
-            getOptionLabel={user => `${user.name} ${user.surname}`}
+            labelKey="fullname"
             filterKey="ids"
             prefixIcon={<SearchIcon className="search-icon"/>}
             className="filter-name"
