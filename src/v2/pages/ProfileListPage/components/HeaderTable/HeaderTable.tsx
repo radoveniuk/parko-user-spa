@@ -18,6 +18,7 @@ import { FilterAutocomplete, useFilters } from 'components/shared/Filters';
 import { USER_STATUSES } from 'constants/statuses';
 import { DEFAULT_PASS } from 'constants/user';
 import { DYNAMIC_FIELDS } from 'constants/userCsv';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
 import { useExportData } from 'hooks/useExportData';
@@ -39,6 +40,7 @@ type Props = {
 
 const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data, activeCols, customFields, loading }: Props) => {
   const { t, i18n } = useTranslation();
+  const { permissions } = useAuthData();
 
   // filters
   const { data: projects = [] } = useGetProjects();
@@ -169,12 +171,14 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
         </Stack>
         <Stack direction="row" gap="15px">
           <IconButton className="small-btn" onClick={() => void setOpenMobileFilters(true)}><FilterIcon size={25} /></IconButton>
-          <div className="link">
-            <IconButton className="small-btn primary" onClick={() => void setOpenNewProfile(true)}><PlusIcon size={25} /></IconButton>
-            <Button className="big-btn" onClick={() => void setOpenNewProfile(true)}>
-              {t('profilesPage.new_user')}
-            </Button>
-          </div>
+          {permissions.includes('users:create') && (
+            <div className="link">
+              <IconButton className="small-btn primary" onClick={() => void setOpenNewProfile(true)}><PlusIcon size={25} /></IconButton>
+              <Button className="big-btn" onClick={() => void setOpenNewProfile(true)}>
+                {t('user.new')}
+              </Button>
+            </div>
+          )}
           <Menu
             isCloseOnMenu
             menuComponent={(
@@ -197,12 +201,16 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
               {t('docsTemplates.print')}
             </MenuItem>
             <Divider />
-            <Link to="/import-profiles">
-              <MenuItem>
-                <UploadIcon style={{ marginRight: 6 }} />
-                {t('user.import')}
-              </MenuItem>
-            </Link>
+            {permissions.includes('users:create')
+              ? (
+                <Link to="/import-profiles">
+                  <MenuItem disabled={!permissions.includes('users:create')}>
+                    <UploadIcon style={{ marginRight: 6 }} />
+                    {t('user.import')}
+                  </MenuItem>
+                </Link>
+              )
+              : <></>}
             <MenuItem style={{ color: '#1e6e43' }} disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
               <ExcelIcon size={20} style={{ marginRight: 6 }} />{t('user.export')}
             </MenuItem>

@@ -16,6 +16,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 import { uploadFiles } from 'api/common';
 import downloadFile from 'api/query/downloadFile';
 import { DeleteIcon, EditIcon, FileIcon, PaycheckIcon, PlusIcon, UploadIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
@@ -55,6 +56,7 @@ type Props = {
 
 const FinancesFormCard = ({ data, onCreateFinance, onDeleteFinance, onUpdateFinance }: Props) => {
   const { t } = useTranslation();
+  const { permissions } = useAuthData();
 
   const financeTypeList = useTranslatedSelect(['paycheck', 'payroll'], 'financeType');
 
@@ -143,7 +145,9 @@ const FinancesFormCard = ({ data, onCreateFinance, onDeleteFinance, onUpdateFina
     <>
       <FormCard>
         <FormCardHeader icon={<PaycheckIcon size={24} />} title={t('user.finances')}>
-          <Button onClick={() => { setFinanceDialogData({}); reset(DEFAULT_VALUES); }}><PlusIcon />{t('add')}</Button>
+          {(permissions.includes('paychecks:create') || permissions.includes('payrolls:create')) && (
+            <Button onClick={() => { setFinanceDialogData({}); reset(DEFAULT_VALUES); }}><PlusIcon />{t('add')}</Button>
+          )}
         </FormCardHeader>
         <FormCardBody>
           {!!finances.length && (
@@ -176,18 +180,26 @@ const FinancesFormCard = ({ data, onCreateFinance, onDeleteFinance, onUpdateFina
                       <TableCell>{getDateFromIso(finance.data.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
                       <TableCell align="right">
                         <ActionsCell>
-                          <IconButton
-                            disabled={!finance.data?._id || !isMongoId(finance.data._id)}
-                            onClick={() => { setFinanceDialogData(finance); reset(finance); }}
-                          >
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            disabled={!finance.data?._id || !isMongoId(finance.data._id)}
-                            onClick={() => void setDeleteDialogData(finance)}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
+                          {(((finance.type === 'paycheck' && permissions.includes('paychecks:update')) ||
+                           (finance.type === 'payroll' && permissions.includes('payrolls:update'))) && (
+                            // eslint-disable-next-line react/jsx-indent
+                            <IconButton
+                              disabled={!finance.data?._id || !isMongoId(finance.data._id)}
+                              onClick={() => { setFinanceDialogData(finance); reset(finance); }}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                          ))}
+                          {(((finance.type === 'paycheck' && permissions.includes('paychecks:delete')) ||
+                           (finance.type === 'payroll' && permissions.includes('payrolls:delete'))) && (
+                            // eslint-disable-next-line react/jsx-indent
+                            <IconButton
+                              disabled={!finance.data?._id || !isMongoId(finance.data._id)}
+                              onClick={() => void setDeleteDialogData(finance)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          ))}
                         </ActionsCell>
                       </TableCell>
                     </TableRow>
@@ -211,6 +223,7 @@ const FinancesFormCard = ({ data, onCreateFinance, onDeleteFinance, onUpdateFina
               error={!!errors.type}
               options={financeTypeList}
               defaultValue={financeDialogData?.type || 'paycheck'}
+              theme="gray"
               {...register('type', { required: true })}
             />
             <Input
@@ -219,6 +232,7 @@ const FinancesFormCard = ({ data, onCreateFinance, onDeleteFinance, onUpdateFina
               InputProps={{ inputComponent: DateFormat as any }}
               error={!!errors.data?.date}
               defaultValue={getDateFromIso(financeDialogData?.data?.date, 'MM/yyyy') || ''}
+              theme="gray"
               {...register('data.date', {
                 required: true,
                 validate: (value) => isoDateRegex.test(value) || defaultDateRegex.test(value),
@@ -281,6 +295,7 @@ const FinancesFormCard = ({ data, onCreateFinance, onDeleteFinance, onUpdateFina
               label={t('finance.comment')}
               defaultValue={financeDialogData?.data?.comment || ''}
               multiline
+              theme="gray"
               className="comment"
               {...register('data.comment')}
             />

@@ -18,7 +18,7 @@ type Props = {
 
 const HeaderTable = ({ count }: Props) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [openNewPrepayment, setOpenNewPrepayment] = useState(false);
   const createOrder = useCreateOrder();
@@ -40,12 +40,14 @@ const HeaderTable = ({ count }: Props) => {
           <span className="bold">{t('navbar.orders')}: {count}</span>
         </Stack>
         <Stack direction="row" gap="15px">
-          <div className="link">
-            <IconButton className="small-btn primary" onClick={() => void setOpenNewPrepayment(true)}><PlusIcon size={25} /></IconButton>
-            <Button className="big-btn" onClick={() => void setOpenNewPrepayment(true)}>
-              {t('order.new')}
-            </Button>
-          </div>
+          {permissions.includes('orders:create') && (
+            <div className="link">
+              <IconButton className="small-btn primary" onClick={() => void setOpenNewPrepayment(true)}><PlusIcon size={25} /></IconButton>
+              <Button className="big-btn" onClick={() => void setOpenNewPrepayment(true)}>
+                {t('order.new')}
+              </Button>
+            </div>
+          )}
         </Stack>
       </HeaderWrapper>
       <OrderFormDialog

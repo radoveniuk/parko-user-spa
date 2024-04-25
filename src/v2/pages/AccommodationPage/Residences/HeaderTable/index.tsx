@@ -31,24 +31,34 @@ const HeaderTable = ({ count }: Props) => {
         </Stack>
         <Stack direction="row" gap="15px">
           <div className="link">
-            {permissions.includes('residences:create') && (
-              <>
-                <Menu className="big-btn" isCloseOnMenu>
+            <Menu className="big-btn" isCloseOnMenu>
+              {permissions.includes('residences:create')
+                ? (
                   <MenuItem onClick={() => void setOpenResidence(true)}>
                     <MenuItemContent className="btn"><CheckInIcon size={20}/>Check in</MenuItemContent>
                   </MenuItem>
+                )
+                : <></>
+              }
+              {permissions.includes('residences:update')
+                ? (
                   <MenuItem onClick={() => void setOpenCheckout(true)}>
                     <MenuItemContent className="btn"><CheckOutIcon size={20}/>Check out</MenuItemContent>
                   </MenuItem>
-                  <Link to="/export-residences">
-                    <MenuItem color="secondary">
-                      <MenuItemContent className="export"><ExcelIcon size={20}/>{t('user.export')}</MenuItemContent>
-                    </MenuItem>
-                  </Link>
-                </Menu>
-                <IconButton className="small-btn primary" onClick={() => void setOpenResidence(true)}><CheckInIcon size={25} /></IconButton>
-                <IconButton className="small-btn primary" onClick={() => void setOpenCheckout(true)}><CheckOutIcon size={25} /></IconButton>
-              </>
+                )
+                : <></>
+              }
+              <Link to="/export-residences">
+                <MenuItem color="secondary">
+                  <MenuItemContent className="export"><ExcelIcon size={20}/>{t('user.export')}</MenuItemContent>
+                </MenuItem>
+              </Link>
+            </Menu>
+            {permissions.includes('residences:create') && (
+              <IconButton className="small-btn primary" onClick={() => void setOpenResidence(true)}><CheckInIcon size={25} /></IconButton>
+            )}
+            {permissions.includes('residences:update') && (
+              <IconButton className="small-btn primary" onClick={() => void setOpenCheckout(true)}><CheckOutIcon size={25} /></IconButton>
             )}
           </div>
         </Stack>

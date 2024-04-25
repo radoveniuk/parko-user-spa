@@ -14,6 +14,7 @@ import IconButton from 'v2/uikit/IconButton';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from 'v2/uikit/Table';
 
 import { AccommodationIcon, DeleteIcon, EditIcon, PlusIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
@@ -33,6 +34,7 @@ type Props = {
 
 const FinancesFormCard = ({ data, accommodations, onCreateResidence, onDeleteResidence, onUpdateResidence }: Props) => {
   const { t } = useTranslation();
+  const { permissions } = useAuthData();
 
   const [residenceDialogData, setResidenceDialogData] = useState<Partial<IResidence> | null>(null);
   const [deleteDialogData, setDeleteDialogData] = useState<Partial<IResidence> | null>(null);
@@ -91,7 +93,9 @@ const FinancesFormCard = ({ data, accommodations, onCreateResidence, onDeleteRes
     <>
       <FormCard>
         <FormCardHeader icon={<AccommodationIcon size={24} />} title={t('accommodation.residences')}>
-          <Button onClick={() => { setResidenceDialogData({}); reset(); }}><PlusIcon />{t('add')}</Button>
+          {permissions.includes('residences:create') && (
+            <Button onClick={() => { setResidenceDialogData({}); reset(); }}><PlusIcon />{t('add')}</Button>
+          )}
         </FormCardHeader>
         <FormCardBody>
           {!!residences.length && (
@@ -117,12 +121,16 @@ const FinancesFormCard = ({ data, accommodations, onCreateResidence, onDeleteRes
                       <TableCell>{getDateFromIso(residence.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
                       <TableCell>
                         <ActionsCell>
-                          <IconButton disabled={!isMongoId(residence._id)} onClick={() => { setResidenceDialogData(residence); reset(residence); }}>
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton disabled={!isMongoId(residence._id)} onClick={() => void setDeleteDialogData(residence)}>
-                            <DeleteIcon />
-                          </IconButton>
+                          {permissions.includes('residences:update') && (
+                            <IconButton disabled={!isMongoId(residence._id)} onClick={() => { setResidenceDialogData(residence); reset(residence); }}>
+                              <EditIcon />
+                            </IconButton>
+                          )}
+                          {permissions.includes('residences:delete') && (
+                            <IconButton disabled={!isMongoId(residence._id)} onClick={() => void setDeleteDialogData(residence)}>
+                              <DeleteIcon />
+                            </IconButton>
+                          )}
                         </ActionsCell>
                       </TableCell>
                     </TableRow>

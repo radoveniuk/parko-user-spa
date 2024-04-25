@@ -12,6 +12,7 @@ import IconButton from 'v2/uikit/IconButton';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from 'v2/uikit/Table';
 
 import { DeleteIcon, EditIcon, FactoryIcon, PlusIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import useListState from 'hooks/useListState';
 import { UserBusinessActivity } from 'interfaces/users.interface';
@@ -67,13 +68,18 @@ const DaysOffFormCard = ({ data, onUpdateActivities }: Props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, setActivities]);
 
+  const { permissions } = useAuthData();
+  const permissionUpdate = permissions.includes('users:update');
+
   return (
     <>
       <FormCard defaultConfig={{ disabled: true, showAll: false }}>
         {({ formCardConfig, updateFormCardConfig }) => (
           <>
             <FormCardHeader icon={<FactoryIcon size={24} />} title={t('user.businessActivities')}>
-              <Button onClick={() => { setActivityDialogData({}); reset({}); }}><PlusIcon />{t('add')}</Button>
+              {permissionUpdate && (
+                <Button onClick={() => { setActivityDialogData({}); reset({}); }}><PlusIcon />{t('add')}</Button>
+              )}
             </FormCardHeader>
             <FormCardBody>
               {!!activities.length && (
@@ -93,14 +99,16 @@ const DaysOffFormCard = ({ data, onUpdateActivities }: Props) => {
                             <DescriptionTableCell>{activity.description}</DescriptionTableCell>
                             <TableCell>{getDateFromIso(activity.dateFrom)} {activity.dateTo ? `- ${getDateFromIso(activity.dateTo)}` : ''}</TableCell>
                             <TableCell align="right">
-                              <ActionsCell>
-                                <IconButton onClick={() => { setActivityDialogData(activity); reset(activity); }}>
-                                  <EditIcon />
-                                </IconButton>
-                                <IconButton onClick={() => void setDeleteDialogData(activity)}>
-                                  <DeleteIcon />
-                                </IconButton>
-                              </ActionsCell>
+                              {permissionUpdate && (
+                                <ActionsCell>
+                                  <IconButton onClick={() => { setActivityDialogData(activity); reset(activity); }}>
+                                    <EditIcon />
+                                  </IconButton>
+                                  <IconButton onClick={() => void setDeleteDialogData(activity)}>
+                                    <DeleteIcon />
+                                  </IconButton>
+                                </ActionsCell>
+                              )}
                             </TableCell>
                           </TableRow>
                         ))}

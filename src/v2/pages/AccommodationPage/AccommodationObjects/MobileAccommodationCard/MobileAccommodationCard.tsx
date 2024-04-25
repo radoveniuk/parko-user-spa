@@ -8,6 +8,7 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { useDeleteAccommodation } from 'api/mutations/accommodationMutation';
 import { BuildingIcon, DeleteIcon, EditIcon, LocationIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IResidence } from 'interfaces/residence.interface';
@@ -37,6 +38,8 @@ const MobileAccommodationCard = ({ style, data }: Props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   [data._id]);
 
+  const { permissions } = useAuthData();
+
   return (
     <MobileCardWrapper style={style}>
       <div className="card">
@@ -63,8 +66,12 @@ const MobileAccommodationCard = ({ style, data }: Props) => {
           </div>
         </div>
         <div className="actions">
-          <IconButton onClick={() => void setOpenAccommodation(data)}><EditIcon /></IconButton>
-          <IconButton disabled={!!residencesCount} onClick={() => void setIdToDelete(data._id)}><DeleteIcon /></IconButton>
+          {permissions.includes('accommodations:update') && (
+            <IconButton onClick={() => void setOpenAccommodation(data)}><EditIcon /></IconButton>
+          )}
+          {permissions.includes('accommodations:delete') && (
+            <IconButton disabled={!!residencesCount} onClick={() => void setIdToDelete(data._id)}><DeleteIcon /></IconButton>
+          )}
         </div>
       </div>
       {!!idToDelete && (

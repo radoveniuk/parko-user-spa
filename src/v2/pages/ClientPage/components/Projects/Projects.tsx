@@ -3,6 +3,7 @@ import { useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
 
 import { useDeleteProjectMutation, useUpdateProjectMutation } from 'api/mutations/projectMutation';
+import { useAuthData } from 'contexts/AuthContext';
 import { IProject } from 'interfaces/project.interface';
 
 import ProjectFormCard from './ProjectFormCard';
@@ -34,6 +35,10 @@ const Projects = ({ data }: Props) => {
       }}
     />
   ));
+
+  const { permissions } = useAuthData();
+
+  if (!permissions.includes('projects:read')) return null;
 
   return (
     <ProjectsWrapper>

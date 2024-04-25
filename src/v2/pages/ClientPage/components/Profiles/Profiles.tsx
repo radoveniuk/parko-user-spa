@@ -6,6 +6,7 @@ import Autocomplete from 'v2/uikit/Autocomplete';
 import { SearchIcon } from 'components/icons';
 import { FiltersProvider } from 'components/shared/Filters';
 import { USER_EMPLOYMENT_STATUSES, USER_STATUSES } from 'constants/statuses';
+import { useAuthData } from 'contexts/AuthContext';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IEmployment } from 'interfaces/employment.interface';
@@ -52,6 +53,10 @@ const Profiles = ({ employments, projects }: Props) => {
     }
     return filteredData.map((employment) => ({ ...employment.user, employmentStatus: employment.status }));
   }, [employmentStatusFilter, employments, projectsFilter, statusFilter, usersFilter]);
+
+  const { permissions } = useAuthData();
+
+  if (!permissions.includes('users:read')) return null;
 
   return (
     <FiltersProvider>

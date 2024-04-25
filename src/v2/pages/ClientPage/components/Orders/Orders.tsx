@@ -7,6 +7,7 @@ import Autocomplete from 'v2/uikit/Autocomplete';
 import { useGetOrders } from 'api/query/orderQuery';
 import { SearchIcon } from 'components/icons';
 import { ORDER_COOPERATION_TYPE, ORDER_STATUS } from 'constants/selectsOptions';
+import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IOrder } from 'interfaces/order.interface';
 import { IProject } from 'interfaces/project.interface';
@@ -63,6 +64,10 @@ const Orders = ({ orders, projects }: Props) => {
     }
     return res;
   }, [cooperationTypeFilter, idsFilter, orders, projectFilter, statusFilter]);
+
+  const { permissions } = useAuthData();
+
+  if (!permissions.includes('orders:read')) return null;
 
   return (
     <OrdersWrapper>

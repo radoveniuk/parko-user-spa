@@ -664,8 +664,7 @@
     "choose_few": "Multiple choice",
     "control_organization": "Management of organizational units",
     "users": "Users",
-    "users_all_space": "Users from all workspaces",
-    "new_user": "New user"
+    "users_all_space": "Users from all workspaces"
   },
   "employment": {
     "user": "User",

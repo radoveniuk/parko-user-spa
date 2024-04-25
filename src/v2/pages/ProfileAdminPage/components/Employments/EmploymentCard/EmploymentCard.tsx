@@ -116,7 +116,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                 </EmploymentCardTitleWrapper>
               )}
             >
-              {formCardConfig.disabled && (
+              {formCardConfig.disabled && permissions.includes('employments:update') && (
                 <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>
               )}
               {!formCardConfig.disabled && (

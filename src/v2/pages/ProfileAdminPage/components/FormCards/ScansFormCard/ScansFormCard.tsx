@@ -18,6 +18,7 @@ import { useDeleteFileMutation, useUpdateFileMutation } from 'api/mutations/file
 import downloadFile from 'api/query/downloadFile';
 import { DeleteIcon, EditIcon, FileIcon, PlusIcon, ScanIcon, UploadIcon } from 'components/icons';
 import { USER_SCAN_TYPE } from 'constants/selectsOptions';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IFile } from 'interfaces/file.interface';
@@ -41,6 +42,7 @@ type Props = {
 };
 
 const DaysOffFormCard = ({ data, onUpdate }: Props) => {
+  const { permissions } = useAuthData();
   const { t } = useTranslation();
   const updateFileMutation = useUpdateFileMutation();
   const deleteFileMutation = useDeleteFileMutation();
@@ -139,12 +141,16 @@ const DaysOffFormCard = ({ data, onUpdate }: Props) => {
     updateFile(values.type, values.file, values.comment);
   };
 
+  const permissionUpdate = permissions.includes('users:update');
+
   return (
     <>
       <FormCard>
         {loading && <LoaderWrapper><Loader /></LoaderWrapper>}
         <FormCardHeader icon={<ScanIcon size={24} />} title={t('user.scancopies')}>
-          <Button onClick={() => { setScanDialogData({}); reset({ type: '', file: undefined, comment: '' }); }}><PlusIcon />{t('add')}</Button>
+          {permissionUpdate && (
+            <Button onClick={() => { setScanDialogData({}); reset({ type: '', file: undefined, comment: '' }); }}><PlusIcon />{t('add')}</Button>
+          )}
         </FormCardHeader>
         <FormCardBody>
           {(!!availableScanTypes.length || !!scans.otherScans?.length) && (
@@ -174,20 +180,22 @@ const DaysOffFormCard = ({ data, onUpdate }: Props) => {
                         <TableCell>{getDateFromIso(fileData.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
                         <TableCell>{fileData.metadata?.comment}</TableCell>
                         <TableCell>
-                          <ActionsCell>
-                            <IconButton
-                              onClick={() => {
-                                setScanDialogData(fileData);
-                                setScanType(scanKey);
-                                reset({ type: scanKey, comment: fileData.metadata?.comment || '', file: fileData });
-                              }}
-                            >
-                              <EditIcon />
-                            </IconButton>
-                            <IconButton onClick={() => void setFileToDelete(fileData)}>
-                              <DeleteIcon />
-                            </IconButton>
-                          </ActionsCell>
+                          {permissionUpdate && (
+                            <ActionsCell>
+                              <IconButton
+                                onClick={() => {
+                                  setScanDialogData(fileData);
+                                  setScanType(scanKey);
+                                  reset({ type: scanKey, comment: fileData.metadata?.comment || '', file: fileData });
+                                }}
+                              >
+                                <EditIcon />
+                              </IconButton>
+                              <IconButton onClick={() => void setFileToDelete(fileData)}>
+                                <DeleteIcon />
+                              </IconButton>
+                            </ActionsCell>
+                          )}
                         </TableCell>
                       </TableRow>
                     );
@@ -209,22 +217,24 @@ const DaysOffFormCard = ({ data, onUpdate }: Props) => {
                         <TableCell>{getDateFromIso(fileData.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
                         <TableCell>{comment}</TableCell>
                         <TableCell>
-                          <ActionsCell>
-                            <IconButton
-                              onClick={() => {
-                                setScanDialogData(fileData);
-                                setScanType('other');
-                                reset({ type: 'other', comment: fileData.metadata?.comment || '', file: fileData });
-                              }}
-                            >
-                              <EditIcon />
-                            </IconButton>
-                            <IconButton
-                              onClick={() => void setFileToDelete(fileData) }
-                            >
-                              <DeleteIcon />
-                            </IconButton>
-                          </ActionsCell>
+                          {permissionUpdate && (
+                            <ActionsCell>
+                              <IconButton
+                                onClick={() => {
+                                  setScanDialogData(fileData);
+                                  setScanType('other');
+                                  reset({ type: 'other', comment: fileData.metadata?.comment || '', file: fileData });
+                                }}
+                              >
+                                <EditIcon />
+                              </IconButton>
+                              <IconButton
+                                onClick={() => void setFileToDelete(fileData) }
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </ActionsCell>
+                          )}
                         </TableCell>
                       </TableRow>
                     );

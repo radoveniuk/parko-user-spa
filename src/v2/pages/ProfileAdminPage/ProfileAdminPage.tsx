@@ -204,12 +204,12 @@ const ProfileAdminPageRender = () => {
       <BreadCrumbs
         actions={(
           <>
-            {tab === 2 && (
+            {tab === 2 && permissions.includes('employments:create') && (
               <Button onClick={createEmptyEmployment}>
                 <PlusIcon />{t('user.addEmployment')}
               </Button>
             )}
-            {tab === 3 && (
+            {tab === 3 && permissions.includes('orders:update') && (
               <Button onClick={() => void setOpenCreateParticipationDialog(true)}>
                 <PlusIcon />{t('user.addNewParticipation')}
               </Button>
@@ -250,98 +250,106 @@ const ProfileAdminPageRender = () => {
                 data={profileData}
                 onUpdate={updateUser}
               />
-              <FinancesFormCard
-                data={finances}
-                onCreateFinance={({ type, data }) => {
-                  const values = {
-                    ...data,
-                    user: userId,
-                    project: (profileData.project as IProject)._id,
-                  } as IPaycheck;
-                  if (type === 'paycheck') {
-                    createPaycheck.mutate(values);
-                  }
-                  if (type === 'payroll') {
-                    createPayroll.mutate(values);
-                  }
-                }}
-                onUpdateFinance={({ type, data }) => {
-                  if (type === 'paycheck') {
-                    updatePaycheck.mutate(data as IPaycheck);
-                  }
-                  if (type === 'payroll') {
-                    updatePayroll.mutate(data as IPaycheck);
-                  }
-                }}
-                onDeleteFinance={({ type, data }) => {
-                  if (type === 'paycheck') {
-                    deletePaycheck.mutate(data?._id as string);
-                  }
-                  if (type === 'payroll') {
-                    deletePayroll.mutate(data?._id as string);
-                  }
-                }}
-              />
-              <PrepaymentsFormCard
-                data={prepayments}
-                onCreatePrepayment={(data) => {
-                  const prepayment = { ...data, user: userId };
-                  createPrepayment.mutateAsync(prepayment).then((res) => {
-                    queryClient.setQueryData(['prepayments', userQueryKey], [res, ...prepayments]);
-                  });
-                }}
-                onUpdatePrepayment={(data) => {
-                  updatePrepayment.mutate({ ...data, _id: data._id as string });
-                  queryClient.setQueryData(
-                    ['prepayments', userQueryKey],
-                    prepayments.map((item) => item._id === data._id ? data : item),
-                  );
-                }}
-                onDeletePrepayment={deletePrepayment.mutate}
-              />
+              {permissions.includes('paychecks:read') && (
+                <FinancesFormCard
+                  data={finances}
+                  onCreateFinance={({ type, data }) => {
+                    const values = {
+                      ...data,
+                      user: userId,
+                      project: (profileData.project as IProject)._id,
+                    } as IPaycheck;
+                    if (type === 'paycheck') {
+                      createPaycheck.mutate(values);
+                    }
+                    if (type === 'payroll') {
+                      createPayroll.mutate(values);
+                    }
+                  }}
+                  onUpdateFinance={({ type, data }) => {
+                    if (type === 'paycheck') {
+                      updatePaycheck.mutate(data as IPaycheck);
+                    }
+                    if (type === 'payroll') {
+                      updatePayroll.mutate(data as IPaycheck);
+                    }
+                  }}
+                  onDeleteFinance={({ type, data }) => {
+                    if (type === 'paycheck') {
+                      deletePaycheck.mutate(data?._id as string);
+                    }
+                    if (type === 'payroll') {
+                      deletePayroll.mutate(data?._id as string);
+                    }
+                  }}
+                />
+              )}
+              {permissions.includes('prepayments:read') && (
+                <PrepaymentsFormCard
+                  data={prepayments}
+                  onCreatePrepayment={(data) => {
+                    const prepayment = { ...data, user: userId };
+                    createPrepayment.mutateAsync(prepayment).then((res) => {
+                      queryClient.setQueryData(['prepayments', userQueryKey], [res, ...prepayments]);
+                    });
+                  }}
+                  onUpdatePrepayment={(data) => {
+                    updatePrepayment.mutate({ ...data, _id: data._id as string });
+                    queryClient.setQueryData(
+                      ['prepayments', userQueryKey],
+                      prepayments.map((item) => item._id === data._id ? data : item),
+                    );
+                  }}
+                  onDeletePrepayment={deletePrepayment.mutate}
+                />
+              )}
             </div>
             <div className="col">
-              <DaysOffFormCard data={daysoff}
-                onCreateDayoff={(data) => {
-                  const dayoff = { ...data, user: userId };
-                  createDayoff.mutateAsync(dayoff).then((res) => {
-                    queryClient.setQueryData(['daysoff', userQueryKey], [res, ...daysoff]);
-                  });
-                }}
-                onUpdateDayoff={(data) => {
-                  updateDayoff.mutate({ ...data, _id: data._id as string });
-                  queryClient.setQueryData(
-                    ['daysoff', userQueryKey],
-                    daysoff.map((item) => item._id === data._id ? data : item),
-                  );
-                }}
-                onDeleteDayoff={deleteDayoff.mutate}
-              />
-              <ResidencesFormCard
-                data={residences}
-                accommodations={accommodations}
-                onCreateResidence={(residence, notificate = false) => {
-                  const data = { ...residence, user: userId };
-                  createResidence.mutateAsync({ data, notificate }).then((res) => {
-                    queryClient.setQueryData(['residences', userQueryKey], [res, ...residences]);
-                  });
-                }}
-                onUpdateResidence={(data, notificate = false) => {
-                  updateResidence.mutate({ data, notificate });
-                  queryClient.setQueryData(
-                    ['residences', userQueryKey],
-                    residences.map((item) => item._id === data._id ? data : item),
-                  );
-                }}
-                onDeleteResidence={deleteResidence.mutate}
-              />
+              {permissions.includes('daysoff:read') && (
+                <DaysOffFormCard data={daysoff}
+                  onCreateDayoff={(data) => {
+                    const dayoff = { ...data, user: userId };
+                    createDayoff.mutateAsync(dayoff).then((res) => {
+                      queryClient.setQueryData(['daysoff', userQueryKey], [res, ...daysoff]);
+                    });
+                  }}
+                  onUpdateDayoff={(data) => {
+                    updateDayoff.mutate({ ...data, _id: data._id as string });
+                    queryClient.setQueryData(
+                      ['daysoff', userQueryKey],
+                      daysoff.map((item) => item._id === data._id ? data : item),
+                    );
+                  }}
+                  onDeleteDayoff={deleteDayoff.mutate}
+                />
+              )}
+              {permissions.includes('residences:read') && (
+                <ResidencesFormCard
+                  data={residences}
+                  accommodations={accommodations}
+                  onCreateResidence={(residence, notificate = false) => {
+                    const data = { ...residence, user: userId };
+                    createResidence.mutateAsync({ data, notificate }).then((res) => {
+                      queryClient.setQueryData(['residences', userQueryKey], [res, ...residences]);
+                    });
+                  }}
+                  onUpdateResidence={(data, notificate = false) => {
+                    updateResidence.mutate({ data, notificate });
+                    queryClient.setQueryData(
+                      ['residences', userQueryKey],
+                      residences.map((item) => item._id === data._id ? data : item),
+                    );
+                  }}
+                  onDeleteResidence={deleteResidence.mutate}
+                />
+              )}
             </div>
           </TabPanel>
           <TabPanel className="cards" index={1}>
             <div className="col">
               <PersonalDocsFormCard data={profileData.docs || []} onUpdateDocs={(docs) => { updateUser({ docs }); }} />
               <BankDataFormCard data={pick(profileData, ['IBAN', 'bankName', 'SWIFT'])} onUpdate={updateUser} />
-              {sections.map((sectionData) => {
+              {permissions.includes('customFields:read') && sections.map((sectionData) => {
                 const bindings = allCustomFieldSectionBindings.filter((item) => item.section?._id === sectionData?._id);
                 return (
                   <CustomSectionFormCard

@@ -7,6 +7,7 @@ import { FormCard, FormCardBody, FormCardHeader } from 'v2/uikit/FormCard';
 import IconButton from 'v2/uikit/IconButton';
 
 import { CloseIcon, PersonalDocIcon, PlusIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
 import useListState from 'hooks/useListState';
 import { UserPersonalDocType } from 'interfaces/users.interface';
@@ -62,6 +63,7 @@ type Props = {
 
 const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
   const { t } = useTranslation();
+  const { permissions } = useAuthData();
 
   const [docs, { add, remove, update }, setDocs] = useListState(data);
 
@@ -91,6 +93,8 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
 
   const [cardKey, setCardKey] = useState(createId());
 
+  const permissionUpdate = permissions.includes('users:update');
+
   return (
     <FormCard
       defaultConfig={{ triggerAll: false, disabled: true }}
@@ -101,7 +105,9 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
       {({ formCardConfig, updateFormCardConfig }) => (
         <>
           <FormCardHeader icon={<PersonalDocIcon size={24} />} title={t('user.docsFields')}>
-            {formCardConfig.disabled && <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>}
+            {formCardConfig.disabled && permissionUpdate && (
+              <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>
+            )}
             {!formCardConfig.disabled && (
               <Button
                 color="error"

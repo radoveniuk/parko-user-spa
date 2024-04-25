@@ -8,6 +8,7 @@ import Skeleton from 'v2/uikit/Skeleton';
 import { useDeleteAccommodation } from 'api/mutations/accommodationMutation';
 import { ArrowUpIcon, DeleteIcon, EditIcon } from 'components/icons';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import { useAuthData } from 'contexts/AuthContext';
 import { iterateMap } from 'helpers/iterateMap';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IAccommodation } from 'interfaces/accommodation.interface';
@@ -44,6 +45,8 @@ const Table = ({
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
   const residences: IResidence[] = queryClient.getQueryData(['residences', JSON.stringify({})]) || [];
+
+  const { permissions } = useAuthData();
 
   return (
     <TableWrapper>
@@ -84,13 +87,17 @@ const Table = ({
             <ListTableCell>{item.receptionPhone}</ListTableCell>
             <ListTableCell>{item.comment}</ListTableCell>
             <ListTableCell>
-              <IconButton onClick={() => void setOpenAccommodation(item)}><EditIcon /></IconButton>
-              <IconButton
-                onClick={() => void setIdToDelete(item._id)}
-                disabled={residences.some((residence) => (residence.accommodation as IAccommodation)._id === item._id && !residence.checkOutDate)}
-              >
-                <DeleteIcon />
-              </IconButton>
+              {permissions.includes('accommodations:update') && (
+                <IconButton onClick={() => void setOpenAccommodation(item)}><EditIcon /></IconButton>
+              )}
+              {permissions.includes('accommodations:delete') && (
+                <IconButton
+                  onClick={() => void setIdToDelete(item._id)}
+                  disabled={residences.some((residence) => (residence.accommodation as IAccommodation)._id === item._id && !residence.checkOutDate)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              )}
             </ListTableCell>
           </ListTableRow>
         ))}

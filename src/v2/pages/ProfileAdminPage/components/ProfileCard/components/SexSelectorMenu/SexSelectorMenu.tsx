@@ -7,13 +7,14 @@ import { SexSelectorMenuWrapper } from './styles';
 type SexSelectorMenuProps = {
   value?: 'male' | 'female';
   onChange?(value: 'male' | 'female'): void;
+  disabled?: boolean;
 };
 
-const SexSelectorMenu = ({ value, onChange }: SexSelectorMenuProps) => {
+const SexSelectorMenu = ({ value, onChange, disabled }: SexSelectorMenuProps) => {
   const { t } = useTranslation();
   const labelValue = value || 'male';
   return (
-    <Menu isCloseOnMenu menuComponent={(
+    <Menu isCloseOnMenu disabled={disabled} menuComponent={(
       <SexSelectorMenuWrapper>
         <span>{labelValue[0]}</span>
         <span>{labelValue.substring(1)}</span>

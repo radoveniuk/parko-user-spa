@@ -19,10 +19,10 @@ const useRoleActions = () => {
   };
 
   const update = async (data: IRole) => {
-    const updateRes = await updateRole.mutateAsync(data);
+    await updateRole.mutateAsync(data);
     const prevData = queryClient.getQueryData(queryKey) as IRole[];
 
-    queryClient.setQueryData(queryKey, prevData.map(item => item._id === updateRes._id ? updateRes : item));
+    queryClient.setQueryData(queryKey, prevData.map(item => item._id === data._id ? data : item));
   };
 
   const remove = (id: string) => {

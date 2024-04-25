@@ -8,6 +8,7 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { EditIcon, EyeIcon } from 'components/icons';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
 import { IClient } from 'interfaces/client.interface';
@@ -18,6 +19,7 @@ import { useProfileRowContext } from './context';
 import { LinkWrapper } from './styles';
 
 const InfoRow = () => {
+  const { permissions } = useAuthData();
   const { t } = useTranslation();
   const { data, selected, onChangeSelect, cols, startEdit, style } = useProfileRowContext();
   const [showBusinessActivities, setShowBusinessActivities] = useState(false);
@@ -128,13 +130,15 @@ const InfoRow = () => {
         return createTableCell(data[userField as keyof IUser]?.toString() || '');
       })}
       <ListTableCell>
-        <IconButton
-          className="fast-edit-profile"
-          onClick={startEdit}
-          aria-label="fast edit profile"
-        >
-          <EditIcon />
-        </IconButton>
+        {permissions.includes('users:update') && (
+          <IconButton
+            className="fast-edit-profile"
+            onClick={startEdit}
+            aria-label="fast edit profile"
+          >
+            <EditIcon />
+          </IconButton>
+        )}
       </ListTableCell>
       {!!showBusinessActivities && (
         <Dialog

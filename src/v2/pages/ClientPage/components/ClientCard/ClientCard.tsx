@@ -67,7 +67,7 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
   return (
     <>
       <ProfileCardWrapper>
-        {permissions.includes('clients:edit') && (
+        {permissions.includes('clients:update') && (
           <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
         )}
         <div className="contacts-info section">
