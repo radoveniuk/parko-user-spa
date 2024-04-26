@@ -71,6 +71,7 @@ export {
   MdCopyAll as CopyIcon,
   MdWeekend as DayoffIcon,
   MdEmail as EmailIcon,
+  MdFactory as FactoryIcon,
   MdOutlineHistory as HistoryIcon,
   MdLanguage as InternetIcon,
   MdOutlineMapsHomeWork as MapsHomeIcon,
@@ -78,8 +79,8 @@ export {
   MdWork as ProjectIcon,
   MdRemoveDone as RemoveCheckIcon,
   MdRestore as RestoreIcon,
+  MdAdminPanelSettings as RoleIcon,
 } from 'react-icons/md';
-export { MdFactory as FactoryIcon } from 'react-icons/md';
 export { PiFoldersFill as FileGroupIcon } from 'react-icons/pi';
 export {
   RiAdminFill as AdminIcon,

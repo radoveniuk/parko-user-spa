@@ -40,8 +40,10 @@ export default function Router () {
               <Route path="/sign-up" element={<RegisterPage />}/>
             </Route>
             <Route element={<PageLayouts />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/profile" element={<ProfilePage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+              </Route>
               <Route element={<ProtectedRoute permission="notifications:read" />}>
                 <Route path="/notifications" element={<NotificationsPage />} />
               </Route>

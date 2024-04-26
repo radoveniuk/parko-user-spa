@@ -1,5 +1,6 @@
 import React, { Dispatch, memo, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
+import useOrderParticipationActions from 'v2/pages/OrderPage/hooks/useOrderParticipationActions';
 import IconButton from 'v2/uikit/IconButton';
 import Pagination from 'v2/uikit/Pagination';
 
@@ -31,8 +32,6 @@ const Table = ({
   const { pageItems, paginationConfig } = usePaginatedList(sortedData);
 
   const toggleSorting = (participationKey: string) => {
-    console.log(participationKey);
-
     let sortingValue = participationKey as Path<IOrderParticipation<true>> | ((v: IOrderParticipation<true>) => any);
     if (participationKey === 'user.name') {
       sortingValue = 'user.fullname';
@@ -48,6 +47,8 @@ const Table = ({
     }
     sortingToggler(participationKey, sortingValue);
   };
+
+  const { remove } = useOrderParticipationActions();
 
   return (
     <TableWrapper>
@@ -89,6 +90,9 @@ const Table = ({
                 }
                 return prev.filter(item => item._id !== participation._id);
               });
+            }}
+            onDelete={() => {
+              remove(participation._id);
             }}
           />
         ))}

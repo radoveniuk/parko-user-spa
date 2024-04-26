@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ClickAwayListener } from '@mui/material';
 import { Menu, MenuItem } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 
 import { DeleteIcon, EditIcon, ThreeDotsIcon } from 'components/icons';
 import { ListTableCell } from 'components/shared/ListTable';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { ICustomFormField } from 'interfaces/form.interface';
 
@@ -21,15 +21,15 @@ type RowProps = {
 
 const FormFieldRow = ({ data }: RowProps) => {
   const { t, i18n } = useTranslation();
-
-  const [openMenu, setOpenMenu] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   const { remove } = useCustomFormFieldActions();
 
+  const { permissions } = useAuthData();
+
   return (
-    <StyledListTableRow isActive={openMenu}>
+    <StyledListTableRow>
       <ListTableCell>
         {data.names[i18n.language]}
       </ListTableCell>
@@ -40,19 +40,23 @@ const FormFieldRow = ({ data }: RowProps) => {
         {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')}
       </ListTableCell>
       <ListTableCell align="right">
-        <Menu
-          isCloseOnMenu
-          menuComponent={(
-            <ClickAwayListener onClickAway={() => setOpenMenu(false)}>
-              <IconButton className="menu-btn" onClick={() => void setOpenMenu(true)}><ThreeDotsIcon /></IconButton>
-            </ClickAwayListener>
-          )}
-        >
-          <MenuItem onClick={() => void setOpenDialog(true)}>
-            <EditIcon style={{ marginRight: 5 }} />{t('edit')}
-          </MenuItem>
-          <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon style={{ marginRight: 5 }} />{t('delete')}</MenuItem>
-        </Menu>
+        {(permissions.includes('customFields:update') || permissions.includes('customFields:delete')) && (
+          <Menu
+            isCloseOnMenu
+            menuComponent={(
+              <IconButton className="menu-btn"><ThreeDotsIcon /></IconButton>
+            )}
+          >
+            {permissions.includes('customFields:update') && (
+              <MenuItem onClick={() => void setOpenDialog(true)}>
+                <EditIcon />{t('edit')}
+              </MenuItem>
+            )}
+            {permissions.includes('customFields:delete') && (
+              <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon />{t('delete')}</MenuItem>
+            )}
+          </Menu>
+        )}
       </ListTableCell>
       {!!openDialog && (
         <FieldDialog

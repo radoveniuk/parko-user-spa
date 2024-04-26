@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ClickAwayListener } from '@mui/material';
 import { Menu, MenuItem } from 'v2/uikit';
 import Dialog from 'v2/uikit/Dialog';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
@@ -8,6 +7,7 @@ import IconButton from 'v2/uikit/IconButton';
 
 import { DeleteIcon, EditIcon, EyeIcon, ThreeDotsIcon } from 'components/icons';
 import { ListTableCell } from 'components/shared/ListTable';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IRole } from 'interfaces/role.interface';
 
@@ -23,7 +23,6 @@ type RowProps = {
 const RoleRow = ({ data }: RowProps) => {
   const { t } = useTranslation();
 
-  const [openMenu, setOpenMenu] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
@@ -32,8 +31,10 @@ const RoleRow = ({ data }: RowProps) => {
   // Open permissions dialog
   const [showPermissions, setShowPermissions] = useState(false);
 
+  const { permissions } = useAuthData();
+
   return (
-    <StyledListTableRow isActive={openMenu}>
+    <StyledListTableRow>
       <ListTableCell>
         {data.name}
       </ListTableCell>
@@ -44,19 +45,23 @@ const RoleRow = ({ data }: RowProps) => {
         {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')}
       </ListTableCell>
       <ListTableCell align="right">
-        <Menu
-          isCloseOnMenu
-          menuComponent={(
-            <ClickAwayListener onClickAway={() => setOpenMenu(false)}>
-              <IconButton className="menu-btn" onClick={() => void setOpenMenu(true)}><ThreeDotsIcon /></IconButton>
-            </ClickAwayListener>
-          )}
-        >
-          <MenuItem onClick={() => void setOpenDialog(true)}>
-            <EditIcon style={{ marginRight: 5 }} />{t('edit')}
-          </MenuItem>
-          <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon style={{ marginRight: 5 }} />{t('delete')}</MenuItem>
-        </Menu>
+        {(permissions.includes('roles:update') || permissions.includes('roles:delete')) && (
+          <Menu
+            isCloseOnMenu
+            menuComponent={(
+              <IconButton className="menu-btn"><ThreeDotsIcon /></IconButton>
+            )}
+          >
+            {permissions.includes('roles:update') && (
+              <MenuItem onClick={() => void setOpenDialog(true)}>
+                <EditIcon />{t('edit')}
+              </MenuItem>
+            )}
+            {permissions.includes('roles:delete') && (
+              <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon />{t('delete')}</MenuItem>
+            )}
+          </Menu>
+        )}
       </ListTableCell>
       {!!openDialog && (
         <FormDialog

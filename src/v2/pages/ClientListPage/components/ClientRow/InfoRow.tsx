@@ -40,7 +40,7 @@ const InfoRow = () => {
         }
         if (clientField === 'status') {
           return createTableCell(data.status ? <StatusLabel className={data.status}>{t(`selects.clientStatus.${data.status}`)}</StatusLabel> : '',
-            t(`selects.userStatus.${data.status}`));
+            t(`selects.clientStatus.${data.status}`));
         }
         if (clientField === 'managers') {
           return createTableCell(data.managers?.map((item) => `${(item as IUser).name} ${(item as IUser).surname}`).join(', '));

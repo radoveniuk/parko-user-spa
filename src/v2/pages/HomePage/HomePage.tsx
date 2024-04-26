@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 import { Button } from 'v2/uikit';
 import { FormCard, FormCardBody, FormCardHeader } from 'v2/uikit/FormCard';
+import Loader from 'v2/uikit/Loader';
 import StatusLabel from 'v2/uikit/StatusLabel';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from 'v2/uikit/Table';
 
@@ -23,13 +24,14 @@ import { DashboardWrapper, NoDataWrapper } from './styles';
 const HomePage = () => {
   const { t } = useTranslation();
   const { isVerified, permissions } = useAuthData();
-  const { data: dashboard } = useGetDashboardData();
+  const { data: dashboard, isFetching } = useGetDashboardData();
 
   useDocumentTitle();
 
   return (
     <>
       <DashboardWrapper>
+        {isFetching && <Loader />}
         <div className="cards">
           <div className="col">
             {permissions.includes('users:read') && (
@@ -99,7 +101,6 @@ const HomePage = () => {
               </FormCard>
             )}
             {permissions.includes('orders:read') && (
-
               <FormCard>
                 <FormCardHeader icon={<RecruiterIcon size={24} />} title={t('navbar.orders')}>
                   <Link to="/orders"><Button>{t('showAll')}</Button></Link>

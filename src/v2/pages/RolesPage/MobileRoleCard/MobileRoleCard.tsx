@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import Menu, { MenuItem } from 'v2/uikit/Menu';
 
-import { DeleteIcon, EditIcon, FormIcon } from 'components/icons';
+import { DeleteIcon, EditIcon, RoleIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import { IRole } from 'interfaces/role.interface';
 import { themeConfig } from 'theme';
@@ -31,7 +31,7 @@ const MobileRoleCard = ({ data }: Props) => {
         isCloseOnMenu
         menuComponent={(
           <MobileCardWrapper>
-            <FormIcon size={80} color={themeConfig.palette.primary.light} />
+            <RoleIcon size={80} color={themeConfig.palette.primary.light} />
             <div className="name">{data.name}</div>
             <div className="date">{getDateFromIso(data.createdAt)}</div>
           </MobileCardWrapper>

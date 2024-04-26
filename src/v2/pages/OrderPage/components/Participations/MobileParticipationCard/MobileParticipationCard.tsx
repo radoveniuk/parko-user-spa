@@ -34,7 +34,7 @@ const MobileParticipationCard = ({ style, participation }: Props) => {
       }
     });
     // eslint-disable-next-line max-len
-    return `${completedRequirderFieldsCount} / ${requiredFieldsIds.length} (${(requiredFieldsIds.length ? completedRequirderFieldsCount / requiredFieldsIds.length : 1) * 100}%)`;
+    return `${completedRequirderFieldsCount} / ${requiredFieldsIds.length} (${((requiredFieldsIds.length ? completedRequirderFieldsCount / requiredFieldsIds.length : 1) * 100).toFixed().replace('.', ',')}%)`;
   }, [participation.order.form?.requiredFields, participation.screaning]);
 
   // save updates

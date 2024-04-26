@@ -6,9 +6,10 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import pick from 'lodash-es/pick';
 import set from 'lodash-es/set';
 import ProfileFormDialog from 'v2/components/ProfileFormDialog';
-import { Button, Divider, Menu, MenuItem, Stack } from 'v2/uikit';
+import { Button, Divider, Menu, MenuItem } from 'v2/uikit';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 import IconButton from 'v2/uikit/IconButton';
+import ListTableHeader from 'v2/uikit/ListTableHeader';
 import Skeleton from 'v2/uikit/Skeleton';
 
 import { useCreateUserMutation } from 'api/mutations/userMutation';
@@ -27,7 +28,7 @@ import { AnyObject } from 'interfaces/base.types';
 import { ICustomFormFieldSectionBinding } from 'interfaces/form.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { FiltersWrapper, HeaderWrapper } from './styles';
+import { FiltersWrapper } from './styles';
 
 type Props = {
   selectedItems: IUser[],
@@ -165,57 +166,53 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
 
   return (
     <>
-      <HeaderWrapper>
-        <Stack direction="row" gap="9px" alignContent="center">
-          <span className="bold counter">{t('profilesPage.users')}: {!loading ? data.length : <Skeleton width={50} height={18} />}</span>
-        </Stack>
-        <Stack direction="row" gap="15px">
-          <IconButton className="small-btn" onClick={() => void setOpenMobileFilters(true)}><FilterIcon size={25} /></IconButton>
-          {permissions.includes('users:create') && (
-            <div className="link">
-              <IconButton className="small-btn primary" onClick={() => void setOpenNewProfile(true)}><PlusIcon size={25} /></IconButton>
-              <Button className="big-btn" onClick={() => void setOpenNewProfile(true)}>
-                {t('user.new')}
+      <ListTableHeader
+        classNames={{ title: 'bold counter' }}
+        title={<>{t('profilesPage.users')}: {!loading ? data.length : <Skeleton width={50} height={18} />}</>}
+      >
+        <IconButton className="small-btn" onClick={() => void setOpenMobileFilters(true)}><FilterIcon size={25} /></IconButton>
+        {permissions.includes('users:create') && (
+          <div className="link">
+            <IconButton className="small-btn primary" onClick={() => void setOpenNewProfile(true)}><PlusIcon size={25} /></IconButton>
+            <Button className="big-btn" onClick={() => void setOpenNewProfile(true)}>
+              {t('user.new')}
+            </Button>
+          </div>
+        )}
+        <Menu
+          isCloseOnMenu
+          menuComponent={(
+            <>
+              <Button className="big-btn">
+                <div className="text">{t('fastActions')}</div>
+                <ArrowDownIcon className="big-icon" />
               </Button>
-            </div>
+              <IconButton className="small-btn primary"><ThreeDotsIcon size={25} /></IconButton>
+            </>
           )}
-          <Menu
-            isCloseOnMenu
-            menuComponent={(
-              <>
-                <Button className="big-btn">
-                  <div className="text">{t('fastActions')}</div>
-                  <ArrowDownIcon className="big-icon" />
-                </Button>
-                <IconButton className="small-btn primary"><ThreeDotsIcon size={25} /></IconButton>
-              </>
-            )}
-          >
-            <MenuItem onClick={() => void setSelectedItems(data)}>
-              {t('selectAll')}
-            </MenuItem>
-            <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
-              {t('removeSelect')}
-            </MenuItem>
-            <MenuItem disabled={!selectedItems.length} onClick={() => void setOpenPrintDialog(true)}>
-              {t('docsTemplates.print')}
-            </MenuItem>
-            <Divider />
-            {permissions.includes('users:create')
-              ? (
-                <Link to="/import-profiles">
-                  <MenuItem disabled={!permissions.includes('users:create')}>
-                    <UploadIcon style={{ marginRight: 6 }} />
-                    {t('user.import')}
-                  </MenuItem>
-                </Link>
-              )
-              : <></>}
-            <MenuItem style={{ color: '#1e6e43' }} disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
-              <ExcelIcon size={20} style={{ marginRight: 6 }} />{t('user.export')}
-            </MenuItem>
-          </Menu>
-        </Stack>
+        >
+          <MenuItem onClick={() => void setSelectedItems(data)}>
+            {t('selectAll')}
+          </MenuItem>
+          <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
+            {t('removeSelect')}
+          </MenuItem>
+          <MenuItem disabled={!selectedItems.length} onClick={() => void setOpenPrintDialog(true)}>
+            {t('docsTemplates.print')}
+          </MenuItem>
+          <Divider />
+          {permissions.includes('users:create') && (
+            <Link to="/import-profiles">
+              <MenuItem disabled={!permissions.includes('users:create')}>
+                <UploadIcon />
+                {t('user.import')}
+              </MenuItem>
+            </Link>
+          )}
+          <MenuItem style={{ color: '#1e6e43' }} disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
+            <ExcelIcon size={20} />{t('user.export')}
+          </MenuItem>
+        </Menu>
         <DialogFullscreen title={t('filters')} open={openMobileFilters} onClose={() => void setOpenMobileFilters(false)}>
           <FiltersWrapper>
             <FilterAutocomplete
@@ -237,7 +234,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
             <Button onClick={() => void setOpenMobileFilters(false)} variant="contained" className="apply-filter-btn">{t('user.approve')}</Button>
           </FiltersWrapper>
         </DialogFullscreen>
-      </HeaderWrapper>
+      </ListTableHeader>
       <ProfileFormDialog
         open={openNewProfile}
         onClose={() => void setOpenNewProfile(false)}

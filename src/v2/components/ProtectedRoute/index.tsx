@@ -14,7 +14,10 @@ const ProtectedRoute = ({ permission }: Props) => {
   if (isFetching) {
     return <FullPageLoaderWrapper><Loader /></FullPageLoaderWrapper>;
   }
-  return (isAuth && permissions.includes(permission as string)) ? <Outlet/> : <Navigate to="/not-found" />;
+  if (!isAuth) {
+    return <Navigate to="/login" />;
+  }
+  return permissions.includes(permission as string) || !permission ? <Outlet/> : <Navigate to="/not-found" />;
 };
 
 export default ProtectedRoute;

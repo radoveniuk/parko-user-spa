@@ -1,0 +1,17 @@
+{
+  "users": ["users:read", "users:create", "users:update", "users:delete"],
+  "employments": ["employments:read", "employments:create", "employments:update", "employments:delete"],
+  "clients": ["clients:read", "clients:create", "clients:update", "clients:delete"],
+  "projects": ["projects:read", "projects:create", "projects:update", "projects:delete"],
+  "orders": ["orders:read", "orders:create", "orders:update", "orders:delete"],
+  "residences": ["residences:read", "residences:create", "residences:update", "residences:delete"],
+  "accommodations": ["accommodations:read", "accommodations:create", "accommodations:update", "accommodations:delete"],
+  "prepayments": ["prepayments:read", "prepayments:create", "prepayments:update", "prepayments:delete"],
+  "daysoff": ["daysoff:read", "daysoff:create", "daysoff:update", "daysoff:delete"],
+  "paychecks": ["paychecks:read", "paychecks:create", "paychecks:update", "paychecks:delete"],
+  "payrolls": ["payrolls:read", "payrolls:create", "payrolls:update", "payrolls:delete"],
+  "notifications": ["notifications:read", "notifications:send", "notifications:delete"],
+  "docsTemplates": ["docsTemplates:read", "docsTemplates:create", "docsTemplates:update", "docsTemplates:delete"],
+  "customFields": ["customFields:read", "customFields:create", "customFields:update", "customFields:delete"],
+  "roles": ["roles:read", "roles:create", "roles:update", "roles:delete"]
+}

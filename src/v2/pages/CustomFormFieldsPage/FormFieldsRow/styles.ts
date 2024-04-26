@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { ListTableRow } from 'components/shared/ListTable';
 
-export const StyledListTableRow = styled(ListTableRow)<{ isActive: boolean }>`
+export const StyledListTableRow = styled(ListTableRow)`
   .menu-btn {
     opacity: 0;
   }
@@ -11,13 +11,4 @@ export const StyledListTableRow = styled(ListTableRow)<{ isActive: boolean }>`
       opacity: 1;
     }
   }
-
-  ${(props) => props.isActive && css`
-    .list-table-cell {
-      background-color: #e9e9e9;
-    }
-    .menu-btn {
-      opacity: 1;
-    }
-  `}
 `;

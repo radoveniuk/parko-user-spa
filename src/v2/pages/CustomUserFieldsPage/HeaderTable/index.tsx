@@ -1,14 +1,16 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Menu, MenuItem, Stack } from 'v2/uikit';
+import { Menu, MenuItem } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
+import ListTableHeader from 'v2/uikit/ListTableHeader';
 
 import { FieldIcon, FormIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 
 import { BindingDialog } from '../dialogs';
 import { SectionsDialog } from '../dialogs/SectionsDialog';
 
-import { HeaderWrapper, MenuItemContent } from './styles';
+import { MenuItemContent } from './styles';
 
 type Props = {
   count: number;
@@ -20,13 +22,12 @@ const HeaderTable = ({ count }: Props) => {
   const [openField, setOpenField] = useState(false);
   const [openSections, setOpenSections] = useState(false);
 
+  const { permissions } = useAuthData();
+
   return (
     <>
-      <HeaderWrapper>
-        <Stack direction="row" gap="9px" alignContent="center">
-          <span className="bold">{t('customForms.userCustomFields')}: {count}</span>
-        </Stack>
-        <Stack direction="row" gap="15px">
+      <ListTableHeader title={`${t('customForms.userCustomFields')}: ${count}`}>
+        {permissions.includes('customFields:create') && (
           <div className="link">
             <Menu className="big-btn" isCloseOnMenu>
               <MenuItem onClick={() => void setOpenField(true)}>
@@ -39,8 +40,8 @@ const HeaderTable = ({ count }: Props) => {
             <IconButton className="small-btn primary" onClick={() => void setOpenField(true)}><FieldIcon size={25} /></IconButton>
             <IconButton className="small-btn primary" onClick={() => void setOpenSections(true)}><FormIcon size={25} /></IconButton>
           </div>
-        </Stack>
-      </HeaderWrapper>
+        )}
+      </ListTableHeader>
       {!!openField && (
         <BindingDialog
           defaultData
