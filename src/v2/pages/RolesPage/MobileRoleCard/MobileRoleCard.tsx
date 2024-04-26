@@ -4,6 +4,7 @@ import DialogConfirm from 'v2/uikit/DialogConfirm';
 import Menu, { MenuItem } from 'v2/uikit/Menu';
 
 import { DeleteIcon, EditIcon, RoleIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IRole } from 'interfaces/role.interface';
 import { themeConfig } from 'theme';
@@ -25,6 +26,8 @@ const MobileRoleCard = ({ data }: Props) => {
 
   const { remove } = useRoleActions();
 
+  const { permissions } = useAuthData();
+
   return (
     <>
       <Menu
@@ -37,14 +40,18 @@ const MobileRoleCard = ({ data }: Props) => {
           </MobileCardWrapper>
         )}
       >
-        <MenuItem onClick={() => void setOpenDialog(true)}>
-          <EditIcon style={{ marginRight: 5 }} />{t('edit')}
-        </MenuItem>
-        <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon style={{ marginRight: 5 }} />{t('delete')}</MenuItem>
+        {permissions.includes('roles:update') && (
+          <MenuItem onClick={() => void setOpenDialog(true)}>
+            <EditIcon />{t('edit')}
+          </MenuItem>
+        )}
+        {permissions.includes('roles:delete') && (
+          <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon />{t('delete')}</MenuItem>
+        )}
       </Menu>
       {!!openDialog && (
         <RoleDialog
-          defaultData={true}
+          defaultData={data}
           onClose={() => void setOpenDialog(false)}
           open={openDialog}
           title={data.name}

@@ -15,7 +15,6 @@ type contextType = {
   logout(): void;
   userId: string;
   role: UserRole | undefined;
-  isVerified: boolean;
   isFetching: boolean;
   username: string;
   permissions: string[];
@@ -30,8 +29,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const loginMutation = useLoginMutation();
   const logoutMutation = useLogoutMutation();
   const { data: userData, isLoading } = useGetUser(userId, { enabled: !!userId && isAuth });
-
-  const isVerified = useMemo(() => !!userData?.project || ['admin', 'recruiter', 'super-admin'].includes(userData?.role as string), [userData]);
 
   const login = async (data: LoginDto) => {
     const loginResult = await loginMutation.mutateAsync(data);
@@ -63,7 +60,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         logout,
         userId,
         role,
-        isVerified,
         username: userData?.fullname as string,
         isFetching: isLoading,
         permissions: [...new Set(userData?.roles?.flatMap(role => (role as unknown as IRole).permissions))],
@@ -106,7 +102,6 @@ export const useAuthData = () => {
   return {
     id: authContext.userId,
     role: authContext.role,
-    isVerified: authContext.isVerified,
     username: authContext.username,
     isFetching: authContext.isFetching,
     permissions: authContext.permissions,

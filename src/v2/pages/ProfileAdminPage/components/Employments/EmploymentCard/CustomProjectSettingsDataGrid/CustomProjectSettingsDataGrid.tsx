@@ -31,8 +31,6 @@ type CustomProjectSettingsDataGridRowProps = {
 const CustomProjectSettingsDataGridRow = ({
   data, onChange, onDelete, disabledForRecruiter, triggerAllFields,
 }: CustomProjectSettingsDataGridRowProps) => {
-  const { role } = useAuthData();
-  const disabled = role !== 'admin' && disabledForRecruiter;
   const { register, watch, control, setValue, trigger, formState: { errors }, clearErrors } = useForm<typeof data>({ defaultValues: data });
 
   const { t } = useTranslation();
@@ -42,7 +40,6 @@ const CustomProjectSettingsDataGridRow = ({
   const dataFieldProps = {
     theme: 'gray',
     className: 'border-right',
-    disabled,
     error: !!errors.data,
     ...register('data', { required: true, onChange () { clearErrors('data'); } }),
   } as const;
@@ -223,7 +220,6 @@ const CustomProjectSettingsDataGridRow = ({
               onChange={field.onChange}
               inputProps={{ theme: 'gray' }}
               className="border-right"
-              disabled={disabled}
             />
           )}
         />
@@ -233,7 +229,7 @@ const CustomProjectSettingsDataGridRow = ({
       </div>
       <div className="cell">
         <Input label={t('user.employmentChangeCreatedAt')} disabled value={getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')}/>
-        <IconButton className="delete-btn" disabled={disabled} onClick={() => void onDelete()}><DeleteIcon size={16} /></IconButton>
+        <IconButton className="delete-btn" onClick={() => void onDelete()}><DeleteIcon size={16} /></IconButton>
       </div>
     </div>
   );

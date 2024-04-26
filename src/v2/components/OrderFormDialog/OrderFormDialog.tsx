@@ -68,7 +68,7 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
     },
   });
 
-  const { data: managers = [], isFetching: isManagersFetching } = useGetUserList({ roles: 'recruiter,admin' });
+  const { data: managers = [], isFetching: isManagersFetching } = useGetUserList({ permissions: 'users:update' });
   const { data: clients } = useGetClients();
   const { data: projects } = useGetProjects();
   const { data: customForms } = useGetCustomForms();

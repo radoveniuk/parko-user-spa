@@ -239,7 +239,12 @@ export const SYSTEM_SETTINGS_FIELDS: UserFieldsList = {
     render: (data, t) => <StatusLabel className={`${data} column-content`}>{data && t(`selects.userStatus.${data}`)}</StatusLabel>,
   },
   role: {
-    type: 'select',
+    type: 'readonly',
+    render: (roles) => {
+      console.log(roles);
+
+      return roles?.map((r: {name:string}) => r.name).join(',');
+    },
   },
 };
 

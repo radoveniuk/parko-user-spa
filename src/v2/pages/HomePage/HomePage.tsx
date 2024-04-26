@@ -19,19 +19,20 @@ import { IOrder } from 'interfaces/order.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { DashboardWrapper, NoDataWrapper } from './styles';
+import { DashboardWrapper } from './styles';
 
 const HomePage = () => {
   const { t } = useTranslation();
-  const { isVerified, permissions } = useAuthData();
-  const { data: dashboard, isFetching } = useGetDashboardData();
+  const { permissions } = useAuthData();
+  const { data: dashboard, isLoading } = useGetDashboardData();
 
   useDocumentTitle();
+
+  if (isLoading) return Loader;
 
   return (
     <>
       <DashboardWrapper>
-        {isFetching && <Loader />}
         <div className="cards">
           <div className="col">
             {permissions.includes('users:read') && (
@@ -236,7 +237,6 @@ const HomePage = () => {
           </div>
         </div>
       </DashboardWrapper>
-      {!isVerified && <NoDataWrapper>{t('youNotVerified')}</NoDataWrapper>}
     </>
   );
 };

@@ -8,6 +8,7 @@ import { useDeleteDocsTemplate } from 'api/mutations/docsTemplateMutation';
 import { useDeleteFileMutation } from 'api/mutations/fileMutation';
 import downloadFile from 'api/query/downloadFile';
 import { DeleteIcon, DownloadFileIcon, EditIcon, WordFileIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IDocsTemplate } from 'interfaces/docsTemplate.interface';
 import { IFile } from 'interfaces/file.interface';
@@ -21,7 +22,7 @@ type Props = {
   data: IDocsTemplate;
 };
 
-const MobilePrepaymentCard = ({ data }: Props) => {
+const MobileTemplateCard = ({ data }: Props) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const queryKey = ['docsTemplates', JSON.stringify({})];
@@ -33,6 +34,8 @@ const MobilePrepaymentCard = ({ data }: Props) => {
 
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
+  const { permissions } = useAuthData();
 
   return (
     <>
@@ -49,12 +52,16 @@ const MobilePrepaymentCard = ({ data }: Props) => {
         <MenuItem
           onClick={() => void downloadFile(file._id, file.originalname, file.ext, 'save')}
         >
-          <DownloadFileIcon style={{ marginRight: 5 }} />{t('download')}
+          <DownloadFileIcon />{t('download')}
         </MenuItem>
-        <MenuItem onClick={() => void setOpenDialog(true)}>
-          <EditIcon style={{ marginRight: 5 }} />{t('edit')}
-        </MenuItem>
-        <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon style={{ marginRight: 5 }} />{t('delete')}</MenuItem>
+        {permissions.includes('docsTemplates:update') && (
+          <MenuItem onClick={() => void setOpenDialog(true)}>
+            <EditIcon />{t('edit')}
+          </MenuItem>
+        )}
+        {permissions.includes('docsTemplates:delete') && (
+          <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon />{t('delete')}</MenuItem>
+        )}
       </Menu>
       {!!openDialog && (
         <TemplateDialog
@@ -87,4 +94,4 @@ const MobilePrepaymentCard = ({ data }: Props) => {
   );
 };
 
-export default memo(MobilePrepaymentCard);
+export default memo(MobileTemplateCard);

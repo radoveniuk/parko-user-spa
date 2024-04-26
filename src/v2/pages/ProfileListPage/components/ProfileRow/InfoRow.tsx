@@ -73,7 +73,7 @@ const InfoRow = () => {
           return createTableCell(t(data[userField as keyof IUser]));
         }
         if (userField === 'role') {
-          return createTableCell(data[userField] ? t(`selects.userRole.${data[userField]}`) : '');
+          return createTableCell(data.roles ? data.roles?.map((r) => r.name).join(',') : '');
         }
         if (userField === 'familyStatus') {
           return createTableCell(data[userField] ? t(`selects.familyStatus.${data[userField]}`) : '');

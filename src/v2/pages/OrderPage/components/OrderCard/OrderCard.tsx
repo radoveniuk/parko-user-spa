@@ -41,7 +41,7 @@ const OrderCard = ({ data, participations }: ClientCardProps) => {
   const renderManagers = () => managers
     ?.map((item) => {
       if (typeof item === 'string') {
-        const managerUsers = queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) as IUser[];
+        const managerUsers = queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) as IUser[];
         const manager = managerUsers.find((user) => user._id === item);
         return `${manager?.fullname}`;
       }
@@ -112,7 +112,7 @@ const OrderCard = ({ data, participations }: ClientCardProps) => {
           onSave={(values: Partial<IOrder>) => {
             closeForm();
             updateOrder.mutate({ _id: data._id, ...values });
-            const allManagers = (queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) || []) as IUser[];
+            const allManagers = (queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) || []) as IUser[];
             const allClients = (queryClient.getQueryData(['clients', JSON.stringify({})]) || []) as IClient[];
             const allProjects = (queryClient.getQueryData(['projects', JSON.stringify({})]) || []) as IProject[];
             const allCustomForms = (queryClient.getQueryData(['customForms', JSON.stringify({})]) || []) as ICustomForm[];

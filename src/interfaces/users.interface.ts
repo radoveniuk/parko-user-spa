@@ -121,7 +121,7 @@ export interface IUser {
   workTypes: UserWorkType[];
   corporateBodyAddress?: string;
   tags?: string[];
-  roles?: string[];
+  roles?: any[];
   createdAt?: string,
   updatedAt?: string,
 }

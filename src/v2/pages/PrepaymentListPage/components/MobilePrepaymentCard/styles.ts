@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { themeConfig } from 'theme';
 
-export const MobileClientCardWrapper = styled.div`
+export const MobileCardWrapper = styled.div`
   .card {
     margin: 3px 6px;
     padding: 12px 6px 6px 6px;

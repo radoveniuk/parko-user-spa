@@ -24,7 +24,6 @@ import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { CORPORATE_BODY_STATUS, EMPLOYMENT_TYPE, FAMILY_STATUSES, INSURANCE, PERMIT_TYPES, SIZES } from 'constants/selectsOptions';
 import { USER_STATUSES } from 'constants/statuses';
 import { ALL_FORM_FIELDS } from 'constants/userFormFields';
-import { ROLES } from 'constants/userRoles';
 import { isMongoId } from 'helpers/regex';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
@@ -41,7 +40,7 @@ const EditingRow = () => {
   const { register, formState: { errors }, control, handleSubmit } = useForm<IUser>();
   const queryClient = useQueryClient();
   // options
-  const recruiters = queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) as IUser[];
+  const recruiters = queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) as IUser[];
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
@@ -50,7 +49,6 @@ const EditingRow = () => {
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
   const sexOptions = useTranslatedSelect(['male', 'female']);
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
-  const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
   const corporateBodyStatusOptions = useTranslatedSelect(CORPORATE_BODY_STATUS, 'corporateBodyStatus');
   const familyStatusOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
   const translatedPermitTypes = useTranslatedSelect(PERMIT_TYPES, 'permitType');
@@ -64,14 +62,13 @@ const EditingRow = () => {
     sex: sexOptions,
     employmentType: employmentTypeOptions,
     status: translatedStatuses,
-    role: translatedRoles,
     businessStatus: corporateBodyStatusOptions,
     familyStatus: familyStatusOptions,
     medicalInsurance: INSURANCE,
     workTypes: translatedWorkTypes,
     'permit.goal': translatedPermitTypes,
   }), [corporateBodyStatusOptions, employmentTypeOptions, familyStatusOptions, sexOptions,
-    translatedPermitTypes, translatedRoles, translatedStatuses, translatedWorkTypes]);
+    translatedPermitTypes, translatedStatuses, translatedWorkTypes]);
 
   const dynamicSelectOptions: AnyObject = useMemo(() => ({
     recruiter: {
@@ -225,7 +222,10 @@ const EditingRow = () => {
             {...fieldData.selectProps}
           />
         )}
-        {fieldData?.type === 'readonly' && fieldName as string !== 'client' && (
+        {fieldData?.type === 'readonly' && fieldName === 'role' && (
+          <div>{fieldData.render?.(data?.roles, t)}</div>
+        )}
+        {fieldData?.type === 'readonly' && !['client', 'role'].includes(fieldName as string) && (
           <div>{fieldData.render?.(data?.[fieldName], t)}</div>
         )}
         {fieldData?.type === 'readonly' && ['client', 'clientCompany'].includes(fieldName as string) && (

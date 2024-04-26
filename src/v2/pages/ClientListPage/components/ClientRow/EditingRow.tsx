@@ -22,7 +22,7 @@ const EditingRow = () => {
   const { data, cols, saveEdit } = useClientRowContext();
   const { register, formState: { errors }, control, handleSubmit } = useForm<IClient>();
 
-  const { data: managers = [] } = useGetUserList({ roles: 'recruiter,admin' });
+  const { data: managers = [] } = useGetUserList({ permissions: 'users:update' });
   const statuses = useTranslatedSelect(CLIENT_STATUS, 'clientStatus', true, false);
 
   const generateField = (fieldName: keyof IClient) => {

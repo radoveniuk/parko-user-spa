@@ -38,7 +38,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const sexOptions = useTranslatedSelect(['male', 'female']);
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
-  const { data: recruiters = [] } = useGetUserList({ roles: 'recruiter,admin' });
+  const { data: recruiters = [] } = useGetUserList({ permissions: 'users:update' });
 
   // roles
   const { data: roles = [] } = useGetRoles();
@@ -64,7 +64,6 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
     onSave?.({
       ...values,
       recruiter: recruiter || null,
-      role: values.role || 'user',
       name: processName(values.name),
       surname: processName(values.surname),
     });

@@ -94,7 +94,7 @@ const Table = ({
 
   const updateUser = (values: Partial<IUser>) => {
     if (values._id) {
-      const recruiters = queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) as IUser[];
+      const recruiters = queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) as IUser[];
       updateUserMutation.mutate({ ...values, _id: values._id });
       const project = projects.find(item => item._id === values.project) || null;
       const recruiter = recruiters.find(item => item._id === values.recruiter) || null;

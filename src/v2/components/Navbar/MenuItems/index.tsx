@@ -54,7 +54,8 @@ const MenuItems = () => {
                 </ListItem>
               </Link>
             );
-          } else {
+          } else if (item.children
+            ?.filter(item => !item.permission || permissions.includes(item.permission as string)).length) {
             return (
               <AccordionWrapper
                 onClick={() => onClickAccordion(item.title)}
@@ -94,6 +95,8 @@ const MenuItems = () => {
                 </AccordionDetails>
               </AccordionWrapper>
             );
+          } else {
+            return null;
           }
         })}
     </div>

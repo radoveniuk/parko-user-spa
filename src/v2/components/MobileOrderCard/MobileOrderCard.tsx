@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
-import { EditIcon, GoalIcon, RecruiterIcon } from 'components/icons';
+import { EyeIcon, GoalIcon, RecruiterIcon } from 'components/icons';
 import { getDateFromIso } from 'helpers/datetime';
 import { IOrder } from 'interfaces/order.interface';
 
@@ -29,7 +29,7 @@ const MobileOrderCard = ({ style, order }: Props) => {
         <a href={order.specificationUrl} target="_blank" rel="noreferrer"><RecruiterIcon />{t('order.specificationUrl')}</a>
         <div className="goal"><GoalIcon />{t('order.goal')}: {order.goal}</div>
         <div className="actions">
-          <Link to={`/order/${order._id}`}><IconButton><EditIcon /></IconButton></Link>
+          <Link to={`/order/${order._id}`}><IconButton><EyeIcon /></IconButton></Link>
         </div>
       </div>
     </MobileOrderCardWrapper>

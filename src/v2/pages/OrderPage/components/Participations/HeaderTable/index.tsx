@@ -12,6 +12,7 @@ import { useCreateUserMutation } from 'api/mutations/userMutation';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import { ArrowDownIcon, PlusIcon, ThreeDotsIcon } from 'components/icons';
 import { DEFAULT_PASS } from 'constants/user';
+import { useAuthData } from 'contexts/AuthContext';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 import { IUser } from 'interfaces/users.interface';
 
@@ -47,6 +48,8 @@ const HeaderTable = ({ participations, selectedItems, setSelectedItems, setOpenP
     await createParticipation(createdUser._id);
   };
 
+  const { permissions } = useAuthData();
+
   return (
     <>
       <ListTableHeader title={`${t('order.participations')}: ${participations.length}`}>
@@ -62,13 +65,17 @@ const HeaderTable = ({ participations, selectedItems, setSelectedItems, setOpenP
             </>
           )}
         >
-          <MenuItem onClick={() => void setOpenCreateParticipationDialog(true)}>
-            {t('order.addNewParticipation')}
-          </MenuItem>
-          <MenuItem onClick={() => void setOpenCreateUserDialog(true)}>
-            {t('user.new')}
-          </MenuItem>
-          <Divider />
+          {permissions.includes('orders:update') && (
+            <>
+              <MenuItem onClick={() => void setOpenCreateParticipationDialog(true)}>
+                {t('order.addNewParticipation')}
+              </MenuItem>
+              <MenuItem onClick={() => void setOpenCreateUserDialog(true)}>
+                {t('user.new')}
+              </MenuItem>
+              <Divider />
+            </>
+          )}
           <MenuItem onClick={() => void setSelectedItems(participations)}>
             {t('selectAll')}
           </MenuItem>

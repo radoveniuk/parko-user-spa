@@ -23,7 +23,7 @@ const Notifications = ({
   options,
   mode = 'from',
 }: Props) => {
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
   const { data = [], refetch } = useGetNotifications(options);
   const { t } = useTranslation();
   const updateNotificationMutation = useUpdateNotificationMutation();
@@ -76,7 +76,7 @@ const Notifications = ({
       />
       {selectedNotification !== null && (
         <NotificationContent>
-          {['admin', 'recruiter', 'super-admin'].includes(role as string) && (
+          {permissions.includes('notifications:delete') && (
             <NotificationDeleteButton onClick={() => void setOpenDeleteModal(true)} />
           )}
           <NotificationTitle>{selectedNotification.title}</NotificationTitle>
