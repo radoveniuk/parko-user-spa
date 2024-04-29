@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PrintDocDialog from 'v2/components/PrintDocDialog';
 import { COUNTRIES } from 'v2/constants/countries';
+import { PROJECT_TYPES } from 'v2/constants/projectType';
 import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
@@ -169,6 +170,15 @@ const ProfileListPageRender = () => {
             options={allProjects}
             getOptionLabel={(option) => `${option.client?.shortName ? `${option.client?.shortName} > ` : `${option.client?.name} > `}${option.name}`}
             theme="gray"
+            disabled={loading}
+          />
+          <FilterAutocomplete
+            multiple
+            filterKey="employmentProjectTypes"
+            label={t('user.cooperationType')}
+            labelKey="label"
+            theme="gray"
+            options={Object.values(PROJECT_TYPES).map(item => ({ _id: item.value, label: item.label }))}
             disabled={loading}
           />
           <FilterAutocomplete
