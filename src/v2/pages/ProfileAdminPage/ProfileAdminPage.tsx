@@ -31,7 +31,7 @@ import { useGetPayrollList } from 'api/query/payrollQuery';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetResidences } from 'api/query/residenceQuery';
 import { useGetUser } from 'api/query/userQuery';
-import { DeleteIcon, PlusIcon, PrintIcon, RestoreIcon, WarningIcon } from 'components/icons';
+import { DeleteIcon, PasswordIcon, PlusIcon, PrintIcon, RestoreIcon, WarningIcon } from 'components/icons';
 import { MenuItem } from 'components/shared/Menu';
 import { CANDIDATE_ORDER_STAGE } from 'constants/orders';
 import { useAuthData } from 'contexts/AuthContext';
@@ -39,6 +39,7 @@ import { IOrder } from 'interfaces/order.interface';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 import { IPaycheck } from 'interfaces/paycheck.interface';
 import { IProject } from 'interfaces/project.interface';
+import { IRole } from 'interfaces/role.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import Employments from './components/Employments';
@@ -55,6 +56,7 @@ import ResidencesFormCard from './components/FormCards/ResidencesFormCard';
 import ScansFormCard from './components/FormCards/ScansFormCard';
 import OrderParticipations from './components/OrderParticipations';
 import ProfileCard from './components/ProfileCard';
+import ResetPasswordDialog from './components/ResetPasswordDialog';
 import UpdateHistory from './components/UpdateHistory';
 import useUpdateCachedUserData from './hooks/useUpdateCachedUserData';
 import { ContentWrapper, ProfileAdminPageWrapper } from './styles';
@@ -120,10 +122,13 @@ const ProfileAdminPageRender = () => {
   };
 
   const updateUser = (data: Partial<IUser>) => {
-    const updatedData = { ...profileData, ...data };
-    delete updatedData.password;
-    updateUserMutation.mutate({ _id: userId as string, ...updatedData });
-    updateCachedUserData(updatedData);
+    const rolesToIds = (roles: IRole[]) => roles?.map(role => (role as unknown as IRole)._id);
+    const updatedData = { ...data };
+    if (!updatedData.password) {
+      delete updatedData.password;
+    }
+    updateUserMutation.mutate({ _id: userId as string, ...updatedData, roles: rolesToIds(data.roles || profileData?.roles || []) });
+    updateCachedUserData({ ...profileData, ...updatedData });
   };
 
   const finances = useMemo(() => [
@@ -174,30 +179,10 @@ const ProfileAdminPageRender = () => {
   // print
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
 
+  // reset password
+  const [openResetDialog, setOpenResetDialog] = useState(false);
+
   if (!profileData) return <FullPageLoaderWrapper><Loader /></FullPageLoaderWrapper>;
-
-  const menuActions = [
-    <MenuItem onClick={() => void setOpenPrintDialog(true)} key="print">
-      <PrintIcon size={16} />
-      {t('docsTemplates.print')}
-    </MenuItem>,
-  ];
-
-  if (profileData?.isDeleted) {
-    menuActions.push(
-      <MenuItem onClick={() => void updateUser({ isDeleted: false })} key="restore">
-        <RestoreIcon size={16} />
-        {t('restore')}
-      </MenuItem>,
-    );
-  }
-
-  menuActions.push(
-    <MenuItem color="error" onClick={() => void setOpenDeleteDialog(true)} key="delete">
-      <DeleteIcon size={16} />
-      {t('delete')}
-    </MenuItem>,
-  );
 
   return (
     <ProfileAdminPageWrapper>
@@ -216,7 +201,24 @@ const ProfileAdminPageRender = () => {
             )}
             {permissions.includes('users:update') && (
               <Menu className="big-btn" isCloseOnMenu>
-                {menuActions}
+                <MenuItem onClick={() => void setOpenPrintDialog(true)}>
+                  <PrintIcon size={16} />
+                  {t('docsTemplates.print')}
+                </MenuItem>
+                {profileData?.isDeleted && (
+                  <MenuItem onClick={() => void updateUser({ isDeleted: false })}>
+                    <RestoreIcon size={16} />
+                    {t('restore')}
+                  </MenuItem>
+                )}
+                <MenuItem color="error" onClick={() => void setOpenResetDialog(true)}>
+                  <PasswordIcon size={16} />
+                  {t('user.resetPassword')}
+                </MenuItem>
+                <MenuItem color="error" onClick={() => void setOpenDeleteDialog(true)}>
+                  <DeleteIcon size={16} />
+                  {t('delete')}
+                </MenuItem>
               </Menu>
             )}
           </>
@@ -485,6 +487,14 @@ const ProfileAdminPageRender = () => {
       )}
       {openPrintDialog && (
         <PrintDocDialog users={[profileData]} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
+      )}
+      {openResetDialog && (
+        <ResetPasswordDialog
+          color="rgb(237, 108, 2)"
+          open={openResetDialog}
+          onClose={() => void setOpenResetDialog(false)}
+          onUpdate={updateUser}
+        />
       )}
     </ProfileAdminPageWrapper>
   );

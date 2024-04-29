@@ -162,9 +162,9 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
         data={pick(
           { ...user, recruiter: recruiter?._id || null },
           ['name', 'surname', 'email', 'birthDate', 'country', 'sex', 'adress',
-            'source', 'recruiter', 'phone', 'role', 'notes', 'workTypes', 'roles'],
+            'source', 'recruiter', 'phone', 'notes', 'workTypes', 'roles'],
         )}
-        title={`${user.name} ${user.surname}`}
+        title={`${user.fullname}`}
         open={isOpenForm}
         onClose={closeForm}
         onSave={(values) => {

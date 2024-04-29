@@ -4,7 +4,7 @@ import Button from 'v2/uikit/Button';
 
 import { useLoginMutation, useUpdateUserMutation } from 'api/mutations/userMutation';
 import Dialog, { DialogProps } from 'components/shared/Dialog';
-import PasswordInput from 'components/shared/PasswordInput';
+import PasswordInput from 'v2/components/PasswordInput';
 
 import { ResetPasswordWrapper } from './styles';
 

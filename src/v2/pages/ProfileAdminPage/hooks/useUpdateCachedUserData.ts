@@ -9,6 +9,7 @@ const useUpdateCachedUserData = () => {
 
   const updateFn = (values: Partial<IUser>) => {
     const prevValues = queryClient.getQueryData(['user-data', userId]) as IUser;
+
     queryClient.setQueryData(['user-data', userId], { ...prevValues, ...values });
   };
 

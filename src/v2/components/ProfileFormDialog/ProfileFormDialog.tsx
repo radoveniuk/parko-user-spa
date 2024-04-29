@@ -25,7 +25,7 @@ import AddressSearchInput from '../AddressSearchInput/AddressSearchInput';
 import { CountrySelectOption, FormWrapper, NamesakesDialogContent } from './styles';
 
 type Data = Pick<IUser, 'name' | 'surname' | 'email' | 'birthDate' | 'country' | 'sex' |
-'adress' | 'source' | 'recruiter' | 'phone' | 'role' | 'notes' | 'workTypes' | 'roles'>
+'adress' | 'source' | 'recruiter' | 'phone' | 'notes' | 'workTypes' | 'roles'>
 
 export type ProfileFormDialogProps = DialogProps & {
   data?: Partial<Data>;
@@ -42,11 +42,13 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
 
   // roles
   const { data: roles = [] } = useGetRoles();
+  const rolesToIds = (roles: IRole[]) => roles?.map(role => (role as unknown as IRole)._id);
+  const idsToRoles = (ids: string[]) => ids?.map(roleId => roles.find(role => role._id === roleId));
 
   const {
     register, control, handleSubmit,
     formState: { errors }, reset, getValues, watch,
-  } = useForm<Data>({ defaultValues: { ...data, roles: data?.roles?.map(role => (role as unknown as IRole)._id) } });
+  } = useForm<Data>({ defaultValues: { ...data, roles: rolesToIds(data?.roles || []) } });
 
   const queryClient = useQueryClient();
 
@@ -66,6 +68,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
       recruiter: recruiter || null,
       name: processName(values.name),
       surname: processName(values.surname),
+      roles: idsToRoles(values.roles || []),
     });
   };
 
@@ -86,7 +89,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
 
   useEffect(() => {
     if (rest.open) {
-      reset({ ...data, roles: data?.roles?.map(role => (role as unknown as IRole)._id) } || {});
+      reset({ ...data, roles: rolesToIds(data?.roles || []) } || {});
     }
   }, [data, reset, rest.open]);
 
