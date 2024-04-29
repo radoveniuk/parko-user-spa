@@ -73,7 +73,13 @@ const ProfileAdminPageRender = () => {
   const userQueryKey = JSON.stringify({ user: userId });
   const updateCachedUserData = useUpdateCachedUserData();
 
-  const { data: profileData, remove } = useGetUser(userId as string);
+  const { data: profileData, remove } = useGetUser(userId as string, {
+    onError () {
+      console.log('error!');
+
+      navigate('/not-found');
+    },
+  });
   const { data: residences = [], remove: removeResidences } = useGetResidences({ user: userId });
   const { data: prepayments = [], remove: removePrepayments } = useGetPrepayments({ user: userId });
   const { data: paychecks = [], remove: removePaychecks } = useGetPaycheckList({ user: userId });

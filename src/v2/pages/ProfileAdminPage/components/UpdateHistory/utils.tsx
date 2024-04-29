@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import Tooltip from 'v2/uikit/Tooltip';
 
 import { getDateFromIso } from 'helpers/datetime';
+import { IRole } from 'interfaces/role.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import { DocItem, DocItems } from './styles';
@@ -11,7 +12,7 @@ export const getFieldSectionLabelMap = (t: (v: string) => string) => {
   const UPDATE_SECTION_MAP: Partial<Record<keyof IUser, string>> = {
     notes: `${t('user.baseFields')} > ${t('user.notes')}`,
     source: `${t('user.baseFields')} > ${t('user.source')}`,
-    role: `${t('user.baseFields')} > ${t('user.role')}`,
+    roles: `${t('user.baseFields')} > ${t('user.role')}`,
     name: `${t('user.baseFields')} > ${t('user.name')}`,
     nickname: `${t('user.baseFields')} > ${t('user.nickname')}`,
     surname: `${t('user.baseFields')} > ${t('user.surname')}`,
@@ -77,7 +78,7 @@ export const getFieldSectionLabelMap = (t: (v: string) => string) => {
   return UPDATE_SECTION_MAP;
 };
 
-export const renderValue = (key: keyof IUser, value: string | boolean | number | string[], t: (v: string) => string) => {
+export const renderValue = (key: keyof IUser, value: any, t: (v: string) => string) => {
   if (typeof value === 'boolean' || key === 'sex') {
     return t(value?.toString());
   }
@@ -104,8 +105,8 @@ export const renderValue = (key: keyof IUser, value: string | boolean | number |
   if (key === 'familyStatus') {
     return value ? t(`selects.familyStatus.${value}`) : '';
   }
-  if (key === 'role') {
-    return value ? t(`selects.userRole.${value}`) : '';
+  if (key === 'roles') {
+    return value ? value.map((r: IRole) => r.name).join(', ') : '';
   }
   return value;
 };

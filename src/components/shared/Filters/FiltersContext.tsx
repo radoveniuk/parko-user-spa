@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useState } from 'react';
+import React, { createContext, ReactNode, useCallback, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { omit } from 'lodash-es';
 
@@ -49,7 +49,7 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
     }
   };
 
-  const removeFilter = (key: string) => {
+  const removeFilter = useCallback((key: string) => {
     setFiltersState(prevState => omit(prevState, [key]));
     if (!disablePageQueries) {
       navigate({
@@ -59,7 +59,7 @@ const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
         }).toString(),
       });
     }
-  };
+  }, [disablePageQueries, navigate, pageQueries]);
 
   const clearFilters = () => {
     setFiltersState({});

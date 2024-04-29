@@ -222,7 +222,7 @@ const EditingRow = () => {
             {...fieldData.selectProps}
           />
         )}
-        {fieldData?.type === 'readonly' && fieldName === 'role' && (
+        {fieldData?.type === 'readonly' && (fieldName as string) === 'role' && (
           <div>{fieldData.render?.(data?.roles, t)}</div>
         )}
         {fieldData?.type === 'readonly' && !['client', 'role'].includes(fieldName as string) && (

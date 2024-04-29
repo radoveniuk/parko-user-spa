@@ -14,6 +14,7 @@ import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IProject } from 'interfaces/project.interface';
+import { IRole } from 'interfaces/role.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import SexSelectorMenu from './components/SexSelectorMenu';
@@ -74,7 +75,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
           <IconButton className="edit-profile-btn" disabled={data.isDeleted} onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
         )}
         <div className="tags">
-          <Chip label={t(`selects.userRole.${user.role}`)} />
+          {user.roles?.map((role: IRole) => <Chip key={role.name} label={role.name} />)}
           {user.position && <Chip label={user.position} />}
           {user.cooperationType && <Chip label={user.cooperationType} />}
           {user.tags?.filter(tag => !!tag).map((tag) => (

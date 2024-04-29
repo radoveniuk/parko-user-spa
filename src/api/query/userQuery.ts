@@ -20,8 +20,13 @@ export const getUserListByParams = (params: AnyObject): Promise<IUser[]> => api.
 export const useGetUser = (id: string, options?: QueryOptions) => {
   const token = getCookieValue('Authorization');
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
-  const request = (): Promise<IUser> => api.get(`/users/${id}`).then(res => ({ ...res.data.data, password: null }) as IUser);
-  return useQuery<IUser>(['user-data', id], request, { enabled: !!id, ...options });
+  const request = (): Promise<IUser | undefined> => api.get(`/users/${id}`)
+    .then(res => ({ ...res.data.data, password: null }) as IUser)
+    .catch(() => {
+      window.location.href = '/not-found';
+      return undefined;
+    });
+  return useQuery<IUser | undefined>(['user-data', id], request, { enabled: !!id, ...options });
 };
 
 export const useGetUserList = (params: AnyObject = {}, options?: QueryOptions) => useQuery<IUser[]>(

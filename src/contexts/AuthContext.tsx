@@ -1,5 +1,5 @@
 import React, {
-  createContext, ReactNode, useCallback, useContext, useMemo, useState,
+  createContext, ReactNode, useCallback, useContext, useState,
 } from 'react';
 
 import { useLoginMutation, useLogoutMutation } from 'api/mutations/userMutation';
@@ -7,14 +7,13 @@ import { useGetUser } from 'api/query/userQuery';
 import { eraseCookie, getCookieValue } from 'helpers/cookies';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import { IRole } from 'interfaces/role.interface';
-import { LoginDto, UserRole } from 'interfaces/users.interface';
+import { LoginDto } from 'interfaces/users.interface';
 
 type contextType = {
   isAuth: boolean;
   login(data: LoginDto): Promise<boolean>;
   logout(): void;
   userId: string;
-  role: UserRole | undefined;
   isFetching: boolean;
   username: string;
   permissions: string[];
@@ -50,8 +49,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUserId('');
   }, [logoutMutation, setUserId, userData]);
 
-  const role = useMemo(() => isAuth && userData ? userData.role : undefined, [userData, isAuth]);
-
   return (
     <AuthContext.Provider
       value={{
@@ -59,7 +56,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         login,
         logout,
         userId,
-        role,
         username: userData?.fullname as string,
         isFetching: isLoading,
         permissions: [...new Set(userData?.roles?.flatMap(role => (role as unknown as IRole).permissions))],
@@ -101,7 +97,6 @@ export const useAuthData = () => {
 
   return {
     id: authContext.userId,
-    role: authContext.role,
     username: authContext.username,
     isFetching: authContext.isFetching,
     permissions: authContext.permissions,

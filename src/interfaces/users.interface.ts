@@ -13,10 +13,7 @@ export type RegisterUserDto = {
   phone: string;
   email: string;
   password: string;
-  role: UserRole;
 }
-
-export type UserRole = 'user' | 'admin' | 'recruiter' | 'super-admin';
 
 export type UserPersonalDocType = 'idcard' | 'pass' | 'permit' | 'visa';
 
@@ -78,7 +75,6 @@ export interface IUser {
   cooperationStartDate: string;
   cooperationEndDate: string;
   // settings
-  role: UserRole;
   status: string;
   // customization
   customFields: Record<string, any>;

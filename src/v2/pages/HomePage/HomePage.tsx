@@ -19,7 +19,7 @@ import { IOrder } from 'interfaces/order.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { DashboardWrapper } from './styles';
+import { DashboardWrapper, NoDataWrapper } from './styles';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -27,8 +27,7 @@ const HomePage = () => {
   const { data: dashboard, isLoading } = useGetDashboardData();
 
   useDocumentTitle();
-
-  if (isLoading) return <Loader />;
+  if (isLoading) return <NoDataWrapper><Loader /></NoDataWrapper>;
 
   return (
     <>

@@ -196,9 +196,9 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             theme="gray"
             label={t('user.recruiter')}
             defaultValue={data?.recruiter}
-            options={recruiters.toSorted((a, b) => b.role.length - a.role.length)}
+            options={recruiters}
             valuePath="_id"
-            labelPath={(item) => `${item.name} ${item.surname}, ${t(`selects.userRole.${item.role}`)}`}
+            labelPath={(item) => `${item.name} ${item.surname}, ${item?.roles?.map((r: IRole) => r.name).join(',')}`}
             {...register('recruiter')}
           />
           {permissions.includes('roles:update') && roles.length && (

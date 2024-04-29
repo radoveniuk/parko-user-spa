@@ -19,6 +19,7 @@ import useLocalStorageState from 'hooks/useLocalStorageState';
 import usePageQueries from 'hooks/usePageQueries';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';
+import { IRole } from 'interfaces/role.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import HeaderTable from './components/HeaderTable';
@@ -33,7 +34,7 @@ const ProfileListPageRender = () => {
   useDocumentTitle(t('profileList'));
   const pageQueries = usePageQueries();
 
-  const { debouncedFiltersState } = useFilters();
+  const { debouncedFiltersState, filtersState, removeFilter } = useFilters();
 
   // table content
   const { data = [], refetch, remove, isFetching, isLoading } = useGetUserList(debouncedFiltersState, { enabled: false });
@@ -51,7 +52,7 @@ const ProfileListPageRender = () => {
 
   // filters
   const { data: usersFilter = [] } = useGetUserListForFilter();
-  const recruiters = usersFilter.filter((item) => item.role === 'recruiter' || item.role === 'admin');
+  const { data: recruiters = [] } = useGetUserList({ permissions: 'users:update' });
   const { data: clients = [] } = useGetClients();
   const { data: allProjects = [] } = useGetProjects();
   const { data: projects = [] } = useGetProjects({ clients: debouncedFiltersState?.clients });
@@ -106,6 +107,14 @@ const ProfileListPageRender = () => {
   useEffect(() => {
     setStoredColsSettings(JSON.stringify({ cols: activeCols }));
   }, [activeCols, setStoredColsSettings]);
+
+  // reset projects filter after reseting client
+  useEffect(() => {
+    if (!filtersState?.clients?.length) {
+      removeFilter('projects');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filtersState?.clients]);
 
   const loading = isLoading || isFetching || isFetchingStartData;
 
@@ -194,8 +203,8 @@ const ProfileListPageRender = () => {
           <FilterAutocomplete
             filterKey="recruiters"
             theme="gray"
-            options={recruiters.toSorted((a, b) => b.role.length - a.role.length)}
-            getOptionLabel={(item) => `${item.name} ${item.surname}, ${t(`selects.userRole.${item.role}`)}`}
+            options={recruiters}
+            getOptionLabel={(item) => `${item.name} ${item.surname}, ${item.roles.map((r: IRole) => r.name).join(',')}`}
             valueKey="_id"
             label={t('user.recruiter')}
             multiple
