@@ -28,7 +28,7 @@ const HomePage = () => {
 
   useDocumentTitle();
 
-  if (isLoading) return Loader;
+  if (isLoading) return <Loader />;
 
   return (
     <>
