@@ -9,7 +9,6 @@ export interface IOrder<T extends boolean = false> extends IMongoDoc {
   status: string;
   client: T extends true ? Partial<IClient> : string;
   project: T extends true ? Partial<IProject> : string;
-  positionName: string;
   positionId: string;
   cooperationType: string;
   salary: string;

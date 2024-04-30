@@ -93,7 +93,7 @@ export const ORDER_STATUS = [
 ];
 
 export const ORDER_COOPERATION_TYPE = [
-  'outsorcing',
+  'outsourcing',
   'leasing',
   'podkmen',
 ];

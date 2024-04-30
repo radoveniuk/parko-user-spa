@@ -55,7 +55,7 @@ const OrderCard = ({ data, participations }: ClientCardProps) => {
     const candidates = participations.length - hired - canceled;
     const left = order.goal - hired;
     return {
-      hired, canceled, candidates, left,
+      hired, canceled, candidates, left: left > 0 ? left : 0,
     };
   }, [order.goal, participations]);
 

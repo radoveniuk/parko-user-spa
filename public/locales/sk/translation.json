@@ -411,7 +411,7 @@
     },
     "orderCooperationType": {
       "leasing": "Leasing",
-      "outsorcing": "Outsorsing",
+      "outsourcing": "Outsourcing",
       "podkmen": "Pod kmeň"
     }
   },

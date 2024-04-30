@@ -412,7 +412,7 @@
     },
     "orderCooperationType": {
       "leasing": "Лизинг",
-      "outsorcing": "Аутсорсинг",
+      "outsourcing": "Аутсорсинг",
       "podkmen": "Pod kmeň"
     }
   },
