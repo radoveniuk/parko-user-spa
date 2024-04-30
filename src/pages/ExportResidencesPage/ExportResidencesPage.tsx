@@ -2,11 +2,11 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 import Checkbox from 'v2/uikit/Checkbox';
+import Menu, { MenuItem } from 'v2/uikit/Menu';
 
 import { useGetResidences } from 'api/query/residenceQuery';
 import { ExportIcon } from 'components/icons';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
-import Menu, { MenuItem } from 'components/shared/Menu';
 import { getDateFromIso } from 'helpers/datetime';
 import { useExportData } from 'hooks/useExportData';
 import { IAccommodation } from 'interfaces/accommodation.interface';
@@ -123,7 +123,7 @@ const ExportProfilesPage = () => {
             }}
 
           />
-          <Menu disabled={disableExport} title={<><ExportIcon size={20}/>{t('download')}</>}>
+          <Menu disabled={disableExport} menuComponent={<><ExportIcon size={20}/>{t('download')}</>}>
             <MenuItem
               onClick={() => {
                 exportData();

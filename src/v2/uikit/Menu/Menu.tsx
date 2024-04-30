@@ -4,11 +4,19 @@ import { Menu as MenuUI, MenuItem as MenuItemUI, MenuProps } from '@mui/material
 import styled from 'styled-components';
 
 import { SelectMenuIcon } from 'components/icons';
+import { themeConfig } from 'theme';
 
 import Button from '../Button';
 
-export const MenuItem = styled(MenuItemUI)`
+export const MenuItem = styled(MenuItemUI)<{ color?: 'primary' | 'secondary' | 'error' | 'success'}>`
   gap: 6px;
+  &, a {
+    text-decoration: none;
+    color: ${p => themeConfig.palette[p.color || 'primary'].main} !important;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+  }
 `;
 
 MenuItem.displayName = 'MenuItem';

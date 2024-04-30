@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Button } from 'v2/uikit';
+import omit from 'lodash-es/omit';
+import OrderFormDialog from 'v2/components/OrderFormDialog';
 import BreadCrumbs from 'v2/uikit/BreadCrumbs';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import Loader, { FullPageLoaderWrapper } from 'v2/uikit/Loader';
+import Menu, { MenuItem } from 'v2/uikit/Menu';
 import { TabPanel, TabsContainer } from 'v2/uikit/Tabs';
 
-import { useDeleteOrder } from 'api/mutations/orderMutation';
+import { useCreateOrder, useDeleteOrder } from 'api/mutations/orderMutation';
 import { useGetOrderParticipations } from 'api/query/orderParticipationQuery';
 import { useGetOrder } from 'api/query/orderQuery';
-import { DeleteIcon } from 'components/icons';
+import { CopyIcon, DeleteIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
-import { themeConfig } from 'theme';
 
 import OrderCard from './components/OrderCard';
 import Participations from './components/Participations';
@@ -32,6 +33,10 @@ const OrderPageRender = () => {
 
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
+  // clone
+  const [openCloneDialog, setOpenCloneDialog] = useState(false);
+  const createOrderMutation = useCreateOrder();
+
   if (!orderData) return <FullPageLoaderWrapper><Loader /></FullPageLoaderWrapper>;
 
   return (
@@ -39,12 +44,20 @@ const OrderPageRender = () => {
       <BreadCrumbs
         actions={(
           <>
-            {permissions.includes('orders:delete') && (
-              <Button color="error" onClick={() => void setOpenDeleteDialog(true)}>
-                <DeleteIcon size={16} color={themeConfig.palette.error.main} />
-                {t('delete')}
-              </Button>
-            )}
+            <Menu className="big-btn" isCloseOnMenu>
+              {permissions.includes('orders:create') && (
+                <MenuItem onClick={() => void setOpenCloneDialog(true)}>
+                  <CopyIcon size={16} />
+                  {t('clone')}
+                </MenuItem>
+              )}
+              {permissions.includes('orders:delete') && (
+                <MenuItem color="error" onClick={() => void setOpenDeleteDialog(true)}>
+                  <DeleteIcon size={16} />
+                  {t('delete')}
+                </MenuItem>
+              )}
+            </Menu>
           </>
         )}
       >
@@ -67,6 +80,19 @@ const OrderPageRender = () => {
           navigate('/orders');
         }}
       />
+      {!!openCloneDialog && (
+        <OrderFormDialog
+          open={openCloneDialog}
+          onClose={() => void setOpenCloneDialog(false)}
+          data={orderData}
+          onSave={(values) => {
+            createOrderMutation.mutateAsync(omit(values, ['_id', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'])).then((res) => {
+              setOpenCloneDialog(false);
+              navigate(`/order/${res._id}`);
+            });
+          }}
+        />
+      )}
     </OrderPageWrapper>
   );
 };
