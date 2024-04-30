@@ -119,13 +119,13 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             control={control}
             name="phone"
             defaultValue={data?.phone || ''}
-            rules={{ validate: (value) => !value || checkPhoneNumber(value as string), required: true }}
+            rules={{ validate: (value) => !value || checkPhoneNumber(value as string) }}
             render={({ field }) => (
               <PhoneInput
                 theme="gray"
                 value={field.value as string}
                 onChange={field.onChange}
-                label={`${t('project.phone')}*`}
+                label={t('project.phone')}
                 error={!!errors.phone}
               />
             )}

@@ -26,6 +26,12 @@ export const ListTableHeaderWrapper = styled.div`
     background: #aaa;
   }
 
+  .counter {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
   .small-btn, .small-icon {
     display: none;
   }
