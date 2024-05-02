@@ -48,7 +48,7 @@ const ClientPageRender = () => {
       <BreadCrumbs
         actions={(
           <>
-            {permissions.includes('project:create') && tab === 0 && (
+            {permissions.includes('projects:create') && tab === 0 && (
               <Button
                 onClick={async () => {
                   await createProjectMutation.mutateAsync({

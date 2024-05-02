@@ -1,7 +1,6 @@
-import React, { forwardRef, memo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { PatternFormat, PatternFormatProps } from 'react-number-format';
 import { useSnackbar } from 'notistack';
 import { Button, Input } from 'v2/uikit';
 import { FormCard, FormCardBody, FormCardBodyRow, FormCardHeader } from 'v2/uikit/FormCard';
@@ -13,35 +12,8 @@ import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
 import { IUser } from 'interfaces/users.interface';
 
+import { IBANInput } from './IBANInput';
 import { BankDataFormCardWrapper, LoaderWrapper } from './styles';
-
-interface NumberFormatProps {
-  onChange: (event: { target: { name: string; value: string } }) => void;
-  name: string;
-}
-
-const IBANFormat = forwardRef<PatternFormatProps<string>, NumberFormatProps>(
-  function NumberFormatCustom (props, ref) {
-    const { onChange, ...other } = props;
-
-    return (
-      <PatternFormat
-        {...other}
-        getInputRef={ref}
-        onValueChange={(values) => {
-          onChange({
-            target: {
-              name: props.name,
-              value: values.formattedValue,
-            },
-          });
-        }}
-        format="SK## #### #### #### #### ####"
-        mask="_"
-      />
-    );
-  },
-);
 
 type BankInfo = Pick<IUser, 'IBAN' | 'bankName' | 'SWIFT'>;
 
@@ -61,7 +33,7 @@ const BankDataFormCard = ({ data, onUpdate }: Props) => {
   const fetchBankData = async () => {
     const iban = getValues('IBAN');
 
-    if (iban.replaceAll('_', '').length !== 29) {
+    if (iban.replaceAll(' ', '').length !== 24) {
       enqueueSnackbar(t('errorTexts.wrongIbanFormat'), { variant: 'error' });
       return;
     }
@@ -113,7 +85,7 @@ const BankDataFormCard = ({ data, onUpdate }: Props) => {
                       disabled={formCardConfig.disabled}
                       label="IBAN"
                       className="iban-input"
-                      InputProps={{ inputComponent: IBANFormat as any }}
+                      InputProps={{ inputComponent: IBANInput as any }}
                       value={field.value}
                       onChange={field.onChange}
                     />

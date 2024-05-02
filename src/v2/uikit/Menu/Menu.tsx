@@ -12,7 +12,7 @@ export const MenuItem = styled(MenuItemUI)<{ color?: 'primary' | 'secondary' | '
   gap: 6px;
   &, a {
     text-decoration: none;
-    color: ${p => themeConfig.palette[p.color || 'primary'].main} !important;
+    color: ${p => p.color ? themeConfig.palette[p.color || 'primary'].main : '#000000de'} !important;
     display: flex;
     gap: 5px;
     justify-content: center;

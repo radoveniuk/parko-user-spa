@@ -4,9 +4,10 @@ import { Link, useLocation } from 'react-router-dom';
 import isEmpty from 'lodash-es/isEmpty';
 import pick from 'lodash-es/pick';
 import { Input } from 'v2/uikit';
+import IconButton from 'v2/uikit/IconButton';
 
 import { useGetSearchResults } from 'api/query/searchQueary';
-import { HistoryIcon, SearchIcon } from 'components/icons';
+import { DeleteIcon, HistoryIcon, SearchIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import useDebounce from 'hooks/useDebounce';
 import useLocalStorageState from 'hooks/useLocalStorageState';
@@ -56,7 +57,10 @@ const SearchBar = () => {
       )}
       {!data && openSearchMenu && !isEmpty(searchbarHistoryState) && (
         <div className="results">
-          <div className="subtitle"><HistoryIcon />{t('searchHistory')}:</div>
+          <div className="subtitle">
+            <HistoryIcon />{t('searchHistory')}:
+            <IconButton className="clear-btn" onClick={() => void setSearchbarHistory('{}')}><DeleteIcon size={12} /></IconButton>
+          </div>
           {!isEmpty(searchbarHistoryState.users) && searchbarHistoryState.users.map((user) => (
             <Link
               key={user._id}

@@ -49,6 +49,10 @@ export const SearchWrapper = styled.div`
       display: flex;
       align-items: center;
       gap: 2px;
+
+      .clear-btn {
+        margin-left: auto;
+      }
     }
 
     a {
