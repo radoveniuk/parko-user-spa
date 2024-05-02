@@ -16,7 +16,7 @@
     "finance": "Фінанси",
     "feedback": "Зворотній зв'язок",
     "orders": "Набори",
-    "roles": "Ролі"
+    "roles": "Ролі користувачів"
   },
   "menu": {
     "prepayment": "Замовити аванс",
@@ -51,7 +51,7 @@
   "notifications": "Сповіщення",
   "noData": "Дані не знайдено",
   "paychecks": "Фактури",
-  "profile": "Профіль",
+  "profile": "Профіль користувача",
   "user": {
     "info": "Відомості",
     "new": "Новий користувач",
@@ -106,7 +106,7 @@
     "fatherSurname": "Прізвище батька",
     "fatherBirthdate": "Дата народження батька",
     "wrongCredentials": "Невірний логін або пароль",
-    "scancopies": "Сканкопії",
+    "scancopies": "Документи",
     "internationalPassScan": "Закордонний паспорт",
     "passScan": "Паспорт",
     "idCardFaceScan": "ID картка (перед)",
@@ -131,7 +131,7 @@
     "removedSuccess": "Профіль видалено",
     "logout": "Вийти",
     "import": "Імпорт",
-    "create": "Створити",
+    "create": "Створити користувача",
     "edit": "Редагувати",
     "salary": "Зарплата",
     "salaryType": "Тип оплати",
@@ -161,12 +161,12 @@
     "notes": "Примітки",
     "oldPassword": "Попередній пароль",
     "newPassword": "Новий пароль",
-    "cooperationType": "Тип співпраці",
+    "cooperationType": "HR послуга",
     "workHistory": "Історія співпраці",
-    "lastUpdate": "Останні зміни",
+    "lastUpdate": "Остання зміна",
     "createdAt": "Дата створення",
     "cooperation": "Співпраця",
-    "history": "Історія",
+    "history": "Історія змін",
     "finances": "Фінанси",
     "addDoc": "Додати документ",
     "permitCardId": "Номер картки ВНЖ/ПМЖ",
@@ -174,14 +174,13 @@
     "visaNumber": "Номер візи",
     "bankInfo": "Банківські дані",
     "bankName": "Банк",
-    "SWIFT": "SWIFT",
     "employmentInfo": "Інформація для працевлаштування",
     "medicalInsurance": "Страхування",
     "birthSurname": "Прізвище при народженні",
     "childrenCount": "Кількість дітей",
     "businessStatus": "Статус підприємця",
     "businessActivities": "КВЕДи",
-    "employment": "Працевлаштування",
+    "employment": "Співпраця",
     "individualCooperation": "Співпраця — ФОП",
     "hireDate": "Дата працевлаштування",
     "fireDate": "Дата звільнення",
@@ -191,9 +190,11 @@
     "change": "Змінити",
     "fire": "Звільнити",
     "updateEmploymentInfo": "Змінити інформацію про працевлаштування",
-    "addEmployment": "Додати співпрацю",
+    "addEmployment": "Створити співпрацю",
     "alreadyExistsError": "Користувач з таким імейлом вже зареєстрований",
-    "workTypes": "Тип роботи",
+    "SWIFT": "SWIFT",
+    "businessName": "Business name",
+    "workTypes": "Тип персоналу",
     "employmentStatus": "Статус співпраці",
     "employmentRecruiter": "Рекрутер співпраці",
     "clientCompany": "Назва компанії клієнта",
@@ -210,7 +211,7 @@
       "number": "Віза > Номер",
       "dateFrom": "Віза > Дата від",
       "dateTo": "Віза > Дата до",
-      "comment": "Віза > Коментар"
+      "comment": "Віза > Нотатки"
     },
     "permit": {
       "permit": "Дозвіл на проживання",
@@ -237,7 +238,8 @@
     "thisNameExistsMsg": "В системі вже є зареєстрований користувач з таким ім'ям та прізвищем. Бажаєте продовжити?",
     "corporateBodyAddress": "Адреса (ФОП)",
     "client": "Клієнт",
-    "addNewParticipation": "Додати в набір"
+    "addNewParticipation": "Додати в набір",
+    "isDeleted": "Видалений"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",
@@ -265,21 +267,22 @@
     "fileUploading": "Завантаження файлу",
     "resultPreview": "Перегляд",
     "finish": "Імпорт",
-    "successText": "Профілі користувачі завантажено. Це - пароль за замовчуванням, скопіюйте його та надішліть користувачам"
+    "successText": "Профілі користувачі завантажено. Це - пароль за замовчуванням, скопіюйте його та надішліть користувачам",
+    "errorText": "Виникла помилка"
   },
   "finance": {
     "add": "Додати",
     "edit": "Змінити",
     "type": "Тип",
     "period": "Період",
-    "comment": "Коментар",
+    "comment": "Нотатки",
     "createdAt": "Дата створення"
   },
   "prepayment": {
     "date": "Дата",
     "sum": "Сума",
     "approved": "Підтверджено",
-    "comment": "Коментар",
+    "comment": "Нотатки",
     "user": "Користувач",
     "approval": "Підтвердження авансу",
     "approve": "Підтвердити",
@@ -297,12 +300,13 @@
     "dateStart": "Початок",
     "dateEnd": "Кінець",
     "reason": "Причина",
-    "adminComment": "Коментар фірми",
-    "comment": "Коментар",
+    "adminComment": "Нотатки",
+    "comment": "Нотатки",
     "user": "Користувач",
     "send": "Надіслати",
-    "createdAt": "Дата створення",
     "dayoff": "Новий Відгул",
+    "new": "Створити відгул",
+    "createdAt": "Дата створення",
     "status": "Статус відгула",
     "data": "Інформація",
     "docs": "Документи"
@@ -330,7 +334,7 @@
       "candidate": "Candidate",
       "hired": "Active",
       "fired": "Departed",
-      "undefined": "-"
+      "undefined": "—"
     },
     "userRole": {
       "user": "Користувач",
@@ -343,11 +347,11 @@
       "illnes": "Хвороба",
       "medicalCheck": "Медичне обстеження",
       "alcohol": "Алкогольне сп'яніння",
-      "other": "Інше",
       "unable": "Непрацездатність",
       "pass": "Візит лікаря",
       "familyMemberCare": "Турбота про члена родини",
-      "blocker": "Завада на стороні працедавця"
+      "blocker": "Завада на стороні працедавця",
+      "other": "Інше"
     },
     "tariff": {
       "candidate": "За кандидата",
@@ -374,45 +378,60 @@
       "date": "Дата",
       "select": "Випадаючий список",
       "multiselect": "Множинний вибір",
-      "experience": "Досвід роботи"
+      "experience": "Досвід роботи",
+      "textarea": "Text area"
+    },
+    "clientStatus": {
+      "active": "Active",
+      "inactive": "Paused",
+      "development": "In development",
+      "rejected": "Canceled",
+      "negotiation": "In negotiation",
+      "contacted": "Contacted",
+      "potential": "Potential"
     },
     "projectStatus": {
-      "active": "Активний",
-      "inactive": "Неактивний"
+      "active": "Active",
+      "inactive": "Canceled"
     },
     "prepaymentStatus": {
-      "pending": "Запит",
-      "approved": "Підтверджений",
-      "rejected": "Відхилений",
-      "paid": "Оплачено"
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "paid": "Paid"
     },
     "financeType": {
       "paycheck": "Фактура",
-      "payroll": "Зарплатня"
+      "payroll": "Розрахунковий лист"
     },
     "corporateBodyStatus": {
-      "active": "Активно",
-      "stopped": "Призупинено",
-      "closed": "Ліквідовано"
+      "active": "Active",
+      "stopped": "Stopped",
+      "closed": "Liquidated"
     },
     "userPositionEmploymentStatus": {
-      "hired": "Найнятий",
-      "fired": "Звільнений",
-      "canceled": "Відкликаний"
+      "hired": "Active",
+      "fired": "Departed",
+      "canceled": "Canceled"
     },
     "userWorkType": {
       "business": "ФОП",
-      "employment": "Працевлаштування"
+      "employment": "Співробітник"
     },
     "dayoffStatus": {
-      "continues": "Триває",
-      "finished": "Завершено",
-      "future": "Заплановано"
+      "continues": "Ongoing",
+      "finished": "Finished",
+      "future": "Planned"
     },
     "orderCooperationType": {
-      "leasing": "Лізинг",
-      "outsourcing": "Аутсорсинг",
-      "podkmen": "Pod kmeň"
+      "leasing": "Leasing",
+      "outsourcing": "Outsourcing",
+      "podkmen": "Mediation"
+    },
+    "orderStatus": {
+      "recruiting": "Recruiting",
+      "processing": "Processing",
+      "finished": "Finished"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -425,7 +444,7 @@
   "file": {
     "upload": "Перетягніть сюди файли, або натисніть",
     "submit": "Відправити",
-    "add": "Додати",
+    "add": "Додати файл",
     "name": "Назва",
     "ext": "Розширення",
     "type": "Тип"
@@ -442,14 +461,14 @@
   },
   "projectList": "Проєкти",
   "project": {
-    "new": "Створити новий",
+    "new": "Створити проєкт",
     "creating": "Новий проєкт",
     "edit": "Редагувати",
     "delete": "Видалити",
     "name": "Назва",
     "email": "Email",
     "phone": "Телефон",
-    "comment": "Коментар",
+    "comment": "Нотатки",
     "dateStart": "Дата початку",
     "dateEnd": "Дата завершення",
     "users": "Профілі",
@@ -459,7 +478,8 @@
     "approve": "Підтвердити",
     "cost": "Вартість",
     "tariff": "Тариф",
-    "addProfile": "Додати профілі в проект",
+    "success": "Зміни були успішно виконані",
+    "addProfile": "Додати користувачів до проекту",
     "mainInfo": "Основна інформація",
     "location": "Локація",
     "stages": "Етапи працевлаштування",
@@ -505,12 +525,12 @@
   "accommodation": {
     "owner": "Власник",
     "adress": "Адреса",
-    "checkIn": "Дата Check In",
-    "checkOut": "Дата Check Out",
+    "checkIn": "Check In",
+    "checkOut": "Check Out",
     "create": "Створити житло",
     "managerPhone": "Телефон менеджера",
     "receptionPhone": "Телефон рецепції",
-    "comment": "Коментар",
+    "comment": "Нотатки",
     "tariff": "Тариф",
     "days": "Прожиті  дні",
     "costNight": "Вартість ніч",
@@ -527,7 +547,7 @@
     "template": "Шаблон",
     "codes": "Коди",
     "file": "Файл .docx",
-    "print": "Згенерувати документ",
+    "print": "Генерация документов",
     "fieldName": "Назва поля",
     "fieldCode": "Код в шаблоні",
     "new": "Новий шаблон",
@@ -536,7 +556,7 @@
     "createdAt": "Дата створення",
     "newCategory": "Нова категорія",
     "categoryName": "Назва категорії",
-    "create": "Створити",
+    "create": "Створити шаблон",
     "categoryNameError": "Категорія з такою назвою вже існує",
     "docsWithoutCategory": "Шаблони без категорії",
     "signDate": "Дата підписання"
@@ -547,12 +567,12 @@
     "addOption": "Додати варіант"
   },
   "client": {
-    "company": "Компанія",
-    "name": "Назва компанії",
+    "company": "Назва підприємства",
+    "name": "Назва клієнта",
     "ICO": "IČO",
     "DIC": "DIČ",
-    "ICDPH": "IČDPH",
-    "sidlo": "Sidlo",
+    "ICDPH": "IČ DPH",
+    "sidlo": "Sídlo",
     "websiteUrl": "Вебсторінка",
     "contactPerson": "Контакта особа",
     "contactPersonPosition": "Посада контактної особи",
@@ -562,7 +582,7 @@
     "cooperationStartDate": "Початок співпраці",
     "cooperationEndDate": "Кінець співпраці",
     "email": "Email",
-    "managers": "Менеджери",
+    "managers": "Відповідальні менеджери",
     "profile": "Профіль",
     "projects": "Проєкти",
     "profiles": "Працівники",
@@ -570,7 +590,7 @@
     "contacts": "Контакти",
     "financial": "Фінансові дані",
     "cooperation": "Співпраця",
-    "comment": "Коментар",
+    "comment": "Нотатки",
     "shortName": "Клієнт",
     "orders": "Набори"
   },
@@ -597,7 +617,7 @@
   "cols": "Колонки",
   "selectAllCols": "Вибрати всі колонки",
   "add": "Додати",
-  "comment": "Коментар",
+  "comment": "Нотатки",
   "other": "Інше",
   "approve": "Підтвердити",
   "go": "Перейти",
@@ -657,7 +677,7 @@
     "hireDate": "Дата виходу на роботу",
     "fireDate": "Дата звільнення",
     "fireReason": "Причина звільнення",
-    "comment": "Коментар",
+    "comment": "Нотатки",
     "isNonTaxablePart": "Використання неоподаткованої частини податкової бази",
     "isChildTaxBonus": "Використання податкового бонусу на дитину",
     "status": "Статус працевлаштування",
@@ -666,14 +686,14 @@
     "createdBy": "Ким створено ",
     "updatedBy": "Ким оновлено",
     "createdAt": "Дата створення",
-    "updatedAt": "Дата останнього оновлення"
+    "updatedAt": "Остання зміна"
   },
   "order": {
     "order": "Набір",
     "status": "Статус набора",
     "client": "Клієнт",
     "project": "Проєкт",
-    "cooperationType": "Тип співпраці",
+    "cooperationType": "HR послуга",
     "name": "Назва",
     "tableStats": "Ціль / Працівники / Залишок",
     "candidateTableStats": "Кандидати / Не підійшло",
@@ -683,27 +703,27 @@
     "createdBy": "Ким створено",
     "new": "Новий набор",
     "variability": "Змінність",
-    "managers": "Менеджери",
-    "specificationUrl": "Детальна специфікація",
-    "goal": "Мета",
+    "managers": "Відповідальні менеджери",
+    "specificationUrl": "Детальна специфікація (URL)",
+    "goal": "Встановлена ціль (к-ть)",
     "stages": "Етапи",
     "positionName": "Назва позиції",
-    "form": "Анкета",
-    "salary": "Зарплата",
+    "form": "Скрінінг",
+    "salary": "Приблизна зарплата",
     "location": "Локація",
-    "addNewParticipation": "Додати співробітника",
+    "addNewParticipation": "Додати користувача",
     "stats": "Показники",
     "employed": "Працевлаштовані",
     "left": "Залишилось",
     "candidates": "Кандидати",
     "canceled": "Не підійшло",
-    "participations": "Участі в наборі",
+    "participations": "Набори",
     "activeStage": "Етап",
-    "screaning": "Скрінінг",
+    "screening": "Скрінінг",
     "specification": "Специфікація замовлення",
     "stage": "Етап",
     "stageFrom": "Дата",
-    "updatedAt":"Дата останнього оновлення",
+    "updatedAt": "Остання зміна",
     "redirectToEmploymentMsgTitle": "Перейти до співпраць?",
     "redirectToEmploymentMsgText": "Тепер час ввести дані про співпрацю. Перейти до співпраць {{ user }}?"
   },
@@ -735,7 +755,7 @@
     "notifications": "Сповіщення",
     "docsTemplates": "Шаблони документів",
     "customFields": "Кастомні поля",
-    "roles": "Ролі",
+    "roles": "Ролі користувачів",
     "permissionList": {
       "users": {
         "read": "Користувачі: читати",
@@ -826,6 +846,6 @@
         "update": "Ролі: оновити",
         "delete": "Ролі: видалити"
       }
-    }    
+    }
   }
 }
