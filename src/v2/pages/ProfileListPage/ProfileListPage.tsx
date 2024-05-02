@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PrintDocDialog from 'v2/components/PrintDocDialog';
 import { COUNTRIES } from 'v2/constants/countries';
+import { PROJECT_TYPES } from 'v2/constants/projectType';
 import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
@@ -9,16 +10,17 @@ import { useGetClients } from 'api/query/clientQuery';
 import { useGetCustomFormFieldSectionBindings } from 'api/query/customFormsQuery';
 // import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
+import { useGetRoles } from 'api/query/roleQuery';
 import { getUserListByParams, useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import { SearchIcon } from 'components/icons';
 import { ClearFiltersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
 import { USER_STATUSES } from 'constants/statuses';
-import { ROLES } from 'constants/userRoles';
 import { isMongoId } from 'helpers/regex';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import usePageQueries from 'hooks/usePageQueries';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';
+import { IRole } from 'interfaces/role.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import HeaderTable from './components/HeaderTable';
@@ -33,7 +35,7 @@ const ProfileListPageRender = () => {
   useDocumentTitle(t('profileList'));
   const pageQueries = usePageQueries();
 
-  const { debouncedFiltersState } = useFilters();
+  const { debouncedFiltersState, filtersState, removeFilter } = useFilters();
 
   // table content
   const { data = [], refetch, remove, isFetching, isLoading } = useGetUserList(debouncedFiltersState, { enabled: false });
@@ -51,14 +53,14 @@ const ProfileListPageRender = () => {
 
   // filters
   const { data: usersFilter = [] } = useGetUserListForFilter();
-  const recruiters = usersFilter.filter((item) => item.role === 'recruiter' || item.role === 'admin');
+  const { data: recruiters = [] } = useGetUserList({ permissions: 'users:update' });
   const { data: clients = [] } = useGetClients();
   const { data: allProjects = [] } = useGetProjects();
   const { data: projects = [] } = useGetProjects({ clients: debouncedFiltersState?.clients });
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
-  const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
   const translatedSexes = useTranslatedSelect(['male', 'female']);
+  const { data: roles = [] } = useGetRoles();
 
   const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
@@ -107,6 +109,16 @@ const ProfileListPageRender = () => {
     setStoredColsSettings(JSON.stringify({ cols: activeCols }));
   }, [activeCols, setStoredColsSettings]);
 
+  // reset projects filter after reseting client
+  useEffect(() => {
+    if (!filtersState?.clients?.length) {
+      removeFilter('projects');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filtersState?.clients]);
+
+  const loading = isLoading || isFetching || isFetchingStartData;
+
   return (
     <ProfileListPageWrapper cols={activeCols.length + 1}>
       <div className="container-table">
@@ -117,19 +129,20 @@ const ProfileListPageRender = () => {
           data={!data.length ? startData : data}
           activeCols={activeCols}
           customFields={userBindings}
-          loading={isLoading || isFetching || isFetchingStartData}
+          loading={loading}
         />
         <FilterTableWrapper className={!filterBarVisibility ? 'hide' : ''}>
           <FilterAutocomplete
             multiple
             options={usersFilter}
-            getOptionLabel={user => `${user.name} ${user.surname}`}
+            labelKey="fullname"
             filterKey="ids"
             prefixIcon={<SearchIcon className="search-icon"/>}
             className="filter-name"
             limitTags={1}
             label={t('search')}
             placeholder={t('search')}
+            disabled={loading}
           />
           <FilterAutocomplete
             multiple
@@ -138,15 +151,17 @@ const ProfileListPageRender = () => {
             options={clients}
             getOptionLabel={(option: IClient) => option.shortName || option.name}
             theme="gray"
+            disabled={loading}
           />
           <FilterAutocomplete
-            disabled={!debouncedFiltersState?.clients}
+            disabled={!debouncedFiltersState?.clients || loading}
             multiple
             filterKey="projects"
             label={t('user.project')}
             options={projects}
             getOptionLabel={(option) => `${option.client?.shortName ? `${option.client?.shortName} > ` : `${option.client?.name} > `}${option.name}`}
             theme="gray"
+
           />
           <FilterAutocomplete
             multiple
@@ -155,6 +170,16 @@ const ProfileListPageRender = () => {
             options={allProjects}
             getOptionLabel={(option) => `${option.client?.shortName ? `${option.client?.shortName} > ` : `${option.client?.name} > `}${option.name}`}
             theme="gray"
+            disabled={loading}
+          />
+          <FilterAutocomplete
+            multiple
+            filterKey="employmentProjectTypes"
+            label={t('user.cooperationType')}
+            labelKey="label"
+            theme="gray"
+            options={Object.values(PROJECT_TYPES).map(item => ({ _id: item.value, label: item.label }))}
+            disabled={loading}
           />
           <FilterAutocomplete
             multiple
@@ -163,6 +188,7 @@ const ProfileListPageRender = () => {
             options={translatedStatuses}
             labelKey="label"
             theme="gray"
+            disabled={loading}
           />
           <FilterAutocomplete
             filterKey="workTypes"
@@ -172,24 +198,27 @@ const ProfileListPageRender = () => {
             labelKey="label"
             label={t('user.workTypes')}
             multiple
+            disabled={loading}
           />
           <FilterAutocomplete
-            filterKey="roles"
+            filterKey="customRoles"
             theme="gray"
-            options={translatedRoles}
-            valueKey="value"
-            labelKey="label"
+            options={roles}
+            valueKey="_id"
+            labelKey="name"
             label={t('user.role')}
             multiple
+            disabled={loading}
           />
           <FilterAutocomplete
             filterKey="recruiters"
             theme="gray"
-            options={recruiters.toSorted((a, b) => b.role.length - a.role.length)}
-            getOptionLabel={(item) => `${item.name} ${item.surname}, ${t(`selects.userRole.${item.role}`)}`}
+            options={recruiters}
+            getOptionLabel={(item) => `${item.name} ${item.surname}, ${item.roles.map((r: IRole) => r.name).join(',')}`}
             valueKey="_id"
             label={t('user.recruiter')}
             multiple
+            disabled={loading}
           />
           <FilterAutocomplete
             filterKey="sexes"
@@ -199,6 +228,7 @@ const ProfileListPageRender = () => {
             labelKey="label"
             label={t('user.sex')}
             multiple
+            disabled={loading}
           />
           <FilterAutocomplete
             filterKey="countries"
@@ -208,6 +238,7 @@ const ProfileListPageRender = () => {
             labelKey="label"
             label={t('user.country')}
             multiple
+            disabled={loading}
           />
           <ClearFiltersButton />
         </FilterTableWrapper>

@@ -45,7 +45,7 @@ const OrderParticipationForm = ({ disabled }: Props) => {
       }
     });
     // eslint-disable-next-line max-len
-    return `${completedRequirderFieldsCount} / ${requiredFieldsIds.length} (${(requiredFieldsIds.length ? completedRequirderFieldsCount / requiredFieldsIds.length : 1) * 100}%)`;
+    return `${completedRequirderFieldsCount} / ${requiredFieldsIds.length} (${((requiredFieldsIds.length ? completedRequirderFieldsCount / requiredFieldsIds.length : 1) * 100).toFixed().replace('.', ',')}%)`;
   }, [order.form?.requiredFields, screaning]);
 
   const renderCustomFieldValue = (id: string) => {
@@ -219,10 +219,10 @@ const OrderParticipationForm = ({ disabled }: Props) => {
                         {stageItem.comment}
                         <Menu menuComponent={<IconButton className="edit-btn" disabled={disabled}><ThreeDotsIcon size={14} /></IconButton>}>
                           <MenuItem onClick={() => void setOpenStageDialog(stageItem)}>
-                            <EditIcon style={{ marginRight: 6 }} />{t('edit')}
+                            <EditIcon />{t('edit')}
                           </MenuItem>
                           <MenuItem onClick={() => void field.onChange(field.value.filter(item => item.stage.name !== stageItem.stage.name))}>
-                            <DeleteIcon style={{ marginRight: 6 }} />{t('delete')}
+                            <DeleteIcon />{t('delete')}
                           </MenuItem>
                         </Menu>
                       </td>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Avatar, Button, Checkbox } from 'v2/uikit';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
-import { AdminIcon, ProjectIcon, RecruiterIcon, UserIcon, VerifiedIcon } from 'components/icons';
+import { ProjectIcon, UserIcon, VerifiedIcon } from 'components/icons';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
@@ -20,24 +20,6 @@ type Props = {
 
 const MobileUserCard = ({ style, user, selected, onSelect }: Props) => {
   const { t } = useTranslation();
-  const settings = {
-    user: {
-      color: themeConfig.palette.primary.light,
-      icon: <UserIcon size={45} />,
-    },
-    recruiter: {
-      color: themeConfig.palette.primary.main,
-      icon: <RecruiterIcon size={45} />,
-    },
-    admin: {
-      color: themeConfig.palette.primary.dark,
-      icon: <AdminIcon size={45} />,
-    },
-    'super-admin': {
-      color: themeConfig.palette.primary.dark,
-      icon: <AdminIcon size={45} />,
-    },
-  } as const;
 
   return (
     <MobileProfileCard style={style}>
@@ -50,8 +32,8 @@ const MobileUserCard = ({ style, user, selected, onSelect }: Props) => {
           }}
         />
         <div className="left">
-          <Avatar size={70} sx={{ bgcolor: settings[user.role]?.color }}>
-            {settings[user.role]?.icon}
+          <Avatar size={70} sx={{ bgcolor: themeConfig.palette.primary.light }}>
+            <UserIcon size={45} />
           </Avatar>
           <div className="actions">
             <Link to={`/profile/${user._id}`}>

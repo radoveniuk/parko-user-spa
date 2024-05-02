@@ -5,11 +5,12 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import pick from 'lodash-es/pick';
 import { DateTime } from 'luxon';
 import PrintDocDialog from 'v2/components/PrintDocDialog';
-import { Button, Menu } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
 import BreadCrumbs from 'v2/uikit/BreadCrumbs';
+import Button from 'v2/uikit/Button';
 import Dialog, { DialogActions } from 'v2/uikit/Dialog';
 import Loader, { FullPageLoaderWrapper } from 'v2/uikit/Loader';
+import Menu, { MenuItem } from 'v2/uikit/Menu';
 import { TabPanel, TabsContainer, useTabs } from 'v2/uikit/Tabs';
 
 import { useCreateDayoffMutation, useDeleteDayoffMutation, useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
@@ -31,14 +32,14 @@ import { useGetPayrollList } from 'api/query/payrollQuery';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
 import { useGetResidences } from 'api/query/residenceQuery';
 import { useGetUser } from 'api/query/userQuery';
-import { DeleteIcon, PlusIcon, PrintIcon, RestoreIcon, WarningIcon } from 'components/icons';
-import { MenuItem } from 'components/shared/Menu';
+import { DeleteIcon, PasswordIcon, PlusIcon, PrintIcon, RestoreIcon, WarningIcon } from 'components/icons';
 import { CANDIDATE_ORDER_STAGE } from 'constants/orders';
 import { useAuthData } from 'contexts/AuthContext';
 import { IOrder } from 'interfaces/order.interface';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 import { IPaycheck } from 'interfaces/paycheck.interface';
 import { IProject } from 'interfaces/project.interface';
+import { IRole } from 'interfaces/role.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import Employments from './components/Employments';
@@ -55,6 +56,7 @@ import ResidencesFormCard from './components/FormCards/ResidencesFormCard';
 import ScansFormCard from './components/FormCards/ScansFormCard';
 import OrderParticipations from './components/OrderParticipations';
 import ProfileCard from './components/ProfileCard';
+import ResetPasswordDialog from './components/ResetPasswordDialog';
 import UpdateHistory from './components/UpdateHistory';
 import useUpdateCachedUserData from './hooks/useUpdateCachedUserData';
 import { ContentWrapper, ProfileAdminPageWrapper } from './styles';
@@ -62,7 +64,7 @@ import { ContentWrapper, ProfileAdminPageWrapper } from './styles';
 const TABS = ['profile', 'user.info', 'user.cooperation', 'order.participations', 'user.history'];
 
 const ProfileAdminPageRender = () => {
-  const { role, username } = useAuthData();
+  const { permissions, username } = useAuthData();
   const { id: userId } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -71,7 +73,13 @@ const ProfileAdminPageRender = () => {
   const userQueryKey = JSON.stringify({ user: userId });
   const updateCachedUserData = useUpdateCachedUserData();
 
-  const { data: profileData, remove } = useGetUser(userId as string);
+  const { data: profileData, remove } = useGetUser(userId as string, {
+    onError () {
+      console.log('error!');
+
+      navigate('/not-found');
+    },
+  });
   const { data: residences = [], remove: removeResidences } = useGetResidences({ user: userId });
   const { data: prepayments = [], remove: removePrepayments } = useGetPrepayments({ user: userId });
   const { data: paychecks = [], remove: removePaychecks } = useGetPaycheckList({ user: userId });
@@ -120,10 +128,13 @@ const ProfileAdminPageRender = () => {
   };
 
   const updateUser = (data: Partial<IUser>) => {
-    const updatedData = { ...profileData, ...data };
-    delete updatedData.password;
-    updateUserMutation.mutate({ _id: userId as string, ...updatedData });
-    updateCachedUserData(updatedData);
+    const rolesToIds = (roles: IRole[]) => roles?.map(role => (role as unknown as IRole)._id);
+    const updatedData = { ...data };
+    if (!updatedData.password) {
+      delete updatedData.password;
+    }
+    updateUserMutation.mutate({ _id: userId as string, ...updatedData, roles: rolesToIds(data.roles || profileData?.roles || []) });
+    updateCachedUserData({ ...profileData, ...updatedData });
   };
 
   const finances = useMemo(() => [
@@ -174,49 +185,46 @@ const ProfileAdminPageRender = () => {
   // print
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
 
+  // reset password
+  const [openResetDialog, setOpenResetDialog] = useState(false);
+
   if (!profileData) return <FullPageLoaderWrapper><Loader /></FullPageLoaderWrapper>;
-
-  const menuActions = [
-    <MenuItem onClick={() => void setOpenPrintDialog(true)} key="print">
-      <PrintIcon size={16} />
-      {t('docsTemplates.print')}
-    </MenuItem>,
-  ];
-
-  if (profileData?.isDeleted) {
-    menuActions.push(
-      <MenuItem onClick={() => void updateUser({ isDeleted: false })} key="restore">
-        <RestoreIcon size={16} />
-        {t('restore')}
-      </MenuItem>,
-    );
-  }
-
-  menuActions.push(
-    <MenuItem color="error" onClick={() => void setOpenDeleteDialog(true)} key="delete">
-      <DeleteIcon size={16} />
-      {t('delete')}
-    </MenuItem>,
-  );
 
   return (
     <ProfileAdminPageWrapper>
       <BreadCrumbs
         actions={(
           <>
-            {tab === 2 && (
+            {tab === 2 && permissions.includes('employments:create') && (
               <Button onClick={createEmptyEmployment}>
                 <PlusIcon />{t('user.addEmployment')}
               </Button>
             )}
-            {tab === 3 && (
+            {tab === 3 && permissions.includes('orders:update') && (
               <Button onClick={() => void setOpenCreateParticipationDialog(true)}>
                 <PlusIcon />{t('user.addNewParticipation')}
               </Button>
             )}
-            {role !== 'user' && (
+            {permissions.includes('users:update') && (
               <Menu className="big-btn" isCloseOnMenu>
-                {menuActions}
+                <MenuItem onClick={() => void setOpenPrintDialog(true)}>
+                  <PrintIcon size={16} />
+                  {t('docsTemplates.print')}
+                </MenuItem>
+                {profileData?.isDeleted && (
+                  <MenuItem onClick={() => void updateUser({ isDeleted: false })}>
+                    <RestoreIcon size={16} />
+                    {t('restore')}
+                  </MenuItem>
+                )}
+                <MenuItem color="error" onClick={() => void setOpenResetDialog(true)}>
+                  <PasswordIcon size={16} />
+                  {t('user.resetPassword')}
+                </MenuItem>
+                <MenuItem color="error" onClick={() => void setOpenDeleteDialog(true)}>
+                  <DeleteIcon size={16} />
+                  {t('delete')}
+                </MenuItem>
               </Menu>
             )}
           </>
@@ -250,98 +258,106 @@ const ProfileAdminPageRender = () => {
                 data={profileData}
                 onUpdate={updateUser}
               />
-              <FinancesFormCard
-                data={finances}
-                onCreateFinance={({ type, data }) => {
-                  const values = {
-                    ...data,
-                    user: userId,
-                    project: (profileData.project as IProject)._id,
-                  } as IPaycheck;
-                  if (type === 'paycheck') {
-                    createPaycheck.mutate(values);
-                  }
-                  if (type === 'payroll') {
-                    createPayroll.mutate(values);
-                  }
-                }}
-                onUpdateFinance={({ type, data }) => {
-                  if (type === 'paycheck') {
-                    updatePaycheck.mutate(data as IPaycheck);
-                  }
-                  if (type === 'payroll') {
-                    updatePayroll.mutate(data as IPaycheck);
-                  }
-                }}
-                onDeleteFinance={({ type, data }) => {
-                  if (type === 'paycheck') {
-                    deletePaycheck.mutate(data?._id as string);
-                  }
-                  if (type === 'payroll') {
-                    deletePayroll.mutate(data?._id as string);
-                  }
-                }}
-              />
-              <PrepaymentsFormCard
-                data={prepayments}
-                onCreatePrepayment={(data) => {
-                  const prepayment = { ...data, user: userId };
-                  createPrepayment.mutateAsync(prepayment).then((res) => {
-                    queryClient.setQueryData(['prepayments', userQueryKey], [res, ...prepayments]);
-                  });
-                }}
-                onUpdatePrepayment={(data) => {
-                  updatePrepayment.mutate({ ...data, _id: data._id as string });
-                  queryClient.setQueryData(
-                    ['prepayments', userQueryKey],
-                    prepayments.map((item) => item._id === data._id ? data : item),
-                  );
-                }}
-                onDeletePrepayment={deletePrepayment.mutate}
-              />
+              {permissions.includes('paychecks:read') && (
+                <FinancesFormCard
+                  data={finances}
+                  onCreateFinance={({ type, data }) => {
+                    const values = {
+                      ...data,
+                      user: userId,
+                      project: (profileData.project as IProject)._id,
+                    } as IPaycheck;
+                    if (type === 'paycheck') {
+                      createPaycheck.mutate(values);
+                    }
+                    if (type === 'payroll') {
+                      createPayroll.mutate(values);
+                    }
+                  }}
+                  onUpdateFinance={({ type, data }) => {
+                    if (type === 'paycheck') {
+                      updatePaycheck.mutate(data as IPaycheck);
+                    }
+                    if (type === 'payroll') {
+                      updatePayroll.mutate(data as IPaycheck);
+                    }
+                  }}
+                  onDeleteFinance={({ type, data }) => {
+                    if (type === 'paycheck') {
+                      deletePaycheck.mutate(data?._id as string);
+                    }
+                    if (type === 'payroll') {
+                      deletePayroll.mutate(data?._id as string);
+                    }
+                  }}
+                />
+              )}
+              {permissions.includes('prepayments:read') && (
+                <PrepaymentsFormCard
+                  data={prepayments}
+                  onCreatePrepayment={(data) => {
+                    const prepayment = { ...data, user: userId };
+                    createPrepayment.mutateAsync(prepayment).then((res) => {
+                      queryClient.setQueryData(['prepayments', userQueryKey], [res, ...prepayments]);
+                    });
+                  }}
+                  onUpdatePrepayment={(data) => {
+                    updatePrepayment.mutate({ ...data, _id: data._id as string });
+                    queryClient.setQueryData(
+                      ['prepayments', userQueryKey],
+                      prepayments.map((item) => item._id === data._id ? data : item),
+                    );
+                  }}
+                  onDeletePrepayment={deletePrepayment.mutate}
+                />
+              )}
             </div>
             <div className="col">
-              <DaysOffFormCard data={daysoff}
-                onCreateDayoff={(data) => {
-                  const dayoff = { ...data, user: userId };
-                  createDayoff.mutateAsync(dayoff).then((res) => {
-                    queryClient.setQueryData(['daysoff', userQueryKey], [res, ...daysoff]);
-                  });
-                }}
-                onUpdateDayoff={(data) => {
-                  updateDayoff.mutate({ ...data, _id: data._id as string });
-                  queryClient.setQueryData(
-                    ['daysoff', userQueryKey],
-                    daysoff.map((item) => item._id === data._id ? data : item),
-                  );
-                }}
-                onDeleteDayoff={deleteDayoff.mutate}
-              />
-              <ResidencesFormCard
-                data={residences}
-                accommodations={accommodations}
-                onCreateResidence={(residence, notificate = false) => {
-                  const data = { ...residence, user: userId };
-                  createResidence.mutateAsync({ data, notificate }).then((res) => {
-                    queryClient.setQueryData(['residences', userQueryKey], [res, ...residences]);
-                  });
-                }}
-                onUpdateResidence={(data, notificate = false) => {
-                  updateResidence.mutate({ data, notificate });
-                  queryClient.setQueryData(
-                    ['residences', userQueryKey],
-                    residences.map((item) => item._id === data._id ? data : item),
-                  );
-                }}
-                onDeleteResidence={deleteResidence.mutate}
-              />
+              {permissions.includes('daysoff:read') && (
+                <DaysOffFormCard data={daysoff}
+                  onCreateDayoff={(data) => {
+                    const dayoff = { ...data, user: userId };
+                    createDayoff.mutateAsync(dayoff).then((res) => {
+                      queryClient.setQueryData(['daysoff', userQueryKey], [res, ...daysoff]);
+                    });
+                  }}
+                  onUpdateDayoff={(data) => {
+                    updateDayoff.mutate({ ...data, _id: data._id as string });
+                    queryClient.setQueryData(
+                      ['daysoff', userQueryKey],
+                      daysoff.map((item) => item._id === data._id ? data : item),
+                    );
+                  }}
+                  onDeleteDayoff={deleteDayoff.mutate}
+                />
+              )}
+              {permissions.includes('residences:read') && (
+                <ResidencesFormCard
+                  data={residences}
+                  accommodations={accommodations}
+                  onCreateResidence={(residence, notificate = false) => {
+                    const data = { ...residence, user: userId };
+                    createResidence.mutateAsync({ data, notificate }).then((res) => {
+                      queryClient.setQueryData(['residences', userQueryKey], [res, ...residences]);
+                    });
+                  }}
+                  onUpdateResidence={(data, notificate = false) => {
+                    updateResidence.mutate({ data, notificate });
+                    queryClient.setQueryData(
+                      ['residences', userQueryKey],
+                      residences.map((item) => item._id === data._id ? data : item),
+                    );
+                  }}
+                  onDeleteResidence={deleteResidence.mutate}
+                />
+              )}
             </div>
           </TabPanel>
           <TabPanel className="cards" index={1}>
             <div className="col">
               <PersonalDocsFormCard data={profileData.docs || []} onUpdateDocs={(docs) => { updateUser({ docs }); }} />
               <BankDataFormCard data={pick(profileData, ['IBAN', 'bankName', 'SWIFT'])} onUpdate={updateUser} />
-              {sections.map((sectionData) => {
+              {permissions.includes('customFields:read') && sections.map((sectionData) => {
                 const bindings = allCustomFieldSectionBindings.filter((item) => item.section?._id === sectionData?._id);
                 return (
                   <CustomSectionFormCard
@@ -428,7 +444,7 @@ const ProfileAdminPageRender = () => {
           >
             {t('delete')}
           </Button>
-          {role === 'admin' && (
+          {permissions.includes('users:delete') && (
             <Button
               color="error"
               variant="outlined"
@@ -477,6 +493,14 @@ const ProfileAdminPageRender = () => {
       )}
       {openPrintDialog && (
         <PrintDocDialog users={[profileData]} open={openPrintDialog} onClose={() => void setOpenPrintDialog(false)} />
+      )}
+      {openResetDialog && (
+        <ResetPasswordDialog
+          color="rgb(237, 108, 2)"
+          open={openResetDialog}
+          onClose={() => void setOpenResetDialog(false)}
+          onUpdate={updateUser}
+        />
       )}
     </ProfileAdminPageWrapper>
   );

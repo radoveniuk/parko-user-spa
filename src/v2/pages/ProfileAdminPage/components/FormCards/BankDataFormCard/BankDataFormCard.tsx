@@ -9,6 +9,7 @@ import Loader from 'v2/uikit/Loader';
 
 import api from 'api/common';
 import { BankIcon, SearchIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
 import { IUser } from 'interfaces/users.interface';
 
@@ -71,6 +72,9 @@ const BankDataFormCard = ({ data, onUpdate }: Props) => {
     setValue('bankName', bankData.bank);
   };
 
+  const { permissions } = useAuthData();
+  const permissionUpdate = permissions.includes('users:update');
+
   return (
     <FormCard
       defaultConfig={{ disabled: true }}
@@ -82,7 +86,9 @@ const BankDataFormCard = ({ data, onUpdate }: Props) => {
         <BankDataFormCardWrapper>
           {loading && <LoaderWrapper><Loader /></LoaderWrapper>}
           <FormCardHeader icon={<BankIcon size={24} />} title={t('user.bankInfo')}>
-            {formCardConfig.disabled && <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>}
+            {formCardConfig.disabled && permissionUpdate && (
+              <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>
+            )}
             {!formCardConfig.disabled && (
               <Button
                 color="error"

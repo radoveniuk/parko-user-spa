@@ -10,6 +10,7 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { DeleteIcon, EditIcon, ResidenceIcon } from 'components/icons';
 import { useFilters } from 'components/shared/Filters';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IProject } from 'interfaces/project.interface';
@@ -40,6 +41,8 @@ const MobileResidenceCard = ({ style, data }: Props) => {
   const deleteResidence = useDeleteResidence();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
+  const { permissions } = useAuthData();
+
   return (
     <MobileCardWrapper style={style}>
       <div className="card">
@@ -61,8 +64,12 @@ const MobileResidenceCard = ({ style, data }: Props) => {
           </div>
         </div>
         <div className="actions">
-          <IconButton onClick={() => void setOpenResidence(data.metadata)}><EditIcon /></IconButton>
-          <IconButton onClick={() => void setIdToDelete(data._id)}><DeleteIcon /></IconButton>
+          {permissions.includes('residences:update') && (
+            <IconButton onClick={() => void setOpenResidence(data.metadata)}><EditIcon /></IconButton>
+          )}
+          {permissions.includes('residences:delete') && (
+            <IconButton onClick={() => void setIdToDelete(data._id)}><DeleteIcon /></IconButton>
+          )}
         </div>
       </div>
       {!!idToDelete && (

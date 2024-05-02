@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 import { Button } from 'v2/uikit';
 import { FormCard, FormCardBody, FormCardHeader } from 'v2/uikit/FormCard';
+import Loader from 'v2/uikit/Loader';
 import StatusLabel from 'v2/uikit/StatusLabel';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from 'v2/uikit/Table';
 
 import { useGetDashboardData } from 'api/query/dashboardQuery';
 import { AccommodationIcon, BusinessIcon, DayoffIcon, PrepaymentIcon, RecruiterIcon, UserIcon } from 'components/icons';
-import { MainMenuGrid, MainMenuLink } from 'components/Menu/MainMenu';
-import { ADMIN_MENU_ITEMS, INavbarItem, MENU_ITEMS } from 'constants/menu';
 import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IAccommodation } from 'interfaces/accommodation.interface';
@@ -24,46 +23,24 @@ import { DashboardWrapper, NoDataWrapper } from './styles';
 
 const HomePage = () => {
   const { t } = useTranslation();
-  const { role, isVerified } = useAuthData();
-  const { data: dashboard } = useGetDashboardData(
-    { exclude: role === 'super-admin' ? ['users'] : [] },
-    { enabled: ['admin', 'recruiter'].includes(role as string) },
-  );
+  const { permissions } = useAuthData();
+  const { data: dashboard, isLoading } = useGetDashboardData();
 
-  let menuItems: INavbarItem[] = [];
-
-  if (role === 'user' && isVerified) {
-    menuItems = MENU_ITEMS;
-  }
-  if (['admin', 'recruiter'].includes(role as string)) {
-    menuItems = ADMIN_MENU_ITEMS;
-  }
   useDocumentTitle();
+  if (isLoading) return <NoDataWrapper><Loader /></NoDataWrapper>;
 
   return (
     <>
-      {role === 'user' && (
-        <>
-          <MainMenuGrid>
-            {menuItems.map((item) => (
-              <MainMenuLink key={item.title} to={item.to}>
-                <p>{t(item.title)}</p>
-                {item.icon}
-              </MainMenuLink>
-            ))}
-          </MainMenuGrid>
-        </>
-      )}
-      {!!dashboard && ['admin', 'recruiter'].includes(role as string) && (
-        <DashboardWrapper>
-          <div className="cards">
-            <div className="col">
+      <DashboardWrapper>
+        <div className="cards">
+          <div className="col">
+            {permissions.includes('users:read') && (
               <FormCard>
                 <FormCardHeader icon={<UserIcon size={24} />} title={t('navbar.profiles')}>
                   <Link to="/profiles"><Button>{t('showAll')}</Button></Link>
                 </FormCardHeader>
                 <FormCardBody>
-                  {!!dashboard.users.length && (
+                  {!!dashboard?.users?.length && (
                     <TableContainer>
                       <Table size="small">
                         <TableHead>
@@ -89,12 +66,14 @@ const HomePage = () => {
                   )}
                 </FormCardBody>
               </FormCard>
+            )}
+            {permissions.includes('clients:read') && (
               <FormCard>
                 <FormCardHeader icon={<BusinessIcon size={24} />} title={t('navbar.clients')}>
                   <Link to="/clients"><Button>{t('showAll')}</Button></Link>
                 </FormCardHeader>
                 <FormCardBody>
-                  {!!dashboard.clients.length && (
+                  {!!dashboard?.clients?.length && (
                     <TableContainer>
                       <Table size="small">
                         <TableHead>
@@ -120,12 +99,14 @@ const HomePage = () => {
                   )}
                 </FormCardBody>
               </FormCard>
+            )}
+            {permissions.includes('orders:read') && (
               <FormCard>
                 <FormCardHeader icon={<RecruiterIcon size={24} />} title={t('navbar.orders')}>
                   <Link to="/orders"><Button>{t('showAll')}</Button></Link>
                 </FormCardHeader>
                 <FormCardBody>
-                  {!!dashboard.orders.length && (
+                  {!!dashboard?.orders?.length && (
                     <TableContainer>
                       <Table size="small">
                         <TableHead>
@@ -151,14 +132,17 @@ const HomePage = () => {
                   )}
                 </FormCardBody>
               </FormCard>
-            </div>
-            <div className="col">
+            )}
+
+          </div>
+          <div className="col">
+            {permissions.includes('prepayments:read') && (
               <FormCard>
                 <FormCardHeader icon={<PrepaymentIcon size={24} />} title={t('navbar.prepayments')}>
                   <Link to="/prepayments"><Button>{t('showAll')}</Button></Link>
                 </FormCardHeader>
                 <FormCardBody>
-                  {!!dashboard.prepayments.length && (
+                  {!!dashboard?.prepayments?.length && (
                     <TableContainer>
                       <Table size="small">
                         <TableHead>
@@ -186,12 +170,14 @@ const HomePage = () => {
                   )}
                 </FormCardBody>
               </FormCard>
+            )}
+            {permissions.includes('daysoff:read') && (
               <FormCard>
                 <FormCardHeader icon={<DayoffIcon size={24} />} title={t('navbar.daysoff')}>
                   <Link to="/daysoff"><Button>{t('showAll')}</Button></Link>
                 </FormCardHeader>
                 <FormCardBody>
-                  {!!dashboard.daysoff.length && (
+                  {!!dashboard?.daysoff?.length && (
                     <TableContainer>
                       <Table size="small">
                         <TableHead>
@@ -217,12 +203,14 @@ const HomePage = () => {
                   )}
                 </FormCardBody>
               </FormCard>
+            )}
+            {permissions.includes('accommodations:read') && (
               <FormCard>
                 <FormCardHeader icon={<AccommodationIcon size={24} />} title={t('navbar.accommodation')}>
                   <Link to="/accommodation"><Button>{t('showAll')}</Button></Link>
                 </FormCardHeader>
                 <FormCardBody>
-                  {!!dashboard.accommodations.length && (
+                  {!!dashboard?.accommodations?.length && (
                     <TableContainer>
                       <Table size="small">
                         <TableHead>
@@ -244,11 +232,10 @@ const HomePage = () => {
                   )}
                 </FormCardBody>
               </FormCard>
-            </div>
+            )}
           </div>
-        </DashboardWrapper>
-      )}
-      {!isVerified && <NoDataWrapper>{t('youNotVerified')}</NoDataWrapper>}
+        </div>
+      </DashboardWrapper>
     </>
   );
 };

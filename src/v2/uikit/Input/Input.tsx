@@ -1,4 +1,4 @@
-import React, { ForwardedRef, forwardRef, memo, useCallback } from 'react';
+import React, { ForwardedRef, forwardRef, memo, useCallback, useState } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 
@@ -25,9 +25,10 @@ export type InputProps = {
 } & TextFieldProps;
 
 const Input = ({
-  showPasswordIcon, type, maxWidth, theme = 'white', label, className, tooltip, allowCyrillic = false, ...props
+  showPasswordIcon, type, maxWidth, theme = 'white', label, className, tooltip, allowCyrillic = false, error, ...props
 }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [isCyrillicError, setIsCyrillicError] = useState(false);
 
   const handleClickShowPassword = useCallback(() => {
     setShowPassword(prev => !prev);
@@ -40,20 +41,25 @@ const Input = ({
         return cyrillicRegex.test(str);
       }
       if (containsCyrillicCharacters(e.key)) {
+        setIsCyrillicError(true);
         e.preventDefault();
+      } else {
+        setIsCyrillicError(false);
       }
     }
   };
 
   return (
     <InputWrapper className={className} style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
-      <FormLabel className={props.error ? ' error' : ''} tooltip={tooltip}>
+      <FormLabel className={isCyrillicError || error ? ' error' : ''} tooltip={tooltip}>
         {label}
       </FormLabel>
       <TextField
         ref={ref}
         type={showPasswordIcon ? (showPassword ? 'text' : 'password') : type}
         onKeyPress={nameCyrillicValidator}
+        error={error || isCyrillicError}
+        {...(isCyrillicError ? { helperText: 'Iba latinka s diakritikou (Abc... + ˇ´)' } : {})}
         InputProps={showPasswordIcon
           ? {
             endAdornment: (

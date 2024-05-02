@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 
-import { themeConfig } from 'theme';
+import { ListTableRow } from 'components/shared/ListTable';
 
-export const FormFieldWrapper = styled.div`
-  min-width: 200px;
-`;
-
-export const LinkWrapper = styled.div`
-  .table-link {
-    color: ${themeConfig.palette.primary.main};
+export const StyledListTableRow = styled(ListTableRow)`
+  .menu-btn {
+    opacity: 0;
+  }
+  &:hover {
+    .menu-btn {
+      opacity: 1;
+    }
   }
 `;

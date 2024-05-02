@@ -25,7 +25,6 @@ export const SB_MOCK_USER: IUser = {
   tshortSize: '',
   pantsSize: '',
   shoesSize: '',
-  role: 'user',
   project: {
     _id: '62d93122dfabe1cfa48057de',
     name: 'Hyza',

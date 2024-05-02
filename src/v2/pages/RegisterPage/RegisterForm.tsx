@@ -20,7 +20,7 @@ const RegisterForm = () => {
   const registerMutation = useRegisterMutation();
 
   const onSubmitLogin: SubmitHandler<RegisterUserDto> = async (data) => {
-    registerMutation.mutateAsync({ ...data, role: 'user' })
+    registerMutation.mutateAsync({ ...data })
       .then(() => {
         navigate('/login');
       });

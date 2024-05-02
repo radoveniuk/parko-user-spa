@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 import { Tab, TabPanel, Tabs, TabsContainer } from 'v2/uikit/Tabs';
 
+import { useAuthData } from 'contexts/AuthContext';
+
 import AccommodationProvider, { useActiveAccommodation } from './contexts/AccommodationContext';
 import ResidenceProvider, { useActiveResidence } from './contexts/ResidenceContext';
 import AccommodationDialog from './dialogs/AccommodationDialog';
@@ -20,11 +22,13 @@ const AccommodationPageRender = () => {
   const [openCheckout, setOpenCheckout] = useState(false);
   useDocumentTitle(t('navbar.accommodation'));
 
+  const { permissions } = useAuthData();
+
   return (
     <PageWrapper>
-      <TabsContainer>
+      <TabsContainer defaultTab={permissions.includes('residences:read') ? 0 : 1}>
         <Tabs>
-          <Tab label={t('accommodation.residences')} />
+          <Tab label={t('accommodation.residences')} disabled={!permissions.includes('residences:read')} />
           <Tab label={t('accommodation.objects')} />
         </Tabs>
         <TabPanel index={0}>

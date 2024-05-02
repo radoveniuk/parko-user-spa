@@ -44,7 +44,7 @@ const UploadedPaychecksRender = () => {
         <FilterAutocomplete
           multiple
           options={users}
-          getOptionLabel={(user) => `${user.name} ${user.surname}`}
+          labelKey="fullname"
           filterKey="users"
           label={t('search')}
         />

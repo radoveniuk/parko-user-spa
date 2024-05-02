@@ -1,8 +1,9 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
-import { Button, Stack } from 'v2/uikit';
+import { Button } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
+import ListTableHeader from 'v2/uikit/ListTableHeader';
 
 import { useCreateDayoffMutation } from 'api/mutations/dayoffMutation';
 import { PlusIcon } from 'components/icons';
@@ -13,15 +14,13 @@ import { IUser } from 'interfaces/users.interface';
 
 import DayoffDialog from '../DayoffDialog';
 
-import { HeaderWrapper } from './styles';
-
 type Props = {
   data: IDayOff[];
 }
 
 const HeaderTable = ({ data }: Props) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [openNewDayoff, setOpenNewDayoff] = useState(false);
   const createDayoffMutation = useCreateDayoffMutation();
@@ -43,21 +42,16 @@ const HeaderTable = ({ data }: Props) => {
 
   return (
     <>
-      <HeaderWrapper>
-        <Stack direction="row" gap="9px" alignContent="center">
-          <span className="bold">{t('navbar.daysoff')}: {data.length}</span>
-        </Stack>
-        <Stack direction="row" gap="15px">
-          <div className="link">
-            <IconButton className="small-btn primary" onClick={() => void setOpenNewDayoff(true)}><PlusIcon size={25} /></IconButton>
-            {role === 'admin' && (
-              <Button className="big-btn" onClick={() => void setOpenNewDayoff(true)}>
-                {t('dayoff.new')}
-              </Button>
-            )}
-          </div>
-        </Stack>
-      </HeaderWrapper>
+      <ListTableHeader title={`${t('navbar.daysoff')}: ${data.length}`}>
+        <div className="link">
+          <IconButton className="small-btn primary" onClick={() => void setOpenNewDayoff(true)}><PlusIcon size={25} /></IconButton>
+          {permissions.includes('daysoff:create') && (
+            <Button className="big-btn" onClick={() => void setOpenNewDayoff(true)}>
+              {t('dayoff.new')}
+            </Button>
+          )}
+        </div>
+      </ListTableHeader>
       {openNewDayoff && (
         <DayoffDialog
           open={openNewDayoff}

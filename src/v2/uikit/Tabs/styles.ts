@@ -18,6 +18,10 @@ export const StyledTab = styled(Tab)`
   &.Mui-selected {
     background: rgb(224, 224, 224);
   }
+
+  &.Mui-disabled {
+    color: rgba(0, 0, 0, 0.38) !important;
+  }
 `;
 
 export const TabPanelWrapper = styled.div`

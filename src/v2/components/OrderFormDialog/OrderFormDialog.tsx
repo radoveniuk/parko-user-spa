@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { getProjectType } from 'v2/constants/projectType';
 import { Button, Input } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
 import DatePicker from 'v2/uikit/DatePicker';
@@ -53,7 +54,7 @@ const DEFAULT_STAGES: IOrderStage[] = [
 ];
 
 type Props = DialogProps & {
-  onSave(values: IOrder): void;
+  onSave(values: Partial<IOrder>): void;
   data?: IOrder<true>
 };
 
@@ -61,19 +62,19 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
   const { t } = useTranslation();
   const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus');
   const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
-  const { control, register, formState: { errors }, handleSubmit, clearErrors, watch } = useForm<IOrder>({
+  const { control, register, formState: { errors }, handleSubmit, clearErrors, watch, setValue, resetField } = useForm<Partial<IOrder>>({
     defaultValues: {
       ...getOrderDefaultData(data),
       stages: data?.stages ? data.stages : DEFAULT_STAGES,
     },
   });
 
-  const { data: managers = [], isFetching: isManagersFetching } = useGetUserList({ roles: 'recruiter,admin' });
+  const { data: managers = [], isFetching: isManagersFetching } = useGetUserList({ permissions: 'users:update' });
   const { data: clients } = useGetClients();
   const { data: projects } = useGetProjects();
   const { data: customForms } = useGetCustomForms();
 
-  const submitHandler: SubmitHandler<IOrder> = (values) => {
+  const submitHandler: SubmitHandler<Partial<IOrder>> = (values) => {
     onSave({ ...values });
   };
 
@@ -82,6 +83,13 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
   const [newStageLabel, setNewStageLabel] = useState('');
 
   const project = projects?.find((projectItem) => projectItem._id === watch('project'));
+
+  const resetPositionFields = () => {
+    resetField('location');
+    resetField('salary');
+    resetField('variability');
+    resetField('cooperationType');
+  };
 
   return (
     <Dialog
@@ -123,6 +131,9 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
                 onChange={(e) => {
                   clearErrors('client');
                   field.onChange(e.target.value);
+                  resetField('project');
+                  resetField('cooperationType');
+                  resetPositionFields();
                 }}
                 className="select-field"
               />
@@ -146,6 +157,10 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
                 onChange={(e) => {
                   clearErrors('project');
                   field.onChange(e.target.value);
+                  resetPositionFields();
+                  const valueProject = projects?.find((projectItem) => projectItem._id === e.target.value);
+                  const orderType = getProjectType(valueProject?.type)?.key.toLowerCase();
+                  setValue('cooperationType', orderType);
                 }}
               />
             )}
@@ -168,6 +183,10 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
                 onChange={(e) => {
                   clearErrors('positionId');
                   field.onChange(e.target.value);
+                  const position = project?.positions?.find(p => p.matterId === e.target.value);
+                  setValue('location', position?.address);
+                  setValue('salary', position?.salary?.toString());
+                  setValue('variability', position?.variability?.toString());
                 }}
               />
             )}
@@ -342,7 +361,7 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
                 <DragDropContext
                   onDragEnd={(result: DropResult) => {
                     const dest = result.destination;
-                    if (dest) {
+                    if (dest && field.value !== undefined) {
                       field.onChange(reorder(
                         field.value,
                         result.source.index,
@@ -364,10 +383,14 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
                                   key={stage.name}
                                   data={stage}
                                   onDelete={() => {
-                                    field.onChange(field.value.filter((item) => item.name !== stage.name));
+                                    if (field.value) {
+                                      field.onChange(field.value.filter((item) => item.name !== stage.name));
+                                    }
                                   }}
                                   onChange={(v) => {
-                                    field.onChange(field.value.map((valueItem) => valueItem.name === stage.name ? v : valueItem));
+                                    if (field.value) {
+                                      field.onChange(field.value.map((valueItem) => valueItem.name === stage.name ? v : valueItem));
+                                    }
                                   }}
                                 />
                               </div>

@@ -4,7 +4,7 @@ import api from 'api/common';
 import { IOrder } from 'interfaces/order.interface';
 
 export const useCreateOrder = () => {
-  const request = (data: Partial<IOrder>) => api.post('/orders', data).then(res => res.data.data);
+  const request = (data: Partial<IOrder>) => api.post('/orders', data).then(res => res.data.data as IOrder<true>);
   return useMutation(request);
 };
 

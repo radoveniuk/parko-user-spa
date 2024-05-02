@@ -10,6 +10,7 @@ import api from 'api/common';
 import { useGetCorporateBodies } from 'api/query/corporateBodyQuery';
 import { SearchIcon, UserIcon } from 'components/icons';
 import { CORPORATE_BODY_STATUS } from 'constants/selectsOptions';
+import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
 import useOutsideClick from 'hooks/useOutsideClick';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -82,6 +83,9 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
 
   const [cardKey, setCardKey] = useState(createId());
 
+  const { permissions } = useAuthData();
+  const permissionUpdate = permissions.includes('users:update');
+
   return (
     <FormCard
       defaultConfig={{ disabled: true, loading: false }}
@@ -93,7 +97,7 @@ const BusinessInfoFormCard = ({ data, onChange }: Props) => {
         <>
           {formCardConfig.loading && <LoaderWrapper><Loader /></LoaderWrapper>}
           <FormCardHeader icon={<UserIcon size={24} />} title={t('user.businessFields')}>
-            {formCardConfig.disabled && (
+            {formCardConfig.disabled && permissionUpdate && (
               <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>
             )}
             {!formCardConfig.disabled && (

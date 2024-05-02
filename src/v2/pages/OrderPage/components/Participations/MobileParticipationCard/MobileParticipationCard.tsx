@@ -9,6 +9,7 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { EditIcon, UserIcon } from 'components/icons';
 import { ORDER_STAGE_COLORS } from 'constants/colors';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IOrderParticipation } from 'interfaces/orderParticipation.interface';
 
@@ -34,7 +35,7 @@ const MobileParticipationCard = ({ style, participation }: Props) => {
       }
     });
     // eslint-disable-next-line max-len
-    return `${completedRequirderFieldsCount} / ${requiredFieldsIds.length} (${(requiredFieldsIds.length ? completedRequirderFieldsCount / requiredFieldsIds.length : 1) * 100}%)`;
+    return `${completedRequirderFieldsCount} / ${requiredFieldsIds.length} (${((requiredFieldsIds.length ? completedRequirderFieldsCount / requiredFieldsIds.length : 1) * 100).toFixed().replace('.', ',')}%)`;
   }, [participation.order.form?.requiredFields, participation.screaning]);
 
   // save updates
@@ -47,6 +48,8 @@ const MobileParticipationCard = ({ style, participation }: Props) => {
   const editSubmit = (values: Partial<IOrderParticipation>) => {
     updateParticipation({ _id: participation._id, ...values });
   };
+
+  const { permissions } = useAuthData();
 
   return (
     <MobileProfileCard style={style}>
@@ -81,7 +84,9 @@ const MobileParticipationCard = ({ style, participation }: Props) => {
           <span className="date">
             {getDateFromIso(participation.createdAt, 'dd.MM.yyyy')}
           </span>
-          <IconButton className="edit" onClick={() => void setOpenEdit(true)}><EditIcon /></IconButton>
+          {permissions.includes('orders:update') && (
+            <IconButton className="edit" onClick={() => void setOpenEdit(true)}><EditIcon /></IconButton>
+          )}
         </div>
       </div>
       {!!openScreaning && (

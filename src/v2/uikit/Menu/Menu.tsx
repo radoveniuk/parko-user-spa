@@ -1,14 +1,23 @@
 import React, { memo, ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Menu as MenuUI, MenuItem as MenuItemUI, MenuItemProps, MenuProps } from '@mui/material';
+import { Menu as MenuUI, MenuItem as MenuItemUI, MenuProps } from '@mui/material';
+import styled from 'styled-components';
 
 import { SelectMenuIcon } from 'components/icons';
+import { themeConfig } from 'theme';
 
 import Button from '../Button';
 
-export const MenuItem = memo(({ children, ...rest }: MenuItemProps) => (
-  <MenuItemUI {...rest}>{children}</MenuItemUI>
-));
+export const MenuItem = styled(MenuItemUI)<{ color?: 'primary' | 'secondary' | 'error' | 'success'}>`
+  gap: 6px;
+  &, a {
+    text-decoration: none;
+    color: ${p => themeConfig.palette[p.color || 'primary'].main} !important;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+  }
+`;
 
 MenuItem.displayName = 'MenuItem';
 
@@ -34,11 +43,17 @@ const Menu = ({ open, menuTitle: title, children, isCloseOnMenu, menuComponent, 
     setAnchorEl(null);
   };
 
-  const menuItems = useMemo(() => React.Children.map(children, (child: any) => (
-    React.cloneElement(child, {
-      onClick: () => { child.props?.onClick?.(); isCloseOnMenu && handleClose(); },
-    })
-  )), [children, isCloseOnMenu]);
+  const menuItems = useMemo(() => {
+    let filteredChildren = children;
+    if (Array.isArray(children)) {
+      filteredChildren = children.filter(child => !!child);
+    }
+    return React.Children.map(filteredChildren, (child: any) => (
+      React.cloneElement(child, {
+        onClick: () => { child.props?.onClick?.(); isCloseOnMenu && handleClose(); },
+      })
+    ));
+  }, [children, isCloseOnMenu]);
 
   return (
     <>
@@ -56,13 +71,15 @@ const Menu = ({ open, menuTitle: title, children, isCloseOnMenu, menuComponent, 
           </Button>
         )}
       </div>
-      <MenuUI
-        anchorEl={anchorEl}
-        open={openMenu}
-        onClose={handleClose}
-        {...rest}>
-        {menuItems}
-      </MenuUI>
+      {!!menuItems.length && (
+        <MenuUI
+          anchorEl={anchorEl}
+          open={openMenu}
+          onClose={handleClose}
+          {...rest}>
+          {menuItems}
+        </MenuUI>
+      )}
     </>
   );
 };

@@ -16,7 +16,7 @@ import { SearchWrapper } from './styles';
 
 const SearchBar = () => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearch = useDebounce(searchValue);
@@ -39,7 +39,7 @@ const SearchBar = () => {
 
   return (
     <SearchWrapper ref={searchFieldRef}>
-      {!['user', 'super-admin'].includes(role as string) && (
+      {permissions.includes('users:read') && (
         <Input
           value={searchValue}
           onClick={() => void setOpenSearchMenu(true)}

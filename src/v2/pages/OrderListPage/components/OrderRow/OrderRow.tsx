@@ -25,7 +25,7 @@ const OrderRow = (props: Props) => {
   const statsCellContent = useMemo(() => {
     const employed = participations.filter((item) => item.stages[item.stages.length - 1]?.stage.staticName === 'hired').length;
     const left = data.goal - employed;
-    return `${data.goal || 0} / ${employed} / ${left}`;
+    return `${data.goal || 0} / ${employed} / ${left > 0 ? left : 0}`;
   }, [data.goal, participations]);
 
   const candidateStatsCellContent = useMemo(() => {

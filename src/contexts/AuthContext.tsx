@@ -1,22 +1,22 @@
 import React, {
-  createContext, ReactNode, useCallback, useContext, useMemo, useState,
+  createContext, ReactNode, useCallback, useContext, useState,
 } from 'react';
 
 import { useLoginMutation, useLogoutMutation } from 'api/mutations/userMutation';
 import { useGetUser } from 'api/query/userQuery';
 import { eraseCookie, getCookieValue } from 'helpers/cookies';
 import useLocalStorageState from 'hooks/useLocalStorageState';
-import { LoginDto, UserRole } from 'interfaces/users.interface';
+import { IRole } from 'interfaces/role.interface';
+import { LoginDto } from 'interfaces/users.interface';
 
 type contextType = {
   isAuth: boolean;
   login(data: LoginDto): Promise<boolean>;
   logout(): void;
   userId: string;
-  role: UserRole | undefined;
-  isVerified: boolean;
   isFetching: boolean;
   username: string;
+  permissions: string[];
 };
 
 const AuthContext = createContext<contextType | undefined>(undefined);
@@ -28,8 +28,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const loginMutation = useLoginMutation();
   const logoutMutation = useLogoutMutation();
   const { data: userData, isLoading } = useGetUser(userId, { enabled: !!userId && isAuth });
-
-  const isVerified = useMemo(() => !!userData?.project || ['admin', 'recruiter', 'super-admin'].includes(userData?.role as string), [userData]);
 
   const login = async (data: LoginDto) => {
     const loginResult = await loginMutation.mutateAsync(data);
@@ -51,11 +49,17 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUserId('');
   }, [logoutMutation, setUserId, userData]);
 
-  const role = useMemo(() => isAuth && userData ? userData.role : undefined, [userData, isAuth]);
-
   return (
     <AuthContext.Provider
-      value={{ isAuth, login, logout, userId, role, isVerified, username: `${userData?.name} ${userData?.surname}`, isFetching: isLoading }}>
+      value={{
+        isAuth,
+        login,
+        logout,
+        userId,
+        username: userData?.fullname as string,
+        isFetching: isLoading,
+        permissions: [...new Set(userData?.roles?.flatMap(role => (role as unknown as IRole).permissions))],
+      }}>
       {children}
     </AuthContext.Provider>
   );
@@ -93,10 +97,9 @@ export const useAuthData = () => {
 
   return {
     id: authContext.userId,
-    role: authContext.role,
-    isVerified: authContext.isVerified,
     username: authContext.username,
     isFetching: authContext.isFetching,
+    permissions: authContext.permissions,
   };
 };
 

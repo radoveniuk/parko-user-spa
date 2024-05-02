@@ -4,6 +4,7 @@ import DialogConfirm from 'v2/uikit/DialogConfirm';
 import Menu, { MenuItem } from 'v2/uikit/Menu';
 
 import { DeleteIcon, EditIcon, FieldIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { ICustomFormField } from 'interfaces/form.interface';
 import { themeConfig } from 'theme';
@@ -25,6 +26,8 @@ const MobileFieldCard = ({ data }: Props) => {
 
   const { remove } = useCustomFormFieldActions();
 
+  const { permissions } = useAuthData();
+
   return (
     <>
       <Menu
@@ -37,10 +40,14 @@ const MobileFieldCard = ({ data }: Props) => {
           </MobileCardWrapper>
         )}
       >
-        <MenuItem onClick={() => void setOpenDialog(true)}>
-          <EditIcon style={{ marginRight: 5 }} />{t('edit')}
-        </MenuItem>
-        <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon style={{ marginRight: 5 }} />{t('delete')}</MenuItem>
+        {permissions.includes('customFields:update') && (
+          <MenuItem onClick={() => void setOpenDialog(true)}>
+            <EditIcon />{t('edit')}
+          </MenuItem>
+        )}
+        {permissions.includes('customFields:delete') && (
+          <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon />{t('delete')}</MenuItem>
+        )}
       </Menu>
       {!!openDialog && (
         <FieldDialog

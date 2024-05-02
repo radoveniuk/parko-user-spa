@@ -15,6 +15,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 
 import { DayoffIcon, DeleteIcon, EditIcon, PlusIcon } from 'components/icons';
 import { REASONS } from 'constants/dayoffReasons';
+import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
@@ -33,6 +34,7 @@ type Props = {
 
 const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff }: Props) => {
   const { t } = useTranslation();
+  const { permissions } = useAuthData();
 
   const [dayoffDialogData, setDayoffDialogData] = useState<Partial<IDayOff> | null>(null);
   const [deleteDialogData, setDeleteDialogData] = useState<Partial<IDayOff> | null>(null);
@@ -85,7 +87,9 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
     <>
       <FormCard>
         <FormCardHeader icon={<DayoffIcon size={24} />} title={t('navbar.daysoff')}>
-          <Button onClick={() => { setDayoffDialogData({}); reset(); }}><PlusIcon />{t('add')}</Button>
+          {permissions.includes('daysoff:create') && (
+            <Button onClick={() => { setDayoffDialogData({}); reset(); }}><PlusIcon />{t('add')}</Button>
+          )}
         </FormCardHeader>
         <FormCardBody>
           {!!daysoff.length && (
@@ -109,12 +113,16 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
                       <TableCell>{getDateFromIso(dayoff.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
                       <TableCell align="right">
                         <ActionsCell>
-                          <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => { setDayoffDialogData(dayoff); reset(dayoff); }}>
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => void setDeleteDialogData(dayoff)}>
-                            <DeleteIcon />
-                          </IconButton>
+                          {permissions.includes('daysoff:update') && (
+                            <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => { setDayoffDialogData(dayoff); reset(dayoff); }}>
+                              <EditIcon />
+                            </IconButton>
+                          )}
+                          {permissions.includes('daysoff:delete') && (
+                            <IconButton disabled={!isMongoId(dayoff._id)} onClick={() => void setDeleteDialogData(dayoff)}>
+                              <DeleteIcon />
+                            </IconButton>
+                          )}
                         </ActionsCell>
                       </TableCell>
                     </TableRow>

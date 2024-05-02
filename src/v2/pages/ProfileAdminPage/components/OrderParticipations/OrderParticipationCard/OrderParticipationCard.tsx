@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import OrderParticipationForm from 'v2/components/OrderParticipationForm';
 import { Button } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
@@ -25,7 +26,7 @@ type Props = {
 
 const OrderParticipationCard = ({ data, onChange, onDelete }: Props) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
   const formMethods = useForm<IOrderParticipation<true>>({
     defaultValues: {
       ...(data as any),
@@ -58,7 +59,7 @@ const OrderParticipationCard = ({ data, onChange, onDelete }: Props) => {
               icon={<RecruiterIcon />}
               title={(
                 <OrderParticipationCardTitleWrapper>
-                  {data.order.name}
+                  <Link to={`/order/${data.order._id}`}>{data.order.name}</Link>
                   {participationActualStage && (
                     <StatusLabel
                       style={{
@@ -72,7 +73,7 @@ const OrderParticipationCard = ({ data, onChange, onDelete }: Props) => {
                 </OrderParticipationCardTitleWrapper>
               )}
             >
-              {formCardConfig.disabled && (
+              {formCardConfig.disabled && permissions.includes('orders:update') && (
                 <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>
               )}
               {!formCardConfig.disabled && (
@@ -100,7 +101,9 @@ const OrderParticipationCard = ({ data, onChange, onDelete }: Props) => {
               </div>
               <div className="info">{t('order.createdAt')}: {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')} ({data.createdBy.fullname})</div>
             </UpdatingStatsWrapper>
-            {role === 'admin' && <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>}
+            {permissions.includes('orders:update') && (
+              <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
+            )}
           </>
         )}
       </FormCard>

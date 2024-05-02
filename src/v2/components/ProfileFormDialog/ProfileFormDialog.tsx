@@ -12,11 +12,12 @@ import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 import Select from 'v2/uikit/Select';
 
 import { useGetDictionary } from 'api/query/dictionariesQuery';
+import { useGetRoles } from 'api/query/roleQuery';
 import { useGetUserList } from 'api/query/userQuery';
 import { WarningIcon } from 'components/icons';
-import { ROLES } from 'constants/userRoles';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IRole } from 'interfaces/role.interface';
 import { IUser, UserWorkType } from 'interfaces/users.interface';
 
 import AddressSearchInput from '../AddressSearchInput/AddressSearchInput';
@@ -24,7 +25,7 @@ import AddressSearchInput from '../AddressSearchInput/AddressSearchInput';
 import { CountrySelectOption, FormWrapper, NamesakesDialogContent } from './styles';
 
 type Data = Pick<IUser, 'name' | 'surname' | 'email' | 'birthDate' | 'country' | 'sex' |
-'adress' | 'source' | 'recruiter' | 'phone' | 'role' | 'notes' | 'workTypes'>
+'adress' | 'source' | 'recruiter' | 'phone' | 'notes' | 'workTypes' | 'roles'>
 
 export type ProfileFormDialogProps = DialogProps & {
   data?: Partial<Data>;
@@ -32,15 +33,22 @@ export type ProfileFormDialogProps = DialogProps & {
 }
 
 const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogProps) => {
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
   const { t } = useTranslation();
   const sexOptions = useTranslatedSelect(['male', 'female']);
-  const translatedRoles = useTranslatedSelect(ROLES, 'userRole');
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
-  const { data: recruiters = [] } = useGetUserList({ roles: 'recruiter,admin' });
+  const { data: recruiters = [] } = useGetUserList({ permissions: 'users:update' });
 
-  const { register, control, handleSubmit, formState: { errors }, reset, getValues, watch } = useForm<Data>({ defaultValues: data });
+  // roles
+  const { data: roles = [] } = useGetRoles();
+  const rolesToIds = (roles: IRole[]) => roles?.map(role => (role as unknown as IRole)._id);
+  const idsToRoles = (ids: string[]) => ids?.map(roleId => roles.find(role => role._id === roleId));
+
+  const {
+    register, control, handleSubmit,
+    formState: { errors }, reset, getValues, watch,
+  } = useForm<Data>({ defaultValues: { ...data, roles: rolesToIds(data?.roles || []) } });
 
   const queryClient = useQueryClient();
 
@@ -58,9 +66,9 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
     onSave?.({
       ...values,
       recruiter: recruiter || null,
-      role: values.role || 'user',
       name: processName(values.name),
       surname: processName(values.surname),
+      roles: idsToRoles(values.roles || []),
     });
   };
 
@@ -81,7 +89,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
 
   useEffect(() => {
     if (rest.open) {
-      reset(data || {});
+      reset({ ...data, roles: rolesToIds(data?.roles || []) } || {});
     }
   }, [data, reset, rest.open]);
 
@@ -111,13 +119,13 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             control={control}
             name="phone"
             defaultValue={data?.phone || ''}
-            rules={{ validate: (value) => !value || checkPhoneNumber(value as string), required: true }}
+            rules={{ validate: (value) => !value || checkPhoneNumber(value as string) }}
             render={({ field }) => (
               <PhoneInput
                 theme="gray"
                 value={field.value as string}
                 onChange={field.onChange}
-                label={`${t('project.phone')}*`}
+                label={t('project.phone')}
                 error={!!errors.phone}
               />
             )}
@@ -188,19 +196,29 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             theme="gray"
             label={t('user.recruiter')}
             defaultValue={data?.recruiter}
-            options={recruiters.toSorted((a, b) => b.role.length - a.role.length)}
+            options={recruiters}
             valuePath="_id"
-            labelPath={(item) => `${item.name} ${item.surname}, ${t(`selects.userRole.${item.role}`)}`}
+            labelPath={(item) => `${item.name} ${item.surname}, ${item?.roles?.map((r: IRole) => r.name).join(',')}`}
             {...register('recruiter')}
           />
-          {role === 'admin' && (
-            <Select
-              theme="gray"
-              options={translatedRoles}
-              defaultValue={data?.role || 'user'}
-              fullWidth
-              label={t('user.role')}
-              {...register('role')}
+          {permissions.includes('roles:update') && roles.length && (
+            <Controller
+              control={control}
+              name="roles"
+              render={({ field }) => (
+                <Autocomplete
+                  value={roles.filter((role) => field.value?.includes(role._id))}
+                  theme="gray"
+                  options={roles}
+                  valueKey="_id"
+                  labelKey="name"
+                  label={t('user.role')}
+                  limitTags={1}
+                  onChange={(values) => void field.onChange(values.map((item: IRole) => item._id))}
+                  disableCloseOnSelect
+                  multiple
+                />
+              )}
             />
           )}
           <Controller

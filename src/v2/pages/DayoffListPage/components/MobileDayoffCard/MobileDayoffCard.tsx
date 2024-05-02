@@ -8,6 +8,7 @@ import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { DayoffIcon, DeleteIcon, EditIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IDayOff } from 'interfaces/dayoff.interface';
@@ -25,7 +26,7 @@ type Props = {
   data: IDayOff & { user: IUser };
 };
 
-const MobilePrepaymentCard = ({ style, data }: Props) => {
+const MobileDayoffCard = ({ style, data }: Props) => {
   const { t } = useTranslation();
 
   const user = data.user;
@@ -60,6 +61,8 @@ const MobilePrepaymentCard = ({ style, data }: Props) => {
     return `${getDateFromIso(data.dateStart)} - ${getDateFromIso(data.dateEnd)}`;
   }, [data.dateEnd, data.dateStart]);
 
+  const { permissions } = useAuthData();
+
   return (
     <MobileCardWrapper style={style}>
       <div className="card">
@@ -84,8 +87,12 @@ const MobilePrepaymentCard = ({ style, data }: Props) => {
           </div>
         </div>
         <div className="actions">
-          <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
-          <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
+          {permissions.includes('daysoff:update') && (
+            <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
+          )}
+          {permissions.includes('daysoff:delete') && (
+            <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
+          )}
         </div>
       </div>
       {!!openDialog && (
@@ -113,4 +120,4 @@ const MobilePrepaymentCard = ({ style, data }: Props) => {
   );
 };
 
-export default memo(MobilePrepaymentCard);
+export default memo(MobileDayoffCard);

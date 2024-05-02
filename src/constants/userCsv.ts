@@ -7,7 +7,7 @@ export const EXPORT_USER_FIELDS: (Path<IUser>)[] = [
   'country', 'adress',
   'passNumber', 'IBAN', 'ICO', 'DIC', 'rodneCislo',
   'permitNumber', 'permitDepartment', 'permitAdress',
-  'role', 'status', 'notes', 'position',
+  'roles', 'status', 'notes', 'position',
   'recruiter', 'source', 'bankName', 'SWIFT',
   'medicalInsurance', 'birthPlace', 'familyStatus',
   'birthSurname', 'childrenCount', 'businessName', 'businessStatus',
@@ -28,13 +28,13 @@ export const EXPORT_USER_EMPLOYMENT_FIELDS: (keyof IEmployment)[] = [
 export const IMPORT_USER_FIELDS: (keyof IUser)[] = [
   'email', 'name', 'surname', 'phone', 'IBAN', 'ICO', 'adress', 'birthDate',
   'city', 'country', 'hasPermit', 'pantsSize', 'passNumber', 'tshortSize', 'zip',
-  'permitExpire', 'permitType', 'rodneCislo', 'role', 'status', 'sex', 'DIC', 'blocked', 'notes',
+  'permitExpire', 'permitType', 'rodneCislo', 'status', 'sex', 'DIC', 'blocked', 'notes',
   'source', 'permitStartDate', 'permitAdress', 'hasMedicalExamination', 'permitDepartment',
   'permitNumber', 'position', 'cooperationStartDate', 'cooperationEndDate',
 ];
 
 export const TRANSLATED_FIELDS: (keyof IUser)[] = [
-  'role', 'status', 'sex',
+  'status', 'sex',
 ];
 
 export const DYNAMIC_FIELDS: (keyof IUser)[] = [

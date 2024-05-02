@@ -4,11 +4,12 @@ import { SM } from 'theme/sizeBreakpoints';
 
 export const NoDataWrapper = styled.div`
   display: flex;
-  height: calc(100vh - 345px);
+  height: calc(100vh - 50px);
   align-items: center;
   justify-content: center;
   color: #a0a0a0;
   font-size: 20px;
+  overflow: hidden;
 `;
 
 export const DashboardWrapper = styled.div`

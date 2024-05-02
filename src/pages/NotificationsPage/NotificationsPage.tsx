@@ -13,7 +13,7 @@ import { CreateMessageLink } from './styles';
 const NotificationsPage = () => {
   const { t } = useTranslation();
   const { id } = useAuthData();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
   useDocumentTitle(t('notifications'));
 
   return (
@@ -30,7 +30,7 @@ const NotificationsPage = () => {
           <Notifications options={{ from: id }} mode="to" />
         </TabPanel>
       </TabsContainer>
-      {['admin', 'recruiter', 'super-admin'].includes(role as string) && (
+      {permissions.includes('notifications:create') && (
         <CreateMessageLink to="/create-notification">
           <Button><NotificationIcon size={20} /></Button>
         </CreateMessageLink>

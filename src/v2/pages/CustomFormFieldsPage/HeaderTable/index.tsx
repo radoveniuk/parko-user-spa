@@ -1,13 +1,13 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Stack } from 'v2/uikit';
+import { Button } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
+import ListTableHeader from 'v2/uikit/ListTableHeader';
 
 import { PlusIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 
 import FieldDialog from '../FieldDialog';
-
-import { HeaderWrapper } from './styles';
 
 type Props = {
   count: number;
@@ -18,19 +18,18 @@ const HeaderTable = ({ count }: Props) => {
 
   const [openTemplate, setOpenTemplate] = useState(false);
 
+  const { permissions } = useAuthData();
+
   return (
     <>
-      <HeaderWrapper>
-        <Stack direction="row" gap="9px" alignContent="center">
-          <span className="bold">{t('customForms.fields')}: {count}</span>
-        </Stack>
-        <Stack direction="row" gap="15px">
+      <ListTableHeader title={`${t('customForms.fields')}: ${count}`}>
+        {permissions.includes('customFields:create') && (
           <div className="link">
             <Button className="big-btn" onClick={() => void setOpenTemplate(true)}>{t('customForms.newField')}</Button>
             <IconButton className="small-btn primary" onClick={() => void setOpenTemplate(true)}><PlusIcon size={25} /></IconButton>
           </div>
-        </Stack>
-      </HeaderWrapper>
+        )}
+      </ListTableHeader>
       {!!openTemplate && (
         <FieldDialog
           defaultData

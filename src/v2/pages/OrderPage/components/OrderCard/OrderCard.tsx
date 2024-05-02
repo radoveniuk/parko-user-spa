@@ -25,7 +25,7 @@ export type ClientCardProps = {
 
 const OrderCard = ({ data, participations }: ClientCardProps) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [isOpenForm, setIsOpenForm] = useState(false);
 
@@ -41,7 +41,7 @@ const OrderCard = ({ data, participations }: ClientCardProps) => {
   const renderManagers = () => managers
     ?.map((item) => {
       if (typeof item === 'string') {
-        const managerUsers = queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) as IUser[];
+        const managerUsers = queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) as IUser[];
         const manager = managerUsers.find((user) => user._id === item);
         return `${manager?.fullname}`;
       }
@@ -55,14 +55,16 @@ const OrderCard = ({ data, participations }: ClientCardProps) => {
     const candidates = participations.length - hired - canceled;
     const left = order.goal - hired;
     return {
-      hired, canceled, candidates, left,
+      hired, canceled, candidates, left: left > 0 ? left : 0,
     };
   }, [order.goal, participations]);
 
   return (
     <>
       <ProfileCardWrapper>
-        <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
+        {permissions.includes('orders:update') && (
+          <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
+        )}
         <div className="contacts-info section">
           <div className="name">{order.name}</div>
           <div className="contacts">
@@ -110,7 +112,7 @@ const OrderCard = ({ data, participations }: ClientCardProps) => {
           onSave={(values: Partial<IOrder>) => {
             closeForm();
             updateOrder.mutate({ _id: data._id, ...values });
-            const allManagers = (queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) || []) as IUser[];
+            const allManagers = (queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) || []) as IUser[];
             const allClients = (queryClient.getQueryData(['clients', JSON.stringify({})]) || []) as IClient[];
             const allProjects = (queryClient.getQueryData(['projects', JSON.stringify({})]) || []) as IProject[];
             const allCustomForms = (queryClient.getQueryData(['customForms', JSON.stringify({})]) || []) as ICustomForm[];

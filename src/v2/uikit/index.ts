@@ -7,7 +7,6 @@ export { default as FormControlLabel } from './FormControlLabel';
 export { default as Input } from './Input';
 export { default as Menu } from './Menu';
 export { MenuItem } from './Menu';
-export { default as Paper } from './Paper';
 export { default as Radio } from './Radio';
 export { default as RadioGroup } from './RadioGroup';
 export { default as Stack } from './Stack';

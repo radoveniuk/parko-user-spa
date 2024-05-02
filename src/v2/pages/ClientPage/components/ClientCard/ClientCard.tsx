@@ -40,7 +40,7 @@ export type ClientCardProps = {
 
 const ClientCard = ({ data, onChange }: ClientCardProps) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [isOpenForm, setIsOpenForm] = useState(false);
 
@@ -56,7 +56,7 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
   const renderManagers = () => managers
     ?.map((item) => {
       if (typeof item === 'string') {
-        const managerUsers = queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) as IUser[];
+        const managerUsers = queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) as IUser[];
         const manager = managerUsers.find((user) => user._id === item);
         return `${manager?.name} ${manager?.surname}`;
       }
@@ -67,7 +67,9 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
   return (
     <>
       <ProfileCardWrapper>
-        {role === 'admin' && <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>}
+        {permissions.includes('clients:update') && (
+          <IconButton className="edit-profile-btn" onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
+        )}
         <div className="contacts-info section">
           <div className="name">{client.shortName}</div>
           <div className="contacts">
@@ -112,7 +114,7 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
         onClose={closeForm}
         onSave={(values) => {
           closeForm();
-          const allManagers = (queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) || []) as IUser[];
+          const allManagers = (queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) || []) as IUser[];
 
           setClient((prev) => ({ ...prev, ...values, managers: allManagers?.filter((item) => (values.managers as string[])?.includes(item._id)) }));
           onChange?.(values);

@@ -10,6 +10,7 @@ import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { ArrowUpIcon, DeleteIcon, EditIcon } from 'components/icons';
 import { useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import { useAuthData } from 'contexts/AuthContext';
 import { iterateMap } from 'helpers/iterateMap';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IAccommodation } from 'interfaces/accommodation.interface';
@@ -49,6 +50,7 @@ const Table = ({
   isFetching,
 }: Props) => {
   const { t } = useTranslation();
+  const { permissions } = useAuthData();
   const queryClient = useQueryClient();
   const { filtersState } = useFilters();
 
@@ -119,8 +121,12 @@ const Table = ({
               <ListTableCell>{item.costNight}</ListTableCell>
               <ListTableCell>{item.sum}</ListTableCell>
               <ListTableCell>
-                <IconButton onClick={() => void setOpenResidence(item.metadata)}><EditIcon /></IconButton>
-                <IconButton onClick={() => void setIdToDelete(item._id)}><DeleteIcon /></IconButton>
+                {permissions.includes('residences:update') && (
+                  <IconButton onClick={() => void setOpenResidence(item.metadata)}><EditIcon /></IconButton>
+                )}
+                {permissions.includes('residences:delete') && (
+                  <IconButton onClick={() => void setIdToDelete(item._id)}><DeleteIcon /></IconButton>
+                )}
               </ListTableCell>
             </ListTableRow>
           );

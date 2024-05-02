@@ -8,6 +8,7 @@ import Select from 'v2/uikit/Select';
 
 import { FactoryIcon } from 'components/icons';
 import { FAMILY_STATUSES, INSURANCE } from 'constants/selectsOptions';
+import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IUser } from 'interfaces/users.interface';
@@ -34,6 +35,9 @@ const EmploymentInfoFormCard = ({ data, onUpdateEmploymentInfo }: Props) => {
 
   const [cardKey, setCardKey] = useState(createId());
 
+  const { permissions } = useAuthData();
+  const permissionUpdate = permissions.includes('users:update');
+
   return (
     <FormCard
       defaultConfig={{ disabled: true }}
@@ -44,7 +48,9 @@ const EmploymentInfoFormCard = ({ data, onUpdateEmploymentInfo }: Props) => {
       {({ formCardConfig, updateFormCardConfig }) => (
         <>
           <FormCardHeader icon={<FactoryIcon size={24} />} title={t('user.employmentInfo')}>
-            {formCardConfig.disabled && <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>}
+            {formCardConfig.disabled && permissionUpdate && (
+              <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>
+            )}
             {!formCardConfig.disabled && (
               <Button
                 color="error"

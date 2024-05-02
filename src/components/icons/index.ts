@@ -12,7 +12,6 @@ export {
 export {
   BiMessageAltError as BiMessageIcon,
   BiImport as ExportIcon,
-  BiPrinter as PrintIcon,
   BiSave as SaveIcon,
   BiMenuAltLeft as SelectMenuIcon,
 } from 'react-icons/bi';
@@ -22,7 +21,6 @@ export {
   BsEyeFill as EyeIcon,
   BsEyeSlashFill as EyeSlashIcon,
   BsFillBuildingFill as FillBuildingIcon,
-  BsFillKeyFill as PasswordIcon,
   BsThreeDots as ThreeDotsIcon,
   BsFillCloudUploadFill as UploadIcon,
   BsFiletypeDocx as WordFileIcon,
@@ -62,6 +60,7 @@ export {
   IoLanguageSharp as LanguageIcon,
   IoLocationSharp as LocationIcon,
   IoMenu as MenuIcon,
+  IoPrint as PrintIcon,
   IoWarningOutline as WarningIcon,
   IoEarth as WebIcon,
 } from 'react-icons/io5';
@@ -71,6 +70,7 @@ export {
   MdCopyAll as CopyIcon,
   MdWeekend as DayoffIcon,
   MdEmail as EmailIcon,
+  MdFactory as FactoryIcon,
   MdOutlineHistory as HistoryIcon,
   MdLanguage as InternetIcon,
   MdOutlineMapsHomeWork as MapsHomeIcon,
@@ -78,9 +78,9 @@ export {
   MdWork as ProjectIcon,
   MdRemoveDone as RemoveCheckIcon,
   MdRestore as RestoreIcon,
+  MdAdminPanelSettings as RoleIcon,
 } from 'react-icons/md';
-export { MdFactory as FactoryIcon } from 'react-icons/md';
-export { PiFoldersFill as FileGroupIcon } from 'react-icons/pi';
+export { PiFoldersFill as FileGroupIcon, PiPasswordBold as PasswordIcon } from 'react-icons/pi';
 export {
   RiAdminFill as AdminIcon,
   RiArrowLeftSLine as ArrowBackIcon,

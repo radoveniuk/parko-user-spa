@@ -1,8 +1,9 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
-import { Button, Stack } from 'v2/uikit';
+import { Button } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
+import ListTableHeader from 'v2/uikit/ListTableHeader';
 
 import { useCreatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
 import { PlusIcon } from 'components/icons';
@@ -13,11 +14,9 @@ import { IUser } from 'interfaces/users.interface';
 
 import PrepaymentDialog from '../PrepaymentDialog';
 
-import { HeaderWrapper } from './styles';
-
 const HeaderTable = ({ data }: any) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [openNewPrepayment, setOpenNewPrepayment] = useState(false);
   const createPrepaymentMutation = useCreatePrepaymentMutation();
@@ -41,21 +40,16 @@ const HeaderTable = ({ data }: any) => {
 
   return (
     <>
-      <HeaderWrapper>
-        <Stack direction="row" gap="9px" alignContent="center">
-          <span className="bold">{t('navbar.prepayments')}: {data.length}</span>
-        </Stack>
-        <Stack direction="row" gap="15px">
-          <div className="link">
-            <IconButton className="small-btn primary" onClick={() => void setOpenNewPrepayment(true)}><PlusIcon size={25} /></IconButton>
-            {role === 'admin' && (
-              <Button className="big-btn" onClick={() => void setOpenNewPrepayment(true)}>
-                {t('prepayment.new')}
-              </Button>
-            )}
-          </div>
-        </Stack>
-      </HeaderWrapper>
+      <ListTableHeader title={`${t('navbar.prepayments')}: ${data.length}`}>
+        <div className="link">
+          <IconButton className="small-btn primary" onClick={() => void setOpenNewPrepayment(true)}><PlusIcon size={25} /></IconButton>
+          {permissions.includes('prepayments:create') && (
+            <Button className="big-btn" onClick={() => void setOpenNewPrepayment(true)}>
+              {t('prepayment.new')}
+            </Button>
+          )}
+        </div>
+      </ListTableHeader>
       <PrepaymentDialog
         open={openNewPrepayment}
         onClose={() => void setOpenNewPrepayment(false)}

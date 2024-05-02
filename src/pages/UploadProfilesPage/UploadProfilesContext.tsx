@@ -57,7 +57,6 @@ const UploadProfilesProvider = ({ children }: { children: ReactNode }) => {
     return {
       ...newRow,
       password: DEFAULT_PASS,
-      role: 'user',
     } as IUser;
   })
     .filter((userRow) => !!userRow.email), [rows, relativeFields]);

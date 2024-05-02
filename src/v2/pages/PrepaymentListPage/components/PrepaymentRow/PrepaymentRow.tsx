@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { Menu, MenuItem } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
-import { DeleteIcon, EditIcon } from 'components/icons';
-import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import { DeleteIcon, EditIcon, ThreeDotsIcon } from 'components/icons';
+import { ListTableCell } from 'components/shared/ListTable';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
@@ -16,7 +18,7 @@ import { IUser } from 'interfaces/users.interface';
 import usePrepaymentMutations from '../../hooks/usePrepaymentMutations';
 import PrepaymentDialog from '../PrepaymentDialog';
 
-import { LinkWrapper } from './styles';
+import { StyledListTableRow } from './styles';
 
 type ClientRowProps = {
   cols: string[];
@@ -36,14 +38,14 @@ const PrepaymentRow = (props: ClientRowProps) => {
 
   const { updatePrepayment, removePrepayment } = usePrepaymentMutations();
 
+  const { permissions } = useAuthData();
+
   return (
-    <ListTableRow>
+    <StyledListTableRow>
       <ListTableCell>
-        <LinkWrapper>
-          <Link to={`/profile/${user._id}`} className="table-link">
-            {user.name} {user.surname}
-          </Link>
-        </LinkWrapper>
+        <Link to={`/profile/${user._id}`} className="table-link">
+          {user.name} {user.surname}
+        </Link>
       </ListTableCell>
       <ListTableCell>
         {client ? `${client.shortName} > ` : ''}{project?.name}
@@ -80,8 +82,16 @@ const PrepaymentRow = (props: ClientRowProps) => {
         </Link>
       </ListTableCell>
       <ListTableCell>
-        <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
-        <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
+        {(permissions.includes('prepayments:update') || permissions.includes('prepayments:delete')) && (
+          <Menu className="menu-btn" menuComponent={<IconButton><ThreeDotsIcon /></IconButton>}>
+            {permissions.includes('prepayments:update') && (
+              <MenuItem onClick={() => void setOpenDialog(true)}><EditIcon />{t('edit')}</MenuItem>
+            )}
+            {permissions.includes('prepayments:delete') && (
+              <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon />{t('delete')}</MenuItem>
+            )}
+          </Menu>
+        )}
       </ListTableCell>
       {!!openDialog && (
         <PrepaymentDialog
@@ -104,7 +114,7 @@ const PrepaymentRow = (props: ClientRowProps) => {
           onClose={() => void setOpenDeleteDialog(false)}
         />
       )}
-    </ListTableRow>
+    </StyledListTableRow>
   );
 };
 export default PrepaymentRow;

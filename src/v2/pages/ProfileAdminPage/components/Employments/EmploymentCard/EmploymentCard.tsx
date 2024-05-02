@@ -62,7 +62,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
   });
   const queryClient = useQueryClient();
   const { id: userId } = useParams();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const submitHandler: SubmitHandler<IEmployment> = (values) => {
     onChange(values);
@@ -72,7 +72,8 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
   const isOutsorce = project?.type === PROJECT_TYPES.Outsourcing.value;
   const position = project?.positions?.find((positionItem) => positionItem.matterId === watch('positionId'));
   const user = queryClient.getQueryData(['user-data', userId]) as IUser;
-  const recruiters = (queryClient.getQueryData(['users', JSON.stringify({ roles: 'recruiter,admin' })]) as IUser[]).filter(item => !!item.fullname);
+  const recruiters =
+  (queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) as IUser[]).filter(item => !!item.fullname);
 
   const hireDate = watch('hireDate');
   const fireDate = watch('fireDate');
@@ -116,7 +117,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                 </EmploymentCardTitleWrapper>
               )}
             >
-              {formCardConfig.disabled && (
+              {formCardConfig.disabled && permissions.includes('employments:update') && (
                 <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>
               )}
               {!formCardConfig.disabled && (
@@ -450,7 +451,9 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                   </Button>
                 </div>
               </EmploymentCardWrapper>
-              {role === 'admin' && <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>}
+              {permissions.includes('employments:delete') && (
+                <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
+              )}
               <DialogConfirm
                 open={openDeleteDialog}
                 onClose={() => void setOpenDeleteDialog(false)}

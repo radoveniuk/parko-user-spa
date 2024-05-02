@@ -56,7 +56,7 @@ const Paychecks = ({ filter }: Props) => {
   const updatePaycheckMutation = useUpdatePaycheckMutation();
   const deletePaycheckMutation = useDeletePaycheckMutation();
   const deleteFileMutation = useDeleteFileMutation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [itemToDelete, setItemToDelete] = useState<IPaycheck | null>(null);
 
@@ -90,7 +90,7 @@ const Paychecks = ({ filter }: Props) => {
     refetch();
   };
 
-  const cols = ['admin', 'recruiter'].includes(role as string)
+  const cols = permissions.includes('paychecks:read')
     ? (!filter?.user ? ADMIN_COLS : ADMIN_COLS.filter((item) => item !== 'paycheck.user'))
     : USER_COLS;
 
@@ -129,7 +129,7 @@ const Paychecks = ({ filter }: Props) => {
                 <DownloadFileIcon />
               </IconButton>
             </ListTableCell>
-            {['admin', 'recruiter'].includes(role as string) && (
+            {permissions.includes('paychecks:read') && (
               <>
                 <ListTableCell>
                   <FileInput

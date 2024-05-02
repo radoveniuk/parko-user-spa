@@ -15,6 +15,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 
 import { DeleteIcon, EditIcon, PlusIcon, PrepaymentIcon } from 'components/icons';
 import { PREPAYMENT_STATUS } from 'constants/selectsOptions';
+import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
@@ -33,6 +34,7 @@ type Props = {
 
 const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onUpdatePrepayment }: Props) => {
   const { t } = useTranslation();
+  const { permissions } = useAuthData();
 
   const [prepaymentDialogData, setPrepaymentDialogData] = useState<Partial<IPrepayment> | null>(null);
   const [deleteDialogData, setDeleteDialogData] = useState<Partial<IPrepayment> | null>(null);
@@ -85,7 +87,9 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
     <>
       <FormCard>
         <FormCardHeader icon={<PrepaymentIcon size={24} />} title={t('navbar.prepayments')}>
-          <Button onClick={() => { setPrepaymentDialogData({}); reset({}); }}><PlusIcon />{t('add')}</Button>
+          {permissions.includes('prepayments:create') && (
+            <Button onClick={() => { setPrepaymentDialogData({}); reset({}); }}><PlusIcon />{t('add')}</Button>
+          )}
         </FormCardHeader>
         <FormCardBody>
           {!!prepayments.length && (
@@ -113,15 +117,19 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
                       <TableCell>{getDateFromIso(prepayment.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
                       <TableCell align="right">
                         <ActionsCell>
-                          <IconButton
-                            disabled={!isMongoId(prepayment._id)}
-                            onClick={() => { setPrepaymentDialogData(prepayment); reset(prepayment); }}
-                          >
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton disabled={!isMongoId(prepayment._id)} onClick={() => void setDeleteDialogData(prepayment)}>
-                            <DeleteIcon />
-                          </IconButton>
+                          {permissions.includes('prepayments:update') && (
+                            <IconButton
+                              disabled={!isMongoId(prepayment._id)}
+                              onClick={() => { setPrepaymentDialogData(prepayment); reset(prepayment); }}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                          )}
+                          {permissions.includes('prepayments:delete') && (
+                            <IconButton disabled={!isMongoId(prepayment._id)} onClick={() => void setDeleteDialogData(prepayment)}>
+                              <DeleteIcon />
+                            </IconButton>
+                          )}
                         </ActionsCell>
                       </TableCell>
                     </TableRow>

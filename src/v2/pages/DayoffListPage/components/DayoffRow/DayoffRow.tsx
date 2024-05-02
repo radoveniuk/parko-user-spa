@@ -2,13 +2,15 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
+import { Menu, MenuItem } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
 import downloadFile from 'api/query/downloadFile';
-import { DeleteIcon, EditIcon } from 'components/icons';
-import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import { DeleteIcon, EditIcon, ThreeDotsIcon } from 'components/icons';
+import { ListTableCell } from 'components/shared/ListTable';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IDayOff } from 'interfaces/dayoff.interface';
@@ -20,7 +22,7 @@ import { IUser } from 'interfaces/users.interface';
 import useDayoffMutations from '../../hooks/usePrepaymentMutations';
 import DayoffDialog from '../DayoffDialog';
 
-import { LinkWrapper } from './styles';
+import { StyledListTableRow } from './styles';
 
 type RowProps = {
   cols: string[];
@@ -56,14 +58,14 @@ const DayoffRow = (props: RowProps) => {
     return 'continues';
   }, [data.dateEnd, data.dateStart]);
 
+  const { permissions } = useAuthData();
+
   return (
-    <ListTableRow>
+    <StyledListTableRow>
       <ListTableCell>
-        <LinkWrapper>
-          <Link to={`/profile/${user._id}`} className="table-link">
-            {user.name} {user.surname}
-          </Link>
-        </LinkWrapper>
+        <Link to={`/profile/${user._id}`} className="table-link">
+          {user.name} {user.surname}
+        </Link>
       </ListTableCell>
       <ListTableCell>
         {client ? `${client.shortName} > ` : ''}{project?.name}
@@ -100,8 +102,16 @@ const DayoffRow = (props: RowProps) => {
         </ul>
       </ListTableCell>
       <ListTableCell>
-        <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
-        <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
+        {(permissions.includes('daysoff:update') || permissions.includes('prepayments:delete')) && (
+          <Menu className="menu-btn" menuComponent={<IconButton><ThreeDotsIcon /></IconButton>}>
+            {permissions.includes('daysoff:update') && (
+              <MenuItem onClick={() => void setOpenDialog(true)}><EditIcon />{t('edit')}</MenuItem>
+            )}
+            {permissions.includes('daysoff:delete') && (
+              <MenuItem onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon />{t('delete')}</MenuItem>
+            )}
+          </Menu>
+        )}
       </ListTableCell>
       {!!openDialog && (
         <DayoffDialog
@@ -124,7 +134,7 @@ const DayoffRow = (props: RowProps) => {
           onClose={() => void setOpenDeleteDialog(false)}
         />
       )}
-    </ListTableRow>
+    </StyledListTableRow>
   );
 };
 export default DayoffRow;

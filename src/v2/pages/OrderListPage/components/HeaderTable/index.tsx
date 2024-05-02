@@ -2,15 +2,14 @@ import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import OrderFormDialog from 'v2/components/OrderFormDialog';
-import { Button, Stack } from 'v2/uikit';
+import { Button } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
+import ListTableHeader from 'v2/uikit/ListTableHeader';
 
 import { useCreateOrder } from 'api/mutations/orderMutation';
 import { PlusIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { IOrder } from 'interfaces/order.interface';
-
-import { HeaderWrapper } from './styles';
 
 type Props = {
   count: number;
@@ -18,7 +17,7 @@ type Props = {
 
 const HeaderTable = ({ count }: Props) => {
   const { t } = useTranslation();
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [openNewPrepayment, setOpenNewPrepayment] = useState(false);
   const createOrder = useCreateOrder();
@@ -35,19 +34,16 @@ const HeaderTable = ({ count }: Props) => {
 
   return (
     <>
-      <HeaderWrapper>
-        <Stack direction="row" gap="9px" alignContent="center">
-          <span className="bold">{t('navbar.orders')}: {count}</span>
-        </Stack>
-        <Stack direction="row" gap="15px">
+      <ListTableHeader title={`${t('navbar.orders')}: ${count}`}>
+        {permissions.includes('orders:create') && (
           <div className="link">
             <IconButton className="small-btn primary" onClick={() => void setOpenNewPrepayment(true)}><PlusIcon size={25} /></IconButton>
             <Button className="big-btn" onClick={() => void setOpenNewPrepayment(true)}>
               {t('order.new')}
             </Button>
           </div>
-        </Stack>
-      </HeaderWrapper>
+        )}
+      </ListTableHeader>
       <OrderFormDialog
         open={openNewPrepayment}
         onClose={() => void setOpenNewPrepayment(false)}

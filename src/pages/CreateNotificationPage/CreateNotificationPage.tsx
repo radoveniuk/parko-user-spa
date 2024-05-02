@@ -6,12 +6,12 @@ import { isEmpty } from 'lodash-es';
 import { useSnackbar } from 'notistack';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 import Autocomplete from 'v2/uikit/Autocomplete';
+import Button from 'v2/uikit/Button';
 import Input from 'v2/uikit/Input';
 
 import { useCreateNotificationMutation } from 'api/mutations/notificationMutation';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import Editor from 'components/complex/Editor';
-import Button from 'v2/uikit/Button';
 import { useAuthData } from 'contexts/AuthContext';
 import { INotification } from 'interfaces/notification.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -69,7 +69,7 @@ const CreateNotificationPage = () => {
               options={userList}
               loading={userListFetching}
               label={t('notification.users')}
-              getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
+              getOptionLabel={(option) => `${option.fullname} ${option.project ? `(${option.project.name})` : ''}`}
               style={{ minWidth: 350, maxWidth: 350 }}
               onChange={setUsers}
               disableCloseOnSelect

@@ -10,9 +10,11 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 import { Tab, Tabs } from 'v2/uikit/Tabs';
 
 import { AcceptIcon, EditIcon, PlusIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IProject } from 'interfaces/project.interface';
+import { IRole } from 'interfaces/role.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import SexSelectorMenu from './components/SexSelectorMenu';
@@ -33,6 +35,7 @@ export type ProfileCardProps = {
 };
 
 const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
+  const { permissions } = useAuthData();
   const { t } = useTranslation();
 
   const [isOpenForm, setIsOpenForm] = useState(false);
@@ -63,12 +66,16 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  const permissionUpdate = permissions.includes('users:update');
+
   return (
     <>
       <ProfileCardWrapper>
-        <IconButton className="edit-profile-btn" disabled={data.isDeleted} onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
+        {permissionUpdate && (
+          <IconButton className="edit-profile-btn" disabled={data.isDeleted} onClick={() => void setIsOpenForm(true)}><EditIcon /></IconButton>
+        )}
         <div className="tags">
-          <Chip label={t(`selects.userRole.${user.role}`)} />
+          {user.roles?.map((role: IRole) => <Chip key={role.name} label={role.name} />)}
           {user.position && <Chip label={user.position} />}
           {user.cooperationType && <Chip label={user.cooperationType} />}
           {user.tags?.filter(tag => !!tag).map((tag) => (
@@ -84,7 +91,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
               }}
             />
           ))}
-          {!showNewTagField && (
+          {!showNewTagField && permissionUpdate && (
             <AddTagMenuButton onClick={() => void setShowNewTagField(true)}><PlusIcon size={20} /></AddTagMenuButton>
           )}
           {showNewTagField && (
@@ -97,7 +104,11 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
         <div className="contacts-info section">
           <div className="name-and-sex">
             <div className="name">{user.name} {user.surname}</div>
-            <SexSelectorMenu value={user.sex} onChange={(sex) => { onChange?.({ sex }); setUser(prev => ({ ...prev, sex })); }} />
+            <SexSelectorMenu
+              value={user.sex}
+              onChange={(sex) => { onChange?.({ sex }); setUser(prev => ({ ...prev, sex })); }}
+              disabled={!permissionUpdate}
+            />
           </div>
           <div className="contacts">
             <a href={`mailto:${user.email}`} className="contact-text-link">{user.email}</a>
@@ -142,8 +153,8 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
           <Tabs orientation="vertical">
             <Tab label={t('profile')} />
             <Tab label={t('user.info')} />
-            <Tab label={t('user.cooperation')} />
-            <Tab label={t('order.participations')} />
+            <Tab label={t('user.cooperation')} disabled={!permissions.includes('employments:read')} />
+            <Tab label={t('order.participations')} disabled={!permissions.includes('orders:read')} />
             <Tab label={t('user.history')} />
           </Tabs>
         </div>
@@ -151,9 +162,10 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
       <ProfileFormDialog
         data={pick(
           { ...user, recruiter: recruiter?._id || null },
-          ['name', 'surname', 'email', 'birthDate', 'country', 'sex', 'adress', 'source', 'recruiter', 'phone', 'role', 'notes', 'workTypes'],
+          ['name', 'surname', 'email', 'birthDate', 'country', 'sex', 'adress',
+            'source', 'recruiter', 'phone', 'notes', 'workTypes', 'roles'],
         )}
-        title={`${user.name} ${user.surname}`}
+        title={`${user.fullname}`}
         open={isOpenForm}
         onClose={closeForm}
         onSave={(values) => {

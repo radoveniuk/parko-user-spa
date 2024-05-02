@@ -27,7 +27,7 @@ export type ClientFormDialogProps = DialogProps & {
 const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProps) => {
   const { t } = useTranslation();
   const statuses = useTranslatedSelect(CLIENT_STATUS, 'clientStatus', true, false);
-  const { data: managers = [], isFetching: isManagersFetching } = useGetUserList({ roles: 'recruiter,admin' });
+  const { data: managers = [], isFetching: isManagersFetching } = useGetUserList({ permissions: 'users:update' });
 
   const { register, control, handleSubmit, formState: { errors }, reset } = useForm<Data>({ defaultValues: data });
 

@@ -7,6 +7,7 @@ import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { DeleteIcon, EditIcon, MoneyBillIcon } from 'components/icons';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
@@ -17,7 +18,7 @@ import { themeConfig } from 'theme';
 import usePrepaymentMutations from '../../hooks/usePrepaymentMutations';
 import PrepaymentDialog from '../PrepaymentDialog';
 
-import { MobileClientCardWrapper } from './styles';
+import { MobileCardWrapper } from './styles';
 
 type Props = {
   style?: CSSProperties;
@@ -35,8 +36,10 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const { updatePrepayment, removePrepayment } = usePrepaymentMutations();
 
+  const { permissions } = useAuthData();
+
   return (
-    <MobileClientCardWrapper style={style}>
+    <MobileCardWrapper style={style}>
       <div className="card">
         <div className="date">{getDateFromIso(prepayment.createdAt)}</div>
         <Link to={`/profile/${prepayment.user._id}`} className="user">
@@ -57,6 +60,12 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
           </div>
         </div>
         <div className="actions">
+          {permissions.includes('prepayments:update') && (
+            <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
+          )}
+          {permissions.includes('prepayments:delete') && (
+            <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
+          )}
           <IconButton onClick={() => void setOpenDialog(true)}><EditIcon /></IconButton>
           <IconButton onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
         </div>
@@ -82,7 +91,7 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
           onClose={() => void setOpenDeleteDialog(false)}
         />
       )}
-    </MobileClientCardWrapper>
+    </MobileCardWrapper>
   );
 };
 

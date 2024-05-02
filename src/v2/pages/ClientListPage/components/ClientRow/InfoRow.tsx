@@ -6,6 +6,7 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { EditIcon } from 'components/icons';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
+import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -16,6 +17,7 @@ import { LinkWrapper } from './styles';
 const InfoRow = () => {
   const { t } = useTranslation();
   const { data, cols, startEdit } = useClientRowContext();
+  const { permissions } = useAuthData();
 
   return (
     <ListTableRow>
@@ -38,7 +40,7 @@ const InfoRow = () => {
         }
         if (clientField === 'status') {
           return createTableCell(data.status ? <StatusLabel className={data.status}>{t(`selects.clientStatus.${data.status}`)}</StatusLabel> : '',
-            t(`selects.userStatus.${data.status}`));
+            t(`selects.clientStatus.${data.status}`));
         }
         if (clientField === 'managers') {
           return createTableCell(data.managers?.map((item) => `${(item as IUser).name} ${(item as IUser).surname}`).join(', '));
@@ -46,13 +48,15 @@ const InfoRow = () => {
         return createTableCell(data[clientField]?.toString());
       })}
       <ListTableCell>
-        <IconButton
-          className="fast-edit-profile"
-          onClick={startEdit}
-          aria-label="fast edit profile"
-        >
-          <EditIcon />
-        </IconButton>
+        {permissions.includes('clients:update') && (
+          <IconButton
+            className="fast-edit-profile"
+            onClick={startEdit}
+            aria-label="fast edit profile"
+          >
+            <EditIcon />
+          </IconButton>
+        )}
       </ListTableCell>
     </ListTableRow>
   );

@@ -29,7 +29,7 @@ type Props = {
 const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
   const { t } = useTranslation();
   const { register, control, watch, getValues, setValue } = useForm<IProject>({ defaultValues: data });
-  const { role } = useAuthData();
+  const { permissions } = useAuthData();
 
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [positionToDelete, setPositionToDelete] = useState<ProjectPosition | null>(null);
@@ -101,7 +101,7 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
               </ProjectTitleWrapper>
             )}
           >
-            {formCardConfig.disabled && role === 'admin' &&
+            {formCardConfig.disabled && permissions.includes('projects:update') &&
             <Button onClick={() => void updateFormCardConfig({ disabled: false })}>{t('edit')}</Button>}
             {!formCardConfig.disabled && (
               <Button
@@ -308,7 +308,7 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
                         </div>
                       </div>
                     )}
-                    {role === 'admin' && (
+                    {permissions.includes('projects:update') && (
                       <Button
                         variant="outlined"
                         color="error"
@@ -338,7 +338,9 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
             >
               <PlusIcon /> Pracovná pozicia
             </Button>
-            {role === 'admin' && <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>}
+            {permissions.includes('projects:delete') && (
+              <IconButton className="delete-icon" onClick={() => void setOpenDeleteDialog(true)}><DeleteIcon /></IconButton>
+            )}
             <DialogConfirm
               open={openDeleteDialog}
               onClose={() => void setOpenDeleteDialog(false)}
