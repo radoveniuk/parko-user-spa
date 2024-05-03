@@ -239,7 +239,9 @@
     "corporateBodyAddress": "Adresa (Živnostník)",
     "client": "Klient",
     "addNewParticipation": "Pridať do náboru",
-    "isDeleted": "Vymazaný"
+    "isDeleted": "Vymazaný",
+    "internals": "Interni",
+    "externals": "Externi"
   },
   "userHistory": {
     "updatedBy": "Zmenil",

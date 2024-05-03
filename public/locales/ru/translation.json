@@ -239,7 +239,9 @@
     "corporateBodyAddress": "Адрес (ИП)",
     "client": "Клиент",
     "addNewParticipation": "Добавить в набор",
-    "isDeleted": "Удален"
+    "isDeleted": "Удален",
+    "internals": "Внутренние",
+    "externals": "Внешние"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",

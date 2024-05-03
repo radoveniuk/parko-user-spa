@@ -239,7 +239,9 @@
     "corporateBodyAddress": "Address",
     "client": "Client",
     "addNewParticipation": "Add to the order",
-    "isDeleted": "Deleted"
+    "isDeleted": "Deleted",
+    "internals": "Internal",
+    "externals": "External"
   },
   "userHistory": {
     "updatedBy": "Updated by",

@@ -239,7 +239,9 @@
     "corporateBodyAddress": "Адреса (ФОП)",
     "client": "Клієнт",
     "addNewParticipation": "Додати в набір",
-    "isDeleted": "Видалений"
+    "isDeleted": "Видалений",
+    "internals": "Внутрішні",
+    "externals": "Зовнішні"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",

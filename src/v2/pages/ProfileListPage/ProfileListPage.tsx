@@ -52,8 +52,23 @@ const ProfileListPageRender = () => {
   // filters
   const { data: usersFilter = [] } = useGetUserListForFilter();
   const { data: recruiters = [] } = useGetUserList({ permissions: 'users:update' });
-  const { data: clients = [] } = useGetClients();
-  const { data: projects = [] } = useGetProjects({ clients: debouncedFiltersState?.clients });
+
+  const { data: clientsData = [] } = useGetClients();
+  const clients = useMemo(() => {
+    if (debouncedFiltersState?.isInternal) {
+      return clientsData.filter(c => c.isInternal === (debouncedFiltersState?.isInternal === 'true'));
+    }
+    return clientsData;
+  }, [clientsData, debouncedFiltersState?.isInternal]);
+
+  const { data: projectsData = [] } = useGetProjects();
+  const projects = useMemo(() => {
+    if (debouncedFiltersState?.clients) {
+      return projectsData.filter(c => debouncedFiltersState?.clients.includes((c.client as IClient)._id));
+    }
+    return projectsData;
+  }, [debouncedFiltersState, projectsData]);
+
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
   const translatedSexes = useTranslatedSelect(['male', 'female']);

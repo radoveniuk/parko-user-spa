@@ -168,6 +168,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
   const toggleInternalFilter = (value: boolean) => () => {
     if (filtersState?.isInternal !== value.toString()) {
       addFilter('isInternal', value.toString());
+      removeFilter('clients');
     } else {
       removeFilter('isInternal');
     }
@@ -184,13 +185,13 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
               onClick={toggleInternalFilter(true)}
               className={filtersState?.isInternal === 'true' ? 'active' : ''}
             >
-              {t('user.internal')}
+              {t('user.internals')}
             </InternalFilterButton>
             <InternalFilterButton
               onClick={toggleInternalFilter(false)}
               className={filtersState?.isInternal === 'false' ? 'active' : ''}
             >
-              {t('user.external')}
+              {t('user.externals')}
             </InternalFilterButton>
           </>
         )}
