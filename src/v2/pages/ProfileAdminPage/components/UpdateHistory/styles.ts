@@ -123,6 +123,9 @@ export const DocItem = styled.div`
     color: rgb(126, 126, 126);
     .fieldTitle {
       font-size: 10px;
+      width: 60px;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     .fieldValue {
       font-weight: 600;

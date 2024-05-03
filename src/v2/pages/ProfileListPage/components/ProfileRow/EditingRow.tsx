@@ -44,7 +44,6 @@ const EditingRow = () => {
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
-  const { data: profilePositionDictionary } = useGetDictionary('PROFILE_POSITIONS');
   const { data: countryDictionary } = useGetDictionary('COUNTRIES');
   const employmentTypeOptions = useTranslatedSelect(EMPLOYMENT_TYPE, 'employmentType');
   const sexOptions = useTranslatedSelect(['male', 'female']);
@@ -87,10 +86,6 @@ const EditingRow = () => {
       options: cooperationTypeDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
       labelPath: 'label',
     },
-    position: {
-      options: profilePositionDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
-      labelPath: 'label',
-    },
     country: {
       options: countryDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
       labelPath: 'label',
@@ -103,10 +98,7 @@ const EditingRow = () => {
       options: countryDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
       labelPath: 'label',
     },
-  }), [
-    countryDictionary?.options, cooperationTypeDictionary?.options, permitTypeDictionary?.options, profilePositionDictionary?.options,
-    recruiters, sourceDictionary?.options,
-  ]);
+  }), [countryDictionary?.options, cooperationTypeDictionary?.options, permitTypeDictionary?.options, recruiters, sourceDictionary?.options]);
 
   const generateField = (fieldName: keyof IUser) => {
     const fieldData = ALL_FORM_FIELDS[fieldName];
@@ -277,9 +269,9 @@ const EditingRow = () => {
       project: values.project?.toString() || (data.project as IProject)?._id || null,
       recruiter: values.recruiter?.toString() || null,
     };
-    if (!updatedUserData.password) {
-      delete updatedUserData.password;
-    }
+
+    delete updatedUserData.password;
+    delete updatedUserData.roles;
     saveEdit(updatedUserData);
   };
 
