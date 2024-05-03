@@ -86,9 +86,6 @@ const DayoffRow = (props: RowProps) => {
         {data.reason && t(`selects.dayoffReason.${data.reason}`)}
       </ListTableCell>
       <ListTableCell>
-        {data.description}
-      </ListTableCell>
-      <ListTableCell>
         {data.adminComment}
       </ListTableCell>
       <ListTableCell>

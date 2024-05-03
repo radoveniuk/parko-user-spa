@@ -14,7 +14,7 @@ import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import HeaderTable from './components/HeaderTable';
 import MobileDayoffCard from './components/MobileDayoffCard';
 import Table from './components/Table';
-import { FilterTableWrapper, ProfileListPageWrapper } from './styles';
+import { DaysoffListPageWrapper, FilterTableWrapper } from './styles';
 
 const DEFAULT_COLS = [
   'dayoff.user',
@@ -24,7 +24,6 @@ const DEFAULT_COLS = [
   'dayoff.dateStart',
   'dayoff.dateEnd',
   'dayoff.reason',
-  'dayoff.comment',
   'dayoff.adminComment',
   'dayoff.docs',
   '',
@@ -49,11 +48,9 @@ const DayoffListPageRender = () => {
   useEffect(() => () => { remove(); }, [remove]);
 
   return (
-    <ProfileListPageWrapper>
+    <DaysoffListPageWrapper>
       <div className="container-table">
-        <HeaderTable
-          data={data}
-        />
+        <HeaderTable data={data} />
         <FilterTableWrapper>
           <FilterAutocomplete
             multiple
@@ -99,7 +96,7 @@ const DayoffListPageRender = () => {
           isFetching={isLoading || isFetching}
         />
       </div>
-    </ProfileListPageWrapper>
+    </DaysoffListPageWrapper>
   );
 };
 

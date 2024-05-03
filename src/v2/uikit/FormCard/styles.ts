@@ -89,4 +89,5 @@ export const FormCardBodyRowWrapper = styled.div`
 `;
 
 export const WarningDialogContent = styled.div`
+  margin-bottom: 12px;
 `;

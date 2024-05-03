@@ -426,7 +426,7 @@
     "orderCooperationType": {
       "leasing": "Leasing",
       "outsourcing": "Outsourcing",
-      "podkmen": "Mediation"
+      "mediation": "Mediation"
     },
     "orderStatus": {
       "recruiting": "Recruiting",
@@ -592,7 +592,8 @@
     "cooperation": "Cooperation",
     "comment": "Comment",
     "shortName": "Client",
-    "orders": "Recruitment rooms"
+    "orders": "Recruitment rooms",
+    "isInternal": "Internal"
   },
   "errorTexts": {
     "emptyPassword": "Password cannot be empty",
@@ -719,7 +720,7 @@
     "canceled": "Canceled",
     "participations": "Recruitnemt's participations",
     "activeStage": "Stage",
-    "screening": "Screening",
+    "screaning": "Screening",
     "specification": "Order specification",
     "stage": "Stage",
     "stageFrom": "Date and time",

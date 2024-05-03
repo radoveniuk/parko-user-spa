@@ -43,7 +43,7 @@ const Navbar = () => {
           <FooterWrapper>
             <Divider />
             <div className="container-content-inset">
-              <a href="mailto:support@parko.sk" title="support@parko.sk" aria-label="Support email">
+              <a href="mailto:info@parko.sk" title="info@parko.sk" aria-label="Support email">
                 <div className="feedback">
                   <BiMessageIcon size={24} /> <span>{t('navbar.feedback')}</span>
                 </div>
@@ -76,7 +76,7 @@ const Navbar = () => {
             <FooterWrapper>
               <Divider />
               <div className="container-content-inset">
-                <a href="mailto:support@parko.sk" title="support@parko.sk" aria-label="Support email">
+                <a href="mailto:info@parko.sk" title="info@parko.sk" aria-label="Support email">
                   <div className="feedback">
                     <BiMessageIcon size={24} /> <span>{t('navbar.feedback')}</span>
                   </div>

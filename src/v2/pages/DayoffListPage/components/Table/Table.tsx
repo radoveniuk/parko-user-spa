@@ -13,7 +13,7 @@ import { IClient } from 'interfaces/client.interface';
 import { IDayOff } from 'interfaces/dayoff.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import ProfileRow from '../DayoffRow';
+import DayoffRow from '../DayoffRow';
 
 import { TableWrapper } from './styles';
 
@@ -75,7 +75,7 @@ const Table = ({
         }}
       >
         {pageItems.map((dayoff: IDayOff) => (
-          <ProfileRow
+          <DayoffRow
             key={dayoff._id}
             data={dayoff}
             cols={activeCols}

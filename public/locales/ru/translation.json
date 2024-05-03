@@ -426,7 +426,7 @@
     "orderCooperationType": {
       "leasing": "Leasing",
       "outsourcing": "Outsourcing",
-      "podkmen": "Mediation"
+      "mediation": "Mediation"
     },
     "orderStatus": {
       "recruiting": "Recruiting",
@@ -592,7 +592,8 @@
     "cooperation": "Сотрудничество",
     "comment": "Примечания",
     "shortName": "Клиент",
-    "orders": "Наборы"
+    "orders": "Наборы",
+    "isInternal": "Внутренний"
   },
   "errorTexts": {
     "emptyPassword": "Пароль не может быть пустым",
@@ -719,7 +720,7 @@
     "canceled": "Не подошло",
     "participations": "Наборы",
     "activeStage": "Этап",
-    "screening": "Скрининг",
+    "screaning": "Скрининг",
     "specification": "Спецификация заказа",
     "stage": "Этап",
     "stageFrom": "Дата",

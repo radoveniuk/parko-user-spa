@@ -121,7 +121,7 @@
     "openForm": "Otvoriť formulár",
     "successfullRegister": "Úspešná registrácia! Teraz sa môžete prihlásiť",
     "project": "Projekt",
-    "status": "Status",
+    "status": "Status spolupráce",
     "resetPassword": "Obnoviť heslo",
     "role": "Rola",
     "admin": "Správa používateľov",
@@ -297,8 +297,8 @@
     "updatedBy": "Kto aktualizoval"
   },
   "dayoff": {
-    "dateStart": "Začiatok",
-    "dateEnd": "Koniec",
+    "dateStart": "Dátum od",
+    "dateEnd": "Dátum do",
     "reason": "Dôvod",
     "adminComment": "Poznámky",
     "comment": "Poznámky",
@@ -426,7 +426,7 @@
     "orderCooperationType": {
       "leasing": "Leasing",
       "outsourcing": "Outsourcing",
-      "podkmen": "Mediation"
+      "mediation": "Mediation"
     },
     "orderStatus": {
       "recruiting": "Recruiting",
@@ -577,7 +577,7 @@
     "contactPerson": "Kontaktná osoba",
     "contactPersonPosition": "Pozícia kontaktnej osoby",
     "phone": "Telefón",
-    "status": "Status",
+    "status": "Status klienta",
     "new": "Nový klient",
     "cooperationStartDate": "Začiatok spolupráce",
     "cooperationEndDate": "Koniec spolupráce",
@@ -592,7 +592,8 @@
     "cooperation": "Spolupráca",
     "comment": "Poznámky",
     "shortName": "Klient",
-    "orders": "Náborové miestnosti"
+    "orders": "Náborové miestnosti",
+    "isInternal": "Interný"
   },
   "errorTexts": {
     "emptyPassword": "Pole (Heslo) nemôže byť prázdne",
@@ -698,7 +699,7 @@
     "tableStats": "Cieľ / Zamestnaní / Ostáva",
     "candidateTableStats": "Kandidáti / Nevhodní",
     "dateFrom": "Platnosť od",
-    "dateTo": "Platnosť od",
+    "dateTo": "Platnosť do",
     "createdAt": "Dátum vytvorenia",
     "createdBy": "Kto vytvoril",
     "new": "Nový nábor",
@@ -719,7 +720,7 @@
     "canceled": "Zrušení",
     "participations": "Náborové miestnosti",
     "activeStage": "Etapa",
-    "screening": "Skríning",
+    "screaning": "Skríning",
     "specification": "Špecifikácia objednávky",
     "stage": "Etapa",
     "stageFrom": "Dátum a čas",

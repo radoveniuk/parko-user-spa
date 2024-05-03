@@ -98,7 +98,7 @@ export const ORDER_STATUS = [
 export const ORDER_COOPERATION_TYPE = [
   'outsourcing',
   'leasing',
-  'podkmen',
+  'mediation',
 ];
 
 export const EXPIRIENCE_METHOD_OPTIONS = [

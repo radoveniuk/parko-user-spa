@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { PC, TB } from 'theme/sizeBreakpoints';
 
-export const ProfileListPageWrapper = styled.div`
+export const DaysoffListPageWrapper = styled.div`
   .daysoff-table {
     .list-table-cell {
       white-space: nowrap;
