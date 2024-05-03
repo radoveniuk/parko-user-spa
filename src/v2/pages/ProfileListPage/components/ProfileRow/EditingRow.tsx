@@ -269,9 +269,8 @@ const EditingRow = () => {
       project: values.project?.toString() || (data.project as IProject)?._id || null,
       recruiter: values.recruiter?.toString() || null,
     };
-    if (!updatedUserData.password) {
-      delete updatedUserData.password;
-    }
+
+    delete updatedUserData.password;
     delete updatedUserData.roles;
     saveEdit(updatedUserData);
   };
