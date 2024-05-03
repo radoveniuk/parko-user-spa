@@ -297,8 +297,8 @@
     "updatedBy": "Kto aktualizoval"
   },
   "dayoff": {
-    "dateStart": "Začiatok",
-    "dateEnd": "Koniec",
+    "dateStart": "Dátum od",
+    "dateEnd": "Dátum do",
     "reason": "Dôvod",
     "adminComment": "Poznámky",
     "comment": "Poznámky",
@@ -426,7 +426,7 @@
     "orderCooperationType": {
       "leasing": "Leasing",
       "outsourcing": "Outsourcing",
-      "podkmen": "Mediation"
+      "mediation": "Mediation"
     },
     "orderStatus": {
       "recruiting": "Recruiting",

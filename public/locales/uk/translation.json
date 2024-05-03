@@ -426,7 +426,7 @@
     "orderCooperationType": {
       "leasing": "Leasing",
       "outsourcing": "Outsourcing",
-      "podkmen": "Mediation"
+      "mediation": "Mediation"
     },
     "orderStatus": {
       "recruiting": "Recruiting",
