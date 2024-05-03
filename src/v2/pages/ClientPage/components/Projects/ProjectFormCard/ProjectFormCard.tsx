@@ -62,7 +62,7 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
   };
 
   const isOutsorce = watch('type') === PROJECT_TYPES.Outsourcing.value;
-  const isPodKmen = watch('type') === PROJECT_TYPES.PodKmen.value;
+  const isPodKmen = watch('type') === PROJECT_TYPES.Mediation.value;
   const isLeasing = watch('type') === PROJECT_TYPES.Leasing.value;
 
   return (

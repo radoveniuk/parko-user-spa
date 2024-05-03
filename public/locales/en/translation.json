@@ -16,7 +16,7 @@
     "finance": "Finance",
     "feedback": "Feedback",
     "orders": "Recruitment rooms",
-    "roles": "Roles"
+    "roles": "Roles users"
   },
   "menu": {
     "prepayment": "Request prepayment",
@@ -106,7 +106,7 @@
     "fatherSurname": "Father`s surname",
     "fatherBirthdate": "Father`s birth date",
     "wrongCredentials": "Wrong login or password",
-    "scancopies": "Document scans",
+    "scancopies": "Documents",
     "internationalPassScan": "Travel document",
     "passScan": "Passport",
     "idCardFaceScan": "ID card (front)",
@@ -131,7 +131,7 @@
     "removedSuccess": "User has been removed",
     "logout": "Logout",
     "import": "Import",
-    "create": "Create",
+    "create": "Create user",
     "edit": "Edit",
     "salary": "Salary",
     "salaryType": "Salary type",
@@ -161,7 +161,7 @@
     "notes": "Notes",
     "oldPassword": "Old password",
     "newPassword": "New password",
-    "cooperationType": "Cooperation type",
+    "cooperationType": "HR service",
     "workHistory": "Work history",
     "lastUpdate": "Last update",
     "createdAt": "Creation date",
@@ -192,9 +192,9 @@
     "updateEmploymentInfo": "Update employment info",
     "addEmployment": "Add employment",
     "alreadyExistsError": "A user with this email already exists",
-    "businessName": "Business name",
     "SWIFT": "SWIFT",
-    "workTypes": "Work type",
+    "businessName": "Business name",
+    "workTypes": "Personal type",
     "employmentStatus": "Employment`s status",
     "employmentRecruiter": "Employment`s recruiter",
     "clientCompany": "Client`s businesss name",
@@ -267,7 +267,8 @@
     "fileUploading": "Upload file",
     "resultPreview": "Result preview",
     "finish": "Finish",
-    "successText": "Users have been imported. This is default users password, you can copy it and send to users"
+    "successText": "Users have been imported. This is default users password, you can copy it and send to users",
+    "errorText": "Error"
   },
   "finance": {
     "add": "Add",
@@ -333,7 +334,7 @@
       "candidate": "Candidate",
       "hired": "Active",
       "fired": "Departed",
-      "undefined": "-"
+      "undefined": "—"
     },
     "userRole": {
       "user": "User",
@@ -346,11 +347,11 @@
       "illnes": "Illness",
       "medicalCheck": "Medical check",
       "alcohol": "Alcohol",
-      "other": "Other",
       "unable": "Sick leave",
       "pass": "Doctor visit",
       "familyMemberCare": "Caring for a family member",
-      "blocker": "An obstacle on the side of the employer"
+      "blocker": "An obstacle on the side of the employer",
+      "other": "Other"
     },
     "tariff": {
       "candidate": "Per candidate",
@@ -391,7 +392,7 @@
     },
     "projectStatus": {
       "active": "Active",
-      "inactive": "Inactive"
+      "inactive": "Canceled"
     },
     "prepaymentStatus": {
       "pending": "Pending",
@@ -401,7 +402,7 @@
     },
     "financeType": {
       "paycheck": "Invoice",
-      "payroll": "Salary"
+      "payroll": "Payroll"
     },
     "corporateBodyStatus": {
       "active": "Active",
@@ -409,13 +410,13 @@
       "closed": "Liquidated"
     },
     "userPositionEmploymentStatus": {
-      "hired": "Hired",
-      "fired": "Terminated",
-      "canceled": "Withdrawn"
+      "hired": "Active",
+      "fired": "Departed",
+      "canceled": "Canceled"
     },
     "userWorkType": {
       "business": "Business",
-      "employment": "Employment"
+      "employment": "Employee"
     },
     "dayoffStatus": {
       "continues": "Ongoing",
@@ -425,7 +426,7 @@
     "orderCooperationType": {
       "leasing": "Leasing",
       "outsourcing": "Outsourcing",
-      "podkmen": "Pod kmeň"
+      "mediation": "Mediation"
     },
     "orderStatus": {
       "recruiting": "Recruiting",
@@ -443,7 +444,7 @@
   "file": {
     "upload": "Drop files here or click",
     "submit": "Send files",
-    "add": "Add files",
+    "add": "Add file",
     "name": "Name",
     "ext": "Extention",
     "type": "Type"
@@ -460,7 +461,7 @@
   },
   "projectList": "Projects",
   "project": {
-    "new": "Create new",
+    "new": "Create project",
     "creating": "New project",
     "edit": "Edit",
     "delete": "Delete",
@@ -477,7 +478,8 @@
     "approve": "Approve",
     "cost": "Cost",
     "tariff": "Tariff",
-    "addProfile": "Add profile to project",
+    "success": "The changes were made successfully",
+    "addProfile": "Add users to project",
     "mainInfo": "Main information",
     "location": "Location",
     "stages": "Stages of employment",
@@ -545,7 +547,7 @@
     "template": "Template",
     "codes": "Codes",
     "file": "File .docx",
-    "print": "Generate document",
+    "print": "Generate documents",
     "fieldName": "Field name",
     "fieldCode": "Template code",
     "new": "New Template",
@@ -554,7 +556,7 @@
     "createdAt": "Creation date",
     "newCategory": "New Category",
     "categoryName": "Category Name",
-    "create": "Create",
+    "create": "Create template",
     "categoryNameError": "Category with this name already exists",
     "docsWithoutCategory": "Templates without category",
     "signDate": "Signature date"
@@ -565,12 +567,12 @@
     "addOption": "Add new option"
   },
   "client": {
-    "company": "Company",
-    "name": "Business name",
+    "company": "Business name",
+    "name": "Client name",
     "ICO": "IČO",
     "DIC": "DIČ",
-    "ICDPH": "IČDPH",
-    "sidlo": "Sidlo",
+    "ICDPH": "IČ DPH",
+    "sidlo": "Sídlo",
     "websiteUrl": "Website",
     "contactPerson": "Contact person",
     "contactPersonPosition": "Contact person position",
@@ -590,7 +592,8 @@
     "cooperation": "Cooperation",
     "comment": "Comment",
     "shortName": "Client",
-    "orders": "Recruitment rooms"
+    "orders": "Recruitment rooms",
+    "isInternal": "Internal"
   },
   "errorTexts": {
     "emptyPassword": "Password cannot be empty",
@@ -691,7 +694,7 @@
     "status": "Recruitment room status",
     "client": "Client",
     "project": "Project",
-    "cooperationType": "Type of cooperation",
+    "cooperationType": "HR service",
     "name": "Name",
     "tableStats": "Target / Employed / Remaining",
     "candidateTableStats": "Candidates / Ineligible",
@@ -702,14 +705,14 @@
     "new": "New order",
     "variability": "Variability",
     "managers": "Managers",
-    "specificationUrl": "Detailed specification",
+    "specificationUrl": "Detailed specification (URL)",
     "goal": "Goal",
     "stages": "Stages",
     "positionName": "Position name",
-    "form": "Form",
+    "form": "Screening",
     "salary": "Salary",
     "location": "Location",
-    "addNewParticipation": "Add profile",
+    "addNewParticipation": "Add user",
     "stats": "Statistics",
     "employed": "Employed users",
     "left": "Left",
@@ -717,7 +720,7 @@
     "canceled": "Canceled",
     "participations": "Recruitnemt's participations",
     "activeStage": "Stage",
-    "screening": "Screening",
+    "screaning": "Screening",
     "specification": "Order specification",
     "stage": "Stage",
     "stageFrom": "Date and time",
@@ -844,6 +847,6 @@
         "update": "Roles: update",
         "delete": "Roles: delete"
       }
-    }    
+    }
   }
 }

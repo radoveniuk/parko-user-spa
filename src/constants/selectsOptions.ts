@@ -1,3 +1,5 @@
+import { PrepaymentStatus } from 'interfaces/prepayment.interface';
+
 export const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
 
 export const PERMIT_TYPES = [
@@ -68,10 +70,11 @@ export const PROJECT_STATUS = [
   'inactive',
 ];
 
-export const PREPAYMENT_STATUS = [
+export const PREPAYMENT_STATUS: PrepaymentStatus[] = [
   'pending',
   'approved',
   'rejected',
+  'paid',
 ];
 
 export const INSURANCE = [
@@ -95,7 +98,7 @@ export const ORDER_STATUS = [
 export const ORDER_COOPERATION_TYPE = [
   'outsourcing',
   'leasing',
-  'podkmen',
+  'mediation',
 ];
 
 export const EXPIRIENCE_METHOD_OPTIONS = [

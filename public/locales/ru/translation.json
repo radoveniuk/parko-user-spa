@@ -16,7 +16,7 @@
     "finance": "Финансы",
     "feedback": "Обратная связь",
     "orders": "Наборы",
-    "roles": "Роли"
+    "roles": "Роли пользователей"
   },
   "menu": {
     "prepayment": "Заказать аванс",
@@ -51,7 +51,7 @@
   "notifications": "Оповещения",
   "noData": "Данных не найдено",
   "paychecks": "Фактуры",
-  "profile": "Профиль",
+  "profile": "Профиль пользователя",
   "user": {
     "info": "Сведения",
     "new": "Новый пользователь",
@@ -106,7 +106,7 @@
     "fatherSurname": "Фамилия отца",
     "fatherBirthdate": "Дата рождения отца",
     "wrongCredentials": "Неверный логин или пароль",
-    "scancopies": "Скан-копии",
+    "scancopies": "Документы",
     "internationalPassScan": "Загранпаспорт",
     "passScan": "Паспорт",
     "idCardFaceScan": "ID картка (перед)",
@@ -121,7 +121,7 @@
     "openForm": "Открыть форму",
     "successfullRegister": "Успешная регистрация! Теперь можете войти",
     "project": "Проект",
-    "status": "Статус сотрудника",
+    "status": "Статус",
     "resetPassword": "Сброс пароля",
     "role": "Роль",
     "admin": "Администрирование пользователей",
@@ -131,7 +131,7 @@
     "removedSuccess": "Профиль удален",
     "logout": "Выйти",
     "import": "Импорт",
-    "create": "Создать",
+    "create": "Создать пользователя",
     "edit": "Редактировать",
     "salary": "Зарплата",
     "salaryType": "Тип оплаты",
@@ -161,12 +161,12 @@
     "notes": "Заметки",
     "oldPassword": "Предыдущий пароль",
     "newPassword": "Новый пароль",
-    "cooperationType": "Тип сотрудничества",
+    "cooperationType": "HR услуга",
     "workHistory": "История сотрудничества",
-    "lastUpdate": "Последние изменения",
+    "lastUpdate": "Последнее изменение",
     "createdAt": "Дата создания",
     "cooperation": "Сотрудничество",
-    "history": "История",
+    "history": "История изменений",
     "finances": "Финансы",
     "addDoc": "Добавить документ",
     "permitCardId": "Номер карты ВЖН/ПМЖ",
@@ -180,7 +180,7 @@
     "childrenCount": "Количество детей",
     "businessStatus": "Статус ИП",
     "businessActivities": "КВЭДы",
-    "employment": "Трудоустройство",
+    "employment": "Сотрудничество",
     "individualCooperation": "Сотрудничество — ИП",
     "hireDate": "Дата трудоустройства",
     "fireDate": "Дата увольнения",
@@ -190,10 +190,11 @@
     "change": "Изменить",
     "fire": "Уволить",
     "updateEmploymentInfo": "Изменить информацию о трудоустройстве",
-    "addEmployment": "Новое сотрудничество",
+    "addEmployment": "Создать сотрудничество",
     "alreadyExistsError": "Пользователь с таким имейлом уже существует",
     "SWIFT": "SWIFT",
-    "workTypes": "Тип работы",
+    "businessName": "Business name",
+    "workTypes": "Тип персонала",
     "employmentStatus": "Статус сотрудничества",
     "employmentRecruiter": "Рекрутер сотрудничества",
     "clientCompany": "Название компании клиента",
@@ -237,7 +238,8 @@
     "thisNameExistsMsg": "В системе уже есть зарегистрированный пользователь с таким именем и фамилией. Хотите продолжить?",
     "corporateBodyAddress": "Адрес (ИП)",
     "client": "Клиент",
-    "addNewParticipation": "Добавить в набор"
+    "addNewParticipation": "Добавить в набор",
+    "isDeleted": "Удален"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",
@@ -265,7 +267,8 @@
     "fileUploading": "Загрузка файла",
     "resultPreview": "Просмотр",
     "finish": "Импорт",
-    "successText": "Пользователи были загружены. Это пароль по умолчанию, скопируйте его и отправьте пользователям"
+    "successText": "Пользователи были загружены. Это пароль по умолчанию, скопируйте его и отправьте пользователям",
+    "errorText": "Возникла ошибка"
   },
   "finance": {
     "add": "Добавить",
@@ -279,7 +282,7 @@
     "date": "Дата",
     "sum": "Сумма",
     "approved": "Подтвержден",
-    "comment": "Коментарий",
+    "comment": "Примечания",
     "user": "Пользователь",
     "approval": "Подтверждение аванса",
     "approve": "Подтвердить",
@@ -297,8 +300,8 @@
     "dateStart": "Начало",
     "dateEnd": "Завершение",
     "reason": "Причина",
-    "adminComment": "Коментарий фирмы",
-    "comment": "Коментарий",
+    "adminComment": "Примечания",
+    "comment": "Примечания",
     "user": "Пользователь",
     "send": "Отправить",
     "dayoff": "Отгул",
@@ -325,13 +328,13 @@
     },
     "familyStatus": {
       "married": "Женат/Замужем",
-      "single": "Не женат/ Не замужем"
+      "single": "Не женат / Не замужем"
     },
     "userStatus": {
       "candidate": "Candidate",
       "hired": "Active",
       "fired": "Departed",
-      "undefined": "-"
+      "undefined": "—"
     },
     "userRole": {
       "user": "Пользователь",
@@ -344,11 +347,11 @@
       "illnes": "Болезнь",
       "medicalCheck": "Медобследование",
       "alcohol": "Алкогольное опьянение",
-      "other": "Другое",
       "unable": "Нетрудоспособный",
       "pass": "Визит к врачу",
       "familyMemberCare": "Забота о члене семьи",
-      "blocker": "Помеха на стороне работодателя"
+      "blocker": "Проблема со стороны работодателя",
+      "other": "Другое"
     },
     "tariff": {
       "candidate": "За кандидата",
@@ -375,45 +378,60 @@
       "date": "Дата",
       "select": "Выпадающий список",
       "multiselect": "Мультиселект",
-      "experience": "Опыт работы"
+      "experience": "Опыт работы",
+      "textarea": "Text area"
+    },
+    "clientStatus": {
+      "active": "Active",
+      "inactive": "Paused",
+      "development": "In development",
+      "rejected": "Canceled",
+      "negotiation": "In negotiation",
+      "contacted": "Contacted",
+      "potential": "Potential"
     },
     "projectStatus": {
-      "active": "Активный",
-      "inactive": "Неактивный"
+      "active": "Active",
+      "inactive": "Canceled"
     },
     "prepaymentStatus": {
-      "pending": "Запрошен",
-      "approved": "Подтвержден",
-      "rejected": "Отклонен",
-      "paid": "Оплачено"
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "paid": "Paid"
     },
     "financeType": {
       "paycheck": "Фактурa",
-      "payroll": "Заработная плата"
+      "payroll": "Расчетный лист"
     },
     "corporateBodyStatus": {
-      "active": "Активно",
-      "stopped": "Приостановлено",
-      "closed": "Ликвидировано"
+      "active": "Active",
+      "stopped": "Stopped",
+      "closed": "Liquidated"
     },
     "userPositionEmploymentStatus": {
-      "hired": "Нанят",
-      "fired": "Уволен",
-      "canceled": "Отозван"
+      "hired": "Active",
+      "fired": "Departed",
+      "canceled": "Canceled"
     },
     "userWorkType": {
       "business": "ИП",
-      "employment": "Трудоустройство"
+      "employment": "Сотрудник"
     },
     "dayoffStatus": {
-      "continues": "Осуществляется",
-      "finished": "Завершено",
-      "future": "Запланирован"
+      "continues": "Ongoing",
+      "finished": "Finished",
+      "future": "Planned"
     },
     "orderCooperationType": {
-      "leasing": "Лизинг",
-      "outsourcing": "Аутсорсинг",
-      "podkmen": "Pod kmeň"
+      "leasing": "Leasing",
+      "outsourcing": "Outsourcing",
+      "mediation": "Mediation"
+    },
+    "orderStatus": {
+      "recruiting": "Recruiting",
+      "processing": "Processing",
+      "finished": "Finished"
     }
   },
   "notFoundPage": "Страница не найдена",
@@ -426,7 +444,7 @@
   "file": {
     "upload": "Перетяните файлы или нажмите",
     "submit": "Отправить",
-    "add": "Добавить",
+    "add": "Добавить файл",
     "name": "Название",
     "ext": "Расширение",
     "type": "Тип"
@@ -443,14 +461,14 @@
   },
   "projectList": "Проекты",
   "project": {
-    "new": "Создать новый",
+    "new": "Создать проект",
     "creating": "Новый проект",
     "edit": "Редактировать",
     "delete": "Удалить",
     "name": "Название",
     "email": "Email",
     "phone": "Телефон",
-    "comment": "Коментарий",
+    "comment": "Примечания",
     "dateStart": "Дата начала",
     "dateEnd": "Дата завершения",
     "users": "Сотрудники",
@@ -460,7 +478,8 @@
     "approve": "Подтвердить",
     "cost": "Стоимость",
     "tariff": "Тариф",
-    "addProfile": "Добавление профилей в проект",
+    "success": "Изменения были успешно внесены",
+    "addProfile": "Добавление пользователей в проект",
     "mainInfo": "Основная информация",
     "location": "Локация",
     "stages": "Этапы трудоустройства",
@@ -506,12 +525,12 @@
   "accommodation": {
     "owner": "Владелец",
     "adress": "Адрес",
-    "checkIn": "Дата Check In",
-    "checkOut": "Дата Check Out",
+    "checkIn": "Check In",
+    "checkOut": "Check Out",
     "create": "Создать жилье",
     "managerPhone": "Телефон менеджера",
     "receptionPhone": "Телефон рецепции",
-    "comment": "Коментарий",
+    "comment": "Примечания",
     "tariff": "Тариф",
     "days": "К-во прожитых дней",
     "costNight": "Стоимость ночь",
@@ -528,7 +547,7 @@
     "template": "Шаблон",
     "codes": "Коды",
     "file": "Файл .docx",
-    "print": "Генерация документа",
+    "print": "Генерация документов",
     "fieldName": "Название поля",
     "fieldCode": "Код в шаблоне",
     "new": "Новый шаблон",
@@ -537,7 +556,7 @@
     "createdAt": "Дата создания",
     "newCategory": "Новая категория",
     "categoryName": "Название категории",
-    "create": "Создать",
+    "create": "Создать шаблон",
     "categoryNameError": "Категория с таким названием уже существует",
     "docsWithoutCategory": "Шаблоны без категории",
     "signDate": "Дата подписания"
@@ -548,12 +567,12 @@
     "addOption": "Добавить вариант"
   },
   "client": {
-    "company": "Компания",
-    "name": "Название фирмы",
+    "company": "Название предприятия",
+    "name": "Название клиента",
     "ICO": "IČO",
     "DIC": "DIČ",
-    "ICDPH": "IČDPH",
-    "sidlo": "Sidlo",
+    "ICDPH": "IČ DPH",
+    "sidlo": "Sídlo",
     "websiteUrl": "Сайт",
     "contactPerson": "Контактное лицо",
     "contactPersonPosition": "Должность контактного лица",
@@ -563,7 +582,7 @@
     "cooperationStartDate": "Начало сотрудничества",
     "cooperationEndDate": "Окончание сотрудничества",
     "email": "Email",
-    "managers": "Менеджеры",
+    "managers": "Ответственные менеджеры",
     "profile": "Профиль",
     "projects": "Проекты",
     "profiles": "Работники",
@@ -571,9 +590,10 @@
     "contacts": "Контакты",
     "financial": "Финансовые данные",
     "cooperation": "Сотрудничество",
-    "comment": "Коментарий",
+    "comment": "Примечания",
     "shortName": "Клиент",
-    "orders": "Наборы"
+    "orders": "Наборы",
+    "isInternal": "Внутренний"
   },
   "errorTexts": {
     "emptyPassword": "Пароль не может быть пустым",
@@ -598,7 +618,7 @@
   "cols": "Колонки",
   "selectAllCols": "Выбрать все колонки",
   "add": "Добавить",
-  "comment": "Коментарий",
+  "comment": "Примечания",
   "other": "Другое",
   "approve": "Подтвердить",
   "go": "Перейти",
@@ -632,6 +652,7 @@
   "unsavedChanges": "Несохранённые изменения",
   "unsavedChangesWarn": "У вас есть несохранённые изменения. Если вы их не сохраните, они могут быть потеряны.",
   "searchHistory": "История поиска",
+  "fileDeletedSuccess": "Файл удален",
   "cancel": "Отменить",
   "confirmation": "Подтверждение",
   "areYouSureMsg": "Вы уверены, что хотите продолжить?",
@@ -666,14 +687,14 @@
     "createdBy": "Кем создано",
     "updatedBy": "Кем обновлено",
     "createdAt": "Дата создания",
-    "updatedAt": "Дата последнего обновления"
+    "updatedAt": "Последнее изменение"
   },
   "order": {
     "order": "Набор",
     "status": "Статус набора",
     "client": "Клиент",
     "project": "Проект",
-    "cooperationType": "Тип сотрудничества",
+    "cooperationType": "HR услуга",
     "name": "Название",
     "tableStats": "Цель / Сотрудники / Остаток",
     "candidateTableStats": "Кандидаты / Не подошли",
@@ -683,27 +704,27 @@
     "createdBy": "Кем создано",
     "new": "Новый набор",
     "variability": "Сменность",
-    "managers": "Менеджеры",
-    "specificationUrl": "Подробная спецификация",
-    "goal": "Цель",
+    "managers": "Ответственные менеджеры",
+    "specificationUrl": "Подробная спецификация (URL)",
+    "goal": "Установленная цель (к-во)",
     "stages": "Этапы",
     "positionName": "Названия позиции",
-    "form": "Анкета",
-    "salary": "Зарплата",
+    "form": "Скрининг",
+    "salary": "Приблизительная зарплата",
     "location": "Локация",
-    "addNewParticipation": "Добавить сотрудника",
+    "addNewParticipation": "Добавить пользователя",
     "stats": "Показатели",
     "employed": "Трудоустроены",
     "left": "Осталось",
     "candidates": "Кандидаты",
     "canceled": "Не подошло",
-    "participations": "Участие в наборе",
+    "participations": "Наборы",
     "activeStage": "Этап",
     "screaning": "Скрининг",
     "specification": "Спецификация заказа",
     "stage": "Этап",
     "stageFrom": "Дата",
-    "updatedAt": "Дата последнего обновления",
+    "updatedAt": "Последнее изменение",
     "redirectToEmploymentMsgTitle": "Переход к сотрудничествам",
     "redirectToEmploymentMsgText": "Время ввести данные о сотрудничестве. Перейти к сотудничествам {{ user }}?"
   },
@@ -735,7 +756,7 @@
     "notifications": "Уведомления",
     "docsTemplates": "Шаблоны документов",
     "customFields": "Кастомные поля",
-    "roles": "Роли",
+    "roles": "Роли пользователей",
     "permissionList": {
       "users": {
         "read": "Пользователи: чтение",
