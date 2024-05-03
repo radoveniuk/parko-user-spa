@@ -1,7 +1,7 @@
 export const PROJECT_TYPES: Record<string, {label: string, value: string}> = {
-  PodKmen: {
-    label: 'Pod kmeň',
-    value: 'Pod kmeň',
+  Mediation: {
+    label: 'Mediation',
+    value: 'Mediation',
   },
   Outsourcing: {
     label: 'Outsourcing',
@@ -9,7 +9,7 @@ export const PROJECT_TYPES: Record<string, {label: string, value: string}> = {
   },
   Leasing: {
     label: 'Leasing',
-    value: 'HR Service',
+    value: 'Leasing',
   },
 };
 

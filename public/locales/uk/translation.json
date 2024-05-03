@@ -592,7 +592,8 @@
     "cooperation": "Співпраця",
     "comment": "Нотатки",
     "shortName": "Клієнт",
-    "orders": "Набори"
+    "orders": "Набори",
+    "isInternal": "Внутрішній"
   },
   "errorTexts": {
     "emptyPassword": "Поле (Пароль) не може бути пустим",
@@ -719,7 +720,7 @@
     "canceled": "Не підійшло",
     "participations": "Набори",
     "activeStage": "Етап",
-    "screening": "Скрінінг",
+    "screaning": "Скрінінг",
     "specification": "Специфікація замовлення",
     "stage": "Етап",
     "stageFrom": "Дата",

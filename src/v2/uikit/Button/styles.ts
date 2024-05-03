@@ -7,8 +7,6 @@ export const Button = styled(ButtonMui)`
   gap: 5px;
   border-radius: 2px !important;
   white-space: nowrap;
-  /* height: 36px; */
-  /* border: 1px solid transparent; */
 
   ${props => props.variant === 'outlined' && css`
     &:disabled {

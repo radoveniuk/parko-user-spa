@@ -32,13 +32,13 @@ import { EmploymentCardTitleWrapper, EmploymentCardWrapper, FormCardContent } fr
 const EMPLOYER_FIRST_LABEL_MAP = {
   [PROJECT_TYPES.Outsourcing.value]: 'Odoberateľ',
   [PROJECT_TYPES.Leasing.value]: 'Zamestnavateľ',
-  [PROJECT_TYPES.PodKmen.value]: 'Zamestnavateľ',
+  [PROJECT_TYPES.Mediation.value]: 'Zamestnavateľ',
 };
 
 const EMPLOYER_SECOND_LABEL_MAP = {
   [PROJECT_TYPES.Outsourcing.value]: 'Dodávateľ',
   [PROJECT_TYPES.Leasing.value]: 'Uživateľský zamestnavateľ',
-  [PROJECT_TYPES.PodKmen.value]: 'Sprostredkovateľ',
+  [PROJECT_TYPES.Mediation.value]: 'Sprostredkovateľ',
 };
 
 type Props = {
