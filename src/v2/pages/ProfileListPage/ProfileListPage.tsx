@@ -8,9 +8,7 @@ import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetClients } from 'api/query/clientQuery';
 import { useGetCustomFormFieldSectionBindings } from 'api/query/customFormsQuery';
-// import { useGetCustomFormFields } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
-import { useGetRoles } from 'api/query/roleQuery';
 import { getUserListByParams, useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import { SearchIcon } from 'components/icons';
 import { ClearFiltersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
@@ -55,12 +53,10 @@ const ProfileListPageRender = () => {
   const { data: usersFilter = [] } = useGetUserListForFilter();
   const { data: recruiters = [] } = useGetUserList({ permissions: 'users:update' });
   const { data: clients = [] } = useGetClients();
-  const { data: allProjects = [] } = useGetProjects();
   const { data: projects = [] } = useGetProjects({ clients: debouncedFiltersState?.clients });
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
   const translatedSexes = useTranslatedSelect(['male', 'female']);
-  const { data: roles = [] } = useGetRoles();
 
   const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
@@ -146,6 +142,15 @@ const ProfileListPageRender = () => {
           />
           <FilterAutocomplete
             multiple
+            filterKey="statuses"
+            label={t('user.status')}
+            options={translatedStatuses}
+            labelKey="label"
+            theme="gray"
+            disabled={loading}
+          />
+          <FilterAutocomplete
+            multiple
             filterKey="clients"
             label={t('project.client')}
             options={clients}
@@ -165,29 +170,11 @@ const ProfileListPageRender = () => {
           />
           <FilterAutocomplete
             multiple
-            filterKey="employmentProjects"
-            label={t('user.cooperation')}
-            options={allProjects}
-            getOptionLabel={(option) => `${option.client?.shortName ? `${option.client?.shortName} > ` : `${option.client?.name} > `}${option.name}`}
-            theme="gray"
-            disabled={loading}
-          />
-          <FilterAutocomplete
-            multiple
             filterKey="employmentProjectTypes"
             label={t('user.cooperationType')}
             labelKey="label"
             theme="gray"
             options={Object.values(PROJECT_TYPES).map(item => ({ _id: item.value, label: item.label }))}
-            disabled={loading}
-          />
-          <FilterAutocomplete
-            multiple
-            filterKey="statuses"
-            label={t('user.status')}
-            options={translatedStatuses}
-            labelKey="label"
-            theme="gray"
             disabled={loading}
           />
           <FilterAutocomplete
@@ -197,16 +184,6 @@ const ProfileListPageRender = () => {
             valueKey="value"
             labelKey="label"
             label={t('user.workTypes')}
-            multiple
-            disabled={loading}
-          />
-          <FilterAutocomplete
-            filterKey="customRoles"
-            theme="gray"
-            options={roles}
-            valueKey="_id"
-            labelKey="name"
-            label={t('user.role')}
             multiple
             disabled={loading}
           />

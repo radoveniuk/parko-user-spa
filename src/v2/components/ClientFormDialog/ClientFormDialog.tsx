@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Button, Input } from 'v2/uikit';
+import { Button, Checkbox, Input } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
@@ -120,6 +120,17 @@ const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProp
           theme="gray"
           className="fullwidth"
           {...register('comment')}
+        />
+        <Controller
+          control={control}
+          name="isInternal"
+          render={({ field }) => (
+            <Checkbox
+              label={t('client.isInternal')}
+              checked={field.value}
+              onChange={field.onChange}
+            />
+          )}
         />
       </FormWrapper>
       <DialogActions>

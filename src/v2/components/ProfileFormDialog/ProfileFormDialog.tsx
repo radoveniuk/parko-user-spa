@@ -68,7 +68,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
       recruiter: recruiter || null,
       name: processName(values.name),
       surname: processName(values.surname),
-      roles: idsToRoles(values.roles || []),
+      roles: idsToRoles(values.roles || data?.roles || []),
     });
   };
 

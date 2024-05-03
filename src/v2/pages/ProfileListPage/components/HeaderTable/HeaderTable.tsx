@@ -28,7 +28,7 @@ import { AnyObject } from 'interfaces/base.types';
 import { ICustomFormFieldSectionBinding } from 'interfaces/form.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { FiltersWrapper } from './styles';
+import { FiltersWrapper, InternalFilterButton } from './styles';
 
 type Props = {
   selectedItems: IUser[],
@@ -146,7 +146,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
   const [openNewProfile, setOpenNewProfile] = useState(false);
   const createUserMutation = useCreateUserMutation();
   const queryClient = useQueryClient();
-  const { filtersState } = useFilters();
+  const { filtersState, addFilter, removeFilter } = useFilters();
 
   const createNewProfileHandler = (data: Partial<IUser>) => {
     setOpenNewProfile(false);
@@ -164,11 +164,36 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
       });
   };
 
+  // IsInternal filter
+  const toggleInternalFilter = (value: boolean) => () => {
+    if (filtersState?.isInternal !== value.toString()) {
+      addFilter('isInternal', value.toString());
+    } else {
+      removeFilter('isInternal');
+    }
+  };
+
   return (
     <>
       <ListTableHeader
         classNames={{ title: 'bold counter' }}
-        title={<>{t('profilesPage.users')}: {!loading ? data.length : <Skeleton width={50} height={18} />}</>}
+        title={(
+          <>
+            {t('profilesPage.users')}: {!loading ? data.length : <Skeleton width={50} height={18} />}
+            <InternalFilterButton
+              onClick={toggleInternalFilter(true)}
+              className={filtersState?.isInternal === 'true' ? 'active' : ''}
+            >
+              {t('user.internal')}
+            </InternalFilterButton>
+            <InternalFilterButton
+              onClick={toggleInternalFilter(false)}
+              className={filtersState?.isInternal === 'false' ? 'active' : ''}
+            >
+              {t('user.external')}
+            </InternalFilterButton>
+          </>
+        )}
       >
         <IconButton className="small-btn" onClick={() => void setOpenMobileFilters(true)}><FilterIcon size={25} /></IconButton>
         {permissions.includes('users:create') && (
