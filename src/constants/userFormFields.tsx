@@ -157,10 +157,8 @@ export const WORK_FIELDS: UserFieldsList = {
     },
   },
   position: {
-    type: 'dynamic-select',
-    selectProps: {
-      emptyItem: 'noSelected',
-    },
+    type: 'readonly',
+    render: (data) => data,
   },
   cooperationStartDate: {
     type: 'date',
