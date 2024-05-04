@@ -181,18 +181,22 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
         title={(
           <>
             {t('profilesPage.users')}: {!loading ? data.length : <Skeleton width={50} height={18} />}
-            <InternalFilterButton
-              onClick={toggleInternalFilter(true)}
-              className={filtersState?.isInternal === 'true' ? 'active' : ''}
-            >
-              {t('user.internals')}
-            </InternalFilterButton>
-            <InternalFilterButton
-              onClick={toggleInternalFilter(false)}
-              className={filtersState?.isInternal === 'false' ? 'active' : ''}
-            >
-              {t('user.externals')}
-            </InternalFilterButton>
+            {permissions.includes('internal:read') && (
+              <>
+                <InternalFilterButton
+                  onClick={toggleInternalFilter(true)}
+                  className={filtersState?.isInternal === 'true' ? 'active' : ''}
+                >
+                  {t('user.internals')}
+                </InternalFilterButton>
+                <InternalFilterButton
+                  onClick={toggleInternalFilter(false)}
+                  className={filtersState?.isInternal === 'false' ? 'active' : ''}
+                >
+                  {t('user.externals')}
+                </InternalFilterButton>
+              </>
+            )}
           </>
         )}
       >

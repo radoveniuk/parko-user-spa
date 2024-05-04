@@ -759,6 +759,7 @@
     "docsTemplates": "Dokumenty",
     "customFields": "Doplnkové polia",
     "roles": "Role používateľov",
+    "internal": "Interni objekty",
     "permissionList": {
       "users": {
         "read": "Používatelia: čítanie",
@@ -842,6 +843,12 @@
         "create": "Doplnkové polia: vytvorenie",
         "update": "Doplnkové polia: úprava",
         "delete": "Doplnkové polia: vymazanie"
+      },
+      "internal": {
+        "read": "Interni objekty: čítanie",
+        "create": "Interni objekty: vytvorenie",
+        "update": "Interni objekty: úprava",
+        "delete": "Interni objekty: vymazanie"
       },
       "roles": {
         "read": "Role: čítanie",

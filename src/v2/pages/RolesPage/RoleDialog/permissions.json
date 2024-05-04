@@ -1,4 +1,5 @@
 {
+  "internal": ["internal:read"],
   "users": ["users:read", "users:create", "users:update", "users:delete"],
   "employments": ["employments:read", "employments:create", "employments:update", "employments:delete"],
   "clients": ["clients:read", "clients:create", "clients:update", "clients:delete"],
