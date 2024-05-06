@@ -34,7 +34,9 @@ const ProfileListPageRender = () => {
   const { debouncedFiltersState, filtersState, removeFilter } = useFilters();
 
   // table content
-  const { data: startData = [], isFetching: isFetchingStartData, remove: removeStartData } = useGetUserList({ take: 20, skip: 0 });
+  const [startFilterState] = useState(filtersState);
+  const { data: startData = [], isFetching: isFetchingStartData, remove: removeStartData } =
+  useGetUserList({ take: 20, skip: 0, ...startFilterState });
   const { data = [], remove, isFetching, isLoading, isFirstTimeFetched } = useGetUserList(debouncedFiltersState);
 
   // filters
