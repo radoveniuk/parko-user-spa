@@ -144,7 +144,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete, recruiter
                       <Select
                         label={`${t('user.client')}*`}
                         theme="gray"
-                        labelPath="name"
+                        labelPath="shortName"
                         valuePath="_id"
                         options={clients}
                         disabled={formCardConfig.disabled}

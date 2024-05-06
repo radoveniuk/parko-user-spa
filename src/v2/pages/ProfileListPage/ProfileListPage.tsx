@@ -34,7 +34,7 @@ const ProfileListPageRender = () => {
   const { debouncedFiltersState, filtersState, removeFilter } = useFilters();
 
   // table content
-  const { data: startData = [], isFetching: isFetchingStartData } = useGetUserList({ take: 20, skip: 0 });
+  const { data: startData = [], isFetching: isFetchingStartData, remove: removeStartData } = useGetUserList({ take: 20, skip: 0 });
   const { data = [], remove, isFetching, isLoading, isFirstTimeFetched } = useGetUserList(debouncedFiltersState);
 
   // filters
@@ -63,8 +63,6 @@ const ProfileListPageRender = () => {
 
   const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
-
-  useEffect(() => () => { remove(); }, [remove]);
 
   // Toggle table heigth for better ux
   const [filterBarVisibility] = useFilterBarVisibility();
@@ -99,8 +97,10 @@ const ProfileListPageRender = () => {
     if (!filtersState?.clients?.length) {
       removeFilter('projects');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filtersState?.clients]);
+  }, [filtersState?.clients, removeFilter]);
+
+  // cleanup
+  useEffect(() => () => { remove(); removeStartData(); }, [remove, removeStartData]);
 
   const loading = isLoading || isFetching || isFetchingStartData;
 
@@ -127,7 +127,7 @@ const ProfileListPageRender = () => {
             limitTags={1}
             label={t('search')}
             placeholder={t('search')}
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
             multiple
@@ -136,7 +136,7 @@ const ProfileListPageRender = () => {
             options={translatedStatuses}
             labelKey="label"
             theme="gray"
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
             multiple
@@ -145,10 +145,10 @@ const ProfileListPageRender = () => {
             options={clients}
             getOptionLabel={(option: IClient) => option.shortName || option.name}
             theme="gray"
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
-            disabled={!debouncedFiltersState?.clients || loading}
+            disabled={!debouncedFiltersState?.clients || !isFirstTimeFetched}
             multiple
             filterKey="projects"
             label={t('user.project')}
@@ -164,7 +164,7 @@ const ProfileListPageRender = () => {
             labelKey="label"
             theme="gray"
             options={Object.values(PROJECT_TYPES).map(item => ({ _id: item.value, label: item.label }))}
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
             filterKey="workTypes"
@@ -174,7 +174,7 @@ const ProfileListPageRender = () => {
             labelKey="label"
             label={t('user.workTypes')}
             multiple
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
             filterKey="recruiters"
@@ -184,7 +184,7 @@ const ProfileListPageRender = () => {
             valueKey="_id"
             label={t('user.recruiter')}
             multiple
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
             filterKey="sexes"
@@ -194,7 +194,7 @@ const ProfileListPageRender = () => {
             labelKey="label"
             label={t('user.sex')}
             multiple
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
             filterKey="countries"
@@ -204,7 +204,7 @@ const ProfileListPageRender = () => {
             labelKey="label"
             label={t('user.country')}
             multiple
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <ClearFiltersButton />
         </FilterTableWrapper>
