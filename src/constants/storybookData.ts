@@ -40,8 +40,7 @@ export const SB_MOCK_USER: IUser = {
   notes: '',
   recruiter: {
     _id: '6377a624bbb34cf2b779fdf7',
-    name: 'Hanna',
-    surname: 'Terentieva',
+    fullname: 'Hanna Terentieva',
   },
   source: 'Google ADS',
   permitStartDate: '',

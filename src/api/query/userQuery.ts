@@ -44,11 +44,12 @@ export const useGetUserList = (params: AnyObject = {}, options?: QueryOptions) =
   return { data, isFetching, isFirstTimeFetched, ...rest };
 };
 
-export const useGetUserListForFilter = (params: AnyObject = {}, options?: QueryOptions) => useQuery<Pick<IUser, '_id' | 'fullname' | 'roles'>[]>(
-  ['users-filter', JSON.stringify(params)],
-  () => api.get('/users-filter', { params }).then(res => res.data.data),
-  {
-    staleTime: 300000,
-    ...options,
-  },
-);
+export const useGetUserListForFilter = (params: AnyObject = {}, options?: QueryOptions) =>
+  useQuery<Pick<IUser, '_id' | 'fullname' | 'roles' | 'status' | 'project'>[]>(
+    ['users-filter', JSON.stringify(params)],
+    () => api.get('/users-filter', { params }).then(res => res.data.data),
+    {
+      staleTime: 300000,
+      ...options,
+    },
+  );

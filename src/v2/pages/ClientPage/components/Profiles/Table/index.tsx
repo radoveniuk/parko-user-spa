@@ -48,7 +48,7 @@ const Table = ({
       sortingValue = 'project.name';
     }
     if (userKey === 'recruiter') {
-      sortingValue = 'recruiter.name';
+      sortingValue = 'recruiter.fullname';
     }
     if (
       [
