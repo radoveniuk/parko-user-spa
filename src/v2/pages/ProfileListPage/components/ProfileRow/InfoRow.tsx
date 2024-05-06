@@ -106,7 +106,7 @@ const InfoRow = () => {
           return createTableCell(!docValueKey.includes('date') ? value || '' : getDateFromIso(value) || '');
         }
         if (userField === 'workTypes') {
-          return createTableCell(data[userField].map(item => t(`selects.userWorkType.${item}`)).toString() || '');
+          return createTableCell(data?.[userField]?.map(item => t(`selects.userWorkType.${item}`))?.toString() || '');
         }
         if (userField === 'businessActivities') {
           const descriptions = data[userField]?.filter(item => !item.dateTo).map(item => item.description);

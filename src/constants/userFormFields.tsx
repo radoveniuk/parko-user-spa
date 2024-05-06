@@ -41,7 +41,6 @@ export const BASE_FIELDS: UserFieldsList = {
   },
   phone: {
     type: 'phone',
-    required: true,
   },
   sex: {
     type: 'select',
@@ -238,11 +237,7 @@ export const SYSTEM_SETTINGS_FIELDS: UserFieldsList = {
   },
   role: {
     type: 'readonly',
-    render: (roles) => {
-      console.log(roles);
-
-      return roles?.map((r: {name:string}) => r.name).join(',');
-    },
+    render: (roles) => roles?.map((r: {name:string}) => r.name).join(','),
   },
 };
 

@@ -20,12 +20,14 @@ import { USER_STATUSES } from 'constants/statuses';
 import { DEFAULT_PASS } from 'constants/user';
 import { DYNAMIC_FIELDS } from 'constants/userCsv';
 import { useAuthData } from 'contexts/AuthContext';
+import createId from 'helpers/createId';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
 import { useExportData } from 'hooks/useExportData';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
 import { ICustomFormFieldSectionBinding } from 'interfaces/form.interface';
+import { IRole } from 'interfaces/role.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import { FiltersWrapper, InternalFilterButton } from './styles';
@@ -151,13 +153,21 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
   const createNewProfileHandler = (data: Partial<IUser>) => {
     setOpenNewProfile(false);
     const recruiter = data.recruiter as IUser | null;
-    const values = { ...data, recruiter: recruiter?._id || null, password: DEFAULT_PASS, status: 'candidate' };
+    const rolesToIds = (roles: IRole[]) => roles?.map(role => (role as unknown as IRole)._id);
+    const values = {
+      ...data,
+      recruiter: recruiter?._id || null,
+      password: DEFAULT_PASS,
+      status: 'candidate',
+      roles: rolesToIds(data.roles || []),
+    };
     const queryKey = ['users', JSON.stringify(filtersState)];
-    queryClient.setQueryData(queryKey, [values, ...(queryClient.getQueryData(queryKey) as IUser[])]);
+    const profile = { ...values, roles: data.roles };
+    queryClient.setQueryData(queryKey, [{ ...profile, _id: createId() }, ...(queryClient.getQueryData(queryKey) as IUser[])]);
     const [, ...oldItems] = queryClient.getQueryData(queryKey) as IUser[];
     createUserMutation.mutateAsync(values)
       .then((res) => {
-        queryClient.setQueryData(queryKey, [res, ...oldItems]);
+        queryClient.setQueryData(queryKey, [{ ...profile, _id: res._id }, ...oldItems]);
       })
       .catch(() => {
         queryClient.setQueryData(queryKey, oldItems);

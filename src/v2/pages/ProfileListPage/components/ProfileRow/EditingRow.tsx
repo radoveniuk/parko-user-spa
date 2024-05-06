@@ -272,6 +272,7 @@ const EditingRow = () => {
 
     delete updatedUserData.password;
     delete updatedUserData.roles;
+
     saveEdit(updatedUserData);
   };
 
