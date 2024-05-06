@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FiltersProvider } from 'v2/components/Filters';
 import PrintDocDialog from 'v2/components/PrintDocDialog';
 import Autocomplete from 'v2/uikit/Autocomplete';
 
 import { SearchIcon } from 'components/icons';
-import { FiltersProvider } from 'components/shared/Filters';
 import { USER_EMPLOYMENT_STATUSES, USER_STATUSES } from 'constants/statuses';
 import { useAuthData } from 'contexts/AuthContext';
 import useLocalStorageState from 'hooks/useLocalStorageState';

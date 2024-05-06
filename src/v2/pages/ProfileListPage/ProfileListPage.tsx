@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import isEmpty from 'lodash-es/isEmpty';
 import PrintDocDialog from 'v2/components/PrintDocDialog';
 import { COUNTRIES } from 'v2/constants/countries';
 import { PROJECT_TYPES } from 'v2/constants/projectType';
@@ -11,11 +12,10 @@ import { useGetCustomFormFieldSectionBindings } from 'api/query/customFormsQuery
 import { useGetProjects } from 'api/query/projectQuery';
 import { getUserListByParams, useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import { SearchIcon } from 'components/icons';
-import { ClearFiltersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
+import { ClearFiltersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'v2/components/Filters';
 import { USER_STATUSES } from 'constants/statuses';
 import { isMongoId } from 'helpers/regex';
 import useLocalStorageState from 'hooks/useLocalStorageState';
-import usePageQueries from 'hooks/usePageQueries';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';
 import { IRole } from 'interfaces/role.interface';
@@ -31,7 +31,6 @@ const DEFAULT_COLS = ['user.email'];
 const ProfileListPageRender = () => {
   const { t } = useTranslation();
   useDocumentTitle(t('profileList'));
-  const pageQueries = usePageQueries();
 
   const { debouncedFiltersState, filtersState, removeFilter } = useFilters();
 
@@ -41,11 +40,13 @@ const ProfileListPageRender = () => {
   const [startData, setStartData] = useState<IUser[]>([]);
   const [isFetchingStartData, setIsFetchingStartData] = useState(false);
   useEffect(() => {
-    setIsFetchingStartData(true);
-    getUserListByParams({ take: 20, skip: 0, ...pageQueries }).then((res: IUser[]) => {
-      setStartData(res);
-      setIsFetchingStartData(false);
-    });
+    if (isEmpty(filtersState)) {
+      setIsFetchingStartData(true);
+      getUserListByParams({ take: 20, skip: 0 }).then((res: IUser[]) => {
+        setStartData(res);
+        setIsFetchingStartData(false);
+      });
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

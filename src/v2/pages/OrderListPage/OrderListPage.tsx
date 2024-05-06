@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FilterAutocomplete, FiltersProvider, useFilters } from 'v2/components/Filters';
+import { ClearFiltersButton } from 'v2/components/Filters/Filters';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetClients } from 'api/query/clientQuery';
 import { useGetOrders } from 'api/query/orderQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { SearchIcon } from 'components/icons';
-import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
-import { ClearFiltersButton } from 'components/shared/Filters/Filters';
 import { ORDER_COOPERATION_TYPE, ORDER_STATUS } from 'constants/selectsOptions';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';

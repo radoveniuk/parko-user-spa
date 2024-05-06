@@ -2,13 +2,13 @@ import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
+import { useFilters } from 'v2/components/Filters';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import Skeleton from 'v2/uikit/Skeleton';
 
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { ArrowUpIcon, DeleteIcon, EditIcon } from 'components/icons';
-import { useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { useAuthData } from 'contexts/AuthContext';
 import { iterateMap } from 'helpers/iterateMap';

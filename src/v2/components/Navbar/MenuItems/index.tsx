@@ -58,7 +58,6 @@ const MenuItems = () => {
             ?.filter(item => !item.permission || permissions.includes(item.permission as string)).length) {
             return (
               <AccordionWrapper
-                onClick={() => onClickAccordion(item.title)}
                 expanded={expandedMenu === item.title}
                 key={item.title}
                 aria-label={item.title}
@@ -68,6 +67,7 @@ const MenuItems = () => {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                   aria-label={item.title}
+                  onClick={() => onClickAccordion(item.title)}
                 >
                   <>
                     {item.icon}

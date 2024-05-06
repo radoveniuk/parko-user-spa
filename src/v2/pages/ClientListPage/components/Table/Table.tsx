@@ -7,7 +7,6 @@ import Skeleton from 'v2/uikit/Skeleton';
 
 import { useUpdateClientMutation } from 'api/mutations/clientMutation';
 import { ArrowUpIcon, SettingsIcon } from 'components/icons';
-import { useFilters } from 'components/shared/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { iterateMap } from 'helpers/iterateMap';
 import usePaginatedList from 'hooks/usePaginatedList';
@@ -62,7 +61,6 @@ const Table = ({
 
   const [openColsSettins, setOpenColsSettings] = useState(false);
   const [editingRow, setEditingRow] = useState<null | string>(null);
-  const { debouncedFiltersState } = useFilters();
 
   const allCols = ['client.shortName', ...activeCols, ''];
 
@@ -73,7 +71,7 @@ const Table = ({
       ...values,
       managers: values.managers?.map(manager => (manager as IUser)._id) || [],
     });
-    queryClient.setQueryData(['clients', JSON.stringify(debouncedFiltersState)], data.map((client) => client._id === values._id
+    queryClient.setQueryData(['clients', '{}'], data.map((client) => client._id === values._id
       ? {
         ...values,
         managers: values.managers || client.managers,

@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FiltersProvider } from 'v2/components/Filters';
 import { Input } from 'v2/uikit';
 
 import { useGetAccommodations } from 'api/query/accommodationQuery';
-import { FiltersProvider } from 'components/shared/Filters';
 import usePrev from 'hooks/usePrev';
 
 import { useActiveAccommodation } from '../contexts/AccommodationContext';

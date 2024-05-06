@@ -10,7 +10,7 @@ import { ClearFiltersIcon } from 'components/icons';
 import usePrev from 'hooks/usePrev';
 import { MongoEntity } from 'interfaces/base.types';
 
-import { ClearFiltersWrapper, FilterButton, FilterWrapper } from './styles';
+import { ClearFiltersWrapper, FilterButton, FilterWrapper, StyledHeaderFilterButton } from './styles';
 import useFilters, { useFilterState } from './useFilters';
 
 type FilterProps = {
@@ -104,6 +104,31 @@ export const FilterSwitch = ({ filterKey, label }: FilterProps) => {
         {label}
       </FilterButton>
     </FilterWrapper>
+  );
+};
+
+type HeaderFilterButtonProps = FilterProps & { filterValue: string, onClick?(v: any): void }
+
+export const HeaderFilterButton = ({ filterKey, label, filterValue, onClick }: HeaderFilterButtonProps) => {
+  const [value, setValue] = useFilterState(filterKey);
+  const { removeFilter } = useFilters();
+
+  const toggleInternalFilter = () => {
+    if (value !== filterValue) {
+      onClick?.(filterValue);
+      setValue(filterValue);
+    } else {
+      removeFilter(filterKey);
+    }
+  };
+
+  return (
+    <StyledHeaderFilterButton
+      onClick={toggleInternalFilter}
+      className={value === filterValue ? 'active' : ''}
+    >
+      {label}
+    </StyledHeaderFilterButton>
   );
 };
 

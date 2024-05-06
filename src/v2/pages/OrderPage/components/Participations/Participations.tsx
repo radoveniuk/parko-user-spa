@@ -5,7 +5,7 @@ import Autocomplete from 'v2/uikit/Autocomplete';
 import IconButton from 'v2/uikit/IconButton';
 
 import { ClearFiltersIcon } from 'components/icons';
-import { FiltersProvider } from 'components/shared/Filters';
+import { FiltersProvider } from 'v2/components/Filters';
 import { ORDER_STAGE_COLORS } from 'constants/colors';
 import { getDateFromIso } from 'helpers/datetime';
 import useListState from 'hooks/useListState';

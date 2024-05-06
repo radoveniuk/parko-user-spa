@@ -1,14 +1,13 @@
-import React, { createContext, ReactNode, useCallback, useState } from 'react';
-import { createSearchParams, useNavigate } from 'react-router-dom';
+import React, { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { omit } from 'lodash-es';
 
 import useDebounce from 'hooks/useDebounce';
-import usePageQueries from 'hooks/usePageQueries';
+import useLocalStorageState from 'hooks/useLocalStorageState';
 import { AnyObject } from 'interfaces/base.types';
 
 type Props = {
   children: ReactNode;
-  disablePageQueries?: boolean;
 };
 
 type contextType = {
@@ -26,53 +25,37 @@ type contextType = {
 export const FiltersContext = createContext<contextType | undefined>(undefined);
 FiltersContext.displayName = 'FiltersContext';
 
-const FiltersProvider = ({ children, disablePageQueries = false }: Props) => {
-  const [filtersState, setFiltersState] = useState<AnyObject | undefined>(undefined);
+const FiltersProvider = ({ children }: Props) => {
+  const location = useLocation();
+  const [filtersConfigString, setFiltersConfigString] = useLocalStorageState('FiltersConfig', '{}');
+  const filtersConfig = JSON.parse(filtersConfigString) as AnyObject;
+
+  const [filtersState, setFiltersState] = useState<AnyObject | undefined>(filtersConfig[location.pathname] || undefined);
   const [openDrawerFilter, setOpenDrawerFilter] = useState(true);
   const debouncedFiltersState = useDebounce(filtersState);
-  const navigate = useNavigate();
-  const pageQueries = usePageQueries();
 
-  const addFilter = (key: string, value: string) => {
+  const addFilter = useCallback((key: string, value: string) => {
     setFiltersState(prevState => ({
       ...prevState,
       [key]: value,
     }));
-    if (!disablePageQueries && pageQueries[key] !== value) {
-      navigate({
-        search: createSearchParams({
-          ...pageQueries,
-          page: '0',
-          [key]: value,
-        }).toString(),
-      });
-    }
-  };
+  }, []);
 
   const removeFilter = useCallback((key: string) => {
     setFiltersState(prevState => omit(prevState, [key]));
-    if (!disablePageQueries) {
-      navigate({
-        search: createSearchParams({
-          ...omit(pageQueries, key),
-          page: '0',
-        }).toString(),
-      });
-    }
-  }, [disablePageQueries, navigate, pageQueries]);
+  }, []);
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     setFiltersState({});
-    if (!disablePageQueries) {
-      navigate({
-        search: createSearchParams({ page: '1' }).toString(),
-      });
-    }
-  };
+  }, []);
 
-  const initFilters = () => {
-    setFiltersState({});
-  };
+  const initFilters = useCallback(() => {
+    setFiltersState(filtersConfig[location.pathname] || {});
+  }, [filtersConfig, location.pathname]);
+
+  useEffect(() => {
+    setFiltersConfigString(JSON.stringify({ ...filtersConfig, [location.pathname]: filtersState }));
+  }, [location.pathname, filtersState, filtersConfig, setFiltersConfigString]);
 
   return (
     <FiltersContext.Provider

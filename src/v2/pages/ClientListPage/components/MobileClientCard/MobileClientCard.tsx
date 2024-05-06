@@ -45,7 +45,7 @@ const MobileClientCard = ({ style, client, projectsCount }: Props) => {
           </Avatar>
           <div className="actions">
             <Link to={`/client/${client._id}`}>
-              <Button variant="outlined">{t('profile')}</Button>
+              <Button variant="outlined">{t('project.client')}</Button>
             </Link>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ import Skeleton from 'v2/uikit/Skeleton';
 import { useCreateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
 import { ArrowDownIcon, ExcelIcon, FilterIcon, PlusIcon, ThreeDotsIcon, UploadIcon } from 'components/icons';
-import { FilterAutocomplete, useFilters } from 'components/shared/Filters';
+import { FilterAutocomplete, HeaderFilterButton, useFilters } from 'v2/components/Filters';
 import { USER_STATUSES } from 'constants/statuses';
 import { DEFAULT_PASS } from 'constants/user';
 import { DYNAMIC_FIELDS } from 'constants/userCsv';
@@ -30,7 +30,7 @@ import { ICustomFormFieldSectionBinding } from 'interfaces/form.interface';
 import { IRole } from 'interfaces/role.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { FiltersWrapper, InternalFilterButton } from './styles';
+import { FiltersWrapper } from './styles';
 
 type Props = {
   selectedItems: IUser[],
@@ -148,7 +148,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
   const [openNewProfile, setOpenNewProfile] = useState(false);
   const createUserMutation = useCreateUserMutation();
   const queryClient = useQueryClient();
-  const { filtersState, addFilter, removeFilter } = useFilters();
+  const { filtersState, removeFilter } = useFilters();
 
   const createNewProfileHandler = (data: Partial<IUser>) => {
     setOpenNewProfile(false);
@@ -175,14 +175,9 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
   };
 
   // IsInternal filter
-  const toggleInternalFilter = (value: boolean) => () => {
-    if (filtersState?.isInternal !== value.toString()) {
-      addFilter('isInternal', value.toString());
-      removeFilter('clients');
-    } else {
-      removeFilter('isInternal');
-    }
-  };
+  const toggleInternalFilter = useCallback(() => {
+    removeFilter('clients');
+  }, [removeFilter]);
 
   return (
     <>
@@ -193,18 +188,18 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
             {t('profilesPage.users')}: {!loading ? data.length : <Skeleton width={50} height={18} />}
             {permissions.includes('internal:read') && (
               <>
-                <InternalFilterButton
-                  onClick={toggleInternalFilter(true)}
-                  className={filtersState?.isInternal === 'true' ? 'active' : ''}
-                >
-                  {t('user.internals')}
-                </InternalFilterButton>
-                <InternalFilterButton
-                  onClick={toggleInternalFilter(false)}
-                  className={filtersState?.isInternal === 'false' ? 'active' : ''}
-                >
-                  {t('user.externals')}
-                </InternalFilterButton>
+                <HeaderFilterButton
+                  filterKey="isInternal"
+                  filterValue="true"
+                  onClick={toggleInternalFilter}
+                  label={t('user.internals')}
+                />
+                <HeaderFilterButton
+                  filterKey="isInternal"
+                  filterValue="false"
+                  onClick={toggleInternalFilter}
+                  label={t('user.externals')}
+                />
               </>
             )}
           </>

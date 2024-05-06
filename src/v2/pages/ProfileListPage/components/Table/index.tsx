@@ -12,7 +12,7 @@ import Skeleton from 'v2/uikit/Skeleton';
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
 import { ArrowUpIcon, FilterDownIcon, FilterUpIcon, SettingsIcon } from 'components/icons';
-import { useFilters } from 'components/shared/Filters';
+import { useFilters } from 'v2/components/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { iterateMap } from 'helpers/iterateMap';
 import { isMongoId } from 'helpers/regex';
