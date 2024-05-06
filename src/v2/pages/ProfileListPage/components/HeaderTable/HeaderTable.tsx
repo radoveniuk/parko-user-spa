@@ -163,11 +163,11 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
     };
     const queryKey = ['users', JSON.stringify(filtersState)];
     const profile = { ...values, roles: data.roles };
-    queryClient.setQueryData(queryKey, [{ ...profile, _id: createId() }, ...(queryClient.getQueryData(queryKey) as IUser[])]);
+    queryClient.setQueryData(queryKey, [{ ...profile, _id: createId(), fullname: `${profile.name} ${profile.surname}` }, ...(queryClient.getQueryData(queryKey) as IUser[])]);
     const [, ...oldItems] = queryClient.getQueryData(queryKey) as IUser[];
     createUserMutation.mutateAsync(values)
       .then((res) => {
-        queryClient.setQueryData(queryKey, [{ ...profile, _id: res._id }, ...oldItems]);
+        queryClient.setQueryData(queryKey, [{ ...profile, _id: res._id, fullname: res.fullname }, ...oldItems]);
       })
       .catch(() => {
         queryClient.setQueryData(queryKey, oldItems);
