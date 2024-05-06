@@ -64,7 +64,7 @@ const DayoffRow = (props: RowProps) => {
     <StyledListTableRow>
       <ListTableCell>
         <Link to={`/profile/${user._id}`} className="table-link">
-          {user.name} {user.surname}
+          {user.fullname}
         </Link>
       </ListTableCell>
       <ListTableCell>

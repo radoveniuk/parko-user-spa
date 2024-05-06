@@ -12,7 +12,7 @@ import Select from 'v2/uikit/Select';
 import { useGetClients } from 'api/query/clientQuery';
 import { useGetCustomForms } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
-import { useGetUserList } from 'api/query/userQuery';
+import { useGetUserListForFilter } from 'api/query/userQuery';
 import { AcceptIcon, PlusIcon } from 'components/icons';
 import { ORDER_COOPERATION_TYPE, ORDER_STATUS } from 'constants/selectsOptions';
 import reorder from 'helpers/reorder';
@@ -69,7 +69,7 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
     },
   });
 
-  const { data: managers = [], isFetching: isManagersFetching } = useGetUserList({ permissions: 'users:update' });
+  const { data: managers = [], isFetching: isManagersFetching } = useGetUserListForFilter({ permissions: 'users:update' });
   const { data: clients } = useGetClients();
   const { data: projects } = useGetProjects();
   const { data: customForms } = useGetCustomForms();
@@ -255,7 +255,7 @@ const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
                 options={managers}
                 loading={isManagersFetching}
                 label={t('order.managers')}
-                getOptionLabel={(option) => `${option.fullname}`}
+                labelKey="fullname"
                 onChange={(v) => field.onChange(v.map((item: IUser) => item._id))}
                 disableCloseOnSelect
                 className="fullwidth"

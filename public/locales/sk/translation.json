@@ -750,7 +750,7 @@
     "projects": "Projekty",
     "orders": "Náborové miestnosti",
     "residences": "Ubytovanie",
-    "accommodations": "Ubytovanie",
+    "accommodations": "Ubytovacie zariadenia",
     "prepayments": "Zálohy",
     "daysoff": "Neprítomnosti",
     "paychecks": "Faktúry",
@@ -798,10 +798,10 @@
         "delete": "Ubytovanie: vymazanie"
       },
       "accommodations": {
-        "read": "Ubytovanie: čítanie",
-        "create": "Ubytovanie: vytvorenie",
-        "update": "Ubytovanie: úprava",
-        "delete": "Ubytovanie: vymazanie"
+        "read": "Ubytovacie zariadenia: čítanie",
+        "create": "Ubytovacie zariadenia: vytvorenie",
+        "update": "Ubytovacie zariadenia: úprava",
+        "delete": "Ubytovacie zariadenia: vymazanie"
       },
       "prepayments": {
         "read": "Zálohy: čítanie",

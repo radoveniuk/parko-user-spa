@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import cloneDeep from 'lodash-es/cloneDeep';
 import pick from 'lodash-es/pick';
 import set from 'lodash-es/set';
+import { FilterAutocomplete, HeaderFilterButton, useFilters } from 'v2/components/Filters';
 import ProfileFormDialog from 'v2/components/ProfileFormDialog';
 import { Button, Divider, Menu, MenuItem } from 'v2/uikit';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
@@ -15,7 +16,6 @@ import Skeleton from 'v2/uikit/Skeleton';
 import { useCreateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
 import { ArrowDownIcon, ExcelIcon, FilterIcon, PlusIcon, ThreeDotsIcon, UploadIcon } from 'components/icons';
-import { FilterAutocomplete, HeaderFilterButton, useFilters } from 'v2/components/Filters';
 import { USER_STATUSES } from 'constants/statuses';
 import { DEFAULT_PASS } from 'constants/user';
 import { DYNAMIC_FIELDS } from 'constants/userCsv';
@@ -88,7 +88,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
 
     Object.keys(newItem).forEach((userKey) => {
       if (userKey === 'name') {
-        newItem = { ...newItem, name: `${newItem.name} ${newItem.surname}` };
+        newItem = { ...newItem, name: `${newItem.fullname}` };
       }
       if (typeof newItem[userKey] === 'string' &&
        (/^\d{4}-\d{2}-\d{2}$/.test(newItem[userKey]) || /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{2}:\d{2}$/.test(newItem[userKey]))) {
@@ -117,7 +117,7 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
           newItem[userKey] = newItem[userKey]?.name;
         }
         if (userKey === 'recruiter') {
-          newItem[userKey] = newItem[userKey] ? `${newItem[userKey]?.name} ${newItem[userKey]?.surname}` : '';
+          newItem[userKey] = newItem[userKey] ? `${newItem[userKey]?.fullname}` : '';
         }
       }
     });
@@ -270,11 +270,13 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
           </FiltersWrapper>
         </DialogFullscreen>
       </ListTableHeader>
-      <ProfileFormDialog
-        open={openNewProfile}
-        onClose={() => void setOpenNewProfile(false)}
-        onSave={createNewProfileHandler}
-      />
+      {!!openNewProfile && (
+        <ProfileFormDialog
+          open={openNewProfile}
+          onClose={() => void setOpenNewProfile(false)}
+          onSave={createNewProfileHandler}
+        />
+      )}
     </>
   );
 };

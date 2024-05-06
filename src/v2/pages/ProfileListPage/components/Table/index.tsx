@@ -3,6 +3,7 @@ import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { FixedSizeList } from 'react-window';
+import { useFilters } from 'v2/components/Filters';
 import MobileUserCard from 'v2/components/MobileUserCard';
 import { ColumnsConfig } from 'v2/components/UsersTable';
 import IconButton from 'v2/uikit/IconButton';
@@ -12,7 +13,6 @@ import Skeleton from 'v2/uikit/Skeleton';
 import { useUpdateUserMutation } from 'api/mutations/userMutation';
 import { useGetProjects } from 'api/query/projectQuery';
 import { ArrowUpIcon, FilterDownIcon, FilterUpIcon, SettingsIcon } from 'components/icons';
-import { useFilters } from 'v2/components/Filters';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { iterateMap } from 'helpers/iterateMap';
 import { isMongoId } from 'helpers/regex';
@@ -94,7 +94,7 @@ const Table = ({
 
   const updateUser = (values: Partial<IUser>) => {
     if (values._id) {
-      const recruiters = queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) as IUser[];
+      const recruiters = queryClient.getQueryData(['users-filter', JSON.stringify({ permissions: 'users:update' })]) as IUser[];
       updateUserMutation.mutate({ ...values, _id: values._id });
       const project = projects.find(item => item._id === values.project) || null;
       const recruiter = recruiters.find(item => item._id === values.recruiter) || null;

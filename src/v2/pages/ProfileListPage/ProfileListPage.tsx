@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import isEmpty from 'lodash-es/isEmpty';
+import { ClearFiltersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'v2/components/Filters';
 import PrintDocDialog from 'v2/components/PrintDocDialog';
 import { COUNTRIES } from 'v2/constants/countries';
 import { PROJECT_TYPES } from 'v2/constants/projectType';
@@ -10,9 +10,8 @@ import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 import { useGetClients } from 'api/query/clientQuery';
 import { useGetCustomFormFieldSectionBindings } from 'api/query/customFormsQuery';
 import { useGetProjects } from 'api/query/projectQuery';
-import { getUserListByParams, useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
+import { useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
 import { SearchIcon } from 'components/icons';
-import { ClearFiltersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'v2/components/Filters';
 import { USER_STATUSES } from 'constants/statuses';
 import { isMongoId } from 'helpers/regex';
 import useLocalStorageState from 'hooks/useLocalStorageState';
@@ -35,24 +34,12 @@ const ProfileListPageRender = () => {
   const { debouncedFiltersState, filtersState, removeFilter } = useFilters();
 
   // table content
-  const { data = [], refetch, remove, isFetching, isLoading } = useGetUserList(debouncedFiltersState, { enabled: false });
-
-  const [startData, setStartData] = useState<IUser[]>([]);
-  const [isFetchingStartData, setIsFetchingStartData] = useState(false);
-  useEffect(() => {
-    if (isEmpty(filtersState)) {
-      setIsFetchingStartData(true);
-      getUserListByParams({ take: 20, skip: 0 }).then((res: IUser[]) => {
-        setStartData(res);
-        setIsFetchingStartData(false);
-      });
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { data: startData = [], isFetching: isFetchingStartData } = useGetUserList({ take: 20, skip: 0 });
+  const { data = [], remove, isFetching, isLoading, isFirstTimeFetched } = useGetUserList(debouncedFiltersState);
 
   // filters
   const { data: usersFilter = [] } = useGetUserListForFilter();
-  const { data: recruiters = [] } = useGetUserList({ permissions: 'users:update' });
+  const recruiters = useMemo(() => usersFilter.filter(user => user.roles?.some(role => role.permissions.includes('users:update'))), [usersFilter]);
 
   const { data: clientsData = [] } = useGetClients();
   const clients = useMemo(() => {
@@ -77,21 +64,7 @@ const ProfileListPageRender = () => {
   const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
 
-  useEffect(() => {
-    if (debouncedFiltersState) {
-      refetch();
-    }
-  }, [debouncedFiltersState, refetch]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => () => { remove(); }, []);
-
-  useEffect(() => {
-    if (data.length) {
-      setStartData([]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.length]);
+  useEffect(() => () => { remove(); }, [remove]);
 
   // Toggle table heigth for better ux
   const [filterBarVisibility] = useFilterBarVisibility();
@@ -138,7 +111,7 @@ const ProfileListPageRender = () => {
           selectedItems={selectedItems}
           setSelectedItems={setSelectedItems}
           setOpenPrintDialog={setOpenPrintDialog}
-          data={!data.length ? startData : data}
+          data={!isFirstTimeFetched ? startData : data}
           activeCols={activeCols}
           customFields={userBindings}
           loading={loading}
@@ -207,7 +180,7 @@ const ProfileListPageRender = () => {
             filterKey="recruiters"
             theme="gray"
             options={recruiters}
-            getOptionLabel={(item) => `${item.name} ${item.surname}, ${item.roles.map((r: IRole) => r.name).join(',')}`}
+            getOptionLabel={(item) => `${item.fullname}, ${item.roles.map((r: IRole) => r.name).join(',')}`}
             valueKey="_id"
             label={t('user.recruiter')}
             multiple
@@ -238,7 +211,7 @@ const ProfileListPageRender = () => {
         <Table
           activeCols={activeCols}
           setActiveCols={setActiveCols}
-          data={!data.length ? startData : data}
+          data={!isFirstTimeFetched ? startData : data}
           customFields={userBindings}
           setSelectedItems={setSelectedItems}
           selectedItems={selectedItems}

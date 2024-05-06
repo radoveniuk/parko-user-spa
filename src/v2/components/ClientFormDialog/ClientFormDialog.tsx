@@ -8,7 +8,7 @@ import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
 import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 import Select from 'v2/uikit/Select';
 
-import { useGetUserList } from 'api/query/userQuery';
+import { useGetUserListForFilter } from 'api/query/userQuery';
 import { CLIENT_STATUS } from 'constants/selectsOptions';
 import { validateEmail } from 'helpers/validateEmail';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -27,7 +27,7 @@ export type ClientFormDialogProps = DialogProps & {
 const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProps) => {
   const { t } = useTranslation();
   const statuses = useTranslatedSelect(CLIENT_STATUS, 'clientStatus', true, false);
-  const { data: managers = [], isFetching: isManagersFetching } = useGetUserList({ permissions: 'users:update' });
+  const { data: managers = [], isFetching: isManagersFetching } = useGetUserListForFilter({ permissions: 'users:update' });
 
   const { register, control, handleSubmit, formState: { errors }, reset } = useForm<Data>({ defaultValues: data });
 
@@ -56,7 +56,7 @@ const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProp
               options={managers}
               loading={isManagersFetching}
               label={t('client.managers')}
-              getOptionLabel={(option) => `${option.name} ${option.surname}`}
+              labelKey="fullname"
               onChange={field.onChange}
               disableCloseOnSelect
               limitTags={2}

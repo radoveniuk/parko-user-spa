@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import { FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'v2/components/Filters';
+import { ClearFiltersButton, FilterDate } from 'v2/components/Filters/Filters';
 import Button from 'v2/uikit/Button';
 
 import { useCreatePaycheckMutation } from 'api/mutations/paycheckMutation';
@@ -8,8 +10,6 @@ import { useGetProjects } from 'api/query/projectQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import Paychecks from 'components/complex/Paychecks';
 import { PlusIcon } from 'components/icons';
-import { FilterAutocomplete, FiltersBar, FiltersProvider, useFilters } from 'v2/components/Filters';
-import { ClearFiltersButton, FilterDate } from 'v2/components/Filters/Filters';
 import { PageActions } from 'components/shared/PageComponents';
 import { USER_STATUSES } from 'constants/statuses';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';

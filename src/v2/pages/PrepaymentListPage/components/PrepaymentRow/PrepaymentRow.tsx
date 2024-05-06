@@ -44,7 +44,7 @@ const PrepaymentRow = (props: ClientRowProps) => {
     <StyledListTableRow>
       <ListTableCell>
         <Link to={`/profile/${user._id}`} className="table-link">
-          {user.name} {user.surname}
+          {user.fullname}
         </Link>
       </ListTableCell>
       <ListTableCell>

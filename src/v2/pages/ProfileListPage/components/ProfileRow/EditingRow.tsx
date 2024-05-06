@@ -40,7 +40,8 @@ const EditingRow = () => {
   const { register, formState: { errors }, control, handleSubmit } = useForm<IUser>();
   const queryClient = useQueryClient();
   // options
-  const recruiters = queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) as IUser[];
+  const usersFilter = queryClient.getQueryData(['users-filter', '{}']) as IUser[];
+  const recruiters = useMemo(() => usersFilter.filter(user => user.roles?.some(role => role.permissions.includes('users:update'))), [usersFilter]);
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
@@ -71,7 +72,7 @@ const EditingRow = () => {
 
   const dynamicSelectOptions: AnyObject = useMemo(() => ({
     recruiter: {
-      options: recruiters.map((item) => ({ _id: item._id, label: `${item.name} ${item.surname}` })),
+      options: recruiters.map((item) => ({ _id: item._id, label: `${item.fullname}` })),
       labelPath: 'label',
     },
     source: {
@@ -272,7 +273,6 @@ const EditingRow = () => {
 
     delete updatedUserData.password;
     delete updatedUserData.roles;
-
     saveEdit(updatedUserData);
   };
 
@@ -284,7 +284,7 @@ const EditingRow = () => {
       <ListTableCell>
         <LinkWrapper>
           <Link to={`/profile/${data._id}`} className="table-link">
-            {data.name} {data.surname}
+            {data.fullname}
           </Link>
         </LinkWrapper>
       </ListTableCell>

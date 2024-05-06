@@ -39,7 +39,7 @@ export interface IUser {
   blocked: boolean;
   notes: string;
   // system data
-  recruiter: string | { name: string; surname: string; _id: string } | null;
+  recruiter: string | { fullname: string; _id: string } | null;
   employmentRecruiter: string | { fullname: string; _id: string } | null;
   source: string;
   project: string | IProject | null;

@@ -9,7 +9,7 @@ import { TabPanel, TabsContainer, useTabs } from 'v2/uikit/Tabs';
 
 import { useDeleteClientMutation } from 'api/mutations/clientMutation';
 import { useCreateProjectMutation } from 'api/mutations/projectMutation';
-import { useGetClient } from 'api/query/clientQuery';
+import { useGetCachedClient } from 'api/query/clientQuery';
 import { useGetEmployments } from 'api/query/employmentQuery';
 import { useGetOrders } from 'api/query/orderQuery';
 import { useGetProjects } from 'api/query/projectQuery';
@@ -30,7 +30,7 @@ const ClientPageRender = () => {
   const { id: clientId } = useParams();
   const navigate = useNavigate();
 
-  const { data: clientData } = useGetClient(clientId as string);
+  const clientData = useGetCachedClient(clientId as string);
   const { data: projects = [], refetch: refetchProjects } = useGetProjects({ client: clientId });
   const { data: employments = [] } = useGetEmployments({ client: clientId });
   const { data: orders = [] } = useGetOrders({ client: clientId });

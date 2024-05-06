@@ -35,7 +35,7 @@ const ClientListPageRender = () => {
   const { filtersState } = useFilters();
 
   // table content
-  const { data = [], remove, isFetching } = useGetClients();
+  const { data = [], isFetching } = useGetClients();
 
   const clients = useMemo(() => {
     let filteredData = cloneDeep(data);
@@ -54,7 +54,7 @@ const ClientListPageRender = () => {
     return filteredData;
   }, [data, filtersState, userId, permissions]);
 
-  useEffect(() => remove, [remove]);
+  // useEffect(() => remove, [remove]);
 
   const [storedColsSettings, setStoredColsSettings] = useLocalStorageState('clientsTableCols');
   const [activeCols, setActiveCols] = useState<string[]>(storedColsSettings ? JSON.parse(storedColsSettings).cols : DEFAULT_COLS);

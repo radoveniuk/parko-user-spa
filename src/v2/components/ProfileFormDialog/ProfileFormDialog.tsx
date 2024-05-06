@@ -13,7 +13,7 @@ import Select from 'v2/uikit/Select';
 
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetRoles } from 'api/query/roleQuery';
-import { useGetUserList } from 'api/query/userQuery';
+import { useGetUserListForFilter } from 'api/query/userQuery';
 import { WarningIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -38,7 +38,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const sexOptions = useTranslatedSelect(['male', 'female']);
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
-  const { data: recruiters = [] } = useGetUserList({ permissions: 'users:update' });
+  const { data: recruiters = [] } = useGetUserListForFilter({ permissions: 'users:update' });
 
   // roles
   const { data: roles = [] } = useGetRoles();
@@ -62,7 +62,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const saveProfile = () => {
     setShowNamesakesDialog(false);
     const values = getValues();
-    const recruiter = recruiters.find((item) => item._id === values.recruiter);
+    const recruiter = recruiters.find((item) => item._id === values.recruiter) as { fullname: string; _id: string };
     onSave?.({
       ...values,
       recruiter: recruiter || null,
@@ -198,7 +198,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             defaultValue={data?.recruiter}
             options={recruiters}
             valuePath="_id"
-            labelPath={(item) => `${item.name} ${item.surname}, ${item?.roles?.map((r: IRole) => r.name).join(',')}`}
+            labelPath={(item) => `${item.fullname}, ${item?.roles?.map((r: IRole) => r.name).join(',')}`}
             {...register('recruiter')}
           />
           {permissions.includes('roles:update') && roles.length && (

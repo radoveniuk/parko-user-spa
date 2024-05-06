@@ -29,10 +29,10 @@ const InfoRow = () => {
       <ListTableCell>
         <Checkbox checked={selected} onChange={(e) => void onChangeSelect(e.target.checked)} aria-label={`select profile ${data.nickname}`} />
       </ListTableCell>
-      <ListTableCell title={`${data.name} ${data.surname}`}>
+      <ListTableCell title={`${data.fullname}`}>
         <LinkWrapper>
           <Link to={`/profile/${data._id}`} className="table-link">
-            <span className="column-content">{data.name} {data.surname}</span>
+            <span className="column-content">{data.fullname}</span>
           </Link>
         </LinkWrapper>
       </ListTableCell>
@@ -82,7 +82,7 @@ const InfoRow = () => {
           return createTableCell(data[userField] ? t(`selects.corporateBodyStatus.${data[userField]}`) : '');
         }
         if (userField === 'recruiter') {
-          return createTableCell(typeof data.recruiter === 'object' && !!data.recruiter ? `${data.recruiter?.name} ${data.recruiter?.surname}` : '');
+          return createTableCell(typeof data.recruiter === 'object' && !!data.recruiter ? `${data.recruiter?.fullname}` : '');
         }
         if (userField === 'employmentRecruiter') {
           return createTableCell(
