@@ -53,3 +53,22 @@ export const useGetUserListForFilter = (params: AnyObject = {}, options?: QueryO
       ...options,
     },
   );
+
+type UserDetiledFilterOption = {
+  value: string;
+  label?: string;
+  count?: number;
+};
+
+type UserDetiledFilters =
+Record<'statuses'|'projects'|'clients'|'employmentProjectTypes'|'workTypes'|'recruiters'|'sexes'|'countries', UserDetiledFilterOption[]>
+
+export const useGetUsersDetailedFilters = (params: AnyObject = {}, options?: QueryOptions) =>
+  useQuery<UserDetiledFilters>(
+    ['users-detailed-filters', JSON.stringify(params)],
+    () => api.get('/users-detailed-filters', { params }).then(res => res.data.data),
+    {
+      staleTime: 300000,
+      ...options,
+    },
+  );

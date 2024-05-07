@@ -45,26 +45,6 @@ const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProp
   return (
     <Dialog mobileFullscreen title={title || t('profile')} {...rest}>
       <FormWrapper>
-        <Controller
-          control={control}
-          name="managers"
-          render={({ field }) => (
-            <Autocomplete
-              defaultValue={data && data.managers ? data.managers : []}
-              multiple
-              valueKey="_id"
-              options={managers}
-              loading={isManagersFetching}
-              label={t('client.managers')}
-              labelKey="fullname"
-              onChange={field.onChange}
-              disableCloseOnSelect
-              limitTags={2}
-              theme="gray"
-              className="fullwidth"
-            />
-          )}
-        />
         <Input label={`${t('client.company')}*`} error={!!errors.name} theme="gray" {...register('name', { required: true })} />
         <Input label={t('client.shortName')} theme="gray" {...register('shortName')} />
         <Input label={t('client.ICO')} theme="gray" {...register('ICO')} />
@@ -120,6 +100,26 @@ const ClientFormDialog = ({ data, title, onSave, ...rest }: ClientFormDialogProp
           theme="gray"
           className="fullwidth"
           {...register('comment')}
+        />
+        <Controller
+          control={control}
+          name="managers"
+          render={({ field }) => (
+            <Autocomplete
+              defaultValue={data && data.managers ? data.managers : []}
+              multiple
+              valueKey="_id"
+              options={managers}
+              loading={isManagersFetching}
+              label={t('client.managers')}
+              labelKey="fullname"
+              onChange={field.onChange}
+              disableCloseOnSelect
+              limitTags={2}
+              theme="gray"
+              className="fullwidth"
+            />
+          )}
         />
         <Controller
           control={control}

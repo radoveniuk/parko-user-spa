@@ -2,7 +2,7 @@
   "navbar": {
     "home": "Hlavná",
     "profile": "Profil",
-    "profiles": "Používatelia",
+    "profiles": "Ľudské zdroje",
     "notifications": "Notifikácie",
     "prepayments": "Zálohy",
     "daysoff": "Neprítomnosti",
@@ -10,13 +10,13 @@
     "projects": "Projekty",
     "customization": "Prispôsobenie",
     "accommodation": "Ubytovanie",
-    "docsTemplates": "Dokumenty",
+    "docsTemplates": "Generácia dokumentov",
     "clients": "Klienti",
     "workspaces": "Pracovné priestory",
     "finance": "Financie",
     "feedback": "Spätná väzba",
     "orders": "Náborové miestnosti",
-    "roles": "Role použivateľov"
+    "roles": "Administrácia rolí používateľov"
   },
   "menu": {
     "prepayment": "Objednať zálohu",
@@ -171,7 +171,7 @@
     "addDoc": "Pridať dokument",
     "permitCardId": "Číslo pobytovéj karty",
     "permitGoal": "Cieľ",
-    "visaNumber": "Číslo visy",
+    "visaNumber": "Číslo víza",
     "bankInfo": "Bankové údaje",
     "bankName": "Banka",
     "employmentInfo": "Informácie pre zamestnanie",
@@ -194,7 +194,7 @@
     "alreadyExistsError": "Používateľ s týmto e-mailom už existuje",
     "SWIFT": "SWIFT",
     "businessName": "Business name",
-    "workTypes": "Typ personálu",
+    "workTypes": "Forma spolupráce",
     "employmentStatus": "Status zamestnania",
     "employmentRecruiter": "Recruiter zamestnania",
     "clientCompany": "Obchodné meno klienta",
@@ -313,7 +313,7 @@
     "data": "Informácie",
     "docs": "Doklady"
   },
-  "profileList": "Používatelia",
+  "profileList": "Ľudské zdroje",
   "selects": {
     "permitType": {
       "business": "Podnikanie",
@@ -509,19 +509,19 @@
     "delete": "Vymazať",
     "order": "Zoradiť podľa:",
     "source": "Zdroj",
-    "fields": "Vlastné polia",
+    "fields": "Prispôsobené polia",
     "fieldName": "Názov poľa",
     "fieldType": "Typ poľa",
     "fieldCreatedAt": "Dátum vytvorenia",
     "newField": "Nove pole",
     "addOptions": "Pridať položku",
-    "forms": "Formuláre",
+    "forms": "Vytváranie formulárov",
     "formName": "Názov formulára",
     "newForm": "Nový formulár",
     "form": "Formulár",
     "field": "Pole",
     "isRequired": "Povinné",
-    "userCustomFields": "Vlastné polia zamestnanca",
+    "userCustomFields":  "Prispôsobenie profilu zamestnanca",
     "sections": "Úseky formuláru"
   },
   "accommodation": {
@@ -637,7 +637,7 @@
   "edit": "Upraviť",
   "save": "Uložiť",
   "delete": "Vymazať",
-  "deletePermanent": "Vymazať natrvalo",
+  "deletePermanent": "Vymazať navždy",
   "date": "Dátum",
   "countries": "Krajiny",
   "addFilter": "Pridať filter",
@@ -669,7 +669,7 @@
     "search_workers": "Vyhľadajte pracovné priestory",
     "choose_few": "Viaceré možností",
     "control_organization": "Riadenie organizačných jednotiek",
-    "users": "Používatelia",
+    "users": "Ľudské zdroje",
     "users_all_space": "Používatelia zo všetkých pracovných priestorov"
   },
   "employment": {
@@ -744,7 +744,7 @@
     "permissions": "Povolenia",
     "newRole": "Nová rola",
     "createdAt": "Dátum vytvorenia",
-    "users": "Používatelia",
+    "users": "Ľudské zdroje",
     "employments": "Spolupráca",
     "clients": "Klienti",
     "projects": "Projekty",
@@ -762,10 +762,10 @@
     "internal": "Interni objekty",
     "permissionList": {
       "users": {
-        "read": "Používatelia: čítanie",
-        "create": "Používatelia: vytvorenie",
-        "update": "Používatelia: úprava",
-        "delete": "Používatelia: vymazanie"
+        "read": "Ľudské zdroje: čítanie",
+        "create": "Ľudské zdroje: vytvorenie",
+        "update": "Ľudské zdroje: úprava",
+        "delete": "Ľudské zdroje: vymazanie"
       },
       "employments": {
         "read": "Spolupráca: čítanie",
