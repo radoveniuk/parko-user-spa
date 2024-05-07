@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import cloneDeep from 'lodash-es/cloneDeep';
 import { ClearFiltersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'v2/components/Filters';
 import PrintDocDialog from 'v2/components/PrintDocDialog';
 import { COUNTRIES } from 'v2/constants/countries';
@@ -93,6 +94,31 @@ const ProfileListPageRender = () => {
   useEffect(() => {
     setStoredColsSettings(JSON.stringify({ cols: activeCols }));
   }, [activeCols, setStoredColsSettings]);
+
+  useEffect(() => {
+    if (filtersState) {
+      const filterColumnMap: Record<string, string> = {
+        statuses: 'user.status',
+        clients: 'user.client',
+        projects: 'user.project',
+        workTypes: 'user.workTypes',
+        recruiters: 'user.recruiter',
+        sexes: 'user.sex',
+        countries: 'user.country',
+        // employmentProjectTypes: ''
+      };
+      setActiveCols((prev) => {
+        const cols = cloneDeep(prev);
+        Object.keys(filterColumnMap).forEach((filterKey) => {
+          const col = filterColumnMap[filterKey];
+          if (filtersState[filterKey] && !cols.includes(col)) {
+            cols.push(col);
+          }
+        });
+        return cols;
+      });
+    }
+  }, [filtersState]);
 
   // reset projects filter after reseting client
   useEffect(() => {

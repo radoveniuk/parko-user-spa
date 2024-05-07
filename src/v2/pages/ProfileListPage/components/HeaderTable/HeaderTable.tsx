@@ -163,7 +163,10 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
     };
     const queryKey = ['users', JSON.stringify(filtersState)];
     const profile = { ...values, roles: data.roles };
-    queryClient.setQueryData(queryKey, [{ ...profile, _id: createId(), fullname: `${profile.name} ${profile.surname}` }, ...(queryClient.getQueryData(queryKey) as IUser[])]);
+    queryClient.setQueryData(
+      queryKey,
+      [{ ...profile, _id: createId(), fullname: `${profile.name} ${profile.surname}` }, ...(queryClient.getQueryData(queryKey) as IUser[])],
+    );
     const [, ...oldItems] = queryClient.getQueryData(queryKey) as IUser[];
     createUserMutation.mutateAsync(values)
       .then((res) => {
@@ -190,15 +193,15 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
               <>
                 <HeaderFilterButton
                   filterKey="isInternal"
-                  filterValue="true"
-                  onClick={toggleInternalFilter}
-                  label={t('user.internals')}
-                />
-                <HeaderFilterButton
-                  filterKey="isInternal"
                   filterValue="false"
                   onClick={toggleInternalFilter}
                   label={t('user.externals')}
+                />
+                <HeaderFilterButton
+                  filterKey="isInternal"
+                  filterValue="true"
+                  onClick={toggleInternalFilter}
+                  label={t('user.internals')}
                 />
               </>
             )}

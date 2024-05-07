@@ -1,5 +1,6 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import isEqual from 'lodash-es/isEqual';
 import In from 'v2/components/In';
 import Checkbox from 'v2/uikit/Checkbox';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
@@ -34,6 +35,8 @@ const DEFAULT_COLS = [
   'user.status',
 ];
 
+type ColsUpdater = (prev: string[]) => string[];
+
 type Props = {
   customFields: ICustomFormFieldSectionBinding<true>[],
   activeCols: string[],
@@ -44,6 +47,7 @@ type Props = {
 
 const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose, customFields }: Props) => {
   const { t, i18n } = useTranslation();
+  const [localeActiveCols, setLocaleActiveCols] = useState(activeCols);
 
   const docsCols = [
     ...COLS_TREE.docs.pass,
@@ -62,7 +66,7 @@ const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose, customFields 
   ];
 
   const isIncludedCols = (cols: string[]) => {
-    const activeSet = new Set(activeCols);
+    const activeSet = new Set(localeActiveCols);
     const colsSet = new Set(cols);
     for (const item of colsSet) {
       if (!activeSet.has(item)) return false;
@@ -81,22 +85,39 @@ const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose, customFields 
     return sections;
   }, [customFields]);
 
+  // debounce update of cols
+  const updateCols = useCallback((colsUpdater: ColsUpdater) => {
+    const cols = colsUpdater(localeActiveCols);
+    setLocaleActiveCols(cols);
+    setTimeout(() => {
+      setActiveCols(cols);
+    }, 100);
+  }, [localeActiveCols, setActiveCols]);
+
+  useEffect(() => {
+    if (!isEqual(activeCols, localeActiveCols)) {
+      setLocaleActiveCols(activeCols);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCols]);
+
   return (
     <DialogFullscreen open={open} onClose={onClose} width={500} title={t('cols')}>
       <ColsSettingsWrapper>
         <Checkbox
           className="selectAll"
           label={t('selectAll')}
-          checked={activeCols.length === allCols.length}
-          onChange={(e) =>
-            void setActiveCols(() => {
+          checked={localeActiveCols.length === allCols.length}
+          onChange={(e) => {
+            const activeColsSetter = () => {
               if (e.target.checked) {
                 return allCols;
               } else {
                 return DEFAULT_COLS;
               }
-            })
-          }
+            };
+            updateCols(activeColsSetter);
+          }}
         />
         <In
           data={COLS_TREE}
@@ -109,14 +130,15 @@ const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose, customFields 
                     label={t(`user.${key}`)}
                     checked={isIncludedCols(value)}
                     onChange={(e) => {
-                      setActiveCols((prev) => {
+                      const activeColsSetter = (prev: string[]) => {
                         if (e.target.checked) {
                           const set = new Set([...prev, ...value]);
                           return [...set];
                         } else {
                           return prev.filter(col => !value.includes(col));
                         }
-                      });
+                      };
+                      updateCols(activeColsSetter);
                     }}
                   />
                   <div className="cols">
@@ -124,15 +146,16 @@ const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose, customFields 
                       <Checkbox
                         key={col}
                         label={t(col)}
-                        checked={activeCols.includes(col)}
+                        checked={localeActiveCols.includes(col)}
                         onChange={e => {
-                          setActiveCols((prev: any) => {
+                          const activeColsSetter = (prev: string[]) => {
                             if (e.target.checked) {
                               return [...prev, col];
                             } else {
-                              return prev.filter((item: any) => item !== col);
+                              return prev.filter((item) => item !== col);
                             }
-                          });
+                          };
+                          updateCols(activeColsSetter);
                         }}
                       />
                     ))}
@@ -147,14 +170,15 @@ const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose, customFields 
                     label={t('user.docsFields')}
                     checked={isIncludedCols(docsCols)}
                     onChange={(e) => {
-                      setActiveCols((prev) => {
+                      const activeColsSetter = (prev: string[]) => {
                         if (e.target.checked) {
                           const set = new Set([...prev, ...docsCols]);
                           return [...set];
                         } else {
                           return prev.filter(col => !docsCols.includes(col));
                         }
-                      });
+                      };
+                      updateCols(activeColsSetter);
                     }}
                   />
                   <In
@@ -165,31 +189,33 @@ const ColumnsConfig = ({ activeCols, setActiveCols, open, onClose, customFields 
                           className="selectSubGroup"
                           label={t(`user.${key}.${key}`)}
                           checked={isIncludedCols(value)}
-                          onChange={(e) =>
-                            void setActiveCols((prev) => {
+                          onChange={(e) => {
+                            const activeColsSetter = (prev: string[]) => {
                               if (e.target.checked) {
                                 const set = new Set([...prev, ...value]);
                                 return [...set];
                               } else {
                                 return prev.filter(col => !value.includes(col));
                               }
-                            })
-                          }
+                            };
+                            updateCols(activeColsSetter);
+                          }}
                         />
                         <div className="cols">
                           {value.map((col: string) => (
                             <Checkbox
                               key={col}
                               label={t(col)}
-                              checked={activeCols.includes(col)}
+                              checked={localeActiveCols.includes(col)}
                               onChange={e => {
-                                setActiveCols((prev: any) => {
+                                const activeColsSetter = (prev: string[]) => {
                                   if (e.target.checked) {
                                     return [...prev, col];
                                   } else {
                                     return prev.filter((item: any) => item !== col);
                                   }
-                                });
+                                };
+                                updateCols(activeColsSetter);
                               }}
                             />
                           ))}
