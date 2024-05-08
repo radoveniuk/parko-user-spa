@@ -45,7 +45,7 @@ const ProfileListPageRender = () => {
 
   // filters
   const { data: usersFilter = [] } = useGetUserListForFilter();
-  const { data: detailedFilters, isFetching: isFetchingDetailedFilters } = useGetUsersDetailedFilters(debouncedFiltersState);
+  const { data: detailedFilters } = useGetUsersDetailedFilters(debouncedFiltersState);
   const prevDetailedFilters = usePrevQueryData(detailedFilters);
 
   // print
@@ -128,6 +128,7 @@ const ProfileListPageRender = () => {
           activeCols={activeCols}
           customFields={userBindings}
           loading={loading}
+          detailedFilters={detailedFilters || prevDetailedFilters}
         />
         <FilterTableWrapper className={!filterBarVisibility ? 'hide' : ''}>
           <FilterAutocomplete

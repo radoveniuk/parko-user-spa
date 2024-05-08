@@ -14,9 +14,7 @@ import ListTableHeader from 'v2/uikit/ListTableHeader';
 import Skeleton from 'v2/uikit/Skeleton';
 
 import { useCreateUserMutation } from 'api/mutations/userMutation';
-import { useGetProjects } from 'api/query/projectQuery';
 import { ArrowDownIcon, ExcelIcon, FilterIcon, PlusIcon, ThreeDotsIcon, UploadIcon } from 'components/icons';
-import { USER_STATUSES } from 'constants/statuses';
 import { DEFAULT_PASS } from 'constants/user';
 import { DYNAMIC_FIELDS } from 'constants/userCsv';
 import { useAuthData } from 'contexts/AuthContext';
@@ -24,7 +22,6 @@ import createId from 'helpers/createId';
 import { getDateFromIso } from 'helpers/datetime';
 import { isMongoId } from 'helpers/regex';
 import { useExportData } from 'hooks/useExportData';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { AnyObject } from 'interfaces/base.types';
 import { ICustomFormFieldSectionBinding } from 'interfaces/form.interface';
 import { IRole } from 'interfaces/role.interface';
@@ -39,15 +36,12 @@ type Props = {
   data: IUser[], activeCols: string[],
   customFields: ICustomFormFieldSectionBinding<true>[],
   loading?: boolean,
+  detailedFilters?: AnyObject;
 };
 
-const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data, activeCols, customFields, loading }: Props) => {
+const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data, activeCols, customFields, loading, detailedFilters }: Props) => {
   const { t, i18n } = useTranslation();
   const { permissions } = useAuthData();
-
-  // filters
-  const { data: projects = [] } = useGetProjects();
-  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
 
   const colsToExport = useMemo(() => {
     const result = activeCols.map((col) => {
@@ -255,19 +249,68 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
           <FiltersWrapper>
             <FilterAutocomplete
               multiple
-              filterKey="projects"
-              label={t('user.project')}
-              options={projects}
-              labelKey="name"
+              filterKey="statuses"
+              label={t('user.status')}
+              options={detailedFilters?.statuses || []}
+              getOptionLabel={(option) => `${t(`selects.userStatus.${option._id}`)} (${option.count})`}
               theme="gray"
             />
             <FilterAutocomplete
               multiple
-              filterKey="statuses"
-              label={t('user.status')}
-              options={translatedStatuses}
-              labelKey="label"
+              filterKey="clients"
+              label={t('project.client')}
+              options={detailedFilters?.clients || []}
+              getOptionLabel={(option) => `${option.label} (${option.count})`}
               theme="gray"
+            />
+            <FilterAutocomplete
+              multiple
+              filterKey="projects"
+              label={t('user.project')}
+              options={detailedFilters?.projects || []}
+              getOptionLabel={(option) => `${option.label} (${option.count})`}
+              theme="gray"
+            />
+            <FilterAutocomplete
+              multiple
+              filterKey="employmentProjectTypes"
+              label={t('user.cooperationType')}
+              theme="gray"
+              options={detailedFilters?.employmentProjectTypes || []}
+              getOptionLabel={(option) => `${option._id} (${option.count})`}
+            />
+            <FilterAutocomplete
+              filterKey="workTypes"
+              theme="gray"
+              options={detailedFilters?.workTypes || []}
+              getOptionLabel={(option) => `${t(`selects.userWorkType.${option._id}`)} (${option.count})`}
+              label={t('user.workTypes')}
+              multiple
+            />
+            <FilterAutocomplete
+              filterKey="recruiters"
+              theme="gray"
+              options={detailedFilters?.recruiters || []}
+              getOptionLabel={(option) => `${option.label} (${option.count})`}
+              label={t('user.recruiter')}
+              multiple
+            />
+            <FilterAutocomplete
+              filterKey="sexes"
+              theme="gray"
+              options={detailedFilters?.sexes || []}
+              getOptionLabel={(option) => `${t(option._id)} (${option.count})`}
+              label={t('user.sex')}
+              multiple
+            />
+            <FilterAutocomplete
+              filterKey="countries"
+              theme="gray"
+              options={detailedFilters?.countries || []}
+              valueKey="_id"
+              getOptionLabel={(option) => `${t(option._id)} (${option.count})`}
+              label={t('user.country')}
+              multiple
             />
             <Button onClick={() => void setOpenMobileFilters(false)} variant="contained" className="apply-filter-btn">{t('user.approve')}</Button>
           </FiltersWrapper>
