@@ -1,7 +1,7 @@
 import { useQueryClient } from 'react-query';
 
 import { useDeletePrepaymentMutation, useUpdatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
-import { useFilters } from 'components/shared/Filters';
+import { useFilters } from 'v2/components/Filters';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IUser } from 'interfaces/users.interface';
 

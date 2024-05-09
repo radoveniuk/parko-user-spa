@@ -13,7 +13,7 @@ import Select from 'v2/uikit/Select';
 
 import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetRoles } from 'api/query/roleQuery';
-import { useGetUserList } from 'api/query/userQuery';
+import { useGetUserListForFilter } from 'api/query/userQuery';
 import { WarningIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -38,7 +38,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const sexOptions = useTranslatedSelect(['male', 'female']);
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
-  const { data: recruiters = [] } = useGetUserList({ permissions: 'users:update' });
+  const { data: recruiters = [] } = useGetUserListForFilter({ permissions: 'users:update' });
 
   // roles
   const { data: roles = [] } = useGetRoles();
@@ -62,13 +62,13 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const saveProfile = () => {
     setShowNamesakesDialog(false);
     const values = getValues();
-    const recruiter = recruiters.find((item) => item._id === values.recruiter);
+    const recruiter = recruiters.find((item) => item._id === values.recruiter) as { fullname: string; _id: string };
     onSave?.({
       ...values,
       recruiter: recruiter || null,
       name: processName(values.name),
       surname: processName(values.surname),
-      roles: idsToRoles(values.roles || []),
+      roles: idsToRoles(values.roles || data?.roles || []),
     });
   };
 
@@ -167,7 +167,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             rules={{
               validate: (address: string) => {
                 // eslint-disable-next-line no-useless-escape, max-len
-                const pattern = /^[\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+ \d+(\/\d+[a-zA-Z]?)?, \d{5} [\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+$/;
+                const pattern = /^[\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+ \d+(\/\d+[a-zA-Z]?)?, \d{4,5} [\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+$/;
                 return address ? pattern.test(address) || t('errorTexts.addressFormat') : true;
               },
             }}
@@ -198,7 +198,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             defaultValue={data?.recruiter}
             options={recruiters}
             valuePath="_id"
-            labelPath={(item) => `${item.name} ${item.surname}, ${item?.roles?.map((r: IRole) => r.name).join(',')}`}
+            labelPath={(item) => `${item.fullname}, ${item?.roles?.map((r: IRole) => r.name).join(',')}`}
             {...register('recruiter')}
           />
           {permissions.includes('roles:update') && roles.length && (

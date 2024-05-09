@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
+import { FiltersProvider, useFilters } from 'v2/components/Filters';
+import { ClearFiltersButton, FilterAutocomplete, FilterDate, FilterSelect, FilterText } from 'v2/components/Filters/Filters';
 
 import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { useGetResidenceFilterLists, useGetResidences } from 'api/query/residenceQuery';
-import { FiltersProvider, useFilters } from 'components/shared/Filters';
-import { ClearFiltersButton, FilterAutocomplete, FilterDate, FilterSelect, FilterText } from 'components/shared/Filters/Filters';
 import { getDateFromIso } from 'helpers/datetime';
 import usePrev from 'hooks/usePrev';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';

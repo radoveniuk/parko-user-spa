@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useDeleteEmployment, useUpdateEmployment } from 'api/mutations/employmentMutation';
 import { useGetClients } from 'api/query/clientQuery';
 import { useGetProjects } from 'api/query/projectQuery';
+import { useGetUserListForFilter } from 'api/query/userQuery';
 import { IEmployment } from 'interfaces/employment.interface';
 
 import useUpdateCachedUserData from '../../hooks/useUpdateCachedUserData';
@@ -23,6 +24,7 @@ const Employments = ({ data }: Props) => {
   const { data: projects = [] } = useGetProjects();
   const { data: clients = [] } = useGetClients();
   const updateCachedUserData = useUpdateCachedUserData();
+  const { data: recruiters = [] } = useGetUserListForFilter({ permissions: 'users:update' });
 
   const renderEmployments = (list: typeof data) => list.map((item) => (
     <EmploymentCard
@@ -62,6 +64,7 @@ const Employments = ({ data }: Props) => {
       }}
       projects={projects}
       clients={clients}
+      recruiters={recruiters}
     />
   ));
 

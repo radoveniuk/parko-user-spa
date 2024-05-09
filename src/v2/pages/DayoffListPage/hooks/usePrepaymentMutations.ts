@@ -1,7 +1,7 @@
 import { useQueryClient } from 'react-query';
+import { useFilters } from 'v2/components/Filters';
 
 import { useDeleteDayoffMutation, useUpdateDayoffMutation } from 'api/mutations/dayoffMutation';
-import { useFilters } from 'components/shared/Filters';
 import { IDayOff } from 'interfaces/dayoff.interface';
 import { IUser } from 'interfaces/users.interface';
 

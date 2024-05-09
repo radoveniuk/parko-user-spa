@@ -92,7 +92,7 @@ const ProfileRow = ({ data, selected, onChangeSelect, cols }: ProfileRowProps) =
           return createTableCell(data[userField] ? t(`selects.corporateBodyStatus.${data[userField]}`) : '');
         }
         if (userField === 'recruiter') {
-          return createTableCell(typeof data.recruiter === 'object' && !!data.recruiter ? `${data.recruiter?.name} ${data.recruiter?.surname}` : '');
+          return createTableCell(typeof data.recruiter === 'object' && !!data.recruiter ? `${data.recruiter?.fullname}` : '');
         }
         if (userField === 'employmentRecruiter') {
           return createTableCell(

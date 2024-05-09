@@ -18,4 +18,5 @@ export interface IClient {
   managers?: string[] | { name: string; surname: string; _id: string }[] | null;
   createdAt?: string,
   updatedAt?: string,
+  isInternal?: boolean;
 }

@@ -8,7 +8,7 @@ import Input from 'v2/uikit/Input';
 import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 import Select from 'v2/uikit/Select';
 
-import { useGetUserList } from 'api/query/userQuery';
+import { useGetUserListForFilter } from 'api/query/userQuery';
 import { SaveIcon } from 'components/icons';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { CLIENT_STATUS } from 'constants/selectsOptions';
@@ -22,7 +22,7 @@ const EditingRow = () => {
   const { data, cols, saveEdit } = useClientRowContext();
   const { register, formState: { errors }, control, handleSubmit } = useForm<IClient>();
 
-  const { data: managers = [] } = useGetUserList({ permissions: 'users:update' });
+  const { data: managers = [] } = useGetUserListForFilter({ permissions: 'users:update' });
   const statuses = useTranslatedSelect(CLIENT_STATUS, 'clientStatus', true, false);
 
   const generateField = (fieldName: keyof IClient) => {
@@ -84,7 +84,7 @@ const EditingRow = () => {
                 multiple
                 valueKey="_id"
                 options={managers}
-                getOptionLabel={(option) => `${option.name} ${option.surname}`}
+                labelKey="fullname"
                 onChange={field.onChange}
                 disableCloseOnSelect
                 limitTags={1}

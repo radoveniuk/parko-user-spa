@@ -2,6 +2,7 @@ import React, { CSSProperties, memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
+import { useFilters } from 'v2/components/Filters';
 import { Avatar } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
@@ -9,7 +10,6 @@ import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { DeleteIcon, EditIcon, ResidenceIcon } from 'components/icons';
-import { useFilters } from 'components/shared/Filters';
 import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';

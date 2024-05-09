@@ -6,13 +6,24 @@ export const StyledTabs = styled(Tabs)`
   .MuiTabs-indicator {
     display: none;
   }
+
+  .MuiTabs-flexContainer:not(.MuiTabs-flexContainerVertical) {
+    .MuiTab-root {
+      min-height: 32px !important;
+      padding: 6px 16px !important;
+    }
+  }
+
+  .MuiTabs-flexContainerVertical {
+    .MuiTab-root {
+      min-height: 42px !important;
+    }
+  }
 `;
 
 export const StyledTab = styled(Tab)`
   -webkit-box-align: baseline !important;
   align-items: baseline !important;
-  /* padding-left: 8px !important; */
-  min-height: 42px !important;
   border-radius: 5px !important;
   color: rgb(97, 97, 97) !important;
   &.Mui-selected {

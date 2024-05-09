@@ -76,6 +76,7 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
         )}
         <div className="tags">
           {user.roles?.map((role: IRole) => <Chip key={role.name} label={role.name} />)}
+          {user.project && <Chip label={((user.project as IProject).client as IClient).shortName} />}
           {user.position && <Chip label={user.position} />}
           {user.cooperationType && <Chip label={user.cooperationType} />}
           {user.tags?.filter(tag => !!tag).map((tag) => (

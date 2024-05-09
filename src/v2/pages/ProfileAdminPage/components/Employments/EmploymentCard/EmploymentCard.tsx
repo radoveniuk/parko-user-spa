@@ -43,13 +43,14 @@ const EMPLOYER_SECOND_LABEL_MAP = {
 
 type Props = {
   data: IEmployment;
+  recruiters: Partial<IUser>[];
   projects: Partial<IProject>[];
   clients: Partial<IClient>[];
   onChange(values: Partial<IEmployment>): void;
   onDelete(): void;
 };
 
-const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) => {
+const EmploymentCard = ({ data, projects, clients, onChange, onDelete, recruiters }: Props) => {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const {
@@ -72,8 +73,6 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
   const isOutsorce = project?.type === PROJECT_TYPES.Outsourcing.value;
   const position = project?.positions?.find((positionItem) => positionItem.matterId === watch('positionId'));
   const user = queryClient.getQueryData(['user-data', userId]) as IUser;
-  const recruiters =
-  (queryClient.getQueryData(['users', JSON.stringify({ permissions: 'users:update' })]) as IUser[]).filter(item => !!item.fullname);
 
   const hireDate = watch('hireDate');
   const fireDate = watch('fireDate');
@@ -145,7 +144,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete }: Props) 
                       <Select
                         label={`${t('user.client')}*`}
                         theme="gray"
-                        labelPath="name"
+                        labelPath="shortName"
                         valuePath="_id"
                         options={clients}
                         disabled={formCardConfig.disabled}

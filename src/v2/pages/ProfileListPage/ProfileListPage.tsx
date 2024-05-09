@@ -1,26 +1,15 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import cloneDeep from 'lodash-es/cloneDeep';
+import { ClearFiltersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'v2/components/Filters';
 import PrintDocDialog from 'v2/components/PrintDocDialog';
-import { COUNTRIES } from 'v2/constants/countries';
-import { PROJECT_TYPES } from 'v2/constants/projectType';
-import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
-import { useGetClients } from 'api/query/clientQuery';
 import { useGetCustomFormFieldSectionBindings } from 'api/query/customFormsQuery';
-// import { useGetCustomFormFields } from 'api/query/customFormsQuery';
-import { useGetProjects } from 'api/query/projectQuery';
-import { useGetRoles } from 'api/query/roleQuery';
-import { getUserListByParams, useGetUserList, useGetUserListForFilter } from 'api/query/userQuery';
+import { useGetUserList, useGetUserListForFilter, useGetUsersDetailedFilters } from 'api/query/userQuery';
 import { SearchIcon } from 'components/icons';
-import { ClearFiltersButton, FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
-import { USER_STATUSES } from 'constants/statuses';
 import { isMongoId } from 'helpers/regex';
 import useLocalStorageState from 'hooks/useLocalStorageState';
-import usePageQueries from 'hooks/usePageQueries';
-import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import { IClient } from 'interfaces/client.interface';
-import { IRole } from 'interfaces/role.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import HeaderTable from './components/HeaderTable';
@@ -28,58 +17,40 @@ import Table from './components/Table';
 import FilterBarVisibilityProvider, { useFilterBarVisibility } from './contexts/FilterBarVisibilityContext';
 import { FilterTableWrapper, ProfileListPageWrapper } from './styles';
 
+function usePrevQueryData (value: any) {
+  const ref = useRef();
+  useEffect(() => {
+    if (value) {
+      ref.current = value;
+    }
+  }, [value]);
+
+  return ref.current as any;
+}
+
 const DEFAULT_COLS = ['user.email'];
 
 const ProfileListPageRender = () => {
   const { t } = useTranslation();
   useDocumentTitle(t('profileList'));
-  const pageQueries = usePageQueries();
 
   const { debouncedFiltersState, filtersState, removeFilter } = useFilters();
 
   // table content
-  const { data = [], refetch, remove, isFetching, isLoading } = useGetUserList(debouncedFiltersState, { enabled: false });
-
-  const [startData, setStartData] = useState<IUser[]>([]);
-  const [isFetchingStartData, setIsFetchingStartData] = useState(false);
-  useEffect(() => {
-    setIsFetchingStartData(true);
-    getUserListByParams({ take: 20, skip: 0, ...pageQueries }).then((res: IUser[]) => {
-      setStartData(res);
-      setIsFetchingStartData(false);
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [startFilterState] = useState(filtersState);
+  const { data: startData = [], isFetching: isFetchingStartData, remove: removeStartData } =
+  useGetUserList({ take: 20, skip: 0, ...startFilterState });
+  const { data = [], remove, isFetching, isLoading, isFirstTimeFetched } = useGetUserList(debouncedFiltersState);
+  const prevData = usePrevQueryData(data);
 
   // filters
   const { data: usersFilter = [] } = useGetUserListForFilter();
-  const { data: recruiters = [] } = useGetUserList({ permissions: 'users:update' });
-  const { data: clients = [] } = useGetClients();
-  const { data: allProjects = [] } = useGetProjects();
-  const { data: projects = [] } = useGetProjects({ clients: debouncedFiltersState?.clients });
-  const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
-  const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
-  const translatedSexes = useTranslatedSelect(['male', 'female']);
-  const { data: roles = [] } = useGetRoles();
+  const { data: detailedFilters } = useGetUsersDetailedFilters(debouncedFiltersState);
+  const prevDetailedFilters = usePrevQueryData(detailedFilters);
 
+  // print
   const [selectedItems, setSelectedItems] = useState<IUser[]>([]);
   const [openPrintDialog, setOpenPrintDialog] = useState(false);
-
-  useEffect(() => {
-    if (debouncedFiltersState) {
-      refetch();
-    }
-  }, [debouncedFiltersState, refetch]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => () => { remove(); }, []);
-
-  useEffect(() => {
-    if (data.length) {
-      setStartData([]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.length]);
 
   // Toggle table heigth for better ux
   const [filterBarVisibility] = useFilterBarVisibility();
@@ -109,13 +80,40 @@ const ProfileListPageRender = () => {
     setStoredColsSettings(JSON.stringify({ cols: activeCols }));
   }, [activeCols, setStoredColsSettings]);
 
+  useEffect(() => {
+    if (filtersState) {
+      const filterColumnMap: Record<string, string> = {
+        statuses: 'user.status',
+        clients: 'user.client',
+        projects: 'user.project',
+        workTypes: 'user.workTypes',
+        recruiters: 'user.recruiter',
+        sexes: 'user.sex',
+        countries: 'user.country',
+        // employmentProjectTypes: ''
+      };
+      setActiveCols((prev) => {
+        const cols = cloneDeep(prev);
+        Object.keys(filterColumnMap).forEach((filterKey) => {
+          const col = filterColumnMap[filterKey];
+          if (filtersState[filterKey] && !cols.includes(col)) {
+            cols.push(col);
+          }
+        });
+        return cols;
+      });
+    }
+  }, [filtersState]);
+
   // reset projects filter after reseting client
   useEffect(() => {
     if (!filtersState?.clients?.length) {
       removeFilter('projects');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filtersState?.clients]);
+  }, [filtersState?.clients, removeFilter]);
+
+  // cleanup
+  useEffect(() => () => { remove(); removeStartData(); }, [remove, removeStartData]);
 
   const loading = isLoading || isFetching || isFetchingStartData;
 
@@ -126,10 +124,11 @@ const ProfileListPageRender = () => {
           selectedItems={selectedItems}
           setSelectedItems={setSelectedItems}
           setOpenPrintDialog={setOpenPrintDialog}
-          data={!data.length ? startData : data}
+          data={!isFirstTimeFetched ? startData : data}
           activeCols={activeCols}
           customFields={userBindings}
           loading={loading}
+          detailedFilters={detailedFilters || prevDetailedFilters}
         />
         <FilterTableWrapper className={!filterBarVisibility ? 'hide' : ''}>
           <FilterAutocomplete
@@ -142,114 +141,91 @@ const ProfileListPageRender = () => {
             limitTags={1}
             label={t('search')}
             placeholder={t('search')}
-            disabled={loading}
-          />
-          <FilterAutocomplete
-            multiple
-            filterKey="clients"
-            label={t('project.client')}
-            options={clients}
-            getOptionLabel={(option: IClient) => option.shortName || option.name}
-            theme="gray"
-            disabled={loading}
-          />
-          <FilterAutocomplete
-            disabled={!debouncedFiltersState?.clients || loading}
-            multiple
-            filterKey="projects"
-            label={t('user.project')}
-            options={projects}
-            getOptionLabel={(option) => `${option.client?.shortName ? `${option.client?.shortName} > ` : `${option.client?.name} > `}${option.name}`}
-            theme="gray"
-
-          />
-          <FilterAutocomplete
-            multiple
-            filterKey="employmentProjects"
-            label={t('user.cooperation')}
-            options={allProjects}
-            getOptionLabel={(option) => `${option.client?.shortName ? `${option.client?.shortName} > ` : `${option.client?.name} > `}${option.name}`}
-            theme="gray"
-            disabled={loading}
-          />
-          <FilterAutocomplete
-            multiple
-            filterKey="employmentProjectTypes"
-            label={t('user.cooperationType')}
-            labelKey="label"
-            theme="gray"
-            options={Object.values(PROJECT_TYPES).map(item => ({ _id: item.value, label: item.label }))}
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
             multiple
             filterKey="statuses"
             label={t('user.status')}
-            options={translatedStatuses}
-            labelKey="label"
+            options={detailedFilters?.statuses || prevDetailedFilters?.statuses || []}
+            getOptionLabel={(option) => `${t(`selects.userStatus.${option._id}`)} (${option.count})`}
             theme="gray"
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
+          />
+          <FilterAutocomplete
+            multiple
+            filterKey="clients"
+            label={t('project.client')}
+            options={detailedFilters?.clients || prevDetailedFilters?.clients || []}
+            getOptionLabel={(option) => `${option.label} (${option.count})`}
+            theme="gray"
+            disabled={!isFirstTimeFetched}
+          />
+          <FilterAutocomplete
+            disabled={!debouncedFiltersState?.clients || !isFirstTimeFetched}
+            multiple
+            filterKey="projects"
+            label={t('user.project')}
+            options={detailedFilters?.projects || prevDetailedFilters?.projects || []}
+            getOptionLabel={(option) => `${option.label} (${option.count})`}
+            theme="gray"
+          />
+          <FilterAutocomplete
+            multiple
+            filterKey="employmentProjectTypes"
+            label={t('user.cooperationType')}
+            theme="gray"
+            options={detailedFilters?.employmentProjectTypes || prevDetailedFilters?.employmentProjectTypes || []}
+            getOptionLabel={(option) => `${option._id} (${option.count})`}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
             filterKey="workTypes"
             theme="gray"
-            options={translatedWorkTypes}
-            valueKey="value"
-            labelKey="label"
+            options={detailedFilters?.workTypes || prevDetailedFilters?.workTypes || []}
+            getOptionLabel={(option) => `${t(`selects.userWorkType.${option._id}`)} (${option.count})`}
             label={t('user.workTypes')}
             multiple
-            disabled={loading}
-          />
-          <FilterAutocomplete
-            filterKey="customRoles"
-            theme="gray"
-            options={roles}
-            valueKey="_id"
-            labelKey="name"
-            label={t('user.role')}
-            multiple
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
             filterKey="recruiters"
             theme="gray"
-            options={recruiters}
-            getOptionLabel={(item) => `${item.name} ${item.surname}, ${item.roles.map((r: IRole) => r.name).join(',')}`}
-            valueKey="_id"
+            options={detailedFilters?.recruiters || prevDetailedFilters?.recruiters || []}
+            getOptionLabel={(option) => `${option.label} (${option.count})`}
             label={t('user.recruiter')}
             multiple
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
             filterKey="sexes"
             theme="gray"
-            options={translatedSexes}
-            valueKey="value"
-            labelKey="label"
+            options={detailedFilters?.sexes || prevDetailedFilters?.sexes || []}
+            getOptionLabel={(option) => `${t(option._id)} (${option.count})`}
             label={t('user.sex')}
             multiple
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <FilterAutocomplete
             filterKey="countries"
             theme="gray"
-            options={COUNTRIES?.map((item) => ({ _id: item.value, label: item.value })) || []}
+            options={detailedFilters?.countries || prevDetailedFilters?.countries || []}
             valueKey="_id"
-            labelKey="label"
+            getOptionLabel={(option) => `${t(option._id)} (${option.count})`}
             label={t('user.country')}
             multiple
-            disabled={loading}
+            disabled={!isFirstTimeFetched}
           />
           <ClearFiltersButton />
         </FilterTableWrapper>
         <Table
           activeCols={activeCols}
           setActiveCols={setActiveCols}
-          data={!data.length ? startData : data}
+          data={!isFirstTimeFetched ? startData : (data.length ? data : prevData)}
           customFields={userBindings}
           setSelectedItems={setSelectedItems}
           selectedItems={selectedItems}
-          isFetching={isFetchingStartData}
+          isFetching={isFetchingStartData || isFetching}
         />
       </div>
       {openPrintDialog && (

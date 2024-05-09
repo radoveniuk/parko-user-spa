@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import cloneDeep from 'lodash-es/cloneDeep';
+import { FilterAutocomplete, FiltersProvider, useFilters } from 'v2/components/Filters';
+import { FilterSwitch } from 'v2/components/Filters/Filters';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetClients } from 'api/query/clientQuery';
 import { useGetProjects } from 'api/query/projectQuery';
 import { SearchIcon } from 'components/icons';
-import { FilterAutocomplete, FiltersProvider, useFilters } from 'components/shared/Filters';
-import { FilterSwitch } from 'components/shared/Filters/Filters';
 import { CLIENT_STATUS } from 'constants/selectsOptions';
+import { useAuthData } from 'contexts/AuthContext';
 import useLocalStorageState from 'hooks/useLocalStorageState';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import HeaderTable from './components/HeaderTable';
 import MobileClientCard from './components/MobileClientCard';
@@ -24,21 +27,34 @@ const DEFAULT_COLS = [
 
 const ClientListPageRender = () => {
   const { t } = useTranslation();
+  const { id: userId, permissions } = useAuthData();
   const statuses = useTranslatedSelect(CLIENT_STATUS, 'clientStatus', true, false);
   useDocumentTitle(t('navbar.clients'));
   const { data: projects } = useGetProjects();
 
-  const { debouncedFiltersState } = useFilters();
+  const { filtersState } = useFilters();
 
   // table content
-  const { data = [], refetch, remove, isFetching } = useGetClients(debouncedFiltersState, { enabled: false });
+  const { data = [], isFetching } = useGetClients();
 
-  useEffect(() => {
-    if (debouncedFiltersState) {
-      refetch();
+  const clients = useMemo(() => {
+    let filteredData = cloneDeep(data);
+    if (filtersState?.isInternal && permissions.includes('internal:read')) {
+      filteredData = filteredData.filter(client => client.isInternal === (filtersState.isInternal === 'true'));
     }
-    return () => { remove(); };
-  }, [debouncedFiltersState, refetch, remove]);
+    if (filtersState?.ids) {
+      filteredData = filteredData.filter(client => filtersState.ids.includes(client._id));
+    }
+    if (filtersState?.statuses) {
+      filteredData = filteredData.filter(client => filtersState.statuses.split(',').includes(client.status));
+    }
+    if (filtersState?.my === 'true') {
+      filteredData = filteredData.filter(client => client.managers?.some((m) => (m as IUser)._id === userId));
+    }
+    return filteredData;
+  }, [data, filtersState, userId, permissions]);
+
+  // useEffect(() => remove, [remove]);
 
   const [storedColsSettings, setStoredColsSettings] = useLocalStorageState('clientsTableCols');
   const [activeCols, setActiveCols] = useState<string[]>(storedColsSettings ? JSON.parse(storedColsSettings).cols : DEFAULT_COLS);
@@ -50,12 +66,12 @@ const ClientListPageRender = () => {
   return (
     <ProfileListPageWrapper cols={activeCols.length + 1}>
       <div className="container-table">
-        <HeaderTable data={data} />
+        <HeaderTable data={clients} />
         <FilterTableWrapper>
           <FilterAutocomplete
             multiple
             options={data}
-            getOptionLabel={(client) => `${client.name}`}
+            getOptionLabel={(client) => `${client.shortName}`}
             filterKey="ids"
             prefixIcon={<SearchIcon className="search-icon"/>}
             className="filter-name"
@@ -76,7 +92,7 @@ const ClientListPageRender = () => {
           />
         </FilterTableWrapper>
         <div className="mobile-list">
-          {data.map((client) => (
+          {clients.map((client) => (
             <MobileClientCard
               key={client._id}
               client={client}
@@ -87,7 +103,7 @@ const ClientListPageRender = () => {
         <Table
           activeCols={activeCols}
           setActiveCols={setActiveCols}
-          data={data}
+          data={clients}
           isFetching={isFetching}
         />
       </div>

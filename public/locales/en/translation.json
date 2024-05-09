@@ -239,7 +239,9 @@
     "corporateBodyAddress": "Address",
     "client": "Client",
     "addNewParticipation": "Add to the order",
-    "isDeleted": "Deleted"
+    "isDeleted": "Deleted",
+    "internals": "Internal",
+    "externals": "External"
   },
   "userHistory": {
     "updatedBy": "Updated by",
@@ -757,6 +759,7 @@
     "docsTemplates": "Document templates",
     "customFields": "Custom Fields",
     "roles": "Roles",
+    "internal": "Internal objects",
     "permissionList": {
       "users": {
         "read": "Users: read",
@@ -840,6 +843,12 @@
         "create": "Custom Fields: create",
         "update": "Custom Fields: update",
         "delete": "Custom Fields: delete"
+      },
+      "internal": {
+        "read": "Internal objects: read",
+        "create": "Internal objects: create",
+        "update": "Internal objects: update",
+        "delete": "Internal objects: delete"
       },
       "roles": {
         "read": "Roles: read",
