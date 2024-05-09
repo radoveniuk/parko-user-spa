@@ -66,7 +66,7 @@ const Residences = () => {
   }, [debouncedFiltersState?.firstDate, debouncedFiltersState?.lastDate]);
 
   const { data: residences = [], refetch, remove, isFetching, isLoading } = useGetResidences(debouncedFiltersState, { enabled: false });
-  const tableData: ResidenceTableRow[] = useMemo(() => residences.map((item) => {
+  const tableData: ResidenceTableRow[] = useMemo(() => residences.filter(item => !!item.user).map((item) => {
     const { name, surname, project } = item.user as IUser;
     const { owner, adress, costNight } = item.accommodation as IAccommodation;
     const days = getDays(item) || 0;
