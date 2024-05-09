@@ -29,7 +29,7 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
   const { t } = useTranslation();
 
   const user = prepayment.user;
-  const project = user.project as IProject;
+  const project = user?.project as IProject;
   const client = project?.client as IClient;
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -37,6 +37,8 @@ const MobilePrepaymentCard = ({ style, prepayment }: Props) => {
   const { updatePrepayment, removePrepayment } = usePrepaymentMutations();
 
   const { permissions } = useAuthData();
+
+  if (!user) return null;
 
   return (
     <MobileCardWrapper style={style}>
