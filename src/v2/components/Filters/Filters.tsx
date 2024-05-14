@@ -42,6 +42,7 @@ export const FilterDate = ({ filterKey, label, ...rest }: Required<FilterProps> 
         {...rest}
         label={label}
         defaultValue={value || ''}
+        views={['day']}
         onChange={(v) => {
           if (v !== prevValue) {
             setValue(v);

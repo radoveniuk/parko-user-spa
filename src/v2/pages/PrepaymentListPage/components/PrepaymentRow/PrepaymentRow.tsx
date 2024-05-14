@@ -30,7 +30,7 @@ const PrepaymentRow = (props: ClientRowProps) => {
   const { data } = props;
 
   const user = data.user as IUser;
-  const project = user.project as IProject;
+  const project = user?.project as IProject;
   const client = project?.client as IClient;
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -39,6 +39,8 @@ const PrepaymentRow = (props: ClientRowProps) => {
   const { updatePrepayment, removePrepayment } = usePrepaymentMutations();
 
   const { permissions } = useAuthData();
+
+  if (!user) return null;
 
   return (
     <StyledListTableRow>

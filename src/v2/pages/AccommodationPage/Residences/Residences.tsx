@@ -56,6 +56,13 @@ const Residences = () => {
     }
 
     if (debouncedFiltersState?.lastDate || residence.checkOutDate) {
+      const filterLastDateMs = DateTime.fromISO(debouncedFiltersState?.lastDate).toMillis();
+      const checkOutDateMs = residence.checkOutDate ? DateTime.fromISO(residence.checkOutDate).toMillis() : null;
+      if (checkOutDateMs && checkOutDateMs < filterLastDateMs) {
+        const checkOut = DateTime.fromISO(residence.checkOutDate as string);
+        const diff = -checkIn.diff(checkOut, 'days').days.toFixed();
+        return diff > 0 ? diff : 0;
+      }
       const checkOut = DateTime.fromISO(debouncedFiltersState?.lastDate || residence.checkOutDate);
       const diff = -checkIn.diff(checkOut, 'days').days.toFixed();
       return diff > 0 ? diff : 0;
@@ -66,7 +73,7 @@ const Residences = () => {
   }, [debouncedFiltersState?.firstDate, debouncedFiltersState?.lastDate]);
 
   const { data: residences = [], refetch, remove, isFetching, isLoading } = useGetResidences(debouncedFiltersState, { enabled: false });
-  const tableData: ResidenceTableRow[] = useMemo(() => residences.map((item) => {
+  const tableData: ResidenceTableRow[] = useMemo(() => residences.filter(item => !!item.user).map((item) => {
     const { name, surname, project } = item.user as IUser;
     const { owner, adress, costNight } = item.accommodation as IAccommodation;
     const days = getDays(item) || 0;
