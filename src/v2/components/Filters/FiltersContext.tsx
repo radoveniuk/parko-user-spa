@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
+import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { omit } from 'lodash-es';
 
@@ -8,6 +8,7 @@ import { AnyObject } from 'interfaces/base.types';
 
 type Props = {
   children: ReactNode;
+  localStorageKey?: string;
 };
 
 type contextType = {
@@ -25,12 +26,13 @@ type contextType = {
 export const FiltersContext = createContext<contextType | undefined>(undefined);
 FiltersContext.displayName = 'FiltersContext';
 
-const FiltersProvider = ({ children }: Props) => {
+const FiltersProvider = ({ children, localStorageKey }: Props) => {
   const location = useLocation();
   const [filtersConfigString, setFiltersConfigString] = useLocalStorageState('FiltersConfig', '{}');
   const filtersConfig = JSON.parse(filtersConfigString) as AnyObject;
+  const filterConfigKey = useMemo(() => `${location.pathname}${localStorageKey ? `-${localStorageKey}` : ''}`, [localStorageKey, location.pathname]);
 
-  const [filtersState, setFiltersState] = useState<AnyObject | undefined>(filtersConfig[location.pathname] || undefined);
+  const [filtersState, setFiltersState] = useState<AnyObject | undefined>(filtersConfig[filterConfigKey] || undefined);
   const [openDrawerFilter, setOpenDrawerFilter] = useState(true);
   const debouncedFiltersState = useDebounce(filtersState);
 
@@ -50,12 +52,12 @@ const FiltersProvider = ({ children }: Props) => {
   }, []);
 
   const initFilters = useCallback(() => {
-    setFiltersState(filtersConfig[location.pathname] || {});
-  }, [filtersConfig, location.pathname]);
+    setFiltersState(filtersConfig[filterConfigKey] || {});
+  }, [filtersConfig, filterConfigKey]);
 
   useEffect(() => {
-    setFiltersConfigString(JSON.stringify({ ...filtersConfig, [location.pathname]: filtersState }));
-  }, [location.pathname, filtersState, filtersConfig, setFiltersConfigString]);
+    setFiltersConfigString(JSON.stringify({ ...filtersConfig, [filterConfigKey]: filtersState }));
+  }, [filterConfigKey, filtersState, filtersConfig, setFiltersConfigString]);
 
   return (
     <FiltersContext.Provider
