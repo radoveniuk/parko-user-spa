@@ -84,4 +84,28 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
     margin-left: 0;
     font-size: 0.7em;
   }
+
+  .options {
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    list-style: none;
+    top: 72px;
+    margin: 0;
+    width: inherit;
+
+    .option {
+      cursor: pointer;
+      color: rgb(113, 113, 113);
+      padding: 6px 12px;
+      transition: all 0.3s ease 0s;
+
+      &:hover {
+        background-color: rgb(250, 250, 250);
+      }
+    }
+  }
 `;
