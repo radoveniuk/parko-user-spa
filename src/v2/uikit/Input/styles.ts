@@ -6,6 +6,7 @@ import { SM } from 'theme/sizeBreakpoints';
 export const InputWrapper = styled.label<{ fieldColor?: string }>`
   display: flex;
   flex-direction: column;
+  position: relative;
 
   &:has(.Mui-focused) {
     .label:not(.error) {
@@ -93,9 +94,8 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
     background: #fff;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     list-style: none;
-    top: 72px;
     margin: 0;
-    width: inherit;
+    top: 57px;
 
     .option {
       cursor: pointer;
