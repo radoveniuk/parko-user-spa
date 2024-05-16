@@ -1,22 +1,21 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient } from 'react-query';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import Skeleton from 'v2/uikit/Skeleton';
 
-import { useDeleteAccommodation } from 'api/mutations/accommodationMutation';
+import { useGetPropertyMovements } from 'api/query/propertyMovementQuery';
 import { ArrowUpIcon, DeleteIcon, EditIcon } from 'components/icons';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { iterateMap } from 'helpers/iterateMap';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
-import { IAccommodation } from 'interfaces/accommodation.interface';
-import { IClient } from 'interfaces/client.interface';
 import { IProperty } from 'interfaces/property.interface';
-import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';
+
+import PropertyFormDialog from '../../dialogs/PropertyFormDialog';
+import usePropertyActions from '../hooks/usePropertyActions';
 
 import { TableWrapper } from './styles';
 
@@ -32,17 +31,14 @@ const Table = ({
   isFetching,
 }: Props) => {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
 
-  const { sortedData: sortedAccommodations, sorting, sortingToggler } = useSortedList(data);
+  const { sortedData: sortedProperties, sorting, sortingToggler } = useSortedList(data);
 
   const toggleSorting = (propertKey: string) => {
     sortingToggler(propertKey, propertKey as SortingValue<IProperty<true>>);
   };
-  const deleteAccommodation = useDeleteAccommodation();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
-
-  const residences: IResidence[] = queryClient.getQueryData(['residences', JSON.stringify({})]) || [];
+  const { data: movements = [] } = useGetPropertyMovements();
 
   const { permissions } = useAuthData();
 
@@ -62,6 +58,9 @@ const Table = ({
     return rowData[col] as string | number;
   };
 
+  const [activeProperty, setActiveProperty] = useState<IProperty<true> | null>(null);
+  const { remove } = usePropertyActions();
+
   return (
     <TableWrapper>
       <ListTable
@@ -73,12 +72,12 @@ const Table = ({
               <div
                 role="button"
                 className="col-item"
-                onClick={() => void toggleSorting(col.replace('prepayment.', '') as keyof IClient)}
+                onClick={() => void toggleSorting(col.replace('stock.', '') as keyof IProperty)}
               >
                 {t(col)}
                 <IconButton
                   className={
-                    sorting?.key === (col.replace('client.', '') as keyof IUser)
+                    sorting?.key === (col.replace('stock.', '') as keyof IProperty)
                       ? `sort-btn active ${sorting.dir}`
                       : 'sort-btn'
                   }
@@ -90,21 +89,21 @@ const Table = ({
           }
         }}
       >
-        {sortedAccommodations.map((item) => (
-          <ListTableRow key={item._id}>
+        {sortedProperties.map((property) => (
+          <ListTableRow key={property._id}>
             {activeCols.map((col) => (
               <ListTableCell key={col}>
-                {generateCellContent(item, col.replace('stock.', '') as keyof IProperty)}
+                {generateCellContent(property, col.replace('stock.', '') as keyof IProperty)}
               </ListTableCell>
             ))}
             <ListTableCell align="right">
               {permissions.includes('stock:update') && (
-                <IconButton onClick={() => void {}}><EditIcon /></IconButton>
+                <IconButton onClick={() => void setActiveProperty(property)}><EditIcon /></IconButton>
               )}
               {permissions.includes('stock:delete') && (
                 <IconButton
-                  onClick={() => void setIdToDelete(item._id)}
-                  disabled={residences.some((residence) => (residence.accommodation as IAccommodation)._id === item._id && !residence.checkOutDate)}
+                  onClick={() => void setIdToDelete(property._id)}
+                  disabled={movements.some((movement) => movement.property._id === property._id)}
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -112,7 +111,7 @@ const Table = ({
             </ListTableCell>
           </ListTableRow>
         ))}
-        {!sortedAccommodations.length && isFetching && (
+        {!sortedProperties.length && isFetching && (
           iterateMap(20, (index) => (
             <ListTableRow key={index}>
               {activeCols.map((emptyCol, emptyColIndex) => (
@@ -126,13 +125,16 @@ const Table = ({
         onClose={() => void setIdToDelete(null)}
         open={!!idToDelete}
         onSubmit={() => {
-          deleteAccommodation.mutateAsync(idToDelete as string).then(() => {
-            const prevAccommodations = queryClient.getQueryData(['stock', JSON.stringify({})]) as IAccommodation[];
-            queryClient.setQueryData(['stock', JSON.stringify({})], prevAccommodations.filter((item) => item._id !== idToDelete));
-            setIdToDelete(null);
-          });
+          remove(idToDelete as string);
         }}
       />
+      {!!activeProperty && (
+        <PropertyFormDialog
+          defaultData={activeProperty}
+          open={!!activeProperty}
+          onClose={() => void setActiveProperty(null)}
+        />
+      )}
     </TableWrapper>
   );
 };

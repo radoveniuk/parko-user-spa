@@ -32,15 +32,4 @@ export const useFilterState = (filterKey: string): [string, (value: string) => v
   return [filtersState?.[filterKey] || '', update];
 };
 
-export const useOpenFilterDrawler = () => {
-  const context = useContext(FiltersContext);
-  if (!context) {
-    throw new Error('Filters context not available');
-  }
-
-  const { openDrawerFilter, setOpenDrawerFilter } = context;
-
-  return { openDrawerFilter, setOpenDrawerFilter };
-};
-
 export default useFilters;

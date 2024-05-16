@@ -16,7 +16,8 @@
     "finance": "Фінанси",
     "feedback": "Зворотній зв'язок",
     "orders": "Набори",
-    "roles": "Ролі користувачів"
+    "roles": "Ролі користувачів",
+    "stock": "Склад"
   },
   "menu": {
     "prepayment": "Замовити аванс",
@@ -314,6 +315,38 @@
     "docs": "Документи"
   },
   "profileList": "Профілі",
+  "stock": {
+    "properties": "Інвентар",
+    "movements": "Дії з інвентарем",
+    "property": "Інвентар",
+    "client": "Клієнт",
+    "project": "Проект",
+    "internalName": "Назва в системі",
+    "contractor": "Конрагент",
+    "tradeName": "Офіційна назва",
+    "movementType": "Тип дії",
+    "dateFrom": "Дата від",
+    "dateTo": "Дата до",
+    "user": "Співробітник",
+    "type": "Тип",
+    "count": "Кількість",
+    "date": "Дата",
+    "createProperty": "Створити інвентар",
+    "status": "Статус",
+    "invoiceNumber": "Номер чека",
+    "distributorICO": "ICO постачальника",
+    "orderer": "Замовник",
+    "invoiceDeliveryDate": "Дата доставки за договором",
+    "invoiceDeliveryDateFrom": "Дата доставки за договором (від)",
+    "invoiceDeliveryDateTo": "Дата доставки за договором (до)",
+    "deliveryDate": "Дата доставки фактична",
+    "deliveryDateFrom": "Дата доставки фактична (від)",
+    "deliveryDateTo": "Дата доставки фактична (до)",
+    "price": "Ціна",
+    "damageCompencationPrice": "Вирахування за шкоду",
+    "receiver": "Одержувач",
+    "location": "Локація"
+  },
   "selects": {
     "permitType": {
       "business": "Бізнес",
@@ -434,6 +467,16 @@
       "recruiting": "Recruiting",
       "processing": "Processing",
       "finished": "Finished"
+    },
+    "propertyMovementType": {
+      "give": "Видача",
+      "return": "Повернення",
+      "writeoff": "Списання"
+    },
+    "propertyStatus": {
+      "available": "Доступно",
+      "ordered": "Замовлено",
+      "out": "Недоступно"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -661,6 +704,7 @@
   "myFilter": "Мій режим",
   "copied": "Скопійовано",
   "clone": "Клонувати",
+  "noOptions": "Результати відсутні",
   "profilesPage": {
     "status": "Статуси користувачів",
     "organization": "Організації",

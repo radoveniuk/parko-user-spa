@@ -4,8 +4,8 @@ import { ClearFiltersButton, FilterAutocomplete, FilterDate, FiltersProvider, us
 
 import { useGetProperties, useGetPropertiesFilters } from 'api/query/propertyQuery';
 
-// import MobilePropertyCard from './MobilePropertyCard';
 import HeaderTable from './HeaderTable';
+import MobilePropertyCard from './MobilePropertyCard';
 import { FilterTableWrapper, PropertiesWrapper } from './styles';
 import Table from './Table';
 
@@ -47,7 +47,8 @@ const Properties = () => {
             options={propertiesFilters.tradeNames}
             filterKey="tradeNames"
             label={t('stock.tradeName')}
-            labelKey="label"
+            labelKey="_id"
+            valueKey="_id"
             disabled={isFetchingPropertiesFilter}
           />
           <FilterAutocomplete
@@ -93,12 +94,12 @@ const Properties = () => {
           <ClearFiltersButton />
         </FilterTableWrapper>
         <div className="mobile-list">
-          {/* {properties.map((rowItem) => (
-            <MobileAccommodationCard
-              key={rowItem._id}
-              data={rowItem}
+          {properties.map((property) => (
+            <MobilePropertyCard
+              key={property._id}
+              data={property}
             />
-          ))} */}
+          ))}
         </div>
         <Table
           activeCols={DEFAULT_COLS}

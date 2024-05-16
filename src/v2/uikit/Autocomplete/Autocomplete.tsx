@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { DropdownIcon } from 'components/icons';
@@ -43,6 +44,7 @@ const AutoComplete = ({
   // console.log(value, rest.options);
 
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <StyledAutocomplete
@@ -60,6 +62,7 @@ const AutoComplete = ({
       disabled={disabled}
       limitTags={1}
       popupIcon={<DropdownIconWrapper><DropdownIcon size={12} color="#131313" /></DropdownIconWrapper>}
+      noOptionsText={t('noOptions')}
       renderInput={(params) => (
         <Input
           {...params}

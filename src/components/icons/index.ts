@@ -17,6 +17,7 @@ export {
 } from 'react-icons/bi';
 export {
   BsBank2 as BankIcon,
+  BsBoxSeamFill as BoxIcon,
   BsBuildingFill as BuildingIcon,
   BsEyeFill as EyeIcon,
   BsEyeSlashFill as EyeSlashIcon,
@@ -85,9 +86,11 @@ export {
   RiAdminFill as AdminIcon,
   RiArrowLeftSLine as ArrowBackIcon,
   RiArrowDownSFill as ArrowDownIconRi,
+  RiArrowGoBackFill as BackIcon,
   RiRobot2Fill as BotIcon,
   RiToolsFill as CustomizeIcon,
   RiDragMove2Fill as DragIcon,
+  RiShareForwardFill as ForwardIcon,
   RiUserSearchFill as RecruiterIcon,
   RiQrScanFill as ScanIcon,
   RiVerifiedBadgeFill as VerifiedIcon,

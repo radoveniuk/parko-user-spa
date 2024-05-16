@@ -1,70 +1,82 @@
-import React, { ForwardedRef, forwardRef, memo, useState } from 'react';
-import useBoolean from 'v2/hooks/useBoolean';
+import React, { ChangeEvent, FocusEvent, ForwardedRef, forwardRef, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { List, ListItem, Paper, Popper } from '@mui/material';
 
-import Input from '../Input';
+import Input, { InputProps } from '../Input';
 
-import { StyledAutocomplete } from './styles';
-
-type FieldTheme = 'white' | 'gray';
-
-export type AutocompleteProps = {
+export type AutocompleteTextFieldProps = InputProps & {
   options: string[];
-  label?: string;
-  style?: React.CSSProperties;
-  onChange?(value: any | any[] | null): void;
-  value?: any;
-  defaultValue?: any;
-  className?: string;
-  error?: boolean;
-  placeholder?: string;
-  disabled?: boolean;
-  maxWidth?: number;
-  theme?: FieldTheme;
-  required?: boolean;
+  onChange?(v: string): void;
 }
 
 const AutocompleteTextField = ({
-  label, onChange, value: defaultValue, error,
-  placeholder, disabled, maxWidth, required,
-  theme = 'white', ...rest
-}: AutocompleteProps, ref: ForwardedRef<HTMLInputElement>) => {
-  const [isOpen, open, close] = useBoolean(false);
-  const [value, setValue] = useState('');
+  onChange, value: defaultValue = '',
+  options, ...rest
+}: AutocompleteTextFieldProps, ref: ForwardedRef<HTMLInputElement>) => {
+  const [inputValue, setInputValue] = useState<string>(defaultValue as string);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+    onChange?.(event.target.value);
+  }, [onChange]);
+
+  const handleOpen = useCallback((event: FocusEvent<HTMLInputElement>) => {
+    setAnchorEl(event.currentTarget);
+  }, []);
+
+  const handleSelectOption = useCallback((option: string) => () => {
+    setInputValue(option);
+    setAnchorEl(null);
+    setAnchorEl(null);
+    onChange?.(option);
+  }, [onChange]);
+
+  const filteredOptions = useMemo(() => options.filter((option) => option.toLowerCase().includes(inputValue.toLowerCase())), [inputValue, options]);
+
+  const popperRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleClosePopper = (event: MouseEvent) => {
+      if (popperRef.current && anchorEl && !popperRef.current.contains(event.target as Node) && !anchorEl.contains(event.target as Node)) {
+        setAnchorEl(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClosePopper);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClosePopper);
+    };
+  }, [anchorEl]);
 
   return (
-    <StyledAutocomplete
-      theme={theme}
-      style={{ minWidth: 223, maxWidth }}
-      onChange={(e, newValue) => {
-        onChange?.(newValue);
-      }}
-      value={defaultValue}
-      disabled={disabled}
-      popupIcon={null}
-      noOptionsText={null}
-      clearIcon={null}
-      freeSolo
-      renderInput={(params) => (
-        <Input
-          {...params}
-          label={label}
-          theme={theme}
-          error={error}
-          placeholder={placeholder}
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value as string);
-            onChange?.(e.target.value);
-          }}
-          ref={ref}
-          required={required}
-        />
-      )}
-      open={isOpen}
-      onOpen={open}
-      onClose={close}
-      {...rest}
-    />
+    <>
+      <Input
+        {...rest}
+        value={inputValue}
+        onChange={handleChange}
+        onFocus={handleOpen}
+        ref={ref}
+      />
+      <Popper
+        ref={popperRef}
+        open={Boolean(anchorEl && filteredOptions.length)}
+        anchorEl={anchorEl}
+        placement="bottom-start"
+        style={{ zIndex: 2000, width: anchorEl ? anchorEl.clientWidth : undefined }}
+        disablePortal
+      >
+        <Paper>
+          <List>
+            {filteredOptions
+              .map((option, index) => (
+                <ListItem key={index} onClick={handleSelectOption(option)} button>
+                  {option}
+                </ListItem>
+              ))}
+          </List>
+        </Paper>
+      </Popper>
+    </>
   );
 };
 

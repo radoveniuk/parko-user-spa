@@ -4,21 +4,23 @@ import { IProject } from './project.interface';
 import { IProperty } from './property.interface';
 import { IUser } from './users.interface';
 
+export type PropertyMovementType = 'give' | 'return' | 'writeoff';
+
 export interface IPropertyMovement<T extends boolean = false> extends IMongoDoc {
-  type: 'give' | 'return' | 'writeoff';
-  user: T extends true ? Partial<IUser> : string;
-  project: T extends true ? Partial<IProject> : string;
-  client: T extends true ? Partial<IClient> : string;
-  contractor: T extends true ? Partial<IClient> : string;
+  type: PropertyMovementType;
+  user: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
+  project: T extends true ? Pick<IProject, '_id' | 'name'> : string;
+  client: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
+  contractor: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
   userCooperationType: string;
   userStatus: string;
   userCooperationStartDate: string;
-  property: T extends true ? Partial<IProperty> : string;
+  property: T extends true ? Pick<IProperty, '_id' | 'internalName' | 'count'> : string;
   count: number;
-  date: Date;
-  recorder: T extends true ? Partial<IUser> : string;
+  date: string;
+  recorder: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
   writeoffReason: string;
   damageCompencationPrice: number;
-  createdBy: T extends true ? Partial<IUser> : string;
-  updatedBy: T extends true ? Partial<IUser> : string;
+  createdBy: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
+  updatedBy: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
 }

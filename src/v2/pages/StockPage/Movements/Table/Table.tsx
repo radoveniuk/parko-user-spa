@@ -2,6 +2,7 @@ import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { useFilters } from 'v2/components/Filters';
+import useBoolean from 'v2/hooks/useBoolean';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import Skeleton from 'v2/uikit/Skeleton';
@@ -14,6 +15,7 @@ import { getDateFromIso } from 'helpers/datetime';
 import { iterateMap } from 'helpers/iterateMap';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IClient } from 'interfaces/client.interface';
+import { IProperty } from 'interfaces/property.interface';
 import { IPropertyMovement } from 'interfaces/propertyMovement.interface';
 import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -77,6 +79,8 @@ const Table = ({
     return rowData[col] as string | number;
   };
 
+  const [activePropertyMovement, setActivePropertyMovement] = useState<IPropertyMovement<true> | null>(null);
+
   return (
     <TableWrapper>
       <ListTable
@@ -114,7 +118,7 @@ const Table = ({
             ))}
             <ListTableCell align="right">
               {permissions.includes('stock:update') && (
-                <IconButton onClick={() => {}}><EditIcon /></IconButton>
+                <IconButton onClick={() => void setActivePropertyMovement(item)}><EditIcon /></IconButton>
               )}
               {permissions.includes('stock:delete') && (
                 <IconButton onClick={() => void setIdToDelete(item._id)}><DeleteIcon /></IconButton>
@@ -142,6 +146,7 @@ const Table = ({
           deleteResidence.mutate(idToDelete as string);
         }}
       />
+
     </TableWrapper>
   );
 };

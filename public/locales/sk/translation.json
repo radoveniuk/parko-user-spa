@@ -16,7 +16,8 @@
     "finance": "Financie",
     "feedback": "Spätná väzba",
     "orders": "Náborové miestnosti",
-    "roles": "Administrácia rolí používateľov"
+    "roles": "Administrácia rolí používateľov",
+    "stock": "Uskladnenie"
   },
   "menu": {
     "prepayment": "Objednať zálohu",
@@ -314,6 +315,38 @@
     "docs": "Doklady"
   },
   "profileList": "Ľudské zdroje",
+  "stock": {
+    "properties": "Materiály",
+    "movements": "Pohyby",
+    "property": "Materiál",
+    "client": "Klient",
+    "project": "Projekt",
+    "internalName": "Názov interný",
+    "contractor": "Kontragent",
+    "tradeName": "Obchodný názov podľa faktúry",
+    "movementType": "Typ pohybu",
+    "dateFrom": "Data od",
+    "dateTo": "Data do",
+    "user": "Používateľ",
+    "type": "Typ",
+    "count": "Počet",
+    "date": "Data",
+    "createProperty": "Vytvoriť materiál",
+    "status": "Status",
+    "invoiceNumber": "Číslo faktúry/bločku",
+    "distributorICO": "IČO dodávateľa",
+    "orderer": "Objednávateľ",
+    "invoiceDeliveryDate": "Dátum dodania podľa faktúry",
+    "invoiceDeliveryDateFrom": "Dátum dodania podľa faktúry (od)",
+    "invoiceDeliveryDateTo": "Dátum dodania podľa faktúry (do)",
+    "deliveryDate": "Dátum dodania reálny ",
+    "deliveryDateFrom": "Dátum dodania reálny (od)",
+    "deliveryDateTo": "Dátum dodania reálny (do)",
+    "price": "Cena, bez DPH",
+    "damageCompencationPrice": "Zrážka",
+    "receiver": "Prijímateľ materiálu",
+    "location": "Lokalita"
+  },
   "selects": {
     "permitType": {
       "business": "Podnikanie",
@@ -434,6 +467,11 @@
       "recruiting": "Recruiting",
       "processing": "Processing",
       "finished": "Finished"
+    },
+    "propertyMovementType": {
+      "give": "Výdaj",
+      "return": "Vrátka",
+      "writeoff": "Vyradenie"
     }
   },
   "notFoundPage": "Stránka nenájdená",
@@ -661,6 +699,7 @@
   "myFilter": "Môj režim",
   "copied": "Skopírované",
   "clone": "Klonovať",
+  "noOptions": "Nič nebolo nájdené",
   "profilesPage": {
     "status": "Používateľské stavy",
     "organization": "Organizácie",

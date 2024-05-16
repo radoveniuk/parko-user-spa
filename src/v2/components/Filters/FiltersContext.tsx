@@ -18,8 +18,6 @@ type contextType = {
   removeFilter(key: string): void;
   clearFilters(): void;
   initFilters(): void;
-  openDrawerFilter: boolean;
-  setOpenDrawerFilter: React.Dispatch<React.SetStateAction<boolean>>;
   setFiltersState: React.Dispatch<React.SetStateAction<AnyObject | undefined>>;
 };
 
@@ -33,7 +31,6 @@ const FiltersProvider = ({ children, localStorageKey }: Props) => {
   const filterConfigKey = useMemo(() => `${location.pathname}${localStorageKey ? `-${localStorageKey}` : ''}`, [localStorageKey, location.pathname]);
 
   const [filtersState, setFiltersState] = useState<AnyObject | undefined>(filtersConfig[filterConfigKey] || undefined);
-  const [openDrawerFilter, setOpenDrawerFilter] = useState(true);
   const debouncedFiltersState = useDebounce(filtersState);
 
   const addFilter = useCallback((key: string, value: string) => {
@@ -68,8 +65,6 @@ const FiltersProvider = ({ children, localStorageKey }: Props) => {
         removeFilter,
         clearFilters,
         initFilters,
-        openDrawerFilter,
-        setOpenDrawerFilter,
         setFiltersState,
       }}
     >

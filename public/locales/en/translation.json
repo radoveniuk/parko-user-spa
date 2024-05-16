@@ -16,7 +16,8 @@
     "finance": "Finance",
     "feedback": "Feedback",
     "orders": "Recruitment rooms",
-    "roles": "Roles users"
+    "roles": "Roles users",
+    "stock": "Stock"
   },
   "menu": {
     "prepayment": "Request prepayment",
@@ -314,6 +315,40 @@
     "docs": "Docs"
   },
   "profileList": "Profiles",
+  "stock": {
+    "properties": "Properties",
+    "movements": "Property movements",
+    "property": "Property",
+    "client": "Client",
+    "project": "Project",
+    "internalName": "Internal name",
+    "contractor": "Contractor",
+    "tradeName": "Trade name",
+    "movementType": "Type",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
+    "user": "Employee",
+    "type": "Type",
+    "count": "Count",
+    "date": "Date",
+    "createProperty": "Create property",
+    "status": "Status",
+    "invoiceNumber": "Invoice number",
+    "distributorICO": "ICO of distributor",
+    "orderer": "Orderer",
+    "invoiceDeliveryDate": "Invoice Delivery Date",
+    "invoiceDeliveryDateFrom": "Invoice Delivery Date (from)",
+    "invoiceDeliveryDateTo": "Invoice Delivery Date (to)",
+    "deliveryDate": "Delivery Date",
+    "deliveryDateFrom": "Delivery Date (from)",
+    "deliveryDateTo": "Delivery Date (to)",
+    "price": "Price without WAT",
+    "damageCompencationPrice": "Damage Compencation Price",
+    "receiver": "Receiver",
+    "location": "Location",
+    "recorder": "Recorder",
+    "writeoffReason": "Write off reason"
+  },
   "selects": {
     "permitType": {
       "business": "Business",
@@ -434,6 +469,11 @@
       "recruiting": "Recruiting",
       "processing": "Processing",
       "finished": "Finished"
+    },
+    "propertyMovementType": {
+      "give": "Give",
+      "return": "Return",
+      "writeoff": "Write off"
     }
   },
   "notFoundPage": "Page not found",
@@ -661,6 +701,7 @@
   "myFilter": "My mode",
   "copied": "Copied",
   "clone": "Clone",
+  "noOptions": "No options",
   "profilesPage": {
     "status": "User statuses",
     "organization": "Organizations",

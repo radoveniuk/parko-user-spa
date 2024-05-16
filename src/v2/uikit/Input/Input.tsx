@@ -31,7 +31,7 @@ const Input = ({
   showPasswordIcon, type, maxWidth,
   theme = 'white', label, className,
   tooltip, allowCyrillic = false, error,
-  options = [], onChange, ...props
+  options = [], onChange, required, ...props
 }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   const [value, setValue] = useState(props.value || props.defaultValue);
   const [showPassword, setShowPassword] = useState(false);
@@ -78,7 +78,7 @@ const Input = ({
   return (
     <InputWrapper className={className} style={{ maxWidth }} fieldColor={COLORS_MAP[theme]} ref={fieldRef}>
       <FormLabel className={isCyrillicError || error ? ' error' : ''} tooltip={tooltip}>
-        {label}
+        {label}{required && '*'}
       </FormLabel>
       <TextField
         ref={ref}
