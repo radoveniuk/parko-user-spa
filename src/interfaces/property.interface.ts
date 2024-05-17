@@ -16,6 +16,9 @@ export interface IProperty<T extends boolean = false> extends IMongoDoc {
   size: string;
   location: string;
   count: number;
+  comment: string;
+  identification: string;
+  availableCount: number;
   price: number;
   damageCompencationPrice: number;
   orderer: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;

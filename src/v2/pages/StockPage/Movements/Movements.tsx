@@ -75,7 +75,7 @@ const Movements = () => {
             multiple
             filterKey="types"
             options={filters.types}
-            getOptionLabel={(option) => t(`selects.propertyMovementType${option._id}`)}
+            getOptionLabel={(option) => t(`selects.propertyMovementType.${option._id}`)}
             label={t('stock.movementType')}
           />
           <FilterDate

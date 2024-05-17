@@ -14,7 +14,7 @@ export const useGetPropertyMovements = (params: Partial<IPropertyMovement> = {},
       ...params,
     },
   }).then(res => res.data.data);
-  return useQuery(['propertyMovements', JSON.stringify(params)], request, { staleTime: 30000, ...queryOptions });
+  return useQuery(['property-movements', JSON.stringify(params)], request, { staleTime: 30000, ...queryOptions });
 };
 
 export const useGetPropertyMovementsFilters = (params: AnyObject = {}, queryOptions: AnyObject = {}) => {
@@ -27,10 +27,10 @@ export const useGetPropertyMovementsFilters = (params: AnyObject = {}, queryOpti
       ...params,
     },
   }).then(res => res.data.data);
-  return useQuery(['propertyMovement-filters', JSON.stringify(params)], request, { staleTime: 30000, ...queryOptions });
+  return useQuery(['property-movement-filters', JSON.stringify(params)], request, { staleTime: 30000, ...queryOptions });
 };
 
 export const useGetPropertyMovement = (id: string) => {
   const request = (): Promise<IPropertyMovement<true>> => api.get(`/property-movements/${id}`).then(res => res.data.data);
-  return useQuery(['propertyMovement', id], request, { enabled: !!id });
+  return useQuery(['property-movement', id], request, { enabled: !!id });
 };

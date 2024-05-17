@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { TB } from 'theme/sizeBreakpoints';
 
 export const DialogContentWrapper = styled.div`
-  padding: 10px;
+  margin-bottom: 12px;
   .form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 250px 250px;
     column-gap: 12px;
     row-gap: 6px;
 

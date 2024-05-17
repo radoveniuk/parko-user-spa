@@ -12,6 +12,8 @@ import Table from './Table';
 const DEFAULT_COLS = [
   'stock.internalName',
   'stock.count',
+  'stock.availableCount',
+  'stock.status',
 ];
 
 const Properties = () => {

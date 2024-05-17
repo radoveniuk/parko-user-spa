@@ -347,7 +347,9 @@
     "receiver": "Receiver",
     "location": "Location",
     "recorder": "Recorder",
-    "writeoffReason": "Write off reason"
+    "writeoffReason": "Write off reason",
+    "size": "Size",
+    "availableCount": "Available"
   },
   "selects": {
     "permitType": {
@@ -474,6 +476,16 @@
       "give": "Give",
       "return": "Return",
       "writeoff": "Write off"
+    },
+    "writeOffReason": {
+      "damaged": "Damaged",
+      "non-returnable": "Non-returnable",
+      "not-returned": "Not returned"
+    },
+    "propertyStatus": {
+      "available": "Available",
+      "ordered": "Ordered",
+      "out": "Out of stock"
     }
   },
   "notFoundPage": "Page not found",

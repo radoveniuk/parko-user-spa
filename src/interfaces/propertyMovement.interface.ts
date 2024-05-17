@@ -15,9 +15,12 @@ export interface IPropertyMovement<T extends boolean = false> extends IMongoDoc 
   userCooperationType: string;
   userStatus: string;
   userCooperationStartDate: string;
-  property: T extends true ? Pick<IProperty, '_id' | 'internalName' | 'count'> : string;
+  property: T extends true ? Pick<IProperty, '_id' | 'internalName' | 'count' | 'damageCompencationPrice'> : string;
+  previousMovement?: T extends true ? IPropertyMovement<true> : string;
+  isReturned?: boolean;
   count: number;
   date: string;
+  userCooperationEndDate: string;
   recorder: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
   writeoffReason: string;
   damageCompencationPrice: number;

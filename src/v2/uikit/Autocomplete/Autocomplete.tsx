@@ -33,16 +33,15 @@ export type AutocompleteProps = {
   disabled?: boolean;
   maxWidth?: number;
   theme?: FieldTheme;
+  required?: boolean;
 }
 
 const AutoComplete = ({
   label, loading, labelKey, onChange, defaultOpen, value,
   getOptionLabel, error, prefixIcon, placeholder, disabled, maxWidth,
-  valueKey = '_id', theme = 'white',
+  valueKey = '_id', theme = 'white', required,
   ...rest
 }: AutocompleteProps) => {
-  // console.log(value, rest.options);
-
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
 
@@ -70,6 +69,7 @@ const AutoComplete = ({
           theme={theme}
           error={error}
           placeholder={placeholder}
+          required={required}
           InputProps={{
             ...params.InputProps,
             startAdornment: (
