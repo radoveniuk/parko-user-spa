@@ -41,7 +41,7 @@ const Table = ({
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
 
   const toggleSorting = (mKey: string) => {
-    sortingToggler(mKey, mKey as SortingValue<IPropertyMovement<true>>);
+    // sortingToggler(mKey, mKey as string);
   };
   const deleteResidence = useDeleteResidence();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
