@@ -8,11 +8,9 @@ import { ArrowDownIcon, BackIcon, CheckInIcon, DeleteIcon, ExcelIcon, ForwardIco
 import { useAuthData } from 'contexts/AuthContext';
 import { PropertyMovementType } from 'interfaces/propertyMovement.interface';
 
-import MovementFormDialog from '../../dialogs/MovementFormDialog';
+import { GiveDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
 
-type Props = {
-  count: number;
-}
+type Props = { count: number; }
 
 const HeaderTable = ({ count }: Props) => {
   const { t } = useTranslation();
@@ -61,9 +59,20 @@ const HeaderTable = ({ count }: Props) => {
           )}
         </div>
       </ListTableHeader>
-      {!!openMovement && (
-        <MovementFormDialog
-          type={openMovement}
+      {openMovement === 'give' && (
+        <GiveDialog
+          open={!!openMovement}
+          onClose={() => void setOpenMovement(null)}
+        />
+      )}
+      {openMovement === 'return' && (
+        <ReturnDialog
+          open={!!openMovement}
+          onClose={() => void setOpenMovement(null)}
+        />
+      )}
+      {openMovement === 'writeoff' && (
+        <WriteoffDialog
           open={!!openMovement}
           onClose={() => void setOpenMovement(null)}
         />
