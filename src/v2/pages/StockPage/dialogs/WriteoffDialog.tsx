@@ -37,7 +37,8 @@ const MovementFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
   const { data: users = [], isFetching: isFetchingUsers } = useGetUserListForFilter();
   const { data: recorders } = useGetUserListForFilter({ isInternal: true });
   const { data: properties = [], isFetching: isFetchingProperties } = useGetProperties({}, { staleTime: 0 });
-  const { data: previousGiveMovements = [] } = useGetPropertyMovements({ type: 'give', isReturned: false });
+  const { data: previousMovements = [] } = useGetPropertyMovements({ isReturned: false });
+  const previousGiveMovements = useMemo(() => previousMovements.filter(m => m.type === 'give'), [previousMovements]);
   // const { data: contractors = [] } = useGetClients({ isInternal: true });
 
   const { create, update } = usePropertyMovementActions();
@@ -64,6 +65,20 @@ const MovementFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
   const selectedPrevMovementId = watch('previousMovement');
   const selectedPrevMovement = useMemo(() =>
     previousGiveMovements.find(movement => movement._id === selectedPrevMovementId), [previousGiveMovements, selectedPrevMovementId]);
+
+  const maxCount = useMemo(() => {
+    if (selectedProperty && !selectedPrevMovement) {
+      return selectedProperty.availableCount;
+    }
+    if (selectedPrevMovement) {
+      const initialCount = selectedPrevMovement.count;
+      const nonAvailableCount = previousMovements
+        .filter(m => m.previousMovement?._id === selectedPrevMovementId)
+        .reduce((accumulator, currentValue) => accumulator + Number(currentValue.count), 0);
+      return initialCount - nonAvailableCount;
+    }
+    return 0;
+  }, [previousMovements, selectedPrevMovement, selectedPrevMovementId, selectedProperty]);
 
   const translatedType = t('selects.propertyMovementType.writeoff');
 
@@ -110,7 +125,7 @@ const MovementFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
             render={({ field }) => (
               <AutoComplete
                 label={t('selects.propertyMovementType.give')}
-                options={previousGiveMovements}
+                options={previousGiveMovements.filter(m => m.property._id === selectedPropertyId)}
                 value={previousGiveMovements.find(item => item._id === field.value)}
                 onChange={(v) => void field.onChange(v?._id)}
                 theme="gray"
@@ -142,7 +157,7 @@ const MovementFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
             )}
           />
           <Input
-            label={t('stock.count')}
+            label={`${t('stock.count')} (max. ${maxCount})`}
             theme="gray"
             type="number"
             error={!!errors.count}
@@ -150,17 +165,7 @@ const MovementFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
             {...register('count', {
               required: true,
               validate: {
-                limit: (value) => {
-                  const count = Number(value);
-                  if (selectedProperty && !selectedPrevMovement) {
-                    return count <= selectedProperty.availableCount;
-                  }
-                  if (selectedPrevMovement) {
-                    return count <= selectedPrevMovement.count;
-                  }
-
-                  return count > 0;
-                },
+                limit: (value) => Number(value) <= maxCount,
               },
             })}
           />

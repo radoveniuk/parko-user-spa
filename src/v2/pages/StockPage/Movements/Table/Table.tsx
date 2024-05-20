@@ -2,7 +2,6 @@ import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { useFilters } from 'v2/components/Filters';
-import useBoolean from 'v2/hooks/useBoolean';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import Skeleton from 'v2/uikit/Skeleton';
@@ -15,10 +14,11 @@ import { getDateFromIso } from 'helpers/datetime';
 import { iterateMap } from 'helpers/iterateMap';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IClient } from 'interfaces/client.interface';
-import { IProperty } from 'interfaces/property.interface';
 import { IPropertyMovement } from 'interfaces/propertyMovement.interface';
 import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';
+
+import { GiveDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
 
 import { TableWrapper } from './styles';
 
@@ -146,7 +146,27 @@ const Table = ({
           deleteResidence.mutate(idToDelete as string);
         }}
       />
-
+      {activePropertyMovement?.type === 'give' && (
+        <GiveDialog
+          open={!!activePropertyMovement}
+          onClose={() => void setActivePropertyMovement(null)}
+          defaultData={activePropertyMovement}
+        />
+      )}
+      {activePropertyMovement?.type === 'return' && (
+        <ReturnDialog
+          open={!!activePropertyMovement}
+          onClose={() => void setActivePropertyMovement(null)}
+          defaultData={activePropertyMovement}
+        />
+      )}
+      {activePropertyMovement?.type === 'writeoff' && (
+        <WriteoffDialog
+          open={!!activePropertyMovement}
+          onClose={() => void setActivePropertyMovement(null)}
+          defaultData={activePropertyMovement}
+        />
+      )}
     </TableWrapper>
   );
 };

@@ -18,6 +18,7 @@ export type AutocompleteProps = {
   labelKey?: string;
   valueKey?: string;
   getOptionLabel?(item: any): string | ReactNode;
+  getOptionDisabled?(item: any): boolean;
   multiple?: boolean;
   limitTags?: number;
   style?: React.CSSProperties;

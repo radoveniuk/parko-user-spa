@@ -4,7 +4,7 @@ import { Button, Divider, Menu, MenuItem } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
 import ListTableHeader from 'v2/uikit/ListTableHeader';
 
-import { ArrowDownIcon, BackIcon, CheckInIcon, DeleteIcon, ExcelIcon, ForwardIcon, ThreeDotsIcon } from 'components/icons';
+import { ArrowDownIcon, BackIcon, DeleteIcon, ExcelIcon, ForwardIcon, ThreeDotsIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { PropertyMovementType } from 'interfaces/propertyMovement.interface';
 
@@ -54,9 +54,6 @@ const HeaderTable = ({ count }: Props) => {
               <ExcelIcon size={20}/>{t('user.export')}
             </MenuItem>
           </Menu>
-          {permissions.includes('residences:create') && (
-            <IconButton className="small-btn primary" onClick={() => {}}><CheckInIcon size={25} /></IconButton>
-          )}
         </div>
       </ListTableHeader>
       {openMovement === 'give' && (

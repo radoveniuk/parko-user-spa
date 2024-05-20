@@ -29,7 +29,8 @@ const ReturnDialog = ({ defaultData, onClose, ...rest }: Props) => {
 
   const { data: recorders } = useGetUserListForFilter({ isInternal: true });
 
-  const { data: previousGiveMovements = [], isFetching: isFetchingMovements } = useGetPropertyMovements({ type: 'give', isReturned: false });
+  const { data: previousMovements = [], isFetching: isFetchingMovements } = useGetPropertyMovements({ isReturned: false });
+  const previousGiveMovements = useMemo(() => previousMovements.filter(m => m.type === 'give'), [previousMovements]);
 
   const { create, update } = usePropertyMovementActions();
 
@@ -45,6 +46,17 @@ const ReturnDialog = ({ defaultData, onClose, ...rest }: Props) => {
   const selectedPrevMovementId = watch('previousMovement');
   const selectedPrevMovement = useMemo(() =>
     previousGiveMovements.find(movement => movement._id === selectedPrevMovementId), [previousGiveMovements, selectedPrevMovementId]);
+
+  const maxCount = useMemo(() => {
+    if (selectedPrevMovement) {
+      const initialCount = selectedPrevMovement.count;
+      const nonAvailableCount = previousMovements
+        .filter(m => m.previousMovement?._id === selectedPrevMovementId)
+        .reduce((accumulator, currentValue) => accumulator + Number(currentValue.count), 0);
+      return initialCount - nonAvailableCount;
+    }
+    return 0;
+  }, [previousMovements, selectedPrevMovement, selectedPrevMovementId]);
 
   const translatedType = t('selects.propertyMovementType.return');
 
@@ -64,7 +76,6 @@ const ReturnDialog = ({ defaultData, onClose, ...rest }: Props) => {
               onChange (e) {
                 const movement = previousGiveMovements.find(item => item._id === e.target.value);
                 if (movement) {
-                  setValue('count', movement.count);
                   setValue('property', movement.property._id);
                   setValue('user', movement.user._id);
                   setValue('contractor', movement.contractor._id);
@@ -92,9 +103,10 @@ const ReturnDialog = ({ defaultData, onClose, ...rest }: Props) => {
             disabled
             label={t('stock.user')}
             value={selectedPrevMovement?.user.fullname}
+            required
           />
           <Input
-            label={t('stock.count')}
+            label={`${t('stock.count')} (max. ${maxCount})`}
             theme="gray"
             type="number"
             error={!!errors.count}
@@ -102,14 +114,7 @@ const ReturnDialog = ({ defaultData, onClose, ...rest }: Props) => {
             {...register('count', {
               required: true,
               validate: {
-                limit: (value) => {
-                  const count = Number(value);
-                  if (selectedPrevMovement) {
-                    return count <= selectedPrevMovement.count;
-                  }
-
-                  return count > 0;
-                },
+                limit: (value) => Number(value) <= maxCount,
               },
             })}
           />

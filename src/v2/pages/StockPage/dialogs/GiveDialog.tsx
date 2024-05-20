@@ -64,42 +64,48 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
     >
       <DialogContentWrapper>
         <div className="form">
-          <Controller
-            control={control}
-            name="property"
-            rules={{ required: true }}
-            render={({ field, fieldState }) => (
-              <AutoComplete
-                label={t('stock.property')}
-                options={properties}
-                value={properties.find(item => item._id === field.value)}
-                onChange={(v) => void field.onChange(v?._id)}
-                theme="gray"
-                getOptionLabel={row => `${row.internalName} (${row.availableCount})`}
-                valueKey="_id"
-                disabled={isFetchingProperties}
-                required
-                error={!!fieldState.error}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="contractor"
-            rules={{ required: true }}
-            render={({ field, fieldState }) => (
-              <Select
-                label={t('stock.contractor')}
-                options={contractors}
-                onChange={(e) => void field.onChange(e.target.value)}
-                theme="gray"
-                labelPath="shortName"
-                valuePath="_id"
-                required
-                error={!!fieldState.error}
-              />
-            )}
-          />
+          {!!properties.length && (
+            <Controller
+              control={control}
+              name="property"
+              rules={{ required: true }}
+              render={({ field, fieldState }) => (
+                <AutoComplete
+                  label={t('stock.property')}
+                  options={properties}
+                  value={properties.find(item => item._id === field.value)}
+                  onChange={(v) => void field.onChange(v?._id)}
+                  theme="gray"
+                  getOptionLabel={row => `${row.internalName} (${row.availableCount})`}
+                  valueKey="_id"
+                  disabled={isFetchingProperties}
+                  required
+                  error={!!fieldState.error}
+                  getOptionDisabled={item => !item.availableCount}
+                />
+              )}
+            />
+          )}
+          {!!contractors.length && (
+            <Controller
+              control={control}
+              name="contractor"
+              rules={{ required: true }}
+              render={({ field, fieldState }) => (
+                <Select
+                  label={t('stock.contractor')}
+                  options={contractors}
+                  onChange={(e) => void field.onChange(e.target.value)}
+                  theme="gray"
+                  labelPath="shortName"
+                  valuePath="_id"
+                  required
+                  error={!!fieldState.error}
+                  value={field.value}
+                />
+              )}
+            />
+          )}
           {!!selectedProperty && (
             <>
               <Input
@@ -156,7 +162,7 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
             )}
           />
           <Input
-            label={t('stock.count')}
+            label={`${t('stock.count')} (max. ${selectedProperty?.availableCount || 0})`}
             theme="gray"
             type="number"
             error={!!errors.count}
@@ -169,8 +175,7 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
                   if (selectedProperty) {
                     return count <= selectedProperty.availableCount;
                   }
-
-                  return count > 0;
+                  return false;
                 },
               },
             })}
