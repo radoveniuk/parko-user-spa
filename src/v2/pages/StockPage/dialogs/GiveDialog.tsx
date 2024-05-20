@@ -29,7 +29,25 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
 
   const { data: users = [], isFetching: isFetchingUsers } = useGetUserListForFilter();
   const { data: recorders } = useGetUserListForFilter({ isInternal: true });
-  const { data: properties = [], isFetching: isFetchingProperties } = useGetProperties({}, { staleTime: 0 });
+  const { data: propertiesData = [], isFetching: isFetchingProperties } = useGetProperties({}, { staleTime: 0 });
+  const properties: typeof propertiesData = useMemo(() => {
+    if (defaultData?.property) {
+      if (propertiesData.length) {
+        return propertiesData.map((p) => {
+          if (p._id === defaultData.property._id) {
+            return {
+              ...p,
+              availableCount: p.availableCount + defaultData.count,
+            };
+          }
+          return p;
+        });
+      } else {
+        return [defaultData?.property] as typeof propertiesData;
+      }
+    }
+    return propertiesData;
+  }, [defaultData, propertiesData]);
   const { data: contractors = [] } = useGetClients({ isInternal: true });
 
   const { create, update } = usePropertyMovementActions();
@@ -158,6 +176,7 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
                 disabled={isFetchingUsers}
                 required
                 error={!!fieldState.error}
+                key={defaultData?.user._id}
               />
             )}
           />
