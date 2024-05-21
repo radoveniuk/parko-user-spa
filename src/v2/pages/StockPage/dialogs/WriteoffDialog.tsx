@@ -5,6 +5,7 @@ import { Button, Input } from 'v2/uikit';
 import AutoComplete from 'v2/uikit/Autocomplete';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
+import Loader from 'v2/uikit/Loader';
 import Select from 'v2/uikit/Select';
 
 // import { useGetClients } from 'api/query/clientQuery';
@@ -18,7 +19,7 @@ import { IPropertyMovement } from 'interfaces/propertyMovement.interface';
 import { movementExtendedToForm } from '../helpers';
 import usePropertyMovementActions from '../Movements/hooks/useMovementActions';
 
-import { DialogContentWrapper } from './styles';
+import { DialogContentWrapper, LoaderWrapper } from './styles';
 
 type Props = DialogProps & {
   defaultData?: IPropertyMovement<true>;
@@ -38,8 +39,22 @@ const MovementFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
   const { data: recorders } = useGetUserListForFilter({ isInternal: true });
   const { data: properties = [], isFetching: isFetchingProperties } = useGetProperties({}, { staleTime: 0 });
   const { data: previousMovements = [] } = useGetPropertyMovements({ isReturned: false });
-  const previousGiveMovements = useMemo(() => previousMovements.filter(m => m.type === 'give'), [previousMovements]);
-  // const { data: contractors = [] } = useGetClients({ isInternal: true });
+  const previousGiveMovements: typeof previousMovements = useMemo(() => {
+    const giveMovements = previousMovements.filter(({ type }) => type === 'give');
+    if (defaultData?.previousMovement) {
+      if (giveMovements.length) {
+        return giveMovements.map((m) => {
+          if (m._id === defaultData?.previousMovement?._id) {
+            return m;
+          }
+          return m;
+        });
+      } else {
+        return [defaultData?.previousMovement] as typeof previousMovements;
+      }
+    }
+    return giveMovements;
+  }, [defaultData?.previousMovement, previousMovements]);
 
   const { create, update } = usePropertyMovementActions();
 
@@ -68,17 +83,17 @@ const MovementFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
 
   const maxCount = useMemo(() => {
     if (selectedProperty && !selectedPrevMovement) {
-      return selectedProperty.availableCount;
+      return selectedProperty.availableCount + (!defaultData?.previousMovement ? defaultData?.count || 0 : 0);
     }
     if (selectedPrevMovement) {
       const initialCount = selectedPrevMovement.count;
       const nonAvailableCount = previousMovements
         .filter(m => m.previousMovement?._id === selectedPrevMovementId)
         .reduce((accumulator, currentValue) => accumulator + Number(currentValue.count), 0);
-      return initialCount - nonAvailableCount;
+      return initialCount - nonAvailableCount + (defaultData?.count || 0);
     }
     return 0;
-  }, [previousMovements, selectedPrevMovement, selectedPrevMovementId, selectedProperty]);
+  }, [defaultData?.count, defaultData?.previousMovement, previousMovements, selectedPrevMovement, selectedPrevMovementId, selectedProperty]);
 
   const translatedType = t('selects.propertyMovementType.writeoff');
 
@@ -90,34 +105,42 @@ const MovementFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
       {...rest}
     >
       <DialogContentWrapper>
+        {(isFetchingProperties || isFetchingUsers) && (
+          <LoaderWrapper>
+            <Loader />
+          </LoaderWrapper>
+        )}
         <div className="form">
-          <Controller
-            control={control}
-            name="property"
-            rules={{ required: true }}
-            render={({ field, fieldState }) => (
-              <AutoComplete
-                label={t('stock.property')}
-                options={properties}
-                value={properties.find(item => item._id === field.value)}
-                onChange={(v) => void field.onChange(v?._id)}
-                theme="gray"
-                getOptionLabel={row => `${row.internalName} (${row.count})`}
-                valueKey="_id"
-                disabled={isFetchingProperties}
-                required
-                error={!!fieldState.error}
-              />
-            )}
-          />
+          {!!properties.length && (
+            <Controller
+              control={control}
+              name="property"
+              rules={{ required: true }}
+              render={({ field, fieldState }) => (
+                <AutoComplete
+                  label={t('stock.property')}
+                  options={properties}
+                  defaultValue={properties.find(item => item._id === field.value)}
+                  onChange={(v) => void field.onChange(v?._id)}
+                  theme="gray"
+                  getOptionLabel={row => `${row.internalName} (${row.count})`}
+                  valueKey="_id"
+                  disabled={isFetchingProperties}
+                  required
+                  error={!!fieldState.error}
+                />
+              )}
+            />
+          )}
           <Controller
             control={control}
             name="previousMovement"
             rules={{
               onChange (e) {
                 const movement = previousGiveMovements.find(item => item._id === e.target.value);
+
                 if (movement) {
-                  setValue('contractor', movement.contractor._id);
+                  setValue('contractor', movement.contractor?._id);
                   setValue('user', movement.user._id);
                 }
               },
@@ -126,7 +149,7 @@ const MovementFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
               <AutoComplete
                 label={t('selects.propertyMovementType.give')}
                 options={previousGiveMovements.filter(m => m.property._id === selectedPropertyId)}
-                value={previousGiveMovements.find(item => item._id === field.value)}
+                defaultValue={previousGiveMovements.find(item => item._id === field.value)}
                 onChange={(v) => void field.onChange(v?._id)}
                 theme="gray"
                 getOptionLabel={(row: IPropertyMovement<true>) =>
@@ -136,26 +159,28 @@ const MovementFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
               />
             )}
           />
-          <Controller
-            control={control}
-            name="user"
-            rules={{ required: true }}
-            render={({ field, fieldState }) => (
-              <AutoComplete
-                label={t('stock.user')}
-                options={users}
-                value={users.find(user => user._id === field.value)}
-                onChange={(v) => void field.onChange(v?._id)}
-                theme="gray"
-                getOptionLabel={row => `${row.fullname}${row.project ? `, ${row.project.client.shortName} > ${row.project.name}` : ''}`}
-                valueKey="_id"
-                disabled={isFetchingUsers || !!selectedPrevMovement}
-                required
-                error={!!fieldState.error}
-                key={selectedPrevMovement?._id}
-              />
-            )}
-          />
+          {!!users.length && (
+            <Controller
+              control={control}
+              name="user"
+              rules={{ required: true }}
+              render={({ field, fieldState }) => (
+                <AutoComplete
+                  label={t('stock.user')}
+                  options={users}
+                  defaultValue={users.find(user => user._id === field.value)}
+                  onChange={(v) => void field.onChange(v?._id)}
+                  theme="gray"
+                  getOptionLabel={row => `${row.fullname}${row.project ? `, ${row.project.client.shortName} > ${row.project.name}` : ''}`}
+                  valueKey="_id"
+                  disabled={isFetchingUsers || !!selectedPrevMovement}
+                  required
+                  error={!!fieldState.error}
+                  key={selectedPrevMovement?._id}
+                />
+              )}
+            />
+          )}
           <Input
             label={`${t('stock.count')} (max. ${maxCount})`}
             theme="gray"

@@ -5,6 +5,7 @@ import { Button, Input } from 'v2/uikit';
 import AutoComplete from 'v2/uikit/Autocomplete';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
+import Loader from 'v2/uikit/Loader';
 import Select from 'v2/uikit/Select';
 
 import { useGetClients } from 'api/query/clientQuery';
@@ -15,7 +16,7 @@ import { IPropertyMovement } from 'interfaces/propertyMovement.interface';
 import { movementExtendedToForm } from '../helpers';
 import usePropertyMovementActions from '../Movements/hooks/useMovementActions';
 
-import { DialogContentWrapper } from './styles';
+import { DialogContentWrapper, LoaderWrapper } from './styles';
 
 type Props = DialogProps & {
   defaultData?: IPropertyMovement<true>;
@@ -28,7 +29,7 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
   useForm<IPropertyMovement>({ defaultValues: defaultData ? movementExtendedToForm(defaultData) : { type: 'give' } });
 
   const { data: users = [], isFetching: isFetchingUsers } = useGetUserListForFilter();
-  const { data: recorders } = useGetUserListForFilter({ isInternal: true });
+  const { data: recorders, isFetching: isFetchingRecorders } = useGetUserListForFilter({ isInternal: true });
   const { data: propertiesData = [], isFetching: isFetchingProperties } = useGetProperties({}, { staleTime: 0 });
   const properties: typeof propertiesData = useMemo(() => {
     if (defaultData?.property) {
@@ -48,7 +49,7 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
     }
     return propertiesData;
   }, [defaultData, propertiesData]);
-  const { data: contractors = [] } = useGetClients({ isInternal: true });
+  const { data: contractors = [], isFetching: isFetchingContractors } = useGetClients({ isInternal: true });
 
   const { create, update } = usePropertyMovementActions();
 
@@ -81,6 +82,11 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
       {...rest}
     >
       <DialogContentWrapper>
+        {(isFetchingProperties || isFetchingUsers || isFetchingRecorders || isFetchingContractors) && (
+          <LoaderWrapper>
+            <Loader />
+          </LoaderWrapper>
+        )}
         <div className="form">
           {!!properties.length && (
             <Controller
@@ -91,7 +97,7 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
                 <AutoComplete
                   label={t('stock.property')}
                   options={properties}
-                  value={properties.find(item => item._id === field.value)}
+                  defaultValue={properties.find(item => item._id === field.value)}
                   onChange={(v) => void field.onChange(v?._id)}
                   theme="gray"
                   getOptionLabel={row => `${row.internalName} (${row.availableCount})`}
@@ -160,26 +166,27 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
               />
             </>
           )}
-          <Controller
-            control={control}
-            name="user"
-            rules={{ required: true }}
-            render={({ field, fieldState }) => (
-              <AutoComplete
-                label={t('stock.user')}
-                options={users}
-                value={users.find(user => user._id === field.value)}
-                onChange={(v) => void field.onChange(v?._id)}
-                theme="gray"
-                getOptionLabel={row => `${row.fullname}${row.project ? `, ${row.project.client.shortName} > ${row.project.name}` : ''}`}
-                valueKey="_id"
-                disabled={isFetchingUsers}
-                required
-                error={!!fieldState.error}
-                key={defaultData?.user._id}
-              />
-            )}
-          />
+          {!!users.length && (
+            <Controller
+              control={control}
+              name="user"
+              rules={{ required: true }}
+              render={({ field, fieldState }) => (
+                <AutoComplete
+                  label={t('stock.user')}
+                  options={users}
+                  defaultValue={users.find(user => user._id === field.value)}
+                  onChange={(v) => void field.onChange(v?._id)}
+                  theme="gray"
+                  getOptionLabel={row => `${row.fullname}${row.project ? `, ${row.project.client.shortName} > ${row.project.name}` : ''}`}
+                  valueKey="_id"
+                  disabled={isFetchingUsers}
+                  required
+                  error={!!fieldState.error}
+                />
+              )}
+            />
+          )}
           <Input
             label={`${t('stock.count')} (max. ${selectedProperty?.availableCount || 0})`}
             theme="gray"
@@ -213,24 +220,26 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
               />
             )}
           />
-          <Controller
-            control={control}
-            name="recorder"
-            rules={{ required: true }}
-            render={({ field, fieldState }) => (
-              <Select
-                label={t('stock.recorder')}
-                options={recorders}
-                value={field.value}
-                onChange={(e) => void field.onChange(e.target.value)}
-                theme="gray"
-                labelPath="fullname"
-                valuePath="_id"
-                required
-                error={!!fieldState.error}
-              />
-            )}
-          />
+          {!!recorders?.length && (
+            <Controller
+              control={control}
+              name="recorder"
+              rules={{ required: true }}
+              render={({ field, fieldState }) => (
+                <Select
+                  label={t('stock.recorder')}
+                  options={recorders}
+                  value={field.value}
+                  onChange={(e) => void field.onChange(e.target.value)}
+                  theme="gray"
+                  labelPath="fullname"
+                  valuePath="_id"
+                  required
+                  error={!!fieldState.error}
+                />
+              )}
+            />
+          )}
         </div>
       </DialogContentWrapper>
       <DialogActions>
