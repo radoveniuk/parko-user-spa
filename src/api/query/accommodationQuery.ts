@@ -4,7 +4,7 @@ import api from 'api/common';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { AnyObject } from 'interfaces/base.types';
 
-export const useGetAccommodations = (params: Partial<IAccommodation> = {}, options: AnyObject) => {
+export const useGetAccommodations = (params: Partial<IAccommodation> = {}, options: AnyObject = {}) => {
   const request = (): Promise<IAccommodation[]> => api.get('/accommodations', {
     headers: {
       'Content-Type': 'application/json',

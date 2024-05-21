@@ -99,7 +99,7 @@ const ReturnDialog = ({ defaultData, onClose, ...rest }: Props) => {
                 if (movement) {
                   setValue('property', movement.property._id);
                   setValue('user', movement.user._id);
-                  setValue('contractor', movement.contractor._id);
+                  setValue('contractor', movement.contractor?._id);
                 }
               },
               required: true,
