@@ -346,7 +346,27 @@
     "price": "Cena, bez DPH",
     "damageCompencationPrice": "Zrážka",
     "receiver": "Prijímateľ materiálu",
-    "location": "Lokalita"
+    "location": "Lokalita",
+    "recorder": "Evidovateľ materiálu",
+    "writeoffReason": "Dôvod",
+    "size": "veľkosť",
+    "availableCount": "Dostupné",
+    "createdAt":"Dátum vytvorenia",
+    "updatedAt": "Posledná zmena",
+    "identifikácia": "Identifikácia",
+    "comment": "Poznámky",
+    "createdBy": "Kto vytvoril",
+    "updatedBy":"Kto aktualizoval",
+    "baseFields": "Všeobecné informácie",
+    "tradeFields": "Obchodné informácie",
+    "financialFields": "Finančné informácie",
+    "systemFields": "Systémové údaje",
+    "userFields": "Údaje o zamestnancoch",
+    "writeOffFields": "Vyradenie",
+    "userCooperationType": "Typ spolupráce",
+    "userCooperationStartDate": "Začiatok",
+    "userCooperationEndDate": "Ukončenie",
+    "userStatus": "Stav zamestnanca"
   },
   "selects": {
     "permitType": {

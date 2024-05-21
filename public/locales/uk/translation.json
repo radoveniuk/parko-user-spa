@@ -346,7 +346,27 @@
     "price": "Ціна",
     "damageCompencationPrice": "Вирахування за шкоду",
     "receiver": "Одержувач",
-    "location": "Локація"
+    "location": "Локація",
+    "recorder": "Записав",
+    "writeoffReason": "Причина списання",
+    "size": "Розмір",
+    "availableCount": "Доступно",
+    "createdAt":"Дата створення",
+    "updatedAt": "Остання зміна",
+    "identification": "Ідентифікація",
+    "comment": "Нотатки",
+    "createdBy": "Створив",
+    "updatedBy":"Вніс зміни",
+    "baseFields": "Загальна інформація",
+    "tradeFields": "Комерційна інформація",
+    "financialFields": "Фінанси",
+    "systemFields": "Системні дані",
+    "userFields": "Дані співробітника",
+    "writeOffFields": "Списання зі складу",
+    "userCooperationType": "Тип співпраці",
+    "userCooperationStartDate": "Початок співпраці",
+    "userCooperationEndDate": "Кінець співпраці",
+    "userStatus": "Статус працівника"
   },
   "selects": {
     "permitType": {

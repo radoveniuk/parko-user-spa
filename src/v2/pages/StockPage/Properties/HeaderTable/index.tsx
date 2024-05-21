@@ -101,7 +101,7 @@ const HeaderTable = ({ data }: Props) => {
                 {t('removeSelect')}
               </MenuItem>
               <MenuItem onClick={openCols}>
-                <TableIcon size={20} />{t('columns')}
+                <TableIcon size={20} />{t('cols')}
               </MenuItem>
               <Divider />
               <MenuItem color="#1e6e43" onClick={() => void exportData('xlsx')}>

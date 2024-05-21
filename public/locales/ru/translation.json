@@ -346,7 +346,27 @@
     "price": "Цена",
     "damageCompencationPrice": "Вычет за ущерб",
     "receiver": "Получатель",
-    "location": "Локация"
+    "location": "Локация",
+    "recorder": "Записал",
+    "writeoffReason": "Причина списания",
+    "size": "Размер",
+    "availableCount": "Доступно",
+    "createdAt":"Дата создания",
+    "updatedAt": "Последнее изменение",
+    "identification": "Идентификация",
+    "comment": "Заметки",
+    "createdBy": "Создал",
+    "updatedBy":"Внес изменения",
+    "baseFields": "Общая информация",
+    "tradeFields": "Коммерческая информация",
+    "financialFields": "Финансы",
+    "systemFields": "Системные данные",
+    "userFields": "Данные сотрудника",
+    "writeOffFields": "Списание со склада",
+    "userCooperationType": "Тип сотрудничества",
+    "userCooperationStartDate": "Начало сотрудничества",
+    "userCooperationEndDate": "Конец сотрудничества",
+    "userStatus": "Статус сотрудника"
   },
   "selects": {
     "permitType": {

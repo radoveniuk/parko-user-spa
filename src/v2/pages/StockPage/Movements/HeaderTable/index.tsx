@@ -131,7 +131,7 @@ const HeaderTable = ({ data }: Props) => {
               {t('removeSelect')}
             </MenuItem>
             <MenuItem onClick={openCols}>
-              <TableIcon size={20} />{t('columns')}
+              <TableIcon size={20} />{t('cols')}
             </MenuItem>
             <Divider />
             <MenuItem color="primary" disabled={!selectedItems.length} onClick={() => {}}>
