@@ -1,5 +1,6 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Checkbox } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import Skeleton from 'v2/uikit/Skeleton';
@@ -16,7 +17,8 @@ import { IClient } from 'interfaces/client.interface';
 import { IPropertyMovement } from 'interfaces/propertyMovement.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { useColumns } from '../../contexts/ColumnsContext';
+import { useColumns } from '../../contexts/ColumnsContext/useColumns';
+import { useSelectedItems } from '../../contexts/SelectedItemsContext/useSelectedItems';
 import { GiveDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
 import usePropertyMovementActions from '../hooks/useMovementActions';
 
@@ -108,11 +110,18 @@ const Table = ({
   const { data: allMovements = [] } = useGetPropertyMovements();
   const checkFutureMovements = (movementId: string) => allMovements.some((movement) => movement.previousMovement?._id === movementId);
 
+  // select items
+  const [selectedItems, { toggle: toggleSelectedRow }] = useSelectedItems();
+
+  const selectRowChangeHandler = useCallback((row: IPropertyMovement<true>) => () => {
+    toggleSelectedRow(row);
+  }, [toggleSelectedRow]);
+
   return (
     <TableWrapper>
       <ListTable
-        columns={[...activeCols, '']}
-        className="residences-table"
+        columns={['', ...activeCols, '']}
+        className="movements-table"
         columnComponent={(col) => {
           if (col) {
             return (
@@ -138,6 +147,12 @@ const Table = ({
       >
         {sortedData.map((item) => (
           <ListTableRow key={item._id}>
+            <ListTableCell>
+              <Checkbox
+                checked={selectedItems.some((selectedItem: IPropertyMovement<true>) => selectedItem._id === item._id)}
+                onChange={selectRowChangeHandler(item)}
+              />
+            </ListTableCell>
             {activeCols.map((col) => (
               <ListTableCell key={col}>
                 {generateCellContent(item, col.replace('stock.', '') as keyof IPropertyMovement<true>)}

@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren, useContext, useEffect } from 'react';
+import React, { createContext, PropsWithChildren, useEffect } from 'react';
 
 import useListState, { UseListStateType } from 'hooks/useListState';
 import useLocalStorageState from 'hooks/useLocalStorageState';
@@ -25,12 +25,4 @@ export const ColumnsProvider = (props: PropsWithChildren<ContextProps>) => {
       {props.children}
     </ColumnsContext.Provider>
   );
-};
-
-export const useColumns = () => {
-  const context = useContext(ColumnsContext);
-  if (!context) {
-    throw new Error('Columns context not connected');
-  }
-  return context;
 };

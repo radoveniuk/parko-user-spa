@@ -1,32 +1,101 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import pick from 'lodash-es/pick';
 import useBoolean from 'v2/hooks/useBoolean';
 import { Button, Divider, Menu, MenuItem } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
 import ListTableHeader from 'v2/uikit/ListTableHeader';
 
-import { ArrowDownIcon, ExcelIcon, GiveUserIcon, ReturnFromUserIcon, TableIcon, ThreeDotsIcon, UnboxIcon } from 'components/icons';
+import {
+  ArrowDownIcon, CheckAllIcon, ExcelIcon, FileIcon, GiveUserIcon,
+  RemoveCheckIcon, ReturnFromUserIcon, TableIcon, ThreeDotsIcon, UnboxIcon,
+} from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
-import { PropertyMovementType } from 'interfaces/propertyMovement.interface';
+import { getDateFromIso } from 'helpers/datetime';
+import { useExportData } from 'hooks/useExportData';
+import { AnyObject } from 'interfaces/base.types';
+import { IClient } from 'interfaces/client.interface';
+import { IPropertyMovement, PropertyMovementType } from 'interfaces/propertyMovement.interface';
+import { IUser } from 'interfaces/users.interface';
 
+import { useColumns } from '../../contexts/ColumnsContext/useColumns';
+import { useSelectedItems } from '../../contexts/SelectedItemsContext/useSelectedItems';
 import { GiveDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
 import ColumnsConfig from '../ColumnsConfig';
 
-type Props = { count: number; }
+type Props = { data: IPropertyMovement<true>[]; }
 
-const HeaderTable = ({ count }: Props) => {
+const HeaderTable = ({ data }: Props) => {
   const { t } = useTranslation();
   const { permissions } = useAuthData();
+
+  // Export
+  const [activeCols] = useColumns();
+  const [selectedItems,, setSelectedItems] = useSelectedItems();
+
+  const colsToExport = useMemo(() => activeCols.map((col: string) => col.replace('stock.', '')), [activeCols]);
+
+  const movementsToExport = useMemo(() => selectedItems.map((movement: IPropertyMovement<true>) => {
+    const rowData: AnyObject = {};
+
+    const getCellContent = (rowData: IPropertyMovement<true>, col: keyof IPropertyMovement) => {
+      if (['user', 'recorder', 'createdBy', 'updatedBy'].includes(col)) {
+        const value = rowData[col] as IUser;
+        return value?.fullname;
+      }
+      if (['createdAt', 'updatedAt'].includes(col)) {
+        return getDateFromIso(rowData[col], 'dd.mm.yyyy HH:mm');
+      }
+      if (['client', 'contractor'].includes(col)) {
+        const value = rowData[col] as IClient;
+        return value?.shortName;
+      }
+      if (col === 'project') {
+        return rowData.project?.name;
+      }
+      if (col === 'property') {
+        return rowData.property.internalName;
+      }
+      if (col === 'type') {
+        return t(`selects.propertyMovementType.${rowData.type}`);
+      }
+      if (col === 'writeoffReason') {
+        return rowData.writeoffReason ? t(`selects.writeOffReason.${rowData.writeoffReason}`) : '';
+      }
+      if (col === 'userStatus') {
+        return t(`selects.userStatus.${rowData.userStatus}`);
+      }
+      if (['userCooperationStartDate', 'date'].includes(col)) {
+        return getDateFromIso(rowData[col] as string);
+      }
+      if (['receiver', 'createdBy', 'updatedBy'].includes(col)) {
+        return (rowData[col] as IUser)?.fullname;
+      }
+      return rowData[col] as string | number;
+    };
+
+    for (const col in movement) {
+      rowData[col] = getCellContent(movement, col as keyof IPropertyMovement);
+    }
+
+    return pick(rowData, colsToExport) as Partial<IPropertyMovement>;
+  }), [colsToExport, selectedItems, t]);
+
+  const exportData = useExportData({
+    data: movementsToExport,
+    colsToExport: colsToExport,
+    cols: colsToExport,
+    entity: 'stock',
+  });
 
   const [openMovement, setOpenMovement] = useState<null | PropertyMovementType>(null);
   const [isOpenCols, openCols, closeCols] = useBoolean(false);
 
   return (
     <>
-      <ListTableHeader title={`${t('stock.movements')}: ${count}`}>
+      <ListTableHeader title={`${t('stock.movements')}: ${data.length}`}>
         <div className="link">
           <Menu
-            isCloseOnMenu
             menuComponent={(
               <>
                 <Button className="big-btn">
@@ -53,12 +122,24 @@ const HeaderTable = ({ count }: Props) => {
               </MenuItem>
             )}
             <Divider />
-            <MenuItem color="#1e6e43" onClick={() => {}}>
-              <ExcelIcon size={20}/>{t('user.export')}
+            <MenuItem onClick={() => void setSelectedItems(data)}>
+              <CheckAllIcon size={20} />
+              {t('selectAll')}
             </MenuItem>
-            <Divider />
+            <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
+              <RemoveCheckIcon size={20} />
+              {t('removeSelect')}
+            </MenuItem>
             <MenuItem onClick={openCols}>
               <TableIcon size={20} />{t('columns')}
+            </MenuItem>
+            <Divider />
+            <MenuItem color="primary" disabled={!selectedItems.length} onClick={() => {}}>
+              <FileIcon size={20} />
+              {t('docsTemplates.print')}
+            </MenuItem>
+            <MenuItem color="#1e6e43" onClick={() => void exportData('xlsx')}>
+              <ExcelIcon size={20}/>{t('user.export')}
             </MenuItem>
           </Menu>
         </div>

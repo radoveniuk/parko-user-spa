@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 import { PC, TB } from 'theme/sizeBreakpoints';
 
-export const ResidencesWrapper = styled.div`
-  .residences-table {
+export const MovementsWrapper = styled.div<{ cols: number }>`
+  .movements-table {
+    grid-template-columns: 30px ${(props) => Array(props.cols).fill('1fr').join(' ')};
     .list-table-cell {
       white-space: nowrap;
     }
@@ -26,7 +27,6 @@ export const ResidencesWrapper = styled.div`
   }
 
   .container-table {
-    margin-top: 6px;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.20), 0px 2px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
     border-radius: 3px;
     display: flex;
@@ -59,7 +59,7 @@ export const ResidencesWrapper = styled.div`
   }
 
   @media (max-width: ${TB}) {
-    .pagination-bottom, .residences-table {
+    .pagination-bottom, .movements-table {
       display: none;
     }
   }

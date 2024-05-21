@@ -6,10 +6,12 @@ import { ClearFiltersButton, FilterAutocomplete, FilterDate } from 'v2/component
 import { useGetPropertyMovements, useGetPropertyMovementsFilters } from 'api/query/propertyMovementQuery';
 
 import { ColumnsProvider } from '../contexts/ColumnsContext';
+import { useColumns } from '../contexts/ColumnsContext/useColumns';
+import { SelectedItemsProvider } from '../contexts/SelectedItemsContext';
 
 import HeaderTable from './HeaderTable';
 import MobileMovementCard from './MobileMovementCard';
-import { FilterTableWrapper, ResidencesWrapper } from './styles';
+import { FilterTableWrapper, MovementsWrapper } from './styles';
 import Table from './Table';
 
 const MovementsRender = () => {
@@ -17,11 +19,12 @@ const MovementsRender = () => {
   const { debouncedFiltersState } = useFilters();
   const { data: filters = {} } = useGetPropertyMovementsFilters();
   const { data: movements = [], isFetching, isLoading } = useGetPropertyMovements(debouncedFiltersState);
+  const [activeCols] = useColumns();
 
   return (
-    <ResidencesWrapper>
+    <MovementsWrapper cols={activeCols.length + 1}>
       <div className="container-table">
-        <HeaderTable count={movements.length} />
+        <HeaderTable data={movements} />
         <FilterTableWrapper>
           <FilterAutocomplete
             multiple
@@ -95,7 +98,7 @@ const MovementsRender = () => {
           isFetching={isFetching || isLoading}
         />
       </div>
-    </ResidencesWrapper>
+    </MovementsWrapper>
   );
 };
 
@@ -110,7 +113,9 @@ export default function Movements () {
   return (
     <FiltersProvider localStorageKey="property-movements">
       <ColumnsProvider defaultValue={DEFAULT_COLS} localStorageKey="movementsTableCols">
-        <MovementsRender />
+        <SelectedItemsProvider>
+          <MovementsRender />
+        </SelectedItemsProvider>
       </ColumnsProvider>
     </FiltersProvider>
   );

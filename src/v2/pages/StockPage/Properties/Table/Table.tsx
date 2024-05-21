@@ -1,5 +1,6 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Checkbox } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import Skeleton from 'v2/uikit/Skeleton';
@@ -14,7 +15,8 @@ import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IProperty } from 'interfaces/property.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { useColumns } from '../../contexts/ColumnsContext';
+import { useColumns } from '../../contexts/ColumnsContext/useColumns';
+import { useSelectedItems } from '../../contexts/SelectedItemsContext/useSelectedItems';
 import PropertyFormDialog from '../../dialogs/PropertyFormDialog';
 import usePropertyActions from '../hooks/usePropertyActions';
 
@@ -64,10 +66,17 @@ const Table = ({
   const [activeProperty, setActiveProperty] = useState<IProperty<true> | null>(null);
   const { remove } = usePropertyActions();
 
+  // select items
+  const [selectedItems, { toggle: toggleSelectedRow }] = useSelectedItems();
+
+  const selectRowChangeHandler = useCallback((row: IProperty<true>) => () => {
+    toggleSelectedRow(row);
+  }, [toggleSelectedRow]);
+
   return (
     <TableWrapper>
       <ListTable
-        columns={[...activeCols, '']}
+        columns={['', ...activeCols, '']}
         className="properties-table"
         columnComponent={(col) => {
           if (col) {
@@ -94,6 +103,12 @@ const Table = ({
       >
         {sortedProperties.map((property) => (
           <ListTableRow key={property._id}>
+            <ListTableCell>
+              <Checkbox
+                checked={selectedItems.some((selectedItem: IProperty<true>) => selectedItem._id === property._id)}
+                onChange={selectRowChangeHandler(property)}
+              />
+            </ListTableCell>
             {activeCols.map((col) => (
               <ListTableCell key={col}>
                 {generateCellContent(property, col.replace('stock.', '') as keyof IProperty)}

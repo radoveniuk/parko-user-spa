@@ -4,7 +4,7 @@ import In from 'v2/components/In';
 import Checkbox from 'v2/uikit/Checkbox';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 
-import { useColumns } from '../../contexts/ColumnsContext';
+import { useColumns } from '../../contexts/ColumnsContext/useColumns';
 
 import { ColsSettingsWrapper } from './styles';
 

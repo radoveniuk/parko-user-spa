@@ -5,6 +5,8 @@ import { ClearFiltersButton, FilterAutocomplete, FilterDate, FiltersProvider, us
 import { useGetProperties, useGetPropertiesFilters } from 'api/query/propertyQuery';
 
 import { ColumnsProvider } from '../contexts/ColumnsContext';
+import { useColumns } from '../contexts/ColumnsContext/useColumns';
+import { SelectedItemsProvider } from '../contexts/SelectedItemsContext';
 
 import HeaderTable from './HeaderTable';
 import MobilePropertyCard from './MobilePropertyCard';
@@ -18,10 +20,12 @@ const PropertiesRender = () => {
 
   const { t } = useTranslation();
 
+  const [activeCols] = useColumns();
+
   return (
-    <PropertiesWrapper>
+    <PropertiesWrapper cols={activeCols.length + 1}>
       <div className="container-table">
-        <HeaderTable count={properties.length} />
+        <HeaderTable data={properties} />
         <FilterTableWrapper>
           <FilterAutocomplete
             multiple
@@ -117,7 +121,9 @@ export default function Properties () {
   return (
     <FiltersProvider localStorageKey="properties">
       <ColumnsProvider defaultValue={DEFAULT_COLS} localStorageKey="propertiesTableCols">
-        <PropertiesRender />
+        <SelectedItemsProvider>
+          <PropertiesRender />
+        </SelectedItemsProvider>
       </ColumnsProvider>
     </FiltersProvider>
   );
