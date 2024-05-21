@@ -21,9 +21,10 @@ const usePropertyMovementActions = () => {
   };
 
   const update = (data: IPropertyMovement) => {
-    const prevValues = queryClient.getQueryData(queryKey) as IPropertyMovement<true>[];
-    queryClient.setQueryData(queryKey, prevValues.map((item) => item._id === data._id ? { ...item, ...data } : item));
-    updatePropertyMovementMutation.mutate(data);
+    updatePropertyMovementMutation.mutateAsync(data).then((res) => {
+      const prevValues = queryClient.getQueryData(queryKey) as IPropertyMovement<true>[];
+      queryClient.setQueryData(queryKey, prevValues.map((item) => item._id === res._id ? { ...item, ...res } : item));
+    });
   };
 
   const remove = (id: string) => {

@@ -5,20 +5,14 @@ import { ClearFiltersButton, FilterAutocomplete, FilterDate } from 'v2/component
 
 import { useGetPropertyMovements, useGetPropertyMovementsFilters } from 'api/query/propertyMovementQuery';
 
-// import MobileResidenceCard from './MobileResidenceCard/MobileResidenceCard';
+import { ColumnsProvider } from '../contexts/ColumnsContext';
+
 import HeaderTable from './HeaderTable';
+import MobileMovementCard from './MobileMovementCard';
 import { FilterTableWrapper, ResidencesWrapper } from './styles';
 import Table from './Table';
 
-const DEFAULT_COLUMNS = [
-  'stock.property',
-  'stock.user',
-  'stock.type',
-  'stock.count',
-  'stock.date',
-];
-
-const Movements = () => {
+const MovementsRender = () => {
   const { t } = useTranslation();
   const { debouncedFiltersState } = useFilters();
   const { data: filters = {} } = useGetPropertyMovementsFilters();
@@ -89,15 +83,14 @@ const Movements = () => {
           <ClearFiltersButton />
         </FilterTableWrapper>
         <div className="mobile-list">
-          {/* {tableData.map((rowItem) => (
-            <MobileResidenceCard
+          {movements.map((rowItem) => (
+            <MobileMovementCard
               key={rowItem._id}
               data={rowItem}
             />
-          ))} */}
+          ))}
         </div>
         <Table
-          activeCols={DEFAULT_COLUMNS}
           data={movements}
           isFetching={isFetching || isLoading}
         />
@@ -106,10 +99,19 @@ const Movements = () => {
   );
 };
 
-export default function MovementsWithFilters () {
+export default function Movements () {
+  const DEFAULT_COLS = [
+    'stock.property',
+    'stock.user',
+    'stock.type',
+    'stock.count',
+    'stock.date',
+  ];
   return (
     <FiltersProvider localStorageKey="property-movements">
-      <Movements />
+      <ColumnsProvider defaultValue={DEFAULT_COLS} localStorageKey="movementsTableCols">
+        <MovementsRender />
+      </ColumnsProvider>
     </FiltersProvider>
   );
 };

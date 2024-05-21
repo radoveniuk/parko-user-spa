@@ -49,7 +49,7 @@ export {
 } from 'react-icons/gi';
 export { GoGoal as GoalIcon } from 'react-icons/go';
 export { HiOutlinePlus as PlusIcon } from 'react-icons/hi';
-export { ImExit as ExitIcon } from 'react-icons/im';
+export { ImExit as ExitIcon, ImBoxRemove as UnboxIcon } from 'react-icons/im';
 export { IoMdArrowDropdown as ArrowDownIcon, IoIosPaperPlane as NotificationIcon, IoMdSettings as SettingsIcon } from 'react-icons/io';
 export {
   IoCheckmark as AcceptIcon,
@@ -65,6 +65,7 @@ export {
   IoWarningOutline as WarningIcon,
   IoEarth as WebIcon,
 } from 'react-icons/io5';
+export { LuTable as TableIcon } from 'react-icons/lu';
 export {
   MdOutlineBusiness as BusinessIcon,
   MdDoneAll as CheckAllIcon,
@@ -91,7 +92,9 @@ export {
   RiToolsFill as CustomizeIcon,
   RiDragMove2Fill as DragIcon,
   RiShareForwardFill as ForwardIcon,
+  RiUserReceivedFill as GiveUserIcon,
   RiUserSearchFill as RecruiterIcon,
+  RiUserSharedFill as ReturnFromUserIcon,
   RiQrScanFill as ScanIcon,
   RiVerifiedBadgeFill as VerifiedIcon,
 } from 'react-icons/ri';

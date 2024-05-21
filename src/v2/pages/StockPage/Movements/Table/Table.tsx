@@ -1,12 +1,11 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient } from 'react-query';
-import { useFilters } from 'v2/components/Filters';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import Skeleton from 'v2/uikit/Skeleton';
+import StatusLabel from 'v2/uikit/StatusLabel';
 
-import { useDeleteResidence } from 'api/mutations/residenceMutation';
+import { useGetPropertyMovements } from 'api/query/propertyMovementQuery';
 import { ArrowUpIcon, DeleteIcon, EditIcon } from 'components/icons';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { useAuthData } from 'contexts/AuthContext';
@@ -15,48 +14,73 @@ import { iterateMap } from 'helpers/iterateMap';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IClient } from 'interfaces/client.interface';
 import { IPropertyMovement } from 'interfaces/propertyMovement.interface';
-import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';
 
+import { useColumns } from '../../contexts/ColumnsContext';
 import { GiveDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
+import usePropertyMovementActions from '../hooks/useMovementActions';
 
 import { TableWrapper } from './styles';
 
 type Props = {
-  activeCols: string[];
   data: IPropertyMovement<true>[];
   isFetching?: boolean;
 };
 
 const Table = ({
-  activeCols,
   data,
   isFetching,
 }: Props) => {
+  const [activeCols] = useColumns();
   const { t } = useTranslation();
   const { permissions } = useAuthData();
-  const queryClient = useQueryClient();
-  const { filtersState } = useFilters();
 
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
 
-  const toggleSorting = (mKey: string) => {
-    // sortingToggler(mKey, mKey as string);
+  const toggleSorting = (mKey: keyof IPropertyMovement<true>) => {
+    let sortableKey: SortingValue<IPropertyMovement<true>> = mKey;
+    if (mKey === 'user') {
+      sortableKey = 'user.fullname';
+    }
+    if (mKey === 'createdBy') {
+      sortableKey = 'createdBy.fullname';
+    }
+    if (mKey === 'updatedBy') {
+      sortableKey = 'updatedBy.fullname';
+    }
+    if (mKey === 'recorder') {
+      sortableKey = 'recorder.fullname';
+    }
+    if (mKey === 'client') {
+      sortableKey = 'client.shortName';
+    }
+    if (mKey === 'contractor') {
+      sortableKey = 'contractor.shortName';
+    }
+    if (mKey === 'project') {
+      sortableKey = 'project.name';
+    }
+    sortingToggler(mKey, sortableKey);
   };
-  const deleteResidence = useDeleteResidence();
+
+  // delete
+  const { remove } = usePropertyMovementActions();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
   const generateCellContent = (rowData: IPropertyMovement<true>, col: keyof IPropertyMovement) => {
     if (['user', 'recorder', 'createdBy', 'updatedBy'].includes(col)) {
       const value = rowData[col] as IUser;
-      return value.fullname;
+      return value?.fullname;
+    }
+    if (['createdAt', 'updatedAt'].includes(col)) {
+      return getDateFromIso(rowData[col], 'dd.mm.yyyy HH:mm');
     }
     if (['client', 'contractor'].includes(col)) {
       const value = rowData[col] as IClient;
-      return value.shortName;
+      return value?.shortName;
     }
     if (col === 'project') {
-      return rowData.project.name;
+      return rowData.project?.name;
     }
     if (col === 'property') {
       return rowData.property.internalName;
@@ -64,22 +88,25 @@ const Table = ({
     if (col === 'type') {
       return t(`selects.propertyMovementType.${rowData.type}`);
     }
-    if (col === 'userCooperationType') {
-      return t(`selects.userCooperationType.${rowData.userCooperationType}`);
+    if (col === 'writeoffReason') {
+      return rowData.writeoffReason ? t(`selects.writeOffReason.${rowData.writeoffReason}`) : '';
     }
     if (col === 'userStatus') {
-      return t(`selects.userStatus.${rowData.userStatus}`);
+      return <StatusLabel className={rowData.userStatus}>{t(`selects.userStatus.${rowData.userStatus}`)}</StatusLabel>;
     }
     if (['userCooperationStartDate', 'date'].includes(col)) {
       return getDateFromIso(rowData[col] as string);
     }
     if (['receiver', 'createdBy', 'updatedBy'].includes(col)) {
-      return (rowData[col] as IUser).fullname;
+      return (rowData[col] as IUser)?.fullname;
     }
     return rowData[col] as string | number;
   };
 
   const [activePropertyMovement, setActivePropertyMovement] = useState<IPropertyMovement<true> | null>(null);
+
+  const { data: allMovements = [] } = useGetPropertyMovements();
+  const checkFutureMovements = (movementId: string) => allMovements.some((movement) => movement.previousMovement?._id === movementId);
 
   return (
     <TableWrapper>
@@ -92,12 +119,12 @@ const Table = ({
               <div
                 role="button"
                 className="col-item"
-                onClick={() => void toggleSorting(col.replace('prepayment.', '') as keyof IClient)}
+                onClick={() => void toggleSorting(col.replace('stock.', '') as keyof IPropertyMovement)}
               >
                 {t(col)}
                 <IconButton
                   className={
-                    sorting?.key === (col.replace('client.', '') as keyof IUser)
+                    sorting?.key === (col.replace('stock.', '') as keyof IPropertyMovement)
                       ? `sort-btn active ${sorting.dir}`
                       : 'sort-btn'
                   }
@@ -121,7 +148,7 @@ const Table = ({
                 <IconButton onClick={() => void setActivePropertyMovement(item)}><EditIcon /></IconButton>
               )}
               {permissions.includes('stock:delete') && (
-                <IconButton onClick={() => void setIdToDelete(item._id)}><DeleteIcon /></IconButton>
+                <IconButton onClick={() => void setIdToDelete(item._id)} disabled={checkFutureMovements(item._id)}><DeleteIcon /></IconButton>
               )}
             </ListTableCell>
           </ListTableRow>
@@ -140,10 +167,8 @@ const Table = ({
         onClose={() => void setIdToDelete(null)}
         open={!!idToDelete}
         onSubmit={() => {
-          const prevAccommodations = queryClient.getQueryData(['residences', JSON.stringify(filtersState)]) as IResidence[];
-          queryClient.setQueryData(['residences', JSON.stringify(filtersState)], prevAccommodations.filter((item) => item._id !== idToDelete));
+          remove(idToDelete as string);
           setIdToDelete(null);
-          deleteResidence.mutate(idToDelete as string);
         }}
       />
       {activePropertyMovement?.type === 'give' && (

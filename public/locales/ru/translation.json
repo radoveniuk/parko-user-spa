@@ -242,7 +242,8 @@
     "addNewParticipation": "Добавить в набор",
     "isDeleted": "Удален",
     "internals": "Внутренние",
-    "externals": "Внешние"
+    "externals": "Внешние",
+    "propertyMovements": "Движения по складу"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",

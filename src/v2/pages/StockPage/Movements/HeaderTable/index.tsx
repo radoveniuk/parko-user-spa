@@ -1,14 +1,16 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import useBoolean from 'v2/hooks/useBoolean';
 import { Button, Divider, Menu, MenuItem } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
 import ListTableHeader from 'v2/uikit/ListTableHeader';
 
-import { ArrowDownIcon, BackIcon, DeleteIcon, ExcelIcon, ForwardIcon, ThreeDotsIcon } from 'components/icons';
+import { ArrowDownIcon, ExcelIcon, GiveUserIcon, ReturnFromUserIcon, TableIcon, ThreeDotsIcon, UnboxIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { PropertyMovementType } from 'interfaces/propertyMovement.interface';
 
 import { GiveDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
+import ColumnsConfig from '../ColumnsConfig';
 
 type Props = { count: number; }
 
@@ -17,6 +19,7 @@ const HeaderTable = ({ count }: Props) => {
   const { permissions } = useAuthData();
 
   const [openMovement, setOpenMovement] = useState<null | PropertyMovementType>(null);
+  const [isOpenCols, openCols, closeCols] = useBoolean(false);
 
   return (
     <>
@@ -36,22 +39,26 @@ const HeaderTable = ({ count }: Props) => {
           >
             {permissions.includes('stock:update') && (
               <MenuItem color="primary" onClick={() => { setOpenMovement('give'); }}>
-                <ForwardIcon size={20}/>{t('selects.propertyMovementType.give')}
+                <GiveUserIcon size={20}/>{t('selects.propertyMovementType.give')}
               </MenuItem>
             )}
             {permissions.includes('stock:update') && (
               <MenuItem color="primary" onClick={() => { setOpenMovement('return'); }}>
-                <BackIcon size={20}/>{t('selects.propertyMovementType.return')}
+                <ReturnFromUserIcon size={20}/>{t('selects.propertyMovementType.return')}
               </MenuItem>
             )}
             {permissions.includes('stock:update') && (
               <MenuItem color="error" onClick={() => { setOpenMovement('writeoff'); }}>
-                <DeleteIcon size={20}/>{t('selects.propertyMovementType.writeoff')}
+                <UnboxIcon size={20}/>{t('selects.propertyMovementType.writeoff')}
               </MenuItem>
             )}
             <Divider />
             <MenuItem color="#1e6e43" onClick={() => {}}>
               <ExcelIcon size={20}/>{t('user.export')}
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={openCols}>
+              <TableIcon size={20} />{t('columns')}
             </MenuItem>
           </Menu>
         </div>
@@ -72,6 +79,12 @@ const HeaderTable = ({ count }: Props) => {
         <WriteoffDialog
           open={!!openMovement}
           onClose={() => void setOpenMovement(null)}
+        />
+      )}
+      {!!isOpenCols && (
+        <ColumnsConfig
+          onClose={closeCols}
+          open={isOpenCols}
         />
       )}
     </>

@@ -242,7 +242,8 @@
     "addNewParticipation": "Pridať do náboru",
     "isDeleted": "Vymazaný",
     "internals": "Interni",
-    "externals": "Externi"
+    "externals": "Externi",
+    "propertyMovements": "Pohyby materiálu"
   },
   "userHistory": {
     "updatedBy": "Zmenil",

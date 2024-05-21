@@ -4,7 +4,9 @@ import isEqual from 'lodash-es/isEqual';
 type Dispatcher<T> = (v: T) => T[];
 
 // eslint-disable-next-line max-len
-const useListState = <T>(initialValue?: T[]): [T[], { add: (v: T, direction?: 'start' | 'end') => T[], remove: Dispatcher<T>, update: (old: T, v: T) => T[], toggle: Dispatcher<T> }, Dispatch<SetStateAction<T[]>>] => {
+export type UseListStateType<T> = [T[], { add: (v: T, direction?: 'start' | 'end') => T[], remove: Dispatcher<T>, update: (old: T, v: T) => T[], toggle: Dispatcher<T> }, Dispatch<SetStateAction<T[]>>]
+
+const useListState = <T>(initialValue?: T[]): UseListStateType<T> => {
   const [value, setValue] = useState<T[]>(initialValue || []);
 
   const addItem = useCallback((v: T, direction: 'start' | 'end' = 'end') => {

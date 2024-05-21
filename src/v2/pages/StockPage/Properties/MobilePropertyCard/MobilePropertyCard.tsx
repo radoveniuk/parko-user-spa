@@ -49,7 +49,7 @@ const MobileAccommodationCard = ({ style, data }: Props) => {
             <BoxIcon color="#1c1c1c" />
           </Avatar>
           <div className="info">
-            <div>{data.internalName}</div>
+            <div>{data.internalName}, {data.availableCount}</div>
             <div className="side-info">
               <StatusLabel className={data.status}>
                 {t(`selects.propertyStatus.${data.status}`)}

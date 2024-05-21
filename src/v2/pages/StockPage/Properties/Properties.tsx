@@ -4,19 +4,14 @@ import { ClearFiltersButton, FilterAutocomplete, FilterDate, FiltersProvider, us
 
 import { useGetProperties, useGetPropertiesFilters } from 'api/query/propertyQuery';
 
+import { ColumnsProvider } from '../contexts/ColumnsContext';
+
 import HeaderTable from './HeaderTable';
 import MobilePropertyCard from './MobilePropertyCard';
 import { FilterTableWrapper, PropertiesWrapper } from './styles';
 import Table from './Table';
 
-const DEFAULT_COLS = [
-  'stock.internalName',
-  'stock.count',
-  'stock.availableCount',
-  'stock.status',
-];
-
-const Properties = () => {
+const PropertiesRender = () => {
   const { debouncedFiltersState } = useFilters();
   const { data: properties = [], isFetching, isLoading } = useGetProperties(debouncedFiltersState);
   const { data: propertiesFilters = [], isFetching: isFetchingPropertiesFilter } = useGetPropertiesFilters();
@@ -104,7 +99,6 @@ const Properties = () => {
           ))}
         </div>
         <Table
-          activeCols={DEFAULT_COLS}
           data={properties}
           isFetching={isFetching || isLoading}
         />
@@ -113,10 +107,18 @@ const Properties = () => {
   );
 };
 
-export default function PropertiesWithFilters () {
+export default function Properties () {
+  const DEFAULT_COLS = [
+    'stock.internalName',
+    'stock.count',
+    'stock.availableCount',
+    'stock.status',
+  ];
   return (
     <FiltersProvider localStorageKey="properties">
-      <Properties />
+      <ColumnsProvider defaultValue={DEFAULT_COLS} localStorageKey="propertiesTableCols">
+        <PropertiesRender />
+      </ColumnsProvider>
     </FiltersProvider>
   );
 };

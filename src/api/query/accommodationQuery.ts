@@ -2,8 +2,9 @@ import { useQuery } from 'react-query';
 
 import api from 'api/common';
 import { IAccommodation } from 'interfaces/accommodation.interface';
+import { AnyObject } from 'interfaces/base.types';
 
-export const useGetAccommodations = (params: Partial<IAccommodation> = {}) => {
+export const useGetAccommodations = (params: Partial<IAccommodation> = {}, options: AnyObject) => {
   const request = (): Promise<IAccommodation[]> => api.get('/accommodations', {
     headers: {
       'Content-Type': 'application/json',
@@ -13,7 +14,7 @@ export const useGetAccommodations = (params: Partial<IAccommodation> = {}) => {
       ...params,
     },
   }).then(res => res.data.data);
-  return useQuery(['accommodations', JSON.stringify(params)], request, { initialData: [] });
+  return useQuery(['accommodations', JSON.stringify(params)], request, { initialData: [], ...options });
 };
 
 export const useGetAccommodation = (id: string) => {

@@ -9,18 +9,19 @@ export type PropertyMovementType = 'give' | 'return' | 'writeoff';
 export interface IPropertyMovement<T extends boolean = false> extends IMongoDoc {
   type: PropertyMovementType;
   user: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
-  project: T extends true ? Pick<IProject, '_id' | 'name'> : string;
-  client: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
-  contractor: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
+  project?: T extends true ? Pick<IProject, '_id' | 'name'> : string;
+  client?: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
+  contractor?: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
   userCooperationType: string;
   userStatus: string;
   userCooperationStartDate: string;
-  property: T extends true ? Pick<IProperty, '_id' | 'internalName' | 'count' | 'damageCompencationPrice'> : string;
-  previousMovement?: T extends true ? IPropertyMovement<true> : string;
+  userCooperationEndDate: string;
+  // eslint-disable-next-line max-len
+  property: T extends true ? Pick<IProperty<true>, '_id' | 'internalName' | 'count' | 'damageCompencationPrice' | 'distributorICO' | 'price' | 'orderer' | 'receiver' | 'availableCount'> : string;
+  previousMovement?: T extends true ? Omit<IPropertyMovement<true>, 'previousMovement'> : string;
   isReturned?: boolean;
   count: number;
   date: string;
-  userCooperationEndDate: string;
   recorder: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
   writeoffReason: string;
   damageCompencationPrice: number;

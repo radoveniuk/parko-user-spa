@@ -14,22 +14,22 @@ import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IProperty } from 'interfaces/property.interface';
 import { IUser } from 'interfaces/users.interface';
 
+import { useColumns } from '../../contexts/ColumnsContext';
 import PropertyFormDialog from '../../dialogs/PropertyFormDialog';
 import usePropertyActions from '../hooks/usePropertyActions';
 
 import { TableWrapper } from './styles';
 
 type Props = {
-  activeCols: string[];
   data: IProperty<true>[];
   isFetching?: boolean;
 };
 
 const Table = ({
-  activeCols,
   data,
   isFetching,
 }: Props) => {
+  const [activeCols] = useColumns();
   const { t } = useTranslation();
 
   const { sortedData: sortedProperties, sorting, sortingToggler } = useSortedList(data);
@@ -46,6 +46,9 @@ const Table = ({
     if (['invoiceDeliveryDate', 'deliveryDate'].includes(col)) {
       return getDateFromIso(rowData[col]);
     }
+    if (['createdAt', 'updatedAt'].includes(col)) {
+      return getDateFromIso(rowData[col], 'dd.mm.yyyy HH:mm');
+    }
     if (col === 'status') {
       return t(`selects.propertyStatus.${rowData.status}`);
     }
@@ -53,7 +56,7 @@ const Table = ({
       return rowData.orderer.shortName;
     }
     if (['receiver', 'createdBy', 'updatedBy'].includes(col)) {
-      return (rowData[col] as IUser).fullname;
+      return (rowData[col] as IUser)?.fullname;
     }
     return rowData[col] as string | number;
   };
