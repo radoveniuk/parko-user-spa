@@ -2,19 +2,18 @@ import React, { CSSProperties, memo, ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
-import { useFilters } from 'v2/components/Filters';
 import { Avatar } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
-import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { DeleteIcon, EditIcon, GiveUserIcon, ReturnFromUserIcon, UnboxIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IPropertyMovement, PropertyMovementType } from 'interfaces/propertyMovement.interface';
-import { IResidence } from 'interfaces/residence.interface';
 import { themeConfig } from 'theme';
+
+import usePropertyMovementActions from '../hooks/useMovementActions';
 
 import { MobileCardWrapper } from './styles';
 
@@ -32,12 +31,11 @@ const TypeIconMap: Record<PropertyMovementType, ReactNode> = {
 const MobileMovementCard = ({ style, data }: Props) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const { filtersState } = useFilters();
-
-  const deleteResidence = useDeleteResidence();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
   const { permissions } = useAuthData();
+
+  const { remove } = usePropertyMovementActions();
 
   const allMovements = queryClient.getQueryData(['property-movements', '{}']) as IPropertyMovement<true>[] | undefined;
   const checkFutureMovements = (movementId: string) => allMovements?.some((movement) => movement.previousMovement?._id === movementId);
@@ -76,12 +74,7 @@ const MobileMovementCard = ({ style, data }: Props) => {
           onClose={() => void setIdToDelete(null)}
           open={!!idToDelete}
           onSubmit={() => {
-            deleteResidence.mutateAsync(idToDelete as string).then(() => {
-              const prevAccommodations = queryClient.getQueryData(['residences', JSON.stringify(filtersState)]) as IResidence[];
-              queryClient.setQueryData(['residences', JSON.stringify(filtersState)], prevAccommodations.filter((item) => item._id !== idToDelete));
-              setIdToDelete(null);
-              deleteResidence.mutate(idToDelete as string);
-            });
+            remove(idToDelete);
           }}
         />
       )}

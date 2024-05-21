@@ -70,7 +70,7 @@ const Table = ({
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
   const generateCellContent = (rowData: IPropertyMovement<true>, col: keyof IPropertyMovement) => {
-    if (['user', 'recorder', 'createdBy', 'updatedBy'].includes(col)) {
+    if (['recorder', 'createdBy', 'updatedBy'].includes(col)) {
       const value = rowData[col] as IUser;
       return value?.fullname;
     }
@@ -83,6 +83,9 @@ const Table = ({
     }
     if (col === 'project') {
       return rowData.project?.name;
+    }
+    if (col === 'user') {
+      return rowData.userFullname;
     }
     if (col === 'property') {
       return rowData.property.internalName;

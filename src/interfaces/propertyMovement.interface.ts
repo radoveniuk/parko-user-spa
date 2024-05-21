@@ -13,6 +13,7 @@ export interface IPropertyMovement<T extends boolean = false> extends IMongoDoc 
   client?: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
   contractor?: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
   userCooperationType: string;
+  userFullname: string;
   userStatus: string;
   userCooperationStartDate: string;
   userCooperationEndDate: string;
