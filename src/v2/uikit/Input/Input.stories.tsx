@@ -60,16 +60,3 @@ export const Prefix: Story = {
     },
   },
 };
-
-export const WithOptions: Story = {
-  args: {
-    maxWidth: 300,
-    label: 'UCL winner',
-    placeholder: 'Type here some text...',
-    disabled: false,
-    theme: 'gray',
-    options: [
-      'Real Madrid', 'PSG', 'Bayern', 'BVB09',
-    ],
-  },
-};
