@@ -16,7 +16,8 @@
     "finance": "Фінанси",
     "feedback": "Зворотній зв'язок",
     "orders": "Набори",
-    "roles": "Ролі користувачів"
+    "roles": "Ролі користувачів",
+    "stock": "Склад"
   },
   "menu": {
     "prepayment": "Замовити аванс",
@@ -51,8 +52,9 @@
   "notifications": "Сповіщення",
   "noData": "Дані не знайдено",
   "paychecks": "Фактури",
-  "profile": "Профіль користувача",
+  "profile": "Профіль",
   "user": {
+    "profile": "Профіль користувача",
     "info": "Відомості",
     "new": "Новий користувач",
     "login": "Увійти",
@@ -241,7 +243,8 @@
     "addNewParticipation": "Додати в набір",
     "isDeleted": "Видалений",
     "internals": "Внутрішні",
-    "externals": "Зовнішні"
+    "externals": "Зовнішні",
+    "propertyMovements": "Рух по складу"
   },
   "userHistory": {
     "updatedBy": "Ким оновлено",
@@ -314,6 +317,59 @@
     "docs": "Документи"
   },
   "profileList": "Профілі",
+  "stock": {
+    "properties": "Інвентар",
+    "movements": "Дії з інвентарем",
+    "property": "Інвентар",
+    "client": "Клієнт",
+    "project": "Проект",
+    "internalName": "Назва в системі",
+    "contractor": "Конрагент",
+    "tradeName": "Офіційна назва",
+    "movementType": "Тип дії",
+    "dateFrom": "Дата від",
+    "dateTo": "Дата до",
+    "user": "Співробітник",
+    "type": "Тип",
+    "count": "Кількість",
+    "date": "Дата",
+    "createProperty": "Створити інвентар",
+    "status": "Статус",
+    "invoiceNumber": "Номер чека",
+    "distributorICO": "ICO постачальника",
+    "orderer": "Замовник",
+    "invoiceDeliveryDate": "Дата доставки за договором",
+    "invoiceDeliveryDateFrom": "Дата доставки за договором (від)",
+    "invoiceDeliveryDateTo": "Дата доставки за договором (до)",
+    "deliveryDate": "Дата доставки фактична",
+    "deliveryDateFrom": "Дата доставки фактична (від)",
+    "deliveryDateTo": "Дата доставки фактична (до)",
+    "price": "Ціна",
+    "damageCompencationPrice": "Вирахування за шкоду",
+    "receiver": "Одержувач",
+    "location": "Локація",
+    "recorder": "Записав",
+    "writeoffReason": "Причина списання",
+    "size": "Розмір",
+    "availableCount": "Доступно",
+    "createdAt":"Дата створення",
+    "updatedAt": "Остання зміна",
+    "identification": "Ідентифікація",
+    "comment": "Нотатки",
+    "createdBy": "Створив",
+    "updatedBy":"Вніс зміни",
+    "baseFields": "Загальна інформація",
+    "tradeFields": "Комерційна інформація",
+    "financialFields": "Фінанси",
+    "systemFields": "Системні дані",
+    "userFields": "Дані співробітника",
+    "writeOffFields": "Списання зі складу",
+    "userCooperationType": "Тип співпраці",
+    "userCooperationStartDate": "Початок співпраці",
+    "userCooperationEndDate": "Кінець співпраці",
+    "userStatus": "Статус працівника",
+    "category": "Категорія"
+  },
   "selects": {
     "permitType": {
       "business": "Бізнес",
@@ -434,6 +490,16 @@
       "recruiting": "Recruiting",
       "processing": "Processing",
       "finished": "Finished"
+    },
+    "propertyMovementType": {
+      "give": "Видача",
+      "return": "Повернення",
+      "writeoff": "Списання"
+    },
+    "propertyStatus": {
+      "available": "Доступно",
+      "ordered": "Замовлено",
+      "out": "Недоступно"
     }
   },
   "notFoundPage": "Сторінку не знайдено",
@@ -549,7 +615,7 @@
     "template": "Шаблон",
     "codes": "Коди",
     "file": "Файл .docx",
-    "print": "Генерация документов",
+    "print": "Генерація документів",
     "fieldName": "Назва поля",
     "fieldCode": "Код в шаблоні",
     "new": "Новий шаблон",
@@ -661,6 +727,7 @@
   "myFilter": "Мій режим",
   "copied": "Скопійовано",
   "clone": "Клонувати",
+  "noOptions": "Результати відсутні",
   "profilesPage": {
     "status": "Статуси користувачів",
     "organization": "Організації",

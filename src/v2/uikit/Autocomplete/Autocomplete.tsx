@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { DropdownIcon } from 'components/icons';
@@ -17,6 +18,7 @@ export type AutocompleteProps = {
   labelKey?: string;
   valueKey?: string;
   getOptionLabel?(item: any): string | ReactNode;
+  getOptionDisabled?(item: any): boolean;
   multiple?: boolean;
   limitTags?: number;
   style?: React.CSSProperties;
@@ -32,17 +34,17 @@ export type AutocompleteProps = {
   disabled?: boolean;
   maxWidth?: number;
   theme?: FieldTheme;
+  required?: boolean;
 }
 
 const AutoComplete = ({
   label, loading, labelKey, onChange, defaultOpen, value,
   getOptionLabel, error, prefixIcon, placeholder, disabled, maxWidth,
-  valueKey = '_id', theme = 'white',
+  valueKey = '_id', theme = 'white', required,
   ...rest
 }: AutocompleteProps) => {
-  // console.log(value, rest.options);
-
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <StyledAutocomplete
@@ -56,10 +58,11 @@ const AutoComplete = ({
       getOptionLabel={(option: any) => labelKey ? option[labelKey] : getOptionLabel?.(option)}
       onChange={(e, newValue) => void onChange?.(newValue)}
       value={value}
-      isOptionEqualToValue={(option: any, value: any) => option[valueKey] === value[valueKey]}
+      isOptionEqualToValue={(option: any, value: any) => option?.[valueKey] === value?.[valueKey]}
       disabled={disabled}
       limitTags={1}
       popupIcon={<DropdownIconWrapper><DropdownIcon size={12} color="#131313" /></DropdownIconWrapper>}
+      noOptionsText={t('noOptions')}
       renderInput={(params) => (
         <Input
           {...params}
@@ -67,6 +70,7 @@ const AutoComplete = ({
           theme={theme}
           error={error}
           placeholder={placeholder}
+          required={required}
           InputProps={{
             ...params.InputProps,
             startAdornment: (

@@ -30,6 +30,7 @@ import { useGetOrders } from 'api/query/orderQuery';
 import { useGetPaycheckList } from 'api/query/paycheckQuery';
 import { useGetPayrollList } from 'api/query/payrollQuery';
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
+import { useGetPropertyMovements } from 'api/query/propertyMovementQuery';
 import { useGetResidences } from 'api/query/residenceQuery';
 import { useGetUser } from 'api/query/userQuery';
 import { DeleteIcon, PasswordIcon, PlusIcon, PrintIcon, RestoreIcon, WarningIcon } from 'components/icons';
@@ -52,6 +53,7 @@ import EmploymentInfoFormCard from './components/FormCards/EmploymentInfoFormCar
 import FinancesFormCard from './components/FormCards/FinancesFormCard';
 import PersonalDocsFormCard from './components/FormCards/PersonalDocsFormCard';
 import PrepaymentsFormCard from './components/FormCards/PrepaymentsFormCard';
+import PropertyMovementsFormCard from './components/FormCards/PropertyMovementsFormCard';
 import ResidencesFormCard from './components/FormCards/ResidencesFormCard';
 import ScansFormCard from './components/FormCards/ScansFormCard';
 import OrderParticipations from './components/OrderParticipations';
@@ -80,14 +82,18 @@ const ProfileAdminPageRender = () => {
       navigate('/not-found');
     },
   });
-  const { data: residences = [], remove: removeResidences } = useGetResidences({ user: userId });
+  const { data: residences = [], remove: removeResidences } = useGetResidences(
+    { user: userId },
+    { enabled: permissions.includes('residences:read') },
+  );
   const { data: prepayments = [], remove: removePrepayments } = useGetPrepayments({ user: userId });
   const { data: paychecks = [], remove: removePaychecks } = useGetPaycheckList({ user: userId });
   const { data: payrolls = [], remove: removePayrolls } = useGetPayrollList({ user: userId });
   const { data: daysoff = [], remove: removeDaysoff } = useGetDaysoff({ user: userId });
   const { data: employments = [], refetch: refetchEmplyments, remove: removeEmployments } = useGetEmployments({ user: userId });
-  const { data: accommodations = [], remove: removeAccommodations } = useGetAccommodations();
+  const { data: accommodations = [], remove: removeAccommodations } = useGetAccommodations({}, { enabled: permissions.includes('residences:read') });
   const { data: orderParticipations = [], remove: removeOrderParticipations } = useGetOrderParticipations({ user: userId });
+  const { data: propertyMovements = [] } = useGetPropertyMovements({ user: userId }, { enabled: permissions.includes('stock:read') });
 
   const updateUserMutation = useUpdateUserMutation();
   const deleteUserMutation = useDeleteUserMutation();
@@ -349,6 +355,11 @@ const ProfileAdminPageRender = () => {
                     );
                   }}
                   onDeleteResidence={deleteResidence.mutate}
+                />
+              )}
+              {permissions.includes('stock:read') && (
+                <PropertyMovementsFormCard
+                  data={propertyMovements}
                 />
               )}
             </div>

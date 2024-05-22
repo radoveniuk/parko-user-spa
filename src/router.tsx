@@ -13,7 +13,7 @@ import {
   OrderListPage,
   OrderPage,
   PrepaymentListPage, ProfileAdminPage, ProfileListPage, RegisterPage,
-  RolesPage,
+  RolesPage, StockPage,
 } from 'v2/pages';
 
 import NavbarStateProvider from 'contexts/NavbarStateContext';
@@ -109,6 +109,9 @@ export default function Router () {
               </Route>
               <Route element={<ProtectedRoute permission="user:paychecks" />}>
                 <Route path="/paychecks" element={<PaychecksPage />} />
+              </Route>
+              <Route element={<ProtectedRoute permission="stock:read" />}>
+                <Route path="/stock" element={<StockPage />} />
               </Route>
             </Route>
           </Routes>

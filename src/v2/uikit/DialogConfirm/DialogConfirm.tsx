@@ -14,6 +14,7 @@ export type Props = DialogProps & {
 
 const DialogConfirm = ({ onSubmit, title, onClose, ...rest }: Props) => {
   const { t } = useTranslation();
+  if (!rest.open) return null;
   return (
     <Dialog
       title={title || t('confirmation')}

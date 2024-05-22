@@ -163,6 +163,7 @@ export const CategoriesWrapper = styled.div`
     .MuiButtonBase-root {
       border-top-left-radius: 0 !important;
       border-bottom-left-radius: 0 !important;
+      height: 36px;
     }
   }
 

@@ -11,7 +11,7 @@ export const STATUS_LABEL_COLOR_STYLES = css`
       background-color: #f0c844 !important;
     }
   }
-  &.hired, &.active, &.paid, &.approved, &.continues, &.recruiting {
+  &.hired, &.active, &.paid, &.approved, &.continues, &.recruiting, &.available {
     background-color: ${themeConfig.palette.success.main};
     color: #fff;
     &:hover {
@@ -25,14 +25,14 @@ export const STATUS_LABEL_COLOR_STYLES = css`
       background-color: ${themeConfig.palette.success.light} !important;
     }
   }
-  &.canceled, &.inactive, &.finished {
+  &.canceled, &.inactive, &.finished, &.ordered {
     background-color: #717171;
     color: #fff;
     &:hover {
       background-color: #717171 !important;
     }
   }
-  &.fired, &.rejected {
+  &.fired, &.rejected, &.out {
     background-color: #E72A2A;
     &:hover {
       background-color: #E72A2A !important;

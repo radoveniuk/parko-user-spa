@@ -8,11 +8,11 @@ import { themeConfig } from 'theme';
 
 import Button from '../Button';
 
-export const MenuItem = styled(MenuItemUI)<{ color?: 'primary' | 'secondary' | 'error' | 'success'}>`
+export const MenuItem = styled(MenuItemUI)<{ color?: 'primary' | 'secondary' | 'error' | 'success' | string}>`
   gap: 6px;
   &, a {
     text-decoration: none;
-    color: ${p => p.color ? themeConfig.palette[p.color || 'primary'].main : '#000000de'} !important;
+    color: ${p => p.color ? themeConfig.palette[p.color as keyof typeof themeConfig.palette]?.main || p.color : '#000000de'} !important;
     display: flex;
     gap: 5px;
     justify-content: center;

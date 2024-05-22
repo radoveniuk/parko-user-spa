@@ -7,6 +7,7 @@ import { Button, Input } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
+import { EuroEndAdornment } from 'v2/uikit/Input';
 import Select from 'v2/uikit/Select';
 
 import { PREPAYMENT_STATUS } from 'constants/selectsOptions';
@@ -59,13 +60,14 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
             )}
           />
           <Input
-            InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
-            label={`${t('prepayment.sum')}*`}
+            InputProps={{ endAdornment: EuroEndAdornment }}
+            label={t('prepayment.sum')}
             defaultValue={data?.sum || ''}
             type="number"
             error={!!errors.sum}
             theme="gray"
             {...register('sum', { required: true })}
+            required
           />
           <Select
             theme="gray"

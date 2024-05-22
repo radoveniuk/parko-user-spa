@@ -16,7 +16,8 @@
     "finance": "Financie",
     "feedback": "Spätná väzba",
     "orders": "Náborové miestnosti",
-    "roles": "Administrácia rolí používateľov"
+    "roles": "Administrácia rolí používateľov",
+    "stock": "Uskladnenie"
   },
   "menu": {
     "prepayment": "Objednať zálohu",
@@ -51,9 +52,10 @@
   "notifications": "Notifikácie",
   "noData": "Žiadne výsledky",
   "paychecks": "Faktúry",
-  "profile": "Profil používateľa",
+  "profile": "Profil",
   "user": {
     "info": "Informácie",
+    "profile": "Profil používateľa",
     "new": "Nový užívateľ",
     "login": "Prihlásiť sa",
     "register": "Registrácia",
@@ -241,7 +243,8 @@
     "addNewParticipation": "Pridať do náboru",
     "isDeleted": "Vymazaný",
     "internals": "Interni",
-    "externals": "Externi"
+    "externals": "Externi",
+    "propertyMovements": "Pohyby materiálu"
   },
   "userHistory": {
     "updatedBy": "Zmenil",
@@ -314,6 +317,59 @@
     "docs": "Doklady"
   },
   "profileList": "Ľudské zdroje",
+  "stock": {
+    "properties": "Materiály",
+    "movements": "Pohyby",
+    "property": "Materiál",
+    "client": "Klient",
+    "project": "Projekt",
+    "internalName": "Názov interný",
+    "contractor": "Kontragent",
+    "tradeName": "Obchodný názov podľa faktúry",
+    "movementType": "Typ pohybu",
+    "dateFrom": "Data od",
+    "dateTo": "Data do",
+    "user": "Používateľ",
+    "type": "Typ",
+    "count": "Počet",
+    "date": "Data",
+    "createProperty": "Vytvoriť materiál",
+    "status": "Status",
+    "invoiceNumber": "Číslo faktúry/bločku",
+    "distributorICO": "IČO dodávateľa",
+    "orderer": "Objednávateľ",
+    "invoiceDeliveryDate": "Dátum dodania podľa faktúry",
+    "invoiceDeliveryDateFrom": "Dátum dodania podľa faktúry (od)",
+    "invoiceDeliveryDateTo": "Dátum dodania podľa faktúry (do)",
+    "deliveryDate": "Dátum dodania reálny ",
+    "deliveryDateFrom": "Dátum dodania reálny (od)",
+    "deliveryDateTo": "Dátum dodania reálny (do)",
+    "price": "Cena, bez DPH",
+    "damageCompencationPrice": "Zrážka",
+    "receiver": "Prijímateľ materiálu",
+    "location": "Lokalita",
+    "recorder": "Evidovateľ materiálu",
+    "writeoffReason": "Dôvod",
+    "size": "veľkosť",
+    "availableCount": "Dostupné",
+    "createdAt":"Dátum vytvorenia",
+    "updatedAt": "Posledná zmena",
+    "identifikácia": "Identifikácia",
+    "comment": "Poznámky",
+    "createdBy": "Kto vytvoril",
+    "updatedBy":"Kto aktualizoval",
+    "baseFields": "Všeobecné informácie",
+    "tradeFields": "Obchodné informácie",
+    "financialFields": "Finančné informácie",
+    "systemFields": "Systémové údaje",
+    "userFields": "Údaje o zamestnancoch",
+    "writeOffFields": "Vyradenie",
+    "userCooperationType": "Typ spolupráce",
+    "userCooperationStartDate": "Začiatok",
+    "userCooperationEndDate": "Ukončenie",
+    "userStatus": "Stav zamestnanca",
+    "category": "Kategória"
+  },
   "selects": {
     "permitType": {
       "business": "Podnikanie",
@@ -434,6 +490,16 @@
       "recruiting": "Recruiting",
       "processing": "Processing",
       "finished": "Finished"
+    },
+    "propertyMovementType": {
+      "give": "Výdaj",
+      "return": "Vrátka",
+      "writeoff": "Vyradenie"
+    },
+    "writeOffReason": {
+      "damaged": "Poškodený",
+      "non-returnable": "Nepodlieha vráteniu",
+      "not-returned": "Nevrátený"
     }
   },
   "notFoundPage": "Stránka nenájdená",
@@ -661,6 +727,7 @@
   "myFilter": "Môj režim",
   "copied": "Skopírované",
   "clone": "Klonovať",
+  "noOptions": "Nič nebolo nájdené",
   "profilesPage": {
     "status": "Používateľské stavy",
     "organization": "Organizácie",

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { isEmpty } from 'lodash-es';
 import Button from 'v2/uikit/Button';
 import Dialog, { DialogProps } from 'v2/uikit/Dialog';
-import Input from 'v2/uikit/Input';
+import Input, { EuroEndAdornment } from 'v2/uikit/Input';
 import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 import Select from 'v2/uikit/Select';
 
@@ -102,7 +102,7 @@ const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
             helperText={errors.costNight?.message}
             type="number"
             className="form-field"
-            InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
+            InputProps={{ endAdornment: EuroEndAdornment }}
             {...register('costNight')}
           />
           <Input
@@ -112,7 +112,7 @@ const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
             helperText={errors.costMonth?.message}
             type="number"
             className="form-field"
-            InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
+            InputProps={{ endAdornment: EuroEndAdornment }}
             {...register('costMonth')}
           />
           <Select

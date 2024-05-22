@@ -16,7 +16,8 @@
     "finance": "Финансы",
     "feedback": "Обратная связь",
     "orders": "Наборы",
-    "roles": "Роли пользователей"
+    "roles": "Роли пользователей",
+    "stock": "Склад"
   },
   "menu": {
     "prepayment": "Заказать аванс",
@@ -51,8 +52,9 @@
   "notifications": "Оповещения",
   "noData": "Данных не найдено",
   "paychecks": "Фактуры",
-  "profile": "Профиль пользователя",
+  "profile": "Профиль",
   "user": {
+    "profile": "Профиль пользователя",
     "info": "Сведения",
     "new": "Новый пользователь",
     "login": "Войти",
@@ -241,7 +243,8 @@
     "addNewParticipation": "Добавить в набор",
     "isDeleted": "Удален",
     "internals": "Внутренние",
-    "externals": "Внешние"
+    "externals": "Внешние",
+    "propertyMovements": "Движения по складу"
   },
   "userHistory": {
     "updatedBy": "Кем изменено",
@@ -314,6 +317,59 @@
     "docs": "Документы"
   },
   "profileList": "Сотрудники",
+  "stock": {
+    "properties": "Инвентарь",
+    "movements": "Действия с инвентарем",
+    "property": "Инвентарь",
+    "client": "Клиент",
+    "project": "Проект",
+    "internalName": "Название в системе",
+    "contractor": "Конрагент",
+    "tradeName": "Официальное название",
+    "movementType": "Тип действия",
+    "dateFrom": "Дата от",
+    "dateTo": "Дата до",
+    "user": "Сотрудник",
+    "type": "Тип",
+    "count": "Количество",
+    "date": "Дата",
+    "createProperty": "Создать инвентарь",
+    "status": "Статус",
+    "invoiceNumber": "Номер чека",
+    "distributorICO": "ICO поставщика",
+    "orderer": "Заказчик",
+    "invoiceDeliveryDate": "Дата доставки по договору",
+    "invoiceDeliveryDateFrom": "Дата доставки по договору (от)",
+    "invoiceDeliveryDateTo": "Дата доставки по договору (до)",
+    "deliveryDate": "Дата доставки фактическая",
+    "deliveryDateFrom": "Дата доставки фактическая (от)",
+    "deliveryDateTo": "Дата доставки фактическая (до)",
+    "price": "Цена",
+    "damageCompencationPrice": "Вычет за ущерб",
+    "receiver": "Получатель",
+    "location": "Локация",
+    "recorder": "Записал",
+    "writeoffReason": "Причина списания",
+    "size": "Размер",
+    "availableCount": "Доступно",
+    "createdAt":"Дата создания",
+    "updatedAt": "Последнее изменение",
+    "identification": "Идентификация",
+    "comment": "Заметки",
+    "createdBy": "Создал",
+    "updatedBy":"Внес изменения",
+    "baseFields": "Общая информация",
+    "tradeFields": "Коммерческая информация",
+    "financialFields": "Финансы",
+    "systemFields": "Системные данные",
+    "userFields": "Данные сотрудника",
+    "writeOffFields": "Списание со склада",
+    "userCooperationType": "Тип сотрудничества",
+    "userCooperationStartDate": "Начало сотрудничества",
+    "userCooperationEndDate": "Конец сотрудничества",
+    "userStatus": "Статус сотрудника",
+    "category": "Категория"
+  },
   "selects": {
     "permitType": {
       "business": "Бизнес",
@@ -434,6 +490,11 @@
       "recruiting": "Recruiting",
       "processing": "Processing",
       "finished": "Finished"
+    },
+    "propertyMovementType": {
+      "give": "Выдача",
+      "return": "Возврат",
+      "writeoff": "Списание"
     }
   },
   "notFoundPage": "Страница не найдена",
@@ -661,6 +722,7 @@
   "myFilter": "Мой режим",
   "copied": "Скопировано",
   "clone": "Клонировать",
+  "noOptions": "Нет результатов",
   "profilesPage": {
     "status": "Статусы пользователей",
     "organization": "Организации",

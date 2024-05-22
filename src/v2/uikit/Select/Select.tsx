@@ -31,7 +31,7 @@ export type SelectProps<T> = SelectPropsMaterial & {
 function Select<T> ({
   label, options = [], valuePath,
   labelPath = 'label', emptyItem, defaultValue,
-  onChange, maxWidth, placeholder, theme = 'white', value, ...rest
+  onChange, maxWidth, placeholder, theme = 'white', value, required, ...rest
 }: SelectProps<T>, ref: ForwardedRef<HTMLSelectElement>) {
   const { t } = useTranslation();
   const [selectedValue, setSelectedValue] = useState<Path<T>>((defaultValue || '') as Path<T>);
@@ -68,7 +68,7 @@ function Select<T> ({
   return (
     <SelectWrapper className="Select" style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
       <FormLabel className={rest.error ? ' error' : ''}>
-        {label}
+        {label}{required && '*'}
       </FormLabel>
       <SelectMaterial
         value={selectedValue}

@@ -100,6 +100,12 @@ export const NAVBAR_ITEMS: NavbarItem[] = [
         to: '/paychecks-upload',
         permission: 'paychecks:read',
       },
+      {
+        type: 'link',
+        title: 'navbar.stock',
+        to: '/stock',
+        permission: 'stock:read',
+      },
     ],
   },
   {

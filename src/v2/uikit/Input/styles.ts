@@ -6,6 +6,7 @@ import { SM } from 'theme/sizeBreakpoints';
 export const InputWrapper = styled.label<{ fieldColor?: string }>`
   display: flex;
   flex-direction: column;
+  position: relative;
 
   &:has(.Mui-focused) {
     .label:not(.error) {
@@ -83,5 +84,28 @@ export const InputWrapper = styled.label<{ fieldColor?: string }>`
     bottom: -16px;
     margin-left: 0;
     font-size: 0.7em;
+  }
+
+  .options {
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    list-style: none;
+    margin: 0;
+    top: 57px;
+
+    .option {
+      cursor: pointer;
+      color: rgb(113, 113, 113);
+      padding: 6px 12px;
+      transition: all 0.3s ease 0s;
+
+      &:hover {
+        background-color: rgb(250, 250, 250);
+      }
+    }
   }
 `;

@@ -1,8 +1,9 @@
-import React, { ForwardedRef, forwardRef, memo, useCallback, useState } from 'react';
+import React, { ChangeEvent, ForwardedRef, forwardRef, memo, useCallback, useRef, useState } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 
 import { EyeIcon, EyeSlashIcon } from 'components/icons';
+import useOutsideClick from 'hooks/useOutsideClick';
 
 import FormLabel from '../FormLabel';
 import IconButton from '../IconButton';
@@ -25,8 +26,12 @@ export type InputProps = {
 } & TextFieldProps;
 
 const Input = ({
-  showPasswordIcon, type, maxWidth, theme = 'white', label, className, tooltip, allowCyrillic = false, error, ...props
+  showPasswordIcon, type, maxWidth,
+  theme = 'white', label, className,
+  tooltip, allowCyrillic = false, error,
+  onChange, required, ...props
 }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
+  const [value, setValue] = useState(props.value || props.defaultValue);
   const [showPassword, setShowPassword] = useState(false);
   const [isCyrillicError, setIsCyrillicError] = useState(false);
 
@@ -49,10 +54,18 @@ const Input = ({
     }
   };
 
+  const changeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    onChange?.(e);
+  }, [onChange]);
+
+  const fieldRef = useRef<HTMLLabelElement >(null);
+  useOutsideClick(fieldRef, close);
+
   return (
-    <InputWrapper className={className} style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
+    <InputWrapper className={className} style={{ maxWidth }} fieldColor={COLORS_MAP[theme]} ref={fieldRef}>
       <FormLabel className={isCyrillicError || error ? ' error' : ''} tooltip={tooltip}>
-        {label}
+        {label}{required && '*'}
       </FormLabel>
       <TextField
         ref={ref}
@@ -76,6 +89,8 @@ const Input = ({
           }
           : {}}
         label={undefined}
+        value={value}
+        onChange={changeHandler}
         {...props}
       />
     </InputWrapper>

@@ -11,6 +11,7 @@
   "daysoff": ["daysoff:read", "daysoff:create", "daysoff:update", "daysoff:delete"],
   "paychecks": ["paychecks:read", "paychecks:create", "paychecks:update", "paychecks:delete"],
   "payrolls": ["payrolls:read", "payrolls:create", "payrolls:update", "payrolls:delete"],
+  "stock": ["stock:read", "stock:create", "stock:update", "stock:delete"],
   "notifications": ["notifications:read", "notifications:send", "notifications:delete"],
   "docsTemplates": ["docsTemplates:read", "docsTemplates:create", "docsTemplates:update", "docsTemplates:delete"],
   "customFields": ["customFields:read", "customFields:create", "customFields:update", "customFields:delete"],
