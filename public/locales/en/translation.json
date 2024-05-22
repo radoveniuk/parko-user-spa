@@ -366,7 +366,8 @@
     "userCooperationType": "Cooperation type",
     "userCooperationStartDate": "Cooperation start",
     "userCooperationEndDate": "Cooperation end",
-    "userStatus": "User status"
+    "userStatus": "User status",
+    "category": "Category"
   },
   "selects": {
     "permitType": {

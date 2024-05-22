@@ -52,8 +52,9 @@
   "notifications": "Сповіщення",
   "noData": "Дані не знайдено",
   "paychecks": "Фактури",
-  "profile": "Профіль користувача",
+  "profile": "Профіль",
   "user": {
+    "profile": "Профіль користувача",
     "info": "Відомості",
     "new": "Новий користувач",
     "login": "Увійти",
@@ -366,7 +367,8 @@
     "userCooperationType": "Тип співпраці",
     "userCooperationStartDate": "Початок співпраці",
     "userCooperationEndDate": "Кінець співпраці",
-    "userStatus": "Статус працівника"
+    "userStatus": "Статус працівника",
+    "category": "Категорія"
   },
   "selects": {
     "permitType": {

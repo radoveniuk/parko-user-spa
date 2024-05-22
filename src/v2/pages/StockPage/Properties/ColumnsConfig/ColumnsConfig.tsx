@@ -11,13 +11,13 @@ import { ColsSettingsWrapper } from './styles';
 const COLS_TREE = {
   baseFields: [
     'stock.internalName',
-    'stock.type',
+    'stock.category',
     'stock.size',
+    'stock.status',
     'stock.count',
+    'stock.availableCount',
     'stock.location',
     'stock.identification',
-    'stock.status',
-    'stock.availableCount',
     'stock.comment',
   ],
   tradeFields: [

@@ -144,6 +144,7 @@ const Table = ({
         open={!!idToDelete}
         onSubmit={() => {
           remove(idToDelete as string);
+          setIdToDelete(null);
         }}
       />
       {!!activeProperty && (

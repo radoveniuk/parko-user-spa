@@ -5,6 +5,7 @@ import { Button, Input } from 'v2/uikit';
 import AutoComplete from 'v2/uikit/Autocomplete';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
+import { EuroEndAdornment } from 'v2/uikit/Input';
 import Loader from 'v2/uikit/Loader';
 import Select from 'v2/uikit/Select';
 
@@ -145,13 +146,13 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
               <Input
                 label={t('stock.price')}
                 value={selectedProperty.price}
-                InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
+                InputProps={{ endAdornment: EuroEndAdornment }}
                 disabled
               />
               <Input
                 label={t('stock.damageCompencationPrice')}
                 value={selectedProperty.damageCompencationPrice}
-                InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
+                InputProps={{ endAdornment: EuroEndAdornment }}
                 disabled
               />
               <Input

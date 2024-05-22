@@ -13,14 +13,14 @@ export const MobileCardWrapper = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    
-    .date {
-      color: rgb(126, 126, 126);
+
+    .select-checkbox {
       position: absolute;
-      right: 6px;
-      top: 6px;
-      font-size: 11px;
+      right: 0;
+      top: 0;
+      margin-right: 0;
     }
+    
     .user {
       display: flex;
       align-items: center;

@@ -5,11 +5,13 @@ import { Button, Input } from 'v2/uikit';
 import AutocompleteTextField from 'v2/uikit/AutocompleteTextField';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
+import { EuroEndAdornment } from 'v2/uikit/Input';
 import Select from 'v2/uikit/Select';
 
 import { useGetClients } from 'api/query/clientQuery';
 import { useGetProperties } from 'api/query/propertyQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
+import { SIZES } from 'constants/selectsOptions';
 import { IProperty } from 'interfaces/property.interface';
 
 import usePropertyActions from '../Properties/hooks/usePropertyActions';
@@ -34,7 +36,7 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
 
   const { t } = useTranslation();
 
-  const { register, control, formState: { errors }, handleSubmit } =
+  const { register, control, formState: { errors }, handleSubmit, watch, setValue, clearErrors } =
   useForm<IProperty>({ defaultValues: defaultData ? prepareDefaultData(defaultData) : {} });
 
   const { data: prevProperties = [] } = useGetProperties();
@@ -42,6 +44,8 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
   const prevTradeNames = useMemo(() => Array.from(new Set(prevProperties.map(item => item.tradeName))), [prevProperties]);
   const prevDistributors = useMemo(() => Array.from(new Set(prevProperties.map(item => item.distributorICO))), [prevProperties]);
   const prevLocations = useMemo(() => Array.from(new Set(prevProperties.map(item => item.location))), [prevProperties]);
+  // eslint-disable-next-line max-len
+  const prevCategories = useMemo(() => Array.from(new Set(['Clothes', 'Shoes', ...prevProperties.filter(item => item.category).map(item => item.category)])), [prevProperties]);
 
   const { data: clients } = useGetClients({ isInternal: true });
   const { data: receivers } = useGetUserListForFilter({ isInternal: true });
@@ -79,6 +83,7 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
                 onChange={field.onChange}
                 value={field.value}
                 error={!!fieldState.error}
+                ref={field.ref}
               />
             )}
           />
@@ -95,6 +100,7 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
                 onChange={field.onChange}
                 value={field.value}
                 error={!!fieldState.error}
+                ref={field.ref}
               />
             )}
           />
@@ -111,6 +117,7 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
                 onChange={field.onChange}
                 value={field.value}
                 error={!!fieldState.error}
+                ref={field.ref}
               />
             )}
           />
@@ -135,22 +142,57 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
             required
             {...register('invoiceNumber', { required: true })}
           />
-          {/* <Controller
+          <Controller
             control={control}
-            name="type"
-            rules={{ required: true }}
+            name="category"
+            rules={{
+              required: true,
+              onChange () {
+                setValue('size', '');
+                clearErrors('size');
+              },
+            }}
             render={({ field, fieldState }) => (
-              <Select
-                label={t('stock.type')}
-                options={[]}
-                value={field.value}
-                onChange={(e) => void field.onChange(e.target.value)}
+              <AutocompleteTextField
+                label={t('stock.category')}
+                options={prevCategories}
                 theme="gray"
-                error={!!fieldState.error}
+                onChange={field.onChange}
+                value={field.value}
                 required
+                error={!!fieldState.error}
+                ref={field.ref}
               />
             )}
-          /> */}
+          />
+          {watch('category') === 'Clothes' && (
+            <Controller
+              control={control}
+              name="size"
+              rules={{ required: true }}
+              render={({ field, fieldState }) => (
+                <Select
+                  label={t('stock.size')}
+                  options={SIZES}
+                  value={field.value}
+                  onChange={(e) => void field.onChange(e.target.value)}
+                  theme="gray"
+                  error={!!fieldState.error}
+                  required
+                />
+              )}
+            />
+          )}
+          {watch('category') === 'Shoes' && (
+            <Input
+              label={t('stock.size')}
+              theme="gray"
+              error={!!errors.size}
+              required
+              type="number"
+              {...register('size', { required: true })}
+            />
+          )}
           <Input
             type="number"
             required
@@ -163,7 +205,7 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
             type="number"
             theme="gray"
             label={t('stock.price')}
-            InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
+            InputProps={{ endAdornment: EuroEndAdornment }}
             required
             error={!!errors.price}
             {...register('price', { required: true })}
@@ -172,7 +214,7 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
             type="number"
             theme="gray"
             label={t('stock.damageCompencationPrice')}
-            InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
+            InputProps={{ endAdornment: EuroEndAdornment }}
             required
             error={!!errors.damageCompencationPrice}
             {...register('damageCompencationPrice', { required: true })}
@@ -234,6 +276,16 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
                 value={field.value}
               />
             )}
+          />
+          <Input
+            theme="gray"
+            label={t('stock.identification')}
+            {...register('identification')}
+          />
+          <Input
+            theme="gray"
+            label={t('stock.comment')}
+            {...register('comment')}
           />
         </div>
       </DialogContentWrapper>

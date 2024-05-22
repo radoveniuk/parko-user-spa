@@ -20,7 +20,7 @@ import { IUser } from 'interfaces/users.interface';
 
 import { useColumns } from '../../contexts/ColumnsContext/useColumns';
 import { useSelectedItems } from '../../contexts/SelectedItemsContext/useSelectedItems';
-import { GiveDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
+import { GiveDialog, PrintDocDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
 import ColumnsConfig from '../ColumnsConfig';
 
 type Props = { data: IPropertyMovement<true>[]; }
@@ -90,6 +90,7 @@ const HeaderTable = ({ data }: Props) => {
 
   const [openMovement, setOpenMovement] = useState<null | PropertyMovementType>(null);
   const [isOpenCols, openCols, closeCols] = useBoolean(false);
+  const [isOpenPrint, openPrint, closePrint] = useBoolean(false);
 
   return (
     <>
@@ -134,7 +135,7 @@ const HeaderTable = ({ data }: Props) => {
               <TableIcon size={20} />{t('cols')}
             </MenuItem>
             <Divider />
-            <MenuItem color="primary" disabled={!selectedItems.length} onClick={() => {}}>
+            <MenuItem color="primary" disabled={!selectedItems.length} onClick={openPrint}>
               <FileIcon size={20} />
               {t('docsTemplates.print')}
             </MenuItem>
@@ -162,10 +163,17 @@ const HeaderTable = ({ data }: Props) => {
           onClose={() => void setOpenMovement(null)}
         />
       )}
-      {!!isOpenCols && (
+      {isOpenCols && (
         <ColumnsConfig
           onClose={closeCols}
           open={isOpenCols}
+        />
+      )}
+      {isOpenPrint && (
+        <PrintDocDialog
+          onClose={closePrint}
+          open={isOpenPrint}
+          movements={selectedItems}
         />
       )}
     </>

@@ -20,7 +20,8 @@ export const useDeleteDocsTemplate = () => {
 };
 
 type DownloadTemplateSettings = {
-  userId?: string[], templateId?: string[], employmentId?: string[], fileId?: string, fileData?: AnyObject, signatureDate?: string
+  userId?: string[], templateId?: string[], employmentId?: string[],
+  fileId?: string | string[], fileData?: AnyObject | AnyObject[], signatureDate?: string
 };
 export const useDownloadPrintedTemplate = () => {
   const request = (data: DownloadTemplateSettings) =>

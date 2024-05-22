@@ -2,7 +2,8 @@ import React, { CSSProperties, memo, ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
-import { Avatar } from 'v2/uikit';
+import useBoolean from 'v2/hooks/useBoolean';
+import { Avatar, Checkbox } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
@@ -13,6 +14,8 @@ import { getDateFromIso } from 'helpers/datetime';
 import { IPropertyMovement, PropertyMovementType } from 'interfaces/propertyMovement.interface';
 import { themeConfig } from 'theme';
 
+import { useSelectedItems } from '../../contexts/SelectedItemsContext/useSelectedItems';
+import { GiveDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
 import usePropertyMovementActions from '../hooks/useMovementActions';
 
 import { MobileCardWrapper } from './styles';
@@ -40,10 +43,17 @@ const MobileMovementCard = ({ style, data }: Props) => {
   const allMovements = queryClient.getQueryData(['property-movements', '{}']) as IPropertyMovement<true>[] | undefined;
   const checkFutureMovements = (movementId: string) => allMovements?.some((movement) => movement.previousMovement?._id === movementId);
 
+  const [isOpenEdit, openEdit, closeEdit] = useBoolean(false);
+  const [selectedItems, { toggle: toggleSelect }] = useSelectedItems();
+
   return (
     <MobileCardWrapper style={style}>
       <div className="card">
-        <div className="date">{getDateFromIso(data.date)}</div>
+        <Checkbox
+          className="select-checkbox"
+          checked={selectedItems.some((item: typeof data) => item._id === data._id)}
+          onChange={() => void toggleSelect(data)}
+        />
         <Link to={`/profile/${data.user._id}`} className="user">
           <Avatar size={40} color={themeConfig.palette.primary.light} username={data.user.fullname} />
           <div className="info">
@@ -57,14 +67,14 @@ const MobileMovementCard = ({ style, data }: Props) => {
         <div className="prepayment">
           <div className="row">
             {TypeIconMap[data.type]}
-            {data.property.internalName}, {data.count}
+            {data.property.internalName} ({data.count}), {getDateFromIso(data.date)}
           </div>
         </div>
         <div className="actions">
-          {permissions.includes('residences:update') && (
-            <IconButton onClick={() => {}}><EditIcon /></IconButton>
+          {permissions.includes('stock:update') && (
+            <IconButton onClick={openEdit}><EditIcon /></IconButton>
           )}
-          {permissions.includes('residences:delete') && (
+          {permissions.includes('stock:delete') && (
             <IconButton onClick={() => void setIdToDelete(data._id)} disabled={checkFutureMovements(data._id)}><DeleteIcon /></IconButton>
           )}
         </div>
@@ -77,6 +87,31 @@ const MobileMovementCard = ({ style, data }: Props) => {
             remove(idToDelete);
           }}
         />
+      )}
+      {isOpenEdit && (
+        <>
+          {data?.type === 'give' && (
+            <GiveDialog
+              open={isOpenEdit}
+              onClose={closeEdit}
+              defaultData={data}
+            />
+          )}
+          {data?.type === 'return' && (
+            <ReturnDialog
+              open={isOpenEdit}
+              onClose={closeEdit}
+              defaultData={data}
+            />
+          )}
+          {data?.type === 'writeoff' && (
+            <WriteoffDialog
+              open={isOpenEdit}
+              onClose={closeEdit}
+              defaultData={data}
+            />
+          )}
+        </>
       )}
     </MobileCardWrapper>
   );

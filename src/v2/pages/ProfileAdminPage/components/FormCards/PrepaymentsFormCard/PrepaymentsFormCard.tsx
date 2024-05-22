@@ -10,6 +10,7 @@ import Dialog from 'v2/uikit/Dialog';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import { FormCard, FormCardBody, FormCardHeader } from 'v2/uikit/FormCard';
 import IconButton from 'v2/uikit/IconButton';
+import { EuroEndAdornment } from 'v2/uikit/Input';
 import Select from 'v2/uikit/Select';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from 'v2/uikit/Table';
 
@@ -166,11 +167,12 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
               )}
             />
             <Input
-              InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
-              label={`${t('prepayment.sum')}*`}
+              InputProps={{ endAdornment: EuroEndAdornment }}
+              label={t('prepayment.sum')}
               defaultValue={prepaymentDialogData?.sum || ''}
               type="number"
               error={!!errors.sum}
+              required
               {...register('sum', { required: true })}
             />
             <Select

@@ -11,7 +11,7 @@ export interface IProperty<T extends boolean = false> extends IMongoDoc {
   invoiceDeliveryDate: string;
   deliveryDate: string;
   invoiceNumber: string;
-  type: string;
+  category: string;
   status: PropertyStatus;
   size: string;
   location: string;

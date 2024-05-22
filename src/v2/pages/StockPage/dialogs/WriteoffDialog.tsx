@@ -5,6 +5,7 @@ import { Button, Input } from 'v2/uikit';
 import AutoComplete from 'v2/uikit/Autocomplete';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
+import { EuroEndAdornment } from 'v2/uikit/Input';
 import Loader from 'v2/uikit/Loader';
 import Select from 'v2/uikit/Select';
 
@@ -223,7 +224,7 @@ const MovementFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
                 type="number"
                 onChange={(e) => void field.onChange(e.target.value)}
                 theme="gray"
-                InputProps={{ endAdornment: <div style={{ width: 24 }}>€</div> }}
+                InputProps={{ endAdornment: EuroEndAdornment }}
                 required
                 error={!!fieldState.error}
               />

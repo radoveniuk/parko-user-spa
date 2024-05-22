@@ -1,22 +1,20 @@
 import React, { CSSProperties, memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useQueryClient } from 'react-query';
 import useBoolean from 'v2/hooks/useBoolean';
 import { Avatar } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
-import { useDeleteAccommodation } from 'api/mutations/accommodationMutation';
 import { useGetPropertyMovements } from 'api/query/propertyMovementQuery';
 import { BoxIcon, DeleteIcon, EditIcon, LocationIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
-import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IProperty } from 'interfaces/property.interface';
 import { themeConfig } from 'theme';
 
 import PropertyFormDialog from '../../dialogs/PropertyFormDialog';
+import usePropertyActions from '../hooks/usePropertyActions';
 
 import { MobileCardWrapper } from './styles';
 
@@ -25,11 +23,9 @@ type Props = {
   data: IProperty<true>;
 };
 
-const MobileAccommodationCard = ({ style, data }: Props) => {
+const MobilePropertyCard = ({ style, data }: Props) => {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
 
-  const deleteAccommodation = useDeleteAccommodation();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
   const { data: movements = [] } = useGetPropertyMovements();
@@ -39,6 +35,8 @@ const MobileAccommodationCard = ({ style, data }: Props) => {
   const { permissions } = useAuthData();
 
   const [isOpenEdit, openEdit, closeEdit] = useBoolean(false);
+
+  const { remove } = usePropertyActions();
 
   return (
     <MobileCardWrapper style={style}>
@@ -65,10 +63,10 @@ const MobileAccommodationCard = ({ style, data }: Props) => {
           </div>
         </div>
         <div className="actions">
-          {permissions.includes('accommodations:update') && (
+          {permissions.includes('stock:update') && (
             <IconButton onClick={openEdit}><EditIcon /></IconButton>
           )}
-          {permissions.includes('accommodations:delete') && (
+          {permissions.includes('stock:delete') && (
             <IconButton disabled={!!movementsCount} onClick={() => void setIdToDelete(data._id)}><DeleteIcon /></IconButton>
           )}
         </div>
@@ -78,11 +76,8 @@ const MobileAccommodationCard = ({ style, data }: Props) => {
           onClose={() => void setIdToDelete(null)}
           open={!!idToDelete}
           onSubmit={() => {
-            deleteAccommodation.mutateAsync(idToDelete as string).then(() => {
-              const prevAccommodations = queryClient.getQueryData(['accommodations', JSON.stringify({})]) as IAccommodation[];
-              queryClient.setQueryData(['accommodations', JSON.stringify({})], prevAccommodations.filter((item) => item._id !== idToDelete));
-              setIdToDelete(null);
-            });
+            remove(idToDelete);
+            setIdToDelete(null);
           }}
         />
       )}
@@ -97,4 +92,4 @@ const MobileAccommodationCard = ({ style, data }: Props) => {
   );
 };
 
-export default memo(MobileAccommodationCard);
+export default memo(MobilePropertyCard);

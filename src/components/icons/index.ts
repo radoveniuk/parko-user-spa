@@ -72,6 +72,7 @@ export {
   MdCopyAll as CopyIcon,
   MdWeekend as DayoffIcon,
   MdEmail as EmailIcon,
+  MdEuro as EuroIcon,
   MdFactory as FactoryIcon,
   MdOutlineHistory as HistoryIcon,
   MdLanguage as InternetIcon,

@@ -52,9 +52,10 @@
   "notifications": "Notifikácie",
   "noData": "Žiadne výsledky",
   "paychecks": "Faktúry",
-  "profile": "Profil používateľa",
+  "profile": "Profil",
   "user": {
     "info": "Informácie",
+    "profile": "Profil používateľa",
     "new": "Nový užívateľ",
     "login": "Prihlásiť sa",
     "register": "Registrácia",
@@ -366,7 +367,8 @@
     "userCooperationType": "Typ spolupráce",
     "userCooperationStartDate": "Začiatok",
     "userCooperationEndDate": "Ukončenie",
-    "userStatus": "Stav zamestnanca"
+    "userStatus": "Stav zamestnanca",
+    "category": "Kategória"
   },
   "selects": {
     "permitType": {
