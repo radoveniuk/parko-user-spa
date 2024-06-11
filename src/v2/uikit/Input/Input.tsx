@@ -1,9 +1,8 @@
-import React, { ChangeEvent, ForwardedRef, forwardRef, memo, useCallback, useRef, useState } from 'react';
+import React, { ChangeEvent, ForwardedRef, forwardRef, memo, useCallback, useState } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 
 import { EyeIcon, EyeSlashIcon } from 'components/icons';
-import useOutsideClick from 'hooks/useOutsideClick';
 
 import FormLabel from '../FormLabel';
 import IconButton from '../IconButton';
@@ -59,11 +58,8 @@ const Input = ({
     onChange?.(e);
   }, [onChange]);
 
-  const fieldRef = useRef<HTMLLabelElement >(null);
-  useOutsideClick(fieldRef, close);
-
   return (
-    <InputWrapper className={className} style={{ maxWidth }} fieldColor={COLORS_MAP[theme]} ref={fieldRef}>
+    <InputWrapper className={className} style={{ maxWidth }} fieldColor={COLORS_MAP[theme]}>
       <FormLabel className={isCyrillicError || error ? ' error' : ''} tooltip={tooltip}>
         {label}{required && '*'}
       </FormLabel>
