@@ -313,7 +313,8 @@
     "createdAt": "Created at",
     "status": "Dayoff status",
     "data": "Information",
-    "docs": "Docs"
+    "docs": "Docs",
+    "createdBy": "Created By"
   },
   "profileList": "Profiles",
   "stock": {

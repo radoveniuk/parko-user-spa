@@ -53,7 +53,7 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
                 valueKey="_id"
                 theme="gray"
                 error={!!fieldState.error}
-                getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
+                getOptionLabel={(option) => `${option.fullname} ${option.project ? `(${option.project.name})` : ''}`}
                 defaultValue={data?.user || null}
                 onChange={(v) => void field.onChange(v?._id || '')}
               />

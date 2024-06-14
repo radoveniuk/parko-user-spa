@@ -53,6 +53,12 @@ const DocTemplateRow = ({ data }: RowProps) => {
       <ListTableCell>
         {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')}
       </ListTableCell>
+      <ListTableCell>
+        {data.createdBy?.fullname}
+      </ListTableCell>
+      <ListTableCell>
+        {data.updatedBy?.fullname}
+      </ListTableCell>
       <ListTableCell align="right">
         <Menu
           isCloseOnMenu

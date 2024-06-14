@@ -1,7 +1,6 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
-import { Link } from 'react-router-dom';
 import { useFilters } from 'v2/components/Filters';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
@@ -94,13 +93,12 @@ const Table = ({
         }}
       >
         {sortedData.map((item: ResidenceTableRow) => {
-          const user = item.metadata.user as IUser;
-          const project = user.project as IProject;
-          const client = project?.client as IClient;
+          const project = item.metadata.project as IProject;
+          const client = item.metadata.client as IClient;
           return (
             <ListTableRow key={item._id}>
               <ListTableCell>
-                <Link to={`/profile/${(item.metadata.user as IUser)._id}`} className="table-link">{item.user}</Link>
+                {item.metadata.userFullname}
               </ListTableCell>
               <ListTableCell>
                 {client ? `${client.shortName} > ` : ''}{project?.name}

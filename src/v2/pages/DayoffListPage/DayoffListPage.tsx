@@ -26,6 +26,9 @@ const DEFAULT_COLS = [
   'dayoff.reason',
   'dayoff.adminComment',
   'dayoff.docs',
+  'dayoff.createdAt',
+  'dayoff.createdBy',
+  'dayoff.updatedBy',
   '',
 ];
 
@@ -36,14 +39,10 @@ const DayoffListPageRender = () => {
   const { debouncedFiltersState } = useFilters();
 
   // table content
-  const { data = [], remove, refetch, isFetching, isLoading } = useGetDaysoff(debouncedFiltersState, { enabled: false });
+  const { data = [], remove, isFetching, isLoading } = useGetDaysoff(debouncedFiltersState);
   const { data: users = [] } = useGetUserListForFilter();
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
-
-  useEffect(() => {
-    refetch();
-  }, [debouncedFiltersState, refetch]);
 
   useEffect(() => () => { remove(); }, [remove]);
 

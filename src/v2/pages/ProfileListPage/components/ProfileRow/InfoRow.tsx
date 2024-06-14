@@ -1,5 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 import Checkbox from 'v2/uikit/Checkbox';
 import Dialog from 'v2/uikit/Dialog';
@@ -23,6 +24,7 @@ const InfoRow = () => {
   const { t } = useTranslation();
   const { data, selected, onChangeSelect, cols, startEdit, style } = useProfileRowContext();
   const [showBusinessActivities, setShowBusinessActivities] = useState(false);
+  const queryClient = useQueryClient();
 
   return (
     <ListTableRow error={data.isDeleted} style={style}>
@@ -47,6 +49,9 @@ const InfoRow = () => {
 
         if (userField.includes('Date') || userField === 'permitExpire') {
           return createTableCell(getDateFromIso(data[userField as keyof IUser]));
+        }
+        if (['createdAt', 'updatedAt'].includes(userField)) {
+          return createTableCell(getDateFromIso(data[userField as keyof IUser], 'dd.MM.yyyy HH:mm'));
         }
         if (userField === 'client') {
           const project = data.project as IProject | undefined;
@@ -81,12 +86,20 @@ const InfoRow = () => {
         if (userField === 'businessStatus') {
           return createTableCell(data[userField] ? t(`selects.corporateBodyStatus.${data[userField]}`) : '');
         }
-        if (userField === 'recruiter') {
-          return createTableCell(typeof data.recruiter === 'object' && !!data.recruiter ? `${data.recruiter?.fullname}` : '');
-        }
-        if (userField === 'employmentRecruiter') {
+        if (['recruiter', 'employmentRecruiter'].includes(userField)) {
           return createTableCell(
-            typeof data.employmentRecruiter === 'object' && !!data.employmentRecruiter ? data.employmentRecruiter?.fullname : '',
+            !!data[userField as keyof IUser] && typeof data[userField as keyof IUser] === 'object'
+              ? `${(data[userField as keyof IUser] as IUser)?.fullname}`
+              : '',
+          );
+        }
+        if (['createdBy', 'updatedBy'].includes(userField)) {
+          const allCreators = queryClient.getQueryData(['users-filter', JSON.stringify({})]) as IUser[] || [];
+          const creator = allCreators.find(item => item._id === data[userField as keyof IUser]);
+          return createTableCell(
+            creator
+              ? `${creator.fullname}`
+              : '',
           );
         }
         if (/\b(?:idcard.|visa.|permit.|pass.)\b/i.test(userField)) {

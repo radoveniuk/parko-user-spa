@@ -58,6 +58,9 @@ const ProfileRow = ({ data, selected, onChangeSelect, cols }: ProfileRowProps) =
         if (userField.includes('Date') || userField === 'permitExpire') {
           return createTableCell(getDateFromIso(data[userField as keyof IUser]));
         }
+        if (['createdAt', 'updatedAt'].includes(userField)) {
+          return createTableCell(getDateFromIso(data[userField as keyof IUser], 'dd.MM.yyyy HH:mm'));
+        }
         if (userField === 'client') {
           const project = data.project as IProject | undefined;
           const client = project?.client as IClient | undefined;
@@ -91,12 +94,11 @@ const ProfileRow = ({ data, selected, onChangeSelect, cols }: ProfileRowProps) =
         if (userField === 'businessStatus') {
           return createTableCell(data[userField] ? t(`selects.corporateBodyStatus.${data[userField]}`) : '');
         }
-        if (userField === 'recruiter') {
-          return createTableCell(typeof data.recruiter === 'object' && !!data.recruiter ? `${data.recruiter?.fullname}` : '');
-        }
-        if (userField === 'employmentRecruiter') {
+        if (['recruiter', 'employmentRecruiter', 'createdBy', 'updatedBy'].includes(userField)) {
           return createTableCell(
-            typeof data.employmentRecruiter === 'object' && !!data.employmentRecruiter ? data.employmentRecruiter?.fullname : '',
+            !!data[userField as keyof IUser] && typeof data[userField as keyof IUser] === 'object'
+              ? `${(data[userField as keyof IUser] as IUser)?.fullname}`
+              : '',
           );
         }
         if (/\b(?:idcard.|visa.|permit.|pass.)\b/i.test(userField)) {

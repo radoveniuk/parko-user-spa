@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import { Menu, MenuItem } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
@@ -15,9 +14,7 @@ import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IDayOff } from 'interfaces/dayoff.interface';
 import { IFile } from 'interfaces/file.interface';
-import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IProject } from 'interfaces/project.interface';
-import { IUser } from 'interfaces/users.interface';
 
 import useDayoffMutations from '../../hooks/usePrepaymentMutations';
 import DayoffDialog from '../DayoffDialog';
@@ -33,9 +30,8 @@ const DayoffRow = (props: RowProps) => {
   const { t } = useTranslation();
   const { data } = props;
 
-  const user = data.user as IUser;
-  const project = user.project as IProject;
-  const client = project?.client as IClient;
+  const project = data.project as IProject;
+  const client = data.client as IClient;
 
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -63,15 +59,13 @@ const DayoffRow = (props: RowProps) => {
   return (
     <StyledListTableRow>
       <ListTableCell>
-        <Link to={`/profile/${user._id}`} className="table-link">
-          {user.fullname}
-        </Link>
+        {data.userFullname}
       </ListTableCell>
       <ListTableCell>
         {client ? `${client.shortName} > ` : ''}{project?.name}
       </ListTableCell>
       <ListTableCell>
-        <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel>
+        <StatusLabel className={data.userStatus}>{t(`selects.userStatus.${data.userStatus}`)}</StatusLabel>
       </ListTableCell>
       <ListTableCell>
         <StatusLabel className={dayoffStatus}>{t(`selects.dayoffStatus.${dayoffStatus}`)}</StatusLabel>
@@ -99,6 +93,15 @@ const DayoffRow = (props: RowProps) => {
         </ul>
       </ListTableCell>
       <ListTableCell>
+        {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')}
+      </ListTableCell>
+      <ListTableCell>
+        {data.createdBy?.fullname}
+      </ListTableCell>
+      <ListTableCell>
+        {data.updatedBy?.fullname}
+      </ListTableCell>
+      <ListTableCell>
         {(permissions.includes('daysoff:update') || permissions.includes('prepayments:delete')) && (
           <Menu className="menu-btn" menuComponent={<IconButton><ThreeDotsIcon /></IconButton>}>
             {permissions.includes('daysoff:update') && (
@@ -114,9 +117,9 @@ const DayoffRow = (props: RowProps) => {
         <DayoffDialog
           open={openDialog}
           onClose={() => void setOpenDialog(false)}
-          onSave={(values: Partial<IPrepayment>) => {
+          onSave={(values) => {
             setOpenDialog(false);
-            updateDayoff(data, values as Partial<IDayOff>);
+            updateDayoff(data, values);
           }}
           data={data}
         />
