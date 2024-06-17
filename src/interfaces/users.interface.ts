@@ -1,4 +1,5 @@
 import { IMongoDocUpdator, MongoHistory } from './base.types';
+import { IClient } from './client.interface';
 import { IFile } from './file.interface';
 import { IProject } from './project.interface';
 
@@ -123,3 +124,13 @@ export interface IUser {
 }
 
 export type UserWorkType = 'business' | 'employment';
+
+export interface IUserCurrentData {
+  project: string | Pick<IProject, '_id' | 'name'>;
+  client: string | Pick<IClient, '_id' | 'shortName'>;
+  userFullname: string;
+  userWorkTypes: UserWorkType[];
+  userStatus: string;
+  userCooperationStartDate?: string;
+  userCooperationEndDate?: string;
+};

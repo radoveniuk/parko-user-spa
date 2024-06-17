@@ -28,8 +28,6 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
       ...data,
       orderer: data.orderer._id,
       receiver: data.receiver._id,
-      createdBy: data.createdBy._id,
-      updatedBy: data.updatedBy?._id,
     };
     return result as IProperty;
   };

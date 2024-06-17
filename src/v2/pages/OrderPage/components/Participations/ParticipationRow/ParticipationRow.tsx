@@ -100,8 +100,8 @@ const ParticipationRow = ({ participation, selected, onChangeSelect, onDelete }:
           {getDateFromIso(participation.createdAt, 'dd.MM.yyyy HH:mm')}
         </ListTableCell>
         <ListTableCell>
-          <Link to={`/profile/${participation.createdBy._id}`} className="table-link">
-            <span className="column-content">{participation.createdBy.fullname}</span>
+          <Link to={`/profile/${participation.createdBy?._id}`} className="table-link">
+            <span className="column-content">{participation.createdBy?.fullname}</span>
           </Link>
         </ListTableCell>
         <ListTableCell align="right">

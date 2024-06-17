@@ -51,7 +51,7 @@ const PrintDocDialog = ({ movements, onClose, ...rest }: Props) => {
       movement_userCooperationEndDate: movement.userCooperationEndDate,
       movement_damageCompencationPrice: movement.damageCompencationPrice,
       movement_recorder: movement.recorder.fullname,
-      movement_userCooperationType: movement.userCooperationType,
+      movement_userCooperationType: movement.userWorkTypes.toString(),
       movement_contractor: movement.contractor,
       movement_count: movement.count,
       movement_date: getDateFromIso(movement.date),

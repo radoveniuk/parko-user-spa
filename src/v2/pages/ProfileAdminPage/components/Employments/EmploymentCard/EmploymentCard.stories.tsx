@@ -61,13 +61,11 @@ export const Example: Story = {
       ],
       createdBy: {
         _id: '6548ee1529af3e28b09d03f8',
-        name: 'Bohdan',
-        surname: 'Radoveniuk',
+        fullname: 'Bohdan Radoveniuk',
       },
       updatedBy: {
         _id: '62bb0328a1689905c837a7b0',
-        name: 'admin',
-        surname: '',
+        fullname: 'admin',
       },
       createdAt: '2021-09-01',
       updatedAt: '2023-10-23',

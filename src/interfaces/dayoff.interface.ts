@@ -1,10 +1,8 @@
 import { IMongoDoc } from './base.types';
-import { IClient } from './client.interface';
 import { IFile } from './file.interface';
-import { IProject } from './project.interface';
-import { IUser, UserWorkType } from './users.interface';
+import { IUser, IUserCurrentData } from './users.interface';
 
-export interface IDayOff extends IMongoDoc {
+export interface IDayOff extends IMongoDoc, IUserCurrentData {
   user: string | IUser;
   dateStart: string;
   dateEnd: string;
@@ -13,11 +11,4 @@ export interface IDayOff extends IMongoDoc {
   adminComment?: string;
   isApproved?: boolean | null;
   docs?: IFile[] | string[];
-  project?: string | IProject;
-  client?: string | IClient;
-  userFullname?: string;
-  userWorkTypes?: UserWorkType[];
-  userStatus?: string;
-  userCooperationStartDate?: Date;
-  userCooperationEndDate?: Date;
 }

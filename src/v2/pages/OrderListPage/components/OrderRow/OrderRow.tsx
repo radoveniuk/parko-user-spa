@@ -72,8 +72,8 @@ const OrderRow = (props: Props) => {
         {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm:ss')}
       </ListTableCell>
       <ListTableCell>
-        <Link to={`/profile/${data.createdBy._id}`} className="table-link">
-          {data.createdBy.fullname}
+        <Link to={`/profile/${data.createdBy?._id}`} className="table-link">
+          {data.createdBy?.fullname}
         </Link>
       </ListTableCell>
     </ListTableRow>
