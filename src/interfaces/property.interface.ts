@@ -23,6 +23,4 @@ export interface IProperty<T extends boolean = false> extends IMongoDoc {
   damageCompencationPrice: number;
   orderer: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
   receiver: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
-  createdBy: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
-  updatedBy: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
 }

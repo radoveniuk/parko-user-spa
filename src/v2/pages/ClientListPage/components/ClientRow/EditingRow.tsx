@@ -12,8 +12,10 @@ import { useGetUserListForFilter } from 'api/query/userQuery';
 import { SaveIcon } from 'components/icons';
 import { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { CLIENT_STATUS } from 'constants/selectsOptions';
+import { getDateFromIso } from 'helpers/datetime';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import { useClientRowContext } from './context';
 import { FormFieldWrapper, LinkWrapper } from './styles';
@@ -92,6 +94,8 @@ const EditingRow = () => {
             )}
           />
         )}
+        {['createdAt', 'updatedAt'].includes(fieldName) && getDateFromIso(data[fieldName], 'dd.MM.yyyy HH:mm')}
+        {['createdBy', 'updatedBy'].includes(fieldName) && (data[fieldName] as IUser)?.fullname}
       </FormFieldWrapper>
     );
   };

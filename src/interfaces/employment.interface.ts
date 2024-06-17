@@ -1,9 +1,8 @@
-import { MongoHistory } from './base.types';
+import { IMongoDoc, MongoHistory } from './base.types';
 import { IProject, ProjectPosition } from './project.interface';
 import { IUser } from './users.interface';
 
-export interface IEmployment {
-  _id: string;
+export interface IEmployment extends IMongoDoc {
   user: any;
   client: string | null;
   project: string | null | IProject;
@@ -19,10 +18,6 @@ export interface IEmployment {
   status?: 'hired' | 'fired' | 'canceled';
   changes: ProjectPositionChange[];
   history?: MongoHistory<IEmployment>[];
-  createdBy: string | Partial<IUser> | null;
-  updatedBy: string | Partial<IUser> | null;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 export type ProjectPositionChange = {

@@ -68,3 +68,9 @@ export const FormCardContent = styled.div`
     right: 5px;
   }
 `;
+
+export const UpdatingStatsWrapper = styled.div`
+  padding: 15px 20px;
+  border-top: 1px solid #d0d0d0;
+  font-size: 12px;
+`;

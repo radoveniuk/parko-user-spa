@@ -1,4 +1,4 @@
-import { MongoHistory } from './base.types';
+import { IMongoDocUpdator, MongoHistory } from './base.types';
 import { IFile } from './file.interface';
 import { IProject } from './project.interface';
 
@@ -108,8 +108,8 @@ export interface IUser {
   birthSurname: string;
   childrenCount: number;
   history?: MongoHistory<IUser>[];
-  createdBy: string | null;
-  updatedBy: string | null;
+  createdBy?: string | null | IMongoDocUpdator;
+  updatedBy?: string | null | IMongoDocUpdator;
   businessName?: string;
   businessStatus?: 'active' | 'stopped' | 'closed';
   businessActivities?: UserBusinessActivity[];

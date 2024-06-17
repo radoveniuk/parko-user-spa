@@ -165,7 +165,6 @@
     "cooperationType": "HR service",
     "workHistory": "Work history",
     "lastUpdate": "Last update",
-    "createdAt": "Creation date",
     "cooperation": "Cooperation",
     "history": "History",
     "finances": "Finances",
@@ -243,7 +242,10 @@
     "isDeleted": "Deleted",
     "internals": "Internal",
     "externals": "External",
-    "propertyMovements": "Property movements"
+    "createdAt": "Creation date",
+    "updatedAt": "Updated at",
+    "createdBy": "Created By",
+    "updatedBy":"Updated By"
   },
   "userHistory": {
     "updatedBy": "Updated by",
@@ -314,7 +316,8 @@
     "status": "Dayoff status",
     "data": "Information",
     "docs": "Docs",
-    "createdBy": "Created By"
+    "createdBy": "Created By",
+    "updatedBy":"Updated By"
   },
   "profileList": "Profiles",
   "stock": {
@@ -666,7 +669,11 @@
     "comment": "Comment",
     "shortName": "Client",
     "orders": "Recruitment rooms",
-    "isInternal": "Internal"
+    "isInternal": "Internal",
+    "createdAt": "Creation date",
+    "updatedAt": "Updated at",
+    "createdBy": "Created By",
+    "updatedBy":"Updated By"
   },
   "errorTexts": {
     "emptyPassword": "Password cannot be empty",

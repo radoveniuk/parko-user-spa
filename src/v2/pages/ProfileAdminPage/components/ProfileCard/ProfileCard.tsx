@@ -147,8 +147,14 @@ const ProfileCard = ({ data, workHistory, onChange }: ProfileCardProps) => {
           </div>
         </div>
         <div className="system-info section">
-          <div className="system-info-item">{t('user.lastUpdate')}: {getDateFromIso(user.updatedAt)}</div>
-          <div className="system-info-item">{t('user.createdAt')}: {getDateFromIso(user.createdAt)}</div>
+          <div className="system-info-item">
+            {t('user.lastUpdate')}: {getDateFromIso(user.updatedAt, 'dd.MM.yyyy HH:mm')}{' '}
+            ({(user?.updatedBy as IUser)?.fullname || 'Parko bot'})
+          </div>
+          <div className="system-info-item">
+            {t('user.createdAt')}: {getDateFromIso(user.createdAt, 'dd.MM.yyyy HH:mm')}{' '}
+            ({(user?.createdBy as IUser)?.fullname || 'Parko bot'})
+          </div>
         </div>
         <div className="tabs-wrapper">
           <Tabs orientation="vertical">

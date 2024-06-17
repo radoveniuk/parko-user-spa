@@ -1,5 +1,6 @@
-export interface IClient {
-  _id: string;
+import { IMongoDoc } from './base.types';
+
+export interface IClient extends IMongoDoc {
   name: string;
   shortName: string;
   comment: string;
@@ -16,7 +17,5 @@ export interface IClient {
   cooperationEndDate?: string;
   status: string;
   managers?: string[] | { name: string; surname: string; _id: string }[] | null;
-  createdAt?: string,
-  updatedAt?: string,
   isInternal?: boolean;
 }

@@ -20,6 +20,4 @@ export interface IDayOff extends IMongoDoc {
   userStatus?: string;
   userCooperationStartDate?: Date;
   userCooperationEndDate?: Date;
-  createdBy?: Partial<IUser>;
-  updatedBy?: Partial<IUser>;
 }

@@ -14,11 +14,12 @@ import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { DeleteIcon, EditIcon, EyeIcon, EyeSlashIcon, PlusIcon, ProjectIcon, SaveIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
+import { getDateFromIso } from 'helpers/datetime';
 import useListState from 'hooks/useListState';
 import { IProject, ProjectPosition } from 'interfaces/project.interface';
 import { themeConfig } from 'theme';
 
-import { FormCardContent, PositionsWrapper, PositionWrapper, ProjectTitleWrapper, TypeRadioButtons } from './styles';
+import { FormCardContent, PositionsWrapper, PositionWrapper, ProjectTitleWrapper, TypeRadioButtons, UpdatingStatsWrapper } from './styles';
 
 type Props = {
   data: IProject;
@@ -352,6 +353,12 @@ const ProjectFormCard = ({ data, onChange, onDelete }: Props) => {
               onSubmit={onDeletePosition}
             />
           </FormCardBody>
+          <UpdatingStatsWrapper>
+            <div className="info">
+              {t('order.updatedAt')}: {getDateFromIso(data.updatedAt, 'dd.MM.yyyy HH:mm')} ({data.updatedBy?.fullname || data?.createdBy?.fullname})
+            </div>
+            <div className="info">{t('order.createdAt')}: {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')} ({data?.createdBy?.fullname})</div>
+          </UpdatingStatsWrapper>
         </FormCardContent>
       )}
     </FormCard>

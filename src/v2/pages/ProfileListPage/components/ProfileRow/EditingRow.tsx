@@ -41,7 +41,7 @@ const EditingRow = () => {
   const queryClient = useQueryClient();
   // options
   const usersFilter = queryClient.getQueryData(['users-filter', '{}']) as IUser[];
-  const recruiters = useMemo(() => usersFilter.filter(user => user.roles?.some(role => role.permissions.includes('users:update'))), [usersFilter]);
+  const recruiters = useMemo(() => usersFilter.filter(user => user.roles?.some(role => role.permissions?.includes('users:update'))), [usersFilter]);
   const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
@@ -224,6 +224,11 @@ const EditingRow = () => {
         {fieldData?.type === 'readonly' && ['client', 'clientCompany'].includes(fieldName as string) && (
           <div>{fieldData.render?.((data?.project as IProject)?.client, t)}</div>
         )}
+        {fieldData?.type === 'readonly' && ['createdBy', 'updatedBy'].includes(fieldName) && (() => {
+          const allCreators = queryClient.getQueryData(['users-filter', JSON.stringify({})]) as IUser[] || [];
+          const creator = allCreators.find(item => item._id === data[fieldName as keyof IUser]);
+          return <div>{fieldData.render?.(creator)}</div>;
+        })()}
         {isMongoId(fieldName) && customFields.some((customField) => customField._id === fieldName) && (
           <Controller
             key={customFields.find((customField) => customField._id === fieldName)?._id}

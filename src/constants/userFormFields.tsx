@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { Validate } from 'react-hook-form';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
+import { getDateFromIso } from 'helpers/datetime';
 import { validateEmail } from 'helpers/validateEmail';
 import { AnyObject } from 'interfaces/base.types';
 import { IClient } from 'interfaces/client.interface';
@@ -238,6 +239,22 @@ export const SYSTEM_SETTINGS_FIELDS: UserFieldsList = {
   role: {
     type: 'readonly',
     render: (roles) => roles?.map((r: {name:string}) => r.name).join(','),
+  },
+  createdBy: {
+    type: 'readonly',
+    render: (data) => data.fullname,
+  },
+  updatedBy: {
+    type: 'readonly',
+    render: (data) => data.fullname,
+  },
+  createdAt: {
+    type: 'readonly',
+    render: (data) => getDateFromIso(data, 'dd.MM.yyyy HH:mm'),
+  },
+  updatedAt: {
+    type: 'readonly',
+    render: (data) => getDateFromIso(data, 'dd.MM.yyyy HH:mm'),
   },
 };
 

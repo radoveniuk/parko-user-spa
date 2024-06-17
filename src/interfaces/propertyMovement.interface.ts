@@ -26,6 +26,4 @@ export interface IPropertyMovement<T extends boolean = false> extends IMongoDoc 
   recorder: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
   writeoffReason: string;
   damageCompencationPrice: number;
-  createdBy: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
-  updatedBy: T extends true ? Pick<IUser, '_id' | 'fullname'> : string;
 }
