@@ -12,6 +12,7 @@ import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { ICustomFormField } from 'interfaces/form.interface';
 import { IOrderParticipation, IOrderParticipationStage } from 'interfaces/orderParticipation.interface';
+import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 
 import ScreaningDialog from '../ScreaningDialog';
@@ -97,36 +98,39 @@ const OrderParticipationForm = ({ disabled }: Props) => {
 
   const downloadPrintedSummary = useDownloadPrintedTemplate();
   const downloadSummary = async () => {
-    const fileId = getValues('order.form.summaryTemplate') as string;
-    const screaning = getValues('screaning');
-    const user = getValues('user.fullname');
-    const formFields = getValues('order.form.fields');
+    const { order: { form: { summaryTemplate: fileId, fields: formFields } }, screaning, user } = getValues();
 
-    const fileData: Record<string, string> = {};
+    let fileData: Record<string, string> = {};
 
     for (const key in screaning) {
-      if (Object.prototype.hasOwnProperty.call(screaning, key)) {
-        const screaningValue = screaning[key];
-        const fieldData = formFields.find(field => (field as ICustomFormField)._id === key) as ICustomFormField | undefined;
-        if (fieldData) {
-          if (fieldData.type === 'multiselect') {
-            set(fileData, key, screaningValue.map((option: { label: string; }) => option.label).join(','));
-          } else if (fieldData.type === 'boolean') {
-            set(fileData, key, t(screaningValue));
-          } else if (fieldData.type === 'date') {
-            set(fileData, key, getDateFromIso(screaningValue));
-          } else if (fieldData.type === 'experience') {
-            // eslint-disable-next-line max-len
-            set(fileData, key, screaningValue.map((expirienceItem: { company: string; dates: string; position: string; fireMethod: string; fireReason: string; }, index: number) => `Pracovná skúsenost ${index + 1}:\nSpoločnosť: ${expirienceItem.company},\nOd - Do: ${expirienceItem.dates},\nPozícia: ${expirienceItem.position}\nSpôsob ukončenia: ${EXPIRIENCE_METHOD_OPTIONS.find(item => item.value === expirienceItem.fireMethod)?.label || ''},\nDôvod ukončenia: ${expirienceItem.fireReason}.`).join('\n'));
-          } else {
-            set(fileData, key, screaningValue);
-          }
+      const screaningValue = screaning[key];
+      const fieldData = formFields.find(field => (field as ICustomFormField)._id === key) as ICustomFormField | undefined;
+      if (fieldData) {
+        if (fieldData.type === 'multiselect') {
+          set(fileData, key, screaningValue.map((option: { label: string; }) => option.label).join(','));
+        } else if (fieldData.type === 'boolean') {
+          set(fileData, key, t(screaningValue));
+        } else if (fieldData.type === 'date') {
+          set(fileData, key, getDateFromIso(screaningValue));
+        } else if (fieldData.type === 'experience') {
+          // eslint-disable-next-line max-len
+          set(fileData, key, screaningValue.map((expirienceItem: { company: string; dates: string; position: string; fireMethod: string; fireReason: string; }, index: number) => `${expirienceItem.dates}:\nSpoločnosť: ${expirienceItem.company},\nPozícia: ${expirienceItem.position}\nSpôsob ukončenia: ${EXPIRIENCE_METHOD_OPTIONS.find(item => item.value === expirienceItem.fireMethod)?.label || ''},\nDôvod ukončenia: ${expirienceItem.fireReason}.`).join('\n- - - - - - - - - -\n'));
+        } else {
+          set(fileData, key, screaningValue);
         }
       }
     }
 
-    if (fileId) {
-      await downloadPrintedSummary({ fileId, fileData }, `${user}.docx`);
+    const userData: Record<string, any> = { ...user };
+    userData.birthDate = getDateFromIso(user.birthDate);
+    userData.recruiter = (user.recruiter as IUser).fullname;
+    userData.sex = t(user.sex as string);
+    userData.workTypes = user.workTypes?.map(wt => t(`select.userWorkType.${wt}`)).join(',');
+
+    fileData = { ...fileData, ...userData };
+
+    if (typeof fileId === 'string') {
+      await downloadPrintedSummary({ fileId, fileData }, `${user.fullname}.docx`);
     }
   };
 

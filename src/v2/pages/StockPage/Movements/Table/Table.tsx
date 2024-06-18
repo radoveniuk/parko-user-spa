@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { property } from 'lodash-es';
 import { Checkbox } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
@@ -133,7 +132,8 @@ const Table = ({
   // calc columns totals
   const totals = useMemo(() => {
     const price = sortedData.reduce((accumulator, currentValue) => accumulator + Number(currentValue.property.price), 0);
-    const damageCompencationPrice = sortedData.reduce((accumulator, currentValue) => accumulator + Number(currentValue.property.damageCompencationPrice), 0);
+    const damageCompencationPrice =
+    sortedData.reduce((accumulator, currentValue) => accumulator + Number(currentValue.property.damageCompencationPrice), 0);
     const count = sortedData.reduce((accumulator, currentValue) => accumulator + Number(currentValue.count), 0);
 
     return {
