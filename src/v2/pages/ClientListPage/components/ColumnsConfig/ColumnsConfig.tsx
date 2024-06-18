@@ -30,6 +30,12 @@ const COLS_TREE = {
     'client.contactPerson',
     'client.contactPersonPosition',
   ],
+  system: [
+    'client.createdAt',
+    'client.updatedAt',
+    'client.createdBy',
+    'client.updatedBy',
+  ],
 };
 
 const DEFAULT_COLS = [

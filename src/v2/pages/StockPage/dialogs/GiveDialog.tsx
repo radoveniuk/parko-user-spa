@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Button, Input } from 'v2/uikit';
@@ -51,6 +51,10 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
     return propertiesData;
   }, [defaultData, propertiesData]);
   const { data: contractors = [], isFetching: isFetchingContractors } = useGetClients({ isInternal: true });
+  const distributorNames = useMemo(() => Array.from(new Set(
+    properties.map(item => item?.distributorName).filter(item => !!item),
+  )), [properties]);
+  const [distributorName, setDistrbutorName] = useState<string | null>(defaultData ? defaultData.property.distributorName || null : null);
 
   const { create, update } = usePropertyMovementActions();
 
@@ -89,6 +93,15 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
           </LoaderWrapper>
         )}
         <div className="form">
+          <Select
+            label={t('stock.distributorName')}
+            options={distributorNames}
+            value={distributorName}
+            onChange={(e) => void setDistrbutorName(e.target.value as string)}
+            theme="gray"
+            disabled={isFetchingProperties}
+            required
+          />
           {!!properties.length && (
             <Controller
               control={control}
@@ -97,16 +110,15 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
               render={({ field, fieldState }) => (
                 <AutoComplete
                   label={t('stock.property')}
-                  options={properties}
+                  options={properties.filter(p => p.distributorName === distributorName && p.availableCount)}
                   defaultValue={properties.find(item => item._id === field.value)}
                   onChange={(v) => void field.onChange(v?._id)}
                   theme="gray"
                   getOptionLabel={row => `${row.internalName} (${row.availableCount})`}
                   valueKey="_id"
-                  disabled={isFetchingProperties}
+                  disabled={isFetchingProperties || !distributorName}
                   required
                   error={!!fieldState.error}
-                  getOptionDisabled={item => !item.availableCount}
                 />
               )}
             />
@@ -127,6 +139,7 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
                   required
                   error={!!fieldState.error}
                   value={field.value}
+                  disabled={!distributorName}
                 />
               )}
             />
@@ -181,7 +194,7 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
                   theme="gray"
                   getOptionLabel={row => `${row.fullname}${row.project ? `, ${row.project.client.shortName} > ${row.project.name}` : ''}`}
                   valueKey="_id"
-                  disabled={isFetchingUsers}
+                  disabled={isFetchingUsers || !distributorName}
                   required
                   error={!!fieldState.error}
                 />
@@ -193,6 +206,7 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
             theme="gray"
             type="number"
             error={!!errors.count}
+            disabled={!distributorName}
             required
             {...register('count', {
               required: true,
@@ -218,6 +232,7 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
                 onChange={field.onChange}
                 defaultValue={field.value}
                 error={!!fieldState.error}
+                disabled={!distributorName}
               />
             )}
           />
@@ -237,6 +252,7 @@ const GiveDialog = ({ defaultData, onClose, ...rest }: Props) => {
                   valuePath="_id"
                   required
                   error={!!fieldState.error}
+                  disabled={!distributorName}
                 />
               )}
             />

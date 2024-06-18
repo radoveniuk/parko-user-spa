@@ -314,7 +314,8 @@
     "createdAt": "Dátum vytvorenia",
     "status": "Status neprítomnosti",
     "data": "Informácie",
-    "docs": "Doklady"
+    "docs": "Doklady",
+    "createdBy": "Kto vytvoril"
   },
   "profileList": "Ľudské zdroje",
   "stock": {
@@ -337,6 +338,7 @@
     "status": "Status",
     "invoiceNumber": "Číslo faktúry/bločku",
     "distributorICO": "IČO dodávateľa",
+    "distributorName": "Obchodne meno dodávateľa",
     "orderer": "Objednávateľ",
     "invoiceDeliveryDate": "Dátum dodania podľa faktúry",
     "invoiceDeliveryDateFrom": "Dátum dodania podľa faktúry (od)",

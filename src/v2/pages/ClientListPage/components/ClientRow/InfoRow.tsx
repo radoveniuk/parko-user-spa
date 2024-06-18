@@ -45,6 +45,12 @@ const InfoRow = () => {
         if (clientField === 'managers') {
           return createTableCell(data.managers?.map((item) => `${(item as IUser).name} ${(item as IUser).surname}`).join(', '));
         }
+        if (['createdBy', 'updatedBy'].includes(clientField)) {
+          return createTableCell((data[clientField as keyof IClient] as IUser)?.fullname);
+        }
+        if (['createdAt', 'updatedAt'].includes(clientField)) {
+          return createTableCell(getDateFromIso(data[clientField as keyof IClient], 'dd.MM.yyyy HH:mm'));
+        }
         return createTableCell(data[clientField]?.toString());
       })}
       <ListTableCell>

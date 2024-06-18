@@ -29,6 +29,7 @@ const COLS_TREE = {
     'user.permitDepartment', 'user.permitNumber', 'user.businessActivities'],
   employment: ['user.client', 'user.clientCompany', 'user.project', 'user.position', 'user.cooperationStartDate',
     'user.cooperationEndDate', 'user.salary', 'user.salaryType', 'user.employmentRecruiter'],
+  systemFields: ['user.createdAt', 'user.updatedAt', 'user.createdBy', 'user.updatedBy'],
 };
 
 const DEFAULT_COLS = [

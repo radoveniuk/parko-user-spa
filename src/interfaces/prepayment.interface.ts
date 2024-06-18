@@ -1,9 +1,9 @@
-import { IUser } from './users.interface';
+import { IMongoDoc } from './base.types';
+import { IUser, IUserCurrentData } from './users.interface';
 
 export type PrepaymentStatus = 'pending' | 'rejected' | 'approved' | 'paid';
 
-export interface IPrepayment {
-  _id: string;
+export interface IPrepayment extends IMongoDoc, IUserCurrentData {
   user: string | Partial<IUser>;
   sum: string | number;
   status: PrepaymentStatus;
@@ -12,7 +12,4 @@ export interface IPrepayment {
   userComment?: string;
   adminComment?: string;
   period: string;
-  createdAt?: string;
-  createdBy?: Partial<IUser>;
-  updatedBy?: Partial<IUser>;
 }

@@ -14,7 +14,5 @@ export interface IOrderParticipation<T extends boolean = false> extends IMongoDo
   order: T extends true ? IOrder<true> : string;
   screaning: Record<string, any>;
   stages: IOrderParticipationStage[];
-  createdBy: T extends true ? Partial<IUser> : string;
-  updatedBy: T extends true ? Partial<IUser> : string;
   comment: string;
 }

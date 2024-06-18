@@ -68,7 +68,7 @@ const DayoffDialog = ({ onSave, data, ...rest }: Props) => {
                   theme="gray"
                   options={users}
                   label={`${t('prepayment.user')}*`}
-                  getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
+                  getOptionLabel={(option) => `${option.fullname} ${option.project ? `(${option.project.name})` : ''}`}
                   defaultValue={data?.user || null}
                   onChange={(v) => void field.onChange(v?._id || '')}
                   error={!!errors.user}

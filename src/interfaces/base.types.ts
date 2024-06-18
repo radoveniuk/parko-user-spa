@@ -22,8 +22,15 @@ export type MongoHistory<T> = {
   changes: Partial<Record<keyof T, { oldValue: any, newValue: any }>>;
 }
 
+export interface IMongoDocUpdator {
+  _id: string;
+  fullname: string;
+};
+
 export interface IMongoDoc {
   _id: string
   createdAt: string;
   updatedAt: string;
+  createdBy?: IMongoDocUpdator | null;
+  updatedBy?: IMongoDocUpdator | null;
 }

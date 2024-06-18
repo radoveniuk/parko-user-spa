@@ -22,6 +22,8 @@ const COLS = [
   'file.name',
   'docsTemplates.category',
   'docsTemplates.createdAt',
+  'docsTemplates.createdBy',
+  'docsTemplates.updatedBy',
   '',
 ];
 

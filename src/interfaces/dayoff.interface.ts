@@ -1,8 +1,8 @@
+import { IMongoDoc } from './base.types';
 import { IFile } from './file.interface';
-import { IUser } from './users.interface';
+import { IUser, IUserCurrentData } from './users.interface';
 
-export interface IDayOff {
-  _id: string;
+export interface IDayOff extends IMongoDoc, IUserCurrentData {
   user: string | IUser;
   dateStart: string;
   dateEnd: string;
@@ -10,7 +10,5 @@ export interface IDayOff {
   description?: string;
   adminComment?: string;
   isApproved?: boolean | null;
-  createdAt?: string;
-  updatedAt?: string;
   docs?: IFile[] | string[];
 }

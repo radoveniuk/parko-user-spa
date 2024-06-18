@@ -36,10 +36,10 @@ const Table = ({
   const toggleSorting = (prepaymentKey: string) => {
     let sortingValue: SortingValue<IPrepayment> = prepaymentKey as keyof IPrepayment;
     if (prepaymentKey === 'user') {
-      sortingValue = 'user.name';
+      sortingValue = 'userFullname';
     }
     if (prepaymentKey === 'user.project') {
-      sortingValue = 'user.project.name';
+      sortingValue = 'project.name';
     }
     if (prepaymentKey === 'comment') {
       sortingValue = 'userComment';

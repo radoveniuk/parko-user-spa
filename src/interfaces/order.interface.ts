@@ -22,8 +22,6 @@ export interface IOrder<T extends boolean = false> extends IMongoDoc {
   comment: string;
   dateFrom: string;
   dateTo: string;
-  createdBy: T extends true ? Partial<IUser> : string;
-  updatedBy: string | null;
 }
 
 export interface IOrderStage {

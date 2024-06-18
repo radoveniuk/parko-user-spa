@@ -314,7 +314,8 @@
     "createdAt": "Дата создания",
     "status": "Статус отгула",
     "data": "Информация",
-    "docs": "Документы"
+    "docs": "Документы",
+    "createdBy": "Кем создано"
   },
   "profileList": "Сотрудники",
   "stock": {
@@ -337,6 +338,7 @@
     "status": "Статус",
     "invoiceNumber": "Номер чека",
     "distributorICO": "ICO поставщика",
+    "distributorName": "Название поставщика",
     "orderer": "Заказчик",
     "invoiceDeliveryDate": "Дата доставки по договору",
     "invoiceDeliveryDateFrom": "Дата доставки по договору (от)",

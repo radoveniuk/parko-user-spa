@@ -26,6 +26,11 @@ const COLS_TREE = {
     'stock.userCooperationStartDate',
     'stock.userCooperationEndDate',
   ],
+  properties: [
+    'stock.price',
+    'stock.distributorICO',
+    'stock.distributorName',
+  ],
   writeOffFields: [
     'stock.writeoffReason',
     'stock.damageCompencationPrice',

@@ -70,6 +70,22 @@ const PropertiesRender = () => {
           />
           <FilterAutocomplete
             multiple
+            options={propertiesFilters.distributorNames}
+            filterKey="distributorNames"
+            label={t('stock.distributorName')}
+            labelKey="_id"
+            disabled={isFetchingPropertiesFilter}
+          />
+          <FilterAutocomplete
+            multiple
+            options={propertiesFilters.categories}
+            filterKey="categories"
+            label={t('stock.category')}
+            labelKey="_id"
+            disabled={isFetchingPropertiesFilter}
+          />
+          <FilterAutocomplete
+            multiple
             options={propertiesFilters.orderers}
             filterKey="orderers"
             label={t('stock.orderer')}

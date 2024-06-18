@@ -35,7 +35,7 @@ export const Example: Story = {
           _id: '65ca286704b75bdacab9e9c8',
           shortName: 'AVParko',
         },
-        userCooperationType: '',
+        userWorkTypes: ['business'],
         userStatus: 'hired',
         userCooperationStartDate: '2023-10-08T22:00:00.000Z',
         property: {
@@ -54,6 +54,7 @@ export const Example: Story = {
             fullname: 'Andrii Parkhomenko',
           },
           availableCount: 11,
+          distributorName: '',
         },
         count: 2,
         date: '2024-05-23T22:00:00.000Z',
@@ -72,7 +73,9 @@ export const Example: Story = {
         userCooperationEndDate: '',
         updatedBy: {
           _id: '',
+          fullname: '',
         },
+        userFullname: '',
       },
       {
         _id: '664b15d4b52f88870fbb935a',
@@ -93,7 +96,7 @@ export const Example: Story = {
           _id: '65ca286704b75bdacab9e9c8',
           shortName: 'AVParko',
         },
-        userCooperationType: '',
+        userWorkTypes: [],
         userStatus: 'hired',
         userCooperationStartDate: '2023-10-08T22:00:00.000Z',
         property: {
@@ -112,6 +115,7 @@ export const Example: Story = {
             fullname: 'Andrii Parkhomenko',
           },
           availableCount: 11,
+          distributorName: '',
         },
         count: 2,
         date: '2024-05-19T22:00:00.000Z',
@@ -130,7 +134,9 @@ export const Example: Story = {
         damageCompencationPrice: 0,
         updatedBy: {
           _id: '',
+          fullname: '',
         },
+        userFullname: '',
       },
     ],
   },

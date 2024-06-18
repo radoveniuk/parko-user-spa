@@ -1,4 +1,5 @@
-import { MongoHistory } from './base.types';
+import { IMongoDocUpdator, MongoHistory } from './base.types';
+import { IClient } from './client.interface';
 import { IFile } from './file.interface';
 import { IProject } from './project.interface';
 
@@ -108,8 +109,8 @@ export interface IUser {
   birthSurname: string;
   childrenCount: number;
   history?: MongoHistory<IUser>[];
-  createdBy: string | null;
-  updatedBy: string | null;
+  createdBy?: string | null | IMongoDocUpdator;
+  updatedBy?: string | null | IMongoDocUpdator;
   businessName?: string;
   businessStatus?: 'active' | 'stopped' | 'closed';
   businessActivities?: UserBusinessActivity[];
@@ -123,3 +124,13 @@ export interface IUser {
 }
 
 export type UserWorkType = 'business' | 'employment';
+
+export interface IUserCurrentData {
+  project: string | Pick<IProject, '_id' | 'name'>;
+  client: string | Pick<IClient, '_id' | 'shortName'>;
+  userFullname: string;
+  userWorkTypes: UserWorkType[];
+  userStatus: string;
+  userCooperationStartDate?: string;
+  userCooperationEndDate?: string;
+};

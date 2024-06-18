@@ -13,7 +13,6 @@ import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IProject } from 'interfaces/project.interface';
-import { IUser } from 'interfaces/users.interface';
 
 import usePrepaymentMutations from '../../hooks/usePrepaymentMutations';
 import PrepaymentDialog from '../PrepaymentDialog';
@@ -29,9 +28,8 @@ const PrepaymentRow = (props: ClientRowProps) => {
   const { t } = useTranslation();
   const { data } = props;
 
-  const user = data.user as IUser;
-  const project = user?.project as IProject;
-  const client = project?.client as IClient;
+  const project = data?.project as IProject;
+  const client = data?.client as IClient;
 
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -40,20 +38,16 @@ const PrepaymentRow = (props: ClientRowProps) => {
 
   const { permissions } = useAuthData();
 
-  if (!user) return null;
-
   return (
     <StyledListTableRow>
       <ListTableCell>
-        <Link to={`/profile/${user._id}`} className="table-link">
-          {user.fullname}
-        </Link>
+        {data.userFullname}
       </ListTableCell>
       <ListTableCell>
         {client ? `${client.shortName} > ` : ''}{project?.name}
       </ListTableCell>
       <ListTableCell>
-        <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel>
+        <StatusLabel className={data.userStatus}>{t(`selects.userStatus.${data.userStatus}`)}</StatusLabel>
       </ListTableCell>
       <ListTableCell>
         {getDateFromIso(data.paymentDate, 'MM/yyyy')}

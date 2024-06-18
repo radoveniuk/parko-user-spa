@@ -1,3 +1,4 @@
+import { IMongoDoc } from './base.types';
 import { IClient } from './client.interface';
 
 export type ProjectPosition = {
@@ -16,8 +17,7 @@ export type ProjectPosition = {
   matterId: string;
 };
 
-export interface IProject {
-  _id: string;
+export interface IProject extends IMongoDoc {
   client: string | Partial<IClient> | null;
   stages?: string[];
   name: string;
@@ -26,7 +26,4 @@ export interface IProject {
   zamestnavatel?: string;
   uzivatelskyZamestnavatel?: string;
   businessName?: string;
-
-  createdAt: string;
-  updatedAt: string;
 }

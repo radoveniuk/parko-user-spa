@@ -98,8 +98,14 @@ const ClientCard = ({ data, onChange }: ClientCardProps) => {
           <div className="info-item"><div className="name">{t('client.comment')}:</div> {client.comment}</div>
         </div>
         <div className="system-info section">
-          <div className="system-info-item">{t('user.lastUpdate')}: {getDateFromIso(client.updatedAt)}</div>
-          <div className="system-info-item">{t('user.createdAt')}: {getDateFromIso(client.createdAt)}</div>
+          <div className="system-info-item">
+            {t('user.lastUpdate')}: {getDateFromIso(client.updatedAt, 'dd.MM.yyyy HH:mm')}
+            {' '}({client?.updatedBy?.fullname})
+          </div>
+          <div className="system-info-item">
+            {t('user.createdAt')}: {getDateFromIso(client.createdAt, 'dd.MM.yyyy HH:mm')}
+            {' '}({client?.createdBy?.fullname})
+          </div>
         </div>
         <div className="tabs-wrapper">
           <Tabs orientation="vertical">

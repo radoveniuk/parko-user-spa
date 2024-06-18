@@ -10,8 +10,6 @@ export const movementExtendedToForm = (data: IPropertyMovement<true>): IProperty
     recorder: data.recorder?._id,
     property: data.property._id,
     previousMovement: data.previousMovement?._id,
-    createdBy: data.createdBy._id,
-    updatedBy: data.updatedBy?._id,
   };
   return result;
 };

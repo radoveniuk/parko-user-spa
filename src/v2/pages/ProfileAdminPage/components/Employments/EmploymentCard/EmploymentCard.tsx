@@ -27,7 +27,7 @@ import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 
 import CustomProjectSettingsDataGrid from './CustomProjectSettingsDataGrid';
-import { EmploymentCardTitleWrapper, EmploymentCardWrapper, FormCardContent } from './styles';
+import { EmploymentCardTitleWrapper, EmploymentCardWrapper, FormCardContent, UpdatingStatsWrapper } from './styles';
 
 const EMPLOYER_FIRST_LABEL_MAP = {
   [PROJECT_TYPES.Outsourcing.value]: 'Odoberateľ',
@@ -459,6 +459,12 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete, recruiter
                 onSubmit={onDelete}
               />
             </FormCardBody>
+            <UpdatingStatsWrapper>
+              <div className="info">
+                {t('order.updatedAt')}: {getDateFromIso(data.updatedAt, 'dd.MM.yyyy HH:mm')} ({data.updatedBy?.fullname || data?.createdBy?.fullname})
+              </div>
+              <div className="info">{t('order.createdAt')}: {getDateFromIso(data.createdAt, 'dd.MM.yyyy HH:mm')} ({data?.createdBy?.fullname})</div>
+            </UpdatingStatsWrapper>
           </>
         )}
       </FormCard>
