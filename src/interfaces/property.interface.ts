@@ -7,6 +7,7 @@ export type PropertyStatus = 'available' | 'ordered' | 'out';
 export interface IProperty<T extends boolean = false> extends IMongoDoc {
   internalName: string;
   distributorICO: string;
+  distributorName: string;
   tradeName: string;
   invoiceDeliveryDate: string;
   deliveryDate: string;

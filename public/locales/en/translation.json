@@ -340,6 +340,7 @@
     "status": "Status",
     "invoiceNumber": "Invoice number",
     "distributorICO": "ICO of distributor",
+    "distributorName": "Name of distributor",
     "orderer": "Orderer",
     "invoiceDeliveryDate": "Invoice Delivery Date",
     "invoiceDeliveryDateFrom": "Invoice Delivery Date (from)",

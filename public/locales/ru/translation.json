@@ -338,6 +338,7 @@
     "status": "Статус",
     "invoiceNumber": "Номер чека",
     "distributorICO": "ICO поставщика",
+    "distributorName": "Название поставщика",
     "orderer": "Заказчик",
     "invoiceDeliveryDate": "Дата доставки по договору",
     "invoiceDeliveryDateFrom": "Дата доставки по договору (от)",

@@ -41,6 +41,9 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
   const prevInternalNames = useMemo(() => Array.from(new Set(prevProperties.map(item => item.internalName))), [prevProperties]);
   const prevTradeNames = useMemo(() => Array.from(new Set(prevProperties.map(item => item.tradeName))), [prevProperties]);
   const prevDistributors = useMemo(() => Array.from(new Set(prevProperties.map(item => item.distributorICO))), [prevProperties]);
+  const prevDistributorNames = useMemo(() => Array.from(new Set(
+    prevProperties.map(item => item?.distributorName).filter(item => !!item),
+  )), [prevProperties]);
   const prevLocations = useMemo(() => Array.from(new Set(prevProperties.map(item => item.location))), [prevProperties]);
   // eslint-disable-next-line max-len
   const prevCategories = useMemo(() => Array.from(new Set(['Clothes', 'Shoes', ...prevProperties.filter(item => item.category).map(item => item.category)])), [prevProperties]);
@@ -110,6 +113,23 @@ const PropertyFormDialog = ({ defaultData, onClose, ...rest }: Props) => {
               <AutocompleteTextField
                 label={t('stock.distributorICO')}
                 options={prevDistributors}
+                theme="gray"
+                required
+                onChange={field.onChange}
+                value={field.value}
+                error={!!fieldState.error}
+                ref={field.ref}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="distributorName"
+            rules={{ required: true }}
+            render={({ field, fieldState }) => (
+              <AutocompleteTextField
+                label={t('stock.distributorName')}
+                options={prevDistributorNames}
                 theme="gray"
                 required
                 onChange={field.onChange}

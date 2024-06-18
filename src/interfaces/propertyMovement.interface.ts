@@ -13,7 +13,7 @@ export interface IPropertyMovement<T extends boolean = false> extends IMongoDoc,
   client: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
   contractor?: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
   // eslint-disable-next-line max-len
-  property: T extends true ? Pick<IProperty<true>, '_id' | 'internalName' | 'count' | 'damageCompencationPrice' | 'distributorICO' | 'price' | 'orderer' | 'receiver' | 'availableCount'> : string;
+  property: T extends true ? Pick<IProperty<true>, '_id' | 'internalName' | 'count' | 'damageCompencationPrice' | 'distributorICO' | 'distributorName' | 'price' | 'orderer' | 'receiver' | 'availableCount'> : string;
   previousMovement?: T extends true ? Omit<IPropertyMovement<true>, 'previousMovement'> : string;
   isReturned?: boolean;
   count: number;

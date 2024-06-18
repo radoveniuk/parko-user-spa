@@ -1,5 +1,6 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { property } from 'lodash-es';
 import { Checkbox } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
@@ -69,16 +70,16 @@ const Table = ({
   const { remove } = usePropertyMovementActions();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
-  const generateCellContent = (rowData: IPropertyMovement<true>, col: keyof IPropertyMovement) => {
+  const generateCellContent = (rowData: IPropertyMovement<true>, col: string) => {
     if (['recorder', 'createdBy', 'updatedBy'].includes(col)) {
-      const value = rowData[col] as IUser;
+      const value = rowData[col as keyof typeof rowData] as IUser;
       return value?.fullname;
     }
     if (['createdAt', 'updatedAt'].includes(col)) {
-      return getDateFromIso(rowData[col], 'dd.mm.yyyy HH:mm');
+      return getDateFromIso(rowData[col as keyof typeof rowData], 'dd.mm.yyyy HH:mm');
     }
     if (['client', 'contractor'].includes(col)) {
-      const value = rowData[col] as IClient;
+      const value = rowData[col as keyof typeof rowData] as IClient;
       return value?.shortName;
     }
     if (col === 'project') {
@@ -90,6 +91,15 @@ const Table = ({
     if (col === 'property') {
       return rowData.property.internalName;
     }
+    if (col === 'distributorName') {
+      return rowData.property.distributorName;
+    }
+    if (col === 'distributorICO') {
+      return rowData.property.distributorICO;
+    }
+    if (col === 'price') {
+      return `${rowData.property.price.toFixed(2).toString().replace('.', ',')} €`;
+    }
     if (col === 'type') {
       return t(`selects.propertyMovementType.${rowData.type}`);
     }
@@ -100,12 +110,12 @@ const Table = ({
       return <StatusLabel className={rowData.userStatus}>{t(`selects.userStatus.${rowData.userStatus}`)}</StatusLabel>;
     }
     if (['userCooperationStartDate', 'date'].includes(col)) {
-      return getDateFromIso(rowData[col] as string);
+      return getDateFromIso(rowData[col as keyof typeof rowData] as string);
     }
     if (['receiver', 'createdBy', 'updatedBy'].includes(col)) {
-      return (rowData[col] as IUser)?.fullname;
+      return (rowData[col as keyof typeof rowData] as IUser)?.fullname;
     }
-    return rowData[col] as string | number;
+    return rowData[col as keyof typeof rowData] as string | number;
   };
 
   const [activePropertyMovement, setActivePropertyMovement] = useState<IPropertyMovement<true> | null>(null);
@@ -120,6 +130,19 @@ const Table = ({
     toggleSelectedRow(row);
   }, [toggleSelectedRow]);
 
+  // calc columns totals
+  const totals = useMemo(() => {
+    const price = sortedData.reduce((accumulator, currentValue) => accumulator + Number(currentValue.property.price), 0);
+    const damageCompencationPrice = sortedData.reduce((accumulator, currentValue) => accumulator + Number(currentValue.property.damageCompencationPrice), 0);
+    const count = sortedData.reduce((accumulator, currentValue) => accumulator + Number(currentValue.count), 0);
+
+    return {
+      price: `${price.toFixed(2).toString().replace('.', ',')} €`,
+      damageCompencationPrice: `${damageCompencationPrice.toFixed(2).toString().replace('.', ',')} €`,
+      count,
+    } as Record<string, number | string>;
+  }, [sortedData]);
+
   return (
     <TableWrapper>
       <ListTable
@@ -127,19 +150,16 @@ const Table = ({
         className="movements-table"
         columnComponent={(col) => {
           if (col) {
+            const keyCol = col.replace('stock.', '');
             return (
               <div
                 role="button"
                 className="col-item"
-                onClick={() => void toggleSorting(col.replace('stock.', '') as keyof IPropertyMovement)}
+                onClick={() => void toggleSorting(keyCol as keyof IPropertyMovement)}
               >
-                {t(col)}
+                {t(col)} {keyCol in totals ? `(${totals[keyCol]})` : ''}
                 <IconButton
-                  className={
-                    sorting?.key === (col.replace('stock.', '') as keyof IPropertyMovement)
-                      ? `sort-btn active ${sorting.dir}`
-                      : 'sort-btn'
-                  }
+                  className={ sorting?.key === (keyCol) ? `sort-btn active ${sorting.dir}` : 'sort-btn' }
                 >
                   <ArrowUpIcon />
                 </IconButton>
