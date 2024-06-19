@@ -13,6 +13,7 @@ import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IProject } from 'interfaces/project.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import usePrepaymentMutations from '../../hooks/usePrepaymentMutations';
 import PrepaymentDialog from '../PrepaymentDialog';
@@ -41,7 +42,14 @@ const PrepaymentRow = (props: ClientRowProps) => {
   return (
     <StyledListTableRow>
       <ListTableCell>
-        {data.userFullname}
+        {data.user
+          ? (
+            <Link to={`/profile/${(data.user as IUser)._id}`} className="table-link">
+              {data.userFullname}
+            </Link>
+          )
+          : data.userFullname
+        }
       </ListTableCell>
       <ListTableCell>
         {client ? `${client.shortName} > ` : ''}{project?.name}

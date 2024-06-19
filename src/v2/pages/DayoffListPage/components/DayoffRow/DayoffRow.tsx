@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import { Menu, MenuItem } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
@@ -15,6 +16,7 @@ import { IClient } from 'interfaces/client.interface';
 import { IDayOff } from 'interfaces/dayoff.interface';
 import { IFile } from 'interfaces/file.interface';
 import { IProject } from 'interfaces/project.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import useDayoffMutations from '../../hooks/usePrepaymentMutations';
 import DayoffDialog from '../DayoffDialog';
@@ -59,7 +61,14 @@ const DayoffRow = (props: RowProps) => {
   return (
     <StyledListTableRow>
       <ListTableCell>
-        {data.userFullname}
+        {data.user
+          ? (
+            <Link to={`/profile/${(data.user as IUser)._id}`} className="table-link">
+              {data.userFullname}
+            </Link>
+          )
+          : data.userFullname
+        }
       </ListTableCell>
       <ListTableCell>
         {client ? `${client.shortName} > ` : ''}{project?.name}
