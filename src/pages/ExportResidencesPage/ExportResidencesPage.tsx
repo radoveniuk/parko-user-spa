@@ -30,7 +30,6 @@ const COLUMN_TITLES = [
 const COLUMNS: (keyof ResidenceTableRow)[] = [
   'user',
   'project',
-  'owner',
   'adress',
   'checkInDate',
   'checkOutDate',
@@ -42,7 +41,6 @@ type ResidenceTableRow = {
   _id: string;
   user: string;
   project: string;
-  owner: string;
   adress: string;
   checkInDate: string | null;
   checkOutDate: string | null;
@@ -56,13 +54,12 @@ const ExportProfilesPage = () => {
   const { data: residences = [] } = useGetResidences();
   const tableData: ResidenceTableRow[] = useMemo(() => residences.map((item) => {
     const { name, surname, project } = item.user as IUser;
-    const { owner, adress, costNight, costMonth } = item.accommodation as IAccommodation;
+    const { adress, costNight, costMonth } = item.accommodation as IAccommodation;
 
     return {
       _id: item._id,
       user: `${name} ${surname}`,
       project: (project as IProject)?.name,
-      owner,
       adress,
       checkInDate: getDateFromIso(item.checkInDate),
       checkOutDate: getDateFromIso(item.checkOutDate),

@@ -57,6 +57,9 @@ const Table = ({
     if (col === 'orderer') {
       return rowData.orderer.shortName;
     }
+    if (col === 'distributorICO' || col === 'distributorName') {
+      return <a title="Finstat" target="_blank" rel="noreferrer" href={`https://finstat.sk/${rowData?.distributorICO}`}>{rowData[col]}</a>;
+    }
     if (['receiver', 'createdBy', 'updatedBy'].includes(col)) {
       return (rowData[col] as IUser)?.fullname;
     }

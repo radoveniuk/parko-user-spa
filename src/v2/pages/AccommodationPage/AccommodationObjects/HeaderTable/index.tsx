@@ -26,7 +26,7 @@ const HeaderTable = ({ count }: Props) => {
       <ListTableHeader title={`${t('accommodation.objects')}: ${count}`}>
         {permissions.includes('accommodations:create') && (
           <>
-            <Button className="big-btn" onClick={() => void setOpenAccommodation(true)}><PlusIcon size={20}/>{t('accommodation.create')}</Button>
+            <Button className="big-btn" onClick={() => void setOpenAccommodation(true)}>{t('accommodation.create')}</Button>
             <IconButton className="small-btn primary" onClick={() => void setOpenAccommodation(true)}><PlusIcon size={25} /></IconButton>
           </>
         )}

@@ -424,6 +424,10 @@
       "night": "Night",
       "month": "Month"
     },
+    "accommodationCalculation": {
+      "night": "Nights",
+      "day": "Days"
+    },
     "employmentType": {
       "self": "Self employment",
       "onCompany": "Emplyment in the company",
@@ -605,7 +609,7 @@
     "checkIn": "Check In date",
     "checkOut": "Check Out date",
     "create": "Create accommodation",
-    "managerPhone": "Manager's phone",
+    "managerPhone": "Phone",
     "receptionPhone": "Reception's phone",
     "comment": "Comment",
     "tariff": "Tariff",
@@ -618,7 +622,10 @@
     "notificate": "Notificate the owner",
     "active": "Active",
     "createdAt": "Created at",
-    "residence": "Accommodation record"
+    "residence": "Accommodation record",
+    "name": "Name",
+    "businessName": "Business name",
+    "calculationType": "Type of invoicing"
   },
   "docsTemplates": {
     "template": "Template",

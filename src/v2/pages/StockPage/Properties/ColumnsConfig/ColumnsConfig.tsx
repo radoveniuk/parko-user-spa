@@ -23,6 +23,7 @@ const COLS_TREE = {
   tradeFields: [
     'stock.tradeName',
     'stock.distributorICO',
+    'stock.distributorName',
     'stock.invoiceNumber',
     'stock.invoiceDeliveryDate',
     'stock.deliveryDate',

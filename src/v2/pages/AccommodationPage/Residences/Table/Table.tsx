@@ -12,13 +12,11 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import { useAuthData } from 'contexts/AuthContext';
 import { iterateMap } from 'helpers/iterateMap';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
-import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IClient } from 'interfaces/client.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { useActiveAccommodation } from '../../contexts/AccommodationContext';
 import { useActiveResidence } from '../../contexts/ResidenceContext';
 
 import { TableWrapper } from './styles';
@@ -59,7 +57,6 @@ const Table = ({
     sortingToggler(residenceKey, `metadata.${residenceKey}` as SortingValue<ResidenceTableRow>);
   };
 
-  const [, setOpenAccommodation] = useActiveAccommodation();
   const [, setOpenResidence] = useActiveResidence();
   const deleteResidence = useDeleteResidence();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
@@ -104,15 +101,7 @@ const Table = ({
                 {client ? `${client.shortName} > ` : ''}{project?.name}
               </ListTableCell>
               <ListTableCell>{item.owner}</ListTableCell>
-              <ListTableCell>
-                <div
-                  role="button"
-                  className="table-link"
-                  onClick={() => void setOpenAccommodation(item.metadata.accommodation as IAccommodation)}
-                >
-                  {item.adress}
-                </div>
-              </ListTableCell>
+              <ListTableCell>{item.adress}</ListTableCell>
               <ListTableCell>{item.checkInDate}</ListTableCell>
               <ListTableCell>{item.checkOutDate}</ListTableCell>
               <ListTableCell>{item.days}</ListTableCell>

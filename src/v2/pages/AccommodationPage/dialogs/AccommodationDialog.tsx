@@ -9,7 +9,7 @@ import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 import Select from 'v2/uikit/Select';
 
 import { useCreateAccommodation, useUpdateAccommodation } from 'api/mutations/accommodationMutation';
-import { ACCOMMODATION_TARIFF_TYPE } from 'constants/selectsOptions';
+import { ACCOMMODATION_CALCULATION_TYPE, ACCOMMODATION_TARIFF_TYPE } from 'constants/selectsOptions';
 import { validateEmail } from 'helpers/validateEmail';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IAccommodation } from 'interfaces/accommodation.interface';
@@ -22,11 +22,12 @@ type Props = DialogProps & {
 
 const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
   const { t } = useTranslation();
-  const { register, formState: { errors }, control, handleSubmit } = useForm<IAccommodation>({ defaultValues: data });
+  const { register, formState: { errors }, control, handleSubmit, watch } = useForm<IAccommodation>({ defaultValues: data });
   const createAccommodation = useCreateAccommodation();
   const updateAccommodation = useUpdateAccommodation();
 
   const tariffTypes = useTranslatedSelect(ACCOMMODATION_TARIFF_TYPE, 'accommodationTariff');
+  const calculationTypes = useTranslatedSelect(ACCOMMODATION_CALCULATION_TYPE, 'accommodationCalculation');
 
   const submitHandler: SubmitHandler<IAccommodation> = (values) => {
     const mutation = values._id ? updateAccommodation : createAccommodation;
@@ -35,23 +36,24 @@ const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
     });
   };
 
+  const tariff = watch('tariff');
+
   return (
     <Dialog mobileFullscreen onClose={onClose} title={t('navbar.accommodation')} {...rest}>
       <DialogContentWrapper>
         <div className="form">
           <Input
             theme="gray"
-            label={`${t('accommodation.owner')}*`}
-            error={!!errors.owner}
-            helperText={errors.owner?.message}
+            label={t('accommodation.name')}
+            error={!!errors.name}
             className="form-field"
-            {...register('owner', { required: true })}
+            required
+            {...register('name', { required: true })}
           />
           <Input
             theme="gray"
             label={`${t('accommodation.adress')}*`}
             error={!!errors.adress}
-            helperText={errors.adress?.message}
             className="form-field"
             {...register('adress', { required: true })}
           />
@@ -59,9 +61,9 @@ const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
             theme="gray"
             label="Email"
             error={!!errors.email}
-            helperText={errors.email?.message}
             className="form-field"
-            {...register('email', { validate: (v) => !v || validateEmail(v) })}
+            required
+            {...register('email', { validate: (v) => validateEmail(v) })}
           />
           <Controller
             control={control}
@@ -97,23 +99,19 @@ const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
           />
           <Input
             theme="gray"
-            label={t('accommodation.costNight')}
-            error={!!errors.costNight}
-            helperText={errors.costNight?.message}
-            type="number"
+            label={t('accommodation.businessName')}
+            error={!!errors.businessName}
+            helperText={errors.businessName?.message}
             className="form-field"
-            InputProps={{ endAdornment: EuroEndAdornment }}
-            {...register('costNight')}
+            {...register('businessName')}
           />
           <Input
             theme="gray"
-            label={t('accommodation.costMonth')}
-            error={!!errors.costMonth}
-            helperText={errors.costMonth?.message}
-            type="number"
+            label="IČO"
+            error={!!errors.ICO}
+            helperText={errors.ICO?.message}
             className="form-field"
-            InputProps={{ endAdornment: EuroEndAdornment }}
-            {...register('costMonth')}
+            {...register('ICO')}
           />
           <Select
             theme="gray"
@@ -123,6 +121,39 @@ const AccommodationDialog = ({ data, onClose, ...rest }:Props) => {
             className="form-field"
             defaultValue={data?.tariff || ''}
             {...register('tariff')}
+          />
+          {tariff !== 'month' && (
+            <Input
+              theme="gray"
+              label={t('accommodation.costNight')}
+              error={!!errors.costNight}
+              helperText={errors.costNight?.message}
+              type="number"
+              className="form-field"
+              InputProps={{ endAdornment: EuroEndAdornment }}
+              {...register('costNight')}
+            />
+          )}
+          {tariff === 'month' && (
+            <Input
+              theme="gray"
+              label={t('accommodation.costMonth')}
+              error={!!errors.costMonth}
+              helperText={errors.costMonth?.message}
+              type="number"
+              className="form-field"
+              InputProps={{ endAdornment: EuroEndAdornment }}
+              {...register('costMonth')}
+            />
+          )}
+          <Select
+            theme="gray"
+            label={t('accommodation.calculationType')}
+            error={!!errors.tariff}
+            options={calculationTypes}
+            className="form-field"
+            defaultValue={data?.calculationType || ''}
+            {...register('calculationType')}
           />
           <Input
             theme="gray"

@@ -90,11 +90,12 @@ const Table = ({
     if (col === 'property') {
       return rowData.property.internalName;
     }
-    if (col === 'distributorName') {
-      return rowData.property.distributorName;
-    }
-    if (col === 'distributorICO') {
-      return rowData.property.distributorICO;
+    if (col === 'distributorICO' || col === 'distributorName') {
+      return (
+        <a title="Finstat" target="_blank" rel="noreferrer" href={`https://finstat.sk/${rowData.property.distributorICO}`}>
+          {rowData.property[col]}
+        </a>
+      );
     }
     if (col === 'price') {
       return `${rowData.property.price.toFixed(2).toString().replace('.', ',')} €`;

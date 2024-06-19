@@ -195,7 +195,7 @@
     "addEmployment": "Vytvoriť spoluprácu",
     "alreadyExistsError": "Používateľ s týmto e-mailom už existuje",
     "SWIFT": "SWIFT",
-    "businessName": "Business name",
+    "businessName": "Obchodné meno",
     "workTypes": "Forma spolupráce",
     "employmentStatus": "Status zamestnania",
     "employmentRecruiter": "Recruiter zamestnania",
@@ -422,6 +422,10 @@
       "night": "Noc",
       "month": "Mesiac"
     },
+    "accommodationCalculation": {
+      "night": "Noci",
+      "day": "Dni"
+    },
     "employmentType": {
       "self": "Živnostník",
       "onCompany": "Zamestnanie vo firme",
@@ -597,9 +601,9 @@
     "adress": "Adresa",
     "checkIn": "Check In",
     "checkOut": "Check Out",
-    "create": "Vytvoriť ubytovanie",
-    "managerPhone": "Tel. číslo. vedúceho",
-    "receptionPhone": "Tel. číslo. recepcii",
+    "create": "Nové ubytovanie",
+    "managerPhone": "Telefón",
+    "receptionPhone": "Telefón na správcu",
     "comment": "Poznámky",
     "tariff": "Tarifa",
     "days": "Počet odspaných noci",
@@ -611,7 +615,10 @@
     "notificate": "Uvedomiť majiteľa",
     "active": "Aktív",
     "createdAt": "Dátum vytvorenia",
-    "residence": "Zápis o ubytovaní"
+    "residence": "Zápis o ubytovaní",
+    "name": "Názov ubytovania",
+    "businessName": "Obchodné meno",
+    "calculationType": "Preratavanie obdobia ubytovania"
   },
   "docsTemplates": {
     "template": "Šablóna",

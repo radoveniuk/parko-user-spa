@@ -422,6 +422,10 @@
       "night": "Ночь",
       "month": "Месяц"
     },
+    "accommodationCalculation": {
+      "night": "Ночи",
+      "day": "Дни"
+    },
     "employmentType": {
       "self": "Частный предприниматель",
       "onCompany": "Трудоустройство в компании",
@@ -593,7 +597,7 @@
     "checkIn": "Check In",
     "checkOut": "Check Out",
     "create": "Создать жилье",
-    "managerPhone": "Телефон менеджера",
+    "managerPhone": "Телефон",
     "receptionPhone": "Телефон рецепции",
     "comment": "Примечания",
     "tariff": "Тариф",
@@ -606,7 +610,10 @@
     "notificate": "Оповестить владельца",
     "active": "Активно",
     "createdAt": "Дата создания",
-    "residence": "Запись о проживании"
+    "residence": "Запись о проживании",
+    "name": "Название жилья",
+    "businessName": "Название фирмы",
+    "calculationType": "Тип рассчета"
   },
   "docsTemplates": {
     "template": "Шаблон",

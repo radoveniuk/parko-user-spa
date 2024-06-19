@@ -33,6 +33,11 @@ export const ACCOMMODATION_TARIFF_TYPE = [
   'month',
 ];
 
+export const ACCOMMODATION_CALCULATION_TYPE = [
+  'night',
+  'day',
+];
+
 export const EMPLOYMENT_TYPE = [
   'self',
   'fullTime',

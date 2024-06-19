@@ -422,6 +422,10 @@
       "night": "Ніч",
       "month": "Місяць"
     },
+    "accommodationCalculation": {
+      "night": "Ночі",
+      "day": "Дні"
+    },
     "employmentType": {
       "self": "Приватний підприємець",
       "onCompany": "Працевлаштування в компанії",
@@ -598,7 +602,7 @@
     "checkIn": "Check In",
     "checkOut": "Check Out",
     "create": "Створити житло",
-    "managerPhone": "Телефон менеджера",
+    "managerPhone": "Телефон",
     "receptionPhone": "Телефон рецепції",
     "comment": "Нотатки",
     "tariff": "Тариф",
@@ -611,7 +615,10 @@
     "notificate": "Сповістити власника",
     "active": "Активно",
     "createdAt": "Дата створення",
-    "residence": "Запис проживання"
+    "residence": "Запис проживання",
+    "name": "Назва житла",
+    "businessName": "Назва фірми",
+    "calculationType": "Тип розрахунку"
   },
   "docsTemplates": {
     "template": "Шаблон",
