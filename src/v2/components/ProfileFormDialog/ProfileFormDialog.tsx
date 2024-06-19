@@ -166,6 +166,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             control={control}
             rules={{
               validate: (address: string) => {
+                return true;
                 // eslint-disable-next-line no-useless-escape, max-len
                 const pattern = /^[\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+ \d+(\/\d+[a-zA-Z]?)?, \d{4,5} [\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+$/;
                 return address ? pattern.test(address) || t('errorTexts.addressFormat') : true;
