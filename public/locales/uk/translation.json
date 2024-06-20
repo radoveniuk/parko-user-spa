@@ -422,6 +422,10 @@
       "night": "Ніч",
       "month": "Місяць"
     },
+    "projectAccommodationTariff": {
+      "day": "День",
+      "month": "Місяць"
+    },
     "accommodationCalculation": {
       "night": "Ночі",
       "day": "Дні"
@@ -618,7 +622,17 @@
     "residence": "Запис проживання",
     "name": "Назва житла",
     "businessName": "Назва фірми",
-    "calculationType": "Тип розрахунку"
+    "calculationType": "Тип розрахунку",
+    "client": "Клієнт",
+    "project": "Проект",
+    "createProjectAccommodation": "Нове проживання проекту",
+    "projectAccommodations": "Житлові приміщення проектів",
+    "object": "Проживання",
+    "payer": "Платник",
+    "damageCompensationTariff": "Зражка (Тариф)",
+    "damageCompensationPrice": "Зражка (Сума)",
+    "reinvoicingTariff": "Рефактурація (Тариф)",
+    "reinvoicingPrice": "Рефактурація (Сума)"
   },
   "docsTemplates": {
     "template": "Шаблон",

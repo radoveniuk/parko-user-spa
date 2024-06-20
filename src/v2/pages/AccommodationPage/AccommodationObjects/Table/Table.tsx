@@ -78,7 +78,7 @@ const Table = ({
       >
         {sortedAccommodations.map((item) => (
           <ListTableRow key={item._id}>
-            <ListTableCell>{item.owner}</ListTableCell>
+            <ListTableCell>{item.name}</ListTableCell>
             <ListTableCell>{item.adress}</ListTableCell>
             <ListTableCell>{Number(item.costNight).toFixed(2)}€</ListTableCell>
             <ListTableCell>{Number(item.costMonth).toFixed(2)}€</ListTableCell>

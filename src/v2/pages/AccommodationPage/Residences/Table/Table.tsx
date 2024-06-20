@@ -25,7 +25,7 @@ type ResidenceTableRow = {
   _id: string;
   user: string;
   project: string;
-  owner: string;
+  name: string;
   adress: string;
   checkInDate: string | null;
   checkOutDate: string | null;
@@ -100,7 +100,7 @@ const Table = ({
               <ListTableCell>
                 {client ? `${client.shortName} > ` : ''}{project?.name}
               </ListTableCell>
-              <ListTableCell>{item.owner}</ListTableCell>
+              <ListTableCell>{item.name}</ListTableCell>
               <ListTableCell>{item.adress}</ListTableCell>
               <ListTableCell>{item.checkInDate}</ListTableCell>
               <ListTableCell>{item.checkOutDate}</ListTableCell>

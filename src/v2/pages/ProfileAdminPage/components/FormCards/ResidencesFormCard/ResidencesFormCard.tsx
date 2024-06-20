@@ -103,7 +103,7 @@ const FinancesFormCard = ({ data, accommodations, onCreateResidence, onDeleteRes
               <Table size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell>{t('accommodation.owner')}</TableCell>
+                    <TableCell>{t('accommodation.name')}</TableCell>
                     <TableCell>{t('accommodation.adress')}</TableCell>
                     <TableCell>{t('accommodation.checkIn')}</TableCell>
                     <TableCell>{t('accommodation.checkOut')}</TableCell>
@@ -114,7 +114,7 @@ const FinancesFormCard = ({ data, accommodations, onCreateResidence, onDeleteRes
                 <TableBody>
                   {residences.map((residence) => (
                     <TableRow key={residence._id}>
-                      <TableCell>{(residence.accommodation as IAccommodation).owner}</TableCell>
+                      <TableCell>{(residence.accommodation as IAccommodation).name}</TableCell>
                       <TableCell>{(residence.accommodation as IAccommodation).adress}</TableCell>
                       <TableCell>{getDateFromIso(residence.checkInDate)}</TableCell>
                       <TableCell>{getDateFromIso(residence.checkOutDate)}</TableCell>

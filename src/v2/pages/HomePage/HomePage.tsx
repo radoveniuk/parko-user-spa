@@ -215,14 +215,14 @@ const HomePage = () => {
                       <Table size="small">
                         <TableHead>
                           <TableRow>
-                            <TableCell>{t('accommodation.owner')}</TableCell>
+                            <TableCell>{t('accommodation.name')}</TableCell>
                             <TableCell>{t('accommodation.adress')}</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
                           {dashboard.accommodations.map((accommodation: IAccommodation) => (
                             <TableRow key={accommodation._id}>
-                              <TableCell>{accommodation.owner}</TableCell>
+                              <TableCell>{accommodation.name}</TableCell>
                               <TableCell>{accommodation.adress}</TableCell>
                             </TableRow>
                           ))}

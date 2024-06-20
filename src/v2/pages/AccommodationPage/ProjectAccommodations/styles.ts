@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { PC, TB } from 'theme/sizeBreakpoints';
 
-export const ResidencesWrapper = styled.div`
+export const ProjectAccommodationsWrapper = styled.div`
   .residences-table {
     .list-table-cell {
       white-space: nowrap;

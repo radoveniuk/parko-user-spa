@@ -422,6 +422,10 @@
       "night": "Noc",
       "month": "Mesiac"
     },
+    "projectAccommodationTariff": {
+      "day": "Den",
+      "month": "Mesiac"
+    },
     "accommodationCalculation": {
       "night": "Noci",
       "day": "Dni"
@@ -618,7 +622,17 @@
     "residence": "Zápis o ubytovaní",
     "name": "Názov ubytovania",
     "businessName": "Obchodné meno",
-    "calculationType": "Preratavanie obdobia ubytovania"
+    "calculationType": "Preratavanie obdobia ubytovania",
+    "client": "Klient",
+    "project": "Projekt",
+    "createProjectAccommodation": "Nové ubytovanie projecta",
+    "projectAccommodations": "Ubytovacie zariadenia projectov",
+    "object": "Ubytovanie",
+    "payer": "Platiteľ",
+    "damageCompencationTariff": "Zrážka (Tarifa)",
+    "damageCompencationPrice": "Zrážka (Výška)",
+    "reinvoicingTariff": "Refakturácia (Tarifa)",
+    "reinvoicingPrice": "Refakturácia (Výška)"
   },
   "docsTemplates": {
     "template": "Šablóna",

@@ -4,7 +4,7 @@ export type ResidenceTableRow = {
   _id: string;
   user: string;
   project: string;
-  owner: string;
+  name: string;
   adress: string;
   checkInDate: string | null;
   checkOutDate: string | null;

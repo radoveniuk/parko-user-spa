@@ -49,7 +49,7 @@ const MobileAccommodationCard = ({ style, data }: Props) => {
             <BuildingIcon color="#1c1c1c" />
           </Avatar>
           <div className="info">
-            <div>{data.owner}</div>
+            <div>{data.name}</div>
             <div className="side-info">
               <StatusLabel className={residencesCount ? 'active' : 'inactive'}>
                 {t('accommodation.residences')}:{' '}

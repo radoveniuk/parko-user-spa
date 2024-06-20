@@ -16,17 +16,17 @@ import { IUser } from 'interfaces/users.interface';
 
 import { useActiveAccommodation } from '../contexts/AccommodationContext';
 import { useActiveResidence } from '../contexts/ResidenceContext';
+import { FilterTableWrapper, ProjectAccommodationsWrapper } from '../ProjectAccommodations/styles';
 
 import MobileResidenceCard from './MobileResidenceCard/MobileResidenceCard';
 import HeaderTable from './HeaderTable';
-import { FilterTableWrapper, ResidencesWrapper } from './styles';
 import Table from './Table';
 import { ResidenceTableRow } from './types';
 
 const COLUMNS = [
   'user.name',
   'user.project',
-  'accommodation.owner',
+  'accommodation.name',
   'accommodation.adress',
   'accommodation.checkIn',
   'accommodation.checkOut',
@@ -74,14 +74,14 @@ const Residences = () => {
 
   const { data: residences = [], refetch, remove, isFetching, isLoading } = useGetResidences(debouncedFiltersState, { enabled: false });
   const tableData: ResidenceTableRow[] = useMemo(() => residences.filter(item => !!item.user).map((item) => {
-    const { name, surname, project } = item.user as IUser;
-    const { owner, adress, costNight } = item.accommodation as IAccommodation;
+    const { fullname, project } = item.user as IUser;
+    const { name: accommodationName, adress, costNight } = item.accommodation as IAccommodation;
     const days = getDays(item) || 0;
     return {
       _id: item._id,
-      user: `${name} ${surname}`,
+      user: fullname as string,
       project: (project as IProject)?.name,
-      owner,
+      name: accommodationName,
       adress,
       checkInDate: getDateFromIso(item.checkInDate),
       checkOutDate: getDateFromIso(item.checkOutDate),
@@ -112,7 +112,7 @@ const Residences = () => {
   }, [debouncedFiltersState, refetch, remove]);
 
   return (
-    <ResidencesWrapper>
+    <ProjectAccommodationsWrapper>
       <div className="container-table">
         <HeaderTable count={tableData.length} />
         <FilterTableWrapper>
@@ -135,7 +135,7 @@ const Residences = () => {
               getOptionLabel={(item) => `${item.client ? `${item.client.name} > ` : ''}${item?.name}`}
             />
           )}
-          <FilterText filterKey="accommodationOwner" label={t('accommodation.owner')} />
+          <FilterText filterKey="accommodationOwner" label={t('accommodation.name')} />
           <FilterAutocomplete
             filterKey="accommodation"
             label={t('accommodation.adress')}
@@ -158,7 +158,7 @@ const Residences = () => {
           isFetching={isFetching || isLoading}
         />
       </div>
-    </ResidencesWrapper>
+    </ProjectAccommodationsWrapper>
   );
 };
 

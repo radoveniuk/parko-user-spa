@@ -40,7 +40,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
     const values: IResidence = { ...v, checkInDate: v.checkInDate || null, checkOutDate: v.checkOutDate || null };
 
     const mutation = values._id ? updateResidence : createResidence;
-    mutation.mutateAsync({ data: values, notificate: notificateOwner }).then(() => { onClose(); });
+    mutation.mutateAsync({ data: values, notificate: notificateOwner }).then(onClose);
   };
 
   return (
@@ -83,7 +83,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
                   theme="gray"
                   options={accommodations}
                   label={`${t('navbar.accommodation')}*`}
-                  getOptionLabel={(option) => `${option.adress} (${option.owner})`}
+                  getOptionLabel={(option) => `${option.adress} (${option.name})`}
                   className="form-field"
                   defaultValue={data?.accommodation || null}
                   onChange={(v) => void field.onChange(v?._id || '')}

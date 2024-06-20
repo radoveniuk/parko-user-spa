@@ -19,7 +19,7 @@ const COLUMN_TITLES = [
   '',
   'user.name',
   'user.project',
-  'accommodation.owner',
+  'accommodation.name',
   'accommodation.adress',
   'accommodation.checkIn',
   'accommodation.checkOut',

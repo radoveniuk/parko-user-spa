@@ -354,12 +354,12 @@
     "writeoffReason": "Причина списания",
     "size": "Размер",
     "availableCount": "Доступно",
-    "createdAt":"Дата создания",
+    "createdAt": "Дата создания",
     "updatedAt": "Последнее изменение",
     "identification": "Идентификация",
     "comment": "Заметки",
     "createdBy": "Создал",
-    "updatedBy":"Внес изменения",
+    "updatedBy": "Внес изменения",
     "baseFields": "Общая информация",
     "tradeFields": "Коммерческая информация",
     "financialFields": "Финансы",
@@ -420,6 +420,10 @@
     },
     "accommodationTariff": {
       "night": "Ночь",
+      "month": "Месяц"
+    },
+    "projectAccommodationTariff": {
+      "day": "День",
       "month": "Месяц"
     },
     "accommodationCalculation": {
@@ -613,7 +617,17 @@
     "residence": "Запись о проживании",
     "name": "Название жилья",
     "businessName": "Название фирмы",
-    "calculationType": "Тип рассчета"
+    "calculationType": "Тип рассчета",
+    "client": "Клиент",
+    "project": "Проект",
+    "createProjectAccommodation": "Новое проживание проекта",
+    "projectAccommodations": "Жилые помещения проектов",
+    "object": "Проживание",
+    "payer": "Плательщик",
+    "damageCompensationTariff": "Вычет (Тариф)",
+    "damageCompensationPrice": "Вычет (Сумма)",
+    "reinvoicingTariff": "Рефактуризация (Тариф)",
+    "reinvoicingPrice": "Рефактуризация (Сумма)"
   },
   "docsTemplates": {
     "template": "Шаблон",

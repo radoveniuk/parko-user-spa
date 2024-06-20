@@ -14,7 +14,7 @@ export const useGetAccommodations = (params: Partial<IAccommodation> = {}, optio
       ...params,
     },
   }).then(res => res.data.data);
-  return useQuery(['accommodations', JSON.stringify(params)], request, { initialData: [], ...options });
+  return useQuery(['accommodations', JSON.stringify(params)], request, { staleTime: 300_000, ...options });
 };
 
 export const useGetAccommodation = (id: string) => {

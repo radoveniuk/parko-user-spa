@@ -424,6 +424,10 @@
       "night": "Night",
       "month": "Month"
     },
+    "projectAccommodationTariff": {
+      "day": "Day",
+      "month": "Month"
+    },
     "accommodationCalculation": {
       "night": "Nights",
       "day": "Days"
@@ -625,7 +629,17 @@
     "residence": "Accommodation record",
     "name": "Name",
     "businessName": "Business name",
-    "calculationType": "Type of invoicing"
+    "calculationType": "Type of invoicing",
+    "client": "Client",
+    "project": "Project",
+    "createProjectAccommodation": "Create projects' accommodation",
+    "projectAccommodations": "Projects' accommodations",
+    "object": "Accommodation object",
+    "payer": "Payer",
+    "damageCompencationTariff": "Compecation tariff",
+    "damageCompencationPrice": "Compecation",
+    "reinvoicingTariff": "Reinvoicing tariff",
+    "reinvoicingPrice": "Reinvoicing"
   },
   "docsTemplates": {
     "template": "Template",

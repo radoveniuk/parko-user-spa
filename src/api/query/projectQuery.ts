@@ -15,7 +15,7 @@ export const useGetProjects = (params: AnyObject = {}, options?: QueryOptions) =
       ...params,
     },
   }).then(res => res.data.data);
-  return useQuery<IProject[]>(['projects', JSON.stringify(params)], request, { initialData: [], ...options });
+  return useQuery<IProject[]>(['projects', JSON.stringify(params)], request, { staleTime: 300_000, ...options });
 };
 
 export const useGetProject = (id: string) => {
