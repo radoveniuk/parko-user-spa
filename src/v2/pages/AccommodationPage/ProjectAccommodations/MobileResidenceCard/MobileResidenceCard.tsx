@@ -14,18 +14,18 @@ import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
 import { IClient } from 'interfaces/client.interface';
 import { IProject } from 'interfaces/project.interface';
+import { IProjectAccommodation } from 'interfaces/projectAccommodation.interface';
 import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 
 import { useActiveResidence } from '../../contexts/ResidenceContext';
-import { ResidenceTableRow } from '../types';
 
 import { MobileCardWrapper } from './styles';
 
 type Props = {
   style?: CSSProperties;
-  data: ResidenceTableRow;
+  data: IProjectAccommodation<true>;
 };
 
 const MobileResidenceCard = ({ style, data }: Props) => {
@@ -33,9 +33,9 @@ const MobileResidenceCard = ({ style, data }: Props) => {
   const queryClient = useQueryClient();
   const { filtersState } = useFilters();
 
-  const user = data.metadata.user as IUser;
-  const project = user.project as IProject;
-  const client = project?.client as IClient;
+  // const user = data.metadata.user as IUser;
+  // const project = user.project as IProject;
+  // const client = project?.client as IClient;
 
   const [, setOpenResidence] = useActiveResidence();
   const deleteResidence = useDeleteResidence();
@@ -46,27 +46,27 @@ const MobileResidenceCard = ({ style, data }: Props) => {
   return (
     <MobileCardWrapper style={style}>
       <div className="card">
-        <div className="date">{getDateFromIso(data.metadata.createdAt)}</div>
-        <Link to={`/profile/${user._id}`} className="user">
-          <Avatar size={40} color={themeConfig.palette.primary.light} username={data.user} />
-          <div className="info">
-            <div>{data.user}</div>
-            <div className="side-info">
-              <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel>
-              {!!project && <div className="project">{client ? `${client.shortName} > ` : ''}{project?.name}</div>}
-            </div>
+        {/* <div className="date">{getDateFromIso(data.metadata.createdAt)}</div> */}
+        {/* <Link to={`/profile/${user._id}`} className="user"> */}
+        {/* <Avatar size={40} color={themeConfig.palette.primary.light} username={data.user} /> */}
+        <div className="info">
+          {/* <div>{data.user}</div> */}
+          <div className="side-info">
+            {/* <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel> */}
+            {/* {!!project && <div className="project">{client ? `${client.shortName} > ` : ''}{project?.name}</div>} */}
           </div>
-        </Link>
+        </div>
+        {/* </Link> */}
         <div className="prepayment">
           <div className="row">
             <ResidenceIcon size={20} />
-            {data.checkInDate} - {data.checkOutDate}
+            {/* {data.checkInDate} - {data.checkOutDate} */}
           </div>
         </div>
         <div className="actions">
-          {permissions.includes('residences:update') && (
+          {/* {permissions.includes('residences:update') && (
             <IconButton onClick={() => void setOpenResidence(data.metadata)}><EditIcon /></IconButton>
-          )}
+          )} */}
           {permissions.includes('residences:delete') && (
             <IconButton onClick={() => void setIdToDelete(data._id)}><DeleteIcon /></IconButton>
           )}
