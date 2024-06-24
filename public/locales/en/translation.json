@@ -625,7 +625,6 @@
     "objects": "Accommodation facilities",
     "notificate": "Notificate the owner",
     "active": "Active",
-    "createdAt": "Created at",
     "residence": "Accommodation record",
     "name": "Name",
     "businessName": "Business name",
@@ -639,7 +638,18 @@
     "damageCompencationTariff": "Compecation tariff",
     "damageCompencationPrice": "Compecation",
     "reinvoicingTariff": "Reinvoicing tariff",
-    "reinvoicingPrice": "Reinvoicing"
+    "reinvoicingPrice": "Reinvoicing",
+    "accommodationFields": "Accommodation obj. data",
+    "residenceFields": "Residence data",
+    "userCooperationType": "Cooperation type",
+    "userCooperationStartDate": "Cooperation start",
+    "userCooperationEndDate": "Cooperation end",
+    "userStatus": "User status",
+    "userFullname": "Employee",
+    "createdAt": "Creation date",
+    "updatedAt": "Updated at",
+    "createdBy": "Created By",
+    "updatedBy":"Updated By"
   },
   "docsTemplates": {
     "template": "Template",

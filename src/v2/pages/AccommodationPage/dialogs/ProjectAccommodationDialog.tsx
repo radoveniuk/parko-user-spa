@@ -16,7 +16,7 @@ import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IClient } from 'interfaces/client.interface';
 import { IProjectAccommodation } from 'interfaces/projectAccommodation.interface';
 
-import useProjectAccommodationActions from '../hooks/useProjectAccommodationActions';
+import useProjectAccommodationActions from '../ProjectAccommodations/hooks/useProjectAccommodationActions';
 
 import { DialogContentWrapper } from './styles';
 

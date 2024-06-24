@@ -8,36 +8,32 @@ import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 import { ColsSettingsWrapper } from './styles';
 
 const COLS_TREE = {
-  baseFields: [
-    'stock.internalName',
-    'stock.category',
-    'stock.size',
-    'stock.status',
-    'stock.count',
-    'stock.availableCount',
-    'stock.location',
-    'stock.identification',
-    'stock.comment',
+  accommodationFields: [
+    'accommodation.name',
+    'accommodation.adress',
   ],
-  tradeFields: [
-    'stock.tradeName',
-    'stock.distributorICO',
-    'stock.distributorName',
-    'stock.invoiceNumber',
-    'stock.invoiceDeliveryDate',
-    'stock.deliveryDate',
-    'stock.orderer',
-    'stock.receiver',
+  residenceFields: [
+    'accommodation.checkIn',
+    'accommodation.checkOut',
+    'accommodation.days',
+    'accommodation.costNight',
+    'accommodation.costMonth',
+    'accommodation.sum',
   ],
-  financialFields: [
-    'stock.price',
-    'stock.damageCompencationPrice',
+  userFields: [
+    'accommodation.client',
+    'accommodation.project',
+    'accommodation.userFullname',
+    'accommodation.userStatus',
+    'accommodation.userCooperationType',
+    'accommodation.userCooperationStartDate',
+    'accommodation.userCooperationEndDate',
   ],
   systemFields: [
-    'stock.createdBy',
-    'stock.updatedBy',
-    'stock.createdAt',
-    'stock.updatedAt',
+    'accommodation.createdBy',
+    'accommodation.updatedBy',
+    'accommodation.createdAt',
+    'accommodation.updatedAt',
   ],
 };
 
@@ -73,7 +69,10 @@ const ColumnsConfig = ({ open, onClose }: Props) => {
               if (e.target.checked) {
                 return allCols;
               } else {
-                return ['stock.internalName'];
+                return [
+                  ...COLS_TREE.accommodationFields,
+                  ...COLS_TREE.residenceFields,
+                ];
               }
             })
           }

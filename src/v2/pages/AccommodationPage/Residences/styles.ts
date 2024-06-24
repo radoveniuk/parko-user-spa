@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 import { PC, TB } from 'theme/sizeBreakpoints';
 
-export const ProjectAccommodationsWrapper = styled.div`
-  .accommodations-table {
+export const ResidencesWrapper = styled.div<{cols: number}>`
+  .residences-table {
+    grid-template-columns: 30px ${(props) => Array(props.cols).fill('1fr').join(' ')};
     .list-table-cell {
       white-space: nowrap;
     }

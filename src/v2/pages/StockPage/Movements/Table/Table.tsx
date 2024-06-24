@@ -1,5 +1,7 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTableColumns } from 'v2/contexts/TableColumnsContext';
+import { useTableSelectedItems } from 'v2/contexts/TableSelectedItemsContext';
 import { Checkbox } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
@@ -17,8 +19,6 @@ import { IClient } from 'interfaces/client.interface';
 import { IPropertyMovement } from 'interfaces/propertyMovement.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { useColumns } from '../../contexts/ColumnsContext/useColumns';
-import { useSelectedItems } from '../../contexts/SelectedItemsContext/useSelectedItems';
 import { GiveDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
 import usePropertyMovementActions from '../hooks/useMovementActions';
 
@@ -33,7 +33,7 @@ const Table = ({
   data,
   isFetching,
 }: Props) => {
-  const [activeCols] = useColumns();
+  const [activeCols] = useTableColumns();
   const { t } = useTranslation();
   const { permissions } = useAuthData();
 
@@ -124,7 +124,7 @@ const Table = ({
   const checkFutureMovements = (movementId: string) => allMovements.some((movement) => movement.previousMovement?._id === movementId);
 
   // select items
-  const [selectedItems, { toggle: toggleSelectedRow }] = useSelectedItems();
+  const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems();
 
   const selectRowChangeHandler = useCallback((row: IPropertyMovement<true>) => () => {
     toggleSelectedRow(row);

@@ -618,7 +618,6 @@
     "objects": "Житлові об'єкти",
     "notificate": "Сповістити власника",
     "active": "Активно",
-    "createdAt": "Дата створення",
     "residence": "Запис проживання",
     "name": "Назва житла",
     "businessName": "Назва фірми",
@@ -632,7 +631,18 @@
     "damageCompensationTariff": "Зражка (Тариф)",
     "damageCompensationPrice": "Зражка (Сума)",
     "reinvoicingTariff": "Рефактурація (Тариф)",
-    "reinvoicingPrice": "Рефактурація (Сума)"
+    "reinvoicingPrice": "Рефактурація (Сума)",
+    "accommodationFields": "Житло",
+    "residenceFields": "Запис проживання",
+    "userCooperationType": "Тип співпраці",
+    "userCooperationStartDate": "Початок співпраці",
+    "userCooperationEndDate": "Кінець співпраці",
+    "userStatus": "Статус працівника",
+    "userFullname": "Працівник",
+    "createdAt": "Дата створення",
+    "updatedAt": "Дата зміни",
+    "createdBy": "Створив",
+    "updatedBy":"Вніс зміни"
   },
   "docsTemplates": {
     "template": "Шаблон",

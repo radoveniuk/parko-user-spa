@@ -6,6 +6,7 @@ import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { useGetProjectAccommodations } from 'api/query/projectAccommodationsQuery';
 
 import HeaderTable from './HeaderTable';
+import MobileProjectAccommodationCard from './MobileProjectAccommodationCard';
 import { FilterTableWrapper, ProjectAccommodationsWrapper } from './styles';
 import Table from './Table';
 
@@ -36,12 +37,12 @@ const ProjectAccommodations = () => {
           <ClearFiltersButton />
         </FilterTableWrapper>
         <div className="mobile-list">
-          {/* {tableData.map((rowItem) => (
-            <MobileResidenceCard
+          {tableData.map((rowItem) => (
+            <MobileProjectAccommodationCard
               key={rowItem._id}
               data={rowItem}
             />
-          ))} */}
+          ))}
         </div>
         <Table
           activeCols={COLUMNS}

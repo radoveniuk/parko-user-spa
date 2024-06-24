@@ -613,7 +613,6 @@
     "objects": "Жилые объекты",
     "notificate": "Оповестить владельца",
     "active": "Активно",
-    "createdAt": "Дата создания",
     "residence": "Запись о проживании",
     "name": "Название жилья",
     "businessName": "Название фирмы",
@@ -627,7 +626,18 @@
     "damageCompensationTariff": "Вычет (Тариф)",
     "damageCompensationPrice": "Вычет (Сумма)",
     "reinvoicingTariff": "Рефактуризация (Тариф)",
-    "reinvoicingPrice": "Рефактуризация (Сумма)"
+    "reinvoicingPrice": "Рефактуризация (Сумма)",
+    "accommodationFields": "Обьект размещения",
+    "residenceFields": "Запись о проживании",
+    "userCooperationType": "Тип сотрудничества",
+    "userCooperationStartDate": "Начало сотрудничества",
+    "userCooperationEndDate": "Конец сотрудничества",
+    "userStatus": "Статус сотрудника",
+    "userFullname": "Сотрудник",
+    "createdAt": "Дата создания",
+    "updatedAt": "Дата изменеия",
+    "createdBy": "Создал",
+    "updatedBy":"Внес изменения"
   },
   "docsTemplates": {
     "template": "Шаблон",

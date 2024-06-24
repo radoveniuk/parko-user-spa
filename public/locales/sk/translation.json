@@ -618,7 +618,6 @@
     "objects": "Ubytovacie zariadenia",
     "notificate": "Uvedomiť majiteľa",
     "active": "Aktív",
-    "createdAt": "Dátum vytvorenia",
     "residence": "Zápis o ubytovaní",
     "name": "Názov ubytovania",
     "businessName": "Obchodné meno",
@@ -632,7 +631,18 @@
     "damageCompencationTariff": "Zrážka (Tarifa)",
     "damageCompencationPrice": "Zrážka (Výška)",
     "reinvoicingTariff": "Refakturácia (Tarifa)",
-    "reinvoicingPrice": "Refakturácia (Výška)"
+    "reinvoicingPrice": "Refakturácia (Výška)",
+    "accommodationFields": "Ubytovacie zariadenie",
+    "residenceFields": "Ubytovanie",
+    "userCooperationType": "Typ spolupráce",
+    "userCooperationStartDate": "Začiatok",
+    "userCooperationEndDate": "Ukončenie",
+    "userStatus": "Stav zamestnanca",
+    "userFullname": "Zamestnanec",
+    "createdAt": "Dátum vytvorenia",
+    "updatedAt": "Dátum a čas zmeny",
+    "createdBy": "Kto vytvoril",
+    "updatedBy":"Kto aktualizoval"
   },
   "docsTemplates": {
     "template": "Šablóna",

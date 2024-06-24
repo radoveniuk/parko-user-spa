@@ -1,5 +1,4 @@
-import React, { CSSProperties, memo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { CSSProperties, memo, PropsWithChildren, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 import { useFilters } from 'v2/components/Filters';
@@ -12,60 +11,59 @@ import { useDeleteResidence } from 'api/mutations/residenceMutation';
 import { DeleteIcon, EditIcon, ResidenceIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import { getDateFromIso } from 'helpers/datetime';
-import { IClient } from 'interfaces/client.interface';
-import { IProject } from 'interfaces/project.interface';
 import { IResidence } from 'interfaces/residence.interface';
 import { IUser } from 'interfaces/users.interface';
 import { themeConfig } from 'theme';
 
 import { useActiveResidence } from '../../contexts/ResidenceContext';
-import { ResidenceTableRow } from '../types';
+import useGetTableCellContent from '../hooks/useGetTableCellContent';
 
 import { MobileCardWrapper } from './styles';
 
 type Props = {
   style?: CSSProperties;
-  data: ResidenceTableRow;
+  data: IResidence;
 };
 
 const MobileResidenceCard = ({ style, data }: Props) => {
-  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { filtersState } = useFilters();
 
-  const user = data.metadata.user as IUser;
-  const project = user.project as IProject;
-  const client = project?.client as IClient;
+  const user = data.user as IUser;
 
   const [, setOpenResidence] = useActiveResidence();
   const deleteResidence = useDeleteResidence();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
+  const getCellContent = useGetTableCellContent();
+
   const { permissions } = useAuthData();
+
+  const UserWrapper = (props: PropsWithChildren) => user ? <Link to={`/profile/${user?._id}`} className="user" {...props} /> : <>{props.children}</>;
 
   return (
     <MobileCardWrapper style={style}>
       <div className="card">
-        <div className="date">{getDateFromIso(data.metadata.createdAt)}</div>
-        <Link to={`/profile/${user._id}`} className="user">
-          <Avatar size={40} color={themeConfig.palette.primary.light} username={data.user} />
+        <div className="date">{getDateFromIso(data.createdAt)}</div>
+        <UserWrapper>
+          <Avatar size={40} color={themeConfig.palette.primary.light} username={data.userFullname} />
           <div className="info">
-            <div>{data.user}</div>
+            <div>{data.userFullname}</div>
             <div className="side-info">
-              <StatusLabel className={user.status}>{t(`selects.userStatus.${user.status}`)}</StatusLabel>
-              {!!project && <div className="project">{client ? `${client.shortName} > ` : ''}{project?.name}</div>}
+              <StatusLabel className={data.userStatus}>{getCellContent(data, 'userStatus')}</StatusLabel>
+              {!!data.project && <div className="project">{getCellContent(data, 'client')} &gt; {getCellContent(data, 'project')}</div>}
             </div>
           </div>
-        </Link>
+        </UserWrapper>
         <div className="prepayment">
           <div className="row">
             <ResidenceIcon size={20} />
-            {data.checkInDate} - {data.checkOutDate}
+            {getCellContent(data, 'checkIn')} - {getCellContent(data, 'checkOut')}
           </div>
         </div>
         <div className="actions">
           {permissions.includes('residences:update') && (
-            <IconButton onClick={() => void setOpenResidence(data.metadata)}><EditIcon /></IconButton>
+            <IconButton onClick={() => void setOpenResidence(data)}><EditIcon /></IconButton>
           )}
           {permissions.includes('residences:delete') && (
             <IconButton onClick={() => void setIdToDelete(data._id)}><DeleteIcon /></IconButton>

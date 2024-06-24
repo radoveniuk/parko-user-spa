@@ -14,7 +14,7 @@ import { IProjectAccommodation } from 'interfaces/projectAccommodation.interface
 import { IUser } from 'interfaces/users.interface';
 
 import ProjectAccommodationDialog from '../../dialogs/ProjectAccommodationDialog';
-import useProjectAccommodationActions from '../../hooks/useProjectAccommodationActions';
+import useProjectAccommodationActions from '../hooks/useProjectAccommodationActions';
 
 import { TableWrapper } from './styles';
 
@@ -49,7 +49,7 @@ const Table = ({
     <TableWrapper>
       <ListTable
         columns={activeCols}
-        className="residences-table"
+        className="accommodations-table"
         columnComponent={(col) => {
           if (col) {
             return (

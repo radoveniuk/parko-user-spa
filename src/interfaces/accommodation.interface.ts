@@ -10,6 +10,7 @@ export interface IAccommodation extends IMongoDoc {
   managerPhone: string;
   receptionPhone: string;
   name: string;
+  owner?: string;
   businessName: string;
   ICO: string;
   calculationType: 'night' | 'day';

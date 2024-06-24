@@ -2,6 +2,7 @@ import React, { CSSProperties, memo, ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
+import { useTableSelectedItems } from 'v2/contexts/TableSelectedItemsContext';
 import useBoolean from 'v2/hooks/useBoolean';
 import { Avatar, Checkbox } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
@@ -14,7 +15,6 @@ import { getDateFromIso } from 'helpers/datetime';
 import { IPropertyMovement, PropertyMovementType } from 'interfaces/propertyMovement.interface';
 import { themeConfig } from 'theme';
 
-import { useSelectedItems } from '../../contexts/SelectedItemsContext/useSelectedItems';
 import { GiveDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
 import usePropertyMovementActions from '../hooks/useMovementActions';
 
@@ -44,7 +44,7 @@ const MobileMovementCard = ({ style, data }: Props) => {
   const checkFutureMovements = (movementId: string) => allMovements?.some((movement) => movement.previousMovement?._id === movementId);
 
   const [isOpenEdit, openEdit, closeEdit] = useBoolean(false);
-  const [selectedItems, { toggle: toggleSelect }] = useSelectedItems();
+  const [selectedItems, { toggle: toggleSelect }] = useTableSelectedItems();
 
   return (
     <MobileCardWrapper style={style}>

@@ -1,12 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ClearFiltersButton, FilterAutocomplete, FilterDate, FiltersProvider, useFilters } from 'v2/components/Filters';
+import { TableColumnsProvider, useTableColumns } from 'v2/contexts/TableColumnsContext';
+import { TableSelectedItemsProvider } from 'v2/contexts/TableSelectedItemsContext';
 
 import { useGetProperties, useGetPropertiesFilters } from 'api/query/propertyQuery';
-
-import { ColumnsProvider } from '../contexts/ColumnsContext';
-import { useColumns } from '../contexts/ColumnsContext/useColumns';
-import { SelectedItemsProvider } from '../contexts/SelectedItemsContext';
 
 import HeaderTable from './HeaderTable';
 import MobilePropertyCard from './MobilePropertyCard';
@@ -20,7 +18,7 @@ const PropertiesRender = () => {
 
   const { t } = useTranslation();
 
-  const [activeCols] = useColumns();
+  const [activeCols] = useTableColumns();
 
   return (
     <PropertiesWrapper cols={activeCols.length + 1}>
@@ -136,11 +134,11 @@ export default function Properties () {
   ];
   return (
     <FiltersProvider localStorageKey="properties">
-      <ColumnsProvider defaultValue={DEFAULT_COLS} localStorageKey="propertiesTableCols">
-        <SelectedItemsProvider>
+      <TableColumnsProvider defaultValue={DEFAULT_COLS} localStorageKey="propertiesTableCols">
+        <TableSelectedItemsProvider>
           <PropertiesRender />
-        </SelectedItemsProvider>
-      </ColumnsProvider>
+        </TableSelectedItemsProvider>
+      </TableColumnsProvider>
     </FiltersProvider>
   );
 };
