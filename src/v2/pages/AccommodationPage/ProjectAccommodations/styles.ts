@@ -58,7 +58,7 @@ export const ProjectAccommodationsWrapper = styled.div`
   }
 
   @media (max-width: ${TB}) {
-    .pagination-bottom, .residences-table {
+    .pagination-bottom, .accommodations-table {
       display: none;
     }
   }

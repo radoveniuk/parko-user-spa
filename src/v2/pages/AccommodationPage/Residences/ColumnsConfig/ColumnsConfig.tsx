@@ -8,6 +8,15 @@ import DialogFullscreen from 'v2/uikit/DialogFullscreen';
 import { ColsSettingsWrapper } from './styles';
 
 const COLS_TREE = {
+  userFields: [
+    'accommodation.client',
+    'accommodation.project',
+    'accommodation.userFullname',
+    'accommodation.userStatus',
+    'accommodation.userCooperationType',
+    'accommodation.userCooperationStartDate',
+    'accommodation.userCooperationEndDate',
+  ],
   accommodationFields: [
     'accommodation.name',
     'accommodation.adress',
@@ -19,15 +28,6 @@ const COLS_TREE = {
     'accommodation.costNight',
     'accommodation.costMonth',
     'accommodation.sum',
-  ],
-  userFields: [
-    'accommodation.client',
-    'accommodation.project',
-    'accommodation.userFullname',
-    'accommodation.userStatus',
-    'accommodation.userCooperationType',
-    'accommodation.userCooperationStartDate',
-    'accommodation.userCooperationEndDate',
   ],
   systemFields: [
     'accommodation.createdBy',
@@ -70,6 +70,7 @@ const ColumnsConfig = ({ open, onClose }: Props) => {
                 return allCols;
               } else {
                 return [
+                  'accommodation.userFullname',
                   ...COLS_TREE.accommodationFields,
                   ...COLS_TREE.residenceFields,
                 ];
@@ -83,7 +84,7 @@ const ColumnsConfig = ({ open, onClose }: Props) => {
             <div className="checkbox-group">
               <Checkbox
                 className="selectGroup"
-                label={t(`stock.${key}`)}
+                label={t(`accommodation.${key}`)}
                 checked={isIncludedCols(value)}
                 onChange={(e) => {
                   setActiveCols((prev) => {

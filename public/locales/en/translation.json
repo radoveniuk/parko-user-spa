@@ -639,6 +639,8 @@
     "damageCompencationPrice": "Compecation",
     "reinvoicingTariff": "Reinvoicing tariff",
     "reinvoicingPrice": "Reinvoicing",
+    "userFields": "User data",
+    "systemFields": "System data",
     "accommodationFields": "Accommodation obj. data",
     "residenceFields": "Residence data",
     "userCooperationType": "Cooperation type",

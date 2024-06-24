@@ -632,6 +632,8 @@
     "damageCompencationPrice": "Zrážka (Výška)",
     "reinvoicingTariff": "Refakturácia (Tarifa)",
     "reinvoicingPrice": "Refakturácia (Výška)",
+    "userFields": "Údaje o zamestnancoch",
+    "systemFields": "Systémové údaje",
     "accommodationFields": "Ubytovacie zariadenie",
     "residenceFields": "Ubytovanie",
     "userCooperationType": "Typ spolupráce",

@@ -627,6 +627,8 @@
     "damageCompensationPrice": "Вычет (Сумма)",
     "reinvoicingTariff": "Рефактуризация (Тариф)",
     "reinvoicingPrice": "Рефактуризация (Сумма)",
+    "userFields": "Данные сотрудника",
+    "systemFields": "Системные данные",
     "accommodationFields": "Обьект размещения",
     "residenceFields": "Запись о проживании",
     "userCooperationType": "Тип сотрудничества",

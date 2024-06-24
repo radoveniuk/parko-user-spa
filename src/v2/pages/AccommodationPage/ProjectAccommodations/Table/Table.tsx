@@ -9,9 +9,7 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import { useAuthData } from 'contexts/AuthContext';
 import { iterateMap } from 'helpers/iterateMap';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
-import { IClient } from 'interfaces/client.interface';
 import { IProjectAccommodation } from 'interfaces/projectAccommodation.interface';
-import { IUser } from 'interfaces/users.interface';
 
 import ProjectAccommodationDialog from '../../dialogs/ProjectAccommodationDialog';
 import useProjectAccommodationActions from '../hooks/useProjectAccommodationActions';
@@ -56,12 +54,12 @@ const Table = ({
               <div
                 role="button"
                 className="col-item"
-                onClick={() => void toggleSorting(col.replace('prepayment.', '') as keyof IClient)}
+                onClick={() => void toggleSorting(col.replace('accommodation.', '') as keyof IProjectAccommodation)}
               >
                 {t(col)}
                 <IconButton
                   className={
-                    sorting?.key === (col.replace('client.', '') as keyof IUser)
+                    sorting?.key === (col.replace('accommodation.', '') as keyof IProjectAccommodation)
                       ? `sort-btn active ${sorting.dir}`
                       : 'sort-btn'
                   }

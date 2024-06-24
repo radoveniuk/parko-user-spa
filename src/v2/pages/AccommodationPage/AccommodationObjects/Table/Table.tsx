@@ -12,9 +12,7 @@ import { useAuthData } from 'contexts/AuthContext';
 import { iterateMap } from 'helpers/iterateMap';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IAccommodation } from 'interfaces/accommodation.interface';
-import { IClient } from 'interfaces/client.interface';
 import { IResidence } from 'interfaces/residence.interface';
-import { IUser } from 'interfaces/users.interface';
 
 import { useActiveAccommodation } from '../../contexts/AccommodationContext';
 
@@ -36,8 +34,15 @@ const Table = ({
 
   const { sortedData: sortedAccommodations, sorting, sortingToggler } = useSortedList(data);
 
-  const toggleSorting = (residenceKey: string) => {
-    sortingToggler(residenceKey, residenceKey as SortingValue<IAccommodation>);
+  const toggleSorting = (accommodationKey: string) => {
+    let sortingPath = accommodationKey as SortingValue<IAccommodation>;
+    if (accommodationKey === 'costNight' || accommodationKey === 'costMonth') {
+      sortingPath = (row) => Number(row[accommodationKey]);
+    }
+    if (accommodationKey === 'name') {
+      sortingPath = (row) => row.name || row.owner;
+    }
+    sortingToggler(accommodationKey, sortingPath);
   };
 
   const [, setOpenAccommodation] = useActiveAccommodation();
@@ -59,12 +64,12 @@ const Table = ({
               <div
                 role="button"
                 className="col-item"
-                onClick={() => void toggleSorting(col.replace('prepayment.', '') as keyof IClient)}
+                onClick={() => void toggleSorting(col.replace('accommodation.', '') as keyof IAccommodation)}
               >
                 {t(col)}
                 <IconButton
                   className={
-                    sorting?.key === (col.replace('client.', '') as keyof IUser)
+                    sorting?.key === (col.replace('accommodation.', '') as keyof IAccommodation)
                       ? `sort-btn active ${sorting.dir}`
                       : 'sort-btn'
                   }
@@ -78,10 +83,10 @@ const Table = ({
       >
         {sortedAccommodations.map((item) => (
           <ListTableRow key={item._id}>
-            <ListTableCell>{item.name}</ListTableCell>
+            <ListTableCell>{item.name || item.owner}</ListTableCell>
             <ListTableCell>{item.adress}</ListTableCell>
-            <ListTableCell>{Number(item.costNight).toFixed(2)}€</ListTableCell>
-            <ListTableCell>{Number(item.costMonth).toFixed(2)}€</ListTableCell>
+            <ListTableCell>{Number(item.costNight).toFixed(2).replace('.', ',')}</ListTableCell>
+            <ListTableCell>{Number(item.costMonth).toFixed(2).replace('.', ',')}</ListTableCell>
             <ListTableCell>{item.tariff && t(`selects.accommodationTariff.${item.tariff}`)}</ListTableCell>
             <ListTableCell>{item.managerPhone}</ListTableCell>
             <ListTableCell>{item.receptionPhone}</ListTableCell>

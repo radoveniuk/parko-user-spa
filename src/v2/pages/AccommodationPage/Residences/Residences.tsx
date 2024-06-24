@@ -90,6 +90,7 @@ const Residences = () => {
 
 export default function ResidencesWithFilters () {
   const COLUMNS = [
+    'accommodation.userFullname',
     'accommodation.name',
     'accommodation.adress',
     'accommodation.checkIn',

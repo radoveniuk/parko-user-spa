@@ -632,6 +632,8 @@
     "damageCompensationPrice": "Зражка (Сума)",
     "reinvoicingTariff": "Рефактурація (Тариф)",
     "reinvoicingPrice": "Рефактурація (Сума)",
+    "userFields": "Дані співробітника",
+    "systemFields": "Системні дані",
     "accommodationFields": "Житло",
     "residenceFields": "Запис проживання",
     "userCooperationType": "Тип співпраці",
