@@ -141,6 +141,7 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
                 label={t('user.birthDate')}
                 error={!!errors.birthDate}
                 onBlur={field.onBlur}
+                views={['year', 'month', 'day']}
               />
             )}
           />
