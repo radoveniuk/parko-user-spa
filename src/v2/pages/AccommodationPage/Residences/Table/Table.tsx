@@ -11,6 +11,7 @@ import IconButton from 'v2/uikit/IconButton';
 import Skeleton from 'v2/uikit/Skeleton';
 
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
+import { useGetProjectAccommodations } from 'api/query/projectAccommodationsQuery';
 import { ArrowUpIcon, DeleteIcon, EditIcon } from 'components/icons';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { useAuthData } from 'contexts/AuthContext';
@@ -42,6 +43,12 @@ const Table = ({
   const getDaysDiff = useResidenceDaysDiff();
 
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
+  const [activeCols] = useTableColumns();
+
+  const { data: projectAccommodations = [] } = useGetProjectAccommodations(
+    {},
+    { enabled: activeCols.includes('accommodation.damageCompencationPrice') || activeCols.includes('accommodation.reinvoicingPrice') },
+  );
 
   const toggleSorting = (residenceKey: string) => {
     let sortingPath = residenceKey as SortingValue<IResidence>;
@@ -87,8 +94,6 @@ const Table = ({
   const [, setOpenResidence] = useActiveResidence();
   const deleteResidence = useDeleteResidence();
   const [idToDelete, setIdToDelete] = useState<string | null>(null);
-
-  const [activeCols] = useTableColumns();
 
   const generateCellContent = useGetTableCellContent();
 

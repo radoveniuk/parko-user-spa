@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTableColumns } from 'v2/contexts/TableColumnsContext';
 import { getCurrencyString } from 'v2/helpers/currency';
 
+import { useGetProjectAccommodations } from 'api/query/projectAccommodationsQuery';
 import { getDateFromIso } from 'helpers/datetime';
 import { IAccommodation } from 'interfaces/accommodation.interface';
 import { IClient } from 'interfaces/client.interface';
@@ -28,10 +30,17 @@ export type TableColumnKey ='adress'
 |'updatedBy'
 |'createdAt'
 |'updatedAt'
+|'damageCompencationPrice'
+|'reinvoicingPrice'
 
 const useGetTableCellContent = () => {
   const { t } = useTranslation();
   const getDaysDiff = useResidenceDaysDiff();
+  const [activeCols] = useTableColumns();
+  const { data: projectAccommodations = [] } = useGetProjectAccommodations(
+    {},
+    { enabled: activeCols.includes('accommodation.damageCompencationPrice') || activeCols.includes('accommodation.reinvoicingPrice') },
+  );
 
   const generateCellContent = useCallback((row: IResidence, key: TableColumnKey) => {
     if (key === 'adress') {
@@ -45,6 +54,17 @@ const useGetTableCellContent = () => {
     if (key === 'costNight' || key === 'costMonth') {
       const accommodation = (row.accommodation as IAccommodation);
       return getCurrencyString(accommodation[key]);
+    }
+    if (key === 'damageCompencationPrice' || key === 'reinvoicingPrice') {
+      const projectAccommodation = projectAccommodations.find(
+        (projectAccommodationItem) => projectAccommodationItem.accommodation._id === (row.accommodation as IAccommodation)._id,
+      );
+      if (!projectAccommodation) return null;
+      let dailyValue = Number(projectAccommodation[key]);
+      if (projectAccommodation[key.replace('Price', 'Tariff') as keyof typeof projectAccommodation] === 'month') {
+        dailyValue = dailyValue / 30;
+      }
+      return getCurrencyString(dailyValue * (getDaysDiff(row) || 0));
     }
     if (key === 'checkIn' || key === 'checkOut') {
       const residenceKey = `${key}Date` as keyof IResidence;
@@ -80,7 +100,7 @@ const useGetTableCellContent = () => {
     }
 
     return row[key as keyof typeof row] as string;
-  }, [getDaysDiff, t]);
+  }, [getDaysDiff, projectAccommodations, t]);
 
   return generateCellContent;
 };

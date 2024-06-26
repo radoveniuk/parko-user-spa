@@ -29,6 +29,10 @@ const COLS_TREE = {
     'accommodation.costMonth',
     'accommodation.sum',
   ],
+  projectAccommodations: [
+    'accommodation.damageCompencationPrice',
+    'accommodation.reinvoicingPrice',
+  ],
   systemFields: [
     'accommodation.createdBy',
     'accommodation.updatedBy',

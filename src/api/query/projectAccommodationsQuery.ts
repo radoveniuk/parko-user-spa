@@ -14,7 +14,7 @@ export const useGetProjectAccommodations = (params: Partial<IProjectAccommodatio
       ...params,
     },
   }).then(res => res.data.data as IProjectAccommodation<true>[]);
-  return useQuery(['projectAccommodations', JSON.stringify(params)], request, { initialData: [], ...queryOptions });
+  return useQuery(['projectAccommodations', JSON.stringify(params)], request, { staleTime: 300_000, ...queryOptions });
 };
 
 export const useGetProjectAccommodation = (id: string) => {
