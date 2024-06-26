@@ -7,6 +7,7 @@ import { DateTime } from 'luxon';
 import { useSnackbar } from 'notistack';
 import { BROKERS } from 'v2/constants/brokers';
 import { getProjectType, PROJECT_TYPES } from 'v2/constants/projectType';
+import { getCurrencyString } from 'v2/helpers/currency';
 import { Button, Checkbox, Input } from 'v2/uikit';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog from 'v2/uikit/Dialog';
@@ -288,7 +289,7 @@ const EmploymentCard = ({ data, projects, clients, onChange, onDelete, recruiter
                         Zmennosť: {position?.variability}
                       </div>
                       <div className="row">
-                        Mzda: {Number(position?.salary).toFixed(2).replace('.', ',')} €/{position?.salaryType}
+                        Mzda: {getCurrencyString(position?.salary)}/{position?.salaryType}
                       </div>
                       <div className="row">
                         Pracovný fond:

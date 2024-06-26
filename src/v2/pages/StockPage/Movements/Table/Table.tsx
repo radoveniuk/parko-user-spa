@@ -2,6 +2,7 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTableColumns } from 'v2/contexts/TableColumnsContext';
 import { useTableSelectedItems } from 'v2/contexts/TableSelectedItemsContext';
+import { getCurrencyString } from 'v2/helpers/currency';
 import { Checkbox } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
@@ -98,7 +99,7 @@ const Table = ({
       );
     }
     if (col === 'price') {
-      return `${rowData.property.price.toFixed(2).toString().replace('.', ',')} €`;
+      return getCurrencyString(rowData.property.price);
     }
     if (col === 'type') {
       return t(`selects.propertyMovementType.${rowData.type}`);
@@ -138,8 +139,8 @@ const Table = ({
     const count = sortedData.reduce((accumulator, currentValue) => accumulator + Number(currentValue.count), 0);
 
     return {
-      price: `${price.toFixed(2).toString().replace('.', ',')} €`,
-      damageCompencationPrice: `${damageCompencationPrice.toFixed(2).toString().replace('.', ',')} €`,
+      price: getCurrencyString(price),
+      damageCompencationPrice: getCurrencyString(damageCompencationPrice),
       count,
     } as Record<string, number | string>;
   }, [sortedData]);

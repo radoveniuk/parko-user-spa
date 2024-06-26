@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import { getCurrencyString } from 'v2/helpers/currency';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import Skeleton from 'v2/uikit/Skeleton';
@@ -85,8 +86,8 @@ const Table = ({
           <ListTableRow key={item._id}>
             <ListTableCell>{item.name || item.owner}</ListTableCell>
             <ListTableCell>{item.adress}</ListTableCell>
-            <ListTableCell>{Number(item.costNight).toFixed(2).replace('.', ',')}</ListTableCell>
-            <ListTableCell>{Number(item.costMonth).toFixed(2).replace('.', ',')}</ListTableCell>
+            <ListTableCell>{getCurrencyString(item.costNight)}</ListTableCell>
+            <ListTableCell>{getCurrencyString(item.costMonth)}</ListTableCell>
             <ListTableCell>{item.tariff && t(`selects.accommodationTariff.${item.tariff}`)}</ListTableCell>
             <ListTableCell>{item.managerPhone}</ListTableCell>
             <ListTableCell>{item.receptionPhone}</ListTableCell>

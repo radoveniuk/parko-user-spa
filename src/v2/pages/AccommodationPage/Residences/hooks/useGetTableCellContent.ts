@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getCurrencyString } from 'v2/helpers/currency';
 
 import { getDateFromIso } from 'helpers/datetime';
 import { IAccommodation } from 'interfaces/accommodation.interface';
@@ -43,7 +44,7 @@ const useGetTableCellContent = () => {
     }
     if (key === 'costNight' || key === 'costMonth') {
       const accommodation = (row.accommodation as IAccommodation);
-      return Number(accommodation[key]).toFixed(2).replace('.', ',');
+      return getCurrencyString(accommodation[key]);
     }
     if (key === 'checkIn' || key === 'checkOut') {
       const residenceKey = `${key}Date` as keyof IResidence;
@@ -54,7 +55,7 @@ const useGetTableCellContent = () => {
     }
     if (key === 'sum') {
       const sum = (getDaysDiff(row) || 0) * Number((row.accommodation as IAccommodation).costNight);
-      return sum.toFixed(2).replace('.', ',');
+      return getCurrencyString(sum);
     }
     if (key === 'client') {
       return (row.client as IClient)?.shortName;

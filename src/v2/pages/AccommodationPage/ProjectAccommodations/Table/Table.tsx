@@ -15,6 +15,7 @@ import ProjectAccommodationDialog from '../../dialogs/ProjectAccommodationDialog
 import useProjectAccommodationActions from '../hooks/useProjectAccommodationActions';
 
 import { TableWrapper } from './styles';
+import { getCurrencyString } from 'v2/helpers/currency';
 
 type Props = {
   activeCols: string[];
@@ -81,6 +82,11 @@ const Table = ({
             </ListTableCell>
             <ListTableCell>{item.accommodation.name}</ListTableCell>
             <ListTableCell>{item.accommodation.adress}</ListTableCell>
+            <ListTableCell>{item.payer.shortName}</ListTableCell>
+            <ListTableCell>{t(`selects.projectAccommodationTariff.${item.damageCompencationTariff}`)}</ListTableCell>
+            <ListTableCell>{getCurrencyString(item.damageCompencationPrice)}</ListTableCell>
+            <ListTableCell>{t(`selects.projectAccommodationTariff.${item.reinvoicingTariff}`)}</ListTableCell>
+            <ListTableCell>{getCurrencyString(item.reinvoicingPrice)}</ListTableCell>
             <ListTableCell align="right">
               {permissions.includes('accommodations:update') && (
                 <IconButton onClick={() => void setRowToUpdate(item)}><EditIcon /></IconButton>

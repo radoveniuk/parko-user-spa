@@ -15,6 +15,11 @@ const COLUMNS = [
   'accommodation.project',
   'accommodation.name',
   'accommodation.adress',
+  'accommodation.payer',
+  'accommodation.damageCompencationTariff',
+  'accommodation.damageCompencationPrice',
+  'accommodation.reinvoicingTariff',
+  'accommodation.reinvoicingPrice',
   '',
 ];
 

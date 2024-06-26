@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Validate } from 'react-hook-form';
+import { getCurrencyString } from 'v2/helpers/currency';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { getDateFromIso } from 'helpers/datetime';
@@ -204,7 +205,7 @@ export const WORK_FIELDS: UserFieldsList = {
   },
   salary: {
     type: 'readonly',
-    render: (data) => data ? `${Number(data).toFixed(2).toString().replace('.', ',')} €` : '',
+    render: (data) => data ? getCurrencyString(data) : '',
   },
   salaryType: {
     type: 'readonly',
