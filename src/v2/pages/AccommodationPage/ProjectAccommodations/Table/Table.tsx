@@ -1,5 +1,6 @@
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getCurrencyString } from 'v2/helpers/currency';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import Skeleton from 'v2/uikit/Skeleton';
@@ -15,7 +16,6 @@ import ProjectAccommodationDialog from '../../dialogs/ProjectAccommodationDialog
 import useProjectAccommodationActions from '../hooks/useProjectAccommodationActions';
 
 import { TableWrapper } from './styles';
-import { getCurrencyString } from 'v2/helpers/currency';
 
 type Props = {
   activeCols: string[];
