@@ -2,6 +2,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import { DateTime } from 'luxon';
 import { COUNTRIES } from 'v2/constants/countries';
 import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import { Button, Input } from 'v2/uikit';
@@ -136,8 +137,8 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             render={({ field }) => (
               <DatePicker
                 inputProps={{ theme: 'gray' }}
-                defaultValue={field.value}
-                onChange={field.onChange}
+                defaultValue={DateTime.fromISO(field.value).toISODate()}
+                onChange={(v) => field.onChange(DateTime.fromISO(v).toISODate())}
                 label={t('user.birthDate')}
                 error={!!errors.birthDate}
                 onBlur={field.onBlur}
@@ -166,12 +167,12 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
             name="adress"
             control={control}
             rules={{
-              validate: (address: string) => {
-                return true;
+              validate: (address: string) =>
+                true
                 // eslint-disable-next-line no-useless-escape, max-len
-                const pattern = /^[\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+ \d+(\/\d+[a-zA-Z]?)?, \d{4,5} [\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+$/;
-                return address ? pattern.test(address) || t('errorTexts.addressFormat') : true;
-              },
+                // const pattern = /^[\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+ \d+(\/\d+[a-zA-Z]?)?, \d{4,5} [\w\u00C0-\u00ff\u0100-\u017F\u0180-\u024F\s',.-]+$/;
+                // return address ? pattern.test(address) || t('errorTexts.addressFormat') : true;
+              ,
             }}
             render={({ field, fieldState }) => (
               <AddressSearchInput
