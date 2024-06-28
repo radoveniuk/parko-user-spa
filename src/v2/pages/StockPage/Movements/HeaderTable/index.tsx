@@ -38,16 +38,16 @@ const HeaderTable = ({ data }: Props) => {
   const movementsToExport = useMemo(() => selectedItems.map((movement: IPropertyMovement<true>) => {
     const rowData: AnyObject = {};
 
-    const getCellContent = (rowData: IPropertyMovement<true>, col: keyof IPropertyMovement) => {
+    const getCellContent = (rowData: IPropertyMovement<true>, col: string) => {
       if (['user', 'recorder', 'createdBy', 'updatedBy'].includes(col)) {
-        const value = rowData[col] as IUser;
+        const value = rowData[col as keyof typeof rowData] as IUser;
         return value?.fullname;
       }
       if (['createdAt', 'updatedAt'].includes(col)) {
-        return getDateFromIso(rowData[col], 'dd.mm.yyyy HH:mm');
+        return getDateFromIso(rowData[col as keyof typeof rowData], 'dd.mm.yyyy HH:mm');
       }
       if (['client', 'contractor'].includes(col)) {
-        const value = rowData[col] as IClient;
+        const value = rowData[col as keyof typeof rowData] as IClient;
         return value?.shortName;
       }
       if (col === 'project') {
@@ -65,21 +65,36 @@ const HeaderTable = ({ data }: Props) => {
       if (col === 'userStatus') {
         return t(`selects.userStatus.${rowData.userStatus}`);
       }
-      if (['userCooperationStartDate', 'date'].includes(col)) {
-        return getDateFromIso(rowData[col] as string);
+      if (col === 'userWorkTypes') {
+        return rowData.userWorkTypes.map(wt => t(`selects.userWorkType.${wt}`)).join(',');
+      }
+      if (col === 'distributorName') {
+        return rowData.property.distributorName;
+      }
+      if (col === 'distributorICO') {
+        return rowData.property.distributorICO;
+      }
+      if (col === 'price') {
+        return `${rowData.property.price.toFixed(2).toString().replace('.', ',')} €`;
+      }
+      if (['userCooperationStartDate', 'userCooperationEndDate', 'date'].includes(col)) {
+        return getDateFromIso(rowData[col as keyof typeof rowData] as string);
       }
       if (['receiver', 'createdBy', 'updatedBy'].includes(col)) {
-        return (rowData[col] as IUser)?.fullname;
+        return (rowData[col as keyof typeof rowData] as IUser)?.fullname;
       }
-      return rowData[col] as string | number;
+      return rowData[col as keyof typeof rowData] as string | number;
     };
 
-    for (const col in movement) {
-      rowData[col] = getCellContent(movement, col as keyof IPropertyMovement);
-    }
+    activeCols.forEach((c) => {
+      const col = c.replace('stock.', '');
+      rowData[col] = getCellContent(movement, col);
+    });
 
     return pick(rowData, colsToExport) as Partial<IPropertyMovement>;
-  }), [colsToExport, selectedItems, t]);
+  }), [activeCols, colsToExport, selectedItems, t]);
+
+  console.log(movementsToExport);
 
   const exportData = useExportData({
     data: movementsToExport,

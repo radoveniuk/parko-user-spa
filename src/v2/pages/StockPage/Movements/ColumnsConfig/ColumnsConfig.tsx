@@ -22,7 +22,7 @@ const COLS_TREE = {
     'stock.project',
     'stock.client',
     'stock.userStatus',
-    'stock.userCooperationType',
+    'stock.userWorkTypes',
     'stock.userCooperationStartDate',
     'stock.userCooperationEndDate',
   ],

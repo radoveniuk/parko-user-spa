@@ -105,10 +105,13 @@ const Table = ({
     if (col === 'writeoffReason') {
       return rowData.writeoffReason ? t(`selects.writeOffReason.${rowData.writeoffReason}`) : '';
     }
+    if (col === 'userWorkTypes') {
+      return rowData.userWorkTypes.map(wt => t(`selects.userWorkType.${wt}`)).join(',');
+    }
     if (col === 'userStatus') {
       return <StatusLabel className={rowData.userStatus}>{t(`selects.userStatus.${rowData.userStatus}`)}</StatusLabel>;
     }
-    if (['userCooperationStartDate', 'date'].includes(col)) {
+    if (['userCooperationStartDate', 'userCooperationEndDate', 'date'].includes(col)) {
       return getDateFromIso(rowData[col as keyof typeof rowData] as string);
     }
     if (['receiver', 'createdBy', 'updatedBy'].includes(col)) {
