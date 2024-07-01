@@ -103,7 +103,7 @@ const ProjectAccommodationDialog = ({ data, onClose, ...rest }:Props) => {
                 options={accommodations}
                 required
                 label={t('accommodation.object')}
-                labelKey="adress"
+                getOptionLabel={row => row.name || row.adress}
                 valueKey="_id"
                 onChange={(v) => void field.onChange(v?._id || '')}
                 error={!!fieldState.error}

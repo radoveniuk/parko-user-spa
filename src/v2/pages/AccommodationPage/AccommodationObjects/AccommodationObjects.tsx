@@ -16,9 +16,12 @@ import Table from './Table';
 const COLUMNS = [
   'accommodation.name',
   'accommodation.adress',
+  'accommodation.businessName',
+  'accommodation.ICO',
   'accommodation.costNight',
   'accommodation.costMonth',
   'accommodation.tariff',
+  'accommodation.email',
   'accommodation.managerPhone',
   'accommodation.receptionPhone',
   'comment',

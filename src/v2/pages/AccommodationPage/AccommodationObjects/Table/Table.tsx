@@ -86,9 +86,12 @@ const Table = ({
           <ListTableRow key={item._id}>
             <ListTableCell>{item.name || item.owner}</ListTableCell>
             <ListTableCell>{item.adress}</ListTableCell>
+            <ListTableCell>{item.businessName}</ListTableCell>
+            <ListTableCell>{item.ICO}</ListTableCell>
             <ListTableCell>{getCurrencyString(item.costNight)}</ListTableCell>
             <ListTableCell>{getCurrencyString(item.costMonth)}</ListTableCell>
             <ListTableCell>{item.tariff && t(`selects.accommodationTariff.${item.tariff}`)}</ListTableCell>
+            <ListTableCell>{item.email}</ListTableCell>
             <ListTableCell>{item.managerPhone}</ListTableCell>
             <ListTableCell>{item.receptionPhone}</ListTableCell>
             <ListTableCell>{item.comment}</ListTableCell>

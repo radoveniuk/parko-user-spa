@@ -13,5 +13,5 @@ export const useGetEmployments = (params: Partial<IEmployment> = {}) => {
       ...params,
     },
   }).then(res => res.data.data);
-  return useQuery(['employments', JSON.stringify(params)], request, { initialData: [] });
+  return useQuery(['employments', JSON.stringify(params)], request, { staleTime: 300_000 });
 };

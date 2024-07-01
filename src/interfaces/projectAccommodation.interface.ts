@@ -8,8 +8,8 @@ export interface IProjectAccommodation<T extends boolean = false> extends IMongo
   project: T extends true ? Pick<IProject, '_id' | 'name'> : string;
   accommodation: T extends true ? Pick<IAccommodation, '_id' | 'name' | 'adress'> : string;
   damageCompencationPrice: number;
-  damageCompencationTariff: number;
+  damageCompencationTariff: 'month' | 'night';
   reinvoicingPrice: number;
-  reinvoicingTariff: number;
+  reinvoicingTariff: 'month' | 'night';
   payer: T extends true ? Pick<IClient, '_id' | 'shortName'> : string;
 }

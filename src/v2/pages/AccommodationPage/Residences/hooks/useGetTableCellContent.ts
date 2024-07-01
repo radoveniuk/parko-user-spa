@@ -32,6 +32,7 @@ export type TableColumnKey ='adress'
 |'updatedAt'
 |'damageCompencationPrice'
 |'reinvoicingPrice'
+|'userFullname'
 
 const useGetTableCellContent = () => {
   const { t } = useTranslation();
@@ -57,7 +58,10 @@ const useGetTableCellContent = () => {
     }
     if (key === 'damageCompencationPrice' || key === 'reinvoicingPrice') {
       const projectAccommodation = projectAccommodations.find(
-        (projectAccommodationItem) => projectAccommodationItem.accommodation._id === (row.accommodation as IAccommodation)._id,
+        (projectAccommodationItem) => (
+          projectAccommodationItem.accommodation._id === (row.accommodation as IAccommodation)._id &&
+            projectAccommodationItem.project._id === (row.project as IProject)?._id
+        ),
       );
       if (!projectAccommodation) return null;
       let dailyValue = Number(projectAccommodation[key]);

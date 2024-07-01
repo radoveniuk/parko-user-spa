@@ -1,23 +1,30 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
+import { Link } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import { useFilters } from 'v2/components/Filters';
 import { useTableColumns } from 'v2/contexts/TableColumnsContext';
 import { useTableSelectedItems } from 'v2/contexts/TableSelectedItemsContext';
+import { getCurrencyString } from 'v2/helpers/currency';
 import { Checkbox } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import Skeleton from 'v2/uikit/Skeleton';
+import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { useDeleteResidence } from 'api/mutations/residenceMutation';
+import { useGetProjectAccommodations } from 'api/query/projectAccommodationsQuery';
 import { ArrowUpIcon, DeleteIcon, EditIcon } from 'components/icons';
 import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTable';
 import { useAuthData } from 'contexts/AuthContext';
 import { iterateMap } from 'helpers/iterateMap';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IAccommodation } from 'interfaces/accommodation.interface';
+import { IProject } from 'interfaces/project.interface';
+import { IProjectAccommodation } from 'interfaces/projectAccommodation.interface';
 import { IResidence } from 'interfaces/residence.interface';
+import { IUser } from 'interfaces/users.interface';
 
 import { useActiveResidence } from '../../contexts/ResidenceContext';
 import useGetTableCellContent, { TableColumnKey } from '../hooks/useGetTableCellContent';
@@ -43,6 +50,11 @@ const Table = ({
 
   const { sortedData, sorting, sortingToggler } = useSortedList(data);
   const [activeCols] = useTableColumns();
+
+  const { data: projectAccommodations = [] } = useGetProjectAccommodations(
+    {},
+    { enabled: activeCols.includes('accommodation.damageCompencationPrice') || activeCols.includes('accommodation.reinvoicingPrice') },
+  );
 
   const toggleSorting = (residenceKey: string) => {
     let sortingPath = residenceKey as SortingValue<IResidence>;
@@ -91,12 +103,63 @@ const Table = ({
 
   const generateCellContent = useGetTableCellContent();
 
+  const generateCellContentUI = useCallback((residence: IResidence, col: string) => {
+    const column = col.replace('accommodation.', '') as TableColumnKey;
+    const content = generateCellContent(residence, column);
+    if (column === 'userStatus') {
+      return <StatusLabel className={residence.userStatus}>{content}</StatusLabel>;
+    }
+    if (column === 'userFullname') {
+      return <Link to={`/profile/${(residence.user as IUser)._id}`}>{content}</Link>;
+    }
+    return generateCellContent(residence, column);
+  }, [generateCellContent]);
   // select items
   const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems();
 
   const selectRowChangeHandler = useCallback((row: IResidence) => () => {
     toggleSelectedRow(row);
   }, [toggleSelectedRow]);
+
+  // calc columns totals
+  const totals = useMemo(() => {
+    const days = sortedData.reduce((accumulator, currentValue) => accumulator + (getDaysDiff(currentValue) || 0), 0);
+    const costNight =
+      sortedData.reduce((accumulator, currentValue) => accumulator + Number((currentValue.accommodation as IAccommodation).costNight), 0);
+    const costMonth =
+      sortedData.reduce((accumulator, currentValue) => accumulator + Number((currentValue.accommodation as IAccommodation).costMonth), 0);
+    const sum =
+      // eslint-disable-next-line max-len
+      sortedData.reduce((accumulator, currentValue) => accumulator + Number((getDaysDiff(currentValue) || 0) * Number((currentValue.accommodation as IAccommodation).costNight)), 0);
+
+    const getProjectccommodationMetric = (metricName: 'reinvocing' | 'damageCompencation') => sortedData.reduce((accumulator, currentValue) => {
+      const priceKey = `${metricName}Price` as keyof IProjectAccommodation;
+      const tariffKey = `${metricName}Tariff` as keyof IProjectAccommodation;
+      const projectAccommodation = projectAccommodations.find(
+        (projectAccommodationItem) => (
+          projectAccommodationItem.accommodation._id === (currentValue.accommodation as IAccommodation)._id &&
+              projectAccommodationItem.project._id === (currentValue.project as IProject)?._id
+        ),
+      );
+      const days = getDaysDiff(currentValue) || 0;
+
+      if (!projectAccommodation) return accumulator;
+      let dailyValue = Number(projectAccommodation[priceKey]);
+      if (projectAccommodation[tariffKey] === 'month') {
+        dailyValue = dailyValue / 30;
+      }
+      return accumulator + (days * dailyValue);
+    }, 0);
+
+    return {
+      days: days,
+      costNight: getCurrencyString(costNight),
+      costMonth: getCurrencyString(costMonth),
+      sum: getCurrencyString(sum),
+      reinvoicingPrice: getCurrencyString(getProjectccommodationMetric('reinvocing')),
+      damageCompencationPrice: getCurrencyString(getProjectccommodationMetric('damageCompencation')),
+    } as Record<string, number | string>;
+  }, [getDaysDiff, projectAccommodations, sortedData]);
 
   return (
     <TableWrapper>
@@ -105,16 +168,17 @@ const Table = ({
         className="residences-table"
         columnComponent={(col) => {
           if (col) {
+            const keyCol = col.replace('accommodation.', '');
             return (
               <div
                 role="button"
                 className="col-item"
-                onClick={() => void toggleSorting(col.replace('accommodation.', ''))}
+                onClick={() => void toggleSorting(keyCol)}
               >
-                {t(col)}
+                {t(col)} {keyCol in totals ? `(${totals[keyCol]})` : ''}
                 <IconButton
                   className={
-                    sorting?.key === (col.replace('accommodation.', ''))
+                    sorting?.key === (keyCol)
                       ? `sort-btn active ${sorting.dir}`
                       : 'sort-btn'
                   }
@@ -136,7 +200,7 @@ const Table = ({
             </ListTableCell>
             {activeCols.map((col) => (
               <ListTableCell key={col}>
-                {generateCellContent(item, col.replace('accommodation.', '') as TableColumnKey)}
+                {generateCellContentUI(item, col)}
               </ListTableCell>
             ))}
             <ListTableCell align="right">
