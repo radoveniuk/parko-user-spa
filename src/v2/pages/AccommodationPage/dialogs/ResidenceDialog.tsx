@@ -31,7 +31,7 @@ const ResidenceDialog = ({ data, onClose, ...rest }:Props) => {
     },
   });
   const { data: accommodations = [] } = useGetAccommodations();
-  const { data: users = [], isFetching, isLoading } = useGetUserList({ role: 'user' });
+  const { data: users = [], isFetching, isLoading } = useGetUserList();
   const [notificateOwner, setNotificateOwner] = useState<boolean>(!data?.checkOutDate);
   const createResidence = useCreateResidence();
   const updateResidence = useUpdateResidence();
