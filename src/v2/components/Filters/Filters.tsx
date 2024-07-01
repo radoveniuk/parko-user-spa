@@ -56,7 +56,7 @@ export const FilterDate = ({ filterKey, label, ...rest }: Required<FilterProps> 
 
 type FilterAutocompleteProps = FilterProps & AutocompleteProps;
 
-export const FilterAutocomplete = ({ filterKey, options = [], ...rest }: FilterAutocompleteProps) => {
+export const FilterAutocomplete = ({ filterKey, options = [], onChange, ...rest }: FilterAutocompleteProps) => {
   const [value, setValue] = useFilterState(filterKey);
 
   return (
@@ -72,6 +72,7 @@ export const FilterAutocomplete = ({ filterKey, options = [], ...rest }: FilterA
       onChange={(v) => {
         const newValue = rest.multiple ? v.map((item: MongoEntity) => item._id).toString() : v?._id || null;
         setValue(newValue || null);
+        onChange?.(v);
       }}
     />
   );

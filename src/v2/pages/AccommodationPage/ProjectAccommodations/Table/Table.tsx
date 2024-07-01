@@ -75,10 +75,10 @@ const Table = ({
         {sortedData.map((item: IProjectAccommodation<true>) => (
           <ListTableRow key={item._id}>
             <ListTableCell>
-              {item.project.name}
+              {item.client.shortName}
             </ListTableCell>
             <ListTableCell>
-              {item.client.shortName}
+              {item.project.name}
             </ListTableCell>
             <ListTableCell>{item.accommodation.name}</ListTableCell>
             <ListTableCell>{item.accommodation.adress}</ListTableCell>

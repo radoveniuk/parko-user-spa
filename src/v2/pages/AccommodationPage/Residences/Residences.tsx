@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiltersProvider, useFilters } from 'v2/components/Filters';
-import { ClearFiltersButton, FilterAutocomplete, FilterDate, FilterSelect, FilterText } from 'v2/components/Filters/Filters';
+import { ClearFiltersButton, FilterAutocomplete, FilterDate, FilterSelect } from 'v2/components/Filters/Filters';
 import { TableColumnsProvider, useTableColumns } from 'v2/contexts/TableColumnsContext';
 import { TableSelectedItemsProvider } from 'v2/contexts/TableSelectedItemsContext';
 
@@ -9,6 +9,7 @@ import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { useGetResidenceFilterLists, useGetResidences } from 'api/query/residenceQuery';
 import usePrev from 'hooks/usePrev';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
+import { IClient } from 'interfaces/client.interface';
 
 import { useActiveResidence } from '../contexts/ResidenceContext';
 
@@ -19,7 +20,7 @@ import Table from './Table';
 
 const Residences = () => {
   const { t } = useTranslation();
-  const { debouncedFiltersState } = useFilters();
+  const { debouncedFiltersState, removeFilter } = useFilters();
   const { data: filters, refetch: refetchFilters } = useGetResidenceFilterLists();
   const { data: accommodations = [] } = useGetAccommodations();
   const activeOptions = useTranslatedSelect(['true', 'false']);
@@ -54,15 +55,28 @@ const Residences = () => {
               getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
             />
           )}
+          {filters?.clients && (
+            <FilterAutocomplete
+              filterKey="client"
+              label={t('user.client')}
+              options={filters.clients}
+              labelKey="shortName"
+              multiple
+              onChange={() => {
+                removeFilter('project');
+              }}
+            />
+          )}
           {filters?.projects && (
             <FilterAutocomplete
               filterKey="project"
               label={t('user.project')}
-              options={filters.projects}
-              getOptionLabel={(item) => `${item.client ? `${item.client.name} > ` : ''}${item?.name}`}
+              options={filters.projects.filter(project => debouncedFiltersState?.client?.includes((project.client as IClient)._id))}
+              getOptionLabel={(item) => `${item.client.shortName} > ${item?.name}`}
+              disabled={!debouncedFiltersState?.client}
+              multiple
             />
           )}
-          <FilterText filterKey="accommodationOwner" label={t('accommodation.name')} />
           <FilterAutocomplete
             filterKey="accommodation"
             label={t('accommodation.adress')}
