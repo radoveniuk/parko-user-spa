@@ -9,9 +9,9 @@ import { ColsSettingsWrapper } from './styles';
 
 const COLS_TREE = {
   userFields: [
+    'accommodation.userFullname',
     'accommodation.client',
     'accommodation.project',
-    'accommodation.userFullname',
     'accommodation.userStatus',
     'accommodation.userCooperationType',
     'accommodation.userCooperationStartDate',
