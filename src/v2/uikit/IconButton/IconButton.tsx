@@ -1,13 +1,15 @@
 import React, { ForwardedRef, forwardRef, memo } from 'react';
-import { IconButton as IconButtonMaterial, IconButtonProps } from '@mui/material';
+import { IconButtonProps } from '@mui/material';
+
+import { StyledIconButton } from './styles';
 
 const IconButton = forwardRef(({ children, ...rest }: IconButtonProps, ref: ForwardedRef<HTMLButtonElement>) => (
-  <IconButtonMaterial
+  <StyledIconButton
     {...rest}
     ref={ref}
   >
     {children}
-  </IconButtonMaterial>
+  </StyledIconButton>
 ));
 
 IconButton.displayName = 'IconButton';
