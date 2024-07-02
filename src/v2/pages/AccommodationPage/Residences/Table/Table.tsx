@@ -94,6 +94,24 @@ const Table = ({
     if (residenceKey === 'createdBy' || residenceKey === 'updatedBy') {
       sortingPath = `${residenceKey}.fullname`;
     }
+    if (residenceKey === 'damageCompencationPriceTotal' || residenceKey === 'reinvoicingPriceTotal') {
+      sortingPath = (row) => {
+        const projectAccommodation = projectAccommodations.find(
+          (projectAccommodationItem) => (
+            projectAccommodationItem.accommodation._id === (row.accommodation as IAccommodation)._id &&
+                projectAccommodationItem.project._id === (row.project as IProject)?._id
+          ),
+        );
+
+        if (!projectAccommodation) return null;
+        const days = getDaysDiff(row) || 0;
+        let dailyValue = Number(projectAccommodation[residenceKey.replace('Total', '') as keyof typeof projectAccommodation]);
+        if (projectAccommodation[residenceKey.replace('PriceTotal', 'Tariff') as keyof typeof projectAccommodation] === 'month') {
+          dailyValue = dailyValue / 30;
+        }
+        return dailyValue * days;
+      };
+    }
     sortingToggler(residenceKey, sortingPath);
   };
 
