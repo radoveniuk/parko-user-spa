@@ -14,7 +14,7 @@ export const useGetProperties = (params: AnyObject = {}, queryOptions: AnyObject
       ...params,
     },
   }).then(res => res.data.data);
-  return useQuery(['properties', JSON.stringify(params)], request, { staleTime: 30000, ...queryOptions });
+  return useQuery(['properties', JSON.stringify(params)], request, { staleTime: 300000, ...queryOptions });
 };
 
 export const useGetPropertiesFilters = (params: AnyObject = {}, queryOptions: AnyObject = {}) => {

@@ -2,6 +2,7 @@ import { useQuery } from 'react-query';
 
 import api from 'api/common';
 import { AnyObject } from 'interfaces/base.types';
+import { IClient } from 'interfaces/client.interface';
 import { IProject } from 'interfaces/project.interface';
 import { QueryOptions } from 'interfaces/query.types';
 import { IResidence } from 'interfaces/residence.interface';
@@ -28,7 +29,7 @@ export const useGetResidence = (id: string) => {
 };
 
 export const useGetResidenceFilterLists = () => {
-  const request = (): Promise<{users: IUser[], projects: IProject[]}> => api.get('/residences-filter-lists')
+  const request = (): Promise<{users: IUser[], projects: IProject[], clients: IClient[], addresses: string[], businessNames: string[]}> => api.get('/residences-filter-lists')
     .then(res => res.data.data);
   return useQuery(
     ['residence', 'filters'],

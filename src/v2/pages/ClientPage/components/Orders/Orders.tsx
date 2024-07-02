@@ -40,8 +40,8 @@ const Orders = ({ orders, projects }: Props) => {
 
   // filters
   const { data: filterList = [] } = useGetOrders();
-  const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus');
-  const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
+  const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus', true, false);
+  const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType', true, false);
 
   const [idsFilter, setIdsFilter] = useState<IOrder[]>([]);
   const [statusFilter, setStatusFilter] = useState<{_id: string}[]>([]);

@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
+import { getCurrencyString } from 'v2/helpers/currency';
 import Checkbox from 'v2/uikit/Checkbox';
 import Dialog from 'v2/uikit/Dialog';
 import IconButton from 'v2/uikit/IconButton';
@@ -72,7 +73,7 @@ const InfoRow = () => {
             t(`selects.userStatus.${data.status}`));
         }
         if (userField === 'salary') {
-          return createTableCell(data.salary ? `${Number(data.salary).toFixed(2).toString().replace('.', ',')} €` : '');
+          return createTableCell(data.salary ? getCurrencyString(data.salary) : '');
         }
         if (typeof data[userField as keyof IUser] === 'boolean' || userField === 'sex') {
           return createTableCell(t(data[userField as keyof IUser]));
@@ -102,7 +103,7 @@ const InfoRow = () => {
               : '',
           );
         }
-        if (/\b(?:idcard.|visa.|permit.|pass.)\b/i.test(userField)) {
+        if (/\b(?:idcard.|visa.|permit.|longtermstay.|pass.)\b/i.test(userField)) {
           const docType = userField.split('.')[0];
           const docValueKey = userField.split('.')[1];
           const doc = data.docs?.find(doc => doc.type === docType);

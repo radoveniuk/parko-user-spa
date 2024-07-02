@@ -1,13 +1,17 @@
-export interface IAccommodation {
-  _id: string;
+import { IMongoDoc } from './base.types';
+
+export interface IAccommodation extends IMongoDoc {
   email: string;
   comment: string;
   costNight: string;
   costMonth: string;
   tariff: string;
-  owner: string;
   adress: string;
   managerPhone: string;
   receptionPhone: string;
-  createdAt?: string;
+  name: string;
+  owner?: string;
+  businessName: string;
+  ICO: string;
+  calculationType: 'night' | 'day';
 }

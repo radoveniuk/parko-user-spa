@@ -117,6 +117,17 @@ const Pass = ({ data, disabled, onUpdate, triggerAllFields }: Props) => {
             />
           )}
         />
+        <Input
+          className="fullwidth"
+          label={t('user.adress')}
+          disabled={disabled}
+          error={!!errors.address}
+          {...register('address', {
+            onChange (e) {
+              onUpdate?.({ ...values, address: e.target.value });
+            },
+          })}
+        />
       </div>
     </DocForm>
   );

@@ -224,11 +224,19 @@
       "isMedicalCheck": "Дозвіл на проживання > Медичний огляд?",
       "goal": "Дозвіл на проживання > Мета"
     },
+    "longtermstay": {
+      "longtermstay": "ПМЖ",
+      "number": "ПМЖ > Номер",
+      "dateFrom": "ПМЖ > Дата від",
+      "dateTo": "ПМЖ > Дата до",
+      "address": "ПМЖ > Адреса"
+    },
     "idcard": {
       "idcard": "Паспорт",
       "number": "Паспорт > Номер",
       "dateFrom": "Паспорт > Дата від",
       "dateTo": "Паспорт > Дата до",
+      "address": "Паспорт > Адреса",
       "country": "Паспорт > Країна"
     },
     "employmentChanges": "Зміни у співпраці",
@@ -299,7 +307,10 @@
     "createdAt": "Дата створення",
     "period": "Період",
     "createdBy": "Ким створено",
-    "updatedBy": "Ким оновлено"
+    "updatedBy": "Ким оновлено",
+    "client": "Клієнт",
+    "project": "Проект",
+    "userStatus":"Статус працівника"
   },
   "dayoff": {
     "dateStart": "Початок",
@@ -315,7 +326,10 @@
     "status": "Статус відгула",
     "data": "Інформація",
     "docs": "Документи",
-    "createdBy": "Ким створено"
+    "createdBy": "Ким створено",
+    "client": "Клієнт",
+    "project": "Проект",
+    "userStatus":"Статус працівника"
   },
   "profileList": "Профілі",
   "stock": {
@@ -388,7 +402,9 @@
     },
     "familyStatus": {
       "married": "Одружений/Одружена",
-      "single": "Неодружений/Неодружена"
+      "single": "Неодружений/Неодружена",
+      "divorced": "Розведений/Розведена",
+      "widower": "Вдівець/Вдова"
     },
     "userStatus": {
       "candidate": "Candidate",
@@ -421,6 +437,14 @@
     "accommodationTariff": {
       "night": "Ніч",
       "month": "Місяць"
+    },
+    "projectAccommodationTariff": {
+      "day": "День",
+      "month": "Місяць"
+    },
+    "accommodationCalculation": {
+      "night": "Ночі",
+      "day": "Дні"
     },
     "employmentType": {
       "self": "Приватний підприємець",
@@ -598,7 +622,7 @@
     "checkIn": "Check In",
     "checkOut": "Check Out",
     "create": "Створити житло",
-    "managerPhone": "Телефон менеджера",
+    "managerPhone": "Телефон",
     "receptionPhone": "Телефон рецепції",
     "comment": "Нотатки",
     "tariff": "Тариф",
@@ -610,8 +634,33 @@
     "objects": "Житлові об'єкти",
     "notificate": "Сповістити власника",
     "active": "Активно",
+    "residence": "Запис проживання",
+    "name": "Назва житла",
+    "businessName": "Назва фірми",
+    "calculationType": "Тип розрахунку",
+    "client": "Клієнт",
+    "project": "Проект",
+    "createProjectAccommodation": "Нове проживання проекту",
+    "projectAccommodations": "Житлові приміщення проектів",
+    "object": "Проживання",
+    "payer": "Платник",
+    "damageCompensationTariff": "Зражка (Тариф)",
+    "damageCompensationPrice": "Зражка (Сума)",
+    "reinvoicingTariff": "Рефактурація (Тариф)",
+    "reinvoicingPrice": "Рефактурація (Сума)",
+    "userFields": "Дані співробітника",
+    "systemFields": "Системні дані",
+    "accommodationFields": "Житло",
+    "residenceFields": "Запис проживання",
+    "userCooperationType": "Тип співпраці",
+    "userCooperationStartDate": "Початок співпраці",
+    "userCooperationEndDate": "Кінець співпраці",
+    "userStatus": "Статус працівника",
+    "userFullname": "Працівник",
     "createdAt": "Дата створення",
-    "residence": "Запис проживання"
+    "updatedAt": "Дата зміни",
+    "createdBy": "Створив",
+    "updatedBy":"Вніс зміни"
   },
   "docsTemplates": {
     "template": "Шаблон",
@@ -876,6 +925,7 @@
         "read": "Аванси: читати",
         "create": "Аванси: створити",
         "update": "Аванси: оновити",
+        "updatePeriod": "Аванси: період",
         "delete": "Аванси: видалити"
       },
       "daysoff": {

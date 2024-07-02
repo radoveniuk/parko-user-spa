@@ -1,5 +1,6 @@
 import React from 'react';
 import { isEmpty } from 'lodash-es';
+import { DateTime } from 'luxon';
 import Autocomplete, { AutocompleteProps } from 'v2/uikit/Autocomplete';
 import DatePicker, { DatePickerProps } from 'v2/uikit/DatePicker';
 import IconButton from 'v2/uikit/IconButton';
@@ -45,7 +46,7 @@ export const FilterDate = ({ filterKey, label, ...rest }: Required<FilterProps> 
         views={['day']}
         onChange={(v) => {
           if (v !== prevValue) {
-            setValue(v);
+            setValue(v ? DateTime.fromISO(v).toISODate() : v);
           }
         }}
       />
@@ -55,7 +56,7 @@ export const FilterDate = ({ filterKey, label, ...rest }: Required<FilterProps> 
 
 type FilterAutocompleteProps = FilterProps & AutocompleteProps;
 
-export const FilterAutocomplete = ({ filterKey, options = [], ...rest }: FilterAutocompleteProps) => {
+export const FilterAutocomplete = ({ filterKey, options = [], onChange, ...rest }: FilterAutocompleteProps) => {
   const [value, setValue] = useFilterState(filterKey);
 
   return (
@@ -71,6 +72,7 @@ export const FilterAutocomplete = ({ filterKey, options = [], ...rest }: FilterA
       onChange={(v) => {
         const newValue = rest.multiple ? v.map((item: MongoEntity) => item._id).toString() : v?._id || null;
         setValue(newValue || null);
+        onChange?.(v);
       }}
     />
   );

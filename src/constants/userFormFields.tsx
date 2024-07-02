@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Validate } from 'react-hook-form';
+import { getCurrencyString } from 'v2/helpers/currency';
 import StatusLabel from 'v2/uikit/StatusLabel';
 
 import { getDateFromIso } from 'helpers/datetime';
@@ -204,7 +205,7 @@ export const WORK_FIELDS: UserFieldsList = {
   },
   salary: {
     type: 'readonly',
-    render: (data) => data ? `${Number(data).toFixed(2).toString().replace('.', ',')} €` : '',
+    render: (data) => data ? getCurrencyString(data) : '',
   },
   salaryType: {
     type: 'readonly',
@@ -298,6 +299,9 @@ export const DOCS_FIELDS: UserFieldsList = {
   'idcard.country': {
     type: 'dynamic-select',
   },
+  'idcard.address': {
+    type: 'string',
+  },
   'permit.number': {
     type: 'string',
   },
@@ -315,6 +319,18 @@ export const DOCS_FIELDS: UserFieldsList = {
   },
   'permit.goal': {
     type: 'select',
+  },
+  'longtermstay.number': {
+    type: 'string',
+  },
+  'longtermstay.address': {
+    type: 'string',
+  },
+  'longtermstay.dateFrom': {
+    type: 'date',
+  },
+  'longtermstay.dateTo': {
+    type: 'date',
   },
 };
 

@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 import { PC, TB } from 'theme/sizeBreakpoints';
 
-export const DaysoffListPageWrapper = styled.div`
+export const DaysoffListPageWrapper = styled.div<{cols: number}>`
   .daysoff-table {
+    grid-template-columns: 30px ${(props) => Array(props.cols).fill('1fr').join(' ')};
     .list-table-cell {
       white-space: nowrap;
     }

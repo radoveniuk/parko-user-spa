@@ -195,7 +195,7 @@
     "addEmployment": "Vytvoriť spoluprácu",
     "alreadyExistsError": "Používateľ s týmto e-mailom už existuje",
     "SWIFT": "SWIFT",
-    "businessName": "Business name",
+    "businessName": "Obchodné meno",
     "workTypes": "Forma spolupráce",
     "employmentStatus": "Status zamestnania",
     "employmentRecruiter": "Recruiter zamestnania",
@@ -224,11 +224,19 @@
       "isMedicalCheck": "Pobyt > Lekárska prehliadka?",
       "goal": "Pobyt > Účel"
     },
+    "longtermstay": {
+      "longtermstay": "Dlhodobý pobyt",
+      "number": "Dlhodobý pobyt > Číslo",
+      "dateFrom": "Dlhodobý pobyt > Platnosť od",
+      "dateTo": "Dlhodobý pobyt > Platnosť do",
+      "address": "Dlhodobý pobyt > Adresa"
+    },
     "idcard": {
       "idcard": "Občiansky",
       "number": "Občiansky > Číslo",
       "dateFrom": "Občiansky > Platnosť od",
       "dateTo": "Občiansky > Platnosť do",
+      "address": "Občiansky > Adresa",
       "country": "Občiansky > Krajina"
     },
     "employmentChanges": "Zmeny v zamestnaní",
@@ -299,7 +307,10 @@
     "createdAt": "Dátum vytvorenia",
     "period": "Obdobie",
     "createdBy": "Kto vytvoril",
-    "updatedBy": "Kto aktualizoval"
+    "updatedBy": "Kto aktualizoval",
+    "client": "Klient",
+    "project": "Projekt",
+    "userStatus":"Stav zamestnanca"
   },
   "dayoff": {
     "dateStart": "Dátum od",
@@ -315,7 +326,10 @@
     "status": "Status neprítomnosti",
     "data": "Informácie",
     "docs": "Doklady",
-    "createdBy": "Kto vytvoril"
+    "createdBy": "Kto vytvoril",
+    "client": "Klient",
+    "project": "Projekt",
+    "userStatus":"Stav zamestnanca"
   },
   "profileList": "Ľudské zdroje",
   "stock": {
@@ -388,7 +402,9 @@
     },
     "familyStatus": {
       "married": "Ženatý/Vydatá",
-      "single": "Slobodný/Slobodná"
+      "single": "Slobodný/Slobodná",
+      "divorced": "Rozvedený/Rozvedená",
+      "widower": "Vdovec/Vdova"
     },
     "userStatus": {
       "candidate": "Candidate",
@@ -421,6 +437,14 @@
     "accommodationTariff": {
       "night": "Noc",
       "month": "Mesiac"
+    },
+    "projectAccommodationTariff": {
+      "day": "Den",
+      "month": "Mesiac"
+    },
+    "accommodationCalculation": {
+      "night": "Noci",
+      "day": "Dni"
     },
     "employmentType": {
       "self": "Živnostník",
@@ -597,9 +621,9 @@
     "adress": "Adresa",
     "checkIn": "Check In",
     "checkOut": "Check Out",
-    "create": "Vytvoriť ubytovanie",
-    "managerPhone": "Tel. číslo. vedúceho",
-    "receptionPhone": "Tel. číslo. recepcii",
+    "create": "Nové ubytovanie",
+    "managerPhone": "Telefón",
+    "receptionPhone": "Telefón na správcu",
     "comment": "Poznámky",
     "tariff": "Tarifa",
     "days": "Počet odspaných noci",
@@ -610,8 +634,33 @@
     "objects": "Ubytovacie zariadenia",
     "notificate": "Uvedomiť majiteľa",
     "active": "Aktív",
+    "residence": "Zápis o ubytovaní",
+    "name": "Názov ubytovania",
+    "businessName": "Obchodné meno",
+    "calculationType": "Preratavanie obdobia ubytovania",
+    "client": "Klient",
+    "project": "Projekt",
+    "createProjectAccommodation": "Nové ubytovanie projecta",
+    "projectAccommodations": "Ubytovacie zariadenia projectov",
+    "object": "Ubytovanie",
+    "payer": "Platiteľ",
+    "damageCompencationTariff": "Zrážka (Tarifa)",
+    "damageCompencationPrice": "Zrážka (Výška)",
+    "reinvoicingTariff": "Refakturácia (Tarifa)",
+    "reinvoicingPrice": "Refakturácia (Výška)",
+    "userFields": "Údaje o zamestnancoch",
+    "systemFields": "Systémové údaje",
+    "accommodationFields": "Ubytovacie zariadenie",
+    "residenceFields": "Ubytovanie",
+    "userCooperationType": "Typ spolupráce",
+    "userCooperationStartDate": "Začiatok",
+    "userCooperationEndDate": "Ukončenie",
+    "userStatus": "Stav zamestnanca",
+    "userFullname": "Zamestnanec",
     "createdAt": "Dátum vytvorenia",
-    "residence": "Zápis o ubytovaní"
+    "updatedAt": "Dátum a čas zmeny",
+    "createdBy": "Kto vytvoril",
+    "updatedBy":"Kto aktualizoval"
   },
   "docsTemplates": {
     "template": "Šablóna",
@@ -876,6 +925,7 @@
         "read": "Zálohy: čítanie",
         "create": "Zálohy: vytvorenie",
         "update": "Zálohy: úprava",
+        "updatePeriod": "Zálohy: obdobie",
         "delete": "Zálohy: vymazanie"
       },
       "daysoff": {

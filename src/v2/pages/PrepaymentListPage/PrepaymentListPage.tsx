@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FilterAutocomplete, FilterSelect, FiltersProvider, useFilters } from 'v2/components/Filters';
 import { ClearFiltersButton, FilterDate } from 'v2/components/Filters/Filters';
+import { TableSelectedItemsProvider } from 'v2/contexts/TableSelectedItemsContext';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetPrepayments } from 'api/query/prepaymentQuery';
@@ -19,8 +20,9 @@ import { FilterTableWrapper, ProfileListPageWrapper } from './styles';
 
 const DEFAULT_COLS = [
   'prepayment.user',
-  'user.project',
-  'user.status',
+  'prepayment.client',
+  'prepayment.project',
+  'prepayment.userStatus',
   'prepayment.period',
   'prepayment.sum',
   'prepayment.comment',
@@ -29,7 +31,6 @@ const DEFAULT_COLS = [
   'prepayment.createdAt',
   'prepayment.createdBy',
   'prepayment.updatedBy',
-  '',
 ];
 
 const PrepaymentListPageRender = () => {
@@ -43,7 +44,7 @@ const PrepaymentListPageRender = () => {
   const { data: users = [] } = useGetUserListForFilter();
   const { data: projects = [] } = useGetProjects();
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
-  const translatedPrepaymentStatuses = useTranslatedSelect(PREPAYMENT_STATUS, 'prepaymentStatus');
+  const translatedPrepaymentStatuses = useTranslatedSelect(PREPAYMENT_STATUS, 'prepaymentStatus', true, false);
 
   useEffect(() => {
     refetch();
@@ -52,7 +53,7 @@ const PrepaymentListPageRender = () => {
   useEffect(() => () => { remove(); }, [remove]);
 
   return (
-    <ProfileListPageWrapper>
+    <ProfileListPageWrapper cols={DEFAULT_COLS.length + 1}>
       <div className="container-table">
         <HeaderTable
           data={data}
@@ -103,7 +104,7 @@ const PrepaymentListPageRender = () => {
           ))}
         </div>
         <Table
-          activeCols={DEFAULT_COLS}
+          activeCols={['', ...DEFAULT_COLS, '']}
           data={data}
           isFetching={isLoading || isFetching}
         />
@@ -115,7 +116,9 @@ const PrepaymentListPageRender = () => {
 export default function PrepaymentListPage () {
   return (
     <FiltersProvider>
-      <PrepaymentListPageRender />
+      <TableSelectedItemsProvider>
+        <PrepaymentListPageRender />
+      </TableSelectedItemsProvider>
     </FiltersProvider>
   );
 };

@@ -7,7 +7,7 @@
   "orders": ["orders:read", "orders:create", "orders:update", "orders:delete"],
   "residences": ["residences:read", "residences:create", "residences:update", "residences:delete"],
   "accommodations": ["accommodations:read", "accommodations:create", "accommodations:update", "accommodations:delete"],
-  "prepayments": ["prepayments:read", "prepayments:create", "prepayments:update", "prepayments:delete"],
+  "prepayments": ["prepayments:read", "prepayments:create", "prepayments:update", "prepayments:delete", "prepayments:updatePeriod"],
   "daysoff": ["daysoff:read", "daysoff:create", "daysoff:update", "daysoff:delete"],
   "paychecks": ["paychecks:read", "paychecks:create", "paychecks:update", "paychecks:delete"],
   "payrolls": ["payrolls:read", "payrolls:create", "payrolls:update", "payrolls:delete"],

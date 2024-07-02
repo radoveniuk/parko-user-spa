@@ -67,6 +67,10 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
     set(permit, 'goal', permit?.goal ? t(`selects.permitType.${permit.goal}`) : '');
     set(permit, 'isMedicalCheck', typeof permit?.isMedicalCheck === 'boolean' ? t(permit?.isMedicalCheck.toString()) : '');
 
+    const longtermstay = newItem.docs.find((doc: AnyObject) => doc.type === 'longtermstay');
+    set(longtermstay, 'dateFrom', getDateFromIso(longtermstay?.dateFrom));
+    set(longtermstay, 'dateTo', getDateFromIso(longtermstay?.dateTo));
+
     const idcard = newItem.docs.find((doc: AnyObject) => doc.type === 'idcard');
     set(idcard, 'dateFrom', getDateFromIso(idcard?.dateFrom));
     set(idcard, 'dateTo', getDateFromIso(idcard?.dateTo));
@@ -116,19 +120,8 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
       }
     });
 
-    /*customFields.forEach((customField: any) => {
-      const customFieldValue = newItem.customFields?.[customField._id];
-      newItem[customField.names[i18n.language]] = customFieldValue;
-      if (typeof customFieldValue === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(customFieldValue)) {
-        newItem[customField.names[i18n.language]] = getDateFromIso(customFieldValue);
-      }
-      if (typeof customFieldValue === 'boolean') {
-        newItem[customField.names[i18n.language]] = t(`${customFieldValue}`);
-      }
-    });*/
-
     return pick(newItem, colsToExport) as Partial<IUser>;
-  }), [colsToExport, customFields, i18n.language, selectedItems, t]);
+  }), [colsToExport, selectedItems, t]);
 
   const exportData = useExportData({
     data: usersToExport,

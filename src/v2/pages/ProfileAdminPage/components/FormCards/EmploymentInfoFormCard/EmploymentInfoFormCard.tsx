@@ -27,7 +27,7 @@ const EmploymentInfoFormCard = ({ data, onUpdateEmploymentInfo }: Props) => {
   const { t } = useTranslation();
   const { register, handleSubmit, reset } = useForm<EmploymentInfo>({ defaultValues: data });
 
-  const familyStatusOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
+  const familyStatusOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus', true, false);
 
   const submitHandler: SubmitHandler<EmploymentInfo> = (values) => {
     onUpdateEmploymentInfo?.(values);

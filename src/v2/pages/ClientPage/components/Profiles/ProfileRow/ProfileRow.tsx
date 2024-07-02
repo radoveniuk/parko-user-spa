@@ -1,6 +1,7 @@
 import React, { memo, ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { getCurrencyString } from 'v2/helpers/currency';
 import Checkbox from 'v2/uikit/Checkbox';
 import Dialog from 'v2/uikit/Dialog';
 import IconButton from 'v2/uikit/IconButton';
@@ -80,7 +81,7 @@ const ProfileRow = ({ data, selected, onChangeSelect, cols }: ProfileRowProps) =
             t(`selects.userStatus.${data.status}`));
         }
         if (userField === 'salary') {
-          return createTableCell(data.salary ? `${Number(data.salary).toFixed(2).toString().replace('.', ',')} €` : '');
+          return createTableCell(data.salary ? getCurrencyString(data.salary) : '');
         }
         if (typeof data[userField as keyof IUser] === 'boolean' || userField === 'sex') {
           return createTableCell(t(data[userField as keyof IUser]));

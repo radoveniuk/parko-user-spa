@@ -1,6 +1,8 @@
 import React, { memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import pick from 'lodash-es/pick';
+import { useTableColumns } from 'v2/contexts/TableColumnsContext';
+import { useTableSelectedItems } from 'v2/contexts/TableSelectedItemsContext';
 import useBoolean from 'v2/hooks/useBoolean';
 import { Button, Divider, Menu, MenuItem } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
@@ -18,8 +20,6 @@ import { IClient } from 'interfaces/client.interface';
 import { IPropertyMovement, PropertyMovementType } from 'interfaces/propertyMovement.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { useColumns } from '../../contexts/ColumnsContext/useColumns';
-import { useSelectedItems } from '../../contexts/SelectedItemsContext/useSelectedItems';
 import { GiveDialog, PrintDocDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
 import ColumnsConfig from '../ColumnsConfig';
 
@@ -30,12 +30,12 @@ const HeaderTable = ({ data }: Props) => {
   const { permissions } = useAuthData();
 
   // Export
-  const [activeCols] = useColumns();
-  const [selectedItems,, setSelectedItems] = useSelectedItems();
+  const [activeCols] = useTableColumns();
+  const [selectedItems,, setSelectedItems] = useTableSelectedItems<IPropertyMovement<true>>();
 
   const colsToExport = useMemo(() => activeCols.map((col: string) => col.replace('stock.', '')), [activeCols]);
 
-  const movementsToExport = useMemo(() => selectedItems.map((movement: IPropertyMovement<true>) => {
+  const movementsToExport = useMemo(() => selectedItems.map((movement) => {
     const rowData: AnyObject = {};
 
     const getCellContent = (rowData: IPropertyMovement<true>, col: string) => {

@@ -1,10 +1,9 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import In from 'v2/components/In';
+import { useTableColumns } from 'v2/contexts/TableColumnsContext';
 import Checkbox from 'v2/uikit/Checkbox';
 import DialogFullscreen from 'v2/uikit/DialogFullscreen';
-
-import { useColumns } from '../../contexts/ColumnsContext/useColumns';
 
 import { ColsSettingsWrapper } from './styles';
 
@@ -23,6 +22,7 @@ const COLS_TREE = {
   tradeFields: [
     'stock.tradeName',
     'stock.distributorICO',
+    'stock.distributorName',
     'stock.invoiceNumber',
     'stock.invoiceDeliveryDate',
     'stock.deliveryDate',
@@ -48,7 +48,7 @@ type Props = {
 
 const ColumnsConfig = ({ open, onClose }: Props) => {
   const { t } = useTranslation();
-  const [activeCols, { add, remove }, setActiveCols] = useColumns();
+  const [activeCols, { add, remove }, setActiveCols] = useTableColumns();
 
   const allCols = Object.values(COLS_TREE).flatMap(col => col);
 

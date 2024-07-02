@@ -1,20 +1,33 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
-import { Button } from 'v2/uikit';
+import cloneDeep from 'lodash-es/cloneDeep';
+import { useTableSelectedItems } from 'v2/contexts/TableSelectedItemsContext';
+import { getCurrencyString } from 'v2/helpers/currency';
+import { Button, Divider, Menu, MenuItem } from 'v2/uikit';
 import IconButton from 'v2/uikit/IconButton';
 import ListTableHeader from 'v2/uikit/ListTableHeader';
 
 import { useCreatePrepaymentMutation } from 'api/mutations/prepaymentMutation';
-import { PlusIcon } from 'components/icons';
+import { ArrowDownIcon, CheckAllIcon, ExcelIcon, PlusIcon, RemoveCheckIcon, ThreeDotsIcon } from 'components/icons';
 import { useAuthData } from 'contexts/AuthContext';
 import createId from 'helpers/createId';
+import { getDateFromIso } from 'helpers/datetime';
+import { useExportData } from 'hooks/useExportData';
+import { AnyObject } from 'interfaces/base.types';
+import { IClient } from 'interfaces/client.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
+import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
 import PrepaymentDialog from '../PrepaymentDialog';
 
-const HeaderTable = ({ data }: any) => {
+type Props = {
+  data: IPrepayment[];
+  activeCols: string[];
+}
+
+const HeaderTable = ({ data, activeCols }: Props) => {
   const { t } = useTranslation();
   const { permissions } = useAuthData();
 
@@ -38,6 +51,38 @@ const HeaderTable = ({ data }: any) => {
     });
   };
 
+  // select items
+  const [selectedItems,, setSelectedItems] = useTableSelectedItems<IPrepayment>();
+
+  // export
+  const colsToExport = useMemo(() => activeCols.map((col: string) => col.replace('prepayment.', '')), [activeCols]);
+
+  const prepaymentsToExport = useMemo(() => selectedItems.map((prepayment) => {
+    const rowData: AnyObject = cloneDeep(prepayment);
+
+    rowData.user = (prepayment.user as IUser)?.fullname;
+    rowData.project = (prepayment.project as IProject)?.name;
+    rowData.client = (prepayment.client as IClient)?.shortName;
+    rowData.userStatus = t(`selects.userStatus.${prepayment.userStatus}`);
+    rowData.period = getDateFromIso(prepayment.paymentDate, 'MM/yyyy');
+    rowData.sum = getCurrencyString(prepayment.sum);
+    rowData.comment = prepayment.adminComment;
+    rowData.status = t(`selects.prepaymentStatus.${prepayment.status}`);
+    rowData.paymentDate = getDateFromIso(prepayment.paymentDate);
+    rowData.createdAt = getDateFromIso(prepayment.createdAt);
+    rowData.createdBy = (prepayment.createdBy as IUser)?.fullname;
+    rowData.updatedBy = (prepayment.updatedBy as IUser)?.fullname;
+
+    return rowData;
+  }), [selectedItems, t]);
+
+  const exportData = useExportData({
+    data: prepaymentsToExport,
+    colsToExport: colsToExport,
+    cols: colsToExport,
+    entity: 'prepayment',
+  });
+
   return (
     <>
       <ListTableHeader title={`${t('navbar.prepayments')}: ${data.length}`}>
@@ -48,6 +93,30 @@ const HeaderTable = ({ data }: any) => {
               {t('prepayment.new')}
             </Button>
           )}
+          <Menu
+            menuComponent={(
+              <>
+                <Button className="big-btn">
+                  <div className="text">{t('fastActions')}</div>
+                  <ArrowDownIcon className="big-icon" />
+                </Button>
+                <IconButton className="small-btn primary"><ThreeDotsIcon size={25} /></IconButton>
+              </>
+            )}
+          >
+            <MenuItem onClick={() => void setSelectedItems(data)}>
+              <CheckAllIcon size={20} />
+              {t('selectAll')}
+            </MenuItem>
+            <MenuItem disabled={!selectedItems.length} onClick={() => void setSelectedItems([])}>
+              <RemoveCheckIcon size={20} />
+              {t('removeSelect')}
+            </MenuItem>
+            <Divider />
+            <MenuItem color="#1e6e43" disabled={!selectedItems.length} onClick={() => void exportData('xlsx')}>
+              <ExcelIcon size={20} />{t('user.export')}
+            </MenuItem>
+          </Menu>
         </div>
       </ListTableHeader>
       <PrepaymentDialog

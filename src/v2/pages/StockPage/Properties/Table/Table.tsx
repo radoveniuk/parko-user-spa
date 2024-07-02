@@ -1,5 +1,7 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTableColumns } from 'v2/contexts/TableColumnsContext';
+import { useTableSelectedItems } from 'v2/contexts/TableSelectedItemsContext';
 import { Checkbox } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
@@ -15,8 +17,6 @@ import useSortedList, { SortingValue } from 'hooks/useSortedList';
 import { IProperty } from 'interfaces/property.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { useColumns } from '../../contexts/ColumnsContext/useColumns';
-import { useSelectedItems } from '../../contexts/SelectedItemsContext/useSelectedItems';
 import PropertyFormDialog from '../../dialogs/PropertyFormDialog';
 import usePropertyActions from '../hooks/usePropertyActions';
 
@@ -31,7 +31,7 @@ const Table = ({
   data,
   isFetching,
 }: Props) => {
-  const [activeCols] = useColumns();
+  const [activeCols] = useTableColumns();
   const { t } = useTranslation();
 
   const { sortedData: sortedProperties, sorting, sortingToggler } = useSortedList(data);
@@ -57,6 +57,9 @@ const Table = ({
     if (col === 'orderer') {
       return rowData.orderer.shortName;
     }
+    if (col === 'distributorICO' || col === 'distributorName') {
+      return <a title="Finstat" target="_blank" rel="noreferrer" href={`https://finstat.sk/${rowData?.distributorICO}`}>{rowData[col]}</a>;
+    }
     if (['receiver', 'createdBy', 'updatedBy'].includes(col)) {
       return (rowData[col] as IUser)?.fullname;
     }
@@ -67,7 +70,7 @@ const Table = ({
   const { remove } = usePropertyActions();
 
   // select items
-  const [selectedItems, { toggle: toggleSelectedRow }] = useSelectedItems();
+  const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems<IProperty<true>>();
 
   const selectRowChangeHandler = useCallback((row: IProperty<true>) => () => {
     toggleSelectedRow(row);
@@ -105,7 +108,7 @@ const Table = ({
           <ListTableRow key={property._id}>
             <ListTableCell>
               <Checkbox
-                checked={selectedItems.some((selectedItem: IProperty<true>) => selectedItem._id === property._id)}
+                checked={selectedItems.some((selectedItem) => selectedItem._id === property._id)}
                 onChange={selectRowChangeHandler(property)}
               />
             </ListTableCell>

@@ -14,11 +14,14 @@ import { FilterTableWrapper, ResidencesWrapper } from './styles';
 import Table from './Table';
 
 const COLUMNS = [
-  'accommodation.owner',
+  'accommodation.name',
   'accommodation.adress',
+  'accommodation.businessName',
+  'accommodation.ICO',
   'accommodation.costNight',
   'accommodation.costMonth',
   'accommodation.tariff',
+  'accommodation.email',
   'accommodation.managerPhone',
   'accommodation.receptionPhone',
   'comment',
@@ -40,7 +43,7 @@ const AccommodationObjects = () => {
   const [searchValue, setSearchValue] = useState('');
   const filteredAccommodations = useMemo(() =>
     accommodations.filter((item) => item.adress.toLowerCase().includes(searchValue.toLowerCase()) ||
-    item.owner.toLowerCase().includes(searchValue.toLowerCase())), [accommodations, searchValue]);
+    item.name.toLowerCase().includes(searchValue.toLowerCase())), [accommodations, searchValue]);
 
   return (
     <ResidencesWrapper>

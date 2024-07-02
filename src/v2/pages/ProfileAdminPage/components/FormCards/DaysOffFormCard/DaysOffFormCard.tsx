@@ -38,7 +38,7 @@ const DaysOffFormCard = ({ data, onCreateDayoff, onDeleteDayoff, onUpdateDayoff 
 
   const [dayoffDialogData, setDayoffDialogData] = useState<Partial<IDayOff> | null>(null);
   const [deleteDialogData, setDeleteDialogData] = useState<Partial<IDayOff> | null>(null);
-  const reasonsList = useTranslatedSelect(REASONS, 'dayoffReason');
+  const reasonsList = useTranslatedSelect(REASONS, 'dayoffReason', true, false);
 
   const { register, control, formState: { errors }, getValues, reset, handleSubmit } = useForm<IDayOff>();
 

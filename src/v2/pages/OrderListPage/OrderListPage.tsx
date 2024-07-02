@@ -39,8 +39,8 @@ const OrderListPageRender = () => {
   // filters
   const { data: filterList = [] } = useGetOrders();
   const { debouncedFiltersState } = useFilters();
-  const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus');
-  const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
+  const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus', true, false);
+  const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType', true, false);
 
   // table content
   const { data = [], remove, refetch, isFetching, isLoading } = useGetOrders(debouncedFiltersState, { enabled: false });

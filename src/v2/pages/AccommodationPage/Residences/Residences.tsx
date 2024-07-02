@@ -1,120 +1,46 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DateTime } from 'luxon';
 import { FiltersProvider, useFilters } from 'v2/components/Filters';
-import { ClearFiltersButton, FilterAutocomplete, FilterDate, FilterSelect, FilterText } from 'v2/components/Filters/Filters';
+import { ClearFiltersButton, FilterAutocomplete, FilterDate, FilterSelect } from 'v2/components/Filters/Filters';
+import { TableColumnsProvider, useTableColumns } from 'v2/contexts/TableColumnsContext';
+import { TableSelectedItemsProvider } from 'v2/contexts/TableSelectedItemsContext';
 
-import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { useGetResidenceFilterLists, useGetResidences } from 'api/query/residenceQuery';
-import { getDateFromIso } from 'helpers/datetime';
 import usePrev from 'hooks/usePrev';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
-import { IAccommodation } from 'interfaces/accommodation.interface';
-import { IProject } from 'interfaces/project.interface';
-import { IResidence } from 'interfaces/residence.interface';
-import { IUser } from 'interfaces/users.interface';
+import { IClient } from 'interfaces/client.interface';
 
-import { useActiveAccommodation } from '../contexts/AccommodationContext';
 import { useActiveResidence } from '../contexts/ResidenceContext';
 
-import MobileResidenceCard from './MobileResidenceCard/MobileResidenceCard';
 import HeaderTable from './HeaderTable';
+import MobileResidenceCard from './MobileResidenceCard';
 import { FilterTableWrapper, ResidencesWrapper } from './styles';
 import Table from './Table';
-import { ResidenceTableRow } from './types';
-
-const COLUMNS = [
-  'user.name',
-  'user.project',
-  'accommodation.owner',
-  'accommodation.adress',
-  'accommodation.checkIn',
-  'accommodation.checkOut',
-  'accommodation.days',
-  'accommodation.costNight',
-  'accommodation.sum',
-  '',
-];
 
 const Residences = () => {
   const { t } = useTranslation();
-  const { debouncedFiltersState } = useFilters();
+  const { debouncedFiltersState, removeFilter } = useFilters();
   const { data: filters, refetch: refetchFilters } = useGetResidenceFilterLists();
-  const { data: accommodations = [] } = useGetAccommodations();
   const activeOptions = useTranslatedSelect(['true', 'false']);
 
-  const getDays = useCallback((residence: IResidence) => {
-    if (!residence.checkInDate) return null;
-
-    let checkIn = DateTime.fromISO(residence.checkInDate);
-
-    if (
-      debouncedFiltersState?.firstDate &&
-      DateTime.fromISO(debouncedFiltersState?.firstDate).toMillis() > DateTime.fromISO(residence.checkInDate).toMillis()
-    ) {
-      checkIn = DateTime.fromISO(debouncedFiltersState?.firstDate);
-    }
-
-    if (debouncedFiltersState?.lastDate || residence.checkOutDate) {
-      const filterLastDateMs = DateTime.fromISO(debouncedFiltersState?.lastDate).toMillis();
-      const checkOutDateMs = residence.checkOutDate ? DateTime.fromISO(residence.checkOutDate).toMillis() : null;
-      if (checkOutDateMs && checkOutDateMs < filterLastDateMs) {
-        const checkOut = DateTime.fromISO(residence.checkOutDate as string);
-        const diff = -checkIn.diff(checkOut, 'days').days.toFixed();
-        return diff > 0 ? diff : 0;
-      }
-      const checkOut = DateTime.fromISO(debouncedFiltersState?.lastDate || residence.checkOutDate);
-      const diff = -checkIn.diff(checkOut, 'days').days.toFixed();
-      return diff > 0 ? diff : 0;
-    }
-
-    const diff = -checkIn.diffNow('days').days.toFixed();
-    return diff > 0 ? diff + 1 : 0;
-  }, [debouncedFiltersState?.firstDate, debouncedFiltersState?.lastDate]);
-
-  const { data: residences = [], refetch, remove, isFetching, isLoading } = useGetResidences(debouncedFiltersState, { enabled: false });
-  const tableData: ResidenceTableRow[] = useMemo(() => residences.filter(item => !!item.user).map((item) => {
-    const { name, surname, project } = item.user as IUser;
-    const { owner, adress, costNight } = item.accommodation as IAccommodation;
-    const days = getDays(item) || 0;
-    return {
-      _id: item._id,
-      user: `${name} ${surname}`,
-      project: (project as IProject)?.name,
-      owner,
-      adress,
-      checkInDate: getDateFromIso(item.checkInDate),
-      checkOutDate: getDateFromIso(item.checkOutDate),
-      days,
-      costNight,
-      sum: days * Number(costNight),
-      metadata: item,
-    };
-  }), [getDays, residences]);
+  const { data: residences = [], refetch, isFetching, isLoading } = useGetResidences(debouncedFiltersState);
 
   const [openResidence] = useActiveResidence();
-  const [openAccomodation] = useActiveAccommodation();
 
   const prevResidence = usePrev(openResidence);
-  const prevAccommodation = usePrev(openAccomodation);
   useEffect(() => {
-    if ((!!prevResidence && !openResidence) || (!!prevAccommodation && !openAccomodation)) {
+    if ((!!prevResidence && !openResidence)) {
       refetch();
       refetchFilters();
     }
-  }, [openAccomodation, openResidence, prevAccommodation, prevResidence, refetch, refetchFilters]);
+  }, [openResidence, prevResidence, refetch, refetchFilters]);
 
-  useEffect(() => {
-    if (debouncedFiltersState) {
-      refetch();
-    }
-    return () => void remove;
-  }, [debouncedFiltersState, refetch, remove]);
+  const [activeCols] = useTableColumns();
 
   return (
-    <ResidencesWrapper>
+    <ResidencesWrapper cols={activeCols.length + 1}>
       <div className="container-table">
-        <HeaderTable count={tableData.length} />
+        <HeaderTable data={residences} />
         <FilterTableWrapper>
           <FilterDate label={t('firstDate')} filterKey="firstDate" />
           <FilterDate label={t('lastDate')} filterKey="lastDate" />
@@ -127,25 +53,48 @@ const Residences = () => {
               getOptionLabel={(option) => `${option.name} ${option.surname} ${option.project ? `(${option.project.name})` : ''}`}
             />
           )}
+          {filters?.clients && (
+            <FilterAutocomplete
+              filterKey="client"
+              label={t('user.client')}
+              options={filters.clients}
+              labelKey="shortName"
+              multiple
+              onChange={() => {
+                removeFilter('project');
+              }}
+            />
+          )}
           {filters?.projects && (
             <FilterAutocomplete
               filterKey="project"
               label={t('user.project')}
-              options={filters.projects}
-              getOptionLabel={(item) => `${item.client ? `${item.client.name} > ` : ''}${item?.name}`}
+              options={filters.projects.filter(project => debouncedFiltersState?.client?.includes((project.client as IClient)._id))}
+              getOptionLabel={(item) => `${item.client.shortName} > ${item?.name}`}
+              disabled={!debouncedFiltersState?.client}
+              multiple
             />
           )}
-          <FilterText filterKey="accommodationOwner" label={t('accommodation.owner')} />
-          <FilterAutocomplete
-            filterKey="accommodation"
-            label={t('accommodation.adress')}
-            options={accommodations}
-            labelKey="adress"
-          />
+          {filters?.addresses && (
+            <FilterAutocomplete
+              filterKey="accommodationAddress"
+              label={t('accommodation.adress')}
+              options={filters?.addresses.map(label => ({ label, _id: label }))}
+              labelKey="label"
+            />
+          )}
+          {filters?.businessNames && (
+            <FilterAutocomplete
+              filterKey="accommodationBusinessName"
+              label={t('accommodation.businessName')}
+              options={filters?.businessNames.map(bName => ({ label: bName, _id: bName }))}
+              labelKey="label"
+            />
+          )}
           <ClearFiltersButton />
         </FilterTableWrapper>
         <div className="mobile-list">
-          {tableData.map((rowItem) => (
+          {residences.map((rowItem) => (
             <MobileResidenceCard
               key={rowItem._id}
               data={rowItem}
@@ -153,8 +102,7 @@ const Residences = () => {
           ))}
         </div>
         <Table
-          activeCols={COLUMNS}
-          data={tableData}
+          data={residences}
           isFetching={isFetching || isLoading}
         />
       </div>
@@ -163,9 +111,24 @@ const Residences = () => {
 };
 
 export default function ResidencesWithFilters () {
+  const COLUMNS = [
+    'accommodation.userFullname',
+    'accommodation.name',
+    'accommodation.adress',
+    'accommodation.checkIn',
+    'accommodation.checkOut',
+    'accommodation.days',
+    'accommodation.costNight',
+    'accommodation.costMonth',
+    'accommodation.sum',
+  ];
   return (
     <FiltersProvider>
-      <Residences />
+      <TableColumnsProvider defaultValue={COLUMNS} localStorageKey="residences">
+        <TableSelectedItemsProvider>
+          <Residences />
+        </TableSelectedItemsProvider>
+      </TableColumnsProvider>
     </FiltersProvider>
   );
 };

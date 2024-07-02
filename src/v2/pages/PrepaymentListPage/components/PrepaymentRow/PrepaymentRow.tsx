@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Menu, MenuItem } from 'v2/uikit';
+import { useTableSelectedItems } from 'v2/contexts/TableSelectedItemsContext';
+import { getCurrencyString } from 'v2/helpers/currency';
+import { Checkbox, Menu, MenuItem } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
@@ -20,17 +22,15 @@ import PrepaymentDialog from '../PrepaymentDialog';
 
 import { StyledListTableRow } from './styles';
 
-type ClientRowProps = {
-  cols: string[];
+type Props = {
   data: IPrepayment;
 }
 
-const PrepaymentRow = (props: ClientRowProps) => {
+const PrepaymentRow = ({ data }: Props) => {
   const { t } = useTranslation();
-  const { data } = props;
 
-  const project = data?.project as IProject;
-  const client = data?.client as IClient;
+  const project = data.project as IProject;
+  const client = data.client as IClient;
 
   const [openDialog, setOpenDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -39,8 +39,21 @@ const PrepaymentRow = (props: ClientRowProps) => {
 
   const { permissions } = useAuthData();
 
+  // select items
+  const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems<IPrepayment>();
+
+  const selectRowChangeHandler = useCallback(() => {
+    toggleSelectedRow(data);
+  }, [data, toggleSelectedRow]);
+
   return (
     <StyledListTableRow>
+      <ListTableCell>
+        <Checkbox
+          checked={selectedItems.some((selectedItem) => selectedItem._id === data._id)}
+          onChange={selectRowChangeHandler}
+        />
+      </ListTableCell>
       <ListTableCell>
         {data.user
           ? (
@@ -52,16 +65,19 @@ const PrepaymentRow = (props: ClientRowProps) => {
         }
       </ListTableCell>
       <ListTableCell>
-        {client ? `${client.shortName} > ` : ''}{project?.name}
+        {client?.shortName}
+      </ListTableCell>
+      <ListTableCell>
+        {project?.name}
       </ListTableCell>
       <ListTableCell>
         <StatusLabel className={data.userStatus}>{t(`selects.userStatus.${data.userStatus}`)}</StatusLabel>
       </ListTableCell>
       <ListTableCell>
-        {getDateFromIso(data.paymentDate, 'MM/yyyy')}
+        {getDateFromIso(data.period, 'MM/yyyy')}
       </ListTableCell>
       <ListTableCell>
-        {Number(data.sum).toFixed(2)}€
+        {getCurrencyString(data.sum)}
       </ListTableCell>
       <ListTableCell>
         {data.adminComment}
@@ -121,4 +137,4 @@ const PrepaymentRow = (props: ClientRowProps) => {
     </StyledListTableRow>
   );
 };
-export default PrepaymentRow;
+export default memo(PrepaymentRow);

@@ -11,6 +11,7 @@ import { EuroEndAdornment } from 'v2/uikit/Input';
 import Select from 'v2/uikit/Select';
 
 import { PREPAYMENT_STATUS } from 'constants/selectsOptions';
+import { useAuthData } from 'contexts/AuthContext';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
 import { IPrepayment } from 'interfaces/prepayment.interface';
 import { IUser } from 'interfaces/users.interface';
@@ -24,7 +25,7 @@ type Props = DialogProps & {
 
 const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
   const { t } = useTranslation();
-  const prepaymentStatusList = useTranslatedSelect(PREPAYMENT_STATUS, 'prepaymentStatus');
+  const prepaymentStatusList = useTranslatedSelect(PREPAYMENT_STATUS, 'prepaymentStatus', true, false);
   const { control, register, formState: { errors }, handleSubmit, watch, clearErrors } = useForm<IPrepayment>();
   const queryClient = useQueryClient();
   const users: IUser[] = queryClient.getQueryData(['users-filter', JSON.stringify({})]) || [];
@@ -32,6 +33,8 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
   const submitHandler: SubmitHandler<IPrepayment> = (values) => {
     onSave({ ...values, user: isObject(values.user) ? (values.user as IUser)?._id : values.user });
   };
+
+  const { permissions } = useAuthData();
 
   return (
     <Dialog
@@ -41,6 +44,26 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
     >
       <PrepaymentDialogContent>
         <div className="form">
+          {permissions.includes('prepayments:updatePeriod') && (
+            <Controller
+              control={control}
+              name="period"
+              defaultValue={data?.period || undefined}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <DatePicker
+                  views={['year', 'month']}
+                  format="MM/yyyy"
+                  openTo="month"
+                  defaultValue={field.value}
+                  onChange={field.onChange}
+                  label={`${t('prepayment.period')}*`}
+                  error={!!errors.period}
+                  inputProps={{ theme: 'gray' }}
+                />
+              )}
+            />
+          )}
           <Controller
             control={control}
             name="user"
@@ -101,7 +124,6 @@ const PrepaymentDialog = ({ onSave, data, ...rest }: Props) => {
             label={`${t('prepayment.comment')}${watch('status') === 'rejected' ? '*' : ''}`}
             defaultValue={data?.adminComment || ''}
             theme="gray"
-            className="fullwidth"
             error={!!errors.adminComment}
             {...register('adminComment', { required: watch('status') === 'rejected' })}
           />

@@ -2,12 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FiltersProvider, useFilters } from 'v2/components/Filters';
 import { ClearFiltersButton, FilterAutocomplete, FilterDate } from 'v2/components/Filters/Filters';
+import { TableColumnsProvider, useTableColumns } from 'v2/contexts/TableColumnsContext';
+import { TableSelectedItemsProvider } from 'v2/contexts/TableSelectedItemsContext';
 
 import { useGetPropertyMovements, useGetPropertyMovementsFilters } from 'api/query/propertyMovementQuery';
-
-import { ColumnsProvider } from '../contexts/ColumnsContext';
-import { useColumns } from '../contexts/ColumnsContext/useColumns';
-import { SelectedItemsProvider } from '../contexts/SelectedItemsContext';
 
 import HeaderTable from './HeaderTable';
 import MobileMovementCard from './MobileMovementCard';
@@ -19,7 +17,7 @@ const MovementsRender = () => {
   const { debouncedFiltersState } = useFilters();
   const { data: filters = {} } = useGetPropertyMovementsFilters();
   const { data: movements = [], isFetching, isLoading } = useGetPropertyMovements(debouncedFiltersState);
-  const [activeCols] = useColumns();
+  const [activeCols] = useTableColumns();
 
   return (
     <MovementsWrapper cols={activeCols.length + 1}>
@@ -112,11 +110,11 @@ export default function Movements () {
   ];
   return (
     <FiltersProvider localStorageKey="property-movements">
-      <ColumnsProvider defaultValue={DEFAULT_COLS} localStorageKey="movementsTableCols">
-        <SelectedItemsProvider>
+      <TableColumnsProvider defaultValue={DEFAULT_COLS} localStorageKey="movementsTableCols">
+        <TableSelectedItemsProvider>
           <MovementsRender />
-        </SelectedItemsProvider>
-      </ColumnsProvider>
+        </TableSelectedItemsProvider>
+      </TableColumnsProvider>
     </FiltersProvider>
   );
 };

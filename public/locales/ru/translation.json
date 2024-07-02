@@ -224,11 +224,19 @@
       "isMedicalCheck": "Вид на жительство > Медицинский осмотр?",
       "goal": "Вид на жительство > Цель"
     },
+    "longtermstay": {
+      "longtermstay": "ПМЖ",
+      "number": "ПМЖ > Номер",
+      "dateFrom": "ПМЖ > Дата с",
+      "dateTo": "ПМЖ > Дата по",
+      "address": "ПМЖ > Адрес"
+    },
     "idcard": {
       "idcard": "Паспорт",
       "number": "Паспорт > Номер",
       "dateFrom": "Паспорт > Дата с",
       "dateTo": "Паспорт > Дата по",
+      "address": "Паспорт > Адрес",
       "country": "Паспорт > Страна"
     },
     "employmentChanges": "Изменения в трудоустройстве",
@@ -299,7 +307,10 @@
     "createdAt": "Дата создания",
     "period": "Период",
     "createdBy": "Создал",
-    "updatedBy": "Внес изменения"
+    "updatedBy": "Внес изменения",
+    "client": "Клиент",
+    "project": "Проект",
+    "userStatus":"Статус сотрудника"
   },
   "dayoff": {
     "dateStart": "Начало",
@@ -315,7 +326,10 @@
     "status": "Статус отгула",
     "data": "Информация",
     "docs": "Документы",
-    "createdBy": "Кем создано"
+    "createdBy": "Кем создано",
+    "client": "Клиент",
+    "project": "Проект",
+    "userStatus":"Статус сотрудника"
   },
   "profileList": "Сотрудники",
   "stock": {
@@ -354,12 +368,12 @@
     "writeoffReason": "Причина списания",
     "size": "Размер",
     "availableCount": "Доступно",
-    "createdAt":"Дата создания",
+    "createdAt": "Дата создания",
     "updatedAt": "Последнее изменение",
     "identification": "Идентификация",
     "comment": "Заметки",
     "createdBy": "Создал",
-    "updatedBy":"Внес изменения",
+    "updatedBy": "Внес изменения",
     "baseFields": "Общая информация",
     "tradeFields": "Коммерческая информация",
     "financialFields": "Финансы",
@@ -388,7 +402,9 @@
     },
     "familyStatus": {
       "married": "Женат/Замужем",
-      "single": "Не женат / Не замужем"
+      "single": "Не женат/Не замужем",
+      "divorced": "Разведен(а)",
+      "widower": "Вдовец/Вдова"
     },
     "userStatus": {
       "candidate": "Candidate",
@@ -421,6 +437,14 @@
     "accommodationTariff": {
       "night": "Ночь",
       "month": "Месяц"
+    },
+    "projectAccommodationTariff": {
+      "day": "День",
+      "month": "Месяц"
+    },
+    "accommodationCalculation": {
+      "night": "Ночи",
+      "day": "Дни"
     },
     "employmentType": {
       "self": "Частный предприниматель",
@@ -593,7 +617,7 @@
     "checkIn": "Check In",
     "checkOut": "Check Out",
     "create": "Создать жилье",
-    "managerPhone": "Телефон менеджера",
+    "managerPhone": "Телефон",
     "receptionPhone": "Телефон рецепции",
     "comment": "Примечания",
     "tariff": "Тариф",
@@ -605,8 +629,33 @@
     "objects": "Жилые объекты",
     "notificate": "Оповестить владельца",
     "active": "Активно",
+    "residence": "Запись о проживании",
+    "name": "Название жилья",
+    "businessName": "Название фирмы",
+    "calculationType": "Тип рассчета",
+    "client": "Клиент",
+    "project": "Проект",
+    "createProjectAccommodation": "Новое проживание проекта",
+    "projectAccommodations": "Жилые помещения проектов",
+    "object": "Проживание",
+    "payer": "Плательщик",
+    "damageCompensationTariff": "Вычет (Тариф)",
+    "damageCompensationPrice": "Вычет (Сумма)",
+    "reinvoicingTariff": "Рефактуризация (Тариф)",
+    "reinvoicingPrice": "Рефактуризация (Сумма)",
+    "userFields": "Данные сотрудника",
+    "systemFields": "Системные данные",
+    "accommodationFields": "Обьект размещения",
+    "residenceFields": "Запись о проживании",
+    "userCooperationType": "Тип сотрудничества",
+    "userCooperationStartDate": "Начало сотрудничества",
+    "userCooperationEndDate": "Конец сотрудничества",
+    "userStatus": "Статус сотрудника",
+    "userFullname": "Сотрудник",
     "createdAt": "Дата создания",
-    "residence": "Запись о проживании"
+    "updatedAt": "Дата изменеия",
+    "createdBy": "Создал",
+    "updatedBy":"Внес изменения"
   },
   "docsTemplates": {
     "template": "Шаблон",
@@ -871,6 +920,7 @@
         "read": "Авансы: чтение",
         "create": "Авансы: создание",
         "update": "Авансы: обновление",
+        "updatePeriod": "Авансы: период",
         "delete": "Авансы: удаление"
       },
       "daysoff": {

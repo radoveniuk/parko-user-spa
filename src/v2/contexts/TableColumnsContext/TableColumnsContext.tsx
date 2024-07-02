@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren, useEffect } from 'react';
+import React, { createContext, PropsWithChildren, useContext, useEffect } from 'react';
 
 import useListState, { UseListStateType } from 'hooks/useListState';
 import useLocalStorageState from 'hooks/useLocalStorageState';
@@ -10,9 +10,9 @@ type ContextProps = {
   localStorageKey: string;
 };
 
-export const ColumnsContext = createContext<ContextType | undefined>(undefined);
+export const TableColumnsContext = createContext<ContextType | undefined>(undefined);
 
-export const ColumnsProvider = (props: PropsWithChildren<ContextProps>) => {
+export const TableColumnsProvider = (props: PropsWithChildren<ContextProps>) => {
   const [storedColsSettings, setStoredColsSettings] = useLocalStorageState(props.localStorageKey);
   const state = useListState<string>(storedColsSettings ? JSON.parse(storedColsSettings).cols : props.defaultValue);
 
@@ -21,8 +21,16 @@ export const ColumnsProvider = (props: PropsWithChildren<ContextProps>) => {
   }, [setStoredColsSettings, state]);
 
   return (
-    <ColumnsContext.Provider value={state}>
+    <TableColumnsContext.Provider value={state}>
       {props.children}
-    </ColumnsContext.Provider>
+    </TableColumnsContext.Provider>
   );
+};
+
+export const useTableColumns = () => {
+  const context = useContext(TableColumnsContext);
+  if (!context) {
+    throw new Error('TableColumns context not connected');
+  }
+  return context;
 };

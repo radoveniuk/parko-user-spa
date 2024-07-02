@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FilterAutocomplete, FiltersProvider, useFilters } from 'v2/components/Filters';
 import { ClearFiltersButton, FilterDate } from 'v2/components/Filters/Filters';
+import { TableSelectedItemsProvider } from 'v2/contexts/TableSelectedItemsContext';
 import useDocumentTitle from 'v2/hooks/useDocumentTitle';
 
 import { useGetDaysoff } from 'api/query/dayoffQuery';
@@ -18,8 +19,9 @@ import { DaysoffListPageWrapper, FilterTableWrapper } from './styles';
 
 const DEFAULT_COLS = [
   'dayoff.user',
-  'user.project',
-  'user.status',
+  'dayoff.client',
+  'dayoff.project',
+  'dayoff.userStatus',
   'dayoff.status',
   'dayoff.dateStart',
   'dayoff.dateEnd',
@@ -29,7 +31,6 @@ const DEFAULT_COLS = [
   'dayoff.createdAt',
   'dayoff.createdBy',
   'dayoff.updatedBy',
-  '',
 ];
 
 const DayoffListPageRender = () => {
@@ -47,9 +48,9 @@ const DayoffListPageRender = () => {
   useEffect(() => () => { remove(); }, [remove]);
 
   return (
-    <DaysoffListPageWrapper>
+    <DaysoffListPageWrapper cols={DEFAULT_COLS.length + 1}>
       <div className="container-table">
-        <HeaderTable data={data} />
+        <HeaderTable data={data} activeCols={DEFAULT_COLS} />
         <FilterTableWrapper>
           <FilterAutocomplete
             multiple
@@ -90,7 +91,7 @@ const DayoffListPageRender = () => {
           ))}
         </div>
         <Table
-          activeCols={DEFAULT_COLS}
+          activeCols={['', ...DEFAULT_COLS, '']}
           data={data}
           isFetching={isLoading || isFetching}
         />
@@ -102,7 +103,9 @@ const DayoffListPageRender = () => {
 export default function DayoffListPage () {
   return (
     <FiltersProvider>
-      <DayoffListPageRender />
+      <TableSelectedItemsProvider>
+        <DayoffListPageRender />
+      </TableSelectedItemsProvider>
     </FiltersProvider>
   );
 };

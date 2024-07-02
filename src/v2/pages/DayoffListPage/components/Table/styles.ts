@@ -9,7 +9,7 @@ export const TableWrapper = styled.div`
 
   .daysoff-table {
     overflow: scroll;
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 283px);
     position: relative;
 
     @media (max-width: ${TB}) {

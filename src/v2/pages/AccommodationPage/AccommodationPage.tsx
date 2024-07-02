@@ -11,6 +11,7 @@ import AccommodationDialog from './dialogs/AccommodationDialog';
 import CheckoutDialog from './dialogs/CheckoutDialog';
 import ResidenceDialog from './dialogs/ResidenceDialog';
 import AccommodationObjects from './AccommodationObjects';
+import ProjectAccommodations from './ProjectAccommodations';
 import Residences from './Residences';
 import { PageWrapper } from './styles';
 
@@ -30,12 +31,16 @@ const AccommodationPageRender = () => {
         <Tabs>
           <Tab label={t('accommodation.residences')} disabled={!permissions.includes('residences:read')} />
           <Tab label={t('accommodation.objects')} />
+          <Tab label={t('accommodation.projectAccommodations')} />
         </Tabs>
         <TabPanel index={0}>
           <Residences />
         </TabPanel>
         <TabPanel index={1} hiddenRender={false}>
           <AccommodationObjects />
+        </TabPanel>
+        <TabPanel index={2} hiddenRender={false}>
+          <ProjectAccommodations />
         </TabPanel>
       </TabsContainer>
       {openAccommodation && (

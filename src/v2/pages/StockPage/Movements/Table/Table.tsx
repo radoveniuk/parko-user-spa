@@ -1,5 +1,8 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTableColumns } from 'v2/contexts/TableColumnsContext';
+import { useTableSelectedItems } from 'v2/contexts/TableSelectedItemsContext';
+import { getCurrencyString } from 'v2/helpers/currency';
 import { Checkbox } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
@@ -17,8 +20,6 @@ import { IClient } from 'interfaces/client.interface';
 import { IPropertyMovement } from 'interfaces/propertyMovement.interface';
 import { IUser } from 'interfaces/users.interface';
 
-import { useColumns } from '../../contexts/ColumnsContext/useColumns';
-import { useSelectedItems } from '../../contexts/SelectedItemsContext/useSelectedItems';
 import { GiveDialog, ReturnDialog, WriteoffDialog } from '../../dialogs';
 import usePropertyMovementActions from '../hooks/useMovementActions';
 
@@ -33,7 +34,7 @@ const Table = ({
   data,
   isFetching,
 }: Props) => {
-  const [activeCols] = useColumns();
+  const [activeCols] = useTableColumns();
   const { t } = useTranslation();
   const { permissions } = useAuthData();
 
@@ -90,14 +91,15 @@ const Table = ({
     if (col === 'property') {
       return rowData.property.internalName;
     }
-    if (col === 'distributorName') {
-      return rowData.property.distributorName;
-    }
-    if (col === 'distributorICO') {
-      return rowData.property.distributorICO;
+    if (col === 'distributorICO' || col === 'distributorName') {
+      return (
+        <a title="Finstat" target="_blank" rel="noreferrer" href={`https://finstat.sk/${rowData.property.distributorICO}`}>
+          {rowData.property[col]}
+        </a>
+      );
     }
     if (col === 'price') {
-      return `${rowData.property.price.toFixed(2).toString().replace('.', ',')} €`;
+      return getCurrencyString(rowData.property.price);
     }
     if (col === 'type') {
       return t(`selects.propertyMovementType.${rowData.type}`);
@@ -126,7 +128,7 @@ const Table = ({
   const checkFutureMovements = (movementId: string) => allMovements.some((movement) => movement.previousMovement?._id === movementId);
 
   // select items
-  const [selectedItems, { toggle: toggleSelectedRow }] = useSelectedItems();
+  const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems<IPropertyMovement<true>>();
 
   const selectRowChangeHandler = useCallback((row: IPropertyMovement<true>) => () => {
     toggleSelectedRow(row);
@@ -140,8 +142,8 @@ const Table = ({
     const count = sortedData.reduce((accumulator, currentValue) => accumulator + Number(currentValue.count), 0);
 
     return {
-      price: `${price.toFixed(2).toString().replace('.', ',')} €`,
-      damageCompencationPrice: `${damageCompencationPrice.toFixed(2).toString().replace('.', ',')} €`,
+      price: getCurrencyString(price),
+      damageCompencationPrice: getCurrencyString(damageCompencationPrice),
       count,
     } as Record<string, number | string>;
   }, [sortedData]);
@@ -175,7 +177,7 @@ const Table = ({
           <ListTableRow key={item._id}>
             <ListTableCell>
               <Checkbox
-                checked={selectedItems.some((selectedItem: IPropertyMovement<true>) => selectedItem._id === item._id)}
+                checked={selectedItems.some((selectedItem) => selectedItem._id === item._id)}
                 onChange={selectRowChangeHandler(item)}
               />
             </ListTableCell>

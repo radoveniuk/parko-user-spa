@@ -7,7 +7,7 @@ import { QueryOptions } from 'interfaces/query.types';
 
 export const useGetClients = (params: AnyObject = {}, options: AnyObject = {}) => {
   const request = (): Promise<IClient[]> => api.get('/clients', { params }).then(res => res.data.data);
-  return useQuery(['clients', JSON.stringify(params)], request, { initialData: [], refetchOnWindowFocus: false, ...options });
+  return useQuery(['clients', JSON.stringify(params)], request, { staleTime: 300_000, ...options });
 };
 
 export const useGetClient = (id: string, options?: QueryOptions) => {

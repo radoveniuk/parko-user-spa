@@ -20,7 +20,6 @@ import NavbarStateProvider from 'contexts/NavbarStateContext';
 import NotificationProvider from 'contexts/NotificationContext';
 import CreateNotificationPage from 'pages/CreateNotificationPage';
 import DayoffPage from 'pages/DayoffPage';
-import ExportResidencesPage from 'pages/ExportResidencesPage';
 import NotificationsPage from 'pages/NotificationsPage';
 import PaychecksPage from 'pages/PaychecksPage';
 import PaychecksUploadPage from 'pages/PaychecksUploadPage';
@@ -79,9 +78,6 @@ export default function Router () {
               </Route>
               <Route element={<ProtectedRoute permission="accommodations:read" />}>
                 <Route path="/accommodation" element={<AccommodationPage />} />
-              </Route>
-              <Route element={<ProtectedRoute permission="residences:read" />}>
-                <Route path="/export-residences" element={<ExportResidencesPage />} />
               </Route>
               <Route element={<ProtectedRoute permission="clients:read" />}>
                 <Route path="/clients" element={<ClientListPage />} />

@@ -16,7 +16,7 @@ export type RegisterUserDto = {
   password: string;
 }
 
-export type UserPersonalDocType = 'idcard' | 'pass' | 'permit' | 'visa';
+export type UserPersonalDocType = 'idcard' | 'pass' | 'permit' | 'visa' | 'longtermstay';
 
 export type UserBusinessActivity = {
   description: string;
