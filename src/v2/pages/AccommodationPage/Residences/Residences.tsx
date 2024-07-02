@@ -5,7 +5,6 @@ import { ClearFiltersButton, FilterAutocomplete, FilterDate, FilterSelect } from
 import { TableColumnsProvider, useTableColumns } from 'v2/contexts/TableColumnsContext';
 import { TableSelectedItemsProvider } from 'v2/contexts/TableSelectedItemsContext';
 
-import { useGetAccommodations } from 'api/query/accommodationQuery';
 import { useGetResidenceFilterLists, useGetResidences } from 'api/query/residenceQuery';
 import usePrev from 'hooks/usePrev';
 import useTranslatedSelect from 'hooks/useTranslatedSelect';
@@ -22,7 +21,6 @@ const Residences = () => {
   const { t } = useTranslation();
   const { debouncedFiltersState, removeFilter } = useFilters();
   const { data: filters, refetch: refetchFilters } = useGetResidenceFilterLists();
-  const { data: accommodations = [] } = useGetAccommodations();
   const activeOptions = useTranslatedSelect(['true', 'false']);
 
   const { data: residences = [], refetch, isFetching, isLoading } = useGetResidences(debouncedFiltersState);
@@ -77,12 +75,22 @@ const Residences = () => {
               multiple
             />
           )}
-          <FilterAutocomplete
-            filterKey="accommodation"
-            label={t('accommodation.adress')}
-            options={accommodations}
-            labelKey="adress"
-          />
+          {filters?.addresses && (
+            <FilterAutocomplete
+              filterKey="accommodationAddress"
+              label={t('accommodation.adress')}
+              options={filters?.addresses.map(label => ({ label, _id: label }))}
+              labelKey="label"
+            />
+          )}
+          {filters?.businessNames && (
+            <FilterAutocomplete
+              filterKey="accommodationBusinessName"
+              label={t('accommodation.businessName')}
+              options={filters?.businessNames.map(bName => ({ label: bName, _id: bName }))}
+              labelKey="label"
+            />
+          )}
           <ClearFiltersButton />
         </FilterTableWrapper>
         <div className="mobile-list">

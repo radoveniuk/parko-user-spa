@@ -667,7 +667,8 @@
     "createdAt": "Creation date",
     "updatedAt": "Updated at",
     "createdBy": "Created By",
-    "updatedBy":"Updated By"
+    "updatedBy":"Updated By",
+    "ICO": "IČO"
   },
   "docsTemplates": {
     "template": "Template",

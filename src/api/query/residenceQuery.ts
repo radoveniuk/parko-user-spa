@@ -29,7 +29,7 @@ export const useGetResidence = (id: string) => {
 };
 
 export const useGetResidenceFilterLists = () => {
-  const request = (): Promise<{users: IUser[], projects: IProject[], clients: IClient[]}> => api.get('/residences-filter-lists')
+  const request = (): Promise<{users: IUser[], projects: IProject[], clients: IClient[], addresses: string[], businessNames: string[]}> => api.get('/residences-filter-lists')
     .then(res => res.data.data);
   return useQuery(
     ['residence', 'filters'],
