@@ -30,8 +30,8 @@ export type TableColumnKey ='adress'
 |'updatedBy'
 |'createdAt'
 |'updatedAt'
-|'damageCompencationPrice'
-|'reinvoicingPrice'
+|'damageCompencationPriceTotal'
+|'reinvoicingPriceTotal'
 |'userFullname'
 
 const useGetTableCellContent = () => {
@@ -40,7 +40,7 @@ const useGetTableCellContent = () => {
   const [activeCols] = useTableColumns();
   const { data: projectAccommodations = [] } = useGetProjectAccommodations(
     {},
-    { enabled: activeCols.includes('accommodation.damageCompencationPrice') || activeCols.includes('accommodation.reinvoicingPrice') },
+    { enabled: activeCols.includes('accommodation.damageCompencationPriceTotal') || activeCols.includes('accommodation.reinvoicingPriceTotal') },
   );
 
   const generateCellContent = useCallback((row: IResidence, key: TableColumnKey) => {
@@ -56,7 +56,7 @@ const useGetTableCellContent = () => {
       const accommodation = (row.accommodation as IAccommodation);
       return getCurrencyString(accommodation[key]);
     }
-    if (key === 'damageCompencationPrice' || key === 'reinvoicingPrice') {
+    if (key === 'damageCompencationPriceTotal' || key === 'reinvoicingPriceTotal') {
       const projectAccommodation = projectAccommodations.find(
         (projectAccommodationItem) => (
           projectAccommodationItem.accommodation._id === (row.accommodation as IAccommodation)._id &&
@@ -64,8 +64,8 @@ const useGetTableCellContent = () => {
         ),
       );
       if (!projectAccommodation) return null;
-      let dailyValue = Number(projectAccommodation[key]);
-      if (projectAccommodation[key.replace('Price', 'Tariff') as keyof typeof projectAccommodation] === 'month') {
+      let dailyValue = Number(projectAccommodation[key.replace('Total', '') as keyof typeof projectAccommodation]);
+      if (projectAccommodation[key.replace('PriceTotal', 'Tariff') as keyof typeof projectAccommodation] === 'month') {
         dailyValue = dailyValue / 30;
       }
       return getCurrencyString(dailyValue * (getDaysDiff(row) || 0));

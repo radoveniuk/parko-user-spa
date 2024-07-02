@@ -648,6 +648,8 @@
     "damageCompensationPrice": "Зражка (Сума)",
     "reinvoicingTariff": "Рефактурація (Тариф)",
     "reinvoicingPrice": "Рефактурація (Сума)",
+    "damageCompencationPriceTotal": "Зражка",
+    "reinvoicingPriceTotal": "Рефактурація",
     "userFields": "Дані співробітника",
     "systemFields": "Системні дані",
     "accommodationFields": "Житло",
