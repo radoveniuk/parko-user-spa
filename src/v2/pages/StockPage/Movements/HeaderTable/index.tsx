@@ -31,11 +31,11 @@ const HeaderTable = ({ data }: Props) => {
 
   // Export
   const [activeCols] = useTableColumns();
-  const [selectedItems,, setSelectedItems] = useTableSelectedItems();
+  const [selectedItems,, setSelectedItems] = useTableSelectedItems<IPropertyMovement<true>>();
 
   const colsToExport = useMemo(() => activeCols.map((col: string) => col.replace('stock.', '')), [activeCols]);
 
-  const movementsToExport = useMemo(() => selectedItems.map((movement: IPropertyMovement<true>) => {
+  const movementsToExport = useMemo(() => selectedItems.map((movement) => {
     const rowData: AnyObject = {};
 
     const getCellContent = (rowData: IPropertyMovement<true>, col: string) => {

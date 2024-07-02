@@ -128,7 +128,7 @@ const Table = ({
   const checkFutureMovements = (movementId: string) => allMovements.some((movement) => movement.previousMovement?._id === movementId);
 
   // select items
-  const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems();
+  const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems<IPropertyMovement<true>>();
 
   const selectRowChangeHandler = useCallback((row: IPropertyMovement<true>) => () => {
     toggleSelectedRow(row);
@@ -177,7 +177,7 @@ const Table = ({
           <ListTableRow key={item._id}>
             <ListTableCell>
               <Checkbox
-                checked={selectedItems.some((selectedItem: IPropertyMovement<true>) => selectedItem._id === item._id)}
+                checked={selectedItems.some((selectedItem) => selectedItem._id === item._id)}
                 onChange={selectRowChangeHandler(item)}
               />
             </ListTableCell>

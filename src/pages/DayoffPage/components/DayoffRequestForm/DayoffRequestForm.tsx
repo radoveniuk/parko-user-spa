@@ -27,7 +27,7 @@ const DayoffRequestForm = () => {
   const { handleSubmit, watch, control, register, formState: { errors } } = useForm<Inputs>();
   const { t } = useTranslation();
   const { id } = useAuthData();
-  const reasonsList = useTranslatedSelect(REASONS, 'dayoffReason');
+  const reasonsList = useTranslatedSelect(REASONS, 'dayoffReason', true, false);
   const createDayoffMutation = useCreateDayoffMutation();
   const navigate = useNavigate();
 

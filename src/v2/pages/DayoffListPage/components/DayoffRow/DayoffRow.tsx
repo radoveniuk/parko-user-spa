@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { DateTime } from 'luxon';
-import { Menu, MenuItem } from 'v2/uikit';
+import { useTableSelectedItems } from 'v2/contexts/TableSelectedItemsContext';
+import { Checkbox, Menu, MenuItem } from 'v2/uikit';
 import DialogConfirm from 'v2/uikit/DialogConfirm';
 import IconButton from 'v2/uikit/IconButton';
 import StatusLabel from 'v2/uikit/StatusLabel';
@@ -18,6 +18,7 @@ import { IFile } from 'interfaces/file.interface';
 import { IProject } from 'interfaces/project.interface';
 import { IUser } from 'interfaces/users.interface';
 
+import { getDayoffStatus } from '../../helpers/status';
 import useDayoffMutations from '../../hooks/usePrepaymentMutations';
 import DayoffDialog from '../DayoffDialog';
 
@@ -40,26 +41,25 @@ const DayoffRow = (props: RowProps) => {
 
   const { updateDayoff, removeDayoff } = useDayoffMutations();
 
-  const dayoffStatus = useMemo(() => {
-    const msStart = DateTime.fromISO(data.dateStart).startOf('day').toMillis();
-    const msEnd = DateTime.fromISO(data.dateEnd).endOf('day').toMillis();
-    const msNow = DateTime.now().toMillis();
-    if (msNow > msStart && msNow < msEnd) {
-      return 'continues';
-    }
-    if (data.dateEnd && msNow > msEnd) {
-      return 'finished';
-    }
-    if (msNow < msStart) {
-      return 'future';
-    }
-    return 'continues';
-  }, [data.dateEnd, data.dateStart]);
+  const dayoffStatus = useMemo(() => getDayoffStatus(data.dateStart, data.dateEnd), [data.dateEnd, data.dateStart]);
 
   const { permissions } = useAuthData();
 
+  // select items
+  const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems<IDayOff>();
+
+  const selectRowChangeHandler = useCallback(() => {
+    toggleSelectedRow(data);
+  }, [data, toggleSelectedRow]);
+
   return (
     <StyledListTableRow>
+      <ListTableCell>
+        <Checkbox
+          checked={selectedItems.some((selectedItem) => selectedItem._id === data._id)}
+          onChange={selectRowChangeHandler}
+        />
+      </ListTableCell>
       <ListTableCell>
         {data.user
           ? (
@@ -71,7 +71,10 @@ const DayoffRow = (props: RowProps) => {
         }
       </ListTableCell>
       <ListTableCell>
-        {client ? `${client.shortName} > ` : ''}{project?.name}
+        {client?.shortName}
+      </ListTableCell>
+      <ListTableCell>
+        {project?.name}
       </ListTableCell>
       <ListTableCell>
         <StatusLabel className={data.userStatus}>{t(`selects.userStatus.${data.userStatus}`)}</StatusLabel>

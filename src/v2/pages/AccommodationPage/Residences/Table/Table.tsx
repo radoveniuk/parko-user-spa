@@ -115,7 +115,7 @@ const Table = ({
     return generateCellContent(residence, column);
   }, [generateCellContent]);
   // select items
-  const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems();
+  const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems<IResidence>();
 
   const selectRowChangeHandler = useCallback((row: IResidence) => () => {
     toggleSelectedRow(row);
@@ -194,7 +194,7 @@ const Table = ({
           <ListTableRow key={item._id}>
             <ListTableCell>
               <Checkbox
-                checked={selectedItems.some((selectedItem: IResidence) => selectedItem._id === item._id)}
+                checked={selectedItems.some((selectedItem) => selectedItem._id === item._id)}
                 onChange={selectRowChangeHandler(item)}
               />
             </ListTableCell>

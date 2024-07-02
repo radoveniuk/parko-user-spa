@@ -32,11 +32,11 @@ const HeaderTable = ({ data }: Props) => {
 
   // Export
   const [activeCols] = useTableColumns();
-  const [selectedItems,, setSelectedItems] = useTableSelectedItems();
+  const [selectedItems,, setSelectedItems] = useTableSelectedItems<IProperty<true>>();
 
   const colsToExport = useMemo(() => activeCols.map((col: string) => col.replace('stock.', '')), [activeCols]);
 
-  const propertiesToExport = useMemo(() => selectedItems.map((movement: IProperty<true>) => {
+  const propertiesToExport = useMemo(() => selectedItems.map((movement) => {
     const rowData: AnyObject = {};
 
     const getCellContent = (rowData: IProperty<true>, col: keyof IProperty) => {

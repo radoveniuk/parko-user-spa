@@ -44,7 +44,7 @@ const MobileMovementCard = ({ style, data }: Props) => {
   const checkFutureMovements = (movementId: string) => allMovements?.some((movement) => movement.previousMovement?._id === movementId);
 
   const [isOpenEdit, openEdit, closeEdit] = useBoolean(false);
-  const [selectedItems, { toggle: toggleSelect }] = useTableSelectedItems();
+  const [selectedItems, { toggle: toggleSelect }] = useTableSelectedItems<IPropertyMovement<true>>();
 
   return (
     <MobileCardWrapper style={style}>

@@ -299,7 +299,10 @@
     "createdAt": "Дата створення",
     "period": "Період",
     "createdBy": "Ким створено",
-    "updatedBy": "Ким оновлено"
+    "updatedBy": "Ким оновлено",
+    "client": "Клієнт",
+    "project": "Проект",
+    "userStatus":"Статус працівника"
   },
   "dayoff": {
     "dateStart": "Початок",
@@ -315,7 +318,10 @@
     "status": "Статус відгула",
     "data": "Інформація",
     "docs": "Документи",
-    "createdBy": "Ким створено"
+    "createdBy": "Ким створено",
+    "client": "Клієнт",
+    "project": "Проект",
+    "userStatus":"Статус працівника"
   },
   "profileList": "Профілі",
   "stock": {
@@ -388,7 +394,9 @@
     },
     "familyStatus": {
       "married": "Одружений/Одружена",
-      "single": "Неодружений/Неодружена"
+      "single": "Неодружений/Неодружена",
+      "divorced": "Розведений/Розведена",
+      "widower": "Вдівець/Вдова"
     },
     "userStatus": {
       "candidate": "Candidate",
@@ -909,6 +917,7 @@
         "read": "Аванси: читати",
         "create": "Аванси: створити",
         "update": "Аванси: оновити",
+        "updatePeriod": "Аванси: період",
         "delete": "Аванси: видалити"
       },
       "daysoff": {

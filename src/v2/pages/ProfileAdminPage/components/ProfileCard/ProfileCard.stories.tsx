@@ -219,33 +219,6 @@ const mockData = [
       ],
     },
   },
-  {
-    url: '/api/dictionaries/PROFILE_SOURCE',
-    method: 'GET',
-    status: 200,
-    delay: 500,
-    response: {
-      data: {
-        _id: '636d4052506c2f02d827dd4d',
-        name: 'PROFILE_SOURCE',
-        options: [
-          'Externý dodávateľ',
-          'Facebook inzercia',
-          'Facebook ADS',
-          'Google ADS',
-          'Webová stránka spoločnosti',
-          'Referal',
-          'Profesia.sk',
-          'Iný portál pre vyhľadávanie práce',
-          'Kariera.sk',
-        ],
-        disabled: true,
-        createdAt: '2022-11-10T18:17:55.006Z',
-        updatedAt: '2022-12-30T08:20:05.899Z',
-        __v: 0,
-      },
-    },
-  },
 ];
 
 const MOCK_WORK_HISTORY: IWorkHistoryLog[] = [

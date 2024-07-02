@@ -9,9 +9,7 @@ import ListTable, { ListTableCell, ListTableRow } from 'components/shared/ListTa
 import { iterateMap } from 'helpers/iterateMap';
 import usePaginatedList from 'hooks/usePaginatedList';
 import useSortedList, { SortingValue } from 'hooks/useSortedList';
-import { IClient } from 'interfaces/client.interface';
 import { IPrepayment } from 'interfaces/prepayment.interface';
-import { IUser } from 'interfaces/users.interface';
 
 import PrepaymentRow from '../PrepaymentRow';
 
@@ -38,34 +36,38 @@ const Table = ({
     if (prepaymentKey === 'user') {
       sortingValue = 'userFullname';
     }
-    if (prepaymentKey === 'user.project') {
+    if (prepaymentKey === 'client') {
+      sortingValue = 'client.shortName';
+    }
+    if (prepaymentKey === 'project') {
       sortingValue = 'project.name';
     }
     if (prepaymentKey === 'comment') {
-      sortingValue = 'userComment';
+      sortingValue = 'adminComment';
     }
     sortingToggler(prepaymentKey, sortingValue);
   };
 
-  const allCols = activeCols;
+  const allCols = [...activeCols];
 
   return (
     <TableWrapper>
       <ListTable
-        columns={allCols}
+        columns={activeCols}
         className="prepayments-table"
         columnComponent={(col) => {
           if (col) {
+            const colKey = col.replace('prepayment.', '') as keyof IPrepayment;
             return (
               <div
                 role="button"
                 className="col-item"
-                onClick={() => void toggleSorting(col.replace('prepayment.', '') as keyof IClient)}
+                onClick={() => void toggleSorting(colKey)}
               >
                 {t(col)}
                 <IconButton
                   className={
-                    sorting?.key === (col.replace('client.', '') as keyof IUser)
+                    sorting?.key === colKey
                       ? `sort-btn active ${sorting.dir}`
                       : 'sort-btn'
                   }
@@ -81,7 +83,6 @@ const Table = ({
           <PrepaymentRow
             key={prepayment._id}
             data={prepayment}
-            cols={activeCols}
           />
         ))}
         {!pageItems.length && isFetching && (

@@ -41,7 +41,7 @@ export type AutocompleteProps = {
 const AutoComplete = ({
   label, loading, labelKey, onChange, defaultOpen, value, defaultValue,
   getOptionLabel, error, prefixIcon, placeholder, disabled, maxWidth,
-  valueKey = '_id', theme = 'white', required,
+  valueKey, theme = 'white', required,
   ...rest
 }: AutocompleteProps) => {
   const [open, setOpen] = useState(false);
@@ -66,14 +66,14 @@ const AutoComplete = ({
       theme={theme}
       style={{ minWidth: 223, maxWidth }}
       renderOption={(props, option: any) => (
-        <li {...props} key={option[valueKey]}>
+        <li {...props} key={valueKey ? option[valueKey] : option}>
           {labelKey ? option[labelKey] : getOptionLabel?.(option)}
         </li>
       )}
       getOptionLabel={(option: any) => labelKey ? option[labelKey] : getOptionLabel?.(option)}
       onChange={changeHandler}
       value={fieldValue}
-      isOptionEqualToValue={(option: any, value: any) => option?.[valueKey] === value?.[valueKey]}
+      isOptionEqualToValue={(option: any, value: any) => valueKey ? option?.[valueKey] === value?.[valueKey] : isEqual(option, value)}
       disabled={disabled}
       limitTags={1}
       popupIcon={<DropdownIconWrapper><DropdownIcon size={12} color="#131313" /></DropdownIconWrapper>}

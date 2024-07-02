@@ -7,6 +7,7 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import get from 'lodash-es/get';
 import omit from 'lodash-es/omit';
 import set from 'lodash-es/set';
+import { PROFILE_SOURCES } from 'v2/constants/profileSources';
 import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import Autocomplete from 'v2/uikit/Autocomplete';
 import Checkbox from 'v2/uikit/Checkbox';
@@ -42,7 +43,6 @@ const EditingRow = () => {
   // options
   const usersFilter = queryClient.getQueryData(['users-filter', '{}']) as IUser[];
   const recruiters = useMemo(() => usersFilter.filter(user => user.roles?.some(role => role.permissions?.includes('users:update'))), [usersFilter]);
-  const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: permitTypeDictionary } = useGetDictionary('PERMIT_TYPES');
   const { data: cooperationTypeDictionary } = useGetDictionary('PROFILE_COOPERATION_TYPES');
   const { data: countryDictionary } = useGetDictionary('COUNTRIES');
@@ -50,7 +50,7 @@ const EditingRow = () => {
   const sexOptions = useTranslatedSelect(['male', 'female']);
   const translatedStatuses = useTranslatedSelect(USER_STATUSES, 'userStatus');
   const corporateBodyStatusOptions = useTranslatedSelect(CORPORATE_BODY_STATUS, 'corporateBodyStatus');
-  const familyStatusOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus');
+  const familyStatusOptions = useTranslatedSelect(FAMILY_STATUSES, 'familyStatus', true, false);
   const translatedPermitTypes = useTranslatedSelect(PERMIT_TYPES, 'permitType');
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
 
@@ -76,7 +76,7 @@ const EditingRow = () => {
       labelPath: 'label',
     },
     source: {
-      options: sourceDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
+      options: PROFILE_SOURCES.map((item) => ({ _id: item, label: item })) || [],
       labelPath: 'label',
     },
     permitType: {
@@ -99,7 +99,7 @@ const EditingRow = () => {
       options: countryDictionary?.options?.map((item) => ({ _id: item, label: item })) || [],
       labelPath: 'label',
     },
-  }), [countryDictionary?.options, cooperationTypeDictionary?.options, permitTypeDictionary?.options, recruiters, sourceDictionary?.options]);
+  }), [countryDictionary?.options, cooperationTypeDictionary?.options, permitTypeDictionary?.options, recruiters]);
 
   const generateField = (fieldName: keyof IUser) => {
     const fieldData = ALL_FORM_FIELDS[fieldName];

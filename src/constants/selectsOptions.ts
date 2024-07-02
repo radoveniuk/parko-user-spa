@@ -11,8 +11,10 @@ export const PERMIT_TYPES = [
 ];
 
 export const FAMILY_STATUSES = [
-  'married',
   'single',
+  'married',
+  'divorced',
+  'widower',
 ];
 
 export const STUDY = [
@@ -83,8 +85,8 @@ export const PROJECT_STATUS = [
 export const PREPAYMENT_STATUS: PrepaymentStatus[] = [
   'pending',
   'approved',
-  'rejected',
   'paid',
+  'rejected',
 ];
 
 export const INSURANCE = [
@@ -100,15 +102,15 @@ export const CORPORATE_BODY_STATUS = [
 ];
 
 export const ORDER_STATUS = [
-  'recruiting',
   'processing',
+  'recruiting',
   'finished',
 ];
 
 export const ORDER_COOPERATION_TYPE = [
+  'mediation',
   'outsourcing',
   'leasing',
-  'mediation',
 ];
 
 export const EXPIRIENCE_METHOD_OPTIONS = [

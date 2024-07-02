@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash-es/isEmpty';
 import isEqual from 'lodash-es/isEqual';
@@ -39,9 +39,11 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
 
   const [prepaymentDialogData, setPrepaymentDialogData] = useState<Partial<IPrepayment> | null>(null);
   const [deleteDialogData, setDeleteDialogData] = useState<Partial<IPrepayment> | null>(null);
-  const prepaymentStatusList = useTranslatedSelect(PREPAYMENT_STATUS, 'prepaymentStatus');
+  const prepaymentStatusList = useTranslatedSelect(PREPAYMENT_STATUS, 'prepaymentStatus', true, false);
 
-  const { register, control, formState: { errors }, getValues, reset, handleSubmit } = useForm<IPrepayment>();
+  const { register, control, formState: { errors }, getValues, reset, handleSubmit, clearErrors } = useForm<IPrepayment>();
+
+  const prepaymentStatus = useWatch({ control, name: 'status' });
 
   const [prepayments, { add, remove, update }, setPrepayments] = useListState(data);
 
@@ -112,7 +114,7 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
                     <TableRow key={prepayment._id}>
                       <TableCell>{getDateFromIso(prepayment.period, 'MM/yyyy')}</TableCell>
                       <TableCell>{prepayment.sum}€</TableCell>
-                      <TableCell>{prepayment.userComment}</TableCell>
+                      <TableCell>{prepayment.adminComment}</TableCell>
                       <TableCell>{t(`selects.prepaymentStatus.${prepayment.status}`)}</TableCell>
                       <TableCell>{getDateFromIso(prepayment.paymentDate)}</TableCell>
                       <TableCell>{getDateFromIso(prepayment.createdAt, 'dd.MM.yyyy HH:mm')}</TableCell>
@@ -149,38 +151,49 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
       >
         <PrepaymentDialogContent>
           <div className="form">
-            <Controller
-              control={control}
-              name="period"
-              defaultValue={prepaymentDialogData?.period || undefined}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <DatePicker
-                  views={['year', 'month']}
-                  format="MM/yyyy"
-                  openTo="month"
-                  defaultValue={field.value}
-                  onChange={field.onChange}
-                  label={`${t('prepayment.period')}*`}
-                  error={!!errors.period}
-                />
-              )}
-            />
+            {permissions.includes('prepayments:updatePeriod') && (
+              <Controller
+                control={control}
+                name="period"
+                defaultValue={prepaymentDialogData?.period || undefined}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <DatePicker
+                    views={['year', 'month']}
+                    format="MM/yyyy"
+                    openTo="month"
+                    defaultValue={field.value}
+                    onChange={field.onChange}
+                    label={`${t('prepayment.period')}*`}
+                    error={!!errors.period}
+                    inputProps={{ theme: 'gray' }}
+                  />
+                )}
+              />
+            )}
             <Input
               InputProps={{ endAdornment: EuroEndAdornment }}
               label={t('prepayment.sum')}
               defaultValue={prepaymentDialogData?.sum || ''}
               type="number"
               error={!!errors.sum}
-              required
+              theme="gray"
               {...register('sum', { required: true })}
+              required
             />
             <Select
+              theme="gray"
               label={t('prepayment.status')}
               error={!!errors.status}
               options={prepaymentStatusList}
               defaultValue={prepaymentDialogData?.status || 'pending'}
-              {...register('status')}
+              {...register('status', {
+                onChange (v) {
+                  if (v.target.value !== 'rejected') {
+                    clearErrors(['adminComment']);
+                  }
+                },
+              })}
             />
             <Controller
               control={control}
@@ -191,8 +204,17 @@ const PrepaymentsFormCard = ({ data, onCreatePrepayment, onDeletePrepayment, onU
                   defaultValue={field.value}
                   onChange={field.onChange}
                   label={t('prepayment.paymentDate')}
+                  inputProps={{ theme: 'gray' }}
+                  views={['day']}
                 />
               )}
+            />
+            <Input
+              label={`${t('prepayment.comment')}${prepaymentStatus === 'rejected' ? '*' : ''}`}
+              defaultValue={prepaymentDialogData?.adminComment || ''}
+              theme="gray"
+              error={!!errors.adminComment}
+              {...register('adminComment', { required: prepaymentStatus === 'rejected' })}
             />
           </div>
           <div className="actions">

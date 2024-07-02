@@ -4,15 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { useQueryClient } from 'react-query';
 import { DateTime } from 'luxon';
 import { COUNTRIES } from 'v2/constants/countries';
+import { PROFILE_SOURCES } from 'v2/constants/profileSources';
 import { USER_WORK_TYPES } from 'v2/constants/userWorkTypes';
 import { Button, Input } from 'v2/uikit';
 import Autocomplete from 'v2/uikit/Autocomplete';
+import Autocomplete2 from 'v2/uikit/Autocomplete2';
 import DatePicker from 'v2/uikit/DatePicker';
 import Dialog, { DialogActions, DialogProps } from 'v2/uikit/Dialog';
 import PhoneInput, { checkPhoneNumber } from 'v2/uikit/PhoneInput';
 import Select from 'v2/uikit/Select';
 
-import { useGetDictionary } from 'api/query/dictionariesQuery';
 import { useGetRoles } from 'api/query/roleQuery';
 import { useGetUserListForFilter } from 'api/query/userQuery';
 import { WarningIcon } from 'components/icons';
@@ -38,7 +39,6 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
   const { t } = useTranslation();
   const sexOptions = useTranslatedSelect(['male', 'female']);
   const translatedWorkTypes = useTranslatedSelect(USER_WORK_TYPES, 'userWorkType');
-  const { data: sourceDictionary } = useGetDictionary('PROFILE_SOURCE');
   const { data: recruiters = [] } = useGetUserListForFilter({ permissions: 'users:update' });
 
   // roles
@@ -187,22 +187,36 @@ const ProfileFormDialog = ({ data, title, onSave, ...rest }: ProfileFormDialogPr
               />
             )}
           />
-          <Select
-            theme="gray"
-            label={t('user.source')}
+          <Controller
+            control={control}
+            name="source"
             defaultValue={data?.source}
-            options={sourceDictionary?.options}
-            labelPath="label"
-            {...register('source')}
+            render={({ field }) => (
+              <Autocomplete2
+                value={field.value}
+                theme="gray"
+                options={PROFILE_SOURCES}
+                label={t('user.role')}
+                onChange={field.onChange}
+                getOptionLabel={option => option}
+              />
+            )}
           />
-          <Select
-            theme="gray"
-            label={t('user.recruiter')}
+          <Controller
+            control={control}
+            name="recruiter"
             defaultValue={data?.recruiter}
-            options={recruiters}
-            valuePath="_id"
-            labelPath={(item) => `${item.fullname}, ${item?.roles?.map((r: IRole) => r.name).join(',')}`}
-            {...register('recruiter')}
+            render={({ field }) => (
+              <Autocomplete2
+                value={recruiters.find(recruiter => recruiter._id === field.value)}
+                theme="gray"
+                options={recruiters}
+                label={t('user.recruiter')}
+                onChange={(value) => void field.onChange(value?._id)}
+                getOptionLabel={(item) => `${item.fullname}, ${item?.roles?.map((r: IRole) => r.name).join(',')}`}
+                valueKey="_id"
+              />
+            )}
           />
           {permissions.includes('roles:update') && roles.length && (
             <Controller

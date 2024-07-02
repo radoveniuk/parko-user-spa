@@ -299,7 +299,10 @@
     "createdAt": "Дата создания",
     "period": "Период",
     "createdBy": "Создал",
-    "updatedBy": "Внес изменения"
+    "updatedBy": "Внес изменения",
+    "client": "Клиент",
+    "project": "Проект",
+    "userStatus":"Статус сотрудника"
   },
   "dayoff": {
     "dateStart": "Начало",
@@ -315,7 +318,10 @@
     "status": "Статус отгула",
     "data": "Информация",
     "docs": "Документы",
-    "createdBy": "Кем создано"
+    "createdBy": "Кем создано",
+    "client": "Клиент",
+    "project": "Проект",
+    "userStatus":"Статус сотрудника"
   },
   "profileList": "Сотрудники",
   "stock": {
@@ -388,7 +394,9 @@
     },
     "familyStatus": {
       "married": "Женат/Замужем",
-      "single": "Не женат / Не замужем"
+      "single": "Не женат/Не замужем",
+      "divorced": "Разведен(а)",
+      "widower": "Вдовец/Вдова"
     },
     "userStatus": {
       "candidate": "Candidate",
@@ -904,6 +912,7 @@
         "read": "Авансы: чтение",
         "create": "Авансы: создание",
         "update": "Авансы: обновление",
+        "updatePeriod": "Авансы: период",
         "delete": "Авансы: удаление"
       },
       "daysoff": {

@@ -37,13 +37,13 @@ const HeaderTable = ({ data }: Props) => {
 
   // Export
   const [activeCols] = useTableColumns();
-  const [selectedItems,, setSelectedItems] = useTableSelectedItems();
+  const [selectedItems,, setSelectedItems] = useTableSelectedItems<IResidence>();
 
   const colsToExport = useMemo(() => activeCols.map((col: string) => col.replace('accommodation.', '')), [activeCols]);
 
   const getCellContent = useGetTableCellContent();
 
-  const propertiesToExport = useMemo(() => selectedItems.map((residence: IResidence) => {
+  const reidencesToExport = useMemo(() => selectedItems.map((residence) => {
     const rowData: AnyObject = {};
 
     colsToExport.forEach((col) => {
@@ -54,7 +54,7 @@ const HeaderTable = ({ data }: Props) => {
   }), [colsToExport, getCellContent, selectedItems]);
 
   const exportData = useExportData({
-    data: propertiesToExport,
+    data: reidencesToExport,
     colsToExport: colsToExport,
     cols: colsToExport,
     entity: 'accommodation',

@@ -300,7 +300,10 @@
     "createdAt": "Created at",
     "period": "Period",
     "createdBy": "Created By",
-    "updatedBy": "Updated By"
+    "updatedBy": "Updated By",
+    "client": "Client",
+    "project": "Project",
+    "userStatus":"User status"
   },
   "dayoff": {
     "dateStart": "Start date",
@@ -317,7 +320,10 @@
     "data": "Information",
     "docs": "Docs",
     "createdBy": "Created By",
-    "updatedBy":"Updated By"
+    "updatedBy":"Updated By",
+    "client": "Client",
+    "project": "Project",
+    "userStatus":"User status"
   },
   "profileList": "Profiles",
   "stock": {
@@ -390,7 +396,9 @@
     },
     "familyStatus": {
       "married": "Married",
-      "single": "Sigle"
+      "single": "Sigle",
+      "divorced": "Divorced",
+      "widower": "Widower/Widow"
     },
     "userStatus": {
       "candidate": "Candidate",
@@ -920,6 +928,7 @@
         "read": "Prepayments: read",
         "create": "Prepayments: create",
         "update": "Prepayments: update",
+        "updatePeriod": "Prepayments: update period",
         "delete": "Prepayments: delete"
       },
       "daysoff": {

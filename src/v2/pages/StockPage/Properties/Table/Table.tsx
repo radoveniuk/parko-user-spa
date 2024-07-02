@@ -70,7 +70,7 @@ const Table = ({
   const { remove } = usePropertyActions();
 
   // select items
-  const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems();
+  const [selectedItems, { toggle: toggleSelectedRow }] = useTableSelectedItems<IProperty<true>>();
 
   const selectRowChangeHandler = useCallback((row: IProperty<true>) => () => {
     toggleSelectedRow(row);
@@ -108,7 +108,7 @@ const Table = ({
           <ListTableRow key={property._id}>
             <ListTableCell>
               <Checkbox
-                checked={selectedItems.some((selectedItem: IProperty<true>) => selectedItem._id === property._id)}
+                checked={selectedItems.some((selectedItem) => selectedItem._id === property._id)}
                 onChange={selectRowChangeHandler(property)}
               />
             </ListTableCell>

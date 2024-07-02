@@ -59,8 +59,8 @@ type Props = DialogProps & {
 
 const OrderFormDialog = ({ onSave, data, ...rest }: Props) => {
   const { t } = useTranslation();
-  const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus');
-  const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType');
+  const statusList = useTranslatedSelect(ORDER_STATUS, 'orderStatus', true, false);
+  const cooperationTypeList = useTranslatedSelect(ORDER_COOPERATION_TYPE, 'orderCooperationType', true, false);
   const { control, register, formState: { errors }, handleSubmit, clearErrors, watch, setValue, resetField } = useForm<Partial<IOrder>>({
     defaultValues: {
       ...getOrderDefaultData(data),

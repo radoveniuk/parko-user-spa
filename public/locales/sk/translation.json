@@ -299,7 +299,10 @@
     "createdAt": "Dátum vytvorenia",
     "period": "Obdobie",
     "createdBy": "Kto vytvoril",
-    "updatedBy": "Kto aktualizoval"
+    "updatedBy": "Kto aktualizoval",
+    "client": "Klient",
+    "project": "Projekt",
+    "userStatus":"Stav zamestnanca"
   },
   "dayoff": {
     "dateStart": "Dátum od",
@@ -315,7 +318,10 @@
     "status": "Status neprítomnosti",
     "data": "Informácie",
     "docs": "Doklady",
-    "createdBy": "Kto vytvoril"
+    "createdBy": "Kto vytvoril",
+    "client": "Klient",
+    "project": "Projekt",
+    "userStatus":"Stav zamestnanca"
   },
   "profileList": "Ľudské zdroje",
   "stock": {
@@ -388,7 +394,9 @@
     },
     "familyStatus": {
       "married": "Ženatý/Vydatá",
-      "single": "Slobodný/Slobodná"
+      "single": "Slobodný/Slobodná",
+      "divorced": "Rozvedený/Rozvedená",
+      "widower": "Vdovec/Vdova"
     },
     "userStatus": {
       "candidate": "Candidate",
@@ -909,6 +917,7 @@
         "read": "Zálohy: čítanie",
         "create": "Zálohy: vytvorenie",
         "update": "Zálohy: úprava",
+        "updatePeriod": "Zálohy: obdobie",
         "delete": "Zálohy: vymazanie"
       },
       "daysoff": {
