@@ -77,7 +77,7 @@ const Profiles = ({ employments, projects }: Props) => {
             limitTags={1}
             theme="gray"
             label={t('search')}
-            value={employments.filter((employment) => usersFilter.includes(employment.user._id)).map((employment) => employment.user)}
+            value={employments.filter((employment) => usersFilter.includes(employment.user?._id)).map((employment) => employment.user)}
             onChange={(v) => {
               setUsersFilter(v.map((user: IUser) => user._id));
             }}
