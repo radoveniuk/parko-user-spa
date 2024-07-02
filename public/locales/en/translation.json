@@ -253,7 +253,7 @@
     "createdAt": "Creation date",
     "updatedAt": "Updated at",
     "createdBy": "Created By",
-    "updatedBy":"Updated By"
+    "updatedBy": "Updated By"
   },
   "userHistory": {
     "updatedBy": "Updated by",
@@ -311,7 +311,7 @@
     "updatedBy": "Updated By",
     "client": "Client",
     "project": "Project",
-    "userStatus":"User status"
+    "userStatus": "User status"
   },
   "dayoff": {
     "dateStart": "Start date",
@@ -328,10 +328,10 @@
     "data": "Information",
     "docs": "Docs",
     "createdBy": "Created By",
-    "updatedBy":"Updated By",
+    "updatedBy": "Updated By",
     "client": "Client",
     "project": "Project",
-    "userStatus":"User status"
+    "userStatus": "User status"
   },
   "profileList": "Profiles",
   "stock": {
@@ -370,12 +370,12 @@
     "writeoffReason": "Write off reason",
     "size": "Size",
     "availableCount": "Available",
-    "createdAt":"Created At",
+    "createdAt": "Created At",
     "updatedAt": "Last update at",
     "identification": "Identification",
     "comment": "Comment",
     "createdBy": "Created By",
-    "updatedBy":"Updated By",
+    "updatedBy": "Updated By",
     "baseFields": "Basic data",
     "tradeFields": "Trade data",
     "financialFields": "Financial data",
@@ -655,6 +655,8 @@
     "damageCompencationPrice": "Compecation",
     "reinvoicingTariff": "Reinvoicing tariff",
     "reinvoicingPrice": "Reinvoicing",
+    "damageCompencationPriceTotal": "Compecation",
+    "reinvoicingPriceTotal": "Reinvoicing",
     "userFields": "User data",
     "systemFields": "System data",
     "accommodationFields": "Accommodation obj. data",
@@ -667,7 +669,7 @@
     "createdAt": "Creation date",
     "updatedAt": "Updated at",
     "createdBy": "Created By",
-    "updatedBy":"Updated By",
+    "updatedBy": "Updated By",
     "ICO": "IČO"
   },
   "docsTemplates": {
@@ -724,7 +726,7 @@
     "createdAt": "Creation date",
     "updatedAt": "Updated at",
     "createdBy": "Created By",
-    "updatedBy":"Updated By"
+    "updatedBy": "Updated By"
   },
   "errorTexts": {
     "emptyPassword": "Password cannot be empty",

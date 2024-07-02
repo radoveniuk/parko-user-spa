@@ -643,6 +643,8 @@
     "damageCompensationPrice": "Вычет (Сумма)",
     "reinvoicingTariff": "Рефактуризация (Тариф)",
     "reinvoicingPrice": "Рефактуризация (Сумма)",
+    "damageCompencationPriceTotal": "Вычет",
+    "reinvoicingPriceTotal": "Рефактуризация",
     "userFields": "Данные сотрудника",
     "systemFields": "Системные данные",
     "accommodationFields": "Обьект размещения",

@@ -53,7 +53,7 @@ const Table = ({
 
   const { data: projectAccommodations = [] } = useGetProjectAccommodations(
     {},
-    { enabled: activeCols.includes('accommodation.damageCompencationPrice') || activeCols.includes('accommodation.reinvoicingPrice') },
+    { enabled: activeCols.includes('accommodation.damageCompencationPriceTotal') || activeCols.includes('accommodation.reinvoicingPriceTotal') },
   );
 
   const toggleSorting = (residenceKey: string) => {
@@ -132,7 +132,7 @@ const Table = ({
       // eslint-disable-next-line max-len
       sortedData.reduce((accumulator, currentValue) => accumulator + Number((getDaysDiff(currentValue) || 0) * Number((currentValue.accommodation as IAccommodation).costNight)), 0);
 
-    const getProjectccommodationMetric = (metricName: 'reinvocing' | 'damageCompencation') => sortedData.reduce((accumulator, currentValue) => {
+    const getProjectccommodationMetric = (metricName: 'reinvoicing' | 'damageCompencation') => sortedData.reduce((accumulator, currentValue) => {
       const priceKey = `${metricName}Price` as keyof IProjectAccommodation;
       const tariffKey = `${metricName}Tariff` as keyof IProjectAccommodation;
       const projectAccommodation = projectAccommodations.find(
@@ -156,8 +156,8 @@ const Table = ({
       costNight: getCurrencyString(costNight),
       costMonth: getCurrencyString(costMonth),
       sum: getCurrencyString(sum),
-      reinvoicingPrice: getCurrencyString(getProjectccommodationMetric('reinvocing')),
-      damageCompencationPrice: getCurrencyString(getProjectccommodationMetric('damageCompencation')),
+      reinvoicingPriceTotal: getCurrencyString(getProjectccommodationMetric('reinvoicing')),
+      damageCompencationPriceTotal: getCurrencyString(getProjectccommodationMetric('damageCompencation')),
     } as Record<string, number | string>;
   }, [getDaysDiff, projectAccommodations, sortedData]);
 
