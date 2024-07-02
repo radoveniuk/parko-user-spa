@@ -107,7 +107,7 @@ const EditingRow = () => {
     if (typeof data?.[fieldName] === 'object' && !Array.isArray(data?.[fieldName])) {
       fieldValue = (data?.[fieldName] as AnyObject)?._id || '';
     }
-    if (/\b(?:idcard.|visa.|permit.|pass.)\b/i.test(fieldName)) {
+    if (/\b(?:idcard.|visa.|permit.|longtermstay.|pass.)\b/i.test(fieldName)) {
       const docType = fieldName.split('.')[0];
       const docValueKey = fieldName.split('.')[1];
       const doc = data.docs?.find(doc => doc.type === docType);

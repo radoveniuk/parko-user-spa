@@ -222,6 +222,13 @@
       "isMedicalCheck": "Residence permit > Medical checkup?",
       "goal": "Residence permit > Goal"
     },
+    "longtermstay": {
+      "permit": "Long-term stay",
+      "number": "Long-term stay > Number",
+      "dateFrom": "Long-term stay > Date from",
+      "dateTo": "Long-term stay > Date to",
+      "address": "Long-term stay > Address"
+    },
     "idcard": {
       "idcard": "ID card",
       "number": "ID card > Number",

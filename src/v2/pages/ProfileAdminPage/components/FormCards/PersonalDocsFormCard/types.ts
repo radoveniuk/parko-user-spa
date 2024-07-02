@@ -21,6 +21,10 @@ export type PermitInfo = BaseDoc & {
   isMedicalCheck: boolean;
 };
 
+export type LongTermStayInfo = BaseDoc & {
+  address: string;
+};
+
 export type VisaInfo = BaseDoc & {
   comment: string;
 };

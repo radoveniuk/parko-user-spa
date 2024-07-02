@@ -13,11 +13,12 @@ import useListState from 'hooks/useListState';
 import { UserPersonalDocType } from 'interfaces/users.interface';
 
 import InternationalPass from './components/InternationalPass';
+import LongTermStay from './components/LongTermStay';
 import Pass from './components/Pass';
 import Permit from './components/Permit';
 import Visa from './components/Visa';
 import { DocItem, DocList } from './styles';
-import { IntPassInfo, PassInfo, PermitInfo, VisaInfo } from './types';
+import { IntPassInfo, LongTermStayInfo, PassInfo, PermitInfo, VisaInfo } from './types';
 
 const DEFAULT_INT_PASS: IntPassInfo = {
   type: 'pass',
@@ -44,6 +45,14 @@ const DEFAULT_PERMIT: PermitInfo = {
   goal: '',
   address: '',
   isMedicalCheck: true,
+};
+
+const DEFAULT_LONGTERMSTAY: LongTermStayInfo = {
+  type: 'longtermstay',
+  number: '',
+  dateFrom: '',
+  dateTo: '',
+  address: '',
 };
 
 const DEFAULT_VISA: VisaInfo = {
@@ -78,6 +87,7 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
   const missingDocs = useMemo(() => [
     { type: 'pass', label: 'user.pass.pass', defaultValues: DEFAULT_INT_PASS },
     { type: 'permit', label: 'user.permit.permit', defaultValues: DEFAULT_PERMIT },
+    { type: 'longtermstay', label: 'user.longtermstay.longtermstay', defaultValues: DEFAULT_LONGTERMSTAY },
     { type: 'visa', label: 'user.visa.visa', defaultValues: DEFAULT_VISA },
     { type: 'idcard', label: 'user.idcard.idcard', defaultValues: DEFAULT_PASS },
   ].filter((item) => !docs.some((docItem) => docItem.type === item.type)), [docs]);
@@ -164,13 +174,22 @@ const PersonalDocsFormCard = ({ data, onUpdateDocs }: Props) => {
                       triggerAllFields={formCardConfig.triggerAll}
                     />
                   )}
+                  {docItem.type === 'longtermstay' && (
+                    <LongTermStay
+                      data={docItem as LongTermStayInfo}
+                      disabled={formCardConfig.disabled}
+                      onUpdate={(values) => void update(docItem, values)}
+                      triggerAllFields={formCardConfig.triggerAll}
+                    />
+                  )}
                   {docItem.type === 'visa' && (
                     <Visa
                       data={docItem as VisaInfo}
                       disabled={formCardConfig.disabled}
                       onUpdate={(values) => void update(docItem, values)}
                       triggerAllFields={formCardConfig.triggerAll}
-                    />)}
+                    />)
+                  }
                 </DocItem>
               ))}
             </DocList>

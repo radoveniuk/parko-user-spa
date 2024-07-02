@@ -103,7 +103,7 @@ const InfoRow = () => {
               : '',
           );
         }
-        if (/\b(?:idcard.|visa.|permit.|pass.)\b/i.test(userField)) {
+        if (/\b(?:idcard.|visa.|permit.|longtermstay.|pass.)\b/i.test(userField)) {
           const docType = userField.split('.')[0];
           const docValueKey = userField.split('.')[1];
           const doc = data.docs?.find(doc => doc.type === docType);

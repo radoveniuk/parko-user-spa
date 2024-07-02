@@ -67,6 +67,10 @@ const HeaderTable = ({ selectedItems, setSelectedItems, setOpenPrintDialog, data
     set(permit, 'goal', permit?.goal ? t(`selects.permitType.${permit.goal}`) : '');
     set(permit, 'isMedicalCheck', typeof permit?.isMedicalCheck === 'boolean' ? t(permit?.isMedicalCheck.toString()) : '');
 
+    const longtermstay = newItem.docs.find((doc: AnyObject) => doc.type === 'longtermstay');
+    set(longtermstay, 'dateFrom', getDateFromIso(longtermstay?.dateFrom));
+    set(longtermstay, 'dateTo', getDateFromIso(longtermstay?.dateTo));
+
     const idcard = newItem.docs.find((doc: AnyObject) => doc.type === 'idcard');
     set(idcard, 'dateFrom', getDateFromIso(idcard?.dateFrom));
     set(idcard, 'dateTo', getDateFromIso(idcard?.dateTo));

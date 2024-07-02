@@ -317,6 +317,18 @@ export const DOCS_FIELDS: UserFieldsList = {
   'permit.goal': {
     type: 'select',
   },
+  'longtermstay.number': {
+    type: 'string',
+  },
+  'longtermstay.address': {
+    type: 'string',
+  },
+  'longtermstay.dateFrom': {
+    type: 'date',
+  },
+  'longtermstay.dateTo': {
+    type: 'date',
+  },
 };
 
 export const ALL_FORM_FIELDS: UserFieldsList = {

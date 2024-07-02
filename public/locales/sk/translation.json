@@ -224,6 +224,13 @@
       "isMedicalCheck": "Pobyt > Lekárska prehliadka?",
       "goal": "Pobyt > Účel"
     },
+    "longtermstay": {
+      "longtermstay": "Dlhodobý pobyt",
+      "number": "Dlhodobý pobyt > Číslo",
+      "dateFrom": "Dlhodobý pobyt > Platnosť od",
+      "dateTo": "Dlhodobý pobyt > Platnosť do",
+      "address": "Dlhodobý pobyt > Adresa"
+    },
     "idcard": {
       "idcard": "Občiansky",
       "number": "Občiansky > Číslo",

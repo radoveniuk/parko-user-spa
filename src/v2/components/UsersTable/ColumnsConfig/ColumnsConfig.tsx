@@ -19,6 +19,7 @@ const COLS_TREE = {
     visa: ['user.visa.number', 'user.visa.dateFrom', 'user.visa.dateTo', 'user.visa.comment'],
     permit: ['user.permit.number', 'user.permit.goal', 'user.permit.isMedicalCheck',
       'user.permit.address', 'user.permit.dateFrom', 'user.permit.dateTo'],
+    longtermstay: ['user.longtermstay.number', 'user.longtermstay.address', 'user.longtermstay.dateFrom', 'user.longtermstay.dateTo'],
     idcard: ['user.idcard.number', 'user.idcard.country', 'user.idcard.dateFrom', 'user.idcard.dateTo'],
   },
   bankInfo: ['user.IBAN', 'user.bankName', 'user.SWIFT'],
