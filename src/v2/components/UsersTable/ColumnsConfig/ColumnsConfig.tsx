@@ -20,7 +20,7 @@ const COLS_TREE = {
     permit: ['user.permit.number', 'user.permit.goal', 'user.permit.isMedicalCheck',
       'user.permit.address', 'user.permit.dateFrom', 'user.permit.dateTo'],
     longtermstay: ['user.longtermstay.number', 'user.longtermstay.address', 'user.longtermstay.dateFrom', 'user.longtermstay.dateTo'],
-    idcard: ['user.idcard.number', 'user.idcard.country', 'user.idcard.dateFrom', 'user.idcard.dateTo'],
+    idcard: ['user.idcard.number', 'user.idcard.country', 'user.idcard.dateFrom', 'user.idcard.dateTo', 'user.idcard.address'],
   },
   bankInfo: ['user.IBAN', 'user.bankName', 'user.SWIFT'],
   employmentInfo: ['user.passNumber', 'user.rodneCislo',

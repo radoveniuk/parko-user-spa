@@ -299,6 +299,9 @@ export const DOCS_FIELDS: UserFieldsList = {
   'idcard.country': {
     type: 'dynamic-select',
   },
+  'idcard.address': {
+    type: 'string',
+  },
   'permit.number': {
     type: 'string',
   },

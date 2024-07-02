@@ -236,6 +236,7 @@
       "number": "Občiansky > Číslo",
       "dateFrom": "Občiansky > Platnosť od",
       "dateTo": "Občiansky > Platnosť do",
+      "address": "Občiansky > Adresa",
       "country": "Občiansky > Krajina"
     },
     "employmentChanges": "Zmeny v zamestnaní",

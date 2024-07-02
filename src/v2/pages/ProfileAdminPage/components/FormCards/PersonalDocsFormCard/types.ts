@@ -9,6 +9,7 @@ type BaseDoc = {
 
 export type PassInfo = BaseDoc & {
   country: string;
+  address?: string;
 };
 
 export type IntPassInfo = PassInfo & {

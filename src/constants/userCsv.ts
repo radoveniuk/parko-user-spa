@@ -19,7 +19,7 @@ export const EXPORT_USER_DOC_FIELDS = [
   'visa.number', 'visa.dateFrom', 'visa.dateTo', 'visa.comment',
   'permit.number', 'permit.goal', 'permit.isMedicalCheck', 'permit.address', 'permit.dateFrom', 'permit.dateTo',
   'longtermstay.number', 'longtermstay.address', 'longtermstay.dateFrom', 'longtermstay.dateTo',
-  'idcard.number', 'idcard.country', 'idcard.dateFrom', 'idcard.dateTo',
+  'idcard.number', 'idcard.country', 'idcard.dateFrom', 'idcard.dateTo', 'idcard.address',
 ];
 
 export const EXPORT_USER_EMPLOYMENT_FIELDS: (keyof IEmployment)[] = [

@@ -234,6 +234,7 @@
       "number": "ID card > Number",
       "dateFrom": "ID card > Date from",
       "dateTo": "ID card > Date to",
+      "address": "ID card > Address",
       "country": "ID card > Country"
     },
     "employmentChanges": "Employment's changes",
